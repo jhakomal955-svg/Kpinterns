@@ -55,6 +55,24 @@ const Footer = () => {
                   >
                     Trust Center
                   </Link>
+                   <Link
+                    href="/profile"
+                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
+                  >
+                    Profile
+                  </Link>
+                   <Link
+                    href="/admin/auth"
+                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
+                  >
+                    Admin Panel
+                  </Link>
+                  <Link
+                    href="/admin/auth/dashboard"
+                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
+                  >
+                    Admin Dashboard
+                  </Link>
                 </nav>
               </div>
               <div>
@@ -75,11 +93,12 @@ const Footer = () => {
                   >
                     Courses
                   </Link>
-                  <Link href="/blogs" className="text-md text-text-muted hover:text-brand-primary transition-colors">
-                    Blog
-                  </Link>
+                  
                   <Link href="/about" className="text-md text-text-muted hover:text-brand-primary transition-colors">
                     About us
+                  </Link>
+                  <Link href="/contact" className="text-md text-text-muted hover:text-brand-primary transition-colors">
+                    Contact us
                   </Link>
                 </nav>
               </div>

@@ -63,7 +63,7 @@ const Hero = () => {
             {/* Main Heading - Enhanced */}
             <div className="space-y-5 sm:space-y-6">
               <div className="inline-block group">
-                <div className="bg-white/80 dark:bg-bg-card backdrop-blur-sm border border-brand-primary/30 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-2 sm:gap-3 hover:border-brand-primary/60 hover:bg-white dark:hover:bg-bg-card transition-all shadow-md hover:shadow-lg duration-300">
+                <div className="bg-white/80 dark:bg-bg-card backdrop-blur-sm border border-brand-primary/30 rounded-xl px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-2 sm:gap-3 hover:border-brand-primary/60 hover:bg-white dark:hover:bg-bg-card transition-all shadow-md hover:shadow-lg duration-300">
                   <div className="w-4 sm:w-5 h-4 sm:h-5 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform"></div>
                   <span className="text-xs sm:text-sm font-bold text-brand-primary uppercase tracking-widest">
                     AICTE & UGC compliant Programs

@@ -41,7 +41,7 @@ const Question = () => {
   };
 
   return (
-    <div className="px-4 sm:px-8 lg:px-[96px] py-8 lg:py-20 bg-bg-main">
+    <div className="px-4 sm:px-8 lg:px-[96px] py-4 bg-bg-main">
       <div className="flex flex-col lg:flex-row lg:gap-x-20">
         <div className="flex flex-col p-3">
           <p className="text-brand-primary text-2xl mb-4 lg:mb-20 font-bold uppercase tracking-widest">
@@ -53,7 +53,7 @@ const Question = () => {
             Driven by Success
           </p>
         </div>
-        <div className="space-y-4 p-3 w-full lg:max-w-2xl">
+        <div className="space-y-4  w-full lg:w-1/2">
           {faqData.map((faq, index) => (
             <div
               key={index}
@@ -109,7 +109,7 @@ const Question = () => {
         </div>
       </div>
       {/* Security / Certification Badges section */}
-        <div className="flex flex-col justify-start items-start sm:flex-row sm:justify-center sm:items-center gap-10 sm:gap-32 mt-20 bg-bg-main/40 border border-border-main rounded-2xl p-8">
+        <div className="flex flex-col justify-start items-start sm:flex-row sm:justify-center sm:items-center gap-10 sm:gap-32 mt-10 bg-bg-main/40 border border-border-main rounded-2xl p-8">
           {/* ISO Badge */}
           <div className="flex flex-col sm:items-center">
             <div className="w-16 h-16 flex items-center justify-start sm:justify-center mb-3">

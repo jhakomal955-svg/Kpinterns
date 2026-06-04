@@ -22,7 +22,7 @@ const BranchesStreams = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden pt-16 pb-6 px-4 sm:px-8 lg:px-[96px] bg-bg-main">
+    <section className="relative overflow-hidden px-4 sm:px-8 lg:px-[96px] py-8bg-bg-main">
       {/* Animated Background Elements */}
       <div className="absolute top-32 right-10 w-[280px] h-[280px] md:w-[350px] md:h-[350px] bg-gradient-to-bl from-brand-secondary/20 to-transparent rounded-full blur-3xl -z-10 animate-pulse"></div>
       <div
@@ -30,7 +30,7 @@ const BranchesStreams = () => {
         style={{ animationDelay: "1.5s" }}
       ></div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto">
         {/* Header Section */}
         <div className="text-center mb-6 animate-fade-in">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-text-main mb-4 leading-tight">

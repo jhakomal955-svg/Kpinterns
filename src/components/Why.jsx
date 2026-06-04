@@ -147,7 +147,7 @@ const Why = () => {
   ];
 
   return (
-    <section className="relative px-4 sm:px-8 lg:px-[96px] pt-12 pb-6  bg-bg-main overflow-hidden">
+    <section className="relative px-4 sm:px-8 lg:px-[96px] py-8  bg-bg-main overflow-hidden">
       {/* Animated background gradient elements */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-gradient-to-br from-brand-primary/15 to-transparent rounded-full blur-3xl -z-10 animate-pulse"></div>
       <div
@@ -156,7 +156,7 @@ const Why = () => {
       ></div>
 
       {/* Header Section */}
-      <div className="text-center mb-6 animate-fade-in max-w-4xl mx-auto">
+      <div className="text-center mb-6 animate-fade-in mx-auto">
       
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-main mb-4 sm:mb-6 leading-[1.2]">
           Designed for
@@ -173,7 +173,7 @@ const Why = () => {
       </div>
 
       {/* Features Grid */}
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {features.map((feature, index) => (
             <div

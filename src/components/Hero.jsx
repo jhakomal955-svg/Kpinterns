@@ -54,7 +54,7 @@ const Hero = () => {
         style={{ animationDelay: "2s" }}
       ></div>
 
-      <div className="relative z-10 w-full max-w-7xl">
+      <div className="relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-6 sm:space-y-8 lg:space-y-10 animate-fade-in">

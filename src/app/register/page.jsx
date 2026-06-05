@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // University, College and Department Data
@@ -1038,7 +1039,102 @@ const universitiesData = {
   },
 };
 
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if (window.Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
+
 export default function RegisterPage() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [dbInternships, setDbInternships] = useState([]);
+  const [isLoadingInternships, setIsLoadingInternships] = useState(true);
+
+  const [purchaseType, setPurchaseType] = useState("internship");
+  const [itemId, setItemId] = useState(null);
+  const [selectedItemDetails, setSelectedItemDetails] = useState(null);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const type = searchParams.get("type") || "internship";
+    const id = searchParams.get("id");
+    
+    setPurchaseType(type);
+    setItemId(id);
+    
+    if (type === "course" && id) {
+      fetch(`/api/course?id=${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.data) {
+            setSelectedItemDetails(data.data);
+            setFormData((prev) => ({
+              ...prev,
+              internshipDomain: data.data.domain || "",
+              mode: "online",
+            }));
+          }
+        })
+        .catch((err) => console.error("Error fetching course:", err));
+    } else if (type === "internship" && id) {
+      fetch(`/api/internship?id=${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.data) {
+            setSelectedItemDetails(data.data);
+            setFormData((prev) => ({
+              ...prev,
+              internshipDomain: data.data.domain || "",
+              mode: data.data.mode?.toLowerCase() || "",
+            }));
+          }
+        })
+        .catch((err) => console.error("Error fetching internship:", err));
+    }
+  }, []);
+
+  useEffect(() => {
+    async function fetchDbInternships() {
+      try {
+        const res = await fetch("/api/internship");
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          setDbInternships(data.data);
+        }
+      } catch (err) {
+        console.error("Error fetching internships:", err);
+      } finally {
+        setIsLoadingInternships(false);
+      }
+    }
+    fetchDbInternships();
+  }, []);
+
+  const getPayableAmount = () => {
+    if (purchaseType === "course") {
+      return selectedItemDetails?.price || 0;
+    }
+    if (selectedItemDetails) {
+      return selectedItemDetails.RegistrationFee?.amount || 500;
+    }
+    if (formData.internshipDomain) {
+      const matched = dbInternships.find(
+        (item) => item.domain === formData.internshipDomain || item.category === formData.internshipDomain
+      );
+      return matched?.RegistrationFee?.amount || 500;
+    }
+    return 500;
+  };
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     // Personal Info
@@ -1156,48 +1252,57 @@ export default function RegisterPage() {
     return 0;
   };
 
-  // Get available internship domains based on degree type
-  const getAvailableInternshipDomains = () => {
-    if (!formData.degree) return [];
+  const isMatchingDepartmentGroup = (internshipDept, studentDept, studentDegree) => {
+    if (!internshipDept || !studentDept || !studentDegree) return false;
 
-    // Tech domains for Diploma and B.Tech
-    const techDomains = [
-      "Full Stack Development",
-      "Frontend Development",
-      "Backend Development",
-      "Mobile App Development",
-      "Data Science & Machine Learning",
-      "DevOps & Cloud Computing",
-      "Cybersecurity",
-      "IoT & Embedded Systems",
-      "Artificial Intelligence",
-      "Blockchain Development",
-      "Game Development",
-      "Web3 & Cryptocurrency",
-    ];
+    const lowerStudentDept = studentDept.toLowerCase();
+    const lowerStudentDeg = studentDegree.toLowerCase();
+     
+    const isStudentTech = (
+      lowerStudentDeg === "b.tech" || 
+      lowerStudentDeg === "diploma" || 
+      lowerStudentDept.includes("computer") || 
+      lowerStudentDept.includes("cs") || 
+      lowerStudentDept.includes("it") || 
+      lowerStudentDept.includes("software") || 
+      lowerStudentDept.includes("electronics") || 
+      lowerStudentDept.includes("bca")
+    );
 
-    // Non-tech domains for Bachelor and Master
-    const nonTechDomains = [
-      "Finance & Accounting",
-      "Human Resources",
-      "Marketing & Branding",
-      "Sales & Business Development",
-      "Management Consulting",
-      "Supply Chain Management",
-      "Legal Services",
-      "Public Relations",
-      "Event Management",
-      "Journalism & Media",
-      "Tourism & Hospitality",
-      "Operations Management",
-    ];
+    const isStudentBusiness = (
+      lowerStudentDept.includes("commerce") || 
+      lowerStudentDept.includes("bcom") || 
+      lowerStudentDept.includes("bba") || 
+      lowerStudentDept.includes("business") || 
+      lowerStudentDept.includes("management")
+    );
 
-    if (formData.degree === "Diploma" || formData.degree === "B.Tech") {
-      return techDomains;
-    } else if (formData.degree === "Bachelor" || formData.degree === "Master") {
-      return nonTechDomains;
+    const techDepts = ["BTech", "BCA", "BScIT", "BScCS"];
+    const businessDepts = ["BBA", "BCom"];
+
+    if (isStudentTech) {
+      return techDepts.includes(internshipDept);
     }
-    return [];
+    if (isStudentBusiness) {
+      return businessDepts.includes(internshipDept);
+    }
+    // Else General (BA, Bsc, Other)
+    return !techDepts.includes(internshipDept) && !businessDepts.includes(internshipDept);
+  };
+
+  // Get available internship domains based on degree type and database availability
+  const getAvailableInternshipDomains = () => {
+    if (!formData.department || !formData.degree) return [];
+
+    // Filter the dbInternships by matching department group
+    const matchingInternships = dbInternships.filter(item => 
+      (item.status === "Active" || item.status === "Published") &&
+      isMatchingDepartmentGroup(item.department, formData.department, formData.degree)
+    );
+
+    // Extract unique domains
+    const domains = matchingInternships.map(item => item.domain || item.category).filter(Boolean);
+    return [...new Set(domains)];
   };
 
   const validateStep = () => {
@@ -1222,9 +1327,12 @@ export default function RegisterPage() {
       if (!formData.session) newErrors.session = "Session is required";
       if (!formData.registrationNumber.trim())
         newErrors.registrationNumber = "Registration number is required";
-      if (!formData.internshipDomain)
-        newErrors.internshipDomain = "Internship domain is required";
-      if (!formData.mode) newErrors.mode = "Mode is required";
+      
+      if (purchaseType !== "course") {
+        if (!formData.internshipDomain)
+          newErrors.internshipDomain = "Internship domain is required";
+        if (!formData.mode) newErrors.mode = "Mode is required";
+      }
     } else if (step === 3) {
       if (!formData.emergencyName.trim())
         newErrors.emergencyName = "Contact person name is required";
@@ -1258,12 +1366,133 @@ export default function RegisterPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateStep()) {
-      console.log("Form submitted:", formData);
-      // Here you would send data to your backend
-      alert("Registration submitted! Check console for form data.");
+      setIsLoading(true);
+      try {
+        let finalItemId = itemId;
+        if (!finalItemId && purchaseType === "internship" && formData.internshipDomain) {
+          const matched = dbInternships.find(
+            (item) => item.domain === formData.internshipDomain || item.category === formData.internshipDomain
+          );
+          finalItemId = matched?._id;
+        }
+
+        const payableAmount = getPayableAmount();
+
+        if (payableAmount === 0) {
+          // Free path - register directly without payment
+          const userPayload = {
+            ...formData,
+            courseId: purchaseType === "course" ? finalItemId : undefined,
+            internshipId: purchaseType === "internship" ? finalItemId : undefined,
+          };
+
+          const response = await fetch("/api/user", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userPayload),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            alert("Registration successful! Redirecting to login...");
+            router.push("/login");
+          } else {
+            alert(data.error || "Registration failed. Please check your details.");
+          }
+        } else {
+          // Paid path - initiate Razorpay payment first
+          const resOrder = await fetch("/api/payment/order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ type: purchaseType, itemId: finalItemId }),
+          });
+
+          const orderData = await resOrder.json();
+          if (!resOrder.ok) {
+            throw new Error(orderData.error || "Failed to initiate payment");
+          }
+
+          const scriptLoaded = await loadRazorpayScript();
+          if (!scriptLoaded) {
+            alert("Failed to load payment gateway. Please check your internet connection.");
+            setIsLoading(false);
+            return;
+          }
+
+          const options = {
+            key: orderData.key,
+            amount: orderData.amount * 100,
+            currency: orderData.currency,
+            name: "KpInterns",
+            description: `Payment for ${orderData.title}`,
+            order_id: orderData.orderId,
+            handler: async function (response) {
+              try {
+                setIsLoading(true);
+                const userPayload = {
+                  ...formData,
+                  courseId: purchaseType === "course" ? finalItemId : undefined,
+                  internshipId: purchaseType === "internship" ? finalItemId : undefined,
+                  paymentDetails: {
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature,
+                    type: purchaseType,
+                    itemId: finalItemId,
+                  },
+                };
+
+                const resRegister = await fetch("/api/user", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(userPayload),
+                });
+
+                const registerData = await resRegister.json();
+
+                if (resRegister.ok) {
+                  alert("Registration & payment successful! Redirecting to login...");
+                  router.push("/login");
+                } else {
+                  alert(registerData.error || "Registration failed. Please contact support.");
+                }
+              } catch (err) {
+                console.error("Error finalizing registration:", err);
+                alert("An error occurred during registration finalization.");
+              } finally {
+                setIsLoading(false);
+              }
+            },
+            prefill: {
+              name: formData.fullName,
+              email: formData.email,
+              contact: formData.phone,
+            },
+            theme: {
+              color: "#2563eb",
+            },
+            modal: {
+              ondismiss: function () {
+                setIsLoading(false);
+              },
+            },
+          };
+
+          const rzp = new window.Razorpay(options);
+          rzp.open();
+        }
+      } catch (error) {
+        console.error("Registration error:", error);
+        alert(error.message || "An error occurred. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -1689,60 +1918,84 @@ export default function RegisterPage() {
                     )}
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Internship Domain *
-                    </label>
-                    <select
-                      name="internshipDomain"
-                      value={formData.internshipDomain}
-                      onChange={handleInputChange}
-                      disabled={!formData.degree}
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.internshipDomain
-                          ? "border-red-500"
-                          : "border-border-main"
-                      } ${!formData.degree ? "opacity-50 cursor-not-allowed" : ""}`}
-                    >
-                      <option value="">
-                        {formData.degree
-                          ? "Select Internship Domain"
-                          : "Select Degree first"}
-                      </option>
-                      {getAvailableInternshipDomains().map((domain) => (
-                        <option key={domain} value={domain}>
-                          {domain}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.internshipDomain && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.internshipDomain}
-                      </p>
-                    )}
-                  </div>
+                  {purchaseType === "course" ? (
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-semibold text-text-main mb-2">
+                        Selected Course
+                      </label>
+                      <div className="w-full px-4 py-3 rounded-xl border-2 border-border-main bg-bg-main font-poppins font-medium text-brand-primary">
+                        📚 {selectedItemDetails?.title || "Loading course..."}
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div>
+                        <label className="block text-sm font-semibold text-text-main mb-2">
+                          Internship Domain *
+                        </label>
+                        <select
+                          name="internshipDomain"
+                          value={formData.internshipDomain}
+                          onChange={handleInputChange}
+                          disabled={!formData.degree || !formData.department || isLoadingInternships || getAvailableInternshipDomains().length === 0}
+                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                            errors.internshipDomain
+                              ? "border-red-500"
+                              : "border-border-main"
+                          } ${(!formData.degree || !formData.department || isLoadingInternships || getAvailableInternshipDomains().length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
+                        >
+                          <option value="">
+                            {isLoadingInternships
+                              ? "Loading available internships..."
+                              : !formData.degree
+                                ? "Select Degree first"
+                                : !formData.department
+                                  ? "Select Department first"
+                                  : getAvailableInternshipDomains().length === 0
+                                    ? "Internship domain is coming soon"
+                                    : "Select Internship Domain"}
+                          </option>
+                          {getAvailableInternshipDomains().map((domain) => (
+                            <option key={domain} value={domain}>
+                              {domain}
+                            </option>
+                          ))}
+                        </select>
+                        {formData.degree && formData.department && !isLoadingInternships && getAvailableInternshipDomains().length === 0 && (
+                          <p className="text-amber-500 text-xs mt-2 font-semibold">
+                            ⚠️ Internship domain is coming soon for this stream!
+                          </p>
+                        )}
+                        {errors.internshipDomain && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.internshipDomain}
+                          </p>
+                        )}
+                      </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Mode *
-                    </label>
-                    <select
-                      name="mode"
-                      value={formData.mode}
-                      onChange={handleInputChange}
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.mode ? "border-red-500" : "border-border-main"
-                      }`}
-                    >
-                      <option value="">Select Mode</option>
-                      <option value="online">Online</option>
-                      <option value="offline">Offline</option>
-                      <option value="hybrid">Hybrid</option>
-                    </select>
-                    {errors.mode && (
-                      <p className="text-red-500 text-xs mt-1">{errors.mode}</p>
-                    )}
-                  </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-text-main mb-2">
+                          Mode *
+                        </label>
+                        <select
+                          name="mode"
+                          value={formData.mode}
+                          onChange={handleInputChange}
+                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                            errors.mode ? "border-red-500" : "border-border-main"
+                          }`}
+                        >
+                          <option value="">Select Mode</option>
+                          <option value="online">Online</option>
+                          <option value="offline">Offline</option>
+                          <option value="hybrid">Hybrid</option>
+                        </select>
+                        {errors.mode && (
+                          <p className="text-red-500 text-xs mt-1">{errors.mode}</p>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -1942,7 +2195,7 @@ export default function RegisterPage() {
                       Total Payable
                     </span>
                     <span className="text-3xl font-bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
-                      ₹500
+                      ₹{getPayableAmount()}
                     </span>
                   </div>
                 </div>
@@ -1995,9 +2248,17 @@ export default function RegisterPage() {
               ) : (
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold hover:shadow-lg hover:shadow-brand-primary/30 transition-all transform hover:scale-105"
+                  disabled={isLoading}
+                  className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold hover:shadow-lg hover:shadow-brand-primary/30 transition-all transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  Complete Registration
+                  {isLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Registering...</span>
+                    </div>
+                  ) : (
+                    "Complete Registration"
+                  )}
                 </button>
               )}
             </div>

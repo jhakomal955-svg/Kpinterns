@@ -9,7 +9,7 @@ export default function CoursesAdminPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [domainFilter, setDomainFilter] = useState("All");
   const [message, setMessage] = useState(null);
   const [activeTab, setActiveTab] = useState("basics");
 
@@ -21,7 +21,7 @@ export default function CoursesAdminPage() {
     shortDescription: "",
     thumbnail: "",
     department: "",
-    category: "Web Development",
+    domain: "Full Stack Development",
     difficultyLevel: "Beginner",
     price: 0,
     isFree: false,
@@ -54,7 +54,37 @@ export default function CoursesAdminPage() {
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
   const [uploadError, setUploadError] = useState(null);
 
-  const categories = ["Web Development", "Mobile Development", "Data Science", "Machine Learning", "Cloud Computing", "DevOps", "UI/UX Design", "Digital Marketing", "Business", "Other"];
+  const domains = [
+    "Full Stack Development",
+    "Frontend Development",
+    "Backend Development",
+    "Mobile App Development",
+    "Data Science & Machine Learning",
+    "DevOps & Cloud Computing",
+    "Cybersecurity",
+    "IoT & Embedded Systems",
+    "Artificial Intelligence",
+    "Blockchain Development",
+    "Game Development",
+    "Web3 & Cryptocurrency",
+    "Other Tech",
+    "Finance & Accounting",
+    "Human Resources",
+    "Marketing & Branding",
+    "Sales & Business Development",
+    "Management Consulting",
+    "Supply Chain Management",
+    "Operations Management",
+    "Other Business",
+    "Public Relations",
+    "Event Management",
+    "Journalism & Media",
+    "Tourism & Hospitality",
+    "Legal Services",
+    "Content Writing",
+    "Graphic Design",
+    "Other"
+  ];
   const departments = ["Bsc", "BTech", "BBA", "BCom", "BA", "BCA", "BScIT", "BScCS", "Other"];
 
   const fetchCourses = async () => {
@@ -201,7 +231,7 @@ export default function CoursesAdminPage() {
       shortDescription: "",
       thumbnail: "",
       department: "",
-      category: "Web Development",
+      domain: "Full Stack Development",
       difficultyLevel: "Beginner",
       price: 0,
       isFree: false,
@@ -254,7 +284,7 @@ export default function CoursesAdminPage() {
         shortDescription: formData.shortDescription,
         thumbnail: formData.thumbnail,
         department: formData.department,
-        category: formData.category,
+        domain: formData.domain,
         difficultyLevel: formData.difficultyLevel,
         price: formData.isFree ? 0 : Number(formData.price),
         isFree: formData.isFree,
@@ -307,9 +337,9 @@ export default function CoursesAdminPage() {
 
   const filteredCourses = courses.filter((course) => {
     const term = searchQuery.toLowerCase();
-    const matchesSearch = course.title?.toLowerCase().includes(term) || course.description?.toLowerCase().includes(term) || course.category?.toLowerCase().includes(term);
-    const matchesCategory = categoryFilter === "All" || course.category === categoryFilter;
-    return matchesSearch && matchesCategory;
+    const matchesSearch = course.title?.toLowerCase().includes(term) || course.description?.toLowerCase().includes(term) || (course.domain || course.category)?.toLowerCase().includes(term);
+    const matchesDomain = domainFilter === "All" || (course.domain || course.category) === domainFilter;
+    return matchesSearch && matchesDomain;
   });
 
   return (
@@ -334,9 +364,9 @@ export default function CoursesAdminPage() {
           <input type="text" placeholder="Search by course title or keywords..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main placeholder-text-muted focus:border-brand-primary outline-none transition text-sm sm:text-base" />
         </div>
         <div className="w-full md:w-64">
-          <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base">
-            <option value="All">All Categories</option>
-            {categories.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
+          <select value={domainFilter} onChange={(e) => setDomainFilter(e.target.value)} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base">
+            <option value="All">All Domains</option>
+            {domains.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
           </select>
         </div>
       </div>
@@ -358,11 +388,31 @@ export default function CoursesAdminPage() {
 
               {/* Card Context Content Info */}
               <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                <div>
+                <div className="space-y-2">
                   <h3 className="font-bold text-lg text-text-main line-clamp-2">{course.title}</h3>
                   <p className="text-text-muted text-sm line-clamp-3">{course.shortDescription || course.description}</p>
                 </div>
-                <div className="flex justify-between items-center text-sm font-bold">
+                {course.instructor?.[0]?.id && (
+                  <div className="text-xs text-text-muted border-t border-border-main pt-2.5 space-y-1">
+                    <div className="flex items-center justify-between font-medium">
+                      <span className="font-semibold text-text-muted">Instructor</span>
+                      <span className="text-text-main font-semibold">
+                        {typeof course.instructor[0].id === "object"
+                          ? course.instructor[0].id.name || "Admin"
+                          : "Admin"}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between font-medium">
+                      <span className="font-semibold text-text-muted text-[10px] uppercase">ID</span>
+                      <span className="font-mono text-[10px] bg-bg-main px-1.5 py-0.5 rounded border border-border-main truncate max-w-[170px] select-all" title={typeof course.instructor[0].id === "object" ? course.instructor[0].id._id : course.instructor[0].id}>
+                        {typeof course.instructor[0].id === "object"
+                          ? course.instructor[0].id._id
+                          : course.instructor[0].id}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                <div className="flex justify-between items-center text-sm font-bold pt-2.5 border-t border-border-main">
                   <span className={course.isFree ? "text-brand-success" : "text-text-main"}>{course.isFree ? "Free" : `INR ${course.price}`}</span>
                   <span className="text-xs bg-gray-500/10 px-2.5 py-0.5 rounded-full border text-text-muted">{course.status}</span>
                 </div>
@@ -436,9 +486,9 @@ export default function CoursesAdminPage() {
                     <input type="text" name="instructorId" value={formData.instructorId} onChange={handleInputChange} required className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Category *</label>
-                    <select name="category" value={formData.category} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none">
-                      {categories.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
+                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Domain *</label>
+                    <select name="domain" value={formData.domain} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none">
+                      {domains.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
                     </select>
                   </div>
                   <div>

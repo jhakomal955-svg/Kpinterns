@@ -20,7 +20,7 @@ export default function AdminAuthPage({ children }) {
 
     // Redirect unauthenticated users away from dashboard
     if (!token && isDashboard) {
-      router.push("/admin/auth/login");
+      router.push("/admin/auth");
     }
   }, []);
 
@@ -55,7 +55,7 @@ export default function AdminAuthPage({ children }) {
                   <span className="text-bg-main bg-text-main rounded-full p-2 inline-block group-hover:scale-110 transition-transform">
                     Kp
                   </span>
-                  <span className="text-brand-primary ml-1 group-hover:text-brand-primary/80 transition-colors">
+                  <span className="text-brand-primary  group-hover:text-brand-primary/80 transition-colors">
                     Interns
                   </span>
                 </span>

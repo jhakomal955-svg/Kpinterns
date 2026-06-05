@@ -191,8 +191,20 @@ export default function MediaPicker({
                 typeof item === "string"
                   ? itemUrl.split("/").pop().split("?")[0]
                   : item.name || itemUrl.split("/").pop().split("?")[0];
-              const fileType =
-                typeof item === "string" ? "image" : item.type || "image";
+              let fileType = "image";
+              if (typeof item === "string") {
+                const urlLower = itemUrl.toLowerCase();
+                const cleanUrl = urlLower.split("?")[0];
+                if (cleanUrl.endsWith(".pdf") || urlLower.includes("/raw/upload/") || urlLower.includes("/files/")) {
+                  fileType = "pdf";
+                } else if (cleanUrl.match(/\.(mp4|webm|ogg|mov|avi|mkv|flv|wmv)($|\?)/) || urlLower.includes("/video/upload/")) {
+                  fileType = "video";
+                } else {
+                  fileType = "image";
+                }
+              } else {
+                fileType = item.type || "image";
+              }
 
               return (
                 <div

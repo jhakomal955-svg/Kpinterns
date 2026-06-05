@@ -3,6 +3,8 @@
  * Represents a student/user account with academic and personal information
  */
 
+const mongoose = require("mongoose");
+
 const UserModel = {
   // Personal Information
   fullName: {
@@ -74,13 +76,26 @@ const UserModel = {
   // Internship Information
   ActiveInternship: [
     {
-      internship: { type: String },
+      internship: { type: mongoose.Schema.Types.ObjectId, ref: "Internship" },
+      internshipStatus: { type: String, enum: ["Active", "Completed"], default: "Active" },
+      progress: { type: Number, default: 0 },
+      paymentStatus: { type: Boolean, default: false },
+      paymentDate: { type: Date, default: Date.now },
+      amount: { type: Number },
+      offerLetterUrl: { type: String },
+      certificationUrl: { type: String },
     },
   ],
 
   ActiveCources: [
     {
-      course: { type: String },
+      course: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
+      courseStatus: { type: String, enum: ["Active", "Completed"], default: "Active" },
+      progress: { type: Number, default: 0 },
+      paymentStatus: { type: Boolean, default: false },
+      paymentDate: { type: Date, default: Date.now },
+      amount: { type: Number },
+      certificateUrl: { type: String },
     },
   ],
 
@@ -106,16 +121,6 @@ const UserModel = {
     required: true,
     minlength: 6,
   },
-
-  payment: [
-    {
-      subject: { type: String },
-      subjectid: { type: String },
-      paymentStatus: { type: Boolean, default: false },
-      paymentDate: { type: Date, default: Date.now },
-      amount: { type: Number },
-    },
-  ],
 
   // Metadata
   createdAt: {

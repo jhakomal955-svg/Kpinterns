@@ -22,7 +22,7 @@ export default function CourseEditPage() {
     shortDescription: "",
     thumbnail: "",
     department: "Bsc",
-    category: "Web Development",
+    domain: "Full Stack Development",
     difficultyLevel: "Beginner",
     language: "English",
     price: 0,
@@ -54,15 +54,39 @@ export default function CourseEditPage() {
   });
 
   const departments = ["Bsc", "BTech", "BBA", "BCom", "BA", "BCA", "BScIT", "BScCS", "Other"];
-  const categories = ["Web Development", "Mobile Development", "Data Science", "Machine Learning", "Cloud Computing", "DevOps", "UI/UX Design", "Digital Marketing", "Business", "Other"];
+  const domains = [
+    "Full Stack Development",
+    "Frontend Development",
+    "Backend Development",
+    "Mobile App Development",
+    "Data Science & Machine Learning",
+    "DevOps & Cloud Computing",
+    "Cybersecurity",
+    "IoT & Embedded Systems",
+    "Artificial Intelligence",
+    "Blockchain Development",
+    "Game Development",
+    "Web3 & Cryptocurrency",
+    "Other Tech",
+    "Finance & Accounting",
+    "Human Resources",
+    "Marketing & Branding",
+    "Sales & Business Development",
+    "Management Consulting",
+    "Supply Chain Management",
+    "Operations Management",
+    "Other Business",
+    "Public Relations",
+    "Event Management",
+    "Journalism & Media",
+    "Tourism & Hospitality",
+    "Legal Services",
+    "Content Writing",
+    "Graphic Design",
+    "Other"
+  ];
   const difficulties = ["Beginner", "Intermediate", "Advanced", "Expert"];
   const accessDurations = ["1-month", "3-months", "6-months", "1-year", "lifetime"];
-
-  useEffect(() => {
-    if (isEditing) {
-      fetchCourse();
-    }
-  }, [courseId, isEditing]);
 
   const fetchCourse = async () => {
     try {
@@ -77,7 +101,7 @@ export default function CourseEditPage() {
           shortDescription: course.shortDescription || "",
           thumbnail: course.thumbnail || "",
           department: course.department || "Bsc",
-          category: course.category || "Web Development",
+          domain: course.domain || course.category || "Full Stack Development",
           difficultyLevel: course.difficultyLevel || "Beginner",
           language: course.language || "English",
           price: course.price || 0,
@@ -86,7 +110,7 @@ export default function CourseEditPage() {
           duration: course.duration || "1-month",
           accessDuration: course.accessDuration || "lifetime",
           status: course.status || "Draft",
-          instructor: course.instructor?.[0]?.id || "",
+          instructor: typeof course.instructor?.[0]?.id === "object" ? course.instructor[0].id._id : (course.instructor?.[0]?.id || ""),
           prerequisites: course.prerequisites?.join(", ") || "",
           learningOutcomes: course.learningOutcomes?.join(", ") || "",
           contentItems: course.content || [],
@@ -102,6 +126,12 @@ export default function CourseEditPage() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isEditing) {
+      fetchCourse();
+    }
+  }, [courseId, isEditing]);
 
   const handleBasicInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -239,8 +269,8 @@ export default function CourseEditPage() {
       setError("Department is required");
       return;
     }
-    if (!formData.category) {
-      setError("Category is required");
+    if (!formData.domain) {
+      setError("Domain is required");
       return;
     }
     if (!formData.instructor) {
@@ -256,7 +286,7 @@ export default function CourseEditPage() {
         shortDescription: formData.shortDescription,
         thumbnail: formData.thumbnail,
         department: formData.department,
-        category: formData.category,
+        domain: formData.domain,
         difficultyLevel: formData.difficultyLevel,
         language: formData.language,
         price: Number(formData.price),
@@ -391,9 +421,9 @@ export default function CourseEditPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-text-muted mb-2">Category *</label>
-                <select name="category" value={formData.category} onChange={handleBasicInputChange} className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition">
-                  {categories.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
+                <label className="block text-sm font-semibold text-text-muted mb-2">Domain *</label>
+                <select name="domain" value={formData.domain} onChange={handleBasicInputChange} className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition">
+                  {domains.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
                 </select>
               </div>
 

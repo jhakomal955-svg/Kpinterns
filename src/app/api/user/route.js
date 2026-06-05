@@ -9,7 +9,8 @@
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel } from "@/models";
+import crypto from "crypto";
 
 // Handler for GET, POST
 export async function GET(request) {
@@ -20,20 +21,31 @@ export async function GET(request) {
     const url = new URL(request.url);
     const userId = url.searchParams.get("id");
 
+    // Ensure referenced models are registered for populate
+    createModel("Course", CourseModel);
+    createModel("Internship", InternshipModel);
     const User = createModel("User", UserModel);
 
     if (userId) {
-      // Get single user by ID
-      const user = await User.findById(userId);
+      // Get single user by ID with populated courses & internships
+      const user = await User.findById(userId)
+        .populate("ActiveCources.course")
+        .populate("ActiveInternship.internship");
 
       if (!user) {
         return Response.json({ error: "User not found" }, { status: 404 });
       }
 
-      return Response.json({ success: true, data: user }, { status: 200 });
+      const userObj = user.toObject();
+      userObj.internshipDomain = userObj.ActiveInternship?.[0]?.internship?.domain || userObj.ActiveInternship?.[0]?.internship?.category || "";
+      userObj.mode = userObj.ActiveInternship?.[0]?.internship?.mode || "";
+
+      return Response.json({ success: true, data: userObj }, { status: 200 });
     } else {
-      // Get all users
-      const users = await User.find();
+      // Get all users with populated courses & internships
+      const users = await User.find()
+        .populate("ActiveCources.course")
+        .populate("ActiveInternship.internship");
 
       return Response.json(
         { success: true, data: users, total: users.length },
@@ -54,6 +66,16 @@ export async function POST(request) {
     await connectDB();
 
     const data = await request.json();
+
+    // Auto-fill subject from department if not provided
+    if (!data.subject && data.department) {
+      data.subject = data.department;
+    }
+
+    // Capitalize gender to match schema enum ["Male", "Female", "Other"]
+    if (data.gender) {
+      data.gender = data.gender.charAt(0).toUpperCase() + data.gender.slice(1).toLowerCase();
+    }
 
     // Validate required fields
     const requiredFields = [
@@ -98,14 +120,130 @@ export async function POST(request) {
       );
     }
 
+    // Handle Course or Internship selection and verification
+    const paymentDetails = data.paymentDetails;
+    const courseId = data.courseId || (paymentDetails?.type === "course" ? paymentDetails.itemId : null);
+    const internshipId = data.internshipId || (paymentDetails?.type === "internship" ? paymentDetails.itemId : null);
+
+    if (courseId) {
+      const Course = createModel("Course", CourseModel);
+      const matchedCourse = await Course.findById(courseId);
+      if (!matchedCourse) {
+        return Response.json(
+          { error: "Selected course is not available for registration" },
+          { status: 400 }
+        );
+      }
+
+      const price = matchedCourse.price || 0;
+
+      // Verify payment if price > 0
+      if (price > 0) {
+        if (!paymentDetails?.razorpay_payment_id || !paymentDetails?.razorpay_order_id || !paymentDetails?.razorpay_signature) {
+          return Response.json(
+            { error: "Payment verification details are required to enroll in this course" },
+            { status: 400 }
+          );
+        }
+
+        const keySecret = process.env.RAZORPAY_KEY_SECRET;
+        if (!keySecret) {
+          return Response.json({ error: "Razorpay server secret not configured" }, { status: 500 });
+        }
+
+        const generatedSignature = crypto
+          .createHmac("sha256", keySecret)
+          .update(`${paymentDetails.razorpay_order_id}|${paymentDetails.razorpay_payment_id}`)
+          .digest("hex");
+
+        if (generatedSignature !== paymentDetails.razorpay_signature) {
+          return Response.json({ error: "Invalid payment signature verification failed" }, { status: 400 });
+        }
+      }
+
+      // Map selected course to ActiveCources reference on the User document
+      data.ActiveCources = [
+        {
+          course: matchedCourse._id,
+          courseStatus: "Active",
+          progress: 0,
+          paymentStatus: true,
+          paymentDate: new Date(),
+          amount: price,
+        }
+      ];
+
+    } else {
+      // Default / Internship registration
+      const Internship = createModel("Internship", InternshipModel);
+      let matchedInternship = null;
+
+      if (internshipId) {
+        matchedInternship = await Internship.findById(internshipId);
+      } else if (data.internshipDomain) {
+        matchedInternship = await Internship.findOne({
+          $or: [{ domain: data.internshipDomain }, { category: data.internshipDomain }],
+          status: { $in: ["Active", "Published"] }
+        });
+      }
+
+      if (!matchedInternship) {
+        return Response.json(
+          { error: "Selected internship domain is not currently available for registration" },
+          { status: 400 }
+        );
+      }
+
+      const price = matchedInternship.RegistrationFee?.amount || 500;
+
+      // Verify payment if price > 0
+      if (price > 0) {
+        if (!paymentDetails?.razorpay_payment_id || !paymentDetails?.razorpay_order_id || !paymentDetails?.razorpay_signature) {
+          return Response.json(
+            { error: "Payment verification details are required to register for this internship" },
+            { status: 400 }
+          );
+        }
+
+        const keySecret = process.env.RAZORPAY_KEY_SECRET;
+        if (!keySecret) {
+          return Response.json({ error: "Razorpay server secret not configured" }, { status: 500 });
+        }
+
+        const generatedSignature = crypto
+          .createHmac("sha256", keySecret)
+          .update(`${paymentDetails.razorpay_order_id}|${paymentDetails.razorpay_payment_id}`)
+          .digest("hex");
+
+        if (generatedSignature !== paymentDetails.razorpay_signature) {
+          return Response.json({ error: "Invalid payment signature verification failed" }, { status: 400 });
+        }
+      }
+
+      // Map selected domain & mode to ActiveInternship reference on the User document
+      data.ActiveInternship = [
+        {
+          internship: matchedInternship._id,
+          internshipStatus: "Active",
+          progress: 0,
+          paymentStatus: true,
+          paymentDate: new Date(),
+          amount: price,
+        }
+      ];
+    }
+
     // Create new user
     const newUser = new User(data);
     await newUser.save();
 
     console.log("✅ User created successfully:", newUser._id);
 
+    const userWithoutPassword = newUser.toObject();
+    delete userWithoutPassword.password;
+
     return Response.json(
-      { success: true, message: "User created successfully", data: newUser },
+      { success: true, message: "User created successfully", data: userWithoutPassword },
       { status: 201 },
     );
   } catch (error) {
@@ -129,6 +267,12 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
+
+    // Capitalize gender to match schema enum ["Male", "Female", "Other"]
+    if (data.gender) {
+      data.gender = data.gender.charAt(0).toUpperCase() + data.gender.slice(1).toLowerCase();
+    }
+
     const User = createModel("User", UserModel);
 
     // Update user

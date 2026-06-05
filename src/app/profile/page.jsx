@@ -14,91 +14,135 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("personal");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [copiedCertId, setCopiedCertId] = useState(null);
 
   useEffect(() => {
-    // Simulate fetching user data from session/API
     const fetchUserData = async () => {
       try {
-        // Mock data - replace with actual API call
-        const mockProfile = {
-          fullName: "John Doe",
-          email: "john@example.com",
-          phone: "+91 9876543210",
-          gender: "Male",
-          parentName: "Mr. Robert Doe",
-          // Academic Info
-          university: "SBTE Bihar Board (Polytechnic College)",
-          college: "Government Polytechnic, Patna-13 (Gulzarbagh)",
-          degree: "Diploma",
-          department: "Computer Science & Engineering",
-          subject: "CSE",
-          semester: "6",
-          session: "2024-2025",
-          registrationNumber: "BP/CSE/2022/001",
-          internshipDomain: "Web Development",
-          mode: "Online",
-          // Emergency Contact
-          emergencyName: "Sarah Doe",
-          emergencyNumber: "+91 9876543211",
-          relationship: "Sister",
-        };
+        const token = localStorage.getItem("userToken");
+        const savedUser = localStorage.getItem("userData");
+        if (!token || !savedUser) {
+          router.push("/login");
+          return;
+        }
 
-        const mockApplied = {
-          courses: [
-            {
-              id: 1,
-              name: "Web Development Mastery",
-              instructor: "Tech Academy",
-              status: "In Progress",
-              progress: 65,
-            },
-            {
-              id: 2,
-              name: "React Advanced Concepts",
-              instructor: "Code Masters",
-              status: "Completed",
-              progress: 100,
-            },
-          ],
-          internships: [
-            {
-              id: 1,
-              company: "Tech Innovations Ltd.",
-              position: "Frontend Developer",
-              duration: "3 months",
-              status: "Active",
-              startDate: "Jan 2024",
-            },
-            {
-              id: 2,
-              company: "Digital Solutions Inc.",
-              position: "Full Stack Developer",
-              duration: "2 months",
-              status: "Completed",
-              startDate: "Oct 2023",
-            },
-          ],
-        };
+        const parsedUser = JSON.parse(savedUser);
 
-        setProfileData(mockProfile);
-        setAppliedItems(mockApplied);
+        // Fetch fresh data from the server
+        const res = await fetch(`/api/user?id=${parsedUser._id}`);
+        const result = await res.json();
+
+        let profile = parsedUser;
+        if (res.ok && result.success && result.data) {
+          profile = result.data;
+          // Sync back to local storage
+          localStorage.setItem("userData", JSON.stringify(result.data));
+        }
+
+        setProfileData(profile);
+
+        // Format active courses and internships if they exist
+        const formattedCourses = (profile.ActiveCources || []).map((c, index) => ({
+          id: c.course?._id || c.course || index,
+          enrollmentId: c._id || null,
+          name: c.course?.title || "Course",
+          instructor: c.course?.instructor?.[0]?.name || "KpInterns Instructor",
+          status: c.courseStatus || "Active",
+          progress: c.progress || 0,
+          certificateUrl: c.certificateUrl || "",
+        }));
+
+        const formattedInternships = (profile.ActiveInternship || []).map((i, index) => ({
+          id: i.internship?._id || i.internship || index,
+          enrollmentId: i._id || null,
+          company: i.internship?.company || "KpInterns",
+          position: i.internship?.position || "Intern",
+          duration: i.internship?.duration || "1 month",
+          status: i.internshipStatus || "Active",
+          startDate: i.paymentDate ? new Date(i.paymentDate).toLocaleDateString() : "N/A",
+          progress: i.progress || 0,
+          offerLetterUrl: i.offerLetterUrl || "",
+          certificationUrl: i.certificationUrl || "",
+        }));
+
+        setAppliedItems({
+          courses: formattedCourses,
+          internships: formattedInternships,
+        });
+
       } catch (error) {
         console.error("Failed to fetch profile data:", error);
+        // Fallback to local storage if API call fails
+        const savedUser = localStorage.getItem("userData");
+        if (savedUser) {
+          try {
+            const profile = JSON.parse(savedUser);
+            setProfileData(profile);
+          } catch (e) {}
+        } else {
+          router.push("/login");
+        }
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchUserData();
-  }, []);
+  }, [router]);
+
+  const handleShareCertificate = (certId) => {
+    const shareUrl = `${window.location.origin}/verify?id=${certId}`;
+    navigator.clipboard.writeText(shareUrl)
+      .then(() => {
+        setCopiedCertId(certId);
+        setTimeout(() => setCopiedCertId(null), 2500);
+      })
+      .catch((err) => console.error("Failed to copy link:", err));
+  };
+
+  const courseCertificates = (appliedItems.courses || [])
+    .filter(c => c.certificateUrl)
+    .map(c => ({
+      id: c.enrollmentId || c.id,
+      name: c.name,
+      type: "Course Completion Certificate",
+      issuedBy: c.instructor || "KpInterns Instructor",
+      url: c.certificateUrl,
+      icon: "🎓",
+      color: "from-amber-500/10 to-orange-500/10 hover:from-amber-500/15 hover:to-orange-500/15",
+      borderCol: "border-amber-500/30 hover:border-amber-500/60",
+      iconCol: "text-amber-500 bg-amber-500/10",
+      tagCol: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+    }));
+
+  const internshipCertificates = (appliedItems.internships || [])
+    .filter(i => i.certificationUrl)
+    .map(i => ({
+      id: i.enrollmentId || i.id,
+      name: `${i.position} Internship`,
+      type: "Internship Completion Certificate",
+      issuedBy: i.company || "KpInterns",
+      url: i.certificationUrl,
+      icon: "🏆",
+      color: "from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/15 hover:to-teal-500/15",
+      borderCol: "border-emerald-500/30 hover:border-emerald-500/60",
+      iconCol: "text-emerald-500 bg-emerald-500/10",
+      tagCol: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    }));
+
+  const allCertificates = [...courseCertificates, ...internshipCertificates];
 
   const handleLogout = async () => {
     try {
-      // Call logout API
-      await fetch("/api/auth/logout", { method: "POST" });
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userData");
+      window.dispatchEvent(new Event("user-login-change"));
       router.push("/login");
     } catch (error) {
       console.error("Logout error:", error);
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userData");
+      window.dispatchEvent(new Event("user-login-change"));
       router.push("/login");
     }
   };
@@ -186,6 +230,7 @@ export default function ProfilePage() {
             { id: "academic", label: "Academic Info", icon: "🎓" },
             { id: "courses", label: "Courses", icon: "📚" },
             { id: "internships", label: "Internships", icon: "💼" },
+            { id: "certificates", label: "Certificates", icon: "🏆" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -316,9 +361,16 @@ export default function ProfilePage() {
                     >
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div className="flex-1">
-                          <h3 className="text-lg font-bold text-text-main dark:text-text-main font-poppins mb-2">
-                            {course.name}
-                          </h3>
+                          <div className="flex flex-wrap items-center gap-2 mb-2">
+                            <h3 className="text-lg font-bold text-text-main dark:text-text-main font-poppins">
+                              {course.name}
+                            </h3>
+                            {course.certificateUrl && (
+                              <span className="bg-amber-500/15 text-amber-600 dark:text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/30 font-poppins flex items-center gap-1 animate-pulse">
+                                🎓 Certificate Issued
+                              </span>
+                            )}
+                          </div>
                           <p className="text-text-muted dark:text-text-muted font-poppins mb-3">
                             by {course.instructor}
                           </p>
@@ -330,12 +382,16 @@ export default function ProfilePage() {
                               style={{ width: `${course.progress}%` }}
                             ></div>
                           </div>
-                          <p className="text-xs text-text-muted dark:text-text-muted font-poppins">
-                            {course.progress}% Complete
-                          </p>
+                          <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-text-muted dark:text-text-muted font-poppins">
+                            <span>{course.progress}% Complete</span>
+                            <div className="flex items-center gap-1 bg-bg-main dark:bg-bg-main px-2 py-0.5 rounded border border-border-main dark:border-border-main text-[10px]">
+                              <span className="font-semibold text-text-main dark:text-text-main">ID:</span>
+                              <span className="font-mono select-all">{course.id}</span>
+                            </div>
+                          </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-3">
                           <span
                             className={`px-4 py-2 rounded-lg font-poppins font-semibold text-sm ${
                               course.status === "Completed"
@@ -345,9 +401,19 @@ export default function ProfilePage() {
                           >
                             {course.status}
                           </span>
-                          <button className="px-4 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md transition font-poppins font-semibold">
+                          <Link href={`/courses/${course.id}`} className="px-4 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center">
                             View
-                          </button>
+                          </Link>
+                          {course.certificateUrl && (
+                            <a
+                              href={course.certificateUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center gap-1.5"
+                            >
+                              <span>🎓</span> Certificate
+                            </a>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -386,16 +452,28 @@ export default function ProfilePage() {
                               <span className="text-xl">💼</span>
                             </div>
                             <div className="flex-1">
-                              <h3 className="text-lg font-bold text-text-main dark:text-text-main font-poppins">
-                                {internship.company}
-                              </h3>
+                              <div className="flex flex-wrap items-center gap-2">
+                                <h3 className="text-lg font-bold text-text-main dark:text-text-main font-poppins">
+                                  {internship.company}
+                                </h3>
+                                {internship.offerLetterUrl && (
+                                  <span className="bg-blue-500/15 text-blue-600 dark:text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-500/30 font-poppins flex items-center gap-1">
+                                    ✉️ Offer Letter Issued
+                                  </span>
+                                )}
+                                {internship.certificationUrl && (
+                                  <span className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 font-poppins flex items-center gap-1 animate-pulse">
+                                    🏆 Certificate Issued
+                                  </span>
+                                )}
+                              </div>
                               <p className="text-brand-primary font-poppins font-semibold">
                                 {internship.position}
                               </p>
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                             <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
                               <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
                                 Duration
@@ -426,12 +504,55 @@ export default function ProfilePage() {
                                 {internship.status}
                               </span>
                             </div>
+                            <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
+                              <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
+                                Internship ID
+                              </p>
+                              <span className="text-sm font-semibold text-text-main dark:text-text-main font-mono truncate block select-all" title={internship.id}>
+                                {internship.id}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Internship Progress Bar */}
+                          <div className="mt-5">
+                            <div className="w-full bg-border-main dark:bg-border-main rounded-full h-2 mb-2">
+                              <div
+                                className="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary transition-all duration-300"
+                                style={{ width: `${internship.progress}%` }}
+                              ></div>
+                            </div>
+                            <p className="text-xs text-text-muted dark:text-text-muted font-poppins">
+                              {internship.progress}% Complete
+                            </p>
                           </div>
                         </div>
 
-                        <button className="md:w-auto px-6 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md transition font-poppins font-semibold">
-                          Details
-                        </button>
+                        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                          <Link href={`/internship/${internship.id}`} className="px-6 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center whitespace-nowrap flex-1 sm:flex-initial">
+                            Details
+                          </Link>
+                          {internship.offerLetterUrl && (
+                            <a
+                              href={internship.offerLetterUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap flex-1 sm:flex-initial"
+                            >
+                              <span>✉️</span> Offer Letter
+                            </a>
+                          )}
+                          {internship.certificationUrl && (
+                            <a
+                              href={internship.certificationUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-6 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap flex-1 sm:flex-initial"
+                            >
+                              <span>🏆</span> Certificate
+                            </a>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -451,6 +572,101 @@ export default function ProfilePage() {
               )}
             </div>
           )}
+
+          {/* Certificates Tab */}
+          {activeTab === "certificates" && (
+            <div>
+              {allCertificates.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {allCertificates.map((cert) => (
+                    <div
+                      key={cert.id}
+                      className={`bg-gradient-to-br ${cert.color} rounded-2xl border ${cert.borderCol} p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between`}
+                    >
+                      <div>
+                        {/* Header Badge & Icon */}
+                        <div className="flex items-center justify-between mb-4">
+                          <span className={`px-2.5 py-1 rounded-full text-xs font-bold font-poppins border ${cert.tagCol}`}>
+                            {cert.icon} {cert.type}
+                          </span>
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-inner ${cert.iconCol}`}>
+                            {cert.icon}
+                          </div>
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins mb-2 line-clamp-2" title={cert.name}>
+                          {cert.name}
+                        </h3>
+
+                        {/* Details */}
+                        <p className="text-sm text-text-muted dark:text-text-muted font-poppins mb-4">
+                          Issued by: <span className="font-semibold text-text-main dark:text-text-main">{cert.issuedBy}</span>
+                        </p>
+
+                        <div className="bg-bg-main dark:bg-bg-main/50 px-3 py-2 rounded-xl border border-border-main/50 mb-6 flex flex-col gap-1">
+                          <span className="text-[10px] uppercase font-bold text-text-muted font-poppins">Certificate ID</span>
+                          <span className="text-xs font-mono text-text-main dark:text-text-main select-all break-all">{cert.id}</span>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-auto">
+                        <a
+                          href={cert.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md transition text-xs font-bold font-poppins text-center flex items-center justify-center gap-1"
+                        >
+                          <span>📥</span> View
+                        </a>
+                        <Link
+                          href={`/verify?id=${cert.id}`}
+                          className="px-3 py-2 bg-white dark:bg-bg-card text-text-main border border-border-main rounded-lg hover:bg-bg-main dark:hover:bg-bg-main transition text-xs font-bold font-poppins text-center flex items-center justify-center gap-1"
+                        >
+                          <span>🔍</span> Verify
+                        </Link>
+                        <button
+                          onClick={() => handleShareCertificate(cert.id)}
+                          className={`px-3 py-2 rounded-lg transition text-xs font-bold font-poppins text-center flex items-center justify-center gap-1 ${
+                            copiedCertId === cert.id
+                              ? "bg-brand-success/20 text-brand-success border border-brand-success/30"
+                              : "bg-white dark:bg-bg-card text-text-main border border-border-main hover:bg-bg-main dark:hover:bg-bg-main"
+                          }`}
+                        >
+                          <span>🔗</span> {copiedCertId === cert.id ? "Copied!" : "Share"}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-16 bg-bg-card dark:bg-bg-card rounded-2xl border border-border-main dark:border-border-main shadow-md">
+                  <span className="text-5xl block mb-4">🏆</span>
+                  <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins mb-2">
+                    No Certificates Issued Yet
+                  </h3>
+                  <p className="text-text-muted dark:text-text-muted font-poppins max-w-md mx-auto mb-6">
+                    Complete your courses or internship projects to receive industry-recognized digital credentials.
+                  </p>
+                  <div className="flex justify-center gap-4">
+                    <Link
+                      href="/courses"
+                      className="px-6 py-2.5 bg-brand-primary text-white rounded-xl hover:shadow-md transition font-semibold font-poppins"
+                    >
+                      Explore Courses
+                    </Link>
+                    <Link
+                      href="/internship"
+                      className="px-6 py-2.5 border border-border-main text-text-main rounded-xl hover:bg-bg-main transition font-semibold font-poppins"
+                    >
+                      Explore Internships
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -462,7 +678,7 @@ export default function ProfilePage() {
               Confirm Logout
             </h2>
             <p className="text-text-muted dark:text-text-muted font-poppins mb-8">
-              Are you sure you want to logout? You'll need to login again to
+              Are you sure you want to logout? You&apos;ll need to login again to
               access your profile.
             </p>
             <div className="flex gap-4">

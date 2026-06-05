@@ -17,36 +17,42 @@ export async function GET(request) {
 
     const url = new URL(request.url);
     const courseId = url.searchParams.get("id");
-    const category = url.searchParams.get("category");
+    const domain = url.searchParams.get("domain") || url.searchParams.get("category");
 
     const Course = createModel("Course", CourseModel);
 
+    // 1. Fetching a single course by ID
     if (courseId) {
-      // Get single course by ID
-      const course = await Course.findById(courseId);
+      const course = await Course.findById(courseId)
+        .populate("instructor.id", "name role bio"); // Added population here
 
       if (!course) {
         return Response.json({ error: "Course not found" }, { status: 404 });
       }
 
       return Response.json({ success: true, data: course }, { status: 200 });
-    } else if (category) {
-      // Get courses by category
-      const courses = await Course.find({ category });
+    } 
+    
+    // 2. Fetching courses filtered by domain/category
+    if (domain) {
+      const courses = await Course.find({
+        $or: [{ domain }, { category: domain }]
+      }).populate("instructor.id", "name role avatar"); // Added population here
 
       return Response.json(
         { success: true, data: courses, total: courses.length },
         { status: 200 },
       );
-    } else {
-      // Get all courses
-      const courses = await Course.find();
+    } 
 
-      return Response.json(
-        { success: true, data: courses, total: courses.length },
-        { status: 200 },
-      );
-    }
+    // 3. Fetching all courses
+    const courses = await Course.find().populate("instructor.id", "name role avatar");
+
+    return Response.json(
+      { success: true, data: courses, total: courses.length },
+      { status: 200 },
+    );
+
   } catch (error) {
     console.error("Error fetching courses:", error);
     return Response.json(
@@ -62,11 +68,18 @@ export async function POST(request) {
 
     const data = await request.json();
 
+    // Support both 'category' and 'domain' for backward compatibility
+    if (data.category && !data.domain) {
+      data.domain = data.category;
+    } else if (data.domain && !data.category) {
+      data.category = data.domain;
+    }
+
     // Validate required fields based on model
     const requiredFields = [
       "title",
       "description",
-      "category",
+      "domain",
       "department",
       "instructor",
     ];
@@ -141,6 +154,14 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
+
+    // Support both 'category' and 'domain' for backward compatibility
+    if (data.category && !data.domain) {
+      data.domain = data.category;
+    } else if (data.domain && !data.category) {
+      data.category = data.domain;
+    }
+
     const Course = createModel("Course", CourseModel);
 
     // Update course

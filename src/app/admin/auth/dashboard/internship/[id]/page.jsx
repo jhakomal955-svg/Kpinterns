@@ -31,7 +31,7 @@ export default function InternshipEditPage() {
     duration: "1-month",
     status: "Draft",
     company: "Kpinterns",
-    category: "General",
+    domain: "Other",
     createdBy: "admin",
     tags: "",
     applicationDeadline: "",
@@ -47,6 +47,7 @@ export default function InternshipEditPage() {
     contactPersonEmail: "",
     contactPersonPhone: "",
     contactPersonDesignation: "",
+    instructorId: "",
     contentItems: [],
     updates: [],
   });
@@ -94,12 +95,6 @@ export default function InternshipEditPage() {
     "1-year",
   ];
 
-  useEffect(() => {
-    if (isEditing) {
-      fetchInternship();
-    }
-  }, [internshipId, isEditing]);
-
   const fetchInternship = async () => {
     try {
       setIsLoading(true);
@@ -107,6 +102,23 @@ export default function InternshipEditPage() {
       const data = await res.json();
       if (data.success) {
         const internship = data.data;
+
+        // Load admin ID for fallback
+        let loggedInAdminId = "admin";
+        if (typeof window !== "undefined") {
+          try {
+            const stored = localStorage.getItem("adminData");
+            if (stored) {
+              const parsed = JSON.parse(stored);
+              if (parsed && parsed._id) {
+                loggedInAdminId = parsed._id;
+              }
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        }
+
         setFormData({
           title: internship.title || "",
           description: internship.description || "",
@@ -119,8 +131,10 @@ export default function InternshipEditPage() {
           duration: internship.duration || "1-month",
           status: internship.status || "Draft",
           company: internship.company || "Kpinterns",
-          category: internship.category || "General",
-          createdBy: internship.createdBy || "admin",
+          domain: internship.domain || internship.category || "Other",
+          createdBy: (internship.createdBy && internship.createdBy !== "admin")
+            ? (typeof internship.createdBy === "object" ? internship.createdBy._id : internship.createdBy)
+            : loggedInAdminId,
           tags: Array.isArray(internship.tags) ? internship.tags.join(", ") : "",
           applicationDeadline: internship.applicationDeadline ? internship.applicationDeadline.split("T")[0] : "",
           requirements: Array.isArray(internship.requirements) ? internship.requirements.join(", ") : "",
@@ -135,6 +149,7 @@ export default function InternshipEditPage() {
           contactPersonEmail: internship.contactPerson?.email || "",
           contactPersonPhone: internship.contactPerson?.phone || "",
           contactPersonDesignation: internship.contactPerson?.designation || "",
+          instructorId: typeof internship.instructor?.[0]?.id === "object" ? internship.instructor[0].id._id : (internship.instructor?.[0]?.id || ""),
           contentItems: internship.content || [],
           updates: internship.updates || [],
         });
@@ -147,6 +162,12 @@ export default function InternshipEditPage() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isEditing) {
+      fetchInternship();
+    }
+  }, [internshipId, isEditing]);
 
   const handleBasicInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -305,8 +326,12 @@ export default function InternshipEditPage() {
       setError("Company is required");
       return;
     }
-    if (!formData.category) {
-      setError("Category is required");
+    if (!formData.domain) {
+      setError("Domain is required");
+      return;
+    }
+    if (!formData.instructorId) {
+      setError("Instructor ID reference mapping token is required");
       return;
     }
 
@@ -325,9 +350,10 @@ export default function InternshipEditPage() {
         status: formData.status,
         company: formData.company,
         createdBy: formData.createdBy,
-        category: formData.category,
+        domain: formData.domain,
         certificateOffered: formData.certificateOffered,
         applicationDeadline: formData.applicationDeadline || null,
+        instructor: formData.instructorId ? [{ id: formData.instructorId }] : [],
         tags: formData.tags ? formData.tags.split(",").map((item) => item.trim()).filter(Boolean) : [],
         requirements: formData.requirements ? formData.requirements.split(",").map((item) => item.trim()).filter(Boolean) : [],
         skills: formData.skills ? formData.skills.split(",").map((item) => item.trim()).filter(Boolean) : [],
@@ -502,14 +528,14 @@ export default function InternshipEditPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Category *</label>
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Domain *</label>
                 <input
                   type="text"
-                  name="category"
+                  name="domain"
                   required
-                  value={formData.category}
+                  value={formData.domain}
                   onChange={handleBasicInputChange}
-                  placeholder="e.g. Software, Marketing"
+                  placeholder="e.g. Full Stack Development"
                   className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
                 />
               </div>
@@ -610,6 +636,19 @@ export default function InternshipEditPage() {
                     <option key={status} value={status}>{status}</option>
                   ))}
                 </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Instructor Admin Reference ID *</label>
+                <input
+                  type="text"
+                  name="instructorId"
+                  value={formData.instructorId}
+                  onChange={handleBasicInputChange}
+                  required
+                  placeholder="Paste Admin reference ObjectId"
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                />
               </div>
 
               <div>

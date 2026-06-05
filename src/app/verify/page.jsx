@@ -1,33 +1,76 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function VerifyPage() {
   const [inputValue, setInputValue] = useState("");
-  const [verificationResult, setVerificationResult] = useState(null);
+  const [verificationResults, setVerificationResults] = useState(null);
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [copied, setCopied] = useState(false);
 
-  // Handle verification
-  const handleVerify = async (e) => {
+  const performVerification = async (query) => {
+    if (!query) return;
+    setIsLoading(true);
+    setError(null);
+    setVerificationResults(null);
+    setSelectedCertificate(null);
+
+    try {
+      const res = await fetch(`/api/verify?query=${encodeURIComponent(query.trim())}`);
+      const data = await res.json();
+      if (res.ok && data.success && data.data) {
+        setVerificationResults(data.data);
+        if (data.data.length === 1) {
+          setSelectedCertificate(data.data[0]);
+        }
+      } else {
+        setError(data.error || "Verification failed. No matching certificate found.");
+      }
+    } catch (err) {
+      console.error("Verification error:", err);
+      setError("An error occurred while connecting to the verification server.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Check URL query parameters on load for direct verification links
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const idParam = params.get("id") || params.get("query");
+    if (idParam) {
+      setInputValue(idParam);
+      performVerification(idParam);
+    }
+  }, []);
+
+  const handleVerify = (e) => {
     e.preventDefault();
     if (!inputValue.trim()) {
       alert("Please enter a Certificate ID, Email, or Phone Number");
       return;
     }
+    performVerification(inputValue);
+  };
 
-    setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setVerificationResult({
-        success: true,
-        certificateId: "Kp-2024-001234",
-        holder: "John Doe",
-        course: "Full Stack Web Development",
-        issuedDate: "March 15, 2024",
-        expiryDate: "March 15, 2025",
-      });
-      setIsLoading(false);
-    }, 1500);
+  const handleDownload = () => {
+    if (selectedCertificate?.certificateUrl) {
+      window.open(selectedCertificate.certificateUrl, "_blank");
+    }
+  };
+
+  const handleShare = () => {
+    if (selectedCertificate?.certificateId) {
+      const shareUrl = `${window.location.origin}/verify?id=${selectedCertificate.certificateId}`;
+      navigator.clipboard.writeText(shareUrl)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch((err) => console.error("Failed to copy link:", err));
+    }
   };
 
   const trustFeatures = [
@@ -220,105 +263,189 @@ export default function VerifyPage() {
               </div>
             </form>
 
-            {/* Verification Result */}
-            {verificationResult && (
-              <div className="mt-12 p-8 bg-gradient-to-br from-brand-success/10 to-brand-success/5 rounded-2xl border border-brand-success/30">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="bg-brand-success/20 p-3 rounded-full">
-                    <svg
-                      className="w-8 h-8 text-brand-success"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-brand-success">
-                    Certificate Verified
-                  </h3>
-                </div>
+            {/* Error Message */}
+            {error && (
+              <div className="mt-12 p-6 bg-red-500/10 border border-red-500/20 rounded-2xl text-center">
+                <span className="text-3xl block mb-2">⚠️</span>
+                <p className="text-red-500 font-semibold font-poppins">{error}</p>
+              </div>
+            )}
 
+            {/* Multiple Results List */}
+            {verificationResults && verificationResults.length > 1 && !selectedCertificate && (
+              <div className="mt-12 space-y-6">
+                <h3 className="text-2xl font-bold text-text-main font-poppins border-b border-border-main pb-3">
+                  Matches Found ({verificationResults.length})
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">
-                      Certificate ID
-                    </p>
-                    <p className="text-lg font-bold text-text-main">
-                      {verificationResult.certificateId}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">
-                      Holder Name
-                    </p>
-                    <p className="text-lg font-bold text-text-main">
-                      {verificationResult.holder}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">
-                      Course
-                    </p>
-                    <p className="text-lg font-bold text-text-main">
-                      {verificationResult.course}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">
-                      Issued Date
-                    </p>
-                    <p className="text-lg font-bold text-text-main">
-                      {verificationResult.issuedDate}
-                    </p>
-                  </div>
-                  <div className="md:col-span-2">
-                    <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">
-                      Expiry Date
-                    </p>
-                    <p className="text-lg font-bold text-brand-success">
-                      {verificationResult.expiryDate}
-                    </p>
-                  </div>
+                  {verificationResults.map((cert) => (
+                    <div
+                      key={cert.certificateId}
+                      onClick={() => setSelectedCertificate(cert)}
+                      className="bg-bg-main hover:bg-bg-card p-6 rounded-2xl border border-border-main hover:border-brand-primary hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex justify-between items-start mb-4">
+                          <span className="bg-brand-primary/10 text-brand-primary text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-brand-primary/20 font-poppins">
+                            {cert.type}
+                          </span>
+                          <span className="text-lg">📜</span>
+                        </div>
+                        <h4 className="font-bold text-text-main font-poppins text-lg mb-2 line-clamp-1">
+                          {cert.course}
+                        </h4>
+                        <p className="text-sm text-text-muted font-poppins mb-2">
+                          Holder: <span className="font-semibold text-text-main">{cert.holder}</span>
+                        </p>
+                        <p className="text-xs text-text-muted font-mono truncate">
+                          ID: {cert.certificateId}
+                        </p>
+                      </div>
+                      <div className="mt-6 pt-4 border-t border-border-main/50 text-xs font-bold text-brand-primary flex items-center justify-between">
+                        <span>View Verification Details</span>
+                        <span>→</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
+              </div>
+            )}
 
-                <div className="mt-6 flex flex-col sm:flex-row gap-4">
-                  <button className="flex-1 bg-brand-primary text-white font-semibold py-3 rounded-lg hover:bg-brand-primary/90 transition-all flex items-center justify-center gap-2">
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                      />
-                    </svg>
-                    Download Certificate
+            {/* Detailed Verification Card */}
+            {selectedCertificate && (
+              <div className="mt-12">
+                {/* Back button if there are multiple matches */}
+                {verificationResults && verificationResults.length > 1 && (
+                  <button
+                     onClick={() => setSelectedCertificate(null)}
+                    className="mb-6 text-sm font-bold text-brand-primary hover:underline flex items-center gap-1 font-poppins cursor-pointer"
+                  >
+                    ← Back to search results
                   </button>
-                  <button className="flex-1 bg-brand-secondary/20 text-brand-secondary font-semibold py-3 rounded-lg hover:bg-brand-secondary/30 transition-all flex items-center justify-center gap-2">
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M8.684 13.342C9.589 12.71 10 11.715 10 10.5c0-2.121-1.879-4-4-4s-4 1.879-4 4 1.879 4 4 4c.464 0 .909-.087 1.316-.25m0 0a6 6 0 016 6v2m0 0a6 6 0 01-6-6m6 6v2m0 0a6 6 0 01-6-6m6 6l-1-1m-8-6a4 4 0 014-4h4a4 4 0 014 4"
-                      />
-                    </svg>
-                    Share Certificate
-                  </button>
-                </div>
+                )}
+                
+                {(() => {
+                  const isOfferLetter = selectedCertificate?.type?.toLowerCase().includes("offer letter");
+                  return (
+                    <div className="p-8 bg-gradient-to-br from-brand-success/10 to-brand-success/5 rounded-2xl border border-brand-success/30 shadow-md">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="bg-brand-success/20 p-3 rounded-full">
+                          <svg
+                            className="w-8 h-8 text-brand-success"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <h3 className="text-2xl font-bold text-brand-success font-poppins">
+                          {isOfferLetter ? "Offer Letter Verified" : "Certificate Verified"}
+                        </h3>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2 font-poppins">
+                            {isOfferLetter ? "Offer Letter ID" : "Certificate ID"}
+                          </p>
+                          <p className="text-lg font-bold text-text-main font-mono select-all break-all">
+                            {selectedCertificate.certificateId}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2 font-poppins">
+                            Holder Name
+                          </p>
+                          <p className="text-lg font-bold text-text-main font-poppins">
+                            {selectedCertificate.holder}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2 font-poppins">
+                            Program/Course
+                          </p>
+                          <p className="text-lg font-bold text-text-main font-poppins">
+                            {selectedCertificate.course}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2 font-poppins">
+                            Issued Date
+                          </p>
+                          <p className="text-lg font-bold text-text-main font-poppins">
+                            {selectedCertificate.issuedDate}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2 font-poppins">
+                            Expiry Date
+                          </p>
+                          <p className="text-lg font-bold text-brand-success font-poppins">
+                            {selectedCertificate.expiryDate}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2 font-poppins">
+                            Verification Status
+                          </p>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-success/15 border border-brand-success/30 rounded-full text-xs font-bold text-brand-success font-poppins">
+                            <span className="w-2 h-2 bg-brand-success rounded-full animate-pulse"></span>
+                            Authentic Record
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                        <button
+                          onClick={handleDownload}
+                          className="flex-1 bg-brand-primary text-white font-bold py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2 font-poppins cursor-pointer"
+                        >
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                            />
+                          </svg>
+                          {isOfferLetter ? "Download Offer Letter" : "Download Certificate"}
+                        </button>
+                        <button
+                          onClick={handleShare}
+                          className={`flex-1 font-bold py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2 font-poppins cursor-pointer ${
+                            copied
+                              ? "bg-brand-success/20 text-brand-success border border-brand-success/30"
+                              : "bg-brand-secondary/20 text-brand-secondary border border-transparent hover:bg-brand-secondary/30"
+                          }`}
+                        >
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M8.684 13.342C9.589 12.71 10 11.715 10 10.5c0-2.121-1.879-4-4-4s-4 1.879-4 4 1.879 4 4 4c.464 0 .909-.087 1.316-.25m0 0a6 6 0 016 6v2m0 0a6 6 0 01-6-6m6 6v2m0 0a6 6 0 01-6-6m6 6l-1-1m-8-6a4 4 0 014-4h4a4 4 0 014 4"
+                            />
+                          </svg>
+                          {copied ? "Link Copied!" : "Share Verification"}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             )}
           </div>

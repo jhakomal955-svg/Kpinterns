@@ -53,7 +53,7 @@ export default function DashboardLayout({ children }) {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M12 4.354a4 4 0 110 5.292M15 12H9m4.854-5.354a4 4 0 11-5.292 0M19 20H5a2 2 0 00-2 2v1h18v-1a2 2 0 00-2-2z"
+            d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0110.089 21c-2.243 0-4.32-.647-6.089-1.763v-.108a6 6 0 0111.977-.825M15 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0-3.75a2.906 2.906 0 012.625 2.93c0 .952-.46 1.8-1.17 2.322"
           />
         </svg>
       ),
@@ -129,7 +129,7 @@ export default function DashboardLayout({ children }) {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
           />
         </svg>
       ),
@@ -148,7 +148,7 @@ export default function DashboardLayout({ children }) {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
           />
         </svg>
       ),
@@ -163,14 +163,8 @@ export default function DashboardLayout({ children }) {
         {/* Logo Header */}
         <div className="p-4 border-b border-border-main flex items-center justify-between">
           <div className="shrink-0 flex items-center">
-            <Link
-              href="/"
-              className="text-lg font-extrabold tracking-tight text-text-main"
-            >
-              <span className="text-bg-main bg-text-main rounded-full p-2">
-                Kp
-              </span>
-              <span className="text-brand-primary text-base">Interns</span>
+            <Link href="/" className="text-xl font-extrabold tracking-tight text-text-main">
+              <span className="text-bg-main bg-text-main rounded-full p-2">Kp</span><span className="text-brand-primary">Interns</span>
             </Link>
           </div>
           <button
@@ -219,11 +213,10 @@ export default function DashboardLayout({ children }) {
               <Link
                 key={`desktop-nav-${index}`}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-base ${
-                  isActive
-                    ? "bg-brand-primary text-white shadow-md"
-                    : "text-text-main hover:bg-bg-main"
-                }`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-base ${isActive
+                  ? "bg-brand-primary text-white shadow-md"
+                  : "text-text-main hover:bg-bg-main"
+                  }`}
               >
                 <span
                   className={`flex-shrink-0 w-5 h-5 ${isActive ? "text-white" : "text-text-muted group-hover:text-brand-primary"}`}
@@ -295,21 +288,14 @@ export default function DashboardLayout({ children }) {
 
       {/* Mobile Sidebar */}
       <aside
-        className={`${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } bg-bg-card border-r border-border-main transition-all duration-300 flex flex-col fixed top-0 left-0 h-screen w-64 shadow-lg z-40 lg:hidden`}
+        className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } bg-bg-card border-r border-border-main transition-all duration-300 flex flex-col fixed top-0 left-0 h-screen w-64 shadow-lg z-40 lg:hidden`}
       >
         {/* Mobile Logo Header */}
         <div className="p-4 border-b border-border-main flex items-center justify-between">
           <div className="shrink-0 flex items-center">
-            <Link
-              href="/"
-              className="text-lg font-extrabold tracking-tight text-text-main"
-            >
-              <span className="text-bg-main bg-text-main rounded-full p-2">
-                Kp
-              </span>
-              <span className="text-brand-primary text-base">Interns</span>
+            <Link href="/" className="text-xl font-extrabold tracking-tight text-text-main">
+              <span className="text-bg-main bg-text-main rounded-full p-2">Kp</span><span className="text-brand-primary text-lg">Interns</span>
             </Link>
           </div>
           <button
@@ -342,11 +328,10 @@ export default function DashboardLayout({ children }) {
                 key={`mobile-nav-${index}`}
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-base ${
-                  isActive
-                    ? "bg-brand-primary text-white shadow-md"
-                    : "text-text-main hover:bg-bg-main"
-                }`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-base ${isActive
+                  ? "bg-brand-primary text-white shadow-md"
+                  : "text-text-main hover:bg-bg-main"
+                  }`}
               >
                 <span
                   className={`flex-shrink-0 w-5 h-5 ${isActive ? "text-white" : "text-text-muted group-hover:text-brand-primary"}`}
@@ -413,7 +398,7 @@ export default function DashboardLayout({ children }) {
       {/* Main Content */}
       <main className="flex-1 flex flex-col w-full lg:ml-64">
         {/* Mobile Header */}
-        <div className="lg:hidden bg-bg-card border-b border-border-main p-4 flex items-center justify-between sticky top-0 z-20">
+        <div className="lg:hidden bg-bg-card border-b border-border-main flex items-center justify-between sticky top-0 z-20">
           <div className="flex items-center">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -434,14 +419,8 @@ export default function DashboardLayout({ children }) {
                 />
               </svg>
             </button>
-            <Link
-              href="/"
-              className="ml-4 text-base font-extrabold tracking-tight text-text-main"
-            >
-              <span className="text-bg-main bg-text-main rounded-full p-1">
-                Kp
-              </span>
-              <span className="text-brand-primary text-xs">Interns</span>
+            <Link href="/" className="text-xl font-extrabold tracking-tight text-text-main">
+              <span className="text-bg-main bg-text-main rounded-full p-2">Kp</span><span className="text-brand-primary">Interns</span>
             </Link>
           </div>
           <button

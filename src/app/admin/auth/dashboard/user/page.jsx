@@ -13,6 +13,8 @@ export default function UsersAdminPage() {
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [allInternships, setAllInternships] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -52,8 +54,28 @@ export default function UsersAdminPage() {
     }
   };
 
+  const fetchDropdownData = async () => {
+    try {
+      const [resInt, resCourse] = await Promise.all([
+        fetch("/api/internship"),
+        fetch("/api/course"),
+      ]);
+      const dataInt = await resInt.json();
+      const dataCourse = await resCourse.json();
+      if (dataInt.success) {
+        setAllInternships(dataInt.data);
+      }
+      if (dataCourse.success) {
+        setAllCourses(dataCourse.data);
+      }
+    } catch (err) {
+      console.error("Error fetching program options:", err);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
+    fetchDropdownData();
   }, []);
 
   const handleInputChange = (e) => {
@@ -85,6 +107,8 @@ export default function UsersAdminPage() {
       emergencyNumber: "",
       relationship: "",
       password: "",
+      ActiveInternship: [],
+      ActiveCources: [],
     });
     setShowModal(true);
   };
@@ -110,6 +134,8 @@ export default function UsersAdminPage() {
       emergencyNumber: user.emergencyNumber || "",
       relationship: user.relationship || "",
       password: "", // Hide password for security, only update if entered
+      ActiveInternship: user.ActiveInternship || [],
+      ActiveCources: user.ActiveCources || [],
     });
     setShowModal(true);
   };
@@ -139,7 +165,30 @@ export default function UsersAdminPage() {
       const url = isEditing ? `/api/user?id=${selectedId}` : "/api/user";
       const method = isEditing ? "PUT" : "POST";
 
-      const payload = { ...formData };
+      const payload = {
+        ...formData,
+        ActiveInternship: (formData.ActiveInternship || []).map((i) => ({
+          ...(i._id ? { _id: i._id } : {}),
+          internship: i.internship?._id || i.internship,
+          internshipStatus: i.internshipStatus || "Active",
+          progress: i.progress || 0,
+          paymentStatus: i.paymentStatus || false,
+          paymentDate: i.paymentDate || new Date(),
+          amount: i.amount || 0,
+          offerLetterUrl: i.offerLetterUrl || "",
+          certificationUrl: i.certificationUrl || "",
+        })),
+        ActiveCources: (formData.ActiveCources || []).map((c) => ({
+          ...(c._id ? { _id: c._id } : {}),
+          course: c.course?._id || c.course,
+          courseStatus: c.courseStatus || "Active",
+          progress: c.progress || 0,
+          paymentStatus: c.paymentStatus || false,
+          paymentDate: c.paymentDate || new Date(),
+          amount: c.amount || 0,
+          certificateUrl: c.certificateUrl || "",
+        })),
+      };
       if (isEditing && !payload.password) {
         delete payload.password; // Do not send empty password on update
       }
@@ -266,6 +315,7 @@ export default function UsersAdminPage() {
                   <th className="py-4 px-6">College / Branch</th>
                   <th className="py-4 px-6">Reg No / Sem</th>
                   <th className="py-4 px-6">Emergency Contact</th>
+                  <th className="py-4 px-6">Enrolled Programs</th>
                   <th className="py-4 px-6 text-center">Actions</th>
                 </tr>
               </thead>
@@ -300,6 +350,94 @@ export default function UsersAdminPage() {
                       <div className="flex flex-col text-sm">
                         <span>{user.emergencyName} ({user.relationship})</span>
                         <span className="text-text-muted">{user.emergencyNumber}</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex flex-col gap-2 max-w-[250px] text-xs">
+                        {/* Internships */}
+                        {user.ActiveInternship && user.ActiveInternship.length > 0 ? (
+                          <div>
+                            <span className="font-bold text-brand-secondary block mb-0.5 uppercase tracking-wide text-[10px]">Internships</span>
+                            <div className="space-y-1.5">
+                              {user.ActiveInternship.map((i, idx) => (
+                                <div key={idx} className="bg-bg-main px-2 py-1.5 rounded-lg border border-border-main space-y-1">
+                                  <div className="font-semibold text-text-main leading-tight line-clamp-1">{i.internship?.title || "Internship Reference"}</div>
+                                  <div className="flex justify-between items-center text-text-muted text-[10px]">
+                                    <span className={i.internshipStatus === "Completed" ? "text-emerald-500 font-semibold" : "text-amber-500 font-semibold"}>
+                                      {i.internshipStatus || "Active"} ({i.progress || 0}%)
+                                    </span>
+                                    <span className={i.paymentStatus ? "text-emerald-500 font-semibold" : "text-red-500 font-semibold"}>
+                                      {i.paymentStatus ? `Paid: ₹${i.amount || 0}` : "Unpaid"}
+                                    </span>
+                                  </div>
+                                  {(i.offerLetterUrl || i.certificationUrl) && (
+                                    <div className="flex flex-wrap gap-1 pt-1 border-t border-border-main/50 mt-1">
+                                      {i.offerLetterUrl && (
+                                        <a
+                                          href={i.offerLetterUrl}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-[9px] bg-blue-500/10 text-blue-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                        >
+                                          📄 Offer Letter
+                                        </a>
+                                      )}
+                                      {i.certificationUrl && (
+                                        <a
+                                          href={i.certificationUrl}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-[9px] bg-emerald-500/10 text-emerald-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                        >
+                                          🎓 Certificate
+                                        </a>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {/* Courses */}
+                        {user.ActiveCources && user.ActiveCources.length > 0 ? (
+                          <div>
+                            <span className="font-bold text-brand-primary block mb-0.5 uppercase tracking-wide text-[10px]">Courses</span>
+                            <div className="space-y-1.5">
+                              {user.ActiveCources.map((c, idx) => (
+                                <div key={idx} className="bg-bg-main px-2 py-1.5 rounded-lg border border-border-main space-y-1">
+                                  <div className="font-semibold text-text-main leading-tight line-clamp-1">{c.course?.title || "Course Reference"}</div>
+                                  <div className="flex justify-between items-center text-text-muted text-[10px]">
+                                    <span className={c.courseStatus === "Completed" ? "text-emerald-500 font-semibold" : "text-amber-500 font-semibold"}>
+                                      {c.courseStatus || "Active"} ({c.progress || 0}%)
+                                    </span>
+                                    <span className={c.paymentStatus ? "text-emerald-500 font-semibold" : "text-red-500 font-semibold"}>
+                                      {c.paymentStatus ? `Paid: ₹${c.amount || 0}` : "Unpaid"}
+                                    </span>
+                                  </div>
+                                  {c.certificateUrl && (
+                                    <div className="flex flex-wrap gap-1 pt-1 border-t border-border-main/50 mt-1">
+                                      <a
+                                        href={c.certificateUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-[9px] bg-emerald-500/10 text-emerald-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                      >
+                                        🎓 Certificate
+                                      </a>
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {(!user.ActiveInternship || user.ActiveInternship.length === 0) &&
+                        (!user.ActiveCources || user.ActiveCources.length === 0) ? (
+                          <span className="text-text-muted italic">None</span>
+                        ) : null}
                       </div>
                     </td>
                     <td className="py-4 px-6">
@@ -584,6 +722,605 @@ export default function UsersAdminPage() {
                       className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
                     />
                   </div>
+                </div>
+              </div>
+
+              {/* Group 4: Enrolled Programs */}
+              <div className="space-y-6">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+                  4. Enrolled Internships & Courses
+                </h3>
+
+                {/* Internships List */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-semibold text-text-main">Applied Internships</h4>
+                    <div className="flex items-center gap-2">
+                      <select
+                        id="add-internship-select"
+                        className="p-1.5 bg-bg-main border-2 border-border-main rounded-lg text-xs"
+                        defaultValue=""
+                      >
+                        <option value="" disabled>Select Internship</option>
+                        {allInternships
+                          .filter(
+                            (item) =>
+                              !formData.ActiveInternship?.some(
+                                (act) => (act.internship?._id || act.internship) === item._id
+                              )
+                          )
+                          .map((item) => (
+                            <option key={item._id} value={item._id}>
+                              {item.title} ({item.company})
+                            </option>
+                          ))}
+                      </select>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const selectEl = document.getElementById("add-internship-select");
+                          const intId = selectEl.value;
+                          if (!intId) return;
+                          const selectedInt = allInternships.find((i) => i._id === intId);
+                          if (!selectedInt) return;
+
+                          setFormData((prev) => ({
+                            ...prev,
+                            ActiveInternship: [
+                              ...(prev.ActiveInternship || []),
+                              {
+                                internship: selectedInt,
+                                internshipStatus: "Active",
+                                progress: 0,
+                                paymentStatus: false,
+                                amount: selectedInt.RegistrationFee?.amount || 500,
+                              },
+                            ],
+                          }));
+                          selectEl.value = "";
+                        }}
+                        className="bg-brand-primary text-white text-xs font-bold py-1.5 px-3 rounded-lg hover:bg-brand-primary/90 transition"
+                      >
+                        + Add
+                      </button>
+                    </div>
+                  </div>
+
+                  {(formData.ActiveInternship || []).length === 0 ? (
+                    <p className="text-xs text-text-muted italic bg-bg-main p-3 rounded-xl border border-border-main/50">
+                      No enrolled internships.
+                    </p>
+                  ) : (
+                    <div className="space-y-3">
+                      {formData.ActiveInternship.map((item, index) => {
+                        const intDetails = item.internship;
+                        const title = intDetails?.title || "Internship Reference";
+                        const company = intDetails?.company || "KpInterns";
+
+                        return (
+                          <div
+                            key={index}
+                            className="bg-bg-main border-2 border-border-main p-4 rounded-xl space-y-3 relative group"
+                          >
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  ActiveInternship: prev.ActiveInternship.filter((_, idx) => idx !== index),
+                                }));
+                              }}
+                              className="absolute top-3 right-3 text-red-500 hover:text-red-700 font-bold text-xs bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded-md transition"
+                            >
+                              Remove
+                            </button>
+
+                            <div className="font-semibold text-xs text-text-muted uppercase tracking-wider">
+                              💼 {title} ({company})
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Status</label>
+                                <select
+                                  value={item.internshipStatus || "Active"}
+                                  onChange={(e) => {
+                                    const val = e.target.value;
+                                    setFormData((prev) => {
+                                      const list = [...prev.ActiveInternship];
+                                      list[index] = { ...list[index], internshipStatus: val };
+                                      return { ...prev, ActiveInternship: list };
+                                    });
+                                  }}
+                                  className="w-full p-1.5 bg-bg-card border border-border-main rounded-lg text-xs"
+                                >
+                                  <option value="Active">Active</option>
+                                  <option value="Completed">Completed</option>
+                                </select>
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Progress (%)</label>
+                                <input
+                                  type="number"
+                                  min="0"
+                                  max="100"
+                                  value={item.progress || 0}
+                                  onChange={(e) => {
+                                    const val = parseInt(e.target.value) || 0;
+                                    setFormData((prev) => {
+                                      const list = [...prev.ActiveInternship];
+                                      list[index] = { ...list[index], progress: Math.min(100, Math.max(0, val)) };
+                                      return { ...prev, ActiveInternship: list };
+                                    });
+                                  }}
+                                  className="w-full p-1.5 bg-bg-card border border-border-main rounded-lg text-xs"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Fee (₹)</label>
+                                <input
+                                  type="number"
+                                  value={item.amount || 0}
+                                  onChange={(e) => {
+                                    const val = parseInt(e.target.value) || 0;
+                                    setFormData((prev) => {
+                                      const list = [...prev.ActiveInternship];
+                                      list[index] = { ...list[index], amount: val };
+                                      return { ...prev, ActiveInternship: list };
+                                    });
+                                  }}
+                                  className="w-full p-1.5 bg-bg-card border border-border-main rounded-lg text-xs"
+                                />
+                              </div>
+
+                              <div className="flex items-center pt-4 sm:justify-center">
+                                <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                                  <input
+                                    type="checkbox"
+                                    checked={item.paymentStatus || false}
+                                    onChange={(e) => {
+                                      const val = e.target.checked;
+                                      setFormData((prev) => {
+                                        const list = [...prev.ActiveInternship];
+                                        list[index] = { ...list[index], paymentStatus: val };
+                                        return { ...prev, ActiveInternship: list };
+                                      });
+                                    }}
+                                    className="accent-brand-primary w-4 h-4 rounded cursor-pointer"
+                                  />
+                                  Paid
+                                </label>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-border-main/50">
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Offer Letter</label>
+                                {item.offerLetterUrl ? (
+                                  <div className="flex items-center justify-between bg-bg-card p-2 rounded-lg border border-border-main">
+                                    <span className="text-xs text-emerald-600 dark:text-emerald-500 font-semibold">
+                                      Offer Letter already offered
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                      <a
+                                        href={item.offerLetterUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-brand-secondary hover:underline font-semibold"
+                                      >
+                                        📄 View
+                                      </a>
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setFormData((prev) => {
+                                            const list = [...prev.ActiveInternship];
+                                            list[index] = { ...list[index], offerLetterUrl: "" };
+                                            return { ...prev, ActiveInternship: list };
+                                          });
+                                        }}
+                                        className="text-red-500 hover:text-red-700 text-xs font-bold ml-1"
+                                      >
+                                        Remove
+                                      </button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="file"
+                                      accept="application/pdf,image/*"
+                                      id={`offer-letter-input-${index}`}
+                                      onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (!file) return;
+                                        try {
+                                          const uploadBtn = document.getElementById(`offer-letter-btn-${index}`);
+                                          const originalText = uploadBtn.innerText;
+                                          uploadBtn.innerText = "Uploading...";
+                                          uploadBtn.disabled = true;
+
+                                          const fData = new FormData();
+                                          fData.append("file", file);
+                                          const res = await fetch("/api/cloudinary", {
+                                            method: "POST",
+                                            body: fData,
+                                          });
+                                          const resData = await res.json();
+                                          if (resData.success) {
+                                            setFormData((prev) => {
+                                              const list = [...prev.ActiveInternship];
+                                              list[index] = { ...list[index], offerLetterUrl: resData.data.secure_url };
+                                              return { ...prev, ActiveInternship: list };
+                                            });
+                                          } else {
+                                            alert(resData.error || "Upload failed");
+                                            uploadBtn.innerText = originalText;
+                                            uploadBtn.disabled = false;
+                                          }
+                                        } catch (err) {
+                                          console.error(err);
+                                          alert("Failed to upload file");
+                                        }
+                                      }}
+                                      className="hidden"
+                                    />
+                                    <button
+                                      type="button"
+                                      id={`offer-letter-btn-${index}`}
+                                      onClick={() => document.getElementById(`offer-letter-input-${index}`).click()}
+                                      className="w-full text-left p-2 bg-bg-card border border-border-main rounded-lg text-xs hover:border-brand-primary transition"
+                                    >
+                                      📤 Click to upload Offer Letter PDF
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Internship Certificate</label>
+                                {item.certificationUrl ? (
+                                  <div className="flex items-center justify-between bg-bg-card p-2 rounded-lg border border-border-main">
+                                    <span className="text-xs text-emerald-600 dark:text-emerald-500 font-semibold">
+                                      Certificate already offered
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                      <a
+                                        href={item.certificationUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-brand-success hover:underline font-semibold"
+                                      >
+                                        🎓 View
+                                      </a>
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setFormData((prev) => {
+                                            const list = [...prev.ActiveInternship];
+                                            list[index] = { ...list[index], certificationUrl: "" };
+                                            return { ...prev, ActiveInternship: list };
+                                          });
+                                        }}
+                                        className="text-red-500 hover:text-red-700 text-xs font-bold ml-1"
+                                      >
+                                        Remove
+                                      </button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="file"
+                                      accept="application/pdf,image/*"
+                                      id={`certification-input-${index}`}
+                                      onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (!file) return;
+                                        try {
+                                          const uploadBtn = document.getElementById(`certification-btn-${index}`);
+                                          const originalText = uploadBtn.innerText;
+                                          uploadBtn.innerText = "Uploading...";
+                                          uploadBtn.disabled = true;
+
+                                          const fData = new FormData();
+                                          fData.append("file", file);
+                                          const res = await fetch("/api/cloudinary", {
+                                            method: "POST",
+                                            body: fData,
+                                          });
+                                          const resData = await res.json();
+                                          if (resData.success) {
+                                            setFormData((prev) => {
+                                              const list = [...prev.ActiveInternship];
+                                              list[index] = { ...list[index], certificationUrl: resData.data.secure_url };
+                                              return { ...prev, ActiveInternship: list };
+                                            });
+                                          } else {
+                                            alert(resData.error || "Upload failed");
+                                            uploadBtn.innerText = originalText;
+                                            uploadBtn.disabled = false;
+                                          }
+                                        } catch (err) {
+                                          console.error(err);
+                                          alert("Failed to upload file");
+                                        }
+                                      }}
+                                      className="hidden"
+                                    />
+                                    <button
+                                      type="button"
+                                      id={`certification-btn-${index}`}
+                                      onClick={() => document.getElementById(`certification-input-${index}`).click()}
+                                      className="w-full text-left p-2 bg-bg-card border border-border-main rounded-lg text-xs hover:border-brand-primary transition"
+                                    >
+                                      📤 Click to upload Certificate PDF
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                {/* Courses List */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-semibold text-text-main">Enrolled Courses</h4>
+                    <div className="flex items-center gap-2">
+                      <select
+                        id="add-course-select"
+                        className="p-1.5 bg-bg-main border-2 border-border-main rounded-lg text-xs"
+                        defaultValue=""
+                      >
+                        <option value="" disabled>Select Course</option>
+                        {allCourses
+                          .filter(
+                            (item) =>
+                              !formData.ActiveCources?.some(
+                                (act) => (act.course?._id || act.course) === item._id
+                              )
+                          )
+                          .map((item) => (
+                            <option key={item._id} value={item._id}>
+                              {item.title}
+                            </option>
+                          ))}
+                      </select>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const selectEl = document.getElementById("add-course-select");
+                          const cId = selectEl.value;
+                          if (!cId) return;
+                          const selectedC = allCourses.find((c) => c._id === cId);
+                          if (!selectedC) return;
+
+                          setFormData((prev) => ({
+                            ...prev,
+                            ActiveCources: [
+                              ...(prev.ActiveCources || []),
+                              {
+                                course: selectedC,
+                                courseStatus: "Active",
+                                progress: 0,
+                                paymentStatus: false,
+                                amount: selectedC.price || 0,
+                              },
+                            ],
+                          }));
+                          selectEl.value = "";
+                        }}
+                        className="bg-brand-primary text-white text-xs font-bold py-1.5 px-3 rounded-lg hover:bg-brand-primary/90 transition"
+                      >
+                        + Add
+                      </button>
+                    </div>
+                  </div>
+
+                  {(formData.ActiveCources || []).length === 0 ? (
+                    <p className="text-xs text-text-muted italic bg-bg-main p-3 rounded-xl border border-border-main/50">
+                      No enrolled courses.
+                    </p>
+                  ) : (
+                    <div className="space-y-3">
+                      {formData.ActiveCources.map((item, index) => {
+                        const cDetails = item.course;
+                        const title = cDetails?.title || "Course Reference";
+
+                        return (
+                          <div
+                            key={index}
+                            className="bg-bg-main border-2 border-border-main p-4 rounded-xl space-y-3 relative group"
+                          >
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  ActiveCources: prev.ActiveCources.filter((_, idx) => idx !== index),
+                                }));
+                              }}
+                              className="absolute top-3 right-3 text-red-500 hover:text-red-700 font-bold text-xs bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded-md transition"
+                            >
+                              Remove
+                            </button>
+
+                            <div className="font-semibold text-xs text-text-muted uppercase tracking-wider">
+                              📚 {title}
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Status</label>
+                                <select
+                                  value={item.courseStatus || "Active"}
+                                  onChange={(e) => {
+                                    const val = e.target.value;
+                                    setFormData((prev) => {
+                                      const list = [...prev.ActiveCources];
+                                      list[index] = { ...list[index], courseStatus: val };
+                                      return { ...prev, ActiveCources: list };
+                                    });
+                                  }}
+                                  className="w-full p-1.5 bg-bg-card border border-border-main rounded-lg text-xs"
+                                >
+                                  <option value="Active">Active</option>
+                                  <option value="Completed">Completed</option>
+                                </select>
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Progress (%)</label>
+                                <input
+                                  type="number"
+                                  min="0"
+                                  max="100"
+                                  value={item.progress || 0}
+                                  onChange={(e) => {
+                                    const val = parseInt(e.target.value) || 0;
+                                    setFormData((prev) => {
+                                      const list = [...prev.ActiveCources];
+                                      list[index] = { ...list[index], progress: Math.min(100, Math.max(0, val)) };
+                                      return { ...prev, ActiveCources: list };
+                                    });
+                                  }}
+                                  className="w-full p-1.5 bg-bg-card border border-border-main rounded-lg text-xs"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Fee (₹)</label>
+                                <input
+                                  type="number"
+                                  value={item.amount || 0}
+                                  onChange={(e) => {
+                                    const val = parseInt(e.target.value) || 0;
+                                    setFormData((prev) => {
+                                      const list = [...prev.ActiveCources];
+                                      list[index] = { ...list[index], amount: val };
+                                      return { ...prev, ActiveCources: list };
+                                    });
+                                  }}
+                                  className="w-full p-1.5 bg-bg-card border border-border-main rounded-lg text-xs"
+                                />
+                              </div>
+
+                              <div className="flex items-center pt-4 sm:justify-center">
+                                <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                                  <input
+                                    type="checkbox"
+                                    checked={item.paymentStatus || false}
+                                    onChange={(e) => {
+                                      const val = e.target.checked;
+                                      setFormData((prev) => {
+                                        const list = [...prev.ActiveCources];
+                                        list[index] = { ...list[index], paymentStatus: val };
+                                        return { ...prev, ActiveCources: list };
+                                      });
+                                    }}
+                                    className="accent-brand-primary w-4 h-4 rounded cursor-pointer"
+                                  />
+                                  Paid
+                                </label>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4 pt-2 border-t border-border-main/50">
+                              <div>
+                                <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Course Certificate</label>
+                                {item.certificateUrl ? (
+                                  <div className="flex items-center justify-between bg-bg-card p-2 rounded-lg border border-border-main">
+                                    <span className="text-xs text-emerald-600 dark:text-emerald-500 font-semibold">
+                                      Certificate already offered
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                      <a
+                                        href={item.certificateUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-brand-success hover:underline font-semibold"
+                                      >
+                                        🎓 View
+                                      </a>
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setFormData((prev) => {
+                                            const list = [...prev.ActiveCources];
+                                            list[index] = { ...list[index], certificateUrl: "" };
+                                            return { ...prev, ActiveCources: list };
+                                          });
+                                        }}
+                                        className="text-red-500 hover:text-red-700 text-xs font-bold ml-1"
+                                      >
+                                        Remove
+                                      </button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="file"
+                                      accept="application/pdf,image/*"
+                                      id={`course-cert-input-${index}`}
+                                      onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (!file) return;
+                                        try {
+                                          const uploadBtn = document.getElementById(`course-cert-btn-${index}`);
+                                          const originalText = uploadBtn.innerText;
+                                          uploadBtn.innerText = "Uploading...";
+                                          uploadBtn.disabled = true;
+
+                                          const fData = new FormData();
+                                          fData.append("file", file);
+                                          const res = await fetch("/api/cloudinary", {
+                                            method: "POST",
+                                            body: fData,
+                                          });
+                                          const resData = await res.json();
+                                          if (resData.success) {
+                                            setFormData((prev) => {
+                                              const list = [...prev.ActiveCources];
+                                              list[index] = { ...list[index], certificateUrl: resData.data.secure_url };
+                                              return { ...prev, ActiveCources: list };
+                                            });
+                                          } else {
+                                            alert(resData.error || "Upload failed");
+                                            uploadBtn.innerText = originalText;
+                                            uploadBtn.disabled = false;
+                                          }
+                                        } catch (err) {
+                                          console.error(err);
+                                          alert("Failed to upload file");
+                                        }
+                                      }}
+                                      className="hidden"
+                                    />
+                                    <button
+                                      type="button"
+                                      id={`course-cert-btn-${index}`}
+                                      onClick={() => document.getElementById(`course-cert-input-${index}`).click()}
+                                      className="w-full text-left p-2 bg-bg-card border border-border-main rounded-lg text-xs hover:border-brand-primary transition"
+                                    >
+                                      📤 Click to upload Course Certificate PDF
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
 

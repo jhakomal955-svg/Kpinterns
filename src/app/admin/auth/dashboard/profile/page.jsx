@@ -141,7 +141,7 @@ export default function ProfileAdminPage() {
                 <h2 className="text-2xl sm:text-3xl font-bold text-text-main">
                   {adminData.name}
                 </h2>
-                <p className="text-text-muted text-sm">Admin Account</p>
+                <p className="text-text-muted text-sm">{adminData.bio}</p>
               </div>
             </div>
             <button
@@ -193,14 +193,14 @@ export default function ProfileAdminPage() {
                 </div>
                 <div className="bg-bg-main rounded-xl p-5 border border-border-main">
                   <span className="text-xs font-bold text-text-muted uppercase block mb-2">
-                    Verification Status
+                    Role
                   </span>
                   <div className="flex items-center gap-2">
                     <div
                       className={`w-2 h-2 rounded-full ${adminData.verified ? "bg-brand-success" : "bg-yellow-500"}`}
                     ></div>
                     <span className="text-lg font-semibold text-text-main">
-                      {adminData.verified ? "Verified" : "Not Verified"}
+                      {adminData.role}
                     </span>
                   </div>
                 </div>

@@ -31,7 +31,7 @@ export default function InternshipsAdminPage() {
     status: "Draft",
     company: "Kpinterns",
     createdBy: "admin",
-    category: "General",
+    domain: "Other",
     tags: "",
     applicationDeadline: "",
     requirements: "",
@@ -46,6 +46,7 @@ export default function InternshipsAdminPage() {
     contactPersonEmail: "",
     contactPersonPhone: "",
     contactPersonDesignation: "",
+    instructorId: "",
     contentItems: [],
     updates: [],
   });
@@ -109,6 +110,21 @@ export default function InternshipsAdminPage() {
 
   useEffect(() => {
     fetchInternships();
+
+    // Load admin ID for createdBy fallback
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("adminData");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed._id) {
+            setFormData((prev) => ({ ...prev, createdBy: parsed._id }));
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
   }, []);
 
   const handleInputChange = (e) => {
@@ -240,6 +256,22 @@ export default function InternshipsAdminPage() {
     setIsEditing(false);
     setSelectedId(null);
     setActiveTab("basics");
+
+    let adminId = "admin";
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("adminData");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed._id) {
+            adminId = parsed._id;
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
     setFormData({
       title: "",
       description: "",
@@ -251,8 +283,8 @@ export default function InternshipsAdminPage() {
       mode: "Hybrid",
       status: "Draft",
       company: "Kpinterns",
-      createdBy: "admin",
-      category: "General",
+      createdBy: adminId,
+      domain: "Other",
       duration: "1-month",
       tags: "",
       applicationDeadline: "",
@@ -268,6 +300,7 @@ export default function InternshipsAdminPage() {
       contactPersonEmail: "",
       contactPersonPhone: "",
       contactPersonDesignation: "",
+      instructorId: "",
       contentItems: [],
       updates: [],
     });
@@ -304,6 +337,10 @@ export default function InternshipsAdminPage() {
         setError("Job position role is required");
         return;
       }
+      if (!formData.instructorId) {
+        setError("Instructor ID reference mapping token is required");
+        return;
+      }
 
       const url = "/api/internship";
       const method = "POST";
@@ -320,7 +357,7 @@ export default function InternshipsAdminPage() {
         status: formData.status,
         company: formData.company,
         createdBy: formData.createdBy,
-        category: formData.category,
+        domain: formData.domain,
         certificateOffered: formData.certificateOffered,
         tags: formData.tags ? formData.tags.split(",").map((item) => item.trim()).filter(Boolean) : [],
         requirements: formData.requirements ? formData.requirements.split(",").map((item) => item.trim()).filter(Boolean) : [],
@@ -329,6 +366,7 @@ export default function InternshipsAdminPage() {
         benefits: formData.benefits ? formData.benefits.split(",").map((item) => item.trim()).filter(Boolean) : [],
         perks: formData.perks ? formData.perks.split(",").map((item) => item.trim()).filter(Boolean) : [],
         applicationDeadline: formData.applicationDeadline || null,
+        instructor: [{ id: formData.instructorId }],
         stipend: {
           amount: formData.stipendAmount,
         },
@@ -536,7 +574,7 @@ export default function InternshipsAdminPage() {
                 <div className="mt-5 pt-4 border-t border-border-main grid grid-cols-1 gap-3 text-sm">
                   <div className="flex flex-wrap gap-2">
                     <span className="inline-flex items-center gap-2 rounded-full bg-bg-main px-3 py-1 text-xs uppercase tracking-wide text-text-muted border border-border-main">
-                      {internship.category || "General"}
+                      {internship.domain || internship.category || "Other"}
                     </span>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
@@ -561,6 +599,26 @@ export default function InternshipsAdminPage() {
                       <span className="text-sm font-semibold text-text-main">{internship.RegistrationFee?.amount || "Free"}</span>
                     </div>
                   </div>
+                  {internship.instructor?.[0]?.id && (
+                    <div className="pt-2.5 border-t border-border-main space-y-1 text-xs">
+                      <div className="flex items-center justify-between font-medium">
+                        <span className="font-semibold text-text-muted">Instructor</span>
+                        <span className="text-text-main font-semibold text-right truncate max-w-[150px]" title={typeof internship.instructor[0].id === "object" ? internship.instructor[0].id.name : ""}>
+                          {typeof internship.instructor[0].id === "object"
+                            ? internship.instructor[0].id.name || "Admin"
+                            : "Admin"}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between font-medium">
+                        <span className="font-semibold text-text-muted text-[10px] uppercase">ID</span>
+                        <span className="font-mono text-[10px] bg-bg-main px-1.5 py-0.5 rounded border border-border-main truncate max-w-[170px] select-all" title={typeof internship.instructor[0].id === "object" ? internship.instructor[0].id._id : internship.instructor[0].id}>
+                          {typeof internship.instructor[0].id === "object"
+                            ? internship.instructor[0].id._id
+                            : internship.instructor[0].id}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -700,14 +758,14 @@ export default function InternshipsAdminPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Internship Category *</label>
+                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Internship Domain *</label>
                     <input
                       type="text"
-                      name="category"
+                      name="domain"
                       required
-                      value={formData.category}
+                      value={formData.domain}
                       onChange={handleInputChange}
-                      placeholder="e.g. Software, Marketing"
+                      placeholder="e.g. Full Stack Development"
                       className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
                     />
                   </div>
@@ -816,6 +874,19 @@ export default function InternshipsAdminPage() {
                         <option key={status} value={status}>{status}</option>
                       ))}
                     </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Instructor Admin Reference ID *</label>
+                    <input
+                      type="text"
+                      name="instructorId"
+                      value={formData.instructorId}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Paste Admin reference ObjectId"
+                      className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                    />
                   </div>
 
                   {/* FIX A: Internship Banner Picked utilizing MediaPicker component */}

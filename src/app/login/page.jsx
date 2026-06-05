@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     password: "",
-    rememberMe: false,
+    verifyHuman: false, // Changed from rememberMe to match the input name
   });
 
   const [errors, setErrors] = useState({});
@@ -33,18 +35,26 @@ export default function LoginPage() {
 
   const validateForm = () => {
     const newErrors = {};
+    const input = formData.emailOrPhone.trim();
 
-    if (!formData.emailOrPhone.trim()) {
+    if (!input) {
       newErrors.emailOrPhone = "Email or phone number is required";
-    } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$|^\d{10}$/.test(
-        formData.emailOrPhone.replace(/\D/g, ""),
-      )
-    ) {
-      if (formData.emailOrPhone.includes("@")) {
-        newErrors.emailOrPhone = "Please enter a valid email address";
+    } else {
+      // 1. Separate checks for Email vs Phone to avoid stripping characters prematurely
+      const isEmail = input.includes("@");
+      
+      if (isEmail) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input)) {
+          newErrors.emailOrPhone = "Please enter a valid email address";
+        }
       } else {
-        newErrors.emailOrPhone = "Please enter a valid 10-digit phone number";
+        // Strip non-digits ONLY for phone number evaluation
+        const cleanPhone = input.replace(/\D/g, "");
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(cleanPhone)) {
+          newErrors.emailOrPhone = "Please enter a valid 10-digit phone number";
+        }
       }
     }
 
@@ -52,6 +62,11 @@ export default function LoginPage() {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
+    }
+
+    // Optional: Ensure they checked the human verification box
+    if (!formData.verifyHuman) {
+      newErrors.verifyHuman = "Please verify you are human";
     }
 
     setErrors(newErrors);
@@ -67,20 +82,37 @@ export default function LoginPage() {
 
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Login attempt with:", formData);
-      // Handle successful login here
-      alert("Login successful! Redirecting to dashboard...");
+      const response = await fetch("/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emailOrPhone: formData.emailOrPhone,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("userToken", data.token);
+        localStorage.setItem("userData", JSON.stringify(data.data));
+        window.dispatchEvent(new Event("user-login-change"));
+        router.push("/profile");
+      } else {
+        alert(data.error || "Login failed. Please check your credentials.");
+      }
     } catch (error) {
       console.error("Login error:", error);
+      alert("An error occurred during login. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bg-main  to-bg-main  flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-bg-main to-bg-main flex items-center justify-center px-4 py-8">
       {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-brand-primary/5 rounded-full blur-3xl -z-10"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-secondary/5 rounded-full blur-3xl -z-10"></div>
@@ -89,8 +121,9 @@ export default function LoginPage() {
         {/* Logo Section */}
         <div className="text-center mb-8 animate-fade-in">
           <div className="text-xl font-extrabold tracking-tight text-text-main mb-4">
-              <span className="text-bg-main bg-text-main rounded-full p-2">Kp</span><span className="text-brand-primary">Interns</span>
-            </div>
+            <span className="text-bg-main bg-text-main rounded-full p-2">Kp</span>
+            <span className="text-brand-primary">Interns</span>
+          </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-text-main mb-3 font-poppins">
             Student sign-in
           </h1>
@@ -201,40 +234,48 @@ export default function LoginPage() {
             </div>
 
             {/* Verify Human Checkbox */}
-            <label className="flex items-center p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
-              <div className="flex-shrink-0 w-6 h-6 border-2 border-border-main rounded group-hover:border-brand-primary transition-colors">
-                <input
-                  type="checkbox"
-                  name="verifyHuman"
-                  checked={formData.rememberMe}
-                  onChange={handleInputChange}
-                  className="w-full h-full accent-brand-primary cursor-pointer opacity-0"
-                />
-                {formData.rememberMe && (
-                  <div className="w-full h-full flex items-center justify-center">
+            <div>
+              <label className="flex items-center p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
+                <div className="relative flex-shrink-0 w-6 h-6 border-2 border-border-main rounded group-hover:border-brand-primary transition-colors flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    name="verifyHuman"
+                    checked={formData.verifyHuman}
+                    onChange={handleInputChange}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                  />
+                  {/* Clean custom checkmark layout */}
+                  {formData.verifyHuman && (
                     <svg
                       className="w-4 h-4 text-brand-primary"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      viewBox="0 0 24 24"
                     >
                       <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
                       />
                     </svg>
-                  </div>
-                )}
-              </div>
-              <span className="ml-3 flex items-center justify-between flex-1">
-                <span className="font-semibold text-text-main group-hover:text-brand-primary transition-colors">
-                  Verify you are human
+                  )}
+                </div>
+                <span className="ml-3 flex items-center justify-between flex-1">
+                  <span className="font-semibold text-text-main group-hover:text-brand-primary transition-colors">
+                    Verify you are human
+                  </span>
+                  <span className="text-xs font-bold px-3 py-1 bg-text-main/10 text-text-muted rounded-full group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors">
+                    🔒 PROTECTED
+                  </span>
                 </span>
-                <span className="text-xs font-bold px-3 py-1 bg-text-main/10 text-text-muted rounded-full group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors">
-                  🔒 PROTECTED
-                </span>
-              </span>
-            </label>
+              </label>
+              {errors.verifyHuman && (
+                <p className="text-red-500 text-sm mt-2 font-medium ml-1">
+                  {errors.verifyHuman}
+                </p>
+              )}
+            </div>
 
             {/* Login Button */}
             <button
@@ -283,9 +324,7 @@ export default function LoginPage() {
                 />
               </svg>
             </div>
-            <span className="text-xs font-semibold text-text-muted">
-              Secure
-            </span>
+            <span className="text-xs font-semibold text-text-muted">Secure</span>
           </div>
           <div className="flex flex-col items-center">
             <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center mb-2">

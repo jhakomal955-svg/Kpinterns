@@ -18,6 +18,8 @@ export default function AdminsAdminPage() {
     email: "",
     mobile: "",
     password: "",
+    role: "Admin",
+    bio: "",
     agreeTerms: true,
     verified: false,
   });
@@ -61,6 +63,8 @@ export default function AdminsAdminPage() {
       email: "",
       mobile: "",
       password: "",
+      role: "Admin",
+      bio: "",
       agreeTerms: true,
       verified: false,
     });
@@ -74,6 +78,8 @@ export default function AdminsAdminPage() {
       name: admin.name || "",
       email: admin.email || "",
       mobile: admin.mobile || "",
+      role: admin.role || "Admin",
+      bio: admin.bio || "",
       agreeTerms: admin.agreeTerms !== undefined ? admin.agreeTerms : true,
       verified: admin.verified !== undefined ? admin.verified : false,
       password: "", // Hide password
@@ -242,6 +248,7 @@ export default function AdminsAdminPage() {
                   <th className="py-4 px-6">Name</th>
                   <th className="py-4 px-6">Email Address</th>
                   <th className="py-4 px-6">Mobile Number</th>
+                  <th className="py-4 px-6">Role</th>
                   <th className="py-4 px-6 text-center">Status</th>
                   <th className="py-4 px-6 text-center">Actions</th>
                 </tr>
@@ -250,10 +257,22 @@ export default function AdminsAdminPage() {
                 {filteredAdmins.map((admin) => (
                   <tr key={admin._id} className="hover:bg-bg-main/40 transition duration-150">
                     <td className="py-4 px-6 font-semibold text-text-main">
-                      {admin.name}
+                      <div>
+                        <div>{admin.name}</div>
+                        {admin.bio && <div className="text-xs text-text-muted mt-0.5 max-w-[180px] truncate">{admin.bio}</div>}
+                      </div>
                     </td>
                     <td className="py-4 px-6">{admin.email}</td>
                     <td className="py-4 px-6">{admin.mobile}</td>
+                    <td className="py-4 px-6">
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
+                        admin.role === "Instructor"
+                          ? "bg-purple-500/10 text-purple-400 border border-purple-500/30"
+                          : "bg-brand-primary/10 text-brand-primary border border-brand-primary/30"
+                      }`}>
+                        {admin.role || "Admin"}
+                      </span>
+                    </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center justify-center">
                         <button
@@ -333,44 +352,71 @@ export default function AdminsAdminPage() {
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="e.g. admin@kpinterns.com"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Email Address *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="e.g. admin@kpinterns.com"
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Mobile Number *</label>
+                  <input
+                    type="tel"
+                    name="mobile"
+                    required
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                    placeholder="10-digit mobile number"
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Role *</label>
+                  <select
+                    name="role"
+                    value={formData.role}
+                    onChange={handleInputChange}
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition appearance-none"
+                  >
+                    <option value="Admin">Admin</option>
+                    <option value="Instructor">Instructor</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">
+                    Password {isEditing ? "(leave blank)" : "*"}
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    required={!isEditing}
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    placeholder="Min 6 characters"
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                  />
+                </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Mobile Number *</label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  required
-                  value={formData.mobile}
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Bio <span className="normal-case font-normal">(optional)</span></label>
+                <textarea
+                  name="bio"
+                  value={formData.bio}
                   onChange={handleInputChange}
-                  placeholder="10-digit mobile number"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">
-                  Password {isEditing ? "(Leave blank to keep current)" : "*"}
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  required={!isEditing}
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  placeholder="Minimum 6 characters"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                  placeholder="Brief description about this admin or instructor..."
+                  rows={2}
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition resize-none"
                 />
               </div>
 

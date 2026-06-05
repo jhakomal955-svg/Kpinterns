@@ -22,8 +22,9 @@ export async function GET(request) {
     const Internship = createModel("Internship", InternshipModel);
 
     if (internshipId) {
-      // Get single internship by ID
-      const internship = await Internship.findById(internshipId);
+      // Get single internship by ID and POPULATE instructor/mentor referenced data
+      const internship = await Internship.findById(internshipId)
+        .populate("instructor.id", "name role avatar");
 
       if (!internship) {
         return Response.json(
@@ -37,16 +38,18 @@ export async function GET(request) {
         { status: 200 },
       );
     } else if (position) {
-      // Get internships by position
-      const internships = await Internship.find({ position });
+      // Get internships by position and POPULATE instructor/mentor referenced data
+      const internships = await Internship.find({ position })
+        .populate("instructor.id", "name role avatar");
 
       return Response.json(
         { success: true, data: internships, total: internships.length },
         { status: 200 },
       );
     } else {
-      // Get all internships
-      const internships = await Internship.find();
+      // Get all internships and POPULATE instructor/mentor referenced data
+      const internships = await Internship.find()
+        .populate("instructor.id", "name role avatar");
 
       return Response.json(
         { success: true, data: internships, total: internships.length },
@@ -68,6 +71,13 @@ export async function POST(request) {
 
     const data = await request.json();
 
+    // Support both 'category' and 'domain' for backward compatibility
+    if (data.category && !data.domain) {
+      data.domain = data.category;
+    } else if (data.domain && !data.category) {
+      data.category = data.domain;
+    }
+
     // Validate required fields based on model
     const requiredFields = [
       "title",
@@ -76,7 +86,7 @@ export async function POST(request) {
       "department",
       "internshipType",
       "company",
-      "category",
+      "domain",
       "createdBy",
     ];
 
@@ -179,6 +189,14 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
+
+    // Support both 'category' and 'domain' for backward compatibility
+    if (data.category && !data.domain) {
+      data.domain = data.category;
+    } else if (data.domain && !data.category) {
+      data.category = data.domain;
+    }
+
     const Internship = createModel("Internship", InternshipModel);
 
     // Update internship

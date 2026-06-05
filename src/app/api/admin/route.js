@@ -58,6 +58,9 @@ export async function POST(request) {
       mobile: String(rawData.mobile || "").replace(/\D/g, ""),
       password: rawData.password,
       agreeTerms: rawData.agreeTerms,
+      verified: rawData.verified !== undefined ? rawData.verified : false,
+      role: rawData.role || "Admin",
+      bio: rawData.bio?.trim() || "",
     };
 
     // Validate required fields

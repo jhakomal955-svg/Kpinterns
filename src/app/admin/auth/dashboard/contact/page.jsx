@@ -216,7 +216,7 @@ export default function ContactsAdminPage() {
                         <select
                           value={contact.status}
                           onChange={(e) => handleStatusChange(contact._id, e.target.value)}
-                          className={`text-xs font-bold py-1 px-3.5 rounded-full border focus:outline-none transition ${
+                          className={`text-xs font-bold py-1 px-3.5 rounded-lg border focus:outline-none transition ${
                             contact.status === "New"
                               ? "bg-blue-500/10 border-blue-500/30 text-blue-500"
                               : contact.status === "Reviewed"

@@ -10,6 +10,8 @@ export default function AdminRegisterPage() {
     mobile: "",
     password: "",
     confirmPassword: "",
+    role: "Admin",
+    bio: "",
     agreeTerms: false,
   });
 
@@ -100,6 +102,8 @@ export default function AdminRegisterPage() {
           email: formData.email.trim().toLowerCase(),
           mobile: formData.mobile.replace(/\D/g, ""),
           password: formData.password,
+          role: formData.role,
+          bio: formData.bio.trim(),
           agreeTerms: formData.agreeTerms,
         }),
       });
@@ -222,6 +226,37 @@ export default function AdminRegisterPage() {
                   {errors.mobile}
                 </p>
               )}
+            </div>
+
+            {/* Role Selector */}
+            <div>
+              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                Role *
+              </label>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleInputChange}
+                className="w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none"
+              >
+                <option value="Admin">Admin</option>
+                <option value="Instructor">Instructor</option>
+              </select>
+            </div>
+
+            {/* Bio Input */}
+            <div>
+              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                Bio <span className="text-text-muted font-normal normal-case">(optional)</span>
+              </label>
+              <textarea
+                name="bio"
+                value={formData.bio}
+                onChange={handleInputChange}
+                placeholder="Brief description about yourself or your role..."
+                rows={3}
+                className="w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary resize-none"
+              />
             </div>
 
             {/* Password Input */}

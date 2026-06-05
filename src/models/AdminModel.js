@@ -38,7 +38,15 @@ const AdminModel = {
     required: true,
     default: false,
   },
-
+  role: {
+    type: String,
+    enum: ["Admin", "Instructor"],
+    default: "Admin",
+  },
+  bio: {
+    type: String,
+    default: "",
+  },
   // Verification Status
   verified: {
     type: Boolean,

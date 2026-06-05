@@ -6,6 +6,37 @@ import Link from "next/link";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkLogin = () => {
+      const token = localStorage.getItem("userToken");
+      const data = localStorage.getItem("userData");
+      if (token && data) {
+        setIsLoggedIn(true);
+        try {
+          setUser(JSON.parse(data));
+        } catch (e) {
+          setUser(null);
+        }
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
+    };
+
+    checkLogin();
+    window.addEventListener("user-login-change", checkLogin);
+    return () => window.removeEventListener("user-login-change", checkLogin);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userData");
+    window.dispatchEvent(new Event("user-login-change"));
+    window.location.href = "/login";
+  };
 
   // Sync theme class with global document tag
   useEffect(() => {
@@ -72,12 +103,31 @@ export default function Navbar() {
               )}
             </button>
 
-            <Link href="/login" className="text-sm font-semibold text-text-muted hover:text-text-main px-3 py-2 transition-colors">
-              Log In
-            </Link>
-            <Link href="/register" className="bg-brand-primary text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-brand-primary/90 transition-all shadow-md">
-              Register
-            </Link>
+            {isLoggedIn ? (
+              <div className="flex items-center space-x-4">
+                <Link href="/profile" className="flex items-center space-x-2 text-sm font-semibold text-text-muted hover:text-text-main px-3 py-2 transition-colors bg-bg-main rounded-xl border border-border-main">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary text-white flex items-center justify-center text-xs font-bold">
+                    {user?.fullName?.charAt(0).toUpperCase() || "U"}
+                  </div>
+                  <span>{user?.fullName?.split(" ")[0] || "Profile"}</span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500/10 hover:bg-red-500 hover:text-white text-red-500 text-sm font-semibold px-4 py-2 rounded-xl transition-all"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link href="/login" className="text-sm font-semibold text-text-muted hover:text-text-main px-3 py-2 transition-colors">
+                  Log In
+                </Link>
+                <Link href="/register" className="bg-brand-primary text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-brand-primary/90 transition-all shadow-md">
+                  Register
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile View Right Side Controls */}
@@ -125,12 +175,38 @@ export default function Navbar() {
           ))}
           
           <div className="pt-4 mt-2 border-t border-border-main px-3 flex flex-col space-y-2">
-            <Link href="/login" className="w-full text-center text-base font-semibold text-text-muted hover:text-text-main py-2.5 transition-colors">
-              Log In
-            </Link>
-            <Link href="/register"     className="w-full bg-brand-primary text-center text-white text-base font-semibold py-3 rounded-xl hover:bg-brand-primary/90 transition-all shadow-md">
-              Register
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link
+                  href="/profile"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full flex items-center justify-center space-x-2 px-3 py-3 rounded-xl text-base font-semibold bg-bg-main text-text-main border border-border-main hover:bg-bg-card transition-all"
+                >
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary text-white flex items-center justify-center text-sm font-bold">
+                    {user?.fullName?.charAt(0).toUpperCase() || "U"}
+                  </div>
+                  <span>{user?.fullName || "My Profile"}</span>
+                </Link>
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    handleLogout();
+                  }}
+                  className="w-full bg-red-500 text-center text-white text-base font-semibold py-3 rounded-xl hover:bg-red-600 transition-all shadow-md"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" onClick={() => setIsOpen(false)} className="w-full text-center text-base font-semibold text-text-muted hover:text-text-main py-2.5 transition-colors">
+                  Log In
+                </Link>
+                <Link href="/register" onClick={() => setIsOpen(false)} className="w-full bg-brand-primary text-center text-white text-base font-semibold py-3 rounded-xl hover:bg-brand-primary/90 transition-all shadow-md">
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

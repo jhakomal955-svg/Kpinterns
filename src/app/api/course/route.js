@@ -62,8 +62,14 @@ export async function POST(request) {
 
     const data = await request.json();
 
-    // Validate required fields
-    const requiredFields = ["title", "description", "category", "instructor"];
+    // Validate required fields based on model
+    const requiredFields = [
+      "title",
+      "description",
+      "category",
+      "department",
+      "instructor",
+    ];
 
     for (const field of requiredFields) {
       if (!data[field]) {
@@ -72,6 +78,30 @@ export async function POST(request) {
           { status: 400 },
         );
       }
+    }
+
+    // Validate title length
+    if (data.title.length < 5) {
+      return Response.json(
+        { error: "Title must be at least 5 characters long" },
+        { status: 400 },
+      );
+    }
+
+    // Validate description length
+    if (data.description.length < 20) {
+      return Response.json(
+        { error: "Description must be at least 20 characters long" },
+        { status: 400 },
+      );
+    }
+
+    // Validate instructor is array with id
+    if (!Array.isArray(data.instructor) || !data.instructor[0]?.id) {
+      return Response.json(
+        { error: "Valid instructor ID is required" },
+        { status: 400 },
+      );
     }
 
     const Course = createModel("Course", CourseModel);

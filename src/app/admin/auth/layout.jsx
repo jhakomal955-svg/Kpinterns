@@ -9,6 +9,20 @@ export default function AdminAuthPage({ children }) {
   const pathname = usePathname();
   const isDashboard = pathname.includes("/dashboard");
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Check authentication status
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    setIsAuthenticated(!!token);
+    setIsLoading(false);
+
+    // Redirect unauthenticated users away from dashboard
+    if (!token && isDashboard) {
+      router.push("/admin/auth/login");
+    }
+  }, []);
 
   // Sync theme class with global document tag
   useEffect(() => {
@@ -19,6 +33,14 @@ export default function AdminAuthPage({ children }) {
       root.classList.remove("dark");
     }
   }, [isDarkMode]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-bg-main flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-bg-main transition-colors duration-200">

@@ -68,7 +68,7 @@ export async function POST(request) {
 
     const data = await request.json();
 
-    // Validate required fields
+    // Validate required fields based on model
     const requiredFields = [
       "title",
       "description",
@@ -76,6 +76,7 @@ export async function POST(request) {
       "department",
       "internshipType",
       "company",
+      "category",
       "createdBy",
     ];
 
@@ -86,6 +87,56 @@ export async function POST(request) {
           { status: 400 },
         );
       }
+    }
+
+    // Validate title length
+    if (data.title.length < 5) {
+      return Response.json(
+        { error: "Title must be at least 5 characters long" },
+        { status: 400 },
+      );
+    }
+
+    // Validate description length
+    if (data.description.length < 20) {
+      return Response.json(
+        { error: "Description must be at least 20 characters long" },
+        { status: 400 },
+      );
+    }
+
+    // Validate department enum
+    const validDepartments = [
+      "Bsc",
+      "BTech",
+      "BBA",
+      "BCom",
+      "BA",
+      "BCA",
+      "BScIT",
+      "BScCS",
+      "Other",
+    ];
+    if (!validDepartments.includes(data.department)) {
+      return Response.json(
+        { error: "Invalid department selected" },
+        { status: 400 },
+      );
+    }
+
+    // Validate internship type enum
+    const validTypes = [
+      "Full-Time",
+      "Part-Time",
+      "Summer",
+      "Winter",
+      "Project-Based",
+    ];
+    if (!validTypes.includes(data.internshipType)) {
+      return Response.json(
+        { error: "Invalid internship type selected" },
+        { status: 400 },
+      );
     }
 
     const Internship = createModel("Internship", InternshipModel);

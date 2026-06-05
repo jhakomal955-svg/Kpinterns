@@ -4,6 +4,7 @@
  */
 
 import { v2 as cloudinary } from "cloudinary";
+import { Readable } from "stream";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -44,6 +45,38 @@ export async function uploadToCloudinary(fileUri, options = {}) {
     console.error("❌ Cloudinary upload error:", error);
     throw error;
   }
+}
+
+/**
+ * Stream a file buffer directly to Cloudinary
+ * @param {Buffer} buffer - File buffer
+ * @param {object} options - Upload options
+ * @returns {Promise<object>} - Cloudinary response with secure_url
+ */
+export async function uploadBufferToCloudinary(buffer, options = {}) {
+  return new Promise((resolve, reject) => {
+    const defaultOptions = {
+      resource_type: "auto",
+      folder: "kpinterns",
+      timeout: 600000, // 10 minutes timeout
+      ...options,
+    };
+
+    const uploadStream = cloudinary.uploader.upload_stream(
+      defaultOptions,
+      (error, result) => {
+        if (error) {
+          console.error("❌ Cloudinary upload stream error:", error);
+          reject(error);
+        } else {
+          console.log("✅ File uploaded successfully via stream:", result.secure_url);
+          resolve(result);
+        }
+      }
+    );
+
+    Readable.from(buffer).pipe(uploadStream);
+  });
 }
 
 /**

@@ -33,17 +33,19 @@ export default function AdminLoginPage() {
 
   const validateForm = () => {
     const newErrors = {};
+    const emailOrPhone = formData.emailOrPhone.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneDigits = emailOrPhone.replace(/\D/g, "");
+    const phoneRegex = /^\d{10}$/;
 
-    if (!formData.emailOrPhone.trim()) {
+    if (!emailOrPhone) {
       newErrors.emailOrPhone = "Email or phone number is required";
-    } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$|^\d{10}$/.test(
-        formData.emailOrPhone.replace(/\D/g, ""),
-      )
-    ) {
-      if (formData.emailOrPhone.includes("@")) {
+    } else if (emailOrPhone.includes("@")) {
+      if (!emailRegex.test(emailOrPhone)) {
         newErrors.emailOrPhone = "Please enter a valid email address";
-      } else {
+      }
+    } else {
+      if (!phoneRegex.test(phoneDigits)) {
         newErrors.emailOrPhone = "Please enter a valid 10-digit phone number";
       }
     }
@@ -67,12 +69,37 @@ export default function AdminLoginPage() {
 
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Admin Login attempt with:", formData);
-      alert("Admin Login successful! Redirecting to dashboard...");
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          emailOrPhone: formData.emailOrPhone,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        if (data.data && data.data.verified === false) {
+          setErrors({
+            submit:
+              "Your profile is not verified yet. Once verified, you will be able to login.",
+          });
+          return;
+        }
+
+        localStorage.setItem("adminToken", data.token || "token-" + Date.now());
+        localStorage.setItem("adminData", JSON.stringify(data.data));
+        console.log("Admin Login successful:", data.data);
+        // Redirect to dashboard
+        window.location.href = "/admin/auth/dashboard";
+      } else {
+        setErrors({ submit: data.error || "Login failed" });
+      }
     } catch (error) {
       console.error("Login error:", error);
+      setErrors({ submit: "An error occurred. Please try again." });
     } finally {
       setIsLoading(false);
     }
@@ -202,18 +229,27 @@ export default function AdminLoginPage() {
               )}
             </div>
 
+            {/* Submit Error */}
+            {errors.submit && (
+              <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/50">
+                <p className="text-red-500 text-sm font-medium">
+                  {errors.submit}
+                </p>
+              </div>
+            )}
+
             {/* Remember Me Checkbox */}
             <label className="flex items-center p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
-              <div className="flex-shrink-0 w-6 h-6 border-2 border-border-main rounded group-hover:border-brand-primary transition-colors">
+              <div className="relative flex-shrink-0 w-6 h-6 border-2 border-border-main rounded-lg group-hover:border-brand-primary transition-colors mt-1">
                 <input
                   type="checkbox"
                   name="rememberMe"
                   checked={formData.rememberMe}
                   onChange={handleInputChange}
-                  className="w-full h-full accent-brand-primary cursor-pointer opacity-0"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
                 {formData.rememberMe && (
-                  <div className="w-full h-full flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center">
                     <svg
                       className="w-4 h-4 text-brand-primary"
                       fill="currentColor"

@@ -51,7 +51,14 @@ export async function POST(request) {
   try {
     await connectDB();
 
-    const data = await request.json();
+    const rawData = await request.json();
+    const data = {
+      name: rawData.name?.trim(),
+      email: rawData.email?.trim().toLowerCase(),
+      mobile: String(rawData.mobile || "").replace(/\D/g, ""),
+      password: rawData.password,
+      agreeTerms: rawData.agreeTerms,
+    };
 
     // Validate required fields
     const requiredFields = ["name", "email", "mobile", "password"];
@@ -63,6 +70,20 @@ export async function POST(request) {
           { status: 400 },
         );
       }
+    }
+
+    if (!data.mobile || data.mobile.length !== 10) {
+      return Response.json(
+        { error: "Please enter a valid 10-digit mobile number." },
+        { status: 400 },
+      );
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      return Response.json(
+        { error: "Please enter a valid email address." },
+        { status: 400 },
+      );
     }
 
     const Admin = createModel("Admin", AdminModel);

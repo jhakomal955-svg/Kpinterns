@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "../components/LayoutWrapper.jsx";
+import { AdminAuthProvider } from "@/context/AdminAuthContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={poppins.variable}>
       <body className="min-h-full flex flex-col font-poppins">
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <AdminAuthProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </AdminAuthProvider>
       </body>
     </html>
   );

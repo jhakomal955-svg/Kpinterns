@@ -14,6 +14,7 @@ export default function AdminRegisterPage() {
   });
 
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -91,14 +92,35 @@ export default function AdminRegisterPage() {
 
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Admin Registration with:", formData);
-      alert("Admin Registration successful! Please log in.");
-      // Redirect to login page
-      window.location.href = "/admin/auth/login";
+      const response = await fetch("/api/admin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim().toLowerCase(),
+          mobile: formData.mobile.replace(/\D/g, ""),
+          password: formData.password,
+          agreeTerms: formData.agreeTerms,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        console.log("Admin Registration successful");
+        setSuccessMessage(
+          "Registration successful! Your profile is pending verification. Once verified, you will be able to login.",
+        );
+        setErrors({});
+      } else {
+        setErrors({
+          submit: data.error || "Registration failed",
+          details: data.details,
+        });
+      }
     } catch (error) {
       console.error("Registration error:", error);
+      setErrors({ submit: "An error occurred. Please try again." });
     } finally {
       setIsLoading(false);
     }
@@ -336,16 +358,16 @@ export default function AdminRegisterPage() {
 
             {/* Terms and Conditions Checkbox */}
             <label className="flex items-start p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
-              <div className="flex-shrink-0 w-6 h-6 border-2 border-border-main rounded group-hover:border-brand-primary transition-colors mt-1">
+              <div className="relative flex-shrink-0 w-6 h-6 border-2 border-border-main rounded-lg group-hover:border-brand-primary transition-colors mt-1">
                 <input
                   type="checkbox"
                   name="agreeTerms"
                   checked={formData.agreeTerms}
                   onChange={handleInputChange}
-                  className="w-full h-full accent-brand-primary cursor-pointer opacity-0"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
                 {formData.agreeTerms && (
-                  <div className="w-full h-full flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center">
                     <svg
                       className="w-4 h-4 text-brand-primary"
                       fill="currentColor"
@@ -374,6 +396,22 @@ export default function AdminRegisterPage() {
               <p className="text-red-500 text-sm font-medium">
                 {errors.agreeTerms}
               </p>
+            )}
+
+            {errors.submit && (
+              <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-600 text-sm font-medium">
+                <p>{errors.submit}</p>
+                {errors.details && (
+                  <p className="mt-1 text-xs text-red-500">{errors.details}</p>
+                )}
+              </div>
+            )}
+
+            {/* Success Message */}
+            {successMessage && (
+              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/50 text-emerald-600 text-sm font-medium">
+                {successMessage}
+              </div>
             )}
 
             {/* Register Button */}

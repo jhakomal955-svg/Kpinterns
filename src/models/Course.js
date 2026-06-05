@@ -3,6 +3,9 @@
  * Represents an online/offline course with multimedia content
  */
 
+const mongoose = require("mongoose");
+const { department } = require("./UserModel");
+
 const CourseModel = {
   // Basic Information
   title: {
@@ -29,21 +32,14 @@ const CourseModel = {
     required: false,
     description: "Course thumbnail/cover image URL",
   },
+  department:{
+    type: String,
+    required: true,
+    enum: ["Bsc", "BTech", "BBA", "BCom", "BA", "BCA", "BScIT", "BScCS", "Other"],
+  },
   category: {
     type: String,
     required: true,
-    enum: [
-      "Web Development",
-      "Mobile Development",
-      "Data Science",
-      "Machine Learning",
-      "Cloud Computing",
-      "DevOps",
-      "UI/UX Design",
-      "Digital Marketing",
-      "Business",
-      "Other",
-    ],
   },
   difficultyLevel: {
     type: String,
@@ -52,24 +48,51 @@ const CourseModel = {
   },
 
   // Instructor/Admin Information
-  instructor: {
-    type: Object,
-    default: {},
-    required: false,
-  },
+  instructor:[{
+    id:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Admin",
+    }
+  }],
 
   // Course Content
-  content: {
-    type: Object,
-    default: {},
-    required: false,
-  },
+  content:[
+    {
+      title:{
+        type:String,
+      },
+      textContent:{
+        type:String,
+      },
+      VideoUrl:{
+        type:String
+      },
+      pdfurl:{
+       type:String
+      },
+      imageurl:{
+       type:String
+      },
+      externalink:{
+        type:String
+      }
+    }
+  ],
+
+  updates:[{
+    title:{
+      type:String,
+    },
+    externalLink:{
+      type:String
+    }
+  }],
 
   // Course Duration
   duration: {
-    type: Object,
-    default: {},
-    required: false,
+    type: String,
+    enum: ["1-week", "2-weeks", "1-month", "3-months", "6-months", "1-year"],
+    default: "1-month",
   },
 
   // Prerequisites

@@ -2,6 +2,7 @@
  * Internship Model
  * Represents an internship opportunity with multimedia content and company details
  */
+const mongoose = require("mongoose");
 
 const InternshipModel = {
   // Basic Information
@@ -10,6 +11,11 @@ const InternshipModel = {
     required: true,
     minlength: 5,
     maxlength: 200,
+    trim: true,
+  },
+  position: {
+    type: String,
+    required: true,
     trim: true,
   },
   description: {
@@ -39,17 +45,18 @@ const InternshipModel = {
 
   // Company Information
   company: {
-    type: Object,
-    default: {},
-    required: false,
+    type: String,
+    default: "Kpinterns",
+    required: true,
   },
 
   // Internship Details
-  position: {
+  department:{
     type: String,
     required: true,
+    enum: ["Bsc", "BTech", "BBA", "BCom", "BA", "BCA", "BScIT", "BScCS", "Other"],
   },
-  department: {
+  category: {
     type: String,
     required: true,
   },
@@ -66,9 +73,9 @@ const InternshipModel = {
 
   // Duration & Timeline
   duration: {
-    type: Object,
-    default: {},
-    required: false,
+    type: String,
+    enum: ["1-week", "2-weeks", "1-month", "3-months", "6-months", "1-year"],
+    default: "1-month",
   },
   applicationDeadline: Date,
 
@@ -85,11 +92,52 @@ const InternshipModel = {
   responsibilities: [String],
 
   // Content & Resources
-  content: {
-    type: Object,
-    default: {},
-    required: false,
-  },
+  instructor: [
+    {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Admin",
+        required: true,
+      },
+    },
+  ],
+
+  // Course Content
+  content: [
+    {
+      title: {
+        type: String,
+        required: true,
+      },
+      textContent: {
+        type: String,
+      }, 
+      VideoUrl: {
+        type: String,
+      },
+      pdfurl: {
+        type: String,
+      },
+      imageurl: {
+        type: String,
+      },
+      externalink: {
+        type: String,
+      },
+    },
+  ],
+
+  updates: [
+    {
+      title: {
+        type: String,
+        required: true,
+      },
+      externalLink: {
+        type: String,
+      },
+    },
+  ],
 
   RegistrationFee: {
     type: Object,
@@ -186,7 +234,6 @@ const InternshipModel = {
 
   // Metadata
   tags: [String],
-  category: String,
   createdAt: {
     type: Date,
     default: Date.now,

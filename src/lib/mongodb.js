@@ -4,6 +4,8 @@
  */
 
 import mongoose from "mongoose";
+import { UserModel, AdminModel, ContactModel, CourseModel, InternshipModel } from "@/models";
+import { createModel } from "@/lib/utils/schemaBuilder";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -32,6 +34,13 @@ async function connectDB() {
     cached.promise = mongoose
       .connect(MONGODB_URI, opts)
       .then((mongoose) => {
+        // Register all models centrally to prevent MissingSchemaError on populated references (e.g. Admin)
+        createModel("User", UserModel);
+        createModel("Admin", AdminModel);
+        createModel("Contact", ContactModel);
+        createModel("Course", CourseModel);
+        createModel("Internship", InternshipModel);
+
         console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         console.log("✅ MongoDB Connection Successful!");
         console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");

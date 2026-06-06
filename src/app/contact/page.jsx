@@ -183,13 +183,13 @@ export default function ContactPage() {
                   </h3>
                   <div className="space-y-2">
                     <a
-                      href="tel:9142113417"
+                      href="tel:1123456"
                       className="block text-text-main font-semibold hover:text-brand-primary transition-colors"
                     >
                         1234567890
                     </a>
                     <a
-                      href="tel:9142113417"
+                      href="tel:145678963"
                       className="block text-text-main font-semibold hover:text-brand-primary transition-colors"
                     >
                       0321654987

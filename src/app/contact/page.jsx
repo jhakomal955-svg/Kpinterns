@@ -186,13 +186,13 @@ export default function ContactPage() {
                       href="tel:9142113417"
                       className="block text-text-main font-semibold hover:text-brand-primary transition-colors"
                     >
-                        9142113417
+                        1234567890
                     </a>
                     <a
                       href="tel:9142113417"
                       className="block text-text-main font-semibold hover:text-brand-primary transition-colors"
                     >
-                      9142113417
+                      0321654987
                     </a>
                   </div>
                 </div>

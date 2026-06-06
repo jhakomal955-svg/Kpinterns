@@ -31,6 +31,14 @@ const AdminModel = {
     required: true,
     minlength: 6,
   },
+  resetOtp: {
+    type: String,
+    default: null,
+  },
+  resetOtpExpiry: {
+    type: Date,
+    default: null,
+  },
 
   // Terms & Conditions
   agreeTerms: {

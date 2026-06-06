@@ -1,0 +1,134 @@
+/**
+ * Admin Forgot Password API Route
+ * Handles requesting a reset OTP and verifying it to set a new password for administrators
+ */
+
+import connectDB from "@/lib/mongodb";
+import { createModel } from "@/lib/utils/schemaBuilder";
+import { AdminModel } from "@/models";
+
+// POST: Request Reset OTP
+export async function POST(request) {
+  try {
+    await connectDB();
+
+    const { email, mobile } = await request.json();
+
+    if (!email || !mobile) {
+      return Response.json(
+        { error: "Email and mobile number are required" },
+        { status: 400 }
+      );
+    }
+
+    const Admin = createModel("Admin", AdminModel);
+
+    // Find admin by both email and mobile
+    const admin = await Admin.findOne({
+      email: email.trim().toLowerCase(),
+      mobile: mobile.trim().replace(/\D/g, ""),
+    });
+
+    if (!admin) {
+      return Response.json(
+        { error: "Admin not found. Please verify your email and mobile number." },
+        { status: 404 }
+      );
+    }
+
+    // Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Set OTP and 10 minute expiry
+    admin.resetOtp = otp;
+    admin.resetOtpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+    await admin.save();
+
+    console.log(`[FORGOT PASSWORD OTP - ADMIN: ${admin.email}] OTP: ${otp}`);
+
+    // Return success response (leak OTP for mock development usage)
+    return Response.json(
+      {
+        success: true,
+        message: "A password reset OTP has been generated successfully.",
+        otp, // In production, we'd send this via email/SMS and NOT return it in JSON
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error initiating admin forgot-password:", error);
+    return Response.json(
+      { error: "Failed to initiate password reset", details: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+// PUT: Reset Password using OTP
+export async function PUT(request) {
+  try {
+    await connectDB();
+
+    const { email, otp, newPassword } = await request.json();
+
+    if (!email || !otp || !newPassword) {
+      return Response.json(
+        { error: "All fields (Email, OTP, and New Password) are required" },
+        { status: 400 }
+      );
+    }
+
+    if (newPassword.length < 6) {
+      return Response.json(
+        { error: "Password must be at least 6 characters long" },
+        { status: 400 }
+      );
+    }
+
+    const Admin = createModel("Admin", AdminModel);
+
+    const admin = await Admin.findOne({ email: email.trim().toLowerCase() });
+
+    if (!admin) {
+      return Response.json(
+        { error: "Admin not found" },
+        { status: 404 }
+      );
+    }
+
+    // Verify OTP matches and has not expired
+    if (!admin.resetOtp || admin.resetOtp !== otp.trim()) {
+      return Response.json(
+        { error: "Invalid OTP code. Please try again." },
+        { status: 400 }
+      );
+    }
+
+    if (!admin.resetOtpExpiry || new Date(admin.resetOtpExpiry) < new Date()) {
+      return Response.json(
+        { error: "The OTP code has expired. Please request a new code." },
+        { status: 400 }
+      );
+    }
+
+    // Update password (using plain-text to keep consistency with the current codebase)
+    admin.password = newPassword;
+    admin.resetOtp = null;
+    admin.resetOtpExpiry = null;
+    await admin.save();
+
+    return Response.json(
+      {
+        success: true,
+        message: "Your password has been reset successfully. You can now login with your new credentials.",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error finalizing admin forgot-password:", error);
+    return Response.json(
+      { error: "Failed to reset password", details: error.message },
+      { status: 500 }
+    );
+  }
+}

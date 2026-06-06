@@ -398,7 +398,7 @@ export default function DashboardLayout({ children }) {
       {/* Main Content */}
       <main className="flex-1 flex flex-col w-full lg:ml-64">
         {/* Mobile Header */}
-        <div className="lg:hidden bg-bg-card border-b border-border-main flex items-center justify-between sticky top-0 z-20">
+        <div className="lg:hidden bg-bg-card border-b border-border-main flex items-center justify-between sticky top-0 z-20 py-2">
           <div className="flex items-center">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}

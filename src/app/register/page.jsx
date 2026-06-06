@@ -1165,6 +1165,7 @@ export default function RegisterPage() {
   });
 
   const [errors, setErrors] = useState({});
+  const [completedPaymentDetails, setCompletedPaymentDetails] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const totalSteps = 4;
@@ -1381,12 +1382,19 @@ export default function RegisterPage() {
 
         const payableAmount = getPayableAmount();
 
-        if (payableAmount === 0) {
-          // Free path - register directly without payment
+        const hasValidExistingPayment = 
+          completedPaymentDetails &&
+          completedPaymentDetails.type === purchaseType &&
+          completedPaymentDetails.itemId === finalItemId &&
+          completedPaymentDetails.amount === payableAmount;
+
+        if (payableAmount === 0 || hasValidExistingPayment) {
+          // Free path or already paid - register directly
           const userPayload = {
             ...formData,
             courseId: purchaseType === "course" ? finalItemId : undefined,
             internshipId: purchaseType === "internship" ? finalItemId : undefined,
+            paymentDetails: hasValidExistingPayment ? completedPaymentDetails : undefined,
           };
 
           const response = await fetch("/api/user", {
@@ -1435,17 +1443,23 @@ export default function RegisterPage() {
             handler: async function (response) {
               try {
                 setIsLoading(true);
+                const paymentInfo = {
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_signature: response.razorpay_signature,
+                  type: purchaseType,
+                  itemId: finalItemId,
+                  amount: payableAmount,
+                };
+
+                // Store payment details in state in case registration submission fails
+                setCompletedPaymentDetails(paymentInfo);
+
                 const userPayload = {
                   ...formData,
                   courseId: purchaseType === "course" ? finalItemId : undefined,
                   internshipId: purchaseType === "internship" ? finalItemId : undefined,
-                  paymentDetails: {
-                    razorpay_payment_id: response.razorpay_payment_id,
-                    razorpay_order_id: response.razorpay_order_id,
-                    razorpay_signature: response.razorpay_signature,
-                    type: purchaseType,
-                    itemId: finalItemId,
-                  },
+                  paymentDetails: paymentInfo,
                 };
 
                 const resRegister = await fetch("/api/user", {

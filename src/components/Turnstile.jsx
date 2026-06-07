@@ -27,7 +27,7 @@ export default function Turnstile({ onSuccess, theme = "dark" }) {
           const id = window.turnstile.render(containerRef.current, {
             sitekey: siteKey,
             theme: theme,
-            size: "flexible",
+            size: "normal",
             callback: (token) => {
               if (onSuccess) onSuccess(token);
             },
@@ -88,7 +88,7 @@ export default function Turnstile({ onSuccess, theme = "dark" }) {
 
   return (
     <div className="w-full">
-      <div ref={containerRef} className="w-full" />
+      <div ref={containerRef} className="w-full flex justify-center" />
     </div>
   );
 }

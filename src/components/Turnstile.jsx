@@ -24,8 +24,6 @@ export default function Turnstile({ onSuccess, theme = "dark" }) {
     const renderWidget = () => {
       if (window.turnstile && containerRef.current && !widgetIdRef.current) {
         try {
-          console.log("🔍 NEXT_PUBLIC_TURNSTILE_SITE_KEY env:", process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
-          console.log("🔍 Rendering Turnstile with siteKey:", siteKey);
           const id = window.turnstile.render(containerRef.current, {
             sitekey: siteKey,
             theme: theme,

@@ -10,8 +10,23 @@ export default function Turnstile({ onSuccess, theme = "dark" }) {
   const configuredSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAADgYmAR21zK4jKhe";
   const [siteKey, setSiteKey] = useState(configuredSiteKey);
 
-  // Sync state if the prop or env value changes
+  // Store the onSuccess callback in a ref to avoid infinite re-render loop
+  const onSuccessRef = useRef(onSuccess);
   useEffect(() => {
+    onSuccessRef.current = onSuccess;
+  }, [onSuccess]);
+
+  // Sync state if the prop or env value changes, and handle local host key check upfront
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isLocal = window.location.hostname === "localhost" || 
+                      window.location.hostname === "127.0.0.1" || 
+                      window.location.hostname.startsWith("192.168.");
+      if (isLocal && configuredSiteKey !== "1x00000000000000000000AA") {
+        setSiteKey("1x00000000000000000000AA");
+        return;
+      }
+    }
     setSiteKey(configuredSiteKey);
   }, [configuredSiteKey]);
 
@@ -31,7 +46,7 @@ export default function Turnstile({ onSuccess, theme = "dark" }) {
             theme: theme,
             size: "normal",
             callback: (token) => {
-              if (onSuccess) onSuccess(token);
+              if (onSuccessRef.current) onSuccessRef.current(token);
             },
             "error-callback": (errorCode) => {
               console.warn(`⚠️ Cloudflare Turnstile error ${errorCode} for sitekey: ${siteKey}`);
@@ -86,7 +101,7 @@ export default function Turnstile({ onSuccess, theme = "dark" }) {
         }
       }
     };
-  }, [siteKey, theme, onSuccess]);
+  }, [siteKey, theme]);
 
   return (
     <div className="w-full">

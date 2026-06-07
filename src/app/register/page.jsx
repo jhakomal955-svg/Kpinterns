@@ -1950,7 +1950,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-bg-card rounded-3xl shadow-xl p-8 sm:p-12 border border-border-main backdrop-blur-sm">
+        <div className="bg-bg-card rounded-3xl shadow-xl p-5 sm:p-12 border border-border-main backdrop-blur-sm">
           <form onSubmit={handleSubmit}>
             {/* Step 1: Personal Information */}
             {step === 1 && (
@@ -2011,7 +2011,7 @@ export default function RegisterPage() {
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Email Address *
                     </label>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="email"
                         name="email"
@@ -2019,7 +2019,7 @@ export default function RegisterPage() {
                         onChange={handleInputChange}
                         disabled={isEmailVerified}
                         placeholder="you@example.com"
-                        className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        className={`w-full sm:flex-1 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                           errors.email ? "border-red-500" : "border-border-main"
                         } ${isEmailVerified ? "opacity-60 cursor-not-allowed bg-emerald-500/5 border-emerald-500/30" : ""}`}
                       />
@@ -2028,7 +2028,7 @@ export default function RegisterPage() {
                           type="button"
                           onClick={handleSendOtp}
                           disabled={otpLoading || otpCooldown > 0}
-                          className="px-4 py-3 bg-brand-primary hover:bg-brand-primary/90 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[110px]"
+                          className="w-full sm:w-auto px-4 py-3 bg-brand-primary hover:bg-brand-primary/90 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center sm:min-w-[110px]"
                         >
                           {otpLoading ? (
                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -2057,20 +2057,20 @@ export default function RegisterPage() {
                       <label className="block text-sm font-semibold text-text-main">
                         Enter Verification Code *
                       </label>
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
                         <input
                           type="text"
                           maxLength={6}
                           value={otpInput}
                           onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ""))}
                           placeholder="Enter 6-digit OTP"
-                          className="flex-1 px-4 py-3 rounded-xl border-2 border-border-main focus:outline-none focus:border-brand-primary bg-bg-main font-mono text-center tracking-widest text-lg font-bold"
+                          className="w-full sm:flex-1 px-4 py-3 rounded-xl border-2 border-border-main focus:outline-none focus:border-brand-primary bg-bg-main font-mono text-center tracking-widest text-lg font-bold"
                         />
                         <button
                           type="button"
                           onClick={handleVerifyOtp}
                           disabled={otpInput.length !== 6 || otpVerifyLoading}
-                          className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                          className="w-full sm:w-auto px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                         >
                           {otpVerifyLoading ? (
                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -2613,7 +2613,7 @@ export default function RegisterPage() {
 
                 {/* Summary Details Grid */}
                 <div className="bg-bg-main border border-border-main rounded-2xl p-6 space-y-4 text-sm font-poppins">
-                  <div className="grid grid-cols-2 gap-y-3 gap-x-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
                     <div>
                       <span className="text-text-muted text-xs block">Full Name</span>
                       <span className="text-text-main font-semibold">{formData.fullName}</span>
@@ -2630,7 +2630,7 @@ export default function RegisterPage() {
                       <span className="text-text-muted text-xs block">Parent's Name</span>
                       <span className="text-text-main font-semibold">{formData.parentName}</span>
                     </div>
-                    <div className="col-span-2 border-t border-border-main/50 my-1"></div>
+                    <div className="sm:col-span-2 border-t border-border-main/50 my-1"></div>
                     <div>
                       <span className="text-text-muted text-xs block">College</span>
                       <span className="text-text-main font-semibold">{formData.college}</span>

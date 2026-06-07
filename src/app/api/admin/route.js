@@ -9,11 +9,18 @@
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { AdminModel } from "@/models";
+import { AdminModel, VerificationOtpModel } from "@/models";
+import { verifyAuth } from "@/lib/jwt";
 
 export async function GET(request) {
   try {
     await connectDB();
+
+    // Authenticate Admin or Instructor
+    const auth = verifyAuth(request, ["Admin", "Instructor"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
 
     const url = new URL(request.url);
     const adminId = url.searchParams.get("id");
@@ -52,13 +59,43 @@ export async function POST(request) {
     await connectDB();
 
     const rawData = await request.json();
+    const cleanEmail = rawData.email?.trim().toLowerCase();
+
+    // Check if registration originates from the admin dashboard (bypasses OTP verification)
+    const isDashboardCreation = rawData.isAdminCreation === true;
+
+    // If it is dashboard creation, only authenticated Admins are allowed to do this
+    if (isDashboardCreation) {
+      const auth = verifyAuth(request, ["Admin"]);
+      if (!auth.authenticated) {
+        return Response.json({ error: auth.error }, { status: auth.status });
+      }
+    }
+
+    const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
+
+    if (!isDashboardCreation) {
+      // Verify OTP first before any processing or DB checks
+      const verifiedOtpRecord = await VerificationOtp.findOne({
+        email: cleanEmail,
+        verified: true,
+        verifiedAt: { $gte: new Date(Date.now() - 30 * 60 * 1000) } // verified within the last 30 minutes
+      });
+
+      if (!verifiedOtpRecord) {
+        return Response.json(
+          { error: "Email address not verified. Please verify your email with OTP first." },
+          { status: 400 }
+        );
+      }
+    }
     const data = {
       name: rawData.name?.trim(),
       email: rawData.email?.trim().toLowerCase(),
       mobile: String(rawData.mobile || "").replace(/\D/g, ""),
       password: rawData.password,
       agreeTerms: rawData.agreeTerms,
-      verified: rawData.verified !== undefined ? rawData.verified : false,
+      verified: isDashboardCreation ? (rawData.verified === true) : false,
       role: rawData.role || "Admin",
       bio: rawData.bio?.trim() || "",
     };
@@ -91,14 +128,20 @@ export async function POST(request) {
 
     const Admin = createModel("Admin", AdminModel);
 
-    // Check if admin with email or mobile already exists
-    const existingAdmin = await Admin.findOne({
-      $or: [{ email: data.email }, { mobile: data.mobile }],
-    });
-
-    if (existingAdmin) {
+    // Check if email already exists
+    const existingEmail = await Admin.findOne({ email: data.email });
+    if (existingEmail) {
       return Response.json(
-        { error: "Admin with this email or mobile already exists" },
+        { error: "Admin with this email already exists" },
+        { status: 400 },
+      );
+    }
+
+    // Check if mobile number already exists
+    const existingMobile = await Admin.findOne({ mobile: data.mobile });
+    if (existingMobile) {
+      return Response.json(
+        { error: "Admin with this mobile number already exists" },
         { status: 400 },
       );
     }
@@ -106,6 +149,11 @@ export async function POST(request) {
     // Create new admin
     const newAdmin = new Admin(data);
     await newAdmin.save();
+
+    // Delete the verified OTP record so it cannot be reused
+    if (!isDashboardCreation) {
+      await VerificationOtp.deleteOne({ email: cleanEmail });
+    }
 
     console.log("✅ Admin created successfully:", newAdmin._id);
 
@@ -130,6 +178,12 @@ export async function PUT(request) {
   try {
     await connectDB();
 
+    // Authenticate Admin or Instructor
+    const auth = verifyAuth(request, ["Admin", "Instructor"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const url = new URL(request.url);
     const adminId = url.searchParams.get("id");
 
@@ -137,8 +191,22 @@ export async function PUT(request) {
       return Response.json({ error: "Admin ID is required" }, { status: 400 });
     }
 
+    // Role-based validation: Instructors can only edit their own profile
+    if (auth.user.role === "Instructor" && auth.user._id !== adminId) {
+      return Response.json(
+        { error: "Access denied: Instructors can only edit their own profile." },
+        { status: 403 }
+      );
+    }
+
     const data = await request.json();
     const Admin = createModel("Admin", AdminModel);
+
+    // Only Admins can modify verification status and roles
+    if (auth.user.role !== "Admin") {
+      delete data.verified;
+      delete data.role;
+    }
 
     // Update admin
     const updatedAdmin = await Admin.findByIdAndUpdate(adminId, data, {
@@ -173,11 +241,22 @@ export async function DELETE(request) {
   try {
     await connectDB();
 
+    // Authenticate Admin
+    const auth = verifyAuth(request, ["Admin"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const url = new URL(request.url);
     const adminId = url.searchParams.get("id");
 
     if (!adminId) {
       return Response.json({ error: "Admin ID is required" }, { status: 400 });
+    }
+
+    // Prevent deleting oneself
+    if (auth.user._id === adminId) {
+      return Response.json({ error: "Cannot delete your own admin account." }, { status: 400 });
     }
 
     const Admin = createModel("Admin", AdminModel);

@@ -11,476 +11,562 @@ const universitiesData = {
     colleges: {
       "gpt-patna": {
         name: "Government Polytechnic, Patna-13 (Gulzarbagh)",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       ngp: {
         name: "New Government Polytechnic (NGP), Patna",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-muzaffarpur": {
         name: "Government Polytechnic, Muzaffarpur",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-bhagalpur": {
         name: "Government Polytechnic, Bhagalpur",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-gaya": {
         name: "Government Polytechnic, Gaya",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-chapra": {
         name: "Government Polytechnic, Chapra",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-darbhanga": {
         name: "Government Polytechnic, Darbhanga",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-purnia": {
         name: "Government Polytechnic, Purnia",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-saharsa": {
         name: "Government Polytechnic, Saharsa",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-katihar": {
         name: "Government Polytechnic, Katihar",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-madhubani": {
         name: "Government Polytechnic, Madhubani",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-munger": {
         name: "Government Polytechnic, Munger",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-sitamarhi": {
         name: "Government Polytechnic, Sitamarhi",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-jamui": {
         name: "Government Polytechnic, Jamui",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-kishanganj": {
         name: "Government Polytechnic, Kishanganj",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-lakhisarai": {
         name: "Government Polytechnic, Lakhisarai",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-aurangabad": {
         name: "Government Polytechnic, Aurangabad",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-gopalganj": {
         name: "Government Polytechnic, Gopalganj",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-buxar": {
         name: "Government Polytechnic, Buxar",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-jehanabad": {
         name: "Government Polytechnic, Jehanabad",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-khagaria": {
         name: "Government Polytechnic, Khagaria",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-sheohar": {
         name: "Government Polytechnic, Sheohar",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-araria": {
         name: "Government Polytechnic, Araria",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-banka": {
         name: "Government Polytechnic, Banka",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-begusarai": {
         name: "Government Polytechnic, Begusarai",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-kaimur": {
         name: "Kaimur Government Polytechnic",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-motihari": {
         name: "Motihari (Champaran) Government Polytechnic",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-vaishali": {
         name: "Vaishali Government Polytechnic",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gpt-siwan": {
         name: "Siwan Government Polytechnic",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "lnjpit-chapra": {
         name: "Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gwp-patna": {
         name: "Government Women's Polytechnic, Patna",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gwp-muzaffarpur": {
         name: "Government Women's Polytechnic, Muzaffarpur",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gwp-gaya": {
         name: "Government Women's Polytechnic, Gaya",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gwp-darbhanga": {
         name: "Government Women's Polytechnic, Darbhanga",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "mp-purnia": {
         name: "Millia Polytechnic, Purnia",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "bit-gaya": {
         name: "Buddha Institute of Technology (BIT), Gaya",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "sit-aurangabad": {
         name: "Sityog Institute of Technology, Aurangabad",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "crk-hajipur": {
         name: "C.R.K. Polytechnic, Hajipur",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "nsit-patna": {
         name: "Netaji Subhas Institute of Technology (NSIT), Patna",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "hit-patna": {
         name: "Himalaya Institute of Technology (HIT), Patna",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gmcp-nalanda": {
         name: "Ganga Memorial College of Polytechnic, Nalanda",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "fsrp-madhubani": {
         name: "SF Sri Ram Polytechnic, Madhubani",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "acet-kishanganj": {
         name: "Azmet College of Engineering and Technology, Kishanganj",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
     },
   },
@@ -489,421 +575,497 @@ const universitiesData = {
     colleges: {
       mit: {
         name: "MIT - Muzaffarpur Institute of Technology",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       bce: {
         name: "BCE - Bhagalpur College of Engineering",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       dce: {
         name: "DCE - Darbhanga College of Engineering",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       gce: {
         name: "Gaya College of Engineering",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       nce: {
         name: "Nalanda College of Engineering",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       mce: {
         name: "MCE - Motihari College of Engineering",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       lnjpit: {
         name: "LNJPIT - Loknayak Jai Prakash Institute of Technology",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       rrsdce: {
         name: "RRSDCE - Rashtrakavi Ramdhari Singh Dinkar College of Engineering, Begusarai",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       kec: {
         name: "Katihar Engineering College",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       pce: {
         name: "PCE - Purnea College of Engineering",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "sce-supaul": {
         name: "SCE - Supaul College of Engineering",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       sit: {
         name: "Sitamarhi Institute of Technology",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "bce-bakhtiyarpur": {
         name: "Bakhtiyarpur College of Engineering",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       bpmce: {
         name: "B.P. Mandal College of Engineering, Madhepura",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "sec-sasaram": {
         name: "SEC - Shershah Engineering College, Sasaram",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "sec-saharsa": {
         name: "SEC - Saharsa Engineering College, Saharsa",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-vaishali": {
         name: "GEC - Government Engineering College, Vaishali",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-jamui": {
         name: "GEC - Government Engineering College, Jamui",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-banka": {
         name: "GEC - Government Engineering College, Banka",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-nawada": {
         name: "GEC - Government Engineering College, Nawada",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-kishanganj": {
         name: "GEC - Government Engineering College, Kishanganj",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       spnrec: {
         name: "Shri Phanishwar Nath Renu Engineering College, Araria",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-munger": {
         name: "GEC - Government Engineering College, Munger",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-sheohar": {
         name: "GEC - Government Engineering College, Sheohar",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-champaran": {
         name: "GEC - Government Engineering College, West Champaran",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-aurangabad": {
         name: "GEC - Government Engineering College, Aurangabad",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-kaimur": {
         name: "GEC - Government Engineering College, Kaimur",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-gopalganj": {
         name: "GEC - Government Engineering College, Gopalganj",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-madhubani": {
         name: "GEC - Government Engineering College, Madhubani",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-siwan": {
         name: "GEC - Government Engineering College, Siwan",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-jehanabad": {
         name: "GEC - Government Engineering College, Jehanabad",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-arwal": {
         name: "GEC - Government Engineering College, Arwal",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-khagaria": {
         name: "GEC - Government Engineering College, Khagaria",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-buxar": {
         name: "GEC - Government Engineering College, Buxar",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-bhojpur": {
         name: "GEC - Government Engineering College, Bhojpur",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-sheikhpura": {
         name: "GEC - Government Engineering College, Sheikhpura",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       "gec-samastipur": {
         name: "GEC - Government Engineering College, Samastipur",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
       bitp: {
         name: "Birla Institute of Technology, Patna",
-        departments: [
-          "Civil Engineering",
-          "Mechanical Engineering",
-          "Electrical Engineering",
-          "Electronics & Communication",
-          "Computer Science & Engineering",
-          "Chemical Engineering",
-        ],
+        departments: {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
       },
     },
   },
@@ -912,87 +1074,165 @@ const universitiesData = {
     colleges: {
       adarsh: {
         name: "Adarsh College, Ghairh Jiwachpur Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "bss-chandrakanta": {
         name: "B S S Chandrakanta College, Ranjanapuri, Uda Kishunganj Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       bsrk: {
         name: "B.S.R.K. College, Singheshwar Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "bnm-vaijya": {
         name: "Bhupendra Narayan Mandal Vanijya Mahavidyalaya, Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "cm-science": {
         name: "C. M. Science Degree College, Ward No.-01 Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "deo-nandini": {
         name: "Deo Nandini Degree College, Bakhri Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "evening-college": {
         name: "Evening College, Ward No-02, Kaushalya Gram Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "harihar-saha": {
         name: "Harihar Saha College, NH-106, Udakishungunj Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "kb-womens": {
         name: "K.B. Womens College Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "kamla-rana": {
         name: "Kamla Rana Science College, Prashant Nagar, Puraini Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       kamleshwari: {
         name: "Kamleshwari Prasad College, NH-107, Murliganj Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "madhepura-college": {
         name: "Madhepura College, Kaushalya Gram Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "mohan-shakuntala": {
         name: "Mohan Shakuntala Teacher's Training College, University Chowk Madhepura",
-        departments: ["Education"],
+        departments: {
+          "Education": ["General Teacher Training"]
+        },
       },
       "parwati-science": {
         name: "Parwati Science College, Kiritinagar, Ward No.-04 Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       rpm: {
         name: "Rpm College, Tuniyahi Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "sant-awadh": {
         name: "Sant Awadh Kiriti Narayan Degree College, Kiriti Nagar, Ward No-04 Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "shivnandan-prasad": {
         name: "Shivnandan Prasad Mandal Law College, Ward No-20 Madhepura",
-        departments: ["Law"],
+        departments: {
+          "Law": ["Civil Law", "Criminal Law", "Corporate Law"]
+        },
       },
       "scb-education": {
         name: "Subhash Chandra Bose College Of Education, Israin Khurd, Kumarkhand Madhepura",
-        departments: ["Education"],
+        departments: {
+          "Education": ["General Teacher Training"]
+        },
       },
       "thakur-prasad": {
         name: "Thakur Prasad College, College Chowk Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       uvk: {
         name: "U V K College, Karama, PO-Bhagipur, Puraini Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "womens-college": {
         name: "Women's College, Ward No-02, Kaushalya Gram Madhepura",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
     },
   },
@@ -1001,39 +1241,71 @@ const universitiesData = {
     colleges: {
       "banwari-shankar": {
         name: "Banwari Shankar College, Simraha Saharsa",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "east-west-ttc": {
         name: "East N West Teachers Training College, Sahmoura Colony, Patuaha Saharsa",
-        departments: ["Education"],
+        departments: {
+          "Education": ["General Teacher Training"]
+        },
       },
       "evening-saharsa": {
         name: "Evening College Saharsa, By Pass Road, Tiwari Tola Saharsa",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "lahtan-choudhary": {
         name: "Lahtan Choudhary College Pastwar, Baluaha, Mahishi Saharsa",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "laxmi-nath": {
         name: "Laxmi Nath College, PO-Bangaon Saharsa",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "maharaja-hariballav": {
         name: "Maharaja Hariballav Memorial College, SH-59, Soha Sonbarsa Raj Saharsa",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "manohar-lal": {
         name: "Manohar Lal Tekriwal College, Purab Bazaar Saharsa",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
       "rmm-law": {
         name: "R.M.M. Law College, Purab Bazar Saharsa",
-        departments: ["Law"],
+        departments: {
+          "Law": ["Civil Law", "Criminal Law", "Corporate Law"]
+        },
       },
       "rajendra-mishra": {
         name: "Rajendra Mishra College, By Pass Road, Tiwari Tola Saharsa",
-        departments: ["Arts (BA)", "Science (BSc)", "Commerce (BCom)"],
+        departments: {
+          "BA": ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          "BCom": ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        },
       },
     },
   },
@@ -1154,10 +1426,6 @@ export default function RegisterPage() {
     registrationNumber: "",
     internshipDomain: "",
     mode: "",
-    // Emergency Contact
-    emergencyName: "",
-    emergencyNumber: "",
-    relationship: "",
     // Security
     password: "",
     confirmPassword: "",
@@ -1168,11 +1436,183 @@ export default function RegisterPage() {
   const [completedPaymentDetails, setCompletedPaymentDetails] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
+  // Email Verification states
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpInput, setOtpInput] = useState("");
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
+  const [otpCooldown, setOtpCooldown] = useState(0);
+  const [otpError, setOtpError] = useState("");
+
+  useEffect(() => {
+    let timer;
+    if (otpCooldown > 0) {
+      timer = setTimeout(() => setOtpCooldown(otpCooldown - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [otpCooldown]);
+
+  const handleSendOtp = async () => {
+    setOtpError("");
+    if (!formData.email.trim()) {
+      setErrors((prev) => ({ ...prev, email: "Email is required to send OTP" }));
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setErrors((prev) => ({ ...prev, email: "Invalid email format" }));
+      return;
+    }
+
+    setOtpLoading(true);
+    try {
+      const res = await fetch("/api/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setOtpSent(true);
+        setOtpCooldown(60);
+        alert(data.message || "OTP sent successfully!");
+        if (data.otp) {
+          console.log(`[DEV ONLY] OTP Code: ${data.otp}`);
+        }
+      } else {
+        setOtpError(data.error || "Failed to send OTP.");
+      }
+    } catch (err) {
+      console.error(err);
+      setOtpError("Failed to request OTP. Please try again.");
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setOtpError("");
+    if (otpInput.length !== 6) {
+      setOtpError("Please enter a valid 6-digit OTP code");
+      return;
+    }
+
+    setOtpVerifyLoading(true);
+    try {
+      const res = await fetch("/api/otp/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email, otp: otpInput }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsEmailVerified(true);
+        setOtpSent(false);
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors.email;
+          return newErrors;
+        });
+      } else {
+        setOtpError(data.error || "Invalid OTP code.");
+      }
+    } catch (err) {
+      console.error(err);
+      setOtpError("Verification failed. Please try again.");
+    } finally {
+      setOtpVerifyLoading(false);
+    }
+  };
+
   const totalSteps = 4;
-  const stepTitles = ["Personal", "Academic", "Emergency", "Security"];
+  const stepTitles = ["Personal", "Academic", "Security & Payments","Register"];
+
+  const handlePayFee = async () => {
+    setIsLoading(true);
+    try {
+      let finalItemId = itemId;
+      if (!finalItemId && purchaseType === "internship" && formData.internshipDomain) {
+        const matched = dbInternships.find(
+          (item) => item.domain === formData.internshipDomain || item.category === formData.internshipDomain
+        );
+        finalItemId = matched?._id;
+      }
+
+      const payableAmount = getPayableAmount();
+
+      const resOrder = await fetch("/api/payment/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: purchaseType, itemId: finalItemId }),
+      });
+
+      const orderData = await resOrder.json();
+      if (!resOrder.ok) {
+        throw new Error(orderData.error || "Failed to initiate payment");
+      }
+
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        alert("Failed to load payment gateway. Please check your internet connection.");
+        setIsLoading(false);
+        return;
+      }
+
+      const options = {
+        key: orderData.key,
+        amount: orderData.amount * 100,
+        currency: orderData.currency,
+        name: "KpInterns",
+        description: `Payment for ${orderData.title}`,
+        order_id: orderData.orderId,
+        handler: async function (response) {
+          const paymentInfo = {
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+            type: purchaseType,
+            itemId: finalItemId,
+            amount: payableAmount,
+          };
+          setCompletedPaymentDetails(paymentInfo);
+          setErrors((prev) => {
+            const newErrors = { ...prev };
+            delete newErrors.payment;
+            return newErrors;
+          });
+          alert("Payment successful! You can now proceed to the next step.");
+          setIsLoading(false);
+        },
+        prefill: {
+          name: formData.fullName,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: {
+          color: "#2563eb",
+        },
+        modal: {
+          ondismiss: function () {
+            setIsLoading(false);
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert(error.message || "An error occurred. Please try again.");
+      setIsLoading(false);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    if (["university", "college", "degree", "internshipDomain"].includes(name)) {
+      setCompletedPaymentDetails(null);
+    }
 
     if (name === "university") {
       // Reset college and department when university changes
@@ -1225,12 +1665,18 @@ export default function RegisterPage() {
 
   // Get available departments for selected college
   const getAvailableDepartments = () => {
-    if (!formData.university || !formData.college) return [];
+    if (!formData.university || !formData.college || !formData.degree) return [];
     const universityData = universitiesData[formData.university];
     if (!universityData) return [];
     const collegeData = universityData.colleges[formData.college];
     if (!collegeData) return [];
-    return collegeData.departments;
+    
+    let degreeKey = formData.degree;
+    if (degreeKey === "Bcom") degreeKey = "BCom";
+    if (degreeKey === "Bsc") degreeKey = "BSc";
+    
+    const depts = collegeData.departments?.[degreeKey];
+    return Array.isArray(depts) ? depts : [];
   };
 
   // Get available semesters count based on degree
@@ -1245,7 +1691,7 @@ export default function RegisterPage() {
       return 6; // 3-year diploma program
     } else if (formData.degree === "B.Tech") {
       return 8; // 4-year B.Tech program
-    } else if (formData.degree === "Bachelor") {
+    } else if (["Bachelor", "BA", "Bcom", "Bsc"].includes(formData.degree)) {
       return 6; // 3-year non-tech bachelor program (BA/BSc/BCom)
     } else if (formData.degree === "Master") {
       return 4; // 2-year master program (MA/MSc/MCom)
@@ -1271,6 +1717,9 @@ export default function RegisterPage() {
     );
 
     const isStudentBusiness = (
+      lowerStudentDeg === "ba" ||
+      lowerStudentDeg === "bcom" ||
+      lowerStudentDeg === "bsc" ||
       lowerStudentDept.includes("commerce") || 
       lowerStudentDept.includes("bcom") || 
       lowerStudentDept.includes("bba") || 
@@ -1278,8 +1727,8 @@ export default function RegisterPage() {
       lowerStudentDept.includes("management")
     );
 
-    const techDepts = ["BTech", "BCA", "BScIT", "BScCS"];
-    const businessDepts = ["BBA", "BCom"];
+    const techDepts = ["BTech", "BCA","Diploma"];
+    const businessDepts = ["BA", "BCom","Bsc"];
 
     if (isStudentTech) {
       return techDepts.includes(internshipDept);
@@ -1312,10 +1761,18 @@ export default function RegisterPage() {
     if (step === 1) {
       if (!formData.fullName.trim())
         newErrors.fullName = "Full name is required";
-      if (!formData.email.trim()) newErrors.email = "Email is required";
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      if (!formData.email.trim()) {
+        newErrors.email = "Email is required";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
         newErrors.email = "Invalid email format";
-      if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
+      } else if (!isEmailVerified) {
+        newErrors.email = "Please verify your email address using OTP.";
+      }
+      if (!formData.phone.trim()) {
+        newErrors.phone = "Phone number is required";
+      } else if (!/^\d{10}$/.test(formData.phone.trim())) {
+        newErrors.phone = "Phone number must be exactly 10 digits";
+      }
       if (!formData.gender) newErrors.gender = "Please select gender";
       if (!formData.parentName.trim())
         newErrors.parentName = "Parent name is required";
@@ -1335,18 +1792,17 @@ export default function RegisterPage() {
         if (!formData.mode) newErrors.mode = "Mode is required";
       }
     } else if (step === 3) {
-      if (!formData.emergencyName.trim())
-        newErrors.emergencyName = "Contact person name is required";
-      if (!formData.emergencyNumber.trim())
-        newErrors.emergencyNumber = "Contact number is required";
-      if (!formData.relationship)
-        newErrors.relationship = "Relationship is required";
-    } else if (step === 4) {
       if (!formData.password) newErrors.password = "Password is required";
       if (formData.password.length < 6)
         newErrors.password = "Password must be at least 6 characters";
       if (formData.password !== formData.confirmPassword)
         newErrors.confirmPassword = "Passwords do not match";
+      
+      const payableAmount = getPayableAmount();
+      if (payableAmount > 0 && !completedPaymentDetails) {
+        newErrors.payment = "Please complete the registration fee payment to proceed.";
+      }
+    } else if (step === 4) {
       if (!formData.agreeTerms)
         newErrors.agreeTerms = "You must agree to terms and conditions";
     }
@@ -1388,118 +1844,36 @@ export default function RegisterPage() {
           completedPaymentDetails.itemId === finalItemId &&
           completedPaymentDetails.amount === payableAmount;
 
-        if (payableAmount === 0 || hasValidExistingPayment) {
-          // Free path or already paid - register directly
-          const userPayload = {
-            ...formData,
-            courseId: purchaseType === "course" ? finalItemId : undefined,
-            internshipId: purchaseType === "internship" ? finalItemId : undefined,
-            paymentDetails: hasValidExistingPayment ? completedPaymentDetails : undefined,
-          };
+        if (payableAmount > 0 && !hasValidExistingPayment) {
+          alert("Payment is required to complete registration. Please complete payment first.");
+          setStep(3);
+          setIsLoading(false);
+          return;
+        }
 
-          const response = await fetch("/api/user", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userPayload),
-          });
+        // Register directly
+        const userPayload = {
+          ...formData,
+          courseId: purchaseType === "course" ? finalItemId : undefined,
+          internshipId: purchaseType === "internship" ? finalItemId : undefined,
+          paymentDetails: hasValidExistingPayment ? completedPaymentDetails : undefined,
+        };
 
-          const data = await response.json();
+        const response = await fetch("/api/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userPayload),
+        });
 
-          if (response.ok) {
-            alert("Registration successful! Redirecting to login...");
-            router.push("/login");
-          } else {
-            alert(data.error || "Registration failed. Please check your details.");
-          }
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Registration successful! Redirecting to login...");
+          router.push("/login");
         } else {
-          // Paid path - initiate Razorpay payment first
-          const resOrder = await fetch("/api/payment/order", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ type: purchaseType, itemId: finalItemId }),
-          });
-
-          const orderData = await resOrder.json();
-          if (!resOrder.ok) {
-            throw new Error(orderData.error || "Failed to initiate payment");
-          }
-
-          const scriptLoaded = await loadRazorpayScript();
-          if (!scriptLoaded) {
-            alert("Failed to load payment gateway. Please check your internet connection.");
-            setIsLoading(false);
-            return;
-          }
-
-          const options = {
-            key: orderData.key,
-            amount: orderData.amount * 100,
-            currency: orderData.currency,
-            name: "KpInterns",
-            description: `Payment for ${orderData.title}`,
-            order_id: orderData.orderId,
-            handler: async function (response) {
-              try {
-                setIsLoading(true);
-                const paymentInfo = {
-                  razorpay_payment_id: response.razorpay_payment_id,
-                  razorpay_order_id: response.razorpay_order_id,
-                  razorpay_signature: response.razorpay_signature,
-                  type: purchaseType,
-                  itemId: finalItemId,
-                  amount: payableAmount,
-                };
-
-                // Store payment details in state in case registration submission fails
-                setCompletedPaymentDetails(paymentInfo);
-
-                const userPayload = {
-                  ...formData,
-                  courseId: purchaseType === "course" ? finalItemId : undefined,
-                  internshipId: purchaseType === "internship" ? finalItemId : undefined,
-                  paymentDetails: paymentInfo,
-                };
-
-                const resRegister = await fetch("/api/user", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(userPayload),
-                });
-
-                const registerData = await resRegister.json();
-
-                if (resRegister.ok) {
-                  alert("Registration & payment successful! Redirecting to login...");
-                  router.push("/login");
-                } else {
-                  alert(registerData.error || "Registration failed. Please contact support.");
-                }
-              } catch (err) {
-                console.error("Error finalizing registration:", err);
-                alert("An error occurred during registration finalization.");
-              } finally {
-                setIsLoading(false);
-              }
-            },
-            prefill: {
-              name: formData.fullName,
-              email: formData.email,
-              contact: formData.phone,
-            },
-            theme: {
-              color: "#2563eb",
-            },
-            modal: {
-              ondismiss: function () {
-                setIsLoading(false);
-              },
-            },
-          };
-
-          const rzp = new window.Razorpay(options);
-          rzp.open();
+          alert(data.error || "Registration failed. Please check your details.");
         }
       } catch (error) {
         console.error("Registration error:", error);
@@ -1633,26 +2007,88 @@ export default function RegisterPage() {
                     )}
                   </div>
 
-                  <div>
+                  <div className="sm:col-span-2">
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Email Address *
                     </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="you@example.com"
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.email ? "border-red-500" : "border-border-main"
-                      }`}
-                    />
+                    <div className="flex gap-2">
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        disabled={isEmailVerified}
+                        placeholder="you@example.com"
+                        className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                          errors.email ? "border-red-500" : "border-border-main"
+                        } ${isEmailVerified ? "opacity-60 cursor-not-allowed bg-emerald-500/5 border-emerald-500/30" : ""}`}
+                      />
+                      {!isEmailVerified && (
+                        <button
+                          type="button"
+                          onClick={handleSendOtp}
+                          disabled={otpLoading || otpCooldown > 0}
+                          className="px-4 py-3 bg-brand-primary hover:bg-brand-primary/90 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[110px]"
+                        >
+                          {otpLoading ? (
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          ) : otpCooldown > 0 ? (
+                            `Resend in ${otpCooldown}s`
+                          ) : (
+                            "Send OTP"
+                          )}
+                        </button>
+                      )}
+                    </div>
                     {errors.email && (
                       <p className="text-red-500 text-xs mt-1">
                         {errors.email}
                       </p>
                     )}
+                    {isEmailVerified && (
+                      <p className="text-brand-success text-xs mt-1 flex items-center gap-1 font-semibold">
+                        <span>✓</span> Email verified successfully!
+                      </p>
+                    )}
                   </div>
+
+                  {otpSent && !isEmailVerified && (
+                    <div className="sm:col-span-2 bg-brand-primary/5 border border-brand-primary/10 rounded-2xl p-5 animate-fade-in space-y-3">
+                      <label className="block text-sm font-semibold text-text-main">
+                        Enter Verification Code *
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          maxLength={6}
+                          value={otpInput}
+                          onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ""))}
+                          placeholder="Enter 6-digit OTP"
+                          className="flex-1 px-4 py-3 rounded-xl border-2 border-border-main focus:outline-none focus:border-brand-primary bg-bg-main font-mono text-center tracking-widest text-lg font-bold"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleVerifyOtp}
+                          disabled={otpInput.length !== 6 || otpVerifyLoading}
+                          className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                        >
+                          {otpVerifyLoading ? (
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          ) : (
+                            "Verify Code"
+                          )}
+                        </button>
+                      </div>
+                      {otpError && (
+                        <p className="text-red-500 text-xs mt-1 font-medium">
+                          {otpError}
+                        </p>
+                      )}
+                      <p className="text-text-muted text-[11px] font-poppins">
+                        An OTP code was sent to <span className="font-semibold text-text-main">{formData.email}</span>. Please check your inbox or spam folder.
+                      </p>
+                    </div>
+                  )}
 
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
@@ -1775,7 +2211,7 @@ export default function RegisterPage() {
                       Degree *
                     </label>
                     <div className="flex flex-wrap gap-4">
-                      {["Diploma", "B.Tech", "Bachelor", "Master"].map(
+                      {["Diploma", "B.Tech", "BA", "Bcom","Bsc"].map(
                         (degree) => (
                           <label
                             key={degree}
@@ -2013,106 +2449,17 @@ export default function RegisterPage() {
                 </div>
               </div>
             )}
-
-            {/* Step 3: Emergency Contact */}
+            {/* Step 3: Security & Payments */}
             {step === 3 && (
               <div className="space-y-6 animate-fade-in">
                 <h2 className="text-2xl font-bold text-text-main mb-8">
-                  Emergency Contact
-                </h2>
-                <p className="text-text-muted text-sm mb-6">
-                  Emergency details are optional. If you fill any field,
-                  complete all three.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="sm:col-span-2">
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Emergency Contact Person Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="emergencyName"
-                      value={formData.emergencyName}
-                      onChange={handleInputChange}
-                      placeholder="Enter contact person name"
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.emergencyName
-                          ? "border-red-500"
-                          : "border-border-main"
-                      }`}
-                    />
-                    {errors.emergencyName && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.emergencyName}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Emergency Contact Number *
-                    </label>
-                    <input
-                      type="tel"
-                      name="emergencyNumber"
-                      value={formData.emergencyNumber}
-                      onChange={handleInputChange}
-                      placeholder="+91 98765 43210"
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.emergencyNumber
-                          ? "border-red-500"
-                          : "border-border-main"
-                      }`}
-                    />
-                    {errors.emergencyNumber && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.emergencyNumber}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Relationship *
-                    </label>
-                    <select
-                      name="relationship"
-                      value={formData.relationship}
-                      onChange={handleInputChange}
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.relationship
-                          ? "border-red-500"
-                          : "border-border-main"
-                      }`}
-                    >
-                      <option value="">Select Relationship</option>
-                      <option value="mother">Mother</option>
-                      <option value="father">Father</option>
-                      <option value="sibling">Sibling</option>
-                      <option value="other">Other</option>
-                    </select>
-                    {errors.relationship && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.relationship}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 4: Security & Confirmation */}
-            {step === 4 && (
-              <div className="space-y-6 animate-fade-in">
-                <h2 className="text-2xl font-bold text-text-main mb-8">
-                  Security & Confirmation
+                  Security & Payments
                 </h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-6 border-b border-border-main/50">
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-semibold text-text-main mb-2">
-                      Password *
+                     Create Password *
                     </label>
                     <div className="relative">
                       <input
@@ -2199,20 +2546,124 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                {/* Payment Summary */}
-                <div className="bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10 border-2 border-brand-primary/30 rounded-2xl p-6 my-8">
-                  <h3 className="text-sm font-bold text-text-main uppercase tracking-wide mb-4">
-                    Payment Summary
+                {/* Payments Block */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-bold text-text-main font-poppins">
+                    Registration Fee Payment
                   </h3>
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold text-text-main">
-                      Total Payable
-                    </span>
-                    <span className="text-3xl font-bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
-                      ₹{getPayableAmount()}
-                    </span>
+
+                  {getPayableAmount() > 0 ? (
+                    <div className="bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 border border-border-main rounded-2xl p-6">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                          <span className="text-xs text-text-muted uppercase tracking-wider font-semibold block mb-1">Total Payable</span>
+                          <span className="text-3xl font-extrabold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent font-poppins">
+                            ₹{getPayableAmount()}
+                          </span>
+                        </div>
+
+                        {completedPaymentDetails ? (
+                          <div className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 rounded-xl px-4 py-3 text-sm font-semibold flex items-center gap-2">
+                            <span>✅</span>
+                            <div>
+                              <span>Payment Successful</span>
+                              <span className="block text-[10px] font-mono text-text-muted mt-0.5 select-all">Ref ID: {completedPaymentDetails.razorpay_payment_id}</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={handlePayFee}
+                            disabled={isLoading}
+                            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-primary/95 hover:to-brand-secondary/95 text-white font-bold rounded-xl shadow-lg hover:shadow-brand-primary/25 active:scale-95 transition-all text-sm font-poppins"
+                          >
+                            Pay Registration Fee (₹{getPayableAmount()})
+                          </button>
+                        )}
+                      </div>
+
+                      {errors.payment && (
+                        <p className="text-red-500 text-xs mt-3 font-semibold">
+                          ⚠️ {errors.payment}
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6 flex items-center gap-3">
+                      <span className="text-2xl">🎉</span>
+                      <div>
+                        <span className="font-bold text-emerald-600 dark:text-emerald-400 block">No Payment Required</span>
+                        <span className="text-text-muted text-sm">This internship/course registration is free. You can proceed directly.</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Step 4: Register & Review */}
+            {step === 4 && (
+              <div className="space-y-6 animate-fade-in">
+                <h2 className="text-2xl font-bold text-text-main mb-6">
+                  Review & Register
+                </h2>
+                <p className="text-text-muted text-sm mb-6">
+                  Please review your details carefully before completing registration.
+                </p>
+
+                {/* Summary Details Grid */}
+                <div className="bg-bg-main border border-border-main rounded-2xl p-6 space-y-4 text-sm font-poppins">
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-4">
+                    <div>
+                      <span className="text-text-muted text-xs block">Full Name</span>
+                      <span className="text-text-main font-semibold">{formData.fullName}</span>
+                    </div>
+                    <div>
+                      <span className="text-text-muted text-xs block">Email</span>
+                      <span className="text-text-main font-semibold break-all">{formData.email}</span>
+                    </div>
+                    <div>
+                      <span className="text-text-muted text-xs block">Phone</span>
+                      <span className="text-text-main font-semibold">{formData.phone}</span>
+                    </div>
+                    <div>
+                      <span className="text-text-muted text-xs block">Parent's Name</span>
+                      <span className="text-text-main font-semibold">{formData.parentName}</span>
+                    </div>
+                    <div className="col-span-2 border-t border-border-main/50 my-1"></div>
+                    <div>
+                      <span className="text-text-muted text-xs block">College</span>
+                      <span className="text-text-main font-semibold">{formData.college}</span>
+                    </div>
+                    <div>
+                      <span className="text-text-muted text-xs block">Degree & Dept</span>
+                      <span className="text-text-main font-semibold">{formData.degree} ({formData.department})</span>
+                    </div>
+                    <div>
+                      <span className="text-text-muted text-xs block">Reg No / Sem</span>
+                      <span className="text-text-main font-semibold">{formData.registrationNumber} (Sem {formData.semester})</span>
+                    </div>
+                    <div>
+                      <span className="text-text-muted text-xs block">{purchaseType === "course" ? "Selected Course" : "Internship Domain"}</span>
+                      <span className="text-brand-primary font-bold">
+                        {purchaseType === "course" 
+                          ? (selectedItemDetails?.title || "Selected Course")
+                          : `${formData.internshipDomain} (${formData.mode})`}
+                      </span>
+                    </div>
                   </div>
                 </div>
+
+                {/* Payment Status Summary */}
+                {getPayableAmount() > 0 && completedPaymentDetails && (
+                  <div className="bg-emerald-500/15 border border-emerald-500/30 rounded-2xl p-4 flex items-center justify-between">
+                    <div>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold block text-sm">✅ Payment Verified</span>
+                      <span className="text-text-muted font-mono text-[10px] select-all">Ref: {completedPaymentDetails.razorpay_payment_id}</span>
+                    </div>
+                    <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">₹{getPayableAmount()}</span>
+                  </div>
+                )}
 
                 {/* Terms Checkbox */}
                 <label className="flex items-start cursor-pointer p-4 rounded-xl border-2 border-border-main hover:border-brand-primary transition-colors group">

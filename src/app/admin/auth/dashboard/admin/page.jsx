@@ -13,6 +13,7 @@ export default function AdminsAdminPage() {
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -58,6 +59,7 @@ export default function AdminsAdminPage() {
   const openAddModal = () => {
     setIsEditing(false);
     setSelectedId(null);
+    setShowPassword(false);
     setFormData({
       name: "",
       email: "",
@@ -74,6 +76,7 @@ export default function AdminsAdminPage() {
   const openEditModal = (admin) => {
     setIsEditing(true);
     setSelectedId(admin._id);
+    setShowPassword(false);
     setFormData({
       name: admin.name || "",
       email: admin.email || "",
@@ -107,8 +110,12 @@ export default function AdminsAdminPage() {
       const method = isEditing ? "PUT" : "POST";
 
       const payload = { ...formData };
-      if (isEditing && !payload.password) {
-        delete payload.password; // Do not update empty password
+      if (isEditing) {
+        if (!payload.password) {
+          delete payload.password; // Do not update empty password
+        }
+      } else {
+        payload.isAdminCreation = true;
       }
 
       const res = await fetch(url, {
@@ -396,15 +403,24 @@ export default function AdminsAdminPage() {
                   <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">
                     Password {isEditing ? "(leave blank)" : "*"}
                   </label>
-                  <input
-                    type="password"
-                    name="password"
-                    required={!isEditing}
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    placeholder="Min 6 characters"
-                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      required={!isEditing}
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      placeholder="Min 6 characters"
+                      className="w-full p-2.5 pr-10 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors text-sm"
+                    >
+                      {showPassword ? "👁️" : "🙈"}
+                    </button>
+                  </div>
                 </div>
               </div>
 

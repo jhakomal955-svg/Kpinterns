@@ -6,12 +6,24 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel } from "@/models";
+import { signToken } from "@/lib/jwt";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+import bcrypt from "bcryptjs";
 
 export async function POST(request) {
   try {
     await connectDB();
 
-    const { emailOrPhone, password } = await request.json();
+    const { emailOrPhone, password, turnstileToken } = await request.json();
+
+    // Verify Turnstile Token
+    const isHuman = await verifyTurnstileToken(turnstileToken);
+    if (!isHuman) {
+      return Response.json(
+        { error: "Human verification failed. Please try again." },
+        { status: 400 },
+      );
+    }
 
     // Validate required fields
     if (!emailOrPhone || !password) {
@@ -53,8 +65,25 @@ export async function POST(request) {
       );
     }
 
-    // Simple password comparison (consistent with Admin auth)
-    if (user.password !== password) {
+    // Determine if the password stored in DB is a bcrypt hash
+    const isHashed = user.password && (user.password.startsWith("$2a$") || user.password.startsWith("$2b$") || user.password.startsWith("$2y$"));
+    
+    let isMatch = false;
+    if (isHashed) {
+      isMatch = await bcrypt.compare(password, user.password);
+    } else {
+      // Old plain-text password comparison
+      isMatch = (user.password === password);
+      
+      if (isMatch) {
+        // Upgrade plain-text password to bcrypt hash on the fly
+        user.password = password; // pre-save hook will automatically hash it when we save!
+        await user.save();
+        console.log(`🔒 Upgraded password to bcrypt for User: ${user.email}`);
+      }
+    }
+
+    if (!isMatch) {
       return Response.json(
         { success: false, error: "Invalid password" },
         { status: 401 },
@@ -68,12 +97,18 @@ export async function POST(request) {
     userData.internshipDomain = userData.ActiveInternship?.[0]?.internship?.domain || userData.ActiveInternship?.[0]?.internship?.category || "";
     userData.mode = userData.ActiveInternship?.[0]?.internship?.mode || "";
 
+    const token = signToken({
+      _id: user._id.toString(),
+      email: user.email,
+      role: "User",
+    });
+
     return Response.json(
       {
         success: true,
         message: "Login successful",
         data: userData,
-        token: "user-token-" + user._id,
+        token: token,
       },
       { status: 200 },
     );

@@ -15,6 +15,9 @@ export default function CourseEditPage() {
   const [uploadingFile, setUploadingFile] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
+  const [adminsList, setAdminsList] = useState([]);
+  const [isAccessDenied, setIsAccessDenied] = useState(false);
+  const [adminData, setAdminData] = useState(null);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -31,7 +34,8 @@ export default function CourseEditPage() {
     duration: "1-month",
     accessDuration: "lifetime",
     status: "Draft",
-    instructor: "",
+    instructor: "", // keep for fallback if needed, but we use instructors:
+    instructors: [],
     prerequisites: "",
     learningOutcomes: "",
     contentItems: [],
@@ -95,6 +99,32 @@ export default function CourseEditPage() {
       const data = await res.json();
       if (data.success) {
         const course = data.data;
+
+        // Access control check
+        let isAssigned = true;
+        let currentAdmin = null;
+        if (typeof window !== "undefined") {
+          try {
+            const stored = localStorage.getItem("adminData");
+            if (stored) {
+              currentAdmin = JSON.parse(stored);
+            }
+          } catch (e) { console.error(e); }
+        }
+
+        if (currentAdmin && currentAdmin.role === "Instructor") {
+          isAssigned = course.instructor?.some((inst) => {
+            const instId = typeof inst.id === "object" ? inst.id?._id : inst.id;
+            return instId === currentAdmin._id;
+          });
+        }
+
+        if (!isAssigned) {
+          setIsAccessDenied(true);
+          setIsLoading(false);
+          return;
+        }
+
         setFormData({
           title: course.title || "",
           description: course.description || "",
@@ -110,7 +140,7 @@ export default function CourseEditPage() {
           duration: course.duration || "1-month",
           accessDuration: course.accessDuration || "lifetime",
           status: course.status || "Draft",
-          instructor: typeof course.instructor?.[0]?.id === "object" ? course.instructor[0].id._id : (course.instructor?.[0]?.id || ""),
+          instructors: course.instructor?.map(inst => typeof inst.id === "object" ? inst.id._id : (inst.id || "")).filter(Boolean) || [],
           prerequisites: course.prerequisites?.join(", ") || "",
           learningOutcomes: course.learningOutcomes?.join(", ") || "",
           contentItems: course.content || [],
@@ -132,6 +162,38 @@ export default function CourseEditPage() {
       fetchCourse();
     }
   }, [courseId, isEditing]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("adminData");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          setAdminData(parsed);
+          if (parsed.role === "Instructor") {
+            setActiveTab("content");
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchAdmins = async () => {
+      try {
+        const res = await fetch("/api/admin");
+        const data = await res.json();
+        if (data.success) {
+          setAdminsList(data.data || []);
+        }
+      } catch (err) {
+        console.error("Error fetching admins:", err);
+      }
+    };
+    fetchAdmins();
+  }, []);
 
   const handleBasicInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -273,8 +335,8 @@ export default function CourseEditPage() {
       setError("Domain is required");
       return;
     }
-    if (!formData.instructor) {
-      setError("Instructor ID is required");
+    if (!formData.instructors || formData.instructors.length === 0) {
+      setError("At least one instructor is required");
       return;
     }
 
@@ -295,7 +357,7 @@ export default function CourseEditPage() {
         duration: formData.duration,
         accessDuration: formData.accessDuration,
         status: formData.status,
-        instructor: formData.instructor ? [{ id: formData.instructor }] : [],
+        instructor: formData.instructors.map(id => ({ id })),
         prerequisites: formData.prerequisites.split(",").map((item) => item.trim()).filter(Boolean),
         learningOutcomes: formData.learningOutcomes.split(",").map((item) => item.trim()).filter(Boolean),
         tags: formData.tags.split(",").map((item) => item.trim()).filter(Boolean),
@@ -339,6 +401,24 @@ export default function CourseEditPage() {
     );
   }
 
+  if (isAccessDenied) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="bg-bg-card border-2 border-border-main p-8 rounded-2xl max-w-md w-full text-center space-y-4 shadow-xl">
+          <div className="mx-auto w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-text-main">Access Denied</h2>
+          <p className="text-sm text-text-muted leading-relaxed">
+            instructor have not acess for this page view and edit contact to admin for any updation
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 pb-12">
       {/* Header */}
@@ -370,9 +450,11 @@ export default function CourseEditPage() {
 
       {/* Tab Navigation */}
       <div className="flex gap-2 border-b-2 border-border-main">
-        <button type="button" onClick={() => setActiveTab("basics")} className={`px-6 py-3 font-semibold border-b-2 transition-all ${activeTab === "basics" ? "border-brand-primary text-brand-primary" : "border-transparent text-text-muted hover:text-text-main"}`}>
-          Basic Details
-        </button>
+        {adminData?.role !== "Instructor" && (
+          <button type="button" onClick={() => setActiveTab("basics")} className={`px-6 py-3 font-semibold border-b-2 transition-all ${activeTab === "basics" ? "border-brand-primary text-brand-primary" : "border-transparent text-text-muted hover:text-text-main"}`}>
+            Basic Details
+          </button>
+        )}
         <button type="button" onClick={() => setActiveTab("content")} className={`px-6 py-3 font-semibold border-b-2 transition-all ${activeTab === "content" ? "border-brand-primary text-brand-primary" : "border-transparent text-text-muted hover:text-text-main"}`}>
           Add Content
         </button>
@@ -382,7 +464,7 @@ export default function CourseEditPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {activeTab === "basics" && (
+        {activeTab === "basics" && adminData?.role !== "Instructor" && (
           <div className="bg-bg-card border-2 border-border-main rounded-2xl p-6 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2">
@@ -408,9 +490,63 @@ export default function CourseEditPage() {
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-text-muted mb-2">Instructor ID *</label>
-                <input type="text" name="instructor" value={formData.instructor} onChange={handleBasicInputChange} placeholder="Paste Admin reference ObjectId" className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition" required />
+              <div className="md:col-span-2 space-y-3">
+                <label className="block text-sm font-semibold text-text-muted mb-1.5 uppercase">Assigned Instructors *</label>
+                
+                {/* List of currently assigned instructors */}
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {formData.instructors && formData.instructors.map((instId) => {
+                    const match = adminsList.find((admin) => admin._id === instId);
+                    const displayName = match ? `${match.name} (ID: ${match._id})` : instId;
+                    return (
+                      <div key={instId} className="flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/30 text-brand-primary font-medium px-3.5 py-1.5 rounded-xl text-sm">
+                        <span>{displayName}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              instructors: prev.instructors.filter((id) => id !== instId),
+                            }));
+                          }}
+                          className="hover:text-red-500 font-bold transition-all text-xs"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    );
+                  })}
+                  {(!formData.instructors || formData.instructors.length === 0) && (
+                    <p className="text-xs text-red-500 font-medium italic">No instructors assigned yet.</p>
+                  )}
+                </div>
+
+                {/* Dropdown select to add new instructor */}
+                <div className="flex gap-3">
+                  <select
+                    className="flex-1 p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm text-text-main"
+                    onChange={(e) => {
+                      const selectedId = e.target.value;
+                      if (selectedId && !formData.instructors.includes(selectedId)) {
+                        setFormData((prev) => ({
+                          ...prev,
+                          instructors: [...prev.instructors, selectedId],
+                        }));
+                      }
+                      e.target.value = ""; // Reset dropdown selection
+                    }}
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Add Instructor...</option>
+                    {adminsList
+                      .filter((admin) => admin.role === "Instructor" && !formData.instructors.includes(admin._id))
+                      .map((admin) => (
+                        <option key={admin._id} value={admin._id}>
+                          {admin.name} (ID: {admin._id})
+                        </option>
+                      ))}
+                  </select>
+                </div>
               </div>
 
               <div>

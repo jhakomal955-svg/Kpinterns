@@ -1,7 +1,4 @@
-/**
- * Admin Model
- * Represents an admin account with verification status
- */
+const mongoose = require("mongoose");
 
 const AdminModel = {
   // Personal Information
@@ -55,6 +52,18 @@ const AdminModel = {
     type: String,
     default: "",
   },
+  coursesOffered: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+    },
+  ],
+  internshipsOffered: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Internship",
+    },
+  ],
   // Verification Status
   verified: {
     type: Boolean,

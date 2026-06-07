@@ -13,7 +13,6 @@ export default function AdminForgotPasswordPage() {
   
   const [formData, setFormData] = useState({
     email: "",
-    mobile: "",
     otp: "",
     newPassword: "",
     confirmPassword: "",
@@ -43,9 +42,8 @@ export default function AdminForgotPasswordPage() {
 
     if (!formData.email.trim()) {
       newErrors.email = "Admin email is required";
-    }
-    if (!formData.mobile.trim()) {
-      newErrors.mobile = "Mobile number is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -60,7 +58,6 @@ export default function AdminForgotPasswordPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: formData.email,
-          mobile: formData.mobile,
         }),
       });
 
@@ -174,12 +171,12 @@ export default function AdminForgotPasswordPage() {
           {step === 1 && (
             <form onSubmit={handleRequestOtp} className="space-y-6">
               <p className="text-sm text-text-muted mb-4">
-                Please enter your registered Admin Email and Mobile Number to verify credentials.
+                Please enter your registered Admin Email Address to verify your identity.
               </p>
 
               <div>
                 <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                  Admin Email
+                  Admin Email Address
                 </label>
                 <input
                   type="email"
@@ -196,25 +193,6 @@ export default function AdminForgotPasswordPage() {
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                  Mobile Number
-                </label>
-                <input
-                  type="text"
-                  name="mobile"
-                  value={formData.mobile}
-                  onChange={handleInputChange}
-                  placeholder="Enter admin mobile"
-                  className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
-                    errors.mobile ? "border-red-500" : "border-border-main focus:border-brand-primary"
-                  }`}
-                />
-                {errors.mobile && (
-                  <p className="text-red-500 text-sm mt-2 font-medium">{errors.mobile}</p>
-                )}
-              </div>
-
               <button
                 type="submit"
                 disabled={isLoading}
@@ -228,15 +206,8 @@ export default function AdminForgotPasswordPage() {
           {step === 2 && (
             <form onSubmit={handleVerifyOtp} className="space-y-6">
               <p className="text-sm text-text-muted mb-4">
-                A 6-digit OTP code has been generated. Enter it below to proceed.
+                A 6-digit OTP code has been sent to your email address <span className="text-text-main font-bold">{formData.email}</span>. Enter it below to proceed.
               </p>
-
-              {testOtp && (
-                <div className="p-4 bg-brand-primary/10 border border-brand-primary/20 text-brand-primary rounded-xl text-sm font-bold">
-                  ℹ️ Testing Mode: Use OTP <span className="underline">{testOtp}</span>
-                </div>
-              )}
-
               <div>
                 <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
                   Verification Code (OTP)

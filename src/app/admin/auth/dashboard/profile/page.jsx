@@ -138,8 +138,15 @@ export default function ProfileAdminPage() {
                 {adminData.name.charAt(0).toUpperCase()}
               </div>
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-text-main">
+                <h2 className="text-2xl sm:text-3xl font-bold text-text-main flex items-center gap-2">
                   {adminData.name}
+                  {adminData.verified && (
+                    <span className="inline-flex items-center justify-center bg-blue-500 text-white rounded-full p-1 shadow-md" title="Verified Admin">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
+                  )}
                 </h2>
                 <p className="text-text-muted text-sm">{adminData.bio}</p>
               </div>

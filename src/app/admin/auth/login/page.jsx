@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Turnstile from "@/components/Turnstile";
 
 export default function AdminLoginPage() {
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     password: "",
-    rememberMe: false,
   });
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -56,6 +57,10 @@ export default function AdminLoginPage() {
       newErrors.password = "Password must be at least 6 characters";
     }
 
+    if (!turnstileToken) {
+      newErrors.verifyHuman = "Please verify you are human";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -75,6 +80,7 @@ export default function AdminLoginPage() {
         body: JSON.stringify({
           emailOrPhone: formData.emailOrPhone,
           password: formData.password,
+          turnstileToken: turnstileToken,
         }),
       });
 
@@ -238,36 +244,15 @@ export default function AdminLoginPage() {
               </div>
             )}
 
-            {/* Remember Me Checkbox */}
-            <label className="flex items-center p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
-              <div className="relative flex-shrink-0 w-6 h-6 border-2 border-border-main rounded-lg group-hover:border-brand-primary transition-colors mt-1">
-                <input
-                  type="checkbox"
-                  name="rememberMe"
-                  checked={formData.rememberMe}
-                  onChange={handleInputChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                />
-                {formData.rememberMe && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg
-                      className="w-4 h-4 text-brand-primary"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </div>
-              <span className="ml-3 font-semibold text-text-main group-hover:text-brand-primary transition-colors">
-                Remember me
-              </span>
-            </label>
+            {/* Verify Human Cloudflare Turnstile */}
+            <div>
+              <Turnstile onSuccess={(token) => setTurnstileToken(token)} theme="dark" />
+              {errors.verifyHuman && (
+                <p className="text-red-500 text-sm mt-2 font-medium text-center">
+                  {errors.verifyHuman}
+                </p>
+              )}
+            </div>
 
             {/* Login Button */}
             <button

@@ -2,6 +2,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel } from "@/models";
 import crypto from "crypto";
+import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
 
 export async function POST(request) {
   try {
@@ -21,6 +22,7 @@ export async function POST(request) {
     }
 
     let price = 0;
+    let title = "";
 
     // Resolve models
     const User = createModel("User", UserModel);
@@ -36,6 +38,7 @@ export async function POST(request) {
         return Response.json({ error: "Course not found" }, { status: 404 });
       }
       price = course.price || 0;
+      title = course.title;
     } else if (type === "internship") {
       const Internship = createModel("Internship", InternshipModel);
       const internship = await Internship.findById(itemId);
@@ -43,6 +46,7 @@ export async function POST(request) {
         return Response.json({ error: "Internship not found" }, { status: 404 });
       }
       price = internship.RegistrationFee?.amount || 500;
+      title = internship.title || internship.position || "Internship Program";
     } else {
       return Response.json({ error: "Invalid enrollment type" }, { status: 400 });
     }
@@ -83,6 +87,7 @@ export async function POST(request) {
           progress: 0,
           paymentStatus: true,
           paymentDate: new Date(),
+          paymentId: razorpay_payment_id || null,
           amount: price,
         });
       }
@@ -100,6 +105,7 @@ export async function POST(request) {
           progress: 0,
           paymentStatus: true,
           paymentDate: new Date(),
+          paymentId: razorpay_payment_id || null,
           amount: price,
         });
       }
@@ -107,6 +113,21 @@ export async function POST(request) {
 
     user.updatedAt = new Date();
     await user.save();
+
+    // Send the payment receipt and enrollment confirmation email to the user
+    try {
+      await sendAllotmentAndPaymentSlipEmail(user.email, user.fullName, {
+        purchaseType: type,
+        title: title,
+        amount: price,
+        paymentId: razorpay_payment_id || "N/A",
+        orderId: razorpay_order_id || "N/A",
+        date: new Date(),
+        isNewRegistration: false,
+      });
+    } catch (mailError) {
+      console.error("❌ Failed to send course purchase receipt email:", mailError);
+    }
 
     // Populate user references so the client has full details
     createModel("Course", CourseModel);

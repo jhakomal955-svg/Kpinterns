@@ -81,9 +81,11 @@ const UserModel = {
       progress: { type: Number, default: 0 },
       paymentStatus: { type: Boolean, default: false },
       paymentDate: { type: Date, default: Date.now },
+      paymentId: { type: String },
       amount: { type: Number },
       offerLetterUrl: { type: String },
       certificationUrl: { type: String },
+      completedModules: { type: [String], default: [] },
     },
   ],
 
@@ -94,27 +96,12 @@ const UserModel = {
       progress: { type: Number, default: 0 },
       paymentStatus: { type: Boolean, default: false },
       paymentDate: { type: Date, default: Date.now },
+      paymentId: { type: String },
       amount: { type: Number },
       certificateUrl: { type: String },
+      completedModules: { type: [String], default: [] },
     },
   ],
-
-  // Emergency Contact
-  emergencyName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  emergencyNumber: {
-    type: String,
-    required: true,
-    match: /^\d{10}$/,
-  },
-  relationship: {
-    type: String,
-    required: true,
-  },
-
   // Security
   password: {
     type: String,
@@ -128,6 +115,11 @@ const UserModel = {
   resetOtpExpiry: {
     type: Date,
     default: null,
+  },
+
+  verified: {
+    type: Boolean,
+    default: false,
   },
 
   // Metadata

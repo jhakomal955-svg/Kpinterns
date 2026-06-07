@@ -9,7 +9,8 @@
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { InternshipModel } from "@/models";
+import { InternshipModel, AdminModel } from "@/models";
+import { verifyAuth } from "@/lib/jwt";
 
 export async function GET(request) {
   try {
@@ -68,6 +69,12 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     await connectDB();
+
+    // Authenticate Admin
+    const auth = verifyAuth(request, ["Admin"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
 
     const data = await request.json();
 
@@ -150,10 +157,22 @@ export async function POST(request) {
     }
 
     const Internship = createModel("Internship", InternshipModel);
+    const Admin = createModel("Admin", AdminModel);
 
     // Create new internship
     const newInternship = new Internship(data);
     await newInternship.save();
+
+    // Sync newly assigned instructors' internshipsOffered field
+    if (data.instructor && data.instructor.length > 0) {
+      const instructorIds = data.instructor.map((inst) => inst.id).filter(Boolean);
+      if (instructorIds.length > 0) {
+        await Admin.updateMany(
+          { _id: { $in: instructorIds } },
+          { $addToSet: { internshipsOffered: newInternship._id } }
+        );
+      }
+    }
 
     console.log("✅ Internship created successfully:", newInternship._id);
 
@@ -178,6 +197,12 @@ export async function PUT(request) {
   try {
     await connectDB();
 
+    // Authenticate Admin or Instructor
+    const auth = verifyAuth(request, ["Admin", "Instructor"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const url = new URL(request.url);
     const internshipId = url.searchParams.get("id");
 
@@ -198,6 +223,27 @@ export async function PUT(request) {
     }
 
     const Internship = createModel("Internship", InternshipModel);
+    const Admin = createModel("Admin", AdminModel);
+
+    // Fetch the old internship to check authorization and sync
+    const oldInternship = await Internship.findById(internshipId);
+    if (!oldInternship) {
+      return Response.json({ error: "Internship not found" }, { status: 404 });
+    }
+
+    // Role-based validation: Instructors can only edit their assigned internships
+    if (auth.user.role === "Instructor") {
+      const isAssigned = oldInternship.instructor?.some((inst) => {
+        const instId = typeof inst.id === "object" ? inst.id?._id?.toString() : inst.id?.toString();
+        return instId === auth.user._id;
+      });
+      if (!isAssigned) {
+        return Response.json(
+          { error: "instructor have not acess for this page view and edit contact to admin for any updation" },
+          { status: 403 }
+        );
+      }
+    }
 
     // Update internship
     const updatedInternship = await Internship.findByIdAndUpdate(
@@ -211,6 +257,26 @@ export async function PUT(request) {
 
     if (!updatedInternship) {
       return Response.json({ error: "Internship not found" }, { status: 404 });
+    }
+
+    // Sync instructors' internshipsOffered fields
+    const oldInstructorIds = oldInternship.instructor?.map((inst) => inst.id?.toString()).filter(Boolean) || [];
+    const newInstructorIds = data.instructor?.map((inst) => inst.id?.toString()).filter(Boolean) || [];
+
+    const instructorsToRemove = oldInstructorIds.filter((id) => !newInstructorIds.includes(id));
+    const instructorsToAdd = newInstructorIds.filter((id) => !oldInstructorIds.includes(id));
+
+    if (instructorsToRemove.length > 0) {
+      await Admin.updateMany(
+        { _id: { $in: instructorsToRemove } },
+        { $pull: { internshipsOffered: internshipId } }
+      );
+    }
+    if (instructorsToAdd.length > 0) {
+      await Admin.updateMany(
+        { _id: { $in: instructorsToAdd } },
+        { $addToSet: { internshipsOffered: internshipId } }
+      );
     }
 
     console.log("✅ Internship updated successfully:", internshipId);
@@ -236,6 +302,12 @@ export async function DELETE(request) {
   try {
     await connectDB();
 
+    // Authenticate Admin
+    const auth = verifyAuth(request, ["Admin"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const url = new URL(request.url);
     const internshipId = url.searchParams.get("id");
 
@@ -247,6 +319,7 @@ export async function DELETE(request) {
     }
 
     const Internship = createModel("Internship", InternshipModel);
+    const Admin = createModel("Admin", AdminModel);
 
     // Delete internship
     const deletedInternship = await Internship.findByIdAndDelete(internshipId);
@@ -254,6 +327,12 @@ export async function DELETE(request) {
     if (!deletedInternship) {
       return Response.json({ error: "Internship not found" }, { status: 404 });
     }
+
+    // Remove this internship from all instructors' internshipsOffered list
+    await Admin.updateMany(
+      { internshipsOffered: internshipId },
+      { $pull: { internshipsOffered: internshipId } }
+    );
 
     console.log("✅ Internship deleted successfully:", internshipId);
 

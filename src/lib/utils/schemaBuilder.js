@@ -4,6 +4,7 @@
  */
 
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 /**
  * Build a Mongoose schema from a model definition object
@@ -39,5 +40,15 @@ export function createModel(modelName, modelDefinition) {
   }
 
   const schema = buildSchema(modelDefinition);
+
+  // Attach pre-save password hashing hook to User and Admin models
+  if (modelName === "User" || modelName === "Admin") {
+    schema.pre("save", async function() {
+      if (!this.isModified("password")) return;
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
+    });
+  }
+
   return mongoose.model(modelName, schema);
 }

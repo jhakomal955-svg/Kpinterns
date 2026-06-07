@@ -6,32 +6,32 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { AdminModel } from "@/models";
+import { sendForgotPasswordOtpEmail } from "@/lib/nodemailer";
 
 // POST: Request Reset OTP
 export async function POST(request) {
   try {
     await connectDB();
 
-    const { email, mobile } = await request.json();
+    const { email } = await request.json();
 
-    if (!email || !mobile) {
+    if (!email) {
       return Response.json(
-        { error: "Email and mobile number are required" },
+        { error: "Email address is required" },
         { status: 400 }
       );
     }
 
     const Admin = createModel("Admin", AdminModel);
 
-    // Find admin by both email and mobile
+    // Find admin by email directly
     const admin = await Admin.findOne({
-      email: email.trim().toLowerCase(),
-      mobile: mobile.trim().replace(/\D/g, ""),
+      email: email.trim().toLowerCase()
     });
 
     if (!admin) {
       return Response.json(
-        { error: "Admin not found. Please verify your email and mobile number." },
+        { error: "Admin with this email was not found." },
         { status: 404 }
       );
     }
@@ -44,17 +44,20 @@ export async function POST(request) {
     admin.resetOtpExpiry = new Date(Date.now() + 10 * 60 * 1000);
     await admin.save();
 
-    console.log(`[FORGOT PASSWORD OTP - ADMIN: ${admin.email}] OTP: ${otp}`);
+    // Dispatch real email (or fallback to console print)
+    const emailRes = await sendForgotPasswordOtpEmail(admin.email, admin.name, otp, "Admin");
 
-    // Return success response (leak OTP for mock development usage)
-    return Response.json(
-      {
-        success: true,
-        message: "A password reset OTP has been generated successfully.",
-        otp, // In production, we'd send this via email/SMS and NOT return it in JSON
-      },
-      { status: 200 }
-    );
+    const responsePayload = {
+      success: true,
+      message: "A password reset OTP has been sent to your registered email address.",
+    };
+
+    // Keep otp in response payload only during local mock development
+    if (process.env.NODE_ENV === "development" || emailRes.mocked) {
+      responsePayload.otp = otp;
+    }
+
+    return Response.json(responsePayload, { status: 200 });
   } catch (error) {
     console.error("Error initiating admin forgot-password:", error);
     return Response.json(

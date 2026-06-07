@@ -10,10 +10,17 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { ContactModel } from "@/models";
+import { verifyAuth } from "@/lib/jwt";
 
 export async function GET(request) {
   try {
     await connectDB();
+
+    // Authenticate Admin only
+    const auth = verifyAuth(request, ["Admin"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
 
     const url = new URL(request.url);
     const contactId = url.searchParams.get("id");
@@ -127,6 +134,12 @@ export async function PUT(request) {
   try {
     await connectDB();
 
+    // Authenticate Admin only
+    const auth = verifyAuth(request, ["Admin"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const url = new URL(request.url);
     const contactId = url.searchParams.get("id");
 
@@ -172,6 +185,12 @@ export async function PUT(request) {
 export async function DELETE(request) {
   try {
     await connectDB();
+
+    // Authenticate Admin only
+    const auth = verifyAuth(request, ["Admin"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
 
     const url = new URL(request.url);
     const contactId = url.searchParams.get("id");

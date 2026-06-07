@@ -195,8 +195,15 @@ export default function ProfilePage() {
 
             {/* Profile Info */}
             <div className="flex-1">
-              <h1 className="text-3xl md:text-4xl font-bold text-text-main dark:text-text-main font-poppins mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold text-text-main dark:text-text-main font-poppins mb-2 flex items-center gap-2">
                 {profileData.fullName}
+                {profileData.verified && (
+                  <span className="inline-flex items-center justify-center bg-blue-500 text-white rounded-full p-1 shadow-md" title="Verified Student">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                )}
               </h1>
               <p className="text-text-muted dark:text-text-muted font-poppins mb-2">
                 {profileData.degree} in {profileData.department}
@@ -251,9 +258,9 @@ export default function ProfilePage() {
         <div className="animate-fade-in">
           {/* Personal Info Tab */}
           {activeTab === "personal" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="max-w-3xl mx-auto w-full">
               {/* Personal Information Card */}
-              <div className="bg-bg-card dark:bg-bg-card rounded-2xl border border-border-main dark:border-border-main p-6 shadow-md hover:shadow-lg transition">
+              <div className="bg-bg-card dark:bg-bg-card rounded-2xl border border-border-main dark:border-border-main p-8 shadow-md hover:shadow-lg transition">
                 <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins mb-6 pb-4 border-b border-border-main dark:border-border-main">
                   Personal Details
                 </h3>
@@ -266,33 +273,6 @@ export default function ProfilePage() {
                     label="Parent/Guardian"
                     value={profileData.parentName}
                   />
-                </div>
-              </div>
-
-              {/* Emergency Contact Card */}
-              <div className="bg-bg-card dark:bg-bg-card rounded-2xl border border-border-main dark:border-border-main p-6 shadow-md hover:shadow-lg transition">
-                <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins mb-6 pb-4 border-b border-border-main dark:border-border-main">
-                  Emergency Contact
-                </h3>
-                <div className="space-y-5">
-                  <InfoRow
-                    label="Contact Name"
-                    value={profileData.emergencyName}
-                  />
-                  <InfoRow
-                    label="Contact Number"
-                    value={profileData.emergencyNumber}
-                  />
-                  <InfoRow
-                    label="Relationship"
-                    value={profileData.relationship}
-                  />
-                  <div className="pt-4 px-4 py-3 bg-brand-primary/10 dark:bg-brand-primary/20 rounded-lg">
-                    <p className="text-xs font-poppins text-text-muted dark:text-text-muted">
-                      ℹ️ This information is securely stored and used only in
-                      emergencies
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>

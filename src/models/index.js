@@ -8,6 +8,7 @@ const AdminModel = require("./AdminModel");
 const ContactModel = require("./Contact");
 const CourseModel = require("./Course");
 const InternshipModel = require("./Internship");
+const VerificationOtpModel = require("./VerificationOtpModel");
 
 module.exports = {
   UserModel,
@@ -15,4 +16,5 @@ module.exports = {
   ContactModel,
   CourseModel,
   InternshipModel,
+  VerificationOtpModel,
 };

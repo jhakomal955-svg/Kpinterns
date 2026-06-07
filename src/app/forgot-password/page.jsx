@@ -12,8 +12,7 @@ export default function UserForgotPasswordPage() {
   const [showPassword, setShowPassword] = useState(false);
   
   const [formData, setFormData] = useState({
-    emailOrPhone: "",
-    registrationNumber: "",
+    email: "",
     otp: "",
     newPassword: "",
     confirmPassword: "",
@@ -41,11 +40,10 @@ export default function UserForgotPasswordPage() {
     e.preventDefault();
     const newErrors = {};
 
-    if (!formData.emailOrPhone.trim()) {
-      newErrors.emailOrPhone = "Email or phone number is required";
-    }
-    if (!formData.registrationNumber.trim()) {
-      newErrors.registrationNumber = "Registration number is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email address is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -59,8 +57,7 @@ export default function UserForgotPasswordPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          emailOrPhone: formData.emailOrPhone,
-          registrationNumber: formData.registrationNumber,
+          email: formData.email,
         }),
       });
 
@@ -120,7 +117,7 @@ export default function UserForgotPasswordPage() {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          emailOrPhone: formData.emailOrPhone,
+          email: formData.email,
           otp: formData.otp,
           newPassword: formData.newPassword,
         }),
@@ -174,44 +171,25 @@ export default function UserForgotPasswordPage() {
           {step === 1 && (
             <form onSubmit={handleRequestOtp} className="space-y-6">
               <p className="text-sm text-text-muted mb-4">
-                Please enter your registered Email/Phone and Registration Number to verify your identity.
+                Please enter your registered Email Address to verify your identity.
               </p>
 
               <div>
                 <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                  Email or Phone Number
+                  Email Address
                 </label>
                 <input
-                  type="text"
-                  name="emailOrPhone"
-                  value={formData.emailOrPhone}
+                  type="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="Enter email or phone"
+                  placeholder="Enter your registered email"
                   className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
-                    errors.emailOrPhone ? "border-red-500" : "border-border-main focus:border-brand-primary"
+                    errors.email ? "border-red-500" : "border-border-main focus:border-brand-primary"
                   }`}
                 />
-                {errors.emailOrPhone && (
-                  <p className="text-red-500 text-sm mt-2 font-medium">{errors.emailOrPhone}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                  Registration Number
-                </label>
-                <input
-                  type="text"
-                  name="registrationNumber"
-                  value={formData.registrationNumber}
-                  onChange={handleInputChange}
-                  placeholder="Enter registration number"
-                  className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
-                    errors.registrationNumber ? "border-red-500" : "border-border-main focus:border-brand-primary"
-                  }`}
-                />
-                {errors.registrationNumber && (
-                  <p className="text-red-500 text-sm mt-2 font-medium">{errors.registrationNumber}</p>
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-2 font-medium">{errors.email}</p>
                 )}
               </div>
 
@@ -228,15 +206,8 @@ export default function UserForgotPasswordPage() {
           {step === 2 && (
             <form onSubmit={handleVerifyOtp} className="space-y-6">
               <p className="text-sm text-text-muted mb-4">
-                A 6-digit OTP has been generated for verification. Enter it below.
+                A 6-digit OTP has been send to Your email <span className="font-bold text-text-main">{formData.email}</span>. Enter it below for verification.
               </p>
-
-              {testOtp && (
-                <div className="p-4 bg-brand-primary/10 border border-brand-primary/20 text-brand-primary rounded-xl text-sm font-bold">
-                  ℹ️ Testing Mode: Use OTP <span className="underline">{testOtp}</span>
-                </div>
-              )}
-
               <div>
                 <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
                   Verification Code (OTP)

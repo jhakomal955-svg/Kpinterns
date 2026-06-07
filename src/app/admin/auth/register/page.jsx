@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function AdminRegisterPage() {
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,6 +21,9 @@ export default function AdminRegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const totalSteps = 2;
+  const stepTitles = ["Verification", "Admin Details"];
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -38,57 +42,162 @@ export default function AdminRegisterPage() {
     }
   };
 
-  const validateForm = () => {
+  // Email Verification states
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpInput, setOtpInput] = useState("");
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
+  const [otpCooldown, setOtpCooldown] = useState(0);
+  const [otpError, setOtpError] = useState("");
+
+  useEffect(() => {
+    let timer;
+    if (otpCooldown > 0) {
+      timer = setTimeout(() => setOtpCooldown(otpCooldown - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [otpCooldown]);
+
+  const handleSendOtp = async () => {
+    setOtpError("");
+    if (!formData.email.trim()) {
+      setErrors((prev) => ({ ...prev, email: "Email is required to send OTP" }));
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setErrors((prev) => ({ ...prev, email: "Please enter a valid email address" }));
+      return;
+    }
+
+    setOtpLoading(true);
+    try {
+      const res = await fetch("/api/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setOtpSent(true);
+        setOtpCooldown(60);
+        alert(data.message || "OTP sent successfully!");
+        if (data.otp) {
+          console.log(`[DEV ONLY] OTP Code: ${data.otp}`);
+        }
+      } else {
+        setOtpError(data.error || "Failed to send OTP.");
+      }
+    } catch (err) {
+      console.error(err);
+      setOtpError("Failed to request OTP. Please try again.");
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setOtpError("");
+    if (otpInput.length !== 6) {
+      setOtpError("Please enter a valid 6-digit OTP code");
+      return;
+    }
+
+    setOtpVerifyLoading(true);
+    try {
+      const res = await fetch("/api/otp/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email, otp: otpInput }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsEmailVerified(true);
+        setOtpSent(false);
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors.email;
+          return newErrors;
+        });
+      } else {
+        setOtpError(data.error || "Invalid OTP code.");
+      }
+    } catch (err) {
+      console.error(err);
+      setOtpError("Verification failed. Please try again.");
+    } finally {
+      setOtpVerifyLoading(false);
+    }
+  };
+
+  const validateStep = () => {
     const newErrors = {};
 
-    // Name validation
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    } else if (formData.name.trim().length < 3) {
-      newErrors.name = "Name must be at least 3 characters";
-    }
+    if (step === 1) {
+      // Name validation
+      if (!formData.name.trim()) {
+        newErrors.name = "Name is required";
+      } else if (formData.name.trim().length < 3) {
+        newErrors.name = "Name must be at least 3 characters";
+      }
 
-    // Email validation
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
+      // Email validation
+      if (!formData.email.trim()) {
+        newErrors.email = "Email is required";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        newErrors.email = "Please enter a valid email address";
+      } else if (!isEmailVerified) {
+        newErrors.email = "Please verify your email address using OTP";
+      }
+    } else if (step === 2) {
+      // Mobile validation
+      if (!formData.mobile.trim()) {
+        newErrors.mobile = "Mobile number is required";
+      } else if (!/^\d{10}$/.test(formData.mobile.replace(/\D/g, ""))) {
+        newErrors.mobile = "Please enter a valid 10-digit phone number";
+      }
 
-    // Mobile validation
-    if (!formData.mobile.trim()) {
-      newErrors.mobile = "Mobile number is required";
-    } else if (!/^\d{10}$/.test(formData.mobile.replace(/\D/g, ""))) {
-      newErrors.mobile = "Please enter a valid 10-digit phone number";
-    }
+      // Password validation
+      if (!formData.password) {
+        newErrors.password = "Password is required";
+      } else if (formData.password.length < 6) {
+        newErrors.password = "Password must be at least 6 characters";
+      }
 
-    // Password validation
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
+      // Confirm Password validation
+      if (!formData.confirmPassword) {
+        newErrors.confirmPassword = "Please confirm your password";
+      } else if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
 
-    // Confirm Password validation
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "Please confirm your password";
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-
-    // Terms validation
-    if (!formData.agreeTerms) {
-      newErrors.agreeTerms = "You must agree to the terms and conditions";
+      // Terms validation
+      if (!formData.agreeTerms) {
+        newErrors.agreeTerms = "You must agree to the terms and conditions";
+      }
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleNext = (e) => {
+    e.preventDefault();
+    if (validateStep()) {
+      setStep(2);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleBack = () => {
+    setStep(1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    if (!validateStep()) {
       return;
     }
 
@@ -153,258 +262,21 @@ export default function AdminRegisterPage() {
           </p>
         </div>
 
-        {/* Register Card */}
-        <div className="bg-bg-card rounded-3xl shadow-2xl p-8 border border-border-main backdrop-blur-sm animate-fade-in">
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name Input */}
-            <div>
-              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                Full Name *
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="Enter your full name"
-                className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
-                  errors.name
-                    ? "border-red-500"
-                    : "border-border-main focus:border-brand-primary"
-                }`}
-              />
-              {errors.name && (
-                <p className="text-red-500 text-sm mt-2 font-medium">
-                  {errors.name}
-                </p>
-              )}
-            </div>
-
-            {/* Email Input */}
-            <div>
-              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                Email *
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="Enter your email"
-                className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
-                  errors.email
-                    ? "border-red-500"
-                    : "border-border-main focus:border-brand-primary"
-                }`}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-2 font-medium">
-                  {errors.email}
-                </p>
-              )}
-            </div>
-
-            {/* Mobile Number Input */}
-            <div>
-              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                Mobile Number *
-              </label>
-              <input
-                type="tel"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleInputChange}
-                placeholder="Enter 10-digit phone number"
-                className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
-                  errors.mobile
-                    ? "border-red-500"
-                    : "border-border-main focus:border-brand-primary"
-                }`}
-              />
-              {errors.mobile && (
-                <p className="text-red-500 text-sm mt-2 font-medium">
-                  {errors.mobile}
-                </p>
-              )}
-            </div>
-
-            {/* Role Selector */}
-            <div>
-              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                Role *
-              </label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleInputChange}
-                className="w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none"
-              >
-                <option value="Admin">Admin</option>
-                <option value="Instructor">Instructor</option>
-              </select>
-            </div>
-
-            {/* Bio Input */}
-            <div>
-              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                Bio <span className="text-text-muted font-normal normal-case">(optional)</span>
-              </label>
-              <textarea
-                name="bio"
-                value={formData.bio}
-                onChange={handleInputChange}
-                placeholder="Brief description about yourself or your role..."
-                rows={3}
-                className="w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary resize-none"
-              />
-            </div>
-
-            {/* Password Input */}
-            <div>
-              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                Password *
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  placeholder="Enter your password"
-                  className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
-                    errors.password
-                      ? "border-red-500"
-                      : "border-border-main focus:border-brand-primary"
+        {/* Progress Bar */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            {stepTitles.map((title, index) => (
+              <div key={index} className="flex flex-col items-center flex-1">
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+                    index + 1 <= step
+                      ? "bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-lg"
+                      : "bg-bg-card border-2 border-border-main text-text-muted"
                   }`}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors"
                 >
-                  {showPassword ? (
+                  {index + 1 < step ? (
                     <svg
                       className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                      />
-                    </svg>
-                  )}
-                </button>
-              </div>
-              {errors.password && (
-                <p className="text-red-500 text-sm mt-2 font-medium">
-                  {errors.password}
-                </p>
-              )}
-            </div>
-
-            {/* Confirm Password Input */}
-            <div>
-              <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
-                Confirm Password *
-              </label>
-              <div className="relative">
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  placeholder="Confirm your password"
-                  className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
-                    errors.confirmPassword
-                      ? "border-red-500"
-                      : "border-border-main focus:border-brand-primary"
-                  }`}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors"
-                >
-                  {showConfirmPassword ? (
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                      />
-                    </svg>
-                  )}
-                </button>
-              </div>
-              {errors.confirmPassword && (
-                <p className="text-red-500 text-sm mt-2 font-medium">
-                  {errors.confirmPassword}
-                </p>
-              )}
-            </div>
-
-            {/* Terms and Conditions Checkbox */}
-            <label className="flex items-start p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
-              <div className="relative flex-shrink-0 w-6 h-6 border-2 border-border-main rounded-lg group-hover:border-brand-primary transition-colors mt-1">
-                <input
-                  type="checkbox"
-                  name="agreeTerms"
-                  checked={formData.agreeTerms}
-                  onChange={handleInputChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                />
-                {formData.agreeTerms && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg
-                      className="w-4 h-4 text-brand-primary"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -414,70 +286,448 @@ export default function AdminRegisterPage() {
                         clipRule="evenodd"
                       />
                     </svg>
-                  </div>
-                )}
-              </div>
-              <span className="ml-3 flex flex-col">
-                <span className="font-semibold text-text-main group-hover:text-brand-primary transition-colors">
-                  I agree to the terms and conditions *
+                  ) : (
+                    index + 1
+                  )}
+                </div>
+                <span
+                  className={`text-xs mt-2 font-semibold transition-colors ${index + 1 <= step ? "text-brand-primary" : "text-text-muted"}`}
+                >
+                  {title}
                 </span>
-                <span className="text-xs text-text-muted mt-1">
-                  By registering, you agree to our privacy policy and terms of
-                  service
-                </span>
-              </span>
-            </label>
-            {errors.agreeTerms && (
-              <p className="text-red-500 text-sm font-medium">
-                {errors.agreeTerms}
-              </p>
-            )}
-
-            {errors.submit && (
-              <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-600 text-sm font-medium">
-                <p>{errors.submit}</p>
-                {errors.details && (
-                  <p className="mt-1 text-xs text-red-500">{errors.details}</p>
-                )}
               </div>
-            )}
+            ))}
+          </div>
 
-            {/* Success Message */}
-            {successMessage && (
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/50 text-emerald-600 text-sm font-medium">
+          {/* Progress Line */}
+          <div className="h-1 bg-border-main rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary transition-all duration-500"
+              style={{ width: `${((step - 1) / (totalSteps - 1)) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Register Card */}
+        <div className="bg-bg-card rounded-3xl shadow-2xl p-8 border border-border-main backdrop-blur-sm animate-fade-in">
+          {successMessage ? (
+            <div className="space-y-6">
+              <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 text-center font-medium font-poppins">
+                <div className="text-4xl mb-3">✓</div>
                 {successMessage}
               </div>
-            )}
-
-            {/* Register Button */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-lg hover:shadow-2xl hover:shadow-brand-primary/40 transition-all transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
-            >
-              {isLoading ? (
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>Creating Account...</span>
-                </div>
-              ) : (
-                "Create Admin Account"
-              )}
-            </button>
-
-            {/* Login Link */}
-            <div className="text-center pt-4 border-t border-border-main">
-              <p className="text-text-muted font-poppins">
-                Already have an account?{" "}
+              <div className="text-center pt-4 border-t border-border-main">
                 <Link
                   href="/admin/auth/login"
-                  className="text-brand-primary font-bold hover:text-brand-secondary transition-colors"
+                  className="px-6 py-3 bg-brand-primary hover:bg-brand-primary/90 text-white rounded-xl font-bold font-poppins text-sm transition-all inline-block"
                 >
-                  Login here
+                  Go to Login
                 </Link>
-              </p>
+              </div>
             </div>
-          </form>
+          ) : (
+            <form onSubmit={step === 1 ? handleNext : handleSubmit} className="space-y-5">
+              {step === 1 && (
+                <div className="space-y-5 animate-fade-in">
+                  {/* Name Input */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Enter your full name"
+                      className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                        errors.name
+                          ? "border-red-500"
+                          : "border-border-main focus:border-brand-primary"
+                      }`}
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-sm mt-2 font-medium">
+                        {errors.name}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Email Input */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Email *
+                    </label>
+                    <div className="space-y-3">
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        disabled={isEmailVerified}
+                        placeholder="Enter your email"
+                        className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                          errors.email
+                            ? "border-red-500"
+                            : "border-border-main focus:border-brand-primary"
+                        } ${isEmailVerified ? "opacity-60 cursor-not-allowed bg-emerald-500/5 border-emerald-500/30" : ""}`}
+                      />
+                      {!isEmailVerified && (
+                        <button
+                          type="button"
+                          onClick={handleSendOtp}
+                          disabled={otpLoading || otpCooldown > 0}
+                          className="w-full py-4 bg-brand-primary hover:bg-brand-primary/90 text-white rounded-xl font-bold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                        >
+                          {otpLoading ? (
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          ) : otpCooldown > 0 ? (
+                            `Resend in ${otpCooldown}s`
+                          ) : (
+                            "Send OTP"
+                          )}
+                        </button>
+                      )}
+                    </div>
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-2 font-medium">
+                        {errors.email}
+                      </p>
+                    )}
+                    {isEmailVerified && (
+                      <p className="text-brand-success text-sm mt-2 font-semibold flex items-center gap-1">
+                        <span>✓</span> Email verified successfully!
+                      </p>
+                    )}
+                  </div>
+
+                  {otpSent && !isEmailVerified && (
+                    <div className="bg-brand-primary/5 border border-brand-primary/10 rounded-2xl p-5 animate-fade-in space-y-3">
+                      <label className="block text-sm font-bold text-text-main uppercase tracking-wider ml-1">
+                        Enter Verification Code *
+                      </label>
+                      <div className="space-y-3">
+                        <input
+                          type="text"
+                          maxLength={6}
+                          value={otpInput}
+                          onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ""))}
+                          placeholder="Enter 6-digit OTP"
+                          className="w-full px-5 py-4 rounded-xl border-2 border-border-main focus:outline-none focus:border-brand-primary bg-bg-main font-mono text-center tracking-widest text-lg font-bold"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleVerifyOtp}
+                          disabled={otpInput.length !== 6 || otpVerifyLoading}
+                          className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                        >
+                          {otpVerifyLoading ? (
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          ) : (
+                            "Verify"
+                          )}
+                        </button>
+                      </div>
+                      {otpError && (
+                        <p className="text-red-500 text-sm mt-2 font-medium">
+                          {otpError}
+                        </p>
+                      )}
+                      <p className="text-text-muted text-xs font-poppins">
+                        An OTP code was sent to <span className="font-semibold text-text-main">{formData.email}</span>. Please check your inbox or spam folder.
+                      </p>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-lg hover:shadow-2xl hover:shadow-brand-primary/40 transition-all transform hover:scale-105"
+                  >
+                    Continue
+                  </button>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div className="space-y-5 animate-fade-in">
+                  {/* Mobile Number Input */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Mobile Number *
+                    </label>
+                    <input
+                      type="tel"
+                      name="mobile"
+                      value={formData.mobile}
+                      onChange={handleInputChange}
+                      placeholder="Enter 10-digit phone number"
+                      className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                        errors.mobile
+                          ? "border-red-500"
+                          : "border-border-main focus:border-brand-primary"
+                      }`}
+                    />
+                    {errors.mobile && (
+                      <p className="text-red-500 text-sm mt-2 font-medium">
+                        {errors.mobile}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Role Selector */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Role *
+                    </label>
+                    <select
+                      name="role"
+                      value={formData.role}
+                      onChange={handleInputChange}
+                      className="w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none"
+                    >
+                      <option value="Admin">Admin</option>
+                      <option value="Instructor">Instructor</option>
+                    </select>
+                  </div>
+
+                  {/* Bio Input */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Bio <span className="text-text-muted font-normal normal-case">(optional)</span>
+                    </label>
+                    <textarea
+                      name="bio"
+                      value={formData.bio}
+                      onChange={handleInputChange}
+                      placeholder="Brief description about yourself or your role..."
+                      rows={3}
+                      className="w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary resize-none"
+                    />
+                  </div>
+
+                  {/* Password Input */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Password *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        placeholder="Enter your password"
+                        className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                          errors.password
+                            ? "border-red-500"
+                            : "border-border-main focus:border-brand-primary"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors"
+                      >
+                        {showPassword ? (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                            />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    {errors.password && (
+                      <p className="text-red-500 text-sm mt-2 font-medium">
+                        {errors.password}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Confirm Password Input */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Confirm Password *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
+                        placeholder="Confirm your password"
+                        className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                          errors.confirmPassword
+                            ? "border-red-500"
+                            : "border-border-main focus:border-brand-primary"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors"
+                      >
+                        {showConfirmPassword ? (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                            />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    {errors.confirmPassword && (
+                      <p className="text-red-500 text-sm mt-2 font-medium">
+                        {errors.confirmPassword}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Terms and Conditions Checkbox */}
+                  <label className="flex items-start p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
+                    <div className="relative flex-shrink-0 w-6 h-6 border-2 border-border-main rounded-lg group-hover:border-brand-primary transition-colors mt-1">
+                      <input
+                        type="checkbox"
+                        name="agreeTerms"
+                        checked={formData.agreeTerms}
+                        onChange={handleInputChange}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                      {formData.agreeTerms && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <svg
+                            className="w-4 h-4 text-brand-primary"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                    <span className="ml-3 flex flex-col">
+                      <span className="font-semibold text-text-main group-hover:text-brand-primary transition-colors">
+                        I agree to the terms and conditions *
+                      </span>
+                      <span className="text-xs text-text-muted mt-1">
+                        By registering, you agree to our privacy policy and terms of
+                        service
+                      </span>
+                    </span>
+                  </label>
+                  {errors.agreeTerms && (
+                    <p className="text-red-500 text-sm font-medium">
+                      {errors.agreeTerms}
+                    </p>
+                  )}
+
+                  {errors.submit && (
+                    <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-600 text-sm font-medium">
+                      <p>{errors.submit}</p>
+                      {errors.details && (
+                        <p className="mt-1 text-xs text-red-500">{errors.details}</p>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="flex gap-4">
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      className="flex-1 py-4 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition-all animate-fade-in"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="flex-1 py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-lg hover:shadow-2xl hover:shadow-brand-primary/40 transition-all transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+                    >
+                      {isLoading ? (
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <span>Creating Account...</span>
+                        </div>
+                      ) : (
+                        "Register"
+                      )}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Login Link */}
+              <div className="text-center pt-4 border-t border-border-main">
+                <p className="text-text-muted font-poppins">
+                  Already have an account?{" "}
+                  <Link
+                    href="/admin/auth/login"
+                    className="text-brand-primary font-bold hover:text-brand-secondary transition-colors"
+                  >
+                    Login here
+                  </Link>
+                </p>
+              </div>
+            </form>
+          )}
         </div>
 
         {/* Back to Admin Portal */}

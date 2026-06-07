@@ -11,27 +11,59 @@ export default function DashboardPage() {
     internships: 156,
     contactMessages: 89,
   });
+  const [courses, setCourses] = useState([]);
+  const [internships, setInternships] = useState([]);
+  const [adminData, setAdminData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let currentAdmin = null;
+    let token = null;
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("adminData");
+        token = localStorage.getItem("adminToken");
+        if (stored) {
+          currentAdmin = JSON.parse(stored);
+          setAdminData(currentAdmin);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
     const fetchStats = async () => {
       try {
         setIsLoading(true);
-        const [users, admins, courses, internships, contacts] = await Promise.all([
-          fetch('/api/user').then(r => r.json()),
-          fetch('/api/admin').then(r => r.json()),
-          fetch('/api/course').then(r => r.json()),
-          fetch('/api/internship').then(r => r.json()),
-          fetch('/api/contact').then(r => r.json()),
-        ]);
-        
-        setStats({
-          users: users.success && Array.isArray(users.data) ? users.data.length : 0,
-          admins: admins.success && Array.isArray(admins.data) ? admins.data.length : 0,
-          courses: courses.success && Array.isArray(courses.data) ? courses.data.length : 0,
-          internships: internships.success && Array.isArray(internships.data) ? internships.data.length : 0,
-          contactMessages: contacts.success && Array.isArray(contacts.data) ? contacts.data.length : 0,
-        });
+        const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+
+        if (currentAdmin && currentAdmin.role === "Instructor") {
+          const [coursesRes, internshipsRes] = await Promise.all([
+            fetch('/api/course', { headers }).then(r => r.json()),
+            fetch('/api/internship', { headers }).then(r => r.json()),
+          ]);
+          if (coursesRes.success) setCourses(coursesRes.data || []);
+          if (internshipsRes.success) setInternships(internshipsRes.data || []);
+        } else {
+          const [users, admins, coursesRes, internshipsRes, contacts] = await Promise.all([
+            fetch('/api/user', { headers }).then(r => r.json()),
+            fetch('/api/admin', { headers }).then(r => r.json()),
+            fetch('/api/course', { headers }).then(r => r.json()),
+            fetch('/api/internship', { headers }).then(r => r.json()),
+            fetch('/api/contact', { headers }).then(r => r.json()),
+          ]);
+          
+          if (coursesRes.success) setCourses(coursesRes.data || []);
+          if (internshipsRes.success) setInternships(internshipsRes.data || []);
+
+          setStats({
+            users: users.success && Array.isArray(users.data) ? users.data.length : 0,
+            admins: admins.success && Array.isArray(admins.data) ? admins.data.length : 0,
+            courses: coursesRes.success && Array.isArray(coursesRes.data) ? coursesRes.data.length : 0,
+            internships: internshipsRes.success && Array.isArray(internshipsRes.data) ? internshipsRes.data.length : 0,
+            contactMessages: contacts.success && Array.isArray(contacts.data) ? contacts.data.length : 0,
+          });
+        }
       } catch (error) {
         console.error('Error fetching stats:', error);
       } finally {
@@ -71,6 +103,174 @@ export default function DashboardPage() {
       </div>
     </Link>
   );
+
+  const myCourses = courses.filter(course =>
+    course.instructor?.some(inst => {
+      const instId = typeof inst.id === "object" ? inst.id?._id : inst.id;
+      return instId === adminData?._id;
+    })
+  );
+
+  const myInternships = internships.filter(internship =>
+    internship.instructor?.some(inst => {
+      const instId = typeof inst.id === "object" ? inst.id?._id : inst.id;
+      return instId === adminData?._id;
+    })
+  );
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary mx-auto mb-4"></div>
+          <p className="text-text-muted">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (adminData?.role === "Instructor") {
+    return (
+      <div className="space-y-6 md:space-y-8">
+        {/* Welcome Section */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-brand-primary via-brand-primary to-brand-secondary rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 text-white shadow-2xl">
+          {/* Background Decoration */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full -ml-16 -mb-16 blur-3xl"></div>
+
+          <div className="relative z-10">
+            <div className="flex flex-col gap-4 sm:gap-6">
+              <div>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3">
+                  Welcome back, {adminData?.name}! 👋
+                </h1>
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl opacity-90 leading-relaxed">
+                  Here's what's happening with your assigned courses and internships today.
+                </p>
+              </div>
+
+              {/* Quick Date Info */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 border border-white/20 text-xs sm:text-sm md:text-base w-fit">
+                <p className="font-semibold">
+                  {new Date().toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div className="bg-bg-card border-2 border-border-main rounded-xl sm:rounded-2xl p-6 shadow-sm flex items-center justify-between">
+            <div className="space-y-2">
+              <h3 className="text-xs sm:text-sm text-text-muted font-bold uppercase tracking-wider">Assigned Courses</h3>
+              <p className="text-3xl sm:text-4xl font-extrabold text-text-main">{myCourses.length}</p>
+            </div>
+            <div className="w-14 h-14 bg-green-500/10 text-green-500 rounded-2xl flex items-center justify-center">
+              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+              </svg>
+            </div>
+          </div>
+          
+          <div className="bg-bg-card border-2 border-border-main rounded-xl sm:rounded-2xl p-6 shadow-sm flex items-center justify-between">
+            <div className="space-y-2">
+              <h3 className="text-xs sm:text-sm text-text-muted font-bold uppercase tracking-wider">Assigned Internships</h3>
+              <p className="text-3xl sm:text-4xl font-extrabold text-text-main">{myInternships.length}</p>
+            </div>
+            <div className="w-14 h-14 bg-orange-500/10 text-orange-500 rounded-2xl flex items-center justify-center">
+              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Assigned Courses Section */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl sm:text-2xl font-bold text-text-main">Assigned Courses ({myCourses.length})</h2>
+            <Link href="/admin/auth/dashboard/course" className="text-sm font-semibold text-brand-primary hover:underline">Manage Courses</Link>
+          </div>
+          
+          {myCourses.length === 0 ? (
+            <div className="p-10 text-center bg-bg-card border-2 border-border-main rounded-2xl text-text-muted">
+              You are not currently assigned to any courses.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {myCourses.map((course) => (
+                <div key={course._id} className="bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:border-brand-primary/40 transition">
+                  <div className="aspect-video bg-bg-main relative">
+                    {course.thumbnail ? (
+                      <img src={course.thumbnail} alt={course.title} className="object-cover w-full h-full" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-text-muted text-xs font-semibold">No Thumbnail</div>
+                    )}
+                  </div>
+                  <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
+                    <div className="space-y-1">
+                      <span className="text-[10px] uppercase font-bold text-brand-secondary">{course.department}</span>
+                      <h4 className="font-bold text-base text-text-main line-clamp-1">{course.title}</h4>
+                      <p className="text-xs text-text-muted line-clamp-2">{course.shortDescription || course.description}</p>
+                    </div>
+                    <div className="flex items-center justify-between pt-3 border-t border-border-main">
+                      <span className="text-xs bg-gray-500/10 px-2 py-0.5 rounded border border-border-main text-text-muted">{course.status}</span>
+                      <Link href={`/admin/auth/dashboard/course/${course._id}`} className="text-xs bg-brand-primary text-white font-semibold px-3 py-1.5 rounded-lg hover:bg-brand-primary/90 transition">Edit Course</Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Assigned Internships Section */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl sm:text-2xl font-bold text-text-main">Assigned Internships ({myInternships.length})</h2>
+            <Link href="/admin/auth/dashboard/internship" className="text-sm font-semibold text-brand-primary hover:underline">Manage Internships</Link>
+          </div>
+          
+          {myInternships.length === 0 ? (
+            <div className="p-10 text-center bg-bg-card border-2 border-border-main rounded-2xl text-text-muted">
+              You are not currently assigned to any internships.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {myInternships.map((internship) => (
+                <div key={internship._id} className="bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:border-brand-primary/40 transition">
+                  <div className="aspect-video bg-bg-main relative">
+                    {internship.thumbnail ? (
+                      <img src={internship.thumbnail} alt={internship.title} className="object-cover w-full h-full" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-text-muted text-xs font-semibold">No Thumbnail</div>
+                    )}
+                  </div>
+                  <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
+                    <div className="space-y-1">
+                      <span className="text-[10px] uppercase font-bold text-brand-secondary">{internship.department}</span>
+                      <h4 className="font-bold text-base text-text-main line-clamp-1">{internship.position}</h4>
+                      <h5 className="font-semibold text-xs text-text-muted">{internship.title}</h5>
+                    </div>
+                    <div className="flex items-center justify-between pt-3 border-t border-border-main">
+                      <span className="text-xs bg-gray-500/10 px-2 py-0.5 rounded border border-border-main text-text-muted">{internship.status}</span>
+                      <Link href={`/admin/auth/dashboard/internship/${internship._id}`} className="text-xs bg-brand-primary text-white font-semibold px-3 py-1.5 rounded-lg hover:bg-brand-primary/90 transition">Edit Internship</Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4 sm:space-y-6 md:space-y-8">

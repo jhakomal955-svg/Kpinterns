@@ -77,7 +77,7 @@ export default function Navbar() {
               <Link   
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium浏览 text-text-muted hover:text-brand-primary transition-colors"
+                className="text-sm font-medium text-text-muted hover:text-brand-primary transition-colors"
               >
                 {link.label}
               </Link>

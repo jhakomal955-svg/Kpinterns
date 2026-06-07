@@ -6,45 +6,30 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel } from "@/models";
+import { sendForgotPasswordOtpEmail } from "@/lib/nodemailer";
 
 // POST: Request Reset OTP
 export async function POST(request) {
   try {
     await connectDB();
 
-    const { emailOrPhone, registrationNumber } = await request.json();
+    const { email } = await request.json();
 
-    if (!emailOrPhone || !registrationNumber) {
+    if (!email) {
       return Response.json(
-        { error: "Email/Phone and registration number are required" },
+        { error: "Email address is required" },
         { status: 400 }
       );
     }
 
     const User = createModel("User", UserModel);
 
-    // Normalize input
-    const normalizedEmailOrPhone = emailOrPhone.trim();
-    const isOnlyDigits = /^\d+$/.test(normalizedEmailOrPhone.replace(/\D/g, ""));
-
-    const query = {
-      registrationNumber: registrationNumber.trim(),
-      $or: [
-        { email: normalizedEmailOrPhone.toLowerCase() },
-      ]
-    };
-
-    if (isOnlyDigits) {
-      query.$or.push({ phone: normalizedEmailOrPhone.replace(/\D/g, "") });
-    } else {
-      query.$or.push({ phone: normalizedEmailOrPhone });
-    }
-
-    const user = await User.findOne(query);
+    // Find user by email directly
+    const user = await User.findOne({ email: email.trim().toLowerCase() });
 
     if (!user) {
       return Response.json(
-        { error: "User not found. Please verify your registration number and email/phone." },
+        { error: "User with this email address was not found." },
         { status: 404 }
       );
     }
@@ -57,17 +42,20 @@ export async function POST(request) {
     user.resetOtpExpiry = new Date(Date.now() + 10 * 60 * 1000);
     await user.save();
 
-    console.log(`[FORGOT PASSWORD OTP - USER: ${user.email}] OTP: ${otp}`);
+    // Dispatch real email (or fallback to console print)
+    const emailRes = await sendForgotPasswordOtpEmail(user.email, user.fullName, otp, "User");
 
-    // Return success response (leak OTP for mock development usage)
-    return Response.json(
-      {
-        success: true,
-        message: "A password reset OTP has been generated successfully.",
-        otp, // In production, we'd send this via email/SMS and NOT return it in JSON
-      },
-      { status: 200 }
-    );
+    const responsePayload = {
+      success: true,
+      message: "A password reset OTP has been sent to your registered email address.",
+    };
+
+    // Keep otp in response payload only during local mock development
+    if (process.env.NODE_ENV === "development" || emailRes.mocked) {
+      responsePayload.otp = otp;
+    }
+
+    return Response.json(responsePayload, { status: 200 });
   } catch (error) {
     console.error("Error initiating user forgot-password:", error);
     return Response.json(
@@ -82,11 +70,11 @@ export async function PUT(request) {
   try {
     await connectDB();
 
-    const { emailOrPhone, otp, newPassword } = await request.json();
+    const { email, otp, newPassword } = await request.json();
 
-    if (!emailOrPhone || !otp || !newPassword) {
+    if (!email || !otp || !newPassword) {
       return Response.json(
-        { error: "All fields (Email/Phone, OTP, and New Password) are required" },
+        { error: "All fields (Email, OTP, and New Password) are required" },
         { status: 400 }
       );
     }
@@ -100,23 +88,8 @@ export async function PUT(request) {
 
     const User = createModel("User", UserModel);
 
-    // Find user by email or phone
-    const normalizedEmailOrPhone = emailOrPhone.trim();
-    const isOnlyDigits = /^\d+$/.test(normalizedEmailOrPhone.replace(/\D/g, ""));
-
-    const query = {
-      $or: [
-        { email: normalizedEmailOrPhone.toLowerCase() },
-      ]
-    };
-
-    if (isOnlyDigits) {
-      query.$or.push({ phone: normalizedEmailOrPhone.replace(/\D/g, "") });
-    } else {
-      query.$or.push({ phone: normalizedEmailOrPhone });
-    }
-
-    const user = await User.findOne(query);
+    // Find user by email directly
+    const user = await User.findOne({ email: email.trim().toLowerCase() });
 
     if (!user) {
       return Response.json(

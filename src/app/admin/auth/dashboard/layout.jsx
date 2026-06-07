@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [adminData, setAdminData] = useState(null);
   const pathname = usePathname();
 
   // Sync theme class with global document tag
@@ -18,6 +19,20 @@ export default function DashboardLayout({ children }) {
       root.classList.remove("dark");
     }
   }, [isDarkMode]);
+
+  // Load admin details
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("adminData");
+        if (stored) {
+          setAdminData(JSON.parse(stored));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }, []);
 
   // Navigation items for dashboard
   const navItems = [
@@ -206,7 +221,10 @@ export default function DashboardLayout({ children }) {
 
         {/* Navigation Items */}
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-          {navItems.map((item, index) => {
+          {(adminData?.role === "Instructor"
+            ? navItems.filter(item => ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label))
+            : navItems
+          ).map((item, index) => {
             const isActive =
               pathname === item.href || pathname.startsWith(item.href + "/");
             return (
@@ -320,7 +338,10 @@ export default function DashboardLayout({ children }) {
 
         {/* Navigation Items */}
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-          {navItems.map((item, index) => {
+          {(adminData?.role === "Instructor"
+            ? navItems.filter(item => ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label))
+            : navItems
+          ).map((item, index) => {
             const isActive =
               pathname === item.href || pathname.startsWith(item.href + "/");
             return (
@@ -461,7 +482,34 @@ export default function DashboardLayout({ children }) {
         </div>
 
         {/* Page Content */}
-        <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">{children}</div>
+        <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
+          {(() => {
+            const isInstructor = adminData?.role === "Instructor";
+            const isRestrictedPath =
+              pathname.startsWith("/admin/auth/dashboard/user") ||
+              pathname.startsWith("/admin/auth/dashboard/admin") ||
+              pathname.startsWith("/admin/auth/dashboard/contact");
+
+            if (isInstructor && isRestrictedPath) {
+              return (
+                <div className="flex items-center justify-center min-h-[60vh]">
+                  <div className="bg-bg-card border-2 border-border-main p-8 rounded-2xl max-w-md w-full text-center space-y-4 shadow-xl">
+                    <div className="mx-auto w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                    </div>
+                    <h2 className="text-xl font-bold text-text-main">Access Denied</h2>
+                    <p className="text-sm text-text-muted leading-relaxed">
+                      instructor have not acess for this page view and edit contact to admin for any updation
+                    </p>
+                  </div>
+                </div>
+              );
+            }
+            return children;
+          })()}
+        </div>
       </main>
     </div>
   );

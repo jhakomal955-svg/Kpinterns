@@ -46,7 +46,8 @@ export default function InternshipsAdminPage() {
     contactPersonEmail: "",
     contactPersonPhone: "",
     contactPersonDesignation: "",
-    instructorId: "",
+    instructorId: "", // fallback
+    instructors: [],
     contentItems: [],
     updates: [],
   });
@@ -68,6 +69,8 @@ export default function InternshipsAdminPage() {
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
   const [uploadingFile, setUploadingFile] = useState(false);
   const [uploadError, setUploadError] = useState(null);
+  const [adminsList, setAdminsList] = useState([]);
+  const [adminData, setAdminData] = useState(null);
 
   const internshipTypes = [
     "Full-Time",
@@ -111,12 +114,26 @@ export default function InternshipsAdminPage() {
   useEffect(() => {
     fetchInternships();
 
+    const fetchAdmins = async () => {
+      try {
+        const res = await fetch("/api/admin");
+        const data = await res.json();
+        if (data.success) {
+          setAdminsList(data.data || []);
+        }
+      } catch (err) {
+        console.error("Error fetching admins:", err);
+      }
+    };
+    fetchAdmins();
+
     // Load admin ID for createdBy fallback
     if (typeof window !== "undefined") {
       try {
         const stored = localStorage.getItem("adminData");
         if (stored) {
           const parsed = JSON.parse(stored);
+          setAdminData(parsed);
           if (parsed && parsed._id) {
             setFormData((prev) => ({ ...prev, createdBy: parsed._id }));
           }
@@ -300,7 +317,8 @@ export default function InternshipsAdminPage() {
       contactPersonEmail: "",
       contactPersonPhone: "",
       contactPersonDesignation: "",
-      instructorId: "",
+      instructorId: "", // fallback
+      instructors: [],
       contentItems: [],
       updates: [],
     });
@@ -337,8 +355,8 @@ export default function InternshipsAdminPage() {
         setError("Job position role is required");
         return;
       }
-      if (!formData.instructorId) {
-        setError("Instructor ID reference mapping token is required");
+      if (!formData.instructors || formData.instructors.length === 0) {
+        setError("At least one instructor is required");
         return;
       }
 
@@ -366,7 +384,7 @@ export default function InternshipsAdminPage() {
         benefits: formData.benefits ? formData.benefits.split(",").map((item) => item.trim()).filter(Boolean) : [],
         perks: formData.perks ? formData.perks.split(",").map((item) => item.trim()).filter(Boolean) : [],
         applicationDeadline: formData.applicationDeadline || null,
-        instructor: [{ id: formData.instructorId }],
+        instructor: formData.instructors.map(id => ({ id })),
         stipend: {
           amount: formData.stipendAmount,
         },
@@ -422,6 +440,14 @@ export default function InternshipsAdminPage() {
   };
 
   const filteredInternships = internships.filter((internship) => {
+    if (adminData?.role === "Instructor") {
+      const isAssigned = internship.instructor?.some((inst) => {
+        const instId = typeof inst.id === "object" ? inst.id?._id : inst.id;
+        return instId === adminData._id;
+      });
+      if (!isAssigned) return false;
+    }
+
     const term = searchQuery.toLowerCase();
     const matchesSearch =
       internship.title?.toLowerCase().includes(term) ||
@@ -448,15 +474,17 @@ export default function InternshipsAdminPage() {
             Create, view, update, and manage professional student internship offers.
           </p>
         </div>
-        <button
-          onClick={openAddModal}
-          className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base"
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
-          Add Internship
-        </button>
+        {adminData?.role !== "Instructor" && (
+          <button
+            onClick={openAddModal}
+            className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Add Internship
+          </button>
+        )}
       </div>
 
       {/* Notifications */}
@@ -599,23 +627,20 @@ export default function InternshipsAdminPage() {
                       <span className="text-sm font-semibold text-text-main">{internship.RegistrationFee?.amount || "Free"}</span>
                     </div>
                   </div>
-                  {internship.instructor?.[0]?.id && (
-                    <div className="pt-2.5 border-t border-border-main space-y-1 text-xs">
-                      <div className="flex items-center justify-between font-medium">
-                        <span className="font-semibold text-text-muted">Instructor</span>
-                        <span className="text-text-main font-semibold text-right truncate max-w-[150px]" title={typeof internship.instructor[0].id === "object" ? internship.instructor[0].id.name : ""}>
-                          {typeof internship.instructor[0].id === "object"
-                            ? internship.instructor[0].id.name || "Admin"
-                            : "Admin"}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between font-medium">
-                        <span className="font-semibold text-text-muted text-[10px] uppercase">ID</span>
-                        <span className="font-mono text-[10px] bg-bg-main px-1.5 py-0.5 rounded border border-border-main truncate max-w-[170px] select-all" title={typeof internship.instructor[0].id === "object" ? internship.instructor[0].id._id : internship.instructor[0].id}>
-                          {typeof internship.instructor[0].id === "object"
-                            ? internship.instructor[0].id._id
-                            : internship.instructor[0].id}
-                        </span>
+                  {internship.instructor && internship.instructor.length > 0 && (
+                    <div className="pt-2.5 border-t border-border-main space-y-2 text-xs">
+                      <div className="flex flex-col gap-1.5">
+                        <span className="font-semibold text-text-muted">Assigned Instructors</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {internship.instructor.map((inst, index) => {
+                            const name = typeof inst.id === "object" ? inst.id?.name : "Admin";
+                            return (
+                              <span key={index} className="bg-bg-main border border-border-main text-text-main font-medium rounded px-2.5 py-0.5 text-[10px]">
+                                {name}
+                              </span>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -632,15 +657,17 @@ export default function InternshipsAdminPage() {
                   </svg>
                   Edit
                 </Link>
-                <button
-                  onClick={() => handleDelete(internship._id)}
-                  className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:border-red-500/40 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all flex items-center gap-1.5 font-semibold text-xs sm:text-sm"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                  Delete
-                </button>
+                {adminData?.role !== "Instructor" && (
+                  <button
+                    onClick={() => handleDelete(internship._id)}
+                    className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:border-red-500/40 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all flex items-center gap-1.5 font-semibold text-xs sm:text-sm"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -876,17 +903,63 @@ export default function InternshipsAdminPage() {
                     </select>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Instructor Admin Reference ID *</label>
-                    <input
-                      type="text"
-                      name="instructorId"
-                      value={formData.instructorId}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Paste Admin reference ObjectId"
-                      className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                    />
+                  <div className="md:col-span-2 space-y-3">
+                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Assigned Instructors *</label>
+                    
+                    {/* List of currently assigned instructors */}
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {formData.instructors && formData.instructors.map((instId) => {
+                        const match = adminsList.find((admin) => admin._id === instId);
+                        const displayName = match ? `${match.name} (ID: ${match._id})` : instId;
+                        return (
+                          <div key={instId} className="flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/30 text-brand-primary font-medium px-3.5 py-1.5 rounded-xl text-sm">
+                            <span>{displayName}</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  instructors: prev.instructors.filter((id) => id !== instId),
+                                }));
+                              }}
+                              className="hover:text-red-500 font-bold transition-all text-xs"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        );
+                      })}
+                      {(!formData.instructors || formData.instructors.length === 0) && (
+                        <p className="text-xs text-red-500 font-medium italic">No instructors assigned yet.</p>
+                      )}
+                    </div>
+
+                    {/* Dropdown select to add new instructor */}
+                    <div className="flex gap-3">
+                      <select
+                        className="flex-1 p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm text-text-main"
+                        onChange={(e) => {
+                          const selectedId = e.target.value;
+                          if (selectedId && !formData.instructors.includes(selectedId)) {
+                            setFormData((prev) => ({
+                              ...prev,
+                              instructors: [...prev.instructors, selectedId],
+                            }));
+                          }
+                          e.target.value = ""; // Reset dropdown selection
+                        }}
+                        defaultValue=""
+                      >
+                        <option value="" disabled>Add Instructor...</option>
+                        {adminsList
+                          .filter((admin) => admin.role === "Instructor" && !formData.instructors.includes(admin._id))
+                          .map((admin) => (
+                            <option key={admin._id} value={admin._id}>
+                              {admin.name} (ID: {admin._id})
+                            </option>
+                          ))}
+                      </select>
+                    </div>
                   </div>
 
                   {/* FIX A: Internship Banner Picked utilizing MediaPicker component */}

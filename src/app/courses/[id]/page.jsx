@@ -29,6 +29,44 @@ export default function CourseDetailLearnPage() {
   const [error, setError] = useState(null);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [isUpdatingProgress, setIsUpdatingProgress] = useState(false);
+
+  const userCourseData = userData?.ActiveCources?.find(
+    (c) => (c.course?._id || c.course) === courseId
+  );
+
+  const handleToggleModuleComplete = async (moduleId) => {
+    if (!userData || !courseId || !moduleId) return;
+
+    setIsUpdatingProgress(true);
+    try {
+      const isCompleted = userCourseData?.completedModules?.includes(moduleId);
+      const res = await fetch("/api/user/progress", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: userData._id,
+          itemId: courseId,
+          type: "course",
+          moduleId: moduleId,
+          completed: !isCompleted,
+        }),
+      });
+
+      const result = await res.json();
+      if (res.ok && result.success && result.data) {
+        setUserData(result.data);
+        localStorage.setItem("userData", JSON.stringify(result.data));
+      } else {
+        alert(result.error || "Failed to update module progress");
+      }
+    } catch (err) {
+      console.error("Error toggling module progress:", err);
+      alert("An error occurred while updating your progress.");
+    } finally {
+      setIsUpdatingProgress(false);
+    }
+  };
 
   useEffect(() => {
     // Check if user is logged in and enrolled
@@ -47,6 +85,23 @@ export default function CourseDetailLearnPage() {
           );
           setIsEnrolled(enrolled);
         }, 0);
+
+        // Fetch fresh profile details from DB to sync
+        fetch(`/api/user?id=${parsedUser._id}`)
+          .then(res => res.json())
+          .then(result => {
+            if (result.success && result.data) {
+              setTimeout(() => {
+                setUserData(result.data);
+                localStorage.setItem("userData", JSON.stringify(result.data));
+                const freshEnrolled = (result.data.ActiveCources || []).some(
+                  c => (c.course?._id || c.course) === courseId
+                );
+                setIsEnrolled(freshEnrolled);
+              }, 0);
+            }
+          })
+          .catch(err => console.error("Error syncing profile:", err));
       } catch (e) {
         console.error("Error parsing user data:", e);
       }
@@ -333,105 +388,156 @@ export default function CourseDetailLearnPage() {
         </div>
       ) : (
         /* Enrolled Learning Dashboard */
-        <div className="flex-1 max-w-8xl w-full mx-auto flex flex-col md:flex-row gap-6 p-4 sm:p-6 lg:p-8">
-          {/* Sidebar - Modules list */}
-          <div className="w-full md:w-80 shrink-0 space-y-4">
-            <div className="bg-bg-card border-2 border-border-main rounded-2xl p-4 shadow-sm">
-              <h3 className="font-bold text-sm uppercase tracking-wider text-text-muted mb-4 px-2">
-                Lessons Map
-              </h3>
-              <div className="space-y-2">
-                {(course.content || []).map((mod, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedModuleIndex(idx)}
-                    className={`w-full text-left p-3 rounded-xl border text-sm font-semibold transition-all flex items-start gap-3 ${
-                      selectedModuleIndex === idx
-                        ? "bg-brand-primary/10 border-brand-primary text-brand-primary shadow-sm"
-                        : "bg-bg-card border-border-main hover:bg-bg-main text-text-muted hover:text-text-main"
-                    }`}
-                  >
-                    <span className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${
-                      selectedModuleIndex === idx ? "bg-brand-primary text-white" : "bg-bg-main"
-                    }`}>
-                      {idx + 1}
-                    </span>
-                    <span className="line-clamp-2 mt-0.5">{mod.title}</span>
-                  </button>
-                ))}
+        <div className="flex-1 max-w-8xl w-full mx-auto flex flex-col gap-6 p-4 sm:p-6 lg:p-8">
+          {/* Progress Section */}
+          <div className="bg-bg-card border-2 border-border-main rounded-2xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 animate-fade-in animate-gradient">
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-bold font-poppins text-text-muted">Course Completion Progress</span>
+                <span className="text-sm font-bold font-poppins text-brand-primary">{userCourseData?.progress || 0}%</span>
               </div>
+              <div className="w-full bg-border-main rounded-full h-3 overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full transition-all duration-500"
+                  style={{ width: `${userCourseData?.progress || 0}%` }}
+                ></div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <span className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border ${
+                userCourseData?.courseStatus === "Completed"
+                  ? "bg-brand-success/15 border-brand-success/30 text-brand-success"
+                  : "bg-brand-primary/15 border-brand-primary/30 text-brand-primary"
+              }`}>
+                {userCourseData?.courseStatus === "Completed" ? "🏆 Completed" : "⚡ In Progress"}
+              </span>
             </div>
           </div>
 
-          {/* Module Content Pane */}
-          <div className="flex-1 bg-bg-card border-2 border-border-main rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col min-w-0">
-            {currentModule ? (
-              <div className="space-y-6">
-                <div>
-                  <span className="text-xs font-bold text-brand-primary uppercase tracking-widest block mb-1">
-                    Lesson {selectedModuleIndex + 1}
-                  </span>
-                  <h2 className="text-2xl font-bold font-poppins">{currentModule.title}</h2>
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Sidebar - Modules list */}
+            <div className="w-full md:w-80 shrink-0 space-y-4">
+              <div className="bg-bg-card border-2 border-border-main rounded-2xl p-4 shadow-sm">
+                <h3 className="font-bold text-sm uppercase tracking-wider text-text-muted mb-4 px-2">
+                  Lessons Map
+                </h3>
+                <div className="space-y-2">
+                  {(course.content || []).map((mod, idx) => {
+                    const isCompleted = userCourseData?.completedModules?.includes(mod._id);
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => setSelectedModuleIndex(idx)}
+                        className={`w-full text-left p-3 rounded-xl border text-sm font-semibold transition-all flex items-start gap-3 ${
+                          selectedModuleIndex === idx
+                            ? "bg-brand-primary/10 border-brand-primary text-brand-primary shadow-sm"
+                            : "bg-bg-card border-border-main hover:bg-bg-main text-text-muted hover:text-text-main"
+                        }`}
+                      >
+                        <span className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${
+                          isCompleted
+                            ? "bg-brand-success text-white"
+                            : selectedModuleIndex === idx
+                              ? "bg-brand-primary text-white"
+                              : "bg-bg-main"
+                        }`}>
+                          {isCompleted ? "✓" : idx + 1}
+                        </span>
+                        <span className="line-clamp-2 mt-0.5">{mod.title}</span>
+                      </button>
+                    );
+                  })}
                 </div>
+              </div>
+            </div>
 
-                {/* Video Player */}
-                {currentModule.VideoUrl && (
-                  <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-border-main bg-black">
-                    <iframe
-                      src={currentModule.VideoUrl}
-                      title={currentModule.title}
-                      className="absolute inset-0 w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                )}
-
-                {/* Text Content */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-bold font-poppins">Lesson Context</h3>
-                  <p className="text-text-muted text-sm sm:text-base leading-relaxed whitespace-pre-wrap">
-                    {currentModule.textContent || "No text description provided for this lesson."}
-                  </p>
-                </div>
-
-                {/* Resources */}
-                {(currentModule.pdfurl || currentModule.externalink) && (
-                  <div className="pt-6 border-t border-border-main space-y-3">
-                    <h4 className="text-sm font-bold uppercase tracking-wider text-text-muted">
-                      Study Materials & Resource Links
-                    </h4>
-                    <div className="flex flex-wrap gap-3">
-                      {currentModule.pdfurl && (
-                        <a
-                          href={currentModule.pdfurl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-xs font-bold text-brand-primary bg-brand-primary/10 hover:bg-brand-primary/20 px-4 py-2 rounded-lg border border-brand-primary/20 transition"
-                        >
-                          📄 Download Notes / PDF
-                        </a>
-                      )}
-                      {currentModule.externalink && (
-                        <a
-                          href={currentModule.externalink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-xs font-bold text-brand-secondary bg-brand-secondary/10 hover:bg-brand-secondary/20 px-4 py-2 rounded-lg border border-brand-secondary/20 transition"
-                        >
-                          🔗 External Reference Link
-                        </a>
-                      )}
+            {/* Module Content Pane */}
+            <div className="flex-1 bg-bg-card border-2 border-border-main rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col min-w-0">
+              {currentModule ? (
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border-main">
+                    <div>
+                      <span className="text-xs font-bold text-brand-primary uppercase tracking-widest block mb-1">
+                        Lesson {selectedModuleIndex + 1}
+                      </span>
+                      <h2 className="text-2xl font-bold font-poppins">{currentModule.title}</h2>
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => handleToggleModuleComplete(currentModule._id)}
+                        disabled={isUpdatingProgress}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition duration-200 border cursor-pointer ${
+                          userCourseData?.completedModules?.includes(currentModule._id)
+                            ? "bg-brand-success/10 border-brand-success/30 text-brand-success hover:bg-brand-success/20"
+                            : "bg-brand-primary text-white border-brand-primary hover:bg-brand-primary/90"
+                        }`}
+                      >
+                        {userCourseData?.completedModules?.includes(currentModule._id)
+                          ? "✓ Completed"
+                          : "Mark as Complete"}
+                      </button>
                     </div>
                   </div>
-                )}
-              </div>
-            ) : (
-              <div className="text-center py-20 text-text-muted">
-                <span className="text-4xl block mb-4">📔</span>
-                <p>No content available for this lesson.</p>
-              </div>
-            )}
+
+                  {/* Video Player */}
+                  {currentModule.VideoUrl && (
+                    <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-border-main bg-black">
+                      <iframe
+                        src={currentModule.VideoUrl}
+                        title={currentModule.title}
+                        className="absolute inset-0 w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  )}
+
+                  {/* Text Content */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-bold font-poppins">Lesson Context</h3>
+                    <p className="text-text-muted text-sm sm:text-base leading-relaxed whitespace-pre-wrap">
+                      {currentModule.textContent || "No text description provided for this lesson."}
+                    </p>
+                  </div>
+
+                  {/* Resources */}
+                  {(currentModule.pdfurl || currentModule.externalink) && (
+                    <div className="pt-6 border-t border-border-main space-y-3">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-text-muted">
+                        Study Materials & Resource Links
+                      </h4>
+                      <div className="flex flex-wrap gap-3">
+                        {currentModule.pdfurl && (
+                          <a
+                            href={currentModule.pdfurl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-xs font-bold text-brand-primary bg-brand-primary/10 hover:bg-brand-primary/20 px-4 py-2 rounded-lg border border-brand-primary/20 transition"
+                          >
+                            📄 Download Notes / PDF
+                          </a>
+                        )}
+                        {currentModule.externalink && (
+                          <a
+                            href={currentModule.externalink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-xs font-bold text-brand-secondary bg-brand-secondary/10 hover:bg-brand-secondary/20 px-4 py-2 rounded-lg border border-brand-secondary/20 transition"
+                          >
+                            🔗 External Reference Link
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-20 text-text-muted">
+                  <span className="text-4xl block mb-4">📔</span>
+                  <p>No content available for this lesson.</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

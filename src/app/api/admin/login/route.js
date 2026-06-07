@@ -6,12 +6,24 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { AdminModel } from "@/models";
+import { signToken } from "@/lib/jwt";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+import bcrypt from "bcryptjs";
 
 export async function POST(request) {
   try {
     await connectDB();
 
-    const { emailOrPhone, password } = await request.json();
+    const { emailOrPhone, password, turnstileToken } = await request.json();
+
+    // Verify Turnstile Token
+    const isHuman = await verifyTurnstileToken(turnstileToken);
+    if (!isHuman) {
+      return Response.json(
+        { error: "Human verification failed. Please try again." },
+        { status: 400 },
+      );
+    }
 
     // Validate required fields
     if (!emailOrPhone || !password) {
@@ -38,8 +50,25 @@ export async function POST(request) {
       );
     }
 
-    // Simple password comparison (in production, use bcrypt)
-    if (admin.password !== password) {
+    // Determine if the password stored in DB is a bcrypt hash
+    const isHashed = admin.password && (admin.password.startsWith("$2a$") || admin.password.startsWith("$2b$") || admin.password.startsWith("$2y$"));
+    
+    let isMatch = false;
+    if (isHashed) {
+      isMatch = await bcrypt.compare(password, admin.password);
+    } else {
+      // Old plain-text password comparison
+      isMatch = (admin.password === password);
+      
+      if (isMatch) {
+        // Upgrade plain-text password to bcrypt hash on the fly
+        admin.password = password; // pre-save hook will automatically hash it when we save!
+        await admin.save();
+        console.log(`🔒 Upgraded password to bcrypt for Admin: ${admin.email}`);
+      }
+    }
+
+    if (!isMatch) {
       return Response.json(
         { success: false, error: "Invalid password" },
         { status: 401 },
@@ -65,12 +94,18 @@ export async function POST(request) {
     const adminData = admin.toObject();
     delete adminData.password;
 
+    const token = signToken({
+      _id: admin._id.toString(),
+      email: admin.email,
+      role: admin.role, // 'Admin' or 'Instructor'
+    });
+
     return Response.json(
       {
         success: true,
         message: "Login successful",
         data: adminData,
-        token: "admin-token-" + admin._id,
+        token: token,
       },
       { status: 200 },
     );

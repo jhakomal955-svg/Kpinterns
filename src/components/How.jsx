@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const How = () => {
+  const router = useRouter();
   const [hoveredStep, setHoveredStep] = useState(null);
 
   const steps = [
@@ -185,7 +187,7 @@ const How = () => {
             getting certified with us.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-bold text-white rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden">
+            <button onClick={() => router.push("/internship")} className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-bold text-white rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden">
               <span className="absolute inset-0 bg-gradient-to-r from-brand-secondary via-brand-primary to-brand-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-shimmer"></span>
               <span className="relative flex items-center gap-2">
                 Start Internship Today
@@ -204,7 +206,7 @@ const How = () => {
                 </svg>
               </span>
             </button>
-            <button className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-bold text-brand-primary rounded-full border-2 border-brand-primary bg-white dark:bg-bg-card hover:bg-brand-primary/10 dark:hover:bg-brand-primary/10 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
+            <button onClick={()=>router.push("/courses")} className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-bold text-brand-primary rounded-full border-2 border-brand-primary bg-white dark:bg-bg-card hover:bg-brand-primary/10 dark:hover:bg-brand-primary/10 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
               <span className="flex items-center gap-2">
                 Start Course
                 <svg

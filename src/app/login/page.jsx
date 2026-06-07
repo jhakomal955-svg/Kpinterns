@@ -3,14 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Turnstile from "@/components/Turnstile";
 
 export default function LoginPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     password: "",
-    verifyHuman: false, // Changed from rememberMe to match the input name
   });
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -64,8 +65,7 @@ export default function LoginPage() {
       newErrors.password = "Password must be at least 6 characters";
     }
 
-    // Optional: Ensure they checked the human verification box
-    if (!formData.verifyHuman) {
+    if (!turnstileToken) {
       newErrors.verifyHuman = "Please verify you are human";
     }
 
@@ -90,6 +90,7 @@ export default function LoginPage() {
         body: JSON.stringify({
           emailOrPhone: formData.emailOrPhone,
           password: formData.password,
+          turnstileToken: turnstileToken,
         }),
       });
 
@@ -233,45 +234,11 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Verify Human Checkbox */}
+            {/* Verify Human Cloudflare Turnstile */}
             <div>
-              <label className="flex items-center p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
-                <div className="relative flex-shrink-0 w-6 h-6 border-2 border-border-main rounded group-hover:border-brand-primary transition-colors flex items-center justify-center">
-                  <input
-                    type="checkbox"
-                    name="verifyHuman"
-                    checked={formData.verifyHuman}
-                    onChange={handleInputChange}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                  />
-                  {/* Clean custom checkmark layout */}
-                  {formData.verifyHuman && (
-                    <svg
-                      className="w-4 h-4 text-brand-primary"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  )}
-                </div>
-                <span className="ml-3 flex items-center justify-between flex-1">
-                  <span className="font-semibold text-text-main group-hover:text-brand-primary transition-colors">
-                    Verify you are human
-                  </span>
-                  <span className="text-xs font-bold px-3 py-1 bg-text-main/10 text-text-muted rounded-full group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors">
-                    🔒 PROTECTED
-                  </span>
-                </span>
-              </label>
+              <Turnstile onSuccess={(token) => setTurnstileToken(token)} theme="dark" />
               {errors.verifyHuman && (
-                <p className="text-red-500 text-sm mt-2 font-medium ml-1">
+                <p className="text-red-500 text-sm mt-2 font-medium text-center">
                   {errors.verifyHuman}
                 </p>
               )}

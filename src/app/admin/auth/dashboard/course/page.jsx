@@ -29,7 +29,8 @@ export default function CoursesAdminPage() {
     language: "English",
     duration: "1-month",
     accessDuration: "lifetime",
-    instructorId: "",
+    instructorId: "", // fallback
+    instructors: [],
     prerequisites: "",
     learningOutcomes: "",
     tags: "",
@@ -53,6 +54,8 @@ export default function CoursesAdminPage() {
 
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
   const [uploadError, setUploadError] = useState(null);
+  const [adminsList, setAdminsList] = useState([]);
+  const [adminData, setAdminData] = useState(null);
 
   const domains = [
     "Full Stack Development",
@@ -107,6 +110,29 @@ export default function CoursesAdminPage() {
 
   useEffect(() => {
     fetchCourses();
+    const fetchAdmins = async () => {
+      try {
+        const res = await fetch("/api/admin");
+        const data = await res.json();
+        if (data.success) {
+          setAdminsList(data.data || []);
+        }
+      } catch (err) {
+        console.error("Error fetching admins:", err);
+      }
+    };
+    fetchAdmins();
+
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("adminData");
+        if (stored) {
+          setAdminData(JSON.parse(stored));
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }, []);
 
   const handleInputChange = (e) => {
@@ -239,7 +265,8 @@ export default function CoursesAdminPage() {
       language: "English",
       duration: "1-month",
       accessDuration: "lifetime",
-      instructorId: "",
+      instructorId: "", // fallback
+      instructors: [],
       prerequisites: "",
       learningOutcomes: "",
       tags: "",
@@ -273,8 +300,8 @@ export default function CoursesAdminPage() {
         setError("Department is required");
         return;
       }
-      if (!formData.instructorId) {
-        setError("Instructor ID reference mapping token is required");
+      if (!formData.instructors || formData.instructors.length === 0) {
+        setError("At least one instructor is required");
         return;
       }
 
@@ -295,7 +322,7 @@ export default function CoursesAdminPage() {
         prerequisites: formData.prerequisites.split(",").map((item) => item.trim()).filter(Boolean),
         learningOutcomes: formData.learningOutcomes.split(",").map((item) => item.trim()).filter(Boolean),
         tags: formData.tags.split(",").map((item) => item.trim()).filter(Boolean),
-        instructor: [{ id: formData.instructorId }],
+        instructor: formData.instructors.map((id) => ({ id })),
         content: formData.contentItems,
         updates: formData.updates,
       };
@@ -336,6 +363,14 @@ export default function CoursesAdminPage() {
   };
 
   const filteredCourses = courses.filter((course) => {
+    if (adminData?.role === "Instructor") {
+      const isAssigned = course.instructor?.some((inst) => {
+        const instId = typeof inst.id === "object" ? inst.id?._id : inst.id;
+        return instId === adminData._id;
+      });
+      if (!isAssigned) return false;
+    }
+
     const term = searchQuery.toLowerCase();
     const matchesSearch = course.title?.toLowerCase().includes(term) || course.description?.toLowerCase().includes(term) || (course.domain || course.category)?.toLowerCase().includes(term);
     const matchesDomain = domainFilter === "All" || (course.domain || course.category) === domainFilter;
@@ -350,9 +385,11 @@ export default function CoursesAdminPage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-text-main">Manage Courses</h1>
           <p className="text-text-muted text-sm sm:text-base">Create, view, update, and publish multimedia course listings.</p>
         </div>
-        <button type="button" onClick={openAddModal} className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base">
-          Add New Course
-        </button>
+        {adminData?.role !== "Instructor" && (
+          <button type="button" onClick={openAddModal} className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base">
+            Add New Course
+          </button>
+        )}
       </div>
 
       {/* Filters & Search */}
@@ -392,23 +429,20 @@ export default function CoursesAdminPage() {
                   <h3 className="font-bold text-lg text-text-main line-clamp-2">{course.title}</h3>
                   <p className="text-text-muted text-sm line-clamp-3">{course.shortDescription || course.description}</p>
                 </div>
-                {course.instructor?.[0]?.id && (
-                  <div className="text-xs text-text-muted border-t border-border-main pt-2.5 space-y-1">
-                    <div className="flex items-center justify-between font-medium">
-                      <span className="font-semibold text-text-muted">Instructor</span>
-                      <span className="text-text-main font-semibold">
-                        {typeof course.instructor[0].id === "object"
-                          ? course.instructor[0].id.name || "Admin"
-                          : "Admin"}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between font-medium">
-                      <span className="font-semibold text-text-muted text-[10px] uppercase">ID</span>
-                      <span className="font-mono text-[10px] bg-bg-main px-1.5 py-0.5 rounded border border-border-main truncate max-w-[170px] select-all" title={typeof course.instructor[0].id === "object" ? course.instructor[0].id._id : course.instructor[0].id}>
-                        {typeof course.instructor[0].id === "object"
-                          ? course.instructor[0].id._id
-                          : course.instructor[0].id}
-                      </span>
+                {course.instructor && course.instructor.length > 0 && (
+                  <div className="text-xs text-text-muted border-t border-border-main pt-2.5 space-y-2">
+                    <div className="flex flex-col gap-1.5">
+                      <span className="font-semibold text-text-muted">Assigned Instructors</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {course.instructor.map((inst, index) => {
+                          const name = typeof inst.id === "object" ? inst.id?.name : "Admin";
+                          return (
+                            <span key={index} className="bg-bg-main border border-border-main text-text-main font-medium rounded px-2 py-0.5 text-[10px]">
+                              {name}
+                            </span>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -421,7 +455,9 @@ export default function CoursesAdminPage() {
               {/* Card Footer Actions */}
               <div className="px-5 py-4 bg-bg-main/50 border-t border-border-main flex items-center justify-end gap-3">
                 <Link href={`/admin/auth/dashboard/course/${course._id}`} className="p-2 rounded-xl text-blue-500 bg-bg-card border border-border-main hover:bg-blue-50 text-xs font-semibold">Edit</Link>
-                <button type="button" onClick={() => handleDelete(course._id)} className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:bg-red-50 text-xs font-semibold">Delete</button>
+                {adminData?.role !== "Instructor" && (
+                  <button type="button" onClick={() => handleDelete(course._id)} className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:bg-red-50 text-xs font-semibold">Delete</button>
+                )}
               </div>
             </div>
           ))}
@@ -481,9 +517,63 @@ export default function CoursesAdminPage() {
                       {departments.map((dept) => <option key={dept} value={dept}>{dept}</option>)}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Instructor Admin Reference ID *</label>
-                    <input type="text" name="instructorId" value={formData.instructorId} onChange={handleInputChange} required className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
+                  <div className="md:col-span-2 space-y-3">
+                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Assigned Instructors *</label>
+                    
+                    {/* List of currently assigned instructors */}
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {formData.instructors && formData.instructors.map((instId) => {
+                        const match = adminsList.find((admin) => admin._id === instId);
+                        const displayName = match ? `${match.name} (ID: ${match._id})` : instId;
+                        return (
+                          <div key={instId} className="flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/30 text-brand-primary font-medium px-3.5 py-1.5 rounded-xl text-sm">
+                            <span>{displayName}</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  instructors: prev.instructors.filter((id) => id !== instId),
+                                }));
+                              }}
+                              className="hover:text-red-500 font-bold transition-all text-xs"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        );
+                      })}
+                      {(!formData.instructors || formData.instructors.length === 0) && (
+                        <p className="text-xs text-red-500 font-medium italic">No instructors assigned yet.</p>
+                      )}
+                    </div>
+
+                    {/* Dropdown select to add new instructor */}
+                    <div className="flex gap-3">
+                      <select
+                        className="flex-1 p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm text-text-main"
+                        onChange={(e) => {
+                          const selectedId = e.target.value;
+                          if (selectedId && !formData.instructors.includes(selectedId)) {
+                            setFormData((prev) => ({
+                              ...prev,
+                              instructors: [...prev.instructors, selectedId],
+                            }));
+                          }
+                          e.target.value = ""; // Reset dropdown selection
+                        }}
+                        defaultValue=""
+                      >
+                        <option value="" disabled>Add Instructor...</option>
+                        {adminsList
+                          .filter((admin) => admin.role === "Instructor" && !formData.instructors.includes(admin._id))
+                          .map((admin) => (
+                            <option key={admin._id} value={admin._id}>
+                              {admin.name} (ID: {admin._id})
+                            </option>
+                          ))}
+                      </select>
+                    </div>
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Domain *</label>

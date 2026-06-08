@@ -1895,17 +1895,17 @@ export default function RegisterPage() {
             </span>
             <span className="text-brand-primary">Interns</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-text-main mb-3 font-poppins">
+          <h1 className="text-3xl sm:text-5xl font-bold text-text-main mb-3 font-poppins">
             Student Registration
           </h1>
-          <p className="text-lg text-text-muted">
+          <p className="text-sm sm:text-lg text-text-muted px-4">
             Complete your registration for the UGC-mandated internship program
           </p>
         </div>
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-start justify-between mb-4">
             {stepTitles.map((title, index) => (
               <div key={index} className="flex flex-col items-center flex-1">
                 <div
@@ -1932,7 +1932,7 @@ export default function RegisterPage() {
                   )}
                 </div>
                 <span
-                  className={`text-xs mt-2 font-semibold transition-colors ${index + 1 <= step ? "text-brand-primary" : "text-text-muted"}`}
+                  className={`text-[10px] sm:text-xs mt-2 font-semibold transition-colors text-center px-1 break-words ${index + 1 <= step ? "text-brand-primary" : "text-text-muted"}`}
                 >
                   {title}
                 </span>

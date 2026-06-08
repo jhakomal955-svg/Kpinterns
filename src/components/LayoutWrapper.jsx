@@ -29,7 +29,10 @@ export default function LayoutWrapper({ children }) {
           if (!hasAuth) {
             const adminToken = localStorage.getItem("adminToken");
             const userToken = localStorage.getItem("userToken");
-            const token = adminToken || userToken;
+            
+            // Prioritize adminToken for dashboard/admin routes, and userToken for student portal routes
+            const isAdminRoute = pathname.startsWith("/admin");
+            const token = isAdminRoute ? (adminToken || userToken) : (userToken || adminToken);
             
             if (token) {
               if (init.headers instanceof Headers) {

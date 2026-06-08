@@ -50,10 +50,10 @@ const Footer = () => {
                     Privacy Policy
                   </Link>
                   <Link
-                    href="/careers"
+                    href="/terms-of-use"
                     className="text-md text-text-muted hover:text-brand-primary transition-colors"
                   >
-                    Trust Center
+                    Terms Of Use
                   </Link>
                    <Link
                     href="/profile"

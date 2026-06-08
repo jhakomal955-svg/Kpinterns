@@ -48,9 +48,9 @@ export async function sendOtpEmail(email, otp) {
     subject: "Email Verification Code - KpInterns",
     html: `
       <div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; max-width: 550px; margin: 0 auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; color: #1e293b;">
-        <div style="text-align: center; margin-bottom: 24px;">
-          <span style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a;">
-            <span style="color: #2563eb;">Kp</span>Interns
+        <div style="text-align: center; margin-bottom: 24px; font-family: 'Poppins', Helvetica, Arial, sans-serif;">
+          <span style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a; vertical-align: middle;">
+            <span style="background-color: #0f172a; color: #f8fafc; border-radius: 50%; width: 32px; height: 32px; display: inline-block; font-size: 16px; line-height: 32px; font-weight: 800; text-align: center; margin-right: 0px; vertical-align: middle;">Kp</span><span style="color: #4f46e5; vertical-align: middle;">Interns</span>
           </span>
         </div>
         <h2 style="font-size: 20px; font-weight: 700; color: #0f172a; margin-top: 0; text-align: center;">Verify Your Email Address</h2>
@@ -111,9 +111,9 @@ export async function sendForgotPasswordOtpEmail(email, name, otp, role = "User"
     subject: "Reset Your Password - KpInterns",
     html: `
       <div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; max-width: 550px; margin: 0 auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; color: #1e293b;">
-        <div style="text-align: center; margin-bottom: 24px;">
-          <span style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a;">
-            <span style="color: #2563eb;">Kp</span>Interns
+        <div style="text-align: center; margin-bottom: 24px; font-family: 'Poppins', Helvetica, Arial, sans-serif;">
+          <span style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a; vertical-align: middle;">
+            <span style="background-color: #0f172a; color: #f8fafc; border-radius: 50%; width: 32px; height: 32px; display: inline-block; font-size: 16px; line-height: 32px; font-weight: 800; text-align: center; margin-right: 0px; vertical-align: middle;">Kp</span><span style="color: #4f46e5; vertical-align: middle;">Interns</span>
           </span>
         </div>
         <h2 style="font-size: 20px; font-weight: 700; color: #0f172a; margin-top: 0; text-align: center;">Reset Your Password</h2>
@@ -258,9 +258,9 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
     subject: isNewRegistration ? "Welcome to KpInterns! Onboarding & Allotment Details" : `Enrollment Confirmed: ${title}`,
     html: `
       <div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; color: #1e293b;">
-        <div style="text-align: center; margin-bottom: 24px;">
-          <span style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a;">
-            <span style="color: #2563eb;">Kp</span>Interns
+        <div style="text-align: center; margin-bottom: 24px; font-family: 'Poppins', Helvetica, Arial, sans-serif;">
+          <span style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a; vertical-align: middle;">
+            <span style="background-color: #0f172a; color: #f8fafc; border-radius: 50%; width: 32px; height: 32px; display: inline-block; font-size: 16px; line-height: 32px; font-weight: 800; text-align: center; margin-right: 0px; vertical-align: middle;">Kp</span><span style="color: #4f46e5; vertical-align: middle;">Interns</span>
           </span>
         </div>
         <h2 style="font-size: 22px; font-weight: 700; color: #0f172a; margin-top: 0; text-align: center;">Onboarding & Registration Confirmed</h2>
@@ -289,3 +289,142 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
     throw new Error(`SMTP Mailer failed to send allotment message: ${error.message}`);
   }
 }
+
+/**
+ * Sends the generated internship offer letter PDF to the user's email
+ * @param {string} email - Recipient email address
+ * @param {string} userName - Recipient name
+ * @param {string} programTitle - Name of internship
+ * @param {Buffer} pdfBuffer - Generated PDF buffer
+ * @returns {Promise<{success: boolean, mocked?: boolean}>}
+ */
+export async function sendOfferLetterEmail(email, userName, programTitle, pdfBuffer) {
+  console.log(`✉️ SENDING OFFER LETTER EMAIL TO: ${email} for ${programTitle}`);
+
+  const transporter = getTransporter();
+
+  if (!transporter) {
+    console.warn("⚠️ SMTP credentials not configured. Using Mock console fallback for Offer Letter.");
+    return { success: true, mocked: true };
+  }
+
+  const sender = process.env.EMAIL_USER;
+  const mailOptions = {
+    from: `"KpInterns Onboarding" <${sender}>`,
+    to: email,
+    subject: `Internship Offer Letter: ${programTitle} - KpInterns`,
+    html: `
+      <div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; max-width: 550px; margin: 0 auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; color: #1e293b;">
+        <div style="text-align: center; margin-bottom: 24px; font-family: 'Poppins', Helvetica, Arial, sans-serif;">
+          <span style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a; vertical-align: middle;">
+            <span style="background-color: #0f172a; color: #f8fafc; border-radius: 50%; width: 32px; height: 32px; display: inline-block; font-size: 16px; line-height: 32px; font-weight: 800; text-align: center; margin-right: 0px; vertical-align: middle;">Kp</span><span style="color: #4f46e5; vertical-align: middle;">Interns</span>
+          </span>
+        </div>
+        <h2 style="font-size: 20px; font-weight: 700; color: #0f172a; margin-top: 0;">Internship Offer Letter</h2>
+        <p style="font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 16px;">Dear ${userName},</p>
+        <p style="font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 16px;">
+          We are pleased to attach your official <strong>Internship Offer Letter</strong> for the <strong>${programTitle}</strong> program. 
+        </p>
+        <p style="font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 24px;">
+          Please review the attached PDF document for the internship terms, duration, and details. Your offer letter has also been uploaded and is accessible at any time under your student profile dashboard.
+        </p>
+        <div style="text-align: center; margin: 24px 0;">
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://kpinterns.com'}/profile" style="background-color: #2563eb; color: #ffffff; padding: 12px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; box-shadow: 0 4px 6px -1px rgba(37,99,235,0.2);">
+            View Student Dashboard
+          </a>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
+        <p style="font-size: 11px; color: #94a3b8; text-align: center; margin: 0;">
+          This is an automatically generated email. Please do not reply directly.
+        </p>
+      </div>
+    `,
+    attachments: [
+      {
+        filename: `${programTitle.replace(/[^a-zA-Z0-9]/g, "_")}_Offer_Letter.pdf`,
+        content: pdfBuffer,
+        contentType: "application/pdf",
+      },
+    ],
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    return { success: true };
+  } catch (error) {
+    console.error("❌ Error sending Offer Letter email:", error);
+    throw new Error(`SMTP Mailer failed to send offer letter: ${error.message}`);
+  }
+}
+
+/**
+ * Sends the generated completion certificate PDF to the user's email
+ * @param {string} email - Recipient email address
+ * @param {string} userName - Recipient name
+ * @param {string} programTitle - Name of course or internship
+ * @param {string} type - "internship" or "course"
+ * @param {Buffer} pdfBuffer - Generated PDF buffer
+ * @returns {Promise<{success: boolean, mocked?: boolean}>}
+ */
+export async function sendCertificateEmail(email, userName, programTitle, type, pdfBuffer) {
+  console.log(`✉️ SENDING CERTIFICATE EMAIL TO: ${email} for ${programTitle}`);
+
+  const transporter = getTransporter();
+
+  if (!transporter) {
+    console.warn("⚠️ SMTP credentials not configured. Using Mock console fallback for Certificate.");
+    return { success: true, mocked: true };
+  }
+
+  const isCourse = type === "course";
+  const docTypeLabel = isCourse ? "Course Completion Certificate" : "Internship Completion Certificate";
+
+  const sender = process.env.EMAIL_USER;
+  const mailOptions = {
+    from: `"KpInterns Education" <${sender}>`,
+    to: email,
+    subject: `Certificate of Completion: ${programTitle} - KpInterns`,
+    html: `
+      <div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; max-width: 550px; margin: 0 auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; color: #1e293b;">
+        <div style="text-align: center; margin-bottom: 24px; font-family: 'Poppins', Helvetica, Arial, sans-serif;">
+          <span style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #0f172a; vertical-align: middle;">
+            <span style="background-color: #0f172a; color: #f8fafc; border-radius: 50%; width: 32px; height: 32px; display: inline-block; font-size: 16px; line-height: 32px; font-weight: 800; text-align: center; margin-right: 0px; vertical-align: middle;">Kp</span><span style="color: #4f46e5; vertical-align: middle;">Interns</span>
+          </span>
+        </div>
+        <h2 style="font-size: 20px; font-weight: 700; color: #16a34a; margin-top: 0; text-align: center;">🏆 Congratulations! 🏆</h2>
+        <p style="font-size: 15px; line-height: 1.6; color: #475569; margin-top: 16px; margin-bottom: 16px;">Dear ${userName},</p>
+        <p style="font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 16px;">
+          Congratulations! You have successfully completed the <strong>${programTitle}</strong> ${isCourse ? "course" : "internship program"}.
+        </p>
+        <p style="font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 24px;">
+          We are proud to attach your verified <strong>${docTypeLabel}</strong> to this email. You can also view, share, or verify this credential at any time using your student dashboard or the KpInterns verification portal.
+        </p>
+        <div style="text-align: center; margin: 24px 0;">
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://kpinterns.com'}/profile" style="background-color: #16a34a; color: #ffffff; padding: 12px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; box-shadow: 0 4px 6px -1px rgba(22,163,74,0.2);">
+            Access Your Certificates
+          </a>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
+        <p style="font-size: 11px; color: #94a3b8; text-align: center; margin: 0;">
+          This is an automatically generated email. Please do not reply directly.
+        </p>
+      </div>
+    `,
+    attachments: [
+      {
+        filename: `${programTitle.replace(/[^a-zA-Z0-9]/g, "_")}_Certificate.pdf`,
+        content: pdfBuffer,
+        contentType: "application/pdf",
+      },
+    ],
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    return { success: true };
+  } catch (error) {
+    console.error("❌ Error sending Certificate email:", error);
+    throw new Error(`SMTP Mailer failed to send certificate: ${error.message}`);
+  }
+}
+

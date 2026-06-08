@@ -13,6 +13,7 @@ import { UserModel, CourseModel, InternshipModel, VerificationOtpModel } from "@
 import crypto from "crypto";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
 import { verifyAuth } from "@/lib/jwt";
+import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
 
 // Handler for GET, POST
 export async function GET(request) {
@@ -40,6 +41,13 @@ export async function GET(request) {
     const User = createModel("User", UserModel);
 
     if (userId) {
+      // Trigger automated document checks (heals any missed offer letters or certificates on profile view)
+      try {
+        await checkAndAutomateDocuments(userId);
+      } catch (docError) {
+        console.error("❌ Failed to run automated document checks on GET user profile:", docError);
+      }
+
       // Get single user by ID with populated courses & internships
       const user = await User.findById(userId)
         .populate("ActiveCources.course")
@@ -335,6 +343,13 @@ export async function POST(request) {
       }
     }
 
+    // Run automated document generation (e.g. generate and email offer letter for new internship enrollment)
+    try {
+      await checkAndAutomateDocuments(newUser._id.toString());
+    } catch (docError) {
+      console.error("❌ Failed to run automated document checks on registration:", docError);
+    }
+
     console.log("✅ User created successfully:", newUser._id);
 
     const userWithoutPassword = newUser.toObject();
@@ -396,11 +411,25 @@ export async function PUT(request) {
 
     console.log("✅ User updated successfully:", userId);
 
+    // Run automated document checks (e.g. checking completion status or new enrollments updated by admin)
+    let finalUser = updatedUser;
+    try {
+      const documentsGenerated = await checkAndAutomateDocuments(userId);
+      if (documentsGenerated) {
+        // Refetch to return populated URLs
+        finalUser = await User.findById(userId)
+          .populate("ActiveCources.course")
+          .populate("ActiveInternship.internship");
+      }
+    } catch (docError) {
+      console.error("❌ Failed to run automated document checks on update:", docError);
+    }
+
     return Response.json(
       {
         success: true,
         message: "User updated successfully",
-        data: updatedUser,
+        data: finalUser,
       },
       { status: 200 },
     );

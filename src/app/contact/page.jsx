@@ -150,9 +150,12 @@ export default function ContactPage() {
                     KPinterns Pvt Ltd.
                   </p>
                   <p className="text-text-main font-semibold">
-                     website: www.kpinterns.com
+                     Saraswati Nagar Matasgandha Road
                   </p>
-                  <p className="text-text-main font-semibold">Bihar</p>
+                  <p className="text-text-main font-semibold">
+                     Police Line Saharsa Bihar 
+                  </p>
+                  <p className="text-text-main font-semibold">852202</p>
                 </div>
               </div>
             </div>
@@ -223,12 +226,20 @@ export default function ContactPage() {
                   <h3 className="text-sm font-bold uppercase tracking-wider text-text-main mb-2">
                     EMAIL INQUIRY
                   </h3>
+                  <div className="flex flex-col gap-2">
                   <a
                     href="mailto:info@kpinterns.com"
                     className="text-text-main font-semibold hover:text-brand-primary transition-colors"
                   >
                     info@kpinterns.com
                   </a>
+                   <a
+                    href="mailto:infoKpinterns@gmail.com"
+                    className="text-text-main font-semibold hover:text-brand-primary transition-colors"
+                  >
+                    infoKpinterns@gmail.com
+                  </a>
+                  </div>
                 </div>
               </div>
             </div>

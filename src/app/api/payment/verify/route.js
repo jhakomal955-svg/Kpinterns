@@ -3,6 +3,7 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel } from "@/models";
 import crypto from "crypto";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
+import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
 
 export async function POST(request) {
   try {
@@ -127,6 +128,13 @@ export async function POST(request) {
       });
     } catch (mailError) {
       console.error("❌ Failed to send course purchase receipt email:", mailError);
+    }
+
+    // Run automated document generation (e.g. generate and email offer letter for new internship enrollment)
+    try {
+      await checkAndAutomateDocuments(userId);
+    } catch (docError) {
+      console.error("❌ Failed to run automated document checks on payment verify:", docError);
     }
 
     // Populate user references so the client has full details

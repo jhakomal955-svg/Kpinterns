@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 const BranchesStreams = () => {
   const technicalCourses = [
@@ -32,7 +33,7 @@ const BranchesStreams = () => {
 
       <div className="mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-6 animate-fade-in">
+        <ScrollReveal className="text-center mb-6" direction="fade">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-text-main mb-4 leading-tight">
             Branches & Streams
             <br />
@@ -47,12 +48,13 @@ const BranchesStreams = () => {
             Technical and non-technical courses for B.Tech, Diploma, and
             graduation streams.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Content Section - Both Cards Visible */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
           {/* Technical Courses Card */}
-          <div className="group relative overflow-hidden rounded-2xl border border-brand-primary/20 hover:border-brand-primary/50 bg-bg-card shadow-lg hover:shadow-xl transition-all duration-300 p-8 md:p-10">
+          <ScrollReveal className="h-full" direction="left" delay={100}>
+            <div className="group relative overflow-hidden rounded-2xl border border-brand-primary/20 hover:border-brand-primary/50 bg-bg-card shadow-lg hover:shadow-xl transition-all duration-300 p-8 md:p-10 h-full">
             {/* Gradient background overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 via-transparent to-brand-secondary/5 pointer-events-none"></div>
 
@@ -118,9 +120,11 @@ const BranchesStreams = () => {
               </div>
             </div>
           </div>
+        </ScrollReveal>
 
           {/* Non-Technical Courses Card */}
-          <div className="group relative overflow-hidden rounded-2xl border border-brand-secondary/20 hover:border-brand-secondary/50 bg-bg-card shadow-lg hover:shadow-xl transition-all duration-300 p-8 md:p-10">
+          <ScrollReveal className="h-full" direction="right" delay={150}>
+            <div className="group relative overflow-hidden rounded-2xl border border-brand-secondary/20 hover:border-brand-secondary/50 bg-bg-card shadow-lg hover:shadow-xl transition-all duration-300 p-8 md:p-10 h-full">
             {/* Gradient background overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-brand-secondary/5 via-transparent to-brand-primary/5 pointer-events-none"></div>
 
@@ -186,6 +190,7 @@ const BranchesStreams = () => {
               </div>
             </div>
           </div>
+        </ScrollReveal>
         </div>
       </div>
     </section>

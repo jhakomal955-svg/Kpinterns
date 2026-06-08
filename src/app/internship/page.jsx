@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function InternshipsPage() {
   const [internships, setInternships] = useState([]);
@@ -310,11 +311,17 @@ export default function InternshipsPage() {
 
                 {/* Internships Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {filteredInternships.map((internship) => (
-                    <div
+                  {filteredInternships.map((internship, index) => (
+                    <ScrollReveal
                       key={internship._id}
-                      className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+                      className="h-full"
+                      direction="up"
+                      delay={(index % 3) * 80}
+                      duration={600}
                     >
+                      <div
+                        className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+                      >
                       {/* Visual Header / Thumbnail */}
                       <div className="relative h-48 bg-gradient-to-br from-brand-secondary/20 via-brand-primary/20 to-brand-secondary/10 flex items-center justify-center overflow-hidden border-b border-border-main">
                         {internship.thumbnail ? (
@@ -390,7 +397,8 @@ export default function InternshipsPage() {
                         </Link>
                       </div>
                     </div>
-                  ))}
+                  </ScrollReveal>
+                ))}
                 </div>
               </>
             )}

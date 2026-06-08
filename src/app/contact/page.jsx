@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import React from "react";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -103,7 +104,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-bg-main py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-16">
+        <ScrollReveal className="text-center mb-16" direction="fade">
           <h1 className="text-4xl md:text-5xl font-extrabold text-text-main mb-4">
             Get in Touch
           </h1>
@@ -111,14 +112,15 @@ export default function ContactPage() {
             Reach out to us via any of these channels or visit our office in
             Patna. We'd love to hear from you!
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Column - Contact Info */}
           <div className="space-y-8">
             {/* Office Info Card */}
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
+            <ScrollReveal direction="up" delay={50}>
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-blue-100 dark:bg-blue-900/30">
@@ -159,9 +161,11 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+            </ScrollReveal>
 
             {/* Call Support Card */}
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
+            <ScrollReveal direction="up" delay={100}>
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-green-100 dark:bg-green-900/30">
@@ -201,9 +205,11 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+            </ScrollReveal>
 
             {/* Email Inquiry Card */}
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
+            <ScrollReveal direction="up" delay={150}>
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-blue-100 dark:bg-blue-900/30">
@@ -243,9 +249,11 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+            </ScrollReveal>
 
             {/* Business Hours Card */}
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
+            <ScrollReveal direction="up" delay={200}>
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-purple-100 dark:bg-purple-900/30">
@@ -278,11 +286,12 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+            </ScrollReveal>
           </div>
 
           {/* Right Column - Contact Form */}
-          <div>
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md">
+          <ScrollReveal direction="scale" delay={100} className="h-full">
+            <div className="bg-bg-card border border-border-main rounded-2xl p-8 shadow-md h-full">
               {submitted && (
                 <div className="mb-6 p-4 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-xl">
                   <div className="flex items-center gap-3">
@@ -559,7 +568,7 @@ export default function ContactPage() {
                 </button>
               </form>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* FAQ Section */}
@@ -590,10 +599,14 @@ export default function ContactPage() {
                   "Yes! We offer various internship programs. Please contact us for more details.",
               },
             ].map((faq, index) => (
-              <div
+              <ScrollReveal
                 key={index}
-                className="bg-bg-card border border-border-main rounded-xl p-6 hover:shadow-md transition-shadow"
+                direction="up"
+                delay={index * 80}
               >
+                <div
+                  className="bg-bg-card border border-border-main rounded-xl p-6 hover:shadow-md transition-shadow h-full"
+                >
                 <h3 className="font-semibold text-text-main mb-3 flex items-start gap-3">
                   <span className="text-brand-primary font-bold text-lg mt-0.5">
                     Q
@@ -604,6 +617,7 @@ export default function ContactPage() {
                   {faq.answer}
                 </p>
               </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState([]);
@@ -281,11 +282,17 @@ export default function CoursesPage() {
 
                 {/* Courses Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {filteredCourses.map((course) => (
-                    <div
+                  {filteredCourses.map((course, index) => (
+                    <ScrollReveal
                       key={course._id}
-                      className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+                      className="h-full"
+                      direction="up"
+                      delay={(index % 3) * 80}
+                      duration={600}
                     >
+                      <div
+                        className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+                      >
                       {/* Visual Thumbnail representation */}
                       <div className="relative h-48 bg-gradient-to-br from-brand-primary/20 via-brand-secondary/20 to-brand-primary/10 flex items-center justify-center overflow-hidden border-b border-border-main">
                         {course.thumbnail ? (
@@ -355,7 +362,8 @@ export default function CoursesPage() {
                         </Link>
                       </div>
                     </div>
-                  ))}
+                  </ScrollReveal>
+                ))}
                 </div>
               </>
             )}

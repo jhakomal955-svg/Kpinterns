@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 const How = () => {
   const router = useRouter();
@@ -49,7 +50,7 @@ const How = () => {
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-brand-secondary/10 to-transparent rounded-full blur-3xl -z-10"></div>
 
       {/* Header Section */}
-      <div className="text-center mb-6 animate-fade-in">
+      <ScrollReveal className="text-center mb-6" direction="fade">
         <p className="text-brand-primary text-sm sm:text-base font-bold uppercase tracking-widest mb-3">
           Simple Process
         </p>
@@ -63,17 +64,18 @@ const How = () => {
           From registration to a verified certificate — Four simple steps to
           transform your career
         </p>
-      </div>
+      </ScrollReveal>
 
       {/* Steps Container */}
       <div className="mx-auto">
         {/* Mobile View - Stacked Cards */}
         <div className="lg:hidden space-y-6">
           {steps.map((step) => (
-            <div
+            <ScrollReveal
               key={step.number}
-              className="group relative animate-fade-in"
-              style={{ animationDelay: `${step.number * 100}ms` }}
+              className="group relative"
+              direction="up"
+              delay={step.number * 80}
             >
               <div className="bg-bg-card border border-border-main rounded-2xl p-6 sm:p-8 hover:border-brand-primary/40 hover:shadow-xl transition-all duration-300">
                 {/* Step Number Circle */}
@@ -98,7 +100,7 @@ const How = () => {
                   {step.icon}
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 
@@ -112,10 +114,11 @@ const How = () => {
             {/* Steps Grid */}
             <div className="grid grid-cols-4 gap-6">
               {steps.map((step) => (
-                <div
+                <ScrollReveal
                   key={step.number}
-                  className="group relative animate-fade-in"
-                  style={{ animationDelay: `${step.number * 150}ms` }}
+                  className="group relative"
+                  direction="up"
+                  delay={step.number * 120}
                   onMouseEnter={() => setHoveredStep(step.number)}
                   onMouseLeave={() => setHoveredStep(null)}
                 >
@@ -171,13 +174,13 @@ const How = () => {
                     )}
                   </div>
 
-                  </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
         </div>
       </div>
-      <div className="max-w-3xl mx-auto text-center mt-16 animate-fade-in">
+      <ScrollReveal className="max-w-3xl mx-auto text-center mt-16" direction="scale">
         <div className="bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 border border-brand-primary/20 rounded-3xl p-8 sm:p-10 lg:p-12 backdrop-blur-sm hover:border-brand-primary/40 transition-all duration-300">
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-main mb-4">
             Ready to Transform Your Career?
@@ -187,7 +190,7 @@ const How = () => {
             getting certified with us.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={() => router.push("/internship")} className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-bold text-white rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden">
+            <button onClick={() => router.push("/internship")} className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-bold text-white rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden">
               <span className="absolute inset-0 bg-gradient-to-r from-brand-secondary via-brand-primary to-brand-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-shimmer"></span>
               <span className="relative flex items-center gap-2">
                 Start Internship Today
@@ -206,7 +209,7 @@ const How = () => {
                 </svg>
               </span>
             </button>
-            <button onClick={()=>router.push("/courses")} className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-bold text-brand-primary rounded-full border-2 border-brand-primary bg-white dark:bg-bg-card hover:bg-brand-primary/10 dark:hover:bg-brand-primary/10 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
+            <button onClick={()=>router.push("/courses")} className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-bold text-brand-primary rounded-xl border-2 border-brand-primary bg-white dark:bg-bg-card hover:bg-brand-primary/10 dark:hover:bg-brand-primary/10 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
               <span className="flex items-center gap-2">
                 Start Course
                 <svg
@@ -226,7 +229,7 @@ const How = () => {
             </button>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
       
     </section>
   );

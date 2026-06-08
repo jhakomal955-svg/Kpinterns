@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -334,11 +335,16 @@ export default function ProfilePage() {
             <div>
               {appliedItems.courses.length > 0 ? (
                 <div className="grid grid-cols-1 gap-4">
-                  {appliedItems.courses.map((course) => (
-                    <div
+                  {appliedItems.courses.map((course, index) => (
+                    <ScrollReveal
                       key={course.id}
-                      className="bg-bg-card dark:bg-bg-card rounded-xl border border-border-main dark:border-border-main p-6 hover:shadow-lg transition"
+                      direction="up"
+                      delay={index * 60}
+                      duration={500}
                     >
+                      <div
+                        className="bg-bg-card dark:bg-bg-card rounded-xl border border-border-main dark:border-border-main p-6 hover:shadow-lg transition"
+                      >
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -396,7 +402,8 @@ export default function ProfilePage() {
                           )}
                         </div>
                       </div>
-                    </div>
+                      </div>
+                    </ScrollReveal>
                   ))}
                 </div>
               ) : (
@@ -420,11 +427,16 @@ export default function ProfilePage() {
             <div>
               {appliedItems.internships.length > 0 ? (
                 <div className="grid grid-cols-1 gap-4">
-                  {appliedItems.internships.map((internship) => (
-                    <div
+                  {appliedItems.internships.map((internship, index) => (
+                    <ScrollReveal
                       key={internship.id}
-                      className="bg-bg-card dark:bg-bg-card rounded-xl border border-border-main dark:border-border-main p-6 hover:shadow-lg transition"
+                      direction="up"
+                      delay={index * 60}
+                      duration={500}
                     >
+                      <div
+                        className="bg-bg-card dark:bg-bg-card rounded-xl border border-border-main dark:border-border-main p-6 hover:shadow-lg transition"
+                      >
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-start gap-3 mb-3">
@@ -534,7 +546,8 @@ export default function ProfilePage() {
                           )}
                         </div>
                       </div>
-                    </div>
+                      </div>
+                    </ScrollReveal>
                   ))}
                 </div>
               ) : (
@@ -558,11 +571,17 @@ export default function ProfilePage() {
             <div>
               {allCertificates.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {allCertificates.map((cert) => (
-                    <div
+                  {allCertificates.map((cert, index) => (
+                    <ScrollReveal
                       key={cert.id}
-                      className={`bg-gradient-to-br ${cert.color} rounded-2xl border ${cert.borderCol} p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between`}
+                      className="flex flex-col h-full"
+                      direction="up"
+                      delay={(index % 3) * 80}
+                      duration={500}
                     >
+                      <div
+                        className={`bg-gradient-to-br ${cert.color} rounded-2xl border ${cert.borderCol} p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-full`}
+                      >
                       <div>
                         {/* Header Badge & Icon */}
                         <div className="flex items-center justify-between mb-4">
@@ -617,7 +636,8 @@ export default function ProfilePage() {
                           <span>🔗</span> {copiedCertId === cert.id ? "Copied!" : "Share"}
                         </button>
                       </div>
-                    </div>
+                      </div>
+                    </ScrollReveal>
                   ))}
                 </div>
               ) : (

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import ScrollReveal from "./ScrollReveal.jsx";
 
 const Why = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -176,10 +177,11 @@ const Why = () => {
       <div className="mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {features.map((feature, index) => (
-            <div
+            <ScrollReveal
               key={feature.id}
-              className="group relative animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="group relative"
+              direction="up"
+              delay={index * 80}
               onMouseEnter={() => setHoveredCard(feature.id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
@@ -249,7 +251,7 @@ const Why = () => {
                   }`}
                 ></div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

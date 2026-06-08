@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function VerifyPage() {
   const [inputValue, setInputValue] = useState("");
@@ -278,34 +279,39 @@ export default function VerifyPage() {
                   Matches Found ({verificationResults.length})
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {verificationResults.map((cert) => (
-                    <div
+                  {verificationResults.map((cert, index) => (
+                    <ScrollReveal
                       key={cert.certificateId}
-                      onClick={() => setSelectedCertificate(cert)}
-                      className="bg-bg-main hover:bg-bg-card p-6 rounded-2xl border border-border-main hover:border-brand-primary hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col justify-between"
+                      direction="up"
+                      delay={index * 80}
                     >
-                      <div>
-                        <div className="flex justify-between items-start mb-4">
-                          <span className="bg-brand-primary/10 text-brand-primary text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-brand-primary/20 font-poppins">
-                            {cert.type}
-                          </span>
-                          <span className="text-lg">📜</span>
+                      <div
+                        onClick={() => setSelectedCertificate(cert)}
+                        className="bg-bg-main hover:bg-bg-card p-6 rounded-2xl border border-border-main hover:border-brand-primary hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col justify-between h-full"
+                      >
+                        <div>
+                          <div className="flex justify-between items-start mb-4">
+                            <span className="bg-brand-primary/10 text-brand-primary text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-brand-primary/20 font-poppins">
+                              {cert.type}
+                            </span>
+                            <span className="text-lg">📜</span>
+                          </div>
+                          <h4 className="font-bold text-text-main font-poppins text-lg mb-2 line-clamp-1">
+                            {cert.course}
+                          </h4>
+                          <p className="text-sm text-text-muted font-poppins mb-2">
+                            Holder: <span className="font-semibold text-text-main">{cert.holder}</span>
+                          </p>
+                          <p className="text-xs text-text-muted font-mono truncate">
+                            ID: {cert.certificateId}
+                          </p>
                         </div>
-                        <h4 className="font-bold text-text-main font-poppins text-lg mb-2 line-clamp-1">
-                          {cert.course}
-                        </h4>
-                        <p className="text-sm text-text-muted font-poppins mb-2">
-                          Holder: <span className="font-semibold text-text-main">{cert.holder}</span>
-                        </p>
-                        <p className="text-xs text-text-muted font-mono truncate">
-                          ID: {cert.certificateId}
-                        </p>
+                        <div className="mt-6 pt-4 border-t border-border-main/50 text-xs font-bold text-brand-primary flex items-center justify-between mt-auto">
+                          <span>View Verification Details</span>
+                          <span>→</span>
+                        </div>
                       </div>
-                      <div className="mt-6 pt-4 border-t border-border-main/50 text-xs font-bold text-brand-primary flex items-center justify-between">
-                        <span>View Verification Details</span>
-                        <span>→</span>
-                      </div>
-                    </div>
+                    </ScrollReveal>
                   ))}
                 </div>
               </div>
@@ -327,9 +333,10 @@ export default function VerifyPage() {
                 {(() => {
                   const isOfferLetter = selectedCertificate?.type?.toLowerCase().includes("offer letter");
                   return (
-                    <div className="p-8 bg-gradient-to-br from-brand-success/10 to-brand-success/5 rounded-2xl border border-brand-success/30 shadow-md">
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="bg-brand-success/20 p-3 rounded-full">
+                    <ScrollReveal direction="scale">
+                      <div className="p-8 bg-gradient-to-br from-brand-success/10 to-brand-success/5 rounded-2xl border border-brand-success/30 shadow-md">
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="bg-brand-success/20 p-3 rounded-full">
                           <svg
                             className="w-8 h-8 text-brand-success"
                             fill="currentColor"
@@ -444,6 +451,7 @@ export default function VerifyPage() {
                         </button>
                       </div>
                     </div>
+                  </ScrollReveal>
                   );
                 })()}
               </div>
@@ -458,18 +466,23 @@ export default function VerifyPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {trustFeatures.map((feature, index) => (
-              <div
+              <ScrollReveal
                 key={index}
-                className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all hover:border-brand-primary/50"
+                direction="up"
+                delay={index * 80}
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-text-main mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-text-muted leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+                <div
+                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all hover:border-brand-primary/50 h-full"
+                >
+                  <div className="text-5xl mb-4">{feature.icon}</div>
+                  <h3 className="text-xl font-bold text-text-main mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-text-muted leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </section>
@@ -481,8 +494,13 @@ export default function VerifyPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {howItWorks.map((item, index) => (
-              <div key={index} className="relative">
-                <div className="bg-bg-card border border-border-main rounded-2xl p-8">
+              <ScrollReveal
+                key={index}
+                className="relative"
+                direction="up"
+                delay={index * 80}
+              >
+                <div className="bg-bg-card border border-border-main rounded-2xl p-8 h-full">
                   <div className="bg-gradient-to-br from-brand-primary to-brand-secondary text-white rounded-xl w-16 h-16 flex items-center justify-center text-2xl font-bold mb-6">
                     {item.step}
                   </div>
@@ -494,7 +512,7 @@ export default function VerifyPage() {
                 {index < howItWorks.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-6 w-12 h-0.5 bg-gradient-to-r from-brand-primary to-transparent"></div>
                 )}
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </section>

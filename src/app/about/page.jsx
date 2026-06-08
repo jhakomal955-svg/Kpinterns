@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React from "react";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function AboutPage() {
   const achievements = [
@@ -123,18 +124,23 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {achievements.map((achievement, index) => (
-              <div
+              <ScrollReveal
                 key={index}
-                className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                direction="up"
+                delay={index * 80}
               >
-                <div className="text-5xl mb-4">{achievement.icon}</div>
-                <h3 className="text-xl font-bold text-text-main mb-3">
-                  {achievement.title}
-                </h3>
-                <p className="text-text-muted leading-relaxed">
-                  {achievement.description}
-                </p>
-              </div>
+                <div
+                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full"
+                >
+                  <div className="text-5xl mb-4">{achievement.icon}</div>
+                  <h3 className="text-xl font-bold text-text-main mb-3">
+                    {achievement.title}
+                  </h3>
+                  <p className="text-text-muted leading-relaxed">
+                    {achievement.description}
+                  </p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </section>
@@ -156,18 +162,23 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {goals.map((goal, index) => (
-              <div
+              <ScrollReveal
                 key={index}
-                className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                direction="up"
+                delay={index * 80}
               >
-                <div className="text-5xl mb-4">{goal.icon}</div>
-                <h3 className="text-xl font-bold text-text-main mb-3">
-                  {goal.title}
-                </h3>
-                <p className="text-text-muted leading-relaxed">
-                  {goal.description}
-                </p>
-              </div>
+                <div
+                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full"
+                >
+                  <div className="text-5xl mb-4">{goal.icon}</div>
+                  <h3 className="text-xl font-bold text-text-main mb-3">
+                    {goal.title}
+                  </h3>
+                  <p className="text-text-muted leading-relaxed">
+                    {goal.description}
+                  </p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </section>
@@ -178,70 +189,84 @@ export default function AboutPage() {
             Our Core Values
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-brand-primary/10 to-brand-primary/5 border border-brand-primary/20 rounded-2xl p-8">
-              <div className="text-4xl mb-4">🎓</div>
-              <h3 className="text-xl font-bold text-text-main mb-3">
-                Excellence in Education
-              </h3>
-              <p className="text-text-muted">
-                We maintain the highest standards in curriculum design,
-                instruction quality, and student outcomes through continuous
-                improvement and innovation.
-              </p>
-            </div>
-            <div className="bg-gradient-to-br from-brand-secondary/10 to-brand-secondary/5 border border-brand-secondary/20 rounded-2xl p-8">
-              <div className="text-4xl mb-4">🤲</div>
-              <h3 className="text-xl font-bold text-text-main mb-3">
-                Accessibility & Inclusivity
-              </h3>
-              <p className="text-text-muted">
-                We believe learning should be accessible to everyone, regardless
-                of their background, location, or financial situation.
-              </p>
-            </div>
-            <div className="bg-gradient-to-br from-brand-success/10 to-brand-success/5 border border-brand-success/20 rounded-2xl p-8">
-              <div className="text-4xl mb-4">🚀</div>
-              <h3 className="text-xl font-bold text-text-main mb-3">
-                Innovation & Growth
-              </h3>
-              <p className="text-text-muted">
-                We continuously evolve and adapt to industry changes, ensuring
-                our students are always equipped with the most current and
-                relevant skills.
-              </p>
-            </div>
+            <ScrollReveal direction="up" delay={50}>
+              <div className="bg-gradient-to-br from-brand-primary/10 to-brand-primary/5 border border-brand-primary/20 rounded-2xl p-8 h-full">
+                <div className="text-4xl mb-4">🎓</div>
+                <h3 className="text-xl font-bold text-text-main mb-3">
+                  Excellence in Education
+                </h3>
+                <p className="text-text-muted">
+                  We maintain the highest standards in curriculum design,
+                  instruction quality, and student outcomes through continuous
+                  improvement and innovation.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={150}>
+              <div className="bg-gradient-to-br from-brand-secondary/10 to-brand-secondary/5 border border-brand-secondary/20 rounded-2xl p-8 h-full">
+                <div className="text-4xl mb-4">🤲</div>
+                <h3 className="text-xl font-bold text-text-main mb-3">
+                  Accessibility & Inclusivity
+                </h3>
+                <p className="text-text-muted">
+                  We believe learning should be accessible to everyone, regardless
+                  of their background, location, or financial situation.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={250}>
+              <div className="bg-gradient-to-br from-brand-success/10 to-brand-success/5 border border-brand-success/20 rounded-2xl p-8 h-full">
+                <div className="text-4xl mb-4">🚀</div>
+                <h3 className="text-xl font-bold text-text-main mb-3">
+                  Innovation & Growth
+                </h3>
+                <p className="text-text-muted">
+                  We continuously evolve and adapt to industry changes, ensuring
+                  our students are always equipped with the most current and
+                  relevant skills.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Statistics Section */}
         <section className="py-20 border-t border-border-main">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center">
-              <div className="text-5xl font-bold text-brand-primary mb-2">
-                50K+
+            <ScrollReveal direction="scale" delay={50}>
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center h-full">
+                <div className="text-5xl font-bold text-brand-primary mb-2">
+                  50K+
+                </div>
+                <p className="text-text-muted font-semibold">Students Trained</p>
               </div>
-              <p className="text-text-muted font-semibold">Students Trained</p>
-            </div>
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center">
-              <div className="text-5xl font-bold text-brand-primary mb-2">
-                200+
+            </ScrollReveal>
+            <ScrollReveal direction="scale" delay={120}>
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center h-full">
+                <div className="text-5xl font-bold text-brand-primary mb-2">
+                  200+
+                </div>
+                <p className="text-text-muted font-semibold">Courses Available</p>
               </div>
-              <p className="text-text-muted font-semibold">Courses Available</p>
-            </div>
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center">
-              <div className="text-5xl font-bold text-brand-primary mb-2">
-                95%
+            </ScrollReveal>
+            <ScrollReveal direction="scale" delay={190}>
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center h-full">
+                <div className="text-5xl font-bold text-brand-primary mb-2">
+                  95%
+                </div>
+                <p className="text-text-muted font-semibold">
+                  Student Satisfaction
+                </p>
               </div>
-              <p className="text-text-muted font-semibold">
-                Student Satisfaction
-              </p>
-            </div>
-            <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center">
-              <div className="text-5xl font-bold text-brand-primary mb-2">
-                100+
+            </ScrollReveal>
+            <ScrollReveal direction="scale" delay={260}>
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center h-full">
+                <div className="text-5xl font-bold text-brand-primary mb-2">
+                  100+
+                </div>
+                <p className="text-text-muted font-semibold">Industry Partners</p>
               </div>
-              <p className="text-text-muted font-semibold">Industry Partners</p>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -251,147 +276,157 @@ export default function AboutPage() {
             Why Choose Kp Interns?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="flex gap-6">
-              <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-brand-primary/20">
-                  <svg
-                    className="h-6 w-6 text-brand-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+            <ScrollReveal direction="up" delay={50}>
+              <div className="flex gap-6">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-brand-primary/20">
+                    <svg
+                      className="h-6 w-6 text-brand-primary"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-text-main mb-2">
+                    Expert Instructors
+                  </h3>
+                  <p className="text-text-muted">
+                    Learn from industry professionals with years of hands-on
+                    experience and proven track records in their respective
+                    fields.
+                  </p>
                 </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-text-main mb-2">
-                  Expert Instructors
-                </h3>
-                <p className="text-text-muted">
-                  Learn from industry professionals with years of hands-on
-                  experience and proven track records in their respective
-                  fields.
-                </p>
-              </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="flex gap-6">
-              <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-brand-secondary/20">
-                  <svg
-                    className="h-6 w-6 text-brand-secondary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+            <ScrollReveal direction="up" delay={100}>
+              <div className="flex gap-6">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-brand-secondary/20">
+                    <svg
+                      className="h-6 w-6 text-brand-secondary"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-text-main mb-2">
+                    Practical Projects
+                  </h3>
+                  <p className="text-text-muted">
+                    Work on real-world projects and build a portfolio that
+                    showcases your skills to potential employers.
+                  </p>
                 </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-text-main mb-2">
-                  Practical Projects
-                </h3>
-                <p className="text-text-muted">
-                  Work on real-world projects and build a portfolio that
-                  showcases your skills to potential employers.
-                </p>
-              </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="flex gap-6">
-              <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-brand-success/20">
-                  <svg
-                    className="h-6 w-6 text-brand-success"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+            <ScrollReveal direction="up" delay={150}>
+              <div className="flex gap-6">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-brand-success/20">
+                    <svg
+                      className="h-6 w-6 text-brand-success"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-text-main mb-2">
+                    Career Support
+                  </h3>
+                  <p className="text-text-muted">
+                    Get guidance and support with job placements, resume building,
+                    and interview preparation from our dedicated career team.
+                  </p>
                 </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-text-main mb-2">
-                  Career Support
-                </h3>
-                <p className="text-text-muted">
-                  Get guidance and support with job placements, resume building,
-                  and interview preparation from our dedicated career team.
-                </p>
-              </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="flex gap-6">
-              <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-brand-primary/20">
-                  <svg
-                    className="h-6 w-6 text-brand-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+            <ScrollReveal direction="up" delay={200}>
+              <div className="flex gap-6">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-brand-primary/20">
+                    <svg
+                      className="h-6 w-6 text-brand-primary"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-text-main mb-2">
+                    Flexible Learning
+                  </h3>
+                  <p className="text-text-muted">
+                    Learn at your own pace with flexible schedules that fit your
+                    lifestyle and professional commitments.
+                  </p>
                 </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-text-main mb-2">
-                  Flexible Learning
-                </h3>
-                <p className="text-text-muted">
-                  Learn at your own pace with flexible schedules that fit your
-                  lifestyle and professional commitments.
-                </p>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* CTA Section */}
         <section className="py-20 border-t border-border-main">
-          <div className="bg-gradient-to-r from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/30 rounded-3xl p-12 text-center">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-text-main mb-6">
-              <span className="text-brand-primary">Together,</span> let's shape
-              the future of
-              <br />
-              <span className="text-brand-secondary">digital innovation</span>
-            </h2>
-            <p className="text-xl text-text-muted max-w-2xl mx-auto mb-8">
-              Join us on this exciting learning journey and unlock your
-              potential in the world of design and development.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-brand-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-brand-primary/90 transition-all shadow-md">
-                Get Started Today
-              </button>
-              <button className="border-2 border-brand-primary text-brand-primary font-semibold px-8 py-3 rounded-lg hover:bg-brand-primary/5 transition-all">
-                Learn More
-              </button>
+          <ScrollReveal direction="scale">
+            <div className="bg-gradient-to-r from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/30 rounded-3xl p-12 text-center">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-text-main mb-6">
+                <span className="text-brand-primary">Together,</span> let's shape
+                the future of
+                <br />
+                <span className="text-brand-secondary">digital innovation</span>
+              </h2>
+              <p className="text-xl text-text-muted max-w-2xl mx-auto mb-8">
+                Join us on this exciting learning journey and unlock your
+                potential in the world of design and development.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="bg-brand-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-brand-primary/90 transition-all shadow-md">
+                  Get Started Today
+                </button>
+                <button className="border-2 border-brand-primary text-brand-primary font-semibold px-8 py-3 rounded-lg hover:bg-brand-primary/5 transition-all">
+                  Learn More
+                </button>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </section>
       </div>
     </div>

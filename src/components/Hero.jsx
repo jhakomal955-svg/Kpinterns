@@ -93,9 +93,15 @@ const Hero = () => {
               <h1 className="text-4xl sm:text-5xl font-black leading-[1.15] text-text-main">
                 <WordReveal text="India's Leading Internship and Courses Platform" delayOffset={150} />
                 <br />
-                <span className="relative inline-block">
+                <span 
+                  className="relative inline-block opacity-0 translate-y-[12px] animate-word-fade-in"
+                  style={{
+                    animationDelay: "750ms",
+                    animationFillMode: "forwards",
+                  }}
+                >
                   <span className="relative bg-linear-to-r from-brand-primary via-brand-secondary to-brand-primary bg-clip-text text-transparent bg-300% animate-gradient">
-                    <WordReveal text="for UG Students" delayOffset={150} />
+                    for UG Students
                   </span>
                 </span>
               </h1>

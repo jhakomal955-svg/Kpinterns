@@ -95,7 +95,7 @@ const Hero = () => {
                 <br />
                 <span className="relative inline-block">
                   <span className="relative bg-linear-to-r from-brand-primary via-brand-secondary to-brand-primary bg-clip-text text-transparent bg-300% animate-gradient">
-                    <WordReveal text="for UG Students" delayOffset={750} />
+                    <WordReveal text="for UG Students" delayOffset={150} />
                   </span>
                 </span>
               </h1>

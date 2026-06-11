@@ -4,7 +4,7 @@
  */
 
 import mongoose from "mongoose";
-import { UserModel, AdminModel, ContactModel, CourseModel, InternshipModel, VerificationOtpModel } from "@/models";
+import { UserModel, AdminModel, ContactModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel } from "@/models";
 import { createModel } from "@/lib/utils/schemaBuilder";
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -41,6 +41,7 @@ async function connectDB() {
         createModel("Course", CourseModel);
         createModel("Internship", InternshipModel);
         createModel("VerificationOtp", VerificationOtpModel);
+        createModel("Attendance", AttendanceModel);
 
         console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         console.log("✅ MongoDB Connection Successful!");

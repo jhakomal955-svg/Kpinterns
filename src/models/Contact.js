@@ -70,4 +70,4 @@ const ContactModel = {
   },
 };
 
-module.exports = ContactModel;
+export default ContactModel;

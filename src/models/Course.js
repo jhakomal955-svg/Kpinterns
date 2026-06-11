@@ -3,8 +3,8 @@
  * Represents an online/offline course with multimedia content
  */
 
-const mongoose = require("mongoose");
-const { department } = require("./UserModel");
+import mongoose from "mongoose";
+
 
 const CourseModel = {
   // Basic Information
@@ -32,83 +32,11 @@ const CourseModel = {
     required: false,
     description: "Course thumbnail/cover image URL",
   },
-  department:{
-    type: String,
-    required: true,
-    enum: ["Bsc", "BTech", "BBA", "BCom", "BA", "BCA", "BScIT", "BScCS", "Other"],
-  },
-  domain: {
-    type: String,
-    required: true,
-    validate: {
-      validator: function(value) {
-        // Find department value, checking both document save context and update query context
-        let dept = this.department;
-        if (!dept && typeof this.getUpdate === "function") {
-          const update = this.getUpdate();
-          dept = update.department || (update.$set && update.$set.department);
-        }
-
-        const techDepartments = ["BTech", "BCA", "BScIT", "BScCS"];
-        const businessDepartments = ["BBA", "BCom"];
-
-        const techDomains = [
-          "Full Stack Development",
-          "Frontend Development",
-          "Backend Development",
-          "Mobile App Development",
-          "Data Science & Machine Learning",
-          "DevOps & Cloud Computing",
-          "Cybersecurity",
-          "IoT & Embedded Systems",
-          "Artificial Intelligence",
-          "Blockchain Development",
-          "Game Development",
-          "Web3 & Cryptocurrency",
-          "Other Tech"
-        ];
-
-        const businessDomains = [
-          "Finance & Accounting",
-          "Human Resources",
-          "Marketing & Branding",
-          "Sales & Business Development",
-          "Management Consulting",
-          "Supply Chain Management",
-          "Operations Management",
-          "Other Business"
-        ];
-
-        const artsGeneralDomains = [
-          "Public Relations",
-          "Event Management",
-          "Journalism & Media",
-          "Tourism & Hospitality",
-          "Legal Services",
-          "Content Writing",
-          "Graphic Design",
-          "Other"
-        ];
-
-        const allValidDomains = [...techDomains, ...businessDomains, ...artsGeneralDomains];
-
-        // If department is not provided yet or is not in the list, check against all valid domains
-        if (!dept) {
-          return allValidDomains.includes(value);
-        }
-
-        if (techDepartments.includes(dept)) {
-          return techDomains.includes(value);
-        }
-        if (businessDepartments.includes(dept)) {
-          return businessDomains.includes(value);
-        }
-        // General BA, Bsc, or Other departments
-        return artsGeneralDomains.includes(value);
-      },
-      message: "Selected domain is invalid for this department"
-    }
-  },
+ department:{
+  type:String,
+  enum:["Technical","NonTechnical"],
+  required:true
+ },
   difficultyLevel: {
     type: String,
     enum: ["Beginner", "Intermediate", "Advanced", "Expert"],
@@ -155,13 +83,6 @@ const CourseModel = {
       type:String
     }
   }],
-
-  // Course Duration
-  duration: {
-    type: String,
-    enum: ["1-week", "2-weeks", "1-month", "3-months", "6-months", "1-year"],
-    default: "1-month",
-  },
 
   // Prerequisites
   prerequisites: [String],
@@ -248,4 +169,4 @@ const CourseModel = {
   publishedAt: Date,
 };
 
-module.exports = CourseModel;
+export default CourseModel;

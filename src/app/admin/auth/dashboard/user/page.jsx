@@ -62,6 +62,46 @@ export default function UsersAdminPage() {
     );
   });
 
+  const getAdminAttendanceStats = (i) => {
+    const records = i.attendance?.records || [];
+    const presentCount = records.filter(r => r.status === "Present").length;
+    const leaveCount = records.filter(r => r.status === "Leave").length;
+    const explicitAbsentCount = records.filter(r => r.status === "Absent").length;
+
+    const rawStart = i.startDate || i.paymentDate;
+    if (!rawStart) return { presentCount: 0, totalCalendarDays: 1, percentage: 0 };
+
+    const start = new Date(rawStart);
+    start.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const end = i.endDate ? new Date(i.endDate) : null;
+    if (end) end.setHours(0, 0, 0, 0);
+
+    const referenceDate = (end && end < today) ? end : today;
+    const diffTime = referenceDate.getTime() - start.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    const totalCalendarDays = diffDays < 1 ? 1 : diffDays;
+
+    // absentCount = explicit "Absent" records + days with NO record at all (auto-absent days)
+    const recordedDays = records.length;
+    const unmarkedDays = Math.max(0, totalCalendarDays - recordedDays);
+    const absentCount = explicitAbsentCount + unmarkedDays;
+
+    const denominator = totalCalendarDays - leaveCount;
+    const percentage = denominator > 0 ? Math.round((presentCount / denominator) * 100) : 100;
+
+    return {
+      presentCount,
+      leaveCount,
+      absentCount,
+      totalCalendarDays,
+      percentage: Math.min(100, Math.max(0, percentage)),
+    };
+  };
+
   return (
     <div className="space-y-6">
       {/* Header Section */}
@@ -174,17 +214,24 @@ export default function UsersAdminPage() {
                           <div>
                             <span className="font-bold text-brand-secondary block mb-0.5 uppercase tracking-wide text-[10px]">Internships</span>
                             <div className="space-y-1.5">
-                              {user.ActiveInternship.map((i, idx) => (
-                                <div key={idx} className="bg-bg-main px-2 py-1.5 rounded-lg border border-border-main space-y-1">
-                                  <div className="font-semibold text-text-main leading-tight line-clamp-1">{i.internship?.title || "Internship Reference"}</div>
-                                  <div className="flex justify-between items-center text-text-muted text-[10px]">
-                                    <span className={i.internshipStatus === "Completed" ? "text-emerald-500 font-semibold" : "text-amber-500 font-semibold"}>
-                                      {i.internshipStatus || "Active"} ({i.progress || 0}%)
-                                    </span>
-                                    <span className={i.paymentStatus ? "text-emerald-500 font-semibold" : "text-red-500 font-semibold"}>
-                                      {i.paymentStatus ? `Paid: ₹${i.amount || 0}` : "Unpaid"}
-                                    </span>
-                                  </div>
+                              {user.ActiveInternship.map((i, idx) => {
+                                const stats = getAdminAttendanceStats(i);
+                                return (
+                                  <div key={idx} className="bg-bg-main px-2 py-1.5 rounded-lg border border-border-main space-y-1">
+                                    <div className="font-semibold text-text-main leading-tight line-clamp-1">{i.internship?.title || "Internship Reference"}</div>
+                                    <div className="text-[10px] text-text-muted space-y-0.5">
+                                      <div>📅 Start: {i.startDate ? new Date(i.startDate).toLocaleDateString() : "N/A"}</div>
+                                      <div>📅 End: {i.endDate ? new Date(i.endDate).toLocaleDateString() : "N/A"}</div>
+                                      <div className="font-medium text-brand-primary">📊 Attendance: {stats.presentCount} / {stats.totalCalendarDays} days ({stats.percentage}%)</div>
+                                    </div>
+                                    <div className="flex justify-between items-center text-text-muted text-[10px] pt-1">
+                                      <span className={i.internshipStatus === "Completed" ? "text-emerald-500 font-semibold" : "text-amber-500 font-semibold"}>
+                                        {i.internshipStatus || "Active"} ({i.progress || 0}%)
+                                      </span>
+                                      <span className={i.paymentStatus ? "text-emerald-500 font-semibold" : "text-red-500 font-semibold"}>
+                                        {i.paymentStatus ? `Paid: ₹${i.amount || 0}` : "Unpaid"}
+                                      </span>
+                                    </div>
                                   {(i.offerLetterUrl || i.certificationUrl) && (
                                     <div className="flex flex-wrap gap-1 pt-1 border-t border-border-main/50 mt-1">
                                       {i.offerLetterUrl && (
@@ -210,8 +257,9 @@ export default function UsersAdminPage() {
                                     </div>
                                   )}
                                 </div>
-                              ))}
-                            </div>
+                              );
+                            })}
+                          </div>
                           </div>
                         ) : null}
 

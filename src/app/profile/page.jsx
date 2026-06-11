@@ -17,79 +17,172 @@ export default function ProfilePage() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [copiedCertId, setCopiedCertId] = useState(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem("userToken");
-        const savedUser = localStorage.getItem("userData");
-        if (!token || !savedUser) {
-          router.push("/login");
-          return;
-        }
-
-        const parsedUser = JSON.parse(savedUser);
-
-        // Fetch fresh data from the server
-        const res = await fetch(`/api/user?id=${parsedUser._id}`);
-        const result = await res.json();
-
-        let profile = parsedUser;
-        if (res.ok && result.success && result.data) {
-          profile = result.data;
-          // Sync back to local storage
-          localStorage.setItem("userData", JSON.stringify(result.data));
-        }
-
-        setProfileData(profile);
-
-        // Format active courses and internships if they exist
-        const formattedCourses = (profile.ActiveCources || []).map((c, index) => ({
-          id: c.course?._id || c.course || index,
-          enrollmentId: c._id || null,
-          name: c.course?.title || "Course",
-          instructor: c.course?.instructor?.[0]?.name || "KpInterns Instructor",
-          status: c.courseStatus || "Active",
-          progress: c.progress || 0,
-          certificateUrl: c.certificateUrl || "",
-        }));
-
-        const formattedInternships = (profile.ActiveInternship || []).map((i, index) => ({
-          id: i.internship?._id || i.internship || index,
-          enrollmentId: i._id || null,
-          company: i.internship?.company || "KpInterns",
-          position: i.internship?.position || "Intern",
-          duration: i.internship?.duration || "1 month",
-          status: i.internshipStatus || "Active",
-          startDate: i.paymentDate ? new Date(i.paymentDate).toLocaleDateString() : "N/A",
-          progress: i.progress || 0,
-          offerLetterUrl: i.offerLetterUrl || "",
-          certificationUrl: i.certificationUrl || "",
-        }));
-
-        setAppliedItems({
-          courses: formattedCourses,
-          internships: formattedInternships,
-        });
-
-      } catch (error) {
-        console.error("Failed to fetch profile data:", error);
-        // Fallback to local storage if API call fails
-        const savedUser = localStorage.getItem("userData");
-        if (savedUser) {
-          try {
-            const profile = JSON.parse(savedUser);
-            setProfileData(profile);
-          } catch (e) {}
-        } else {
-          router.push("/login");
-        }
-      } finally {
-        setIsLoading(false);
+  const fetchUserData = async () => {
+    try {
+      const token = localStorage.getItem("userToken");
+      const savedUser = localStorage.getItem("userData");
+      if (!token || !savedUser) {
+        router.push("/login");
+        return;
       }
-    };
 
+      const parsedUser = JSON.parse(savedUser);
+
+      // Fetch fresh data from the server
+      const res = await fetch(`/api/user?id=${parsedUser._id}`);
+      const result = await res.json();
+
+      let profile = parsedUser;
+      if (res.ok && result.success && result.data) {
+        profile = result.data;
+        // Sync back to local storage
+        localStorage.setItem("userData", JSON.stringify(result.data));
+      }
+
+      setProfileData(profile);
+
+      // Format active courses and internships if they exist
+      const formattedCourses = (profile.ActiveCources || []).map((c, index) => ({
+        id: c.course?._id || c.course || index,
+        enrollmentId: c._id || null,
+        name: c.course?.title || "Course",
+        instructor: c.course?.instructor?.[0]?.name || "KpInterns Instructor",
+        status: c.courseStatus || "Active",
+        progress: c.progress || 0,
+        certificateUrl: c.certificateUrl || "",
+        paymentReceipt: c.paymentreceipt || "",
+      }));
+
+      const formattedInternships = (profile.ActiveInternship || []).map((i, index) => ({
+        id: i.internship?._id || i.internship || index,
+        enrollmentId: i._id || null,
+        company: i.internship?.company || "KpInterns",
+        position: i.internship?.position || "Intern",
+        duration: i.internship?.duration || "1 month",
+        status: i.internshipStatus || "Active",
+        startDate: i.startDate ? new Date(i.startDate).toLocaleDateString() : (i.paymentDate ? new Date(i.paymentDate).toLocaleDateString() : "N/A"),
+        endDate: i.endDate ? new Date(i.endDate).toLocaleDateString() : "N/A",
+        progress: i.progress || 0,
+        offerLetterUrl: i.offerLetterUrl || "",
+        certificationUrl: i.certificationUrl || "",
+        paymentReceipt: i.paymentreceipt || "",
+        attendance: i.attendance || null,
+      }));
+
+      setAppliedItems({
+        courses: formattedCourses,
+        internships: formattedInternships,
+      });
+
+    } catch (error) {
+      console.error("Failed to fetch profile data:", error);
+      // Fallback to local storage if API call fails
+      const savedUser = localStorage.getItem("userData");
+      if (savedUser) {
+        try {
+          const profile = JSON.parse(savedUser);
+          setProfileData(profile);
+        } catch (e) {}
+      } else {
+        router.push("/login");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchUserData();
   }, [router]);
+
+  const handleMarkAttendance = async (internshipId) => {
+    try {
+      const res = await fetch("/api/attendance", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: profileData._id,
+          internshipId: internshipId,
+          status: "Present",
+        }),
+      });
+      const result = await res.json();
+      if (res.ok && result.success) {
+        alert("Attendance marked successfully!");
+        fetchUserData();
+      } else {
+        alert(result.error || "Failed to mark attendance.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error marking attendance.");
+    }
+  };
+
+  const calculateAttendanceStats = (internship) => {
+    const records = internship.attendance?.records || [];
+    const presentCount = records.filter(r => r.status === "Present").length;
+    const explicitAbsentCount = records.filter(r => r.status === "Absent").length;
+    const leaveCount = records.filter(r => r.status === "Leave").length;
+
+    const rawStart = internship.startDate || internship.paymentDate;
+    if (!rawStart) return { presentCount: 0, leaveCount: 0, absentCount: 0, totalCalendarDays: 1, percentage: 0, isMarkedToday: false };
+
+    let parsedStart = new Date(rawStart);
+    if (isNaN(parsedStart.getTime())) {
+      const parts = rawStart.split("/");
+      if (parts.length === 3) {
+        parsedStart = new Date(parts[2], parts[1] - 1, parts[0]);
+      }
+    }
+
+    let parsedEnd = null;
+    if (internship.endDate && internship.endDate !== "N/A") {
+      parsedEnd = new Date(internship.endDate);
+      if (isNaN(parsedEnd.getTime())) {
+        const parts = internship.endDate.split("/");
+        if (parts.length === 3) {
+          parsedEnd = new Date(parts[2], parts[1] - 1, parts[0]);
+        }
+      }
+    }
+
+    const start = new Date(parsedStart);
+    start.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const end = parsedEnd;
+    if (end) end.setHours(0, 0, 0, 0);
+
+    const referenceDate = (end && end < today) ? end : today;
+    const diffTime = referenceDate.getTime() - start.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    const totalCalendarDays = diffDays < 1 ? 1 : diffDays;
+
+    // absentCount = explicit "Absent" records + days with NO record at all (auto-absent days)
+    const recordedDays = records.length;
+    const unmarkedDays = Math.max(0, totalCalendarDays - recordedDays);
+    const absentCount = explicitAbsentCount + unmarkedDays;
+
+    const denominator = totalCalendarDays - leaveCount;
+    const percentage = denominator > 0 ? Math.round((presentCount / denominator) * 100) : 100;
+
+    const todayKolkata = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+    const isMarkedToday = records.some(r => r.date === todayKolkata);
+
+    return {
+      presentCount,
+      leaveCount,
+      absentCount,
+      totalCalendarDays,
+      percentage: Math.min(100, Math.max(0, percentage)),
+      isMarkedToday,
+    };
+  };
 
   const handleShareCertificate = (certId) => {
     const shareUrl = `${window.location.origin}/verify?id=${certId}`;
@@ -301,7 +394,7 @@ export default function ProfilePage() {
                   Current Enrollment
                 </h3>
                 <div className="space-y-5">
-                  <InfoRow label="Subject" value={profileData.subject} />
+                  <InfoRow label="Roll Number" value={profileData.rollNumber} />
                   <InfoRow
                     label="Semester"
                     value={`Semester ${profileData.semester}`}
@@ -390,6 +483,16 @@ export default function ProfilePage() {
                           <Link href={`/courses/${course.id}`} className="px-4 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center">
                             View
                           </Link>
+                          {course.paymentReceipt && (
+                            <a
+                              href={course.paymentReceipt}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-4 py-2 bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center gap-1.5"
+                            >
+                              <span>🧾</span> Receipt
+                            </a>
+                          )}
                           {course.certificateUrl && (
                             <a
                               href={course.certificateUrl}
@@ -465,7 +568,7 @@ export default function ProfilePage() {
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
                             <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
                               <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
                                 Duration
@@ -480,6 +583,14 @@ export default function ProfilePage() {
                               </p>
                               <p className="text-sm font-semibold text-text-main dark:text-text-main">
                                 {internship.startDate}
+                              </p>
+                            </div>
+                            <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
+                              <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
+                                End Date
+                              </p>
+                              <p className="text-sm font-semibold text-text-main dark:text-text-main">
+                                {internship.endDate || "N/A"}
                               </p>
                             </div>
                             <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
@@ -518,12 +629,59 @@ export default function ProfilePage() {
                               {internship.progress}% Complete
                             </p>
                           </div>
+
+                          {/* Attendance Tracker Section */}
+                          {internship.status === "Active" && (
+                            <div className="mt-5 pt-4 border-t border-border-main/50 space-y-3 animate-fade-in">
+                              <div className="flex flex-wrap items-center justify-between gap-2">
+                                <span className="text-xs font-bold text-text-main font-poppins flex items-center gap-1">
+                                  📅 Attendance Tracker
+                                </span>
+                                <span className={`text-xs font-bold font-poppins px-2 py-0.5 rounded-full ${
+                                  calculateAttendanceStats(internship).percentage >= 75
+                                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                    : "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                                }`}>
+                                  {calculateAttendanceStats(internship).percentage}% Present
+                                </span>
+                              </div>
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-bg-main dark:bg-bg-main/50 p-3.5 rounded-xl border border-border-main/50">
+                                <div className="text-xs text-text-muted dark:text-text-muted font-poppins">
+                                  Present: <span className="font-bold text-text-main">{calculateAttendanceStats(internship).presentCount}</span> | 
+                                  Leaves: <span className="font-bold text-text-main"> {calculateAttendanceStats(internship).leaveCount}</span> | 
+                                  Total Elapsed: <span className="font-bold text-text-main"> {calculateAttendanceStats(internship).totalCalendarDays} days</span>
+                                </div>
+                                {calculateAttendanceStats(internship).isMarkedToday ? (
+                                  <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5 self-start sm:self-auto bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
+                                    ✓ Marked Today
+                                  </span>
+                                ) : (
+                                  <button
+                                    onClick={() => handleMarkAttendance(internship.id)}
+                                    className="px-3 py-1.5 bg-brand-primary hover:bg-brand-primary/95 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-brand-primary/20 hover:shadow-brand-primary/35 self-start sm:self-auto"
+                                  >
+                                    Mark Today's Attendance
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          )}
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
                           <Link href={`/internship/${internship.id}`} className="px-6 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center whitespace-nowrap flex-1 sm:flex-initial">
                             Details
                           </Link>
+                          {internship.paymentReceipt && (
+                            <a
+                              href={internship.paymentReceipt}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-6 py-2 bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap flex-1 sm:flex-initial"
+                            >
+                              <span>🧾</span> Receipt
+                            </a>
+                          )}
                           {internship.offerLetterUrl && (
                             <a
                               href={internship.offerLetterUrl}

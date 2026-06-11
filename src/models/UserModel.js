@@ -3,7 +3,7 @@
  * Represents a student/user account with academic and personal information
  */
 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const UserModel = {
   // Personal Information
@@ -54,7 +54,7 @@ const UserModel = {
     type: String,
     required: true,
   },
-  subject: {
+ rollNumber: {
     type: String,
     required: true,
   },
@@ -83,6 +83,13 @@ const UserModel = {
       paymentDate: { type: Date, default: Date.now },
       paymentId: { type: String },
       amount: { type: Number },
+      paymentreceipt: { type: String },
+      attendance: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Attendance",
+      },
+      startDate: { type: Date,default:Date.now },
+      endDate: { type: Date },
       offerLetterUrl: { type: String },
       certificationUrl: { type: String },
       completedModules: { type: [String], default: [] },
@@ -97,7 +104,10 @@ const UserModel = {
       paymentStatus: { type: Boolean, default: false },
       paymentDate: { type: Date, default: Date.now },
       paymentId: { type: String },
+      paymentreceipt: { type: String },
       amount: { type: Number },
+      startDate: { type: Date,default:Date.now },
+      endDate: { type: Date },
       certificateUrl: { type: String },
       completedModules: { type: [String], default: [] },
     },
@@ -133,4 +143,4 @@ const UserModel = {
   },
 };
 
-module.exports = UserModel;
+export default UserModel;

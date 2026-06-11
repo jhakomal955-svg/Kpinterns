@@ -1,5 +1,56 @@
 "use client";
 
+function calculateEndDate(startDate, durationStr) {
+  const date = new Date(startDate);
+  switch (durationStr) {
+    case "1-week":
+      date.setDate(date.getDate() + 7);
+      break;
+    case "2-weeks":
+      date.setDate(date.getDate() + 14);
+      break;
+    case "1-month":
+      date.setMonth(date.getMonth() + 1);
+      break;
+    case "3-months":
+      date.setMonth(date.getMonth() + 3);
+      break;
+    case "6-months":
+      date.setMonth(date.getMonth() + 6);
+      break;
+    case "1-year":
+      date.setFullYear(date.getFullYear() + 1);
+      break;
+    default:
+      date.setMonth(date.getMonth() + 1);
+  }
+  return date;
+}
+
+function calculateCourseEndDate(startDate, accessDuration) {
+  if (!accessDuration || accessDuration === "lifetime") {
+    return null;
+  }
+  const date = new Date(startDate);
+  switch (accessDuration) {
+    case "1-month":
+      date.setMonth(date.getMonth() + 1);
+      break;
+    case "3-months":
+      date.setMonth(date.getMonth() + 3);
+      break;
+    case "6-months":
+      date.setMonth(date.getMonth() + 6);
+      break;
+    case "1-year":
+      date.setFullYear(date.getFullYear() + 1);
+      break;
+    default:
+      return null;
+  }
+  return date;
+}
+
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
@@ -162,7 +213,7 @@ export default function UserEditPage() {
     college: "",
     degree: "",
     department: "",
-    subject: "",
+    rollNumber: "",
     semester: "",
     session: "",
     registrationNumber: "",
@@ -170,6 +221,88 @@ export default function UserEditPage() {
     ActiveInternship: [],
     ActiveCources: [],
   });
+
+  const [selectedIntId, setSelectedIntId] = useState("");
+  const [attendanceInfo, setAttendanceInfo] = useState(null);
+  const [attendanceLoading, setAttendanceLoading] = useState(false);
+
+  const fetchAttendance = async (intId) => {
+    if (!intId || !userId) return;
+    setAttendanceLoading(true);
+    try {
+      const res = await fetch(`/api/attendance?userId=${userId}&internshipId=${intId}`);
+      const result = await res.json();
+      if (result.success && result.data) {
+        setAttendanceInfo(result.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch attendance:", err);
+    } finally {
+      setAttendanceLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === "attendance" && selectedIntId) {
+      fetchAttendance(selectedIntId);
+    }
+  }, [activeTab, selectedIntId]);
+
+  useEffect(() => {
+    if (activeTab === "attendance" && formData.ActiveInternship?.length > 0 && !selectedIntId) {
+      const firstInt = formData.ActiveInternship[0];
+      const intId = firstInt.internship?._id || firstInt.internship;
+      setSelectedIntId(intId);
+    }
+  }, [activeTab, formData.ActiveInternship, selectedIntId]);
+
+  const handleSaveAttendanceRecord = async (date, status) => {
+    try {
+      const res = await fetch("/api/attendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: userId,
+          internshipId: selectedIntId,
+          date: date,
+          status: status,
+        }),
+      });
+      const result = await res.json();
+      if (res.ok && result.success) {
+        fetchAttendance(selectedIntId);
+      } else {
+        alert(result.error || "Failed to update attendance");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error saving attendance record");
+    }
+  };
+
+  const getDatesRange = () => {
+    if (!attendanceInfo?.startDate) return [];
+    const dates = [];
+    const start = new Date(attendanceInfo.startDate);
+    start.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const end = attendanceInfo.endDate ? new Date(attendanceInfo.endDate) : null;
+    if (end) end.setHours(0, 0, 0, 0);
+
+    const limit = (end && end < today) ? end : today;
+    const current = new Date(start);
+
+    while (current <= limit) {
+      const dateStr = current.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+      dates.push(dateStr);
+      current.setDate(current.getDate() + 1);
+    }
+
+    return dates.reverse();
+  };
 
   const fetchDropdownData = async () => {
     try {
@@ -207,7 +340,7 @@ export default function UserEditPage() {
           college: u.college || "",
           degree: u.degree || "",
           department: u.department || "",
-          subject: u.subject || "",
+          rollNumber: u.rollNumber || "",
           semester: u.semester || "",
           session: u.session || "",
           registrationNumber: u.registrationNumber || "",
@@ -279,6 +412,8 @@ export default function UserEditPage() {
           offerLetterUrl: i.offerLetterUrl || "",
           certificationUrl: i.certificationUrl || "",
           completedModules: i.completedModules || [],
+          startDate: i.startDate || new Date(),
+          endDate: i.endDate || null,
         })),
         ActiveCources: (formData.ActiveCources || []).map((c) => ({
           ...(c._id ? { _id: c._id } : {}),
@@ -291,6 +426,8 @@ export default function UserEditPage() {
           amount: c.amount || 0,
           certificateUrl: c.certificateUrl || "",
           completedModules: c.completedModules || [],
+          startDate: c.startDate || new Date(),
+          endDate: c.endDate || null,
         })),
       };
 
@@ -401,6 +538,19 @@ export default function UserEditPage() {
           >
             Enrolled Programs
           </button>
+          {isEditing && (
+            <button
+              type="button"
+              onClick={() => setActiveTab("attendance")}
+              className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
+                activeTab === "attendance"
+                  ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
+                  : "border-transparent text-text-muted hover:text-text-main"
+              }`}
+            >
+              Attendance Logs
+            </button>
+          )}
         </div>
 
         {/* Tab 1: Personal Info */}
@@ -554,14 +704,14 @@ export default function UserEditPage() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Subject / Specialization *</label>
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Roll Number *</label>
                 <input
                   type="text"
-                  name="subject"
+                  name="rollNumber"
                   required
-                  value={formData.subject}
+                  value={formData.rollNumber}
                   onChange={handleInputChange}
-                  placeholder="e.g. Computer Science"
+                  placeholder="Enter Student Roll Number"
                   className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
                 />
               </div>
@@ -660,6 +810,8 @@ export default function UserEditPage() {
                             offerLetterUrl: "",
                             certificationUrl: "",
                             completedModules: [],
+                            startDate: new Date(),
+                            endDate: calculateEndDate(new Date(), selectedInt.duration || "1-month"),
                           },
                         ],
                       }));
@@ -762,9 +914,7 @@ export default function UserEditPage() {
                               }}
                               className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
                             />
-                          </div>
-
-                          <div className="flex items-center sm:justify-center pt-4">
+                                     <div className="flex items-center sm:justify-center pt-4">
                             <label className="flex items-center gap-3 cursor-pointer text-xs font-bold uppercase tracking-wider text-text-main">
                               <input
                                 type="checkbox"
@@ -783,6 +933,46 @@ export default function UserEditPage() {
                             </label>
                           </div>
                         </div>
+
+                        {/* Start and End Date Inputs */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
+                          <div>
+                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Start Date</label>
+                            <input
+                              type="date"
+                              value={item.startDate ? new Date(item.startDate).toISOString().split('T')[0] : ""}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setFormData((prev) => {
+                                  const list = [...prev.ActiveInternship];
+                                  const newStart = val ? new Date(val) : new Date();
+                                  const duration = intDetails?.duration || "1-month";
+                                  const newEnd = calculateEndDate(newStart, duration);
+                                  list[index] = { ...list[index], startDate: newStart, endDate: newEnd };
+                                  return { ...prev, ActiveInternship: list };
+                                });
+                              }}
+                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">End Date</label>
+                            <input
+                              type="date"
+                              value={item.endDate ? new Date(item.endDate).toISOString().split('T')[0] : ""}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setFormData((prev) => {
+                                  const list = [...prev.ActiveInternship];
+                                  list[index] = { ...list[index], endDate: val ? new Date(val) : null };
+                                  return { ...prev, ActiveInternship: list };
+                                });
+                              }}
+                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
+                            />
+                          </div>
+                        </div>                  </div>
 
                         {/* Beautiful custom file uploaders */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
@@ -878,6 +1068,8 @@ export default function UserEditPage() {
                             amount: selectedC.price || 0,
                             certificateUrl: "",
                             completedModules: [],
+                            startDate: new Date(),
+                            endDate: calculateCourseEndDate(new Date(), selectedC.accessDuration || "lifetime"),
                           },
                         ],
                       }));
@@ -979,9 +1171,7 @@ export default function UserEditPage() {
                               }}
                               className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
                             />
-                          </div>
-
-                          <div className="flex items-center sm:justify-center pt-4">
+                             <div className="flex items-center sm:justify-center pt-4">
                             <label className="flex items-center gap-3 cursor-pointer text-xs font-bold uppercase tracking-wider text-text-main">
                               <input
                                 type="checkbox"
@@ -999,6 +1189,47 @@ export default function UserEditPage() {
                               Enrollment Paid
                             </label>
                           </div>
+                        </div>
+
+                        {/* Start and End Date Inputs for Course */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
+                          <div>
+                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Start Date</label>
+                            <input
+                              type="date"
+                              value={item.startDate ? new Date(item.startDate).toISOString().split('T')[0] : ""}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setFormData((prev) => {
+                                  const list = [...prev.ActiveCources];
+                                  const newStart = val ? new Date(val) : new Date();
+                                  const accessDuration = cDetails?.accessDuration || "lifetime";
+                                  const newEnd = calculateCourseEndDate(newStart, accessDuration);
+                                  list[index] = { ...list[index], startDate: newStart, endDate: newEnd };
+                                  return { ...prev, ActiveCources: list };
+                                });
+                              }}
+                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">End Date</label>
+                            <input
+                              type="date"
+                              value={item.endDate ? new Date(item.endDate).toISOString().split('T')[0] : ""}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setFormData((prev) => {
+                                  const list = [...prev.ActiveCources];
+                                  list[index] = { ...list[index], endDate: val ? new Date(val) : null };
+                                  return { ...prev, ActiveCources: list };
+                                });
+                              }}
+                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
+                            />
+                          </div>
+                        </div>
                         </div>
 
                         {/* Beautiful custom file uploaders */}
@@ -1028,6 +1259,136 @@ export default function UserEditPage() {
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {/* Tab 4: Attendance Log */}
+        {activeTab === "attendance" && isEditing && (
+          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+              4. Attendance Logs & Overrides
+            </h3>
+
+            {/* Select Enrolled Internship */}
+            <div>
+              <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Select Internship Program</label>
+              <select
+                value={selectedIntId}
+                onChange={(e) => setSelectedIntId(e.target.value)}
+                className="w-full sm:w-1/2 p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none font-semibold text-text-main"
+              >
+                <option value="" disabled>-- Select Program --</option>
+                {(formData.ActiveInternship || []).map((item, index) => {
+                  const intDetails = allInternships.find(i => i._id === (item.internship?._id || item.internship));
+                  return (
+                    <option key={index} value={item.internship?._id || item.internship}>
+                      {intDetails?.title || "Internship Reference"}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            {!selectedIntId ? (
+              <p className="text-sm text-text-muted italic bg-bg-main p-4 rounded-xl text-center">
+                Select an active internship program above to manage attendance logs.
+              </p>
+            ) : attendanceLoading ? (
+              <div className="py-10 text-center text-text-muted">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-primary mx-auto mb-2"></div>
+                Loading attendance records...
+              </div>
+            ) : attendanceInfo ? (
+              <div className="space-y-6">
+                {/* Stats Panel */}
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+                  <div className="bg-bg-main p-4 rounded-xl border border-border-main">
+                    <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Attendance Rate</span>
+                    <span className="text-xl font-extrabold text-brand-primary">{attendanceInfo.percentage}%</span>
+                  </div>
+                  <div className="bg-bg-main p-4 rounded-xl border border-border-main">
+                    <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Present Days</span>
+                    <span className="text-xl font-extrabold text-emerald-500">{attendanceInfo.presentCount} days</span>
+                  </div>
+                  <div className="bg-bg-main p-4 rounded-xl border border-border-main">
+                    <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Leave Days</span>
+                    <span className="text-xl font-extrabold text-blue-500">{attendanceInfo.leaveCount} days</span>
+                  </div>
+                  <div className="bg-bg-main p-4 rounded-xl border border-border-main">
+                    <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Absent Days</span>
+                    <span className="text-xl font-extrabold text-red-500">{attendanceInfo.absentCount} days</span>
+                  </div>
+                  <div className="bg-bg-main p-4 rounded-xl border border-border-main">
+                    <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Total Days</span>
+                    <span className="text-xl font-extrabold text-text-main">{attendanceInfo.totalCalendarDays} days</span>
+                  </div>
+                </div>
+
+                {/* Dates List Table */}
+                <div className="border border-border-main rounded-xl overflow-hidden shadow-sm">
+                  <div className="max-h-[400px] overflow-y-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-border-main bg-bg-main text-text-muted text-xs uppercase tracking-wider font-semibold">
+                          <th className="py-3 px-4">Date</th>
+                          <th className="py-3 px-4">Log Status</th>
+                          <th className="py-3 px-4 text-center">Change Status (Override)</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-border-main text-text-main text-sm">
+                        {getDatesRange().map((dateStr) => {
+                          const record = attendanceInfo.records.find(r => r.date === dateStr);
+                          const status = record?.status || "Absent";
+
+                          return (
+                            <tr key={dateStr} className="hover:bg-bg-main/20 transition">
+                              <td className="py-3 px-4 font-semibold font-mono">{dateStr}</td>
+                              <td className="py-3 px-4">
+                                <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
+                                  status === "Present"
+                                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                    : status === "Leave"
+                                      ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                                      : "bg-red-500/10 text-red-500"
+                                }`}>
+                                  {record?.status ? status : `${status} (Auto)`}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4 text-center">
+                                <div className="inline-flex rounded-lg overflow-hidden border border-border-main">
+                                  {["Present", "Absent", "Leave"].map((opt) => (
+                                    <button
+                                      key={opt}
+                                      type="button"
+                                      onClick={() => handleSaveAttendanceRecord(dateStr, opt)}
+                                      className={`px-3 py-1 text-xs font-semibold cursor-pointer transition ${
+                                        status === opt
+                                          ? opt === "Present"
+                                            ? "bg-emerald-500 text-white"
+                                            : opt === "Leave"
+                                              ? "bg-blue-500 text-white"
+                                              : "bg-red-500 text-white"
+                                          : "bg-bg-main hover:bg-border-main text-text-muted"
+                                      }`}
+                                    >
+                                      {opt}
+                                    </button>
+                                  ))}
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-text-muted italic bg-bg-main p-4 rounded-xl text-center">
+                Failed to load attendance records.
+              </p>
+            )}
           </div>
         )}
 

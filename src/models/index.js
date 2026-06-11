@@ -3,18 +3,20 @@
  * Central export file for all models
  */
 
-const UserModel = require("./UserModel");
-const AdminModel = require("./AdminModel");
-const ContactModel = require("./Contact");
-const CourseModel = require("./Course");
-const InternshipModel = require("./Internship");
-const VerificationOtpModel = require("./VerificationOtpModel");
+import UserModel from "./UserModel.js";
+import AdminModel from "./AdminModel.js";
+import ContactModel from "./Contact.js";
+import CourseModel from "./Course.js";
+import InternshipModel from "./Internship.js";
+import VerificationOtpModel from "./VerificationOtpModel.js";
+import AttendanceModel from "./Attendance.js";
 
-module.exports = {
+export {
   UserModel,
   AdminModel,
   ContactModel,
   CourseModel,
   InternshipModel,
   VerificationOtpModel,
+  AttendanceModel,
 };

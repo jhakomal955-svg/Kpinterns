@@ -19,7 +19,11 @@ export async function GET(request) {
     const url = new URL(request.url);
     const internshipId = url.searchParams.get("id");
     const position = url.searchParams.get("position");
+    const degree = url.searchParams.get("degree");
+    const department = url.searchParams.get("department");
+    const domain = url.searchParams.get("domain");
 
+    createModel("Admin", AdminModel);
     const Internship = createModel("Internship", InternshipModel);
 
     if (internshipId) {
@@ -48,8 +52,14 @@ export async function GET(request) {
         { status: 200 },
       );
     } else {
-      // Get all internships and POPULATE instructor/mentor referenced data
-      const internships = await Internship.find()
+      // Build a filter query from degree / department / domain params
+      const query = {};
+      if (degree) query.degree = degree;
+      if (department) query.department = department;
+      if (domain) query.domain = domain;
+
+      // Get internships (filtered or all) and POPULATE instructor/mentor referenced data
+      const internships = await Internship.find(query)
         .populate("instructor.id", "name role avatar");
 
       return Response.json(
@@ -78,18 +88,12 @@ export async function POST(request) {
 
     const data = await request.json();
 
-    // Support both 'category' and 'domain' for backward compatibility
-    if (data.category && !data.domain) {
-      data.domain = data.category;
-    } else if (data.domain && !data.category) {
-      data.category = data.domain;
-    }
-
     // Validate required fields based on model
     const requiredFields = [
       "title",
       "description",
       "position",
+      "degree",
       "department",
       "internshipType",
       "company",
@@ -122,18 +126,17 @@ export async function POST(request) {
       );
     }
 
+    // Validate degree enum
+    const validDegrees = InternshipModel.degree.enum;
+    if (!validDegrees.includes(data.degree)) {
+      return Response.json(
+        { error: "Invalid degree selected" },
+        { status: 400 },
+      );
+    }
+
     // Validate department enum
-    const validDepartments = [
-      "Bsc",
-      "BTech",
-      "BBA",
-      "BCom",
-      "BA",
-      "BCA",
-      "BScIT",
-      "BScCS",
-      "Other",
-    ];
+    const validDepartments = InternshipModel.department.enum;
     if (!validDepartments.includes(data.department)) {
       return Response.json(
         { error: "Invalid department selected" },
@@ -141,14 +144,17 @@ export async function POST(request) {
       );
     }
 
+    // Validate domain enum
+    const validDomains = InternshipModel.domain.enum;
+    if (!validDomains.includes(data.domain)) {
+      return Response.json(
+        { error: "Invalid domain selected" },
+        { status: 400 },
+      );
+    }
+
     // Validate internship type enum
-    const validTypes = [
-      "Full-Time",
-      "Part-Time",
-      "Summer",
-      "Winter",
-      "Project-Based",
-    ];
+    const validTypes = InternshipModel.internshipType.enum;
     if (!validTypes.includes(data.internshipType)) {
       return Response.json(
         { error: "Invalid internship type selected" },
@@ -214,13 +220,6 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
-
-    // Support both 'category' and 'domain' for backward compatibility
-    if (data.category && !data.domain) {
-      data.domain = data.category;
-    } else if (data.domain && !data.category) {
-      data.category = data.domain;
-    }
 
     const Internship = createModel("Internship", InternshipModel);
     const Admin = createModel("Admin", AdminModel);

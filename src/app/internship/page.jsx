@@ -1,8 +1,239 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+
+// ─── Enums matching the Internship model exactly ──────────────────────────────
+
+const DEGREES = ["BTech", "Diploma", "BSc", "BA", "BCom"];
+
+const DEPARTMENTS_BY_DEGREE = {
+  BTech: [
+    "Computer Science & Engineering",
+    "Mechanical Engineering",
+    "Civil Engineering",
+    "Electrical Engineering",
+    "Electronics & Communication",
+    "Chemical Engineering",
+  ],
+  Diploma: [
+    "Computer Science & Engineering",
+    "Mechanical Engineering",
+    "Civil Engineering",
+    "Electrical Engineering",
+    "Electronics & Communication",
+    "Chemical Engineering",
+  ],
+  BSc: [
+    "Physics",
+    "Chemistry",
+    "Mathematics",
+    "Statistics",
+    "Botany",
+    "Zoology",
+    "Microbiology",
+    "Biotechnology",
+    "Biochemistry",
+    "Computer Science",
+    "Data Science",
+    "Agriculture",
+    "Nursing",
+    "Forensic Science",
+  ],
+  BA: [
+    "Humanities",
+    "Social Sciences",
+    "Languages",
+    "Arts & Media",
+    "Vocational/Applied",
+  ],
+  BCom: [
+    "Accounting & Finance",
+    "Business Administration",
+    "Banking & Insurance",
+    "Taxation",
+    "Economics",
+    "Sales & Marketing",
+    "Computer Applications",
+  ],
+};
+
+// All departments (for when no degree is selected)
+const ALL_DEPARTMENTS = [
+  "Computer Science & Engineering",
+  "Mechanical Engineering",
+  "Civil Engineering",
+  "Electrical Engineering",
+  "Electronics & Communication",
+  "Chemical Engineering",
+  "Physics",
+  "Chemistry",
+  "Mathematics",
+  "Statistics",
+  "Botany",
+  "Zoology",
+  "Microbiology",
+  "Biotechnology",
+  "Biochemistry",
+  "Computer Science",
+  "Data Science",
+  "Agriculture",
+  "Nursing",
+  "Forensic Science",
+  "Humanities",
+  "Social Sciences",
+  "Languages",
+  "Arts & Media",
+  "Vocational/Applied",
+  "Accounting & Finance",
+  "Business Administration",
+  "Banking & Insurance",
+  "Taxation",
+  "Economics",
+  "Sales & Marketing",
+  "Computer Applications",
+  "General Teacher Training",
+  "Civil Law",
+  "Criminal Law",
+  "Corporate Law",
+];
+
+const DOMAINS_BY_DEPARTMENT = {
+  "Computer Science & Engineering": [
+    "Full Stack Development", "Frontend Development", "Backend Development",
+    "Mobile App Development", "Data Science & Machine Learning", "Artificial Intelligence",
+    "DevOps & Cloud Computing", "Cybersecurity", "Blockchain Development",
+    "Web3 & Cryptocurrency", "Game Development", "IoT & Embedded Systems",
+    "Software Testing & QA", "Database Administration", "UI/UX Design", "Other Tech",
+  ],
+  "Mechanical Engineering": [
+    "Product Design & Development", "CAD/CAM Design", "Manufacturing & Production",
+    "Automobile Engineering", "Thermal & HVAC Engineering", "Robotics & Automation",
+    "Quality Control & Inspection", "Industrial Engineering", "Maintenance Engineering",
+    "Energy & Power Systems", "3D Printing & Additive Manufacturing",
+    "Project Management (Mechanical)", "Other Mechanical",
+  ],
+  "Civil Engineering": [
+    "Structural Engineering", "Construction Management", "Urban Planning & Design",
+    "Geotechnical Engineering", "Transportation Engineering", "Water Resources & Irrigation",
+    "Environmental Engineering", "Surveying & GIS", "Building Information Modelling (BIM)",
+    "Project Management (Civil)", "Other Civil",
+  ],
+  "Electrical Engineering": [
+    "Power Systems & Grid Engineering", "Renewable Energy & Solar",
+    "Control Systems & Automation", "Electrical Machine Design",
+    "High Voltage & Power Electronics", "PLC & SCADA Programming",
+    "Instrumentation & Measurement", "EV & Battery Technology",
+    "Electrical Project Management", "Other Electrical",
+  ],
+  "Electronics & Communication": [
+    "Embedded Systems & IoT", "VLSI Design", "PCB Design & Prototyping",
+    "Signal Processing", "Telecommunications & Networking", "RF & Microwave Engineering",
+    "Consumer Electronics Testing", "Firmware Development", "Other Electronics",
+  ],
+  "Chemical Engineering": [
+    "Process Engineering", "Petroleum & Refinery", "Pharmaceutical Manufacturing",
+    "Polymer & Materials Science", "Food Technology", "Environmental & Safety Engineering",
+    "Quality Assurance (Chemical)", "Research & Development (Chemical)", "Other Chemical",
+  ],
+  "Data Science": [
+    "Data Analysis & Visualization", "Machine Learning Engineering", "Business Intelligence",
+    "Data Engineering & Pipelines", "AI Research", "Statistical Modelling", "Other Data Science",
+  ],
+  "Biotechnology": [
+    "Molecular Biology Research", "Pharmaceutical Biotechnology", "Agricultural Biotechnology",
+    "Bioinformatics", "Environmental Biotechnology", "Other Biotechnology",
+  ],
+  "Microbiology": [
+    "Clinical Microbiology", "Food & Beverage Microbiology",
+    "Research & Development (Micro)", "Quality Control (Lab)", "Other Life Sciences",
+  ],
+  "Biochemistry": [
+    "Clinical Research", "Pharmaceutical R&D", "Nutrition & Dietetics", "Other Life Sciences",
+  ],
+  "Zoology": [
+    "Wildlife Conservation", "Veterinary Support", "Other Life Sciences",
+  ],
+  "Botany": [
+    "Plant Research", "Horticulture", "Pharmaceutical Botany", "Other Life Sciences",
+  ],
+  "Physics": [
+    "Research & Development", "Instrumentation", "Renewable Energy",
+    "Quantitative Finance", "Other Sciences",
+  ],
+  "Chemistry": [
+    "Analytical Chemistry", "Research & Development", "Quality Control (Lab)", "Other Sciences",
+  ],
+  "Mathematics": [
+    "Actuarial Science", "Quantitative Finance", "Statistical Modelling",
+    "Market Research", "Other Sciences",
+  ],
+  "Statistics": [
+    "Statistical Modelling", "Market Research", "Data Analysis & Visualization",
+    "Actuarial Science", "Other Sciences",
+  ],
+  "Agriculture": [
+    "Agribusiness Management", "Agricultural Research", "Rural Development",
+    "Agricultural Biotechnology", "Other Agriculture",
+  ],
+  "Nursing": [
+    "Clinical Nursing", "Community Health", "Hospital Administration", "Other Healthcare",
+  ],
+  "Forensic Science": [
+    "Crime Investigation Support", "Lab Analysis", "Legal Services", "Other Forensic",
+  ],
+  "Accounting & Finance": [
+    "Financial Analysis", "Accounting & Audit", "Taxation", "Investment Banking",
+    "Financial Modelling", "Other Finance",
+  ],
+  "Business Administration": [
+    "General Management", "Operations Management", "Project Management",
+    "Entrepreneurship", "Other Business",
+  ],
+  "Banking & Insurance": [
+    "Banking Operations", "Insurance Sales & Advisory", "Risk Management",
+    "Loan Processing", "Other Finance",
+  ],
+  "Taxation": [
+    "GST & Indirect Taxation", "Direct Taxation", "Tax Audit & Compliance", "Other Finance",
+  ],
+  "Economics": [
+    "Economic Research & Policy", "Financial Analysis", "Market Research", "Other Economics",
+  ],
+  "Sales & Marketing": [
+    "Digital Marketing", "Content Marketing", "Sales & Business Development",
+    "Brand Management", "Social Media Marketing", "Other Marketing",
+  ],
+  "Computer Applications": [
+    "Full Stack Development", "Frontend Development", "Backend Development",
+    "Mobile App Development", "UI/UX Design", "Other Tech",
+  ],
+  "Humanities": [
+    "Content Writing", "Journalism & Media", "Public Relations",
+    "Event Management", "Social Work & NGO", "Other Humanities",
+  ],
+  "Social Sciences": [
+    "Public Policy Research", "Community Development", "Social Work & NGO",
+    "Other Social Sciences",
+  ],
+  "Languages": [
+    "Translation & Interpretation", "Teaching & Tutoring", "Content Writing",
+    "Journalism & Media", "Other Languages",
+  ],
+  "Arts & Media": [
+    "Graphic Design", "Photography & Videography", "Animation & VFX",
+    "Film Production", "UI/UX Design", "Other Media",
+  ],
+  "Vocational/Applied": [
+    "Tourism & Hospitality", "Retail Management", "Other Vocational",
+  ],
+};
+
+// All domains (for when no department is selected)
+const ALL_DOMAINS = Array.from(
+  new Set(Object.values(DOMAINS_BY_DEPARTMENT).flat())
+).sort();
 
 export default function InternshipsPage() {
   const [internships, setInternships] = useState([]);
@@ -11,6 +242,7 @@ export default function InternshipsPage() {
 
   // Search & Filter States
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDegree, setSelectedDegree] = useState("");
   const [selectedDept, setSelectedDept] = useState("");
   const [selectedDomain, setSelectedDomain] = useState("");
   const [selectedType, setSelectedType] = useState("");
@@ -21,6 +253,10 @@ export default function InternshipsPage() {
     const fetchInternships = async () => {
       try {
         const res = await fetch("/api/internship");
+        if (!res.ok) {
+          setError(`Server error: ${res.status} ${res.statusText}`);
+          return;
+        }
         const data = await res.json();
         if (data.success) {
           // Filter to show active internships
@@ -39,12 +275,52 @@ export default function InternshipsPage() {
     fetchInternships();
   }, []);
 
-  // Get unique domains from available internships
-  const uniqueDomains = Array.from(
-    new Set(internships.map((i) => i.domain).filter(Boolean))
-  ).sort();
+  // Cascade: available departments based on selected degree
+  const availableDepartments = useMemo(() => {
+    if (!selectedDegree) return ALL_DEPARTMENTS;
+    return DEPARTMENTS_BY_DEGREE[selectedDegree] || ALL_DEPARTMENTS;
+  }, [selectedDegree]);
 
-  // Filter internships based on user choices
+  // Cascade: available domains based on selected department
+  const availableDomains = useMemo(() => {
+    if (!selectedDept) return ALL_DOMAINS;
+    return DOMAINS_BY_DEPARTMENT[selectedDept] || ALL_DOMAINS;
+  }, [selectedDept]);
+
+  // When degree changes, reset department & domain if they're no longer valid
+  const handleDegreeChange = (value) => {
+    setSelectedDegree(value);
+    const depts = value ? (DEPARTMENTS_BY_DEGREE[value] || []) : ALL_DEPARTMENTS;
+    if (selectedDept && !depts.includes(selectedDept)) {
+      setSelectedDept("");
+      setSelectedDomain("");
+    }
+  };
+
+  // When department changes, reset domain if it's no longer valid
+  const handleDeptChange = (value) => {
+    setSelectedDept(value);
+    const domains = value ? (DOMAINS_BY_DEPARTMENT[value] || []) : ALL_DOMAINS;
+    if (selectedDomain && !domains.includes(selectedDomain)) {
+      setSelectedDomain("");
+    }
+  };
+
+  const resetAll = () => {
+    setSearchTerm("");
+    setSelectedDegree("");
+    setSelectedDept("");
+    setSelectedDomain("");
+    setSelectedType("");
+    setSelectedMode("");
+    setSelectedStipend("all");
+  };
+
+  const hasActiveFilters =
+    searchTerm || selectedDegree || selectedDept || selectedDomain ||
+    selectedType || selectedMode || selectedStipend !== "all";
+
+  // Filter internships based on user choices (client-side)
   const filteredInternships = internships.filter((internship) => {
     const matchesSearch =
       !searchTerm ||
@@ -55,12 +331,10 @@ export default function InternshipsPage() {
       internship.shortDescription?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       internship.domain?.toLowerCase().includes(searchTerm.toLowerCase());
 
+    const matchesDegree = !selectedDegree || internship.degree === selectedDegree;
     const matchesDept = !selectedDept || internship.department === selectedDept;
-
     const matchesDomain = !selectedDomain || internship.domain === selectedDomain;
-
     const matchesType = !selectedType || internship.internshipType === selectedType;
-
     const matchesMode = !selectedMode || internship.mode === selectedMode;
 
     let matchesStipend = true;
@@ -72,6 +346,7 @@ export default function InternshipsPage() {
 
     return (
       matchesSearch &&
+      matchesDegree &&
       matchesDept &&
       matchesDomain &&
       matchesType &&
@@ -120,10 +395,11 @@ export default function InternshipsPage() {
                     🔍
                   </span>
                   <input
+                    id="internship-search"
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search internships by title, position, company, or domain..."
+                    placeholder="Search by title, position, company, or domain..."
                     className="w-full pl-10 pr-10 py-3 bg-bg-main border-2 border-border-main rounded-xl text-text-main placeholder-text-muted/60 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all text-sm font-semibold"
                   />
                   {searchTerm && (
@@ -137,16 +413,9 @@ export default function InternshipsPage() {
                 </div>
 
                 {/* Reset Button */}
-                {(searchTerm || selectedDept || selectedDomain || selectedType || selectedMode || selectedStipend !== "all") && (
+                {hasActiveFilters && (
                   <button
-                    onClick={() => {
-                      setSearchTerm("");
-                      setSelectedDept("");
-                      setSelectedDomain("");
-                      setSelectedType("");
-                      setSelectedMode("");
-                      setSelectedStipend("all");
-                    }}
+                    onClick={resetAll}
                     className="px-6 py-3 bg-brand-primary/10 hover:bg-brand-primary text-brand-primary hover:text-white font-bold rounded-xl transition-all duration-300 text-sm whitespace-nowrap cursor-pointer"
                   >
                     Reset Filters
@@ -154,49 +423,72 @@ export default function InternshipsPage() {
                 )}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 pt-2">
+              {/* Row 1: Degree · Department · Domain */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                {/* Degree Filter */}
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="filter-degree" className="text-xs font-extrabold uppercase tracking-wider text-text-muted">
+                    Degree
+                  </label>
+                  <select
+                    id="filter-degree"
+                    value={selectedDegree}
+                    onChange={(e) => handleDegreeChange(e.target.value)}
+                    className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
+                  >
+                    <option value="">All Degrees</option>
+                    {DEGREES.map((deg) => (
+                      <option key={deg} value={deg}>{deg}</option>
+                    ))}
+                  </select>
+                </div>
+
                 {/* Department Filter */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-extrabold uppercase tracking-wider text-text-muted">Department</label>
+                  <label htmlFor="filter-dept" className="text-xs font-extrabold uppercase tracking-wider text-text-muted">
+                    Department
+                  </label>
                   <select
+                    id="filter-dept"
                     value={selectedDept}
-                    onChange={(e) => setSelectedDept(e.target.value)}
+                    onChange={(e) => handleDeptChange(e.target.value)}
                     className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
                   >
                     <option value="">All Departments</option>
-                    <option value="Bsc">Bsc</option>
-                    <option value="BTech">BTech</option>
-                    <option value="BBA">BBA</option>
-                    <option value="BCom">BCom</option>
-                    <option value="BA">BA</option>
-                    <option value="BCA">BCA</option>
-                    <option value="BScIT">BScIT</option>
-                    <option value="BScCS">BScCS</option>
-                    <option value="Other">Other</option>
+                    {availableDepartments.map((dept) => (
+                      <option key={dept} value={dept}>{dept}</option>
+                    ))}
                   </select>
                 </div>
 
                 {/* Domain Filter */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-extrabold uppercase tracking-wider text-text-muted">Domain</label>
+                  <label htmlFor="filter-domain" className="text-xs font-extrabold uppercase tracking-wider text-text-muted">
+                    Domain
+                  </label>
                   <select
+                    id="filter-domain"
                     value={selectedDomain}
                     onChange={(e) => setSelectedDomain(e.target.value)}
                     className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
                   >
                     <option value="">All Domains</option>
-                    {uniqueDomains.map((domain) => (
-                      <option key={domain} value={domain}>
-                        {domain}
-                      </option>
+                    {availableDomains.map((domain) => (
+                      <option key={domain} value={domain}>{domain}</option>
                     ))}
                   </select>
                 </div>
+              </div>
 
+              {/* Row 2: Type · Mode · Compensation */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {/* Internship Type Filter */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-extrabold uppercase tracking-wider text-text-muted">Type</label>
+                  <label htmlFor="filter-type" className="text-xs font-extrabold uppercase tracking-wider text-text-muted">
+                    Type
+                  </label>
                   <select
+                    id="filter-type"
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
                     className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
@@ -212,8 +504,11 @@ export default function InternshipsPage() {
 
                 {/* Mode Filter */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-extrabold uppercase tracking-wider text-text-muted">Mode</label>
+                  <label htmlFor="filter-mode" className="text-xs font-extrabold uppercase tracking-wider text-text-muted">
+                    Mode
+                  </label>
                   <select
+                    id="filter-mode"
                     value={selectedMode}
                     onChange={(e) => setSelectedMode(e.target.value)}
                     className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
@@ -227,8 +522,11 @@ export default function InternshipsPage() {
 
                 {/* Stipend Filter */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-extrabold uppercase tracking-wider text-text-muted">Compensation</label>
+                  <label htmlFor="filter-stipend" className="text-xs font-extrabold uppercase tracking-wider text-text-muted">
+                    Compensation
+                  </label>
                   <select
+                    id="filter-stipend"
                     value={selectedStipend}
                     onChange={(e) => setSelectedStipend(e.target.value)}
                     className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
@@ -239,20 +537,26 @@ export default function InternshipsPage() {
                   </select>
                 </div>
               </div>
-              
+
               {/* Active Filter Badges */}
-              {(searchTerm || selectedDept || selectedDomain || selectedType || selectedMode || selectedStipend !== "all") && (
+              {hasActiveFilters && (
                 <div className="flex flex-wrap gap-2 pt-2 border-t border-border-main/50 animate-fade-in">
                   {searchTerm && (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-bg-main border border-border-main rounded-full text-xs font-semibold text-text-main">
-                      Search: "{searchTerm}"
+                      Search: &quot;{searchTerm}&quot;
                       <button onClick={() => setSearchTerm("")} className="text-text-muted hover:text-brand-primary cursor-pointer font-bold">✕</button>
+                    </span>
+                  )}
+                  {selectedDegree && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-bg-main border border-border-main rounded-full text-xs font-semibold text-text-main">
+                      Degree: {selectedDegree}
+                      <button onClick={() => handleDegreeChange("")} className="text-text-muted hover:text-brand-primary cursor-pointer font-bold">✕</button>
                     </span>
                   )}
                   {selectedDept && (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-bg-main border border-border-main rounded-full text-xs font-semibold text-text-main">
                       Dept: {selectedDept}
-                      <button onClick={() => setSelectedDept("")} className="text-text-muted hover:text-brand-primary cursor-pointer font-bold">✕</button>
+                      <button onClick={() => handleDeptChange("")} className="text-text-muted hover:text-brand-primary cursor-pointer font-bold">✕</button>
                     </span>
                   )}
                   {selectedDomain && (
@@ -290,14 +594,7 @@ export default function InternshipsPage() {
                 <p className="font-semibold text-lg text-text-main mb-2">No internships found matching your criteria</p>
                 <p className="text-sm">Try resetting filters or adjusting search queries.</p>
                 <button
-                  onClick={() => {
-                    setSearchTerm("");
-                    setSelectedDept("");
-                    setSelectedDomain("");
-                    setSelectedType("");
-                    setSelectedMode("");
-                    setSelectedStipend("all");
-                  }}
+                  onClick={resetAll}
                   className="mt-6 px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/95 text-white font-bold rounded-xl transition-all shadow cursor-pointer text-sm"
                 >
                   Clear All Filters
@@ -325,9 +622,9 @@ export default function InternshipsPage() {
                       {/* Visual Header / Thumbnail */}
                       <div className="relative h-48 bg-gradient-to-br from-brand-secondary/20 via-brand-primary/20 to-brand-secondary/10 flex items-center justify-center overflow-hidden border-b border-border-main">
                         {internship.thumbnail ? (
-                          <img 
-                            src={internship.thumbnail} 
-                            alt={internship.title} 
+                          <img
+                            src={internship.thumbnail}
+                            alt={internship.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-350"
                             loading="lazy"
                           />
@@ -337,11 +634,11 @@ export default function InternshipsPage() {
                             <span className="text-5xl group-hover:-rotate-6 transition-transform duration-350 select-none">💼</span>
                           </>
                         )}
-                        
+
                         {/* Badges Overlay */}
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
                           <span className="bg-bg-card/90 text-text-main text-[11px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full shadow border border-border-main">
-                            {internship.department}
+                            {internship.degree}
                           </span>
                           <span className="bg-brand-primary text-white text-[11px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full shadow">
                             {internship.mode}
@@ -363,9 +660,13 @@ export default function InternshipsPage() {
                         <h3 className="text-xl font-bold text-text-main group-hover:text-brand-secondary transition-colors line-clamp-1 mb-1">
                           {internship.title}
                         </h3>
-                        
-                        <span className="text-sm font-semibold text-text-muted mb-4 block">
+
+                        <span className="text-sm font-semibold text-text-muted mb-1 block">
                           🏢 {internship.company || "KpInterns"}
+                        </span>
+
+                        <span className="text-xs font-semibold text-text-muted mb-4 block">
+                          📚 {internship.department}
                         </span>
 
                         <p className="text-text-muted text-sm line-clamp-3 mb-6 flex-1">
@@ -407,4 +708,4 @@ export default function InternshipsPage() {
       </div>
     </div>
   );
-}
+}

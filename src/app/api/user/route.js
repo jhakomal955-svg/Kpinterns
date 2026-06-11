@@ -9,11 +9,64 @@
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, VerificationOtpModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel } from "@/models";
 import crypto from "crypto";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
 import { verifyAuth } from "@/lib/jwt";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
+import { generatePaymentReceipt } from "@/lib/pdfGenerator";
+import { uploadBufferToCloudinary } from "@/lib/cloudinary";
+
+function calculateEndDate(startDate, durationStr) {
+  const date = new Date(startDate);
+  switch (durationStr) {
+    case "1-week":
+      date.setDate(date.getDate() + 7);
+      break;
+    case "2-weeks":
+      date.setDate(date.getDate() + 14);
+      break;
+    case "1-month":
+      date.setMonth(date.getMonth() + 1);
+      break;
+    case "3-months":
+      date.setMonth(date.getMonth() + 3);
+      break;
+    case "6-months":
+      date.setMonth(date.getMonth() + 6);
+      break;
+    case "1-year":
+      date.setFullYear(date.getFullYear() + 1);
+      break;
+    default:
+      date.setMonth(date.getMonth() + 1);
+    }
+  return date;
+}
+
+function calculateCourseEndDate(startDate, accessDuration) {
+  if (!accessDuration || accessDuration === "lifetime") {
+    return null;
+  }
+  const date = new Date(startDate);
+  switch (accessDuration) {
+    case "1-month":
+      date.setMonth(date.getMonth() + 1);
+      break;
+    case "3-months":
+      date.setMonth(date.getMonth() + 3);
+      break;
+    case "6-months":
+      date.setMonth(date.getMonth() + 6);
+      break;
+    case "1-year":
+      date.setFullYear(date.getFullYear() + 1);
+      break;
+    default:
+      return null;
+  }
+  return date;
+}
 
 // Handler for GET, POST
 export async function GET(request) {
@@ -38,6 +91,7 @@ export async function GET(request) {
     // Ensure referenced models are registered for populate
     createModel("Course", CourseModel);
     createModel("Internship", InternshipModel);
+    const Attendance = createModel("Attendance", AttendanceModel);
     const User = createModel("User", UserModel);
 
     if (userId) {
@@ -51,10 +105,30 @@ export async function GET(request) {
       // Get single user by ID with populated courses & internships
       const user = await User.findById(userId)
         .populate("ActiveCources.course")
-        .populate("ActiveInternship.internship");
+        .populate("ActiveInternship.internship")
+        .populate("ActiveInternship.attendance");
 
       if (!user) {
         return Response.json({ error: "User not found" }, { status: 404 });
+      }
+
+      // Lazy link any missing Attendance docs
+      let hasAttendanceChanges = false;
+      for (const item of user.ActiveInternship || []) {
+        if (!item.attendance && item.internship) {
+          const newAtt = new Attendance({
+            user: user._id,
+            internship: item.internship._id || item.internship,
+            records: []
+          });
+          await newAtt.save();
+          item.attendance = newAtt._id;
+          hasAttendanceChanges = true;
+        }
+      }
+      if (hasAttendanceChanges) {
+        user.markModified("ActiveInternship");
+        await user.save();
       }
 
       const userObj = user.toObject();
@@ -71,7 +145,8 @@ export async function GET(request) {
       // Get all users with populated courses & internships
       const users = await User.find()
         .populate("ActiveCources.course")
-        .populate("ActiveInternship.internship");
+        .populate("ActiveInternship.internship")
+        .populate("ActiveInternship.attendance");
 
       return Response.json(
         { success: true, data: users, total: users.length },
@@ -145,7 +220,7 @@ export async function POST(request) {
       "college",
       "degree",
       "department",
-      "subject",
+      "rollNumber",
       "semester",
       "session",
       "registrationNumber",
@@ -239,6 +314,10 @@ export async function POST(request) {
           }
         }
 
+        const startDate = new Date();
+        const accessDuration = matchedCourse.accessDuration || "lifetime";
+        const endDate = calculateCourseEndDate(startDate, accessDuration);
+
         // Map selected course to ActiveCources reference on the User document
         data.ActiveCources = [
           {
@@ -246,9 +325,11 @@ export async function POST(request) {
             courseStatus: "Active",
             progress: 0,
             paymentStatus: true,
-            paymentDate: new Date(),
+            paymentDate: startDate,
             paymentId: paymentDetails?.razorpay_payment_id || null,
             amount: price,
+            startDate: startDate,
+            endDate: endDate,
           }
         ];
 
@@ -302,6 +383,10 @@ export async function POST(request) {
           }
         }
 
+        const startDate = new Date();
+        const duration = matchedInternship.duration || "1-month";
+        const endDate = calculateEndDate(startDate, duration);
+
         // Map selected domain & mode to ActiveInternship reference on the User document
         data.ActiveInternship = [
           {
@@ -309,9 +394,11 @@ export async function POST(request) {
             internshipStatus: "Active",
             progress: 0,
             paymentStatus: true,
-            paymentDate: new Date(),
+            paymentDate: startDate,
             paymentId: paymentDetails?.razorpay_payment_id || null,
             amount: price,
+            startDate: startDate,
+            endDate: endDate,
           }
         ];
       }
@@ -328,6 +415,49 @@ export async function POST(request) {
 
     // Send the allotment and receipt email to the user (only for client-side registrations)
     if (!isDashboardCreation && resolvedType) {
+      let receiptPdfBuffer = null;
+
+      // Step 1: Generate PDF receipt
+      try {
+        receiptPdfBuffer = await generatePaymentReceipt(newUser.toObject(), {
+          purchaseType: resolvedType,
+          title: resolvedTitle,
+          amount: resolvedPrice,
+          paymentId: paymentDetails?.razorpay_payment_id || "N/A",
+          orderId: paymentDetails?.razorpay_order_id || "N/A",
+          date: new Date(),
+        });
+      } catch (pdfErr) {
+        console.error("❌ Failed to generate payment receipt PDF:", pdfErr);
+      }
+
+      // Step 2: Upload PDF to Cloudinary and save URL on user document
+      if (receiptPdfBuffer) {
+        try {
+          const filename = `payment_receipt_${newUser._id}_${Date.now()}`;
+          const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
+            public_id: filename,
+            folder: "kpinterns/receipts",
+            resource_type: "auto",
+          });
+          const receiptCloudinaryUrl = uploadResult.secure_url;
+
+          // Save URL directly on the in-memory newUser object (same as offerLetterUrl pattern)
+          if (resolvedType === "internship" && newUser.ActiveInternship?.length > 0) {
+            newUser.ActiveInternship[newUser.ActiveInternship.length - 1].paymentreceipt = receiptCloudinaryUrl;
+            newUser.markModified("ActiveInternship");
+          } else if (resolvedType === "course" && newUser.ActiveCources?.length > 0) {
+            newUser.ActiveCources[newUser.ActiveCources.length - 1].paymentreceipt = receiptCloudinaryUrl;
+            newUser.markModified("ActiveCources");
+          }
+          await newUser.save();
+          console.log("✅ Payment receipt uploaded to Cloudinary & saved:", receiptCloudinaryUrl);
+        } catch (uploadErr) {
+          console.error("❌ Failed to upload receipt PDF to Cloudinary:", uploadErr);
+        }
+      }
+
+      // Step 3: Send confirmation email (with PDF buffer as attachment)
       try {
         await sendAllotmentAndPaymentSlipEmail(normalizedEmail, data.fullName, {
           purchaseType: resolvedType,
@@ -337,11 +467,13 @@ export async function POST(request) {
           orderId: paymentDetails?.razorpay_order_id || "N/A",
           date: new Date(),
           isNewRegistration: true,
+          receiptPdfBuffer,
         });
       } catch (mailError) {
         console.error("❌ Failed to send registration allotment receipt email:", mailError);
       }
     }
+
 
     // Run automated document generation (e.g. generate and email offer letter for new internship enrollment)
     try {
@@ -419,7 +551,8 @@ export async function PUT(request) {
         // Refetch to return populated URLs
         finalUser = await User.findById(userId)
           .populate("ActiveCources.course")
-          .populate("ActiveInternship.internship");
+          .populate("ActiveInternship.internship")
+          .populate("ActiveInternship.attendance");
       }
     } catch (docError) {
       console.error("❌ Failed to run automated document checks on update:", docError);

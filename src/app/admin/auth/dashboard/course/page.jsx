@@ -2,93 +2,15 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import MediaPicker from "@/components/MediaPicker";
 
 export default function CoursesAdminPage() {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [domainFilter, setDomainFilter] = useState("All");
+  const [deptFilter, setDeptFilter] = useState("All");
   const [message, setMessage] = useState(null);
-  const [activeTab, setActiveTab] = useState("basics");
-
-  // Form State
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    shortDescription: "",
-    thumbnail: "",
-    department: "",
-    domain: "Full Stack Development",
-    difficultyLevel: "Beginner",
-    price: 0,
-    isFree: false,
-    status: "Draft",
-    language: "English",
-    duration: "1-month",
-    accessDuration: "lifetime",
-    instructorId: "", // fallback
-    instructors: [],
-    prerequisites: "",
-    learningOutcomes: "",
-    tags: "",
-    contentItems: [],
-    updates: [],
-  });
-
-  const [currentContentItem, setCurrentContentItem] = useState({
-    title: "",
-    textContent: "", // <--- Synced into layout object defaults
-    VideoUrl: "",
-    pdfurl: "",
-    imageurl: "",
-    externalink: "",
-  });
-
-  const [currentUpdate, setCurrentUpdate] = useState({
-    title: "",
-    externalLink: "",
-  });
-
-  const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
-  const [uploadError, setUploadError] = useState(null);
-  const [adminsList, setAdminsList] = useState([]);
   const [adminData, setAdminData] = useState(null);
-
-  const domains = [
-    "Full Stack Development",
-    "Frontend Development",
-    "Backend Development",
-    "Mobile App Development",
-    "Data Science & Machine Learning",
-    "DevOps & Cloud Computing",
-    "Cybersecurity",
-    "IoT & Embedded Systems",
-    "Artificial Intelligence",
-    "Blockchain Development",
-    "Game Development",
-    "Web3 & Cryptocurrency",
-    "Other Tech",
-    "Finance & Accounting",
-    "Human Resources",
-    "Marketing & Branding",
-    "Sales & Business Development",
-    "Management Consulting",
-    "Supply Chain Management",
-    "Operations Management",
-    "Other Business",
-    "Public Relations",
-    "Event Management",
-    "Journalism & Media",
-    "Tourism & Hospitality",
-    "Legal Services",
-    "Content Writing",
-    "Graphic Design",
-    "Other"
-  ];
-  const departments = ["Bsc", "BTech", "BBA", "BCom", "BA", "BCA", "BScIT", "BScCS", "Other"];
 
   const fetchCourses = async () => {
     try {
@@ -110,19 +32,6 @@ export default function CoursesAdminPage() {
 
   useEffect(() => {
     fetchCourses();
-    const fetchAdmins = async () => {
-      try {
-        const res = await fetch("/api/admin");
-        const data = await res.json();
-        if (data.success) {
-          setAdminsList(data.data || []);
-        }
-      } catch (err) {
-        console.error("Error fetching admins:", err);
-      }
-    };
-    fetchAdmins();
-
     if (typeof window !== "undefined") {
       try {
         const stored = localStorage.getItem("adminData");
@@ -134,217 +43,6 @@ export default function CoursesAdminPage() {
       }
     }
   }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleThumbnailFileSelect = async (file) => {
-    setUploadError(null);
-    setUploadingThumbnail(true);
-    try {
-      const payload = new FormData();
-      payload.append("file", file);
-
-      const response = await fetch("/api/cloudinary", { method: "POST", body: payload });
-      const data = await response.json();
-
-      if (!data.success) {
-        setUploadError(data.error || "Upload failed");
-        return;
-      }
-
-      setFormData((prev) => ({ ...prev, thumbnail: data.data.secure_url }));
-      setMessage("Thumbnail uploaded successfully!");
-    } catch (err) {
-      console.error(err);
-      setUploadError("Failed to upload thumbnail image layout.");
-    } finally {
-      setUploadingThumbnail(false);
-    }
-  };
-
-  const handleContentFileSelect = async (file) => {
-    setUploadError(null);
-    setUploadingThumbnail(true);
-    try {
-      const payload = new FormData();
-      payload.append("file", file);
-
-      const response = await fetch("/api/cloudinary", { method: "POST", body: payload });
-      const data = await response.json();
-
-      if (!data.success) {
-        setUploadError(data.error || "Upload failed");
-        return;
-      }
-
-      const fileType = file.type;
-      const fileUrl = data.data.secure_url;
-      setCurrentContentItem((prev) => ({
-        ...prev,
-        ...(fileType.includes("image") && { imageurl: fileUrl }),
-        ...(fileType.includes("video") && { VideoUrl: fileUrl }),
-        ...(fileType.includes("pdf") && { pdfurl: fileUrl }),
-      }));
-      setMessage("Content media uploaded successfully.");
-    } catch (err) {
-      console.error(err);
-      setUploadError("Failed to upload content file.");
-    } finally {
-      setUploadingThumbnail(false);
-    }
-  };
-
-  const addContentItem = () => {
-    if (!currentContentItem.title.trim()) {
-      setError("Please provide a title for the content item.");
-      return;
-    }
-    setFormData((prev) => ({
-      ...prev,
-      contentItems: [...prev.contentItems, currentContentItem],
-    }));
-    setCurrentContentItem({
-      title: "",
-      textContent: "",
-      VideoUrl: "",
-      pdfurl: "",
-      imageurl: "",
-      externalink: "",
-    });
-    setMessage("Course content item added.");
-  };
-
-  const removeContentItem = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      contentItems: prev.contentItems.filter((_, i) => i !== index),
-    }));
-  };
-
-  const addUpdateItem = () => {
-    if (!currentUpdate.title.trim()) {
-      setError("Please provide a title for the update.");
-      return;
-    }
-    setFormData((prev) => ({
-      ...prev,
-      updates: [...(prev.updates || []), currentUpdate],
-    }));
-    setCurrentUpdate({
-      title: "",
-      externalLink: "",
-    });
-    setMessage("Course update item added.");
-  };
-
-  const removeUpdateItem = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      updates: prev.updates.filter((_, i) => i !== index),
-    }));
-  };
-
-  const openAddModal = () => {
-    setFormData({
-      title: "",
-      description: "",
-      shortDescription: "",
-      thumbnail: "",
-      department: "",
-      domain: "Full Stack Development",
-      difficultyLevel: "Beginner",
-      price: 0,
-      isFree: false,
-      status: "Draft",
-      language: "English",
-      duration: "1-month",
-      accessDuration: "lifetime",
-      instructorId: "", // fallback
-      instructors: [],
-      prerequisites: "",
-      learningOutcomes: "",
-      tags: "",
-      contentItems: [],
-      updates: [],
-    });
-    setCurrentUpdate({
-      title: "",
-      externalLink: "",
-    });
-    setUploadError(null);
-    setActiveTab("basics");
-    setShowModal(true);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setMessage(null);
-      setError(null);
-
-      if (formData.title.length < 5) {
-        setError("Title must be at least 5 characters long");
-        return;
-      }
-      if (formData.description.length < 20) {
-        setError("Description must be at least 20 characters long");
-        return;
-      }
-      if (!formData.department) {
-        setError("Department is required");
-        return;
-      }
-      if (!formData.instructors || formData.instructors.length === 0) {
-        setError("At least one instructor is required");
-        return;
-      }
-
-      const payload = {
-        title: formData.title,
-        description: formData.description,
-        shortDescription: formData.shortDescription,
-        thumbnail: formData.thumbnail,
-        department: formData.department,
-        domain: formData.domain,
-        difficultyLevel: formData.difficultyLevel,
-        price: formData.isFree ? 0 : Number(formData.price),
-        isFree: formData.isFree,
-        status: formData.status,
-        language: formData.language,
-        duration: formData.duration,
-        accessDuration: formData.accessDuration,
-        prerequisites: formData.prerequisites.split(",").map((item) => item.trim()).filter(Boolean),
-        learningOutcomes: formData.learningOutcomes.split(",").map((item) => item.trim()).filter(Boolean),
-        tags: formData.tags.split(",").map((item) => item.trim()).filter(Boolean),
-        instructor: formData.instructors.map((id) => ({ id })),
-        content: formData.contentItems,
-        updates: formData.updates,
-      };
-
-      const res = await fetch("/api/course", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        setMessage("Course created successfully!");
-        setShowModal(false);
-        fetchCourses();
-      } else {
-        setError(data.error || "Failed to save course");
-      }
-    } catch (err) {
-      setError("An error occurred while saving the course");
-    }
-  };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
@@ -372,9 +70,9 @@ export default function CoursesAdminPage() {
     }
 
     const term = searchQuery.toLowerCase();
-    const matchesSearch = course.title?.toLowerCase().includes(term) || course.description?.toLowerCase().includes(term) || (course.domain || course.category)?.toLowerCase().includes(term);
-    const matchesDomain = domainFilter === "All" || (course.domain || course.category) === domainFilter;
-    return matchesSearch && matchesDomain;
+    const matchesSearch = course.title?.toLowerCase().includes(term) || course.description?.toLowerCase().includes(term);
+    const matchesDept = deptFilter === "All" || course.department === deptFilter;
+    return matchesSearch && matchesDept;
   });
 
   return (
@@ -386,11 +84,25 @@ export default function CoursesAdminPage() {
           <p className="text-text-muted text-sm sm:text-base">Create, view, update, and publish multimedia course listings.</p>
         </div>
         {adminData?.role !== "Instructor" && (
-          <button type="button" onClick={openAddModal} className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base">
+          <Link href="/admin/auth/dashboard/course/create" className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base">
             Add New Course
-          </button>
+          </Link>
         )}
       </div>
+
+      {/* Notifications */}
+      {message && (
+        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-brand-success flex items-center justify-between text-sm">
+          <span>{message}</span>
+          <button type="button" onClick={() => setMessage(null)} className="font-bold ml-2">×</button>
+        </div>
+      )}
+      {error && (
+        <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-500 flex items-center justify-between text-sm">
+          <span>{error}</span>
+          <button type="button" onClick={() => setError(null)} className="font-bold ml-2">×</button>
+        </div>
+      )}
 
       {/* Filters & Search */}
       <div className="bg-bg-card border-2 border-border-main rounded-2xl p-4 flex flex-col md:flex-row gap-4">
@@ -401,9 +113,10 @@ export default function CoursesAdminPage() {
           <input type="text" placeholder="Search by course title or keywords..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main placeholder-text-muted focus:border-brand-primary outline-none transition text-sm sm:text-base" />
         </div>
         <div className="w-full md:w-64">
-          <select value={domainFilter} onChange={(e) => setDomainFilter(e.target.value)} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base">
-            <option value="All">All Domains</option>
-            {domains.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
+          <select value={deptFilter} onChange={(e) => setDeptFilter(e.target.value)} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base">
+            <option value="All">All Departments</option>
+            <option value="Technical">Technical</option>
+            <option value="NonTechnical">NonTechnical</option>
           </select>
         </div>
       </div>
@@ -413,6 +126,10 @@ export default function CoursesAdminPage() {
         <div className="py-20 text-center text-text-muted bg-bg-card border-2 border-border-main rounded-2xl shadow-sm">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary mx-auto mb-4"></div>
           Loading platform courses...
+        </div>
+      ) : filteredCourses.length === 0 ? (
+        <div className="py-20 text-center text-text-muted bg-bg-card border-2 border-border-main rounded-2xl shadow-sm text-sm">
+          No courses found matching your criteria.
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -437,7 +154,7 @@ export default function CoursesAdminPage() {
                         {course.instructor.map((inst, index) => {
                           const name = typeof inst.id === "object" ? inst.id?.name : "Admin";
                           return (
-                            <span key={index} className="bg-bg-main border border-border-main text-text-main font-medium rounded px-2 py-0.5 text-[10px]">
+                            <span key={index} className="bg-bg-main border border-border-main text-text-main font-medium rounded px-2.5 py-0.5 text-[10px]">
                               {name}
                             </span>
                           );
@@ -461,276 +178,6 @@ export default function CoursesAdminPage() {
               </div>
             </div>
           ))}
-        </div>
-      )}
-
-      {/* Course Creation Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-bg-card border-2 border-border-main rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div className="p-5 border-b border-border-main flex items-center justify-between bg-bg-main">
-              <h2 className="text-lg sm:text-xl font-bold text-text-main">Add New Course</h2>
-              <button type="button" onClick={() => setShowModal(false)} className="p-1 rounded-lg text-text-muted hover:text-text-main">×</button>
-            </div>
-
-            <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-5 flex-1 text-sm sm:text-base">
-              <div className="flex items-center gap-3 border-b border-border-main pb-4">
-                <button type="button" onClick={() => setActiveTab("basics")} className={`px-4 py-2 rounded-full transition ${activeTab === "basics" ? "bg-brand-primary text-white" : "bg-bg-main text-text-muted"}`}>Basic Details</button>
-                <button type="button" onClick={() => setActiveTab("content")} className={`px-4 py-2 rounded-full transition ${activeTab === "content" ? "bg-brand-primary text-white" : "bg-bg-main text-text-muted"}`}>Add Content</button>
-                <button type="button" onClick={() => setActiveTab("updates")} className={`px-4 py-2 rounded-full transition ${activeTab === "updates" ? "bg-brand-primary text-white" : "bg-bg-main text-text-muted"}`}>Manage Updates</button>
-              </div>
-
-              {activeTab === "basics" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Course Title *</label>
-                    <input type="text" name="title" required value={formData.title} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Description *</label>
-                    <textarea name="description" required rows="4" value={formData.description} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none font-sans" />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Short Summary Description</label>
-                    <input type="text" name="shortDescription" value={formData.shortDescription} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Course Thumbnail Image</label>
-                    <MediaPicker onFileSelect={handleThumbnailFileSelect} isUploading={uploadingThumbnail} uploadedItems={formData.thumbnail ? [formData.thumbnail] : []} onRemoveItem={() => setFormData((prev) => ({ ...prev, thumbnail: "" }))} maxSize={10} multiple={false} />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Prerequisites (comma separated)</label>
-                    <input type="text" name="prerequisites" value={formData.prerequisites} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Learning Outcomes (comma separated)</label>
-                    <input type="text" name="learningOutcomes" value={formData.learningOutcomes} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Tags (comma separated)</label>
-                    <input type="text" name="tags" value={formData.tags} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Department *</label>
-                    <select name="department" value={formData.department} onChange={handleInputChange} required className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none">
-                      <option value="">Select Department</option>
-                      {departments.map((dept) => <option key={dept} value={dept}>{dept}</option>)}
-                    </select>
-                  </div>
-                  <div className="md:col-span-2 space-y-3">
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Assigned Instructors *</label>
-                    
-                    {/* List of currently assigned instructors */}
-                    <div className="flex flex-wrap gap-2 mb-2">
-                      {formData.instructors && formData.instructors.map((instId) => {
-                        const match = adminsList.find((admin) => admin._id === instId);
-                        const displayName = match ? `${match.name} (ID: ${match._id})` : instId;
-                        return (
-                          <div key={instId} className="flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/30 text-brand-primary font-medium px-3.5 py-1.5 rounded-xl text-sm">
-                            <span>{displayName}</span>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setFormData((prev) => ({
-                                  ...prev,
-                                  instructors: prev.instructors.filter((id) => id !== instId),
-                                }));
-                              }}
-                              className="hover:text-red-500 font-bold transition-all text-xs"
-                            >
-                              ✕
-                            </button>
-                          </div>
-                        );
-                      })}
-                      {(!formData.instructors || formData.instructors.length === 0) && (
-                        <p className="text-xs text-red-500 font-medium italic">No instructors assigned yet.</p>
-                      )}
-                    </div>
-
-                    {/* Dropdown select to add new instructor */}
-                    <div className="flex gap-3">
-                      <select
-                        className="flex-1 p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm text-text-main"
-                        onChange={(e) => {
-                          const selectedId = e.target.value;
-                          if (selectedId && !formData.instructors.includes(selectedId)) {
-                            setFormData((prev) => ({
-                              ...prev,
-                              instructors: [...prev.instructors, selectedId],
-                            }));
-                          }
-                          e.target.value = ""; // Reset dropdown selection
-                        }}
-                        defaultValue=""
-                      >
-                        <option value="" disabled>Add Instructor...</option>
-                        {adminsList
-                          .filter((admin) => admin.role === "Instructor" && !formData.instructors.includes(admin._id))
-                          .map((admin) => (
-                            <option key={admin._id} value={admin._id}>
-                              {admin.name} (ID: {admin._id})
-                            </option>
-                          ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Domain *</label>
-                    <select name="domain" value={formData.domain} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none">
-                      {domains.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Difficulty Level *</label>
-                    <select name="difficultyLevel" value={formData.difficultyLevel} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none">
-                      <option value="Beginner">Beginner</option>
-                      <option value="Intermediate">Intermediate</option>
-                      <option value="Advanced">Advanced</option>
-                      <option value="Expert">Expert</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Course Duration *</label>
-                    <select name="duration" value={formData.duration} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none">
-                      <option value="1-week">1 Week</option>
-                      <option value="2-weeks">2 Weeks</option>
-                      <option value="1-month">1 Month</option>
-                      <option value="3-months">3 Months</option>
-                      <option value="6-months">6 Months</option>
-                      <option value="1-year">1 Year</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Access Duration *</label>
-                    <select name="accessDuration" value={formData.accessDuration} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none">
-                      <option value="lifetime">Lifetime</option>
-                      <option value="1-month">1 Month</option>
-                      <option value="3-months">3 Months</option>
-                      <option value="6-months">6 Months</option>
-                      <option value="1-year">1 Year</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Language *</label>
-                    <input type="text" name="language" required value={formData.language} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Status</label>
-                    <select name="status" value={formData.status} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none">
-                      <option value="Draft">Draft</option>
-                      <option value="Published">Published</option>
-                      <option value="Archived">Archived</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Course Price (INR)</label>
-                    <input type="number" name="price" min="0" disabled={formData.isFree} value={formData.isFree ? 0 : formData.price} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none disabled:opacity-50" />
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <input type="checkbox" name="isFree" id="modalIsFree" checked={formData.isFree} onChange={(e) => { const checked = e.target.checked; setFormData((prev) => ({ ...prev, isFree: checked, price: checked ? 0 : prev.price })); }} className="w-5 h-5" />
-                    <label htmlFor="modalIsFree" className="text-sm font-semibold text-text-main cursor-pointer">Mark as Free</label>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === "content" && (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="md:col-span-2">
-                      <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Content Item Title *</label>
-                      <input type="text" value={currentContentItem.title} onChange={(e) => setCurrentContentItem((prev) => ({ ...prev, title: e.target.value }))} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                    </div>
-
-                    {/* Added Text Content input block in creation modal */}
-                    <div className="md:col-span-2">
-                      <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Text Content / Chapter Notes</label>
-                      <textarea value={currentContentItem.textContent} onChange={(e) => setCurrentContentItem((prev) => ({ ...prev, textContent: e.target.value }))} placeholder="Write raw textbook notes, descriptions, or text info here..." rows="4" className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none focus:border-brand-primary" />
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Attach Media Files</label>
-                      <MediaPicker onFileSelect={handleContentFileSelect} isUploading={uploadingThumbnail} uploadedItems={[currentContentItem.imageurl, currentContentItem.VideoUrl, currentContentItem.pdfurl].filter(Boolean)} onRemoveItem={(index) => { const activeKeys = ["imageurl", "VideoUrl", "pdfurl"].filter(k => currentContentItem[k]); setCurrentContentItem((prev) => ({ ...prev, [activeKeys[index]]: "" })); }} maxSize={100} multiple={true} />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">External Link</label>
-                      <input type="url" value={currentContentItem.externalink} onChange={(e) => setCurrentContentItem((prev) => ({ ...prev, externalink: e.target.value }))} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                    </div>
-                    <div className="md:col-span-2">
-                      <button type="button" disabled={uploadingThumbnail} onClick={addContentItem} className="w-full bg-brand-primary text-white font-semibold py-3 rounded-xl hover:bg-brand-primary/90 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                        {uploadingThumbnail ? "Uploading media..." : "Add Content Item"}
-                      </button>
-                    </div>
-                  </div>
-
-                  {formData.contentItems.length > 0 && (
-                    <div className="space-y-3 bg-bg-card border-2 border-border-main rounded-2xl p-5">
-                      <h3 className="text-lg font-semibold text-text-main">Content Items ({formData.contentItems.length})</h3>
-                      <div className="space-y-3">
-                        {formData.contentItems.map((item, idx) => (
-                          <div key={idx} className="border border-border-main rounded-2xl p-4 flex flex-col gap-3 bg-bg-main">
-                            <div className="flex items-center justify-between gap-3">
-                              <span className="font-semibold text-text-main">{item.title}</span>
-                              <button type="button" onClick={() => removeContentItem(idx)} className="text-red-500 hover:text-red-600 text-sm">Remove</button>
-                            </div>
-                            {item.textContent && <p className="text-xs text-text-muted truncate max-w-xl italic">"{item.textContent}"</p>}
-                            <div className="flex flex-wrap gap-2 text-xs">
-                              {item.VideoUrl && <span className="bg-blue-500/10 text-blue-500 rounded-full px-2 py-1">🎬 Video</span>}
-                              {item.pdfurl && <span className="bg-red-500/10 text-red-500 rounded-full px-2 py-1">📄 PDF</span>}
-                              {item.imageurl && <span className="bg-green-500/10 text-green-500 rounded-full px-2 py-1">🖼️ Image</span>}
-                              {item.externalink && <span className="bg-purple-500/10 text-purple-500 rounded-full px-2 py-1">🔗 External link</span>}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {activeTab === "updates" && (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="md:col-span-2">
-                      <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Update Title *</label>
-                      <input type="text" placeholder="e.g. Syllabus updated for Unit 2" value={currentUpdate.title} onChange={(e) => setCurrentUpdate((prev) => ({ ...prev, title: e.target.value }))} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">External Link (Optional)</label>
-                      <input type="url" placeholder="https://example.com/document" value={currentUpdate.externalLink} onChange={(e) => setCurrentUpdate((prev) => ({ ...prev, externalLink: e.target.value }))} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
-                    </div>
-                    <div className="md:col-span-2">
-                      <button type="button" onClick={addUpdateItem} className="w-full bg-brand-primary text-white font-semibold py-3 rounded-xl hover:bg-brand-primary/90 transition">Add Update Item</button>
-                    </div>
-                  </div>
-
-                  {formData.updates && formData.updates.length > 0 && (
-                    <div className="space-y-3 bg-bg-card border-2 border-border-main rounded-2xl p-5">
-                      <h3 className="text-lg font-semibold text-text-main">Course Updates ({formData.updates.length})</h3>
-                      <div className="space-y-3">
-                        {formData.updates.map((item, idx) => (
-                          <div key={idx} className="border border-border-main rounded-2xl p-4 flex items-center justify-between gap-3 bg-bg-main">
-                            <div className="flex-1">
-                              <span className="font-semibold text-text-main block">{item.title}</span>
-                              {item.externalLink && <a href={item.externalLink} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-primary hover:underline truncate max-w-xl block mt-1">{item.externalLink}</a>}
-                            </div>
-                            <button type="button" onClick={() => removeUpdateItem(idx)} className="text-red-500 hover:text-red-600 text-sm font-semibold">Remove</button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border-main">
-                <button type="button" disabled={uploadingThumbnail} onClick={() => setShowModal(false)} className="px-5 py-2.5 rounded-xl border-2 border-border-main text-text-main font-semibold disabled:opacity-50 disabled:cursor-not-allowed">Cancel</button>
-                <button type="submit" disabled={uploadingThumbnail} className="px-6 py-2.5 rounded-xl bg-brand-primary text-white font-semibold shadow disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                  {uploadingThumbnail ? "Uploading File..." : "Create Course"}
-                </button>
-              </div>
-            </form>
-          </div>
         </div>
       )}
     </div>

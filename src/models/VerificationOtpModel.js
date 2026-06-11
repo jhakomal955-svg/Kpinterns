@@ -28,4 +28,4 @@ const VerificationOtpModel = {
   },
 };
 
-module.exports = VerificationOtpModel;
+export default VerificationOtpModel;

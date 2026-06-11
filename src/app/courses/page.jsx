@@ -12,7 +12,6 @@ export default function CoursesPage() {
   // Search & Filter States
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDept, setSelectedDept] = useState("");
-  const [selectedDomain, setSelectedDomain] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [selectedPricing, setSelectedPricing] = useState("all");
 
@@ -20,6 +19,10 @@ export default function CoursesPage() {
     const fetchCourses = async () => {
       try {
         const res = await fetch("/api/course");
+        if (!res.ok) {
+          setError(`Server error: ${res.status} ${res.statusText}`);
+          return;
+        }
         const data = await res.json();
         if (data.success) {
           // Only show published courses
@@ -38,23 +41,15 @@ export default function CoursesPage() {
     fetchCourses();
   }, []);
 
-  // Get unique domains from available courses
-  const uniqueDomains = Array.from(
-    new Set(courses.map((c) => c.domain).filter(Boolean))
-  ).sort();
-
   // Filter courses based on user choices
   const filteredCourses = courses.filter((course) => {
     const matchesSearch =
       !searchTerm ||
       course.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       course.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.shortDescription?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.domain?.toLowerCase().includes(searchTerm.toLowerCase());
+      course.shortDescription?.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesDept = !selectedDept || course.department === selectedDept;
-
-    const matchesDomain = !selectedDomain || course.domain === selectedDomain;
 
     const matchesDifficulty =
       !selectedDifficulty || course.difficultyLevel === selectedDifficulty;
@@ -69,7 +64,6 @@ export default function CoursesPage() {
     return (
       matchesSearch &&
       matchesDept &&
-      matchesDomain &&
       matchesDifficulty &&
       matchesPricing
     );
@@ -132,12 +126,11 @@ export default function CoursesPage() {
                 </div>
 
                 {/* Reset Button */}
-                {(searchTerm || selectedDept || selectedDomain || selectedDifficulty || selectedPricing !== "all") && (
+                {(searchTerm || selectedDept || selectedDifficulty || selectedPricing !== "all") && (
                   <button
                     onClick={() => {
                       setSearchTerm("");
                       setSelectedDept("");
-                      setSelectedDomain("");
                       setSelectedDifficulty("");
                       setSelectedPricing("all");
                     }}
@@ -148,7 +141,7 @@ export default function CoursesPage() {
                 )}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
                 {/* Department Filter */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-extrabold uppercase tracking-wider text-text-muted">Department</label>
@@ -158,32 +151,8 @@ export default function CoursesPage() {
                     className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
                   >
                     <option value="">All Departments</option>
-                    <option value="Bsc">Bsc</option>
-                    <option value="BTech">BTech</option>
-                    <option value="BBA">BBA</option>
-                    <option value="BCom">BCom</option>
-                    <option value="BA">BA</option>
-                    <option value="BCA">BCA</option>
-                    <option value="BScIT">BScIT</option>
-                    <option value="BScCS">BScCS</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                {/* Domain Filter */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-extrabold uppercase tracking-wider text-text-muted">Domain</label>
-                  <select
-                    value={selectedDomain}
-                    onChange={(e) => setSelectedDomain(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
-                  >
-                    <option value="">All Domains</option>
-                    {uniqueDomains.map((domain) => (
-                      <option key={domain} value={domain}>
-                        {domain}
-                      </option>
-                    ))}
+                    <option value="Technical">Technical</option>
+                    <option value="NonTechnical">NonTechnical</option>
                   </select>
                 </div>
 
@@ -219,7 +188,7 @@ export default function CoursesPage() {
               </div>
               
               {/* Active Filter Badges */}
-              {(searchTerm || selectedDept || selectedDomain || selectedDifficulty || selectedPricing !== "all") && (
+              {(searchTerm || selectedDept || selectedDifficulty || selectedPricing !== "all") && (
                 <div className="flex flex-wrap gap-2 pt-2 border-t border-border-main/50 animate-fade-in">
                   {searchTerm && (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-bg-main border border-border-main rounded-full text-xs font-semibold text-text-main">
@@ -231,12 +200,6 @@ export default function CoursesPage() {
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-bg-main border border-border-main rounded-full text-xs font-semibold text-text-main">
                       Dept: {selectedDept}
                       <button onClick={() => setSelectedDept("")} className="text-text-muted hover:text-brand-primary cursor-pointer font-bold">✕</button>
-                    </span>
-                  )}
-                  {selectedDomain && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-bg-main border border-border-main rounded-full text-xs font-semibold text-text-main">
-                      Domain: {selectedDomain}
-                      <button onClick={() => setSelectedDomain("")} className="text-text-muted hover:text-brand-primary cursor-pointer font-bold">✕</button>
                     </span>
                   )}
                   {selectedDifficulty && (
@@ -265,7 +228,6 @@ export default function CoursesPage() {
                   onClick={() => {
                     setSearchTerm("");
                     setSelectedDept("");
-                    setSelectedDomain("");
                     setSelectedDifficulty("");
                     setSelectedPricing("all");
                   }}
@@ -325,9 +287,6 @@ export default function CoursesPage() {
 
                       {/* Card Body */}
                       <div className="p-6 flex flex-col flex-1">
-                        <span className="text-xs font-bold text-brand-primary uppercase tracking-wider mb-2 block">
-                          {course.domain}
-                        </span>
                         
                         <h3 className="text-xl font-bold text-text-main group-hover:text-brand-primary transition-colors line-clamp-1 mb-2">
                           {course.title}

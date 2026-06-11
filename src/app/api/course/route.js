@@ -18,8 +18,9 @@ export async function GET(request) {
 
     const url = new URL(request.url);
     const courseId = url.searchParams.get("id");
-    const domain = url.searchParams.get("domain") || url.searchParams.get("category");
+    const department = url.searchParams.get("department");
 
+    createModel("Admin", AdminModel);
     const Course = createModel("Course", CourseModel);
 
     // 1. Fetching a single course by ID
@@ -68,11 +69,10 @@ export async function GET(request) {
       return Response.json({ success: true, data: courseObj }, { status: 200 });
     } 
     
-    // 2. Fetching courses filtered by domain/category
-    if (domain) {
-      const courses = await Course.find({
-        $or: [{ domain }, { category: domain }]
-      }).populate("instructor.id", "name role avatar");
+    // 2. Fetching courses filtered by department
+    if (department) {
+      const courses = await Course.find({ department })
+        .populate("instructor.id", "name role avatar");
 
       // Strip content details for general catalog browse
       const decoded = getAuthUser(request);
@@ -132,18 +132,10 @@ export async function POST(request) {
 
     const data = await request.json();
 
-    // Support both 'category' and 'domain' for backward compatibility
-    if (data.category && !data.domain) {
-      data.domain = data.category;
-    } else if (data.domain && !data.category) {
-      data.category = data.domain;
-    }
-
     // Validate required fields based on model
     const requiredFields = [
       "title",
       "description",
-      "domain",
       "department",
       "instructor",
     ];
@@ -236,13 +228,6 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
-
-    // Support both 'category' and 'domain' for backward compatibility
-    if (data.category && !data.domain) {
-      data.domain = data.category;
-    } else if (data.domain && !data.category) {
-      data.category = data.domain;
-    }
 
     const Course = createModel("Course", CourseModel);
     const Admin = createModel("Admin", AdminModel);

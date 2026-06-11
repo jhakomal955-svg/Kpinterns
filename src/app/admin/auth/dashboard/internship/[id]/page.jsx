@@ -28,16 +28,16 @@ export default function InternshipEditPage() {
     shortDescription: "",
     thumbnail: "",
     position: "",
-    department: "Bsc",
+    degree: "BTech",
+    department: "Computer Science & Engineering",
+    domain: "Full Stack Development",
     internshipType: "Full-Time",
     mode: "Hybrid",
     duration: "1-month",
     status: "Draft",
     company: "Kpinterns",
-    domain: "Other",
     createdBy: "admin",
     tags: "",
-    applicationDeadline: "",
     requirements: "",
     skills: "",
     responsibilities: "",
@@ -45,12 +45,7 @@ export default function InternshipEditPage() {
     perks: "",
     certificateOffered: true,
     stipendAmount: "",
-    registrationFeeAmount: "", // Track registration fee
-    contactPersonName: "",
-    contactPersonEmail: "",
-    contactPersonPhone: "",
-    contactPersonDesignation: "",
-    instructorId: "", // fallback
+    registrationFeeAmount: "",
     instructors: [],
     contentItems: [],
     updates: [],
@@ -70,17 +65,248 @@ export default function InternshipEditPage() {
     externalLink: "",
   });
 
-  const departments = [
-    "Bsc",
-    "BTech",
-    "BBA",
-    "BCom",
-    "BA",
-    "BCA",
-    "BScIT",
-    "BScCS",
-    "Other",
-  ];
+  const degrees = ["BTech", "Diploma", "BSc", "BA", "BCom"];
+
+  // Grouped departments according to Internship model enums
+  const departmentGroups = {
+    "Engineering (B.Tech / Diploma)": [
+      "Computer Science & Engineering",
+      "Mechanical Engineering",
+      "Civil Engineering",
+      "Electrical Engineering",
+      "Electronics & Communication",
+      "Chemical Engineering",
+    ],
+    "Pure & Applied Sciences (BSc)": [
+      "Physics",
+      "Chemistry",
+      "Mathematics",
+      "Statistics",
+      "Botany",
+      "Zoology",
+      "Microbiology",
+      "Biotechnology",
+      "Biochemistry",
+      "Computer Science",
+      "Data Science",
+      "Agriculture",
+      "Nursing",
+      "Forensic Science",
+    ],
+    "Arts & Humanities (BA)": [
+      "Humanities",
+      "Social Sciences",
+      "Languages",
+      "Arts & Media",
+      "Vocational/Applied",
+    ],
+    "Commerce & Business (BCom / BBA)": [
+      "Accounting & Finance",
+      "Business Administration",
+      "Banking & Insurance",
+      "Taxation",
+      "Economics",
+      "Sales & Marketing",
+      "Computer Applications",
+    ],
+    "Education": ["General Teacher Training"],
+    "Law": ["Civil Law", "Criminal Law", "Corporate Law"],
+  };
+
+  // Grouped domains according to Internship model enums
+  const domainGroups = {
+    "Computer Science & Engineering": [
+      "Full Stack Development",
+      "Frontend Development",
+      "Backend Development",
+      "Mobile App Development",
+      "Data Science & Machine Learning",
+      "Artificial Intelligence",
+      "DevOps & Cloud Computing",
+      "Cybersecurity",
+      "Blockchain Development",
+      "Web3 & Cryptocurrency",
+      "Game Development",
+      "IoT & Embedded Systems",
+      "Software Testing & QA",
+      "Database Administration",
+      "UI/UX Design",
+      "Other Tech",
+    ],
+    "Mechanical Engineering": [
+      "Product Design & Development",
+      "CAD/CAM Design",
+      "Manufacturing & Production",
+      "Automobile Engineering",
+      "Thermal & HVAC Engineering",
+      "Robotics & Automation",
+      "Quality Control & Inspection",
+      "Industrial Engineering",
+      "Maintenance Engineering",
+      "Energy & Power Systems",
+      "3D Printing & Additive Manufacturing",
+      "Project Management (Mechanical)",
+      "Other Mechanical",
+    ],
+    "Civil Engineering": [
+      "Structural Engineering",
+      "Construction Management",
+      "Urban Planning & Design",
+      "Geotechnical Engineering",
+      "Transportation Engineering",
+      "Water Resources & Irrigation",
+      "Environmental Engineering",
+      "Surveying & GIS",
+      "Building Information Modelling (BIM)",
+      "Project Management (Civil)",
+      "Other Civil",
+    ],
+    "Electrical Engineering": [
+      "Power Systems & Grid Engineering",
+      "Renewable Energy & Solar",
+      "Control Systems & Automation",
+      "Electrical Machine Design",
+      "High Voltage & Power Electronics",
+      "PLC & SCADA Programming",
+      "Instrumentation & Measurement",
+      "EV & Battery Technology",
+      "Electrical Project Management",
+      "Other Electrical",
+    ],
+    "Electronics & Communication": [
+      "Embedded Systems & IoT",
+      "VLSI Design",
+      "PCB Design & Prototyping",
+      "Signal Processing",
+      "Telecommunications & Networking",
+      "RF & Microwave Engineering",
+      "Consumer Electronics Testing",
+      "Firmware Development",
+      "Other Electronics",
+    ],
+    "Chemical Engineering": [
+      "Process Engineering",
+      "Petroleum & Refinery",
+      "Pharmaceutical Manufacturing",
+      "Polymer & Materials Science",
+      "Food Technology",
+      "Environmental & Safety Engineering",
+      "Quality Assurance (Chemical)",
+      "Research & Development (Chemical)",
+      "Other Chemical",
+    ],
+    "Data Science": [
+      "Data Analysis & Visualization",
+      "Machine Learning Engineering",
+      "Business Intelligence",
+      "Data Engineering & Pipelines",
+      "AI Research",
+      "Statistical Modelling",
+      "Other Data Science",
+    ],
+    "Biotechnology": [
+      "Molecular Biology Research",
+      "Pharmaceutical Biotechnology",
+      "Agricultural Biotechnology",
+      "Bioinformatics",
+      "Environmental Biotechnology",
+      "Other Biotechnology",
+    ],
+    "Life Sciences": [
+      "Clinical Microbiology",
+      "Food & Beverage Microbiology",
+      "Research & Development (Micro)",
+      "Quality Control (Lab)",
+      "Clinical Research",
+      "Pharmaceutical R&D",
+      "Nutrition & Dietetics",
+      "Wildlife Conservation",
+      "Veterinary Support",
+      "Plant Research",
+      "Horticulture",
+      "Pharmaceutical Botany",
+      "Other Life Sciences",
+    ],
+    "Pure Sciences": [
+      "Research & Development",
+      "Instrumentation",
+      "Renewable Energy",
+      "Analytical Chemistry",
+      "Actuarial Science",
+      "Quantitative Finance",
+      "Market Research",
+      "Other Sciences",
+    ],
+    "Agriculture": [
+      "Agribusiness Management",
+      "Agricultural Research",
+      "Rural Development",
+      "Other Agriculture",
+    ],
+    "Healthcare": [
+      "Clinical Nursing",
+      "Community Health",
+      "Hospital Administration",
+      "Other Healthcare",
+    ],
+    "Forensic": [
+      "Crime Investigation Support",
+      "Lab Analysis",
+      "Legal Services",
+      "Other Forensic",
+    ],
+    "Commerce / Finance / Business": [
+      "Financial Analysis",
+      "Accounting & Audit",
+      "Taxation",
+      "Investment Banking",
+      "Financial Modelling",
+      "Other Finance",
+      "General Management",
+      "Operations Management",
+      "Project Management",
+      "Entrepreneurship",
+      "Other Business",
+      "Banking Operations",
+      "Insurance Sales & Advisory",
+      "Risk Management",
+      "Loan Processing",
+      "GST & Indirect Taxation",
+      "Direct Taxation",
+      "Tax Audit & Compliance",
+      "Economic Research & Policy",
+      "Other Economics",
+      "Digital Marketing",
+      "Content Marketing",
+      "Sales & Business Development",
+      "Brand Management",
+      "Social Media Marketing",
+      "Other Marketing",
+    ],
+    "Arts / Humanities / Media": [
+      "Content Writing",
+      "Journalism & Media",
+      "Public Relations",
+      "Event Management",
+      "Social Work & NGO",
+      "Other Humanities",
+      "Public Policy Research",
+      "Community Development",
+      "Other Social Sciences",
+      "Translation & Interpretation",
+      "Teaching & Tutoring",
+      "Other Languages",
+      "Graphic Design",
+      "Photography & Videography",
+      "Animation & VFX",
+      "Film Production",
+      "Other Media",
+      "Tourism & Hospitality",
+      "Retail Management",
+      "Other Vocational",
+    ],
+  };
+
   const internshipTypes = [
     "Full-Time",
     "Part-Time",
@@ -154,18 +380,18 @@ export default function InternshipEditPage() {
           shortDescription: internship.shortDescription || "",
           thumbnail: internship.thumbnail || "",
           position: internship.position || "",
-          department: internship.department || "Bsc",
+          degree: internship.degree || "BTech",
+          department: internship.department || "Computer Science & Engineering",
+          domain: internship.domain || "Full Stack Development",
           internshipType: internship.internshipType || "Full-Time",
           mode: internship.mode || "Hybrid",
           duration: internship.duration || "1-month",
           status: internship.status || "Draft",
           company: internship.company || "Kpinterns",
-          domain: internship.domain || internship.category || "Other",
           createdBy: (internship.createdBy && internship.createdBy !== "admin")
             ? (typeof internship.createdBy === "object" ? internship.createdBy._id : internship.createdBy)
             : loggedInAdminId,
           tags: Array.isArray(internship.tags) ? internship.tags.join(", ") : "",
-          applicationDeadline: internship.applicationDeadline ? internship.applicationDeadline.split("T")[0] : "",
           requirements: Array.isArray(internship.requirements) ? internship.requirements.join(", ") : "",
           skills: Array.isArray(internship.skills) ? internship.skills.join(", ") : "",
           responsibilities: Array.isArray(internship.responsibilities) ? internship.responsibilities.join(", ") : "",
@@ -174,10 +400,6 @@ export default function InternshipEditPage() {
           certificateOffered: internship.certificateOffered ?? true,
           stipendAmount: internship.stipend?.amount || "",
           registrationFeeAmount: internship.RegistrationFee?.amount || "",
-          contactPersonName: internship.contactPerson?.name || "",
-          contactPersonEmail: internship.contactPerson?.email || "",
-          contactPersonPhone: internship.contactPerson?.phone || "",
-          contactPersonDesignation: internship.contactPerson?.designation || "",
           instructors: internship.instructor?.map(inst => typeof inst.id === "object" ? inst.id._id : (inst.id || "")).filter(Boolean) || [],
           contentItems: internship.content || [],
           updates: internship.updates || [],
@@ -375,8 +597,16 @@ export default function InternshipEditPage() {
       setError("Position is required");
       return;
     }
+    if (!formData.degree) {
+      setError("Degree is required");
+      return;
+    }
     if (!formData.department) {
       setError("Department is required");
+      return;
+    }
+    if (!formData.domain) {
+      setError("Domain is required");
       return;
     }
     if (!formData.internshipType) {
@@ -385,10 +615,6 @@ export default function InternshipEditPage() {
     }
     if (!formData.company) {
       setError("Company is required");
-      return;
-    }
-    if (!formData.domain) {
-      setError("Domain is required");
       return;
     }
     if (!formData.instructors || formData.instructors.length === 0) {
@@ -404,16 +630,16 @@ export default function InternshipEditPage() {
         shortDescription: formData.shortDescription,
         thumbnail: formData.thumbnail,
         position: formData.position,
+        degree: formData.degree,
         department: formData.department,
+        domain: formData.domain,
         internshipType: formData.internshipType,
         mode: formData.mode,
         duration: formData.duration,
         status: formData.status,
         company: formData.company,
         createdBy: formData.createdBy,
-        domain: formData.domain,
         certificateOffered: formData.certificateOffered,
-        applicationDeadline: formData.applicationDeadline || null,
         instructor: formData.instructors.map(id => ({ id })),
         tags: formData.tags ? formData.tags.split(",").map((item) => item.trim()).filter(Boolean) : [],
         requirements: formData.requirements ? formData.requirements.split(",").map((item) => item.trim()).filter(Boolean) : [],
@@ -426,12 +652,6 @@ export default function InternshipEditPage() {
         },
         RegistrationFee: {
           amount: formData.registrationFeeAmount || "0",
-        },
-        contactPerson: {
-          name: formData.contactPersonName,
-          email: formData.contactPersonEmail,
-          phone: formData.contactPersonPhone,
-          designation: formData.contactPersonDesignation,
         },
         content: formData.contentItems,
         updates: formData.updates,
@@ -580,16 +800,35 @@ export default function InternshipEditPage() {
               </div>
 
               <div>
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Degree *</label>
+                <select
+                  name="degree"
+                  required
+                  value={formData.degree}
+                  onChange={handleBasicInputChange}
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                >
+                  {degrees.map((deg) => (
+                    <option key={deg} value={deg}>{deg}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Department / Stream *</label>
                 <select
                   name="department"
                   required
                   value={formData.department}
                   onChange={handleBasicInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm"
                 >
-                  {departments.map((dept) => (
-                    <option key={dept} value={dept}>{dept}</option>
+                  {Object.entries(departmentGroups).map(([group, list]) => (
+                    <optgroup key={group} label={group}>
+                      {list.map((dept) => (
+                        <option key={dept} value={dept}>{dept}</option>
+                      ))}
+                    </optgroup>
                   ))}
                 </select>
               </div>
@@ -609,15 +848,21 @@ export default function InternshipEditPage() {
 
               <div>
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Domain *</label>
-                <input
-                  type="text"
+                <select
                   name="domain"
                   required
                   value={formData.domain}
                   onChange={handleBasicInputChange}
-                  placeholder="e.g. Full Stack Development"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm"
+                >
+                  {Object.entries(domainGroups).map(([group, list]) => (
+                    <optgroup key={group} label={group}>
+                      {list.map((dom) => (
+                        <option key={dom} value={dom}>{dom}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
               </div>
 
               <div className="md:col-span-2">
@@ -777,16 +1022,7 @@ export default function InternshipEditPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Application Deadline</label>
-                <input
-                  type="date"
-                  name="applicationDeadline"
-                  value={formData.applicationDeadline}
-                  onChange={handleBasicInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
+
 
               <div className="md:col-span-2">
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Tags (comma separated)</label>
@@ -899,57 +1135,7 @@ export default function InternshipEditPage() {
                 </label>
               </div>
 
-              <div className="md:col-span-2">
-                <h3 className="text-sm font-semibold text-text-main uppercase tracking-[0.15em] mb-3">Contact Person</h3>
-              </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Name</label>
-                <input
-                  type="text"
-                  name="contactPersonName"
-                  value={formData.contactPersonName}
-                  onChange={handleBasicInputChange}
-                  placeholder="Contact name"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Email</label>
-                <input
-                  type="email"
-                  name="contactPersonEmail"
-                  value={formData.contactPersonEmail}
-                  onChange={handleBasicInputChange}
-                  placeholder="email@example.com"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Phone</label>
-                <input
-                  type="text"
-                  name="contactPersonPhone"
-                  value={formData.contactPersonPhone}
-                  onChange={handleBasicInputChange}
-                  placeholder="+1234567890"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Designation</label>
-                <input
-                  type="text"
-                  name="contactPersonDesignation"
-                  value={formData.contactPersonDesignation}
-                  onChange={handleBasicInputChange}
-                  placeholder="HR, Mentor, Coordinator"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
             </div>
           </div>
         )}

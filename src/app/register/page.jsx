@@ -1335,6 +1335,46 @@ export default function RegisterPage() {
   const [itemId, setItemId] = useState(null);
   const [selectedItemDetails, setSelectedItemDetails] = useState(null);
 
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    // Personal Info
+    fullName: "",
+    email: "",
+    phone: "",
+    gender: "",
+    parentName: "",
+    // Academic Info
+    university: "",
+    college: "",
+    degree: "",
+    department: "",
+    rollNumber: "",
+    semester: "",
+    session: "",
+    registrationNumber: "",
+    internshipDomain: "",
+    mode: "",
+    // Security
+    password: "",
+    confirmPassword: "",
+    agreeTerms: false,
+  });
+
+  const [errors, setErrors] = useState({});
+  const [completedPaymentDetails, setCompletedPaymentDetails] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Email Verification states
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpInput, setOtpInput] = useState("");
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
+  const [otpCooldown, setOtpCooldown] = useState(0);
+  const [otpError, setOtpError] = useState("");
+  // true when the API tells us this email is already in use — blocks the whole OTP flow
+  const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
+
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const type = searchParams.get("type") || "internship";
@@ -1407,43 +1447,7 @@ export default function RegisterPage() {
     return 500;
   };
 
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    // Personal Info
-    fullName: "",
-    email: "",
-    phone: "",
-    gender: "",
-    parentName: "",
-    // Academic Info
-    university: "",
-    college: "",
-    degree: "",
-    department: "",
-    subject: "",
-    semester: "",
-    session: "",
-    registrationNumber: "",
-    internshipDomain: "",
-    mode: "",
-    // Security
-    password: "",
-    confirmPassword: "",
-    agreeTerms: false,
-  });
 
-  const [errors, setErrors] = useState({});
-  const [completedPaymentDetails, setCompletedPaymentDetails] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
-
-  // Email Verification states
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpInput, setOtpInput] = useState("");
-  const [otpLoading, setOtpLoading] = useState(false);
-  const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
-  const [otpCooldown, setOtpCooldown] = useState(0);
-  const [otpError, setOtpError] = useState("");
 
   useEffect(() => {
     let timer;
@@ -1455,6 +1459,7 @@ export default function RegisterPage() {
 
   const handleSendOtp = async () => {
     setOtpError("");
+    setEmailAlreadyRegistered(false);
     if (!formData.email.trim()) {
       setErrors((prev) => ({ ...prev, email: "Email is required to send OTP" }));
       return;
@@ -1480,11 +1485,20 @@ export default function RegisterPage() {
           console.log(`[DEV ONLY] OTP Code: ${data.otp}`);
         }
       } else {
-        setOtpError(data.error || "Failed to send OTP.");
+        const errMsg = data.error || "Failed to send OTP.";
+        setOtpError(errMsg);
+        // If the server explicitly says the email is already registered,
+        // flag it so the UI blocks further attempts on this email.
+        if (
+          errMsg.toLowerCase().includes("already registered") ||
+          errMsg.toLowerCase().includes("already in use")
+        ) {
+          setEmailAlreadyRegistered(true);
+        }
       }
     } catch (err) {
       console.error(err);
-      setOtpError("Failed to request OTP. Please try again.");
+      setOtpError(`Failed to request OTP. Please try again.`);
     } finally {
       setOtpLoading(false);
     }
@@ -1615,27 +1629,69 @@ export default function RegisterPage() {
     }
 
     if (name === "university") {
-      // Reset college and department when university changes
+      // Reset college, department, internshipDomain, and mode when university changes
       setFormData((prev) => ({
         ...prev,
         university: value,
         college: "",
         department: "",
+        internshipDomain: "",
+        mode: "",
       }));
     } else if (name === "college") {
-      // Reset department when college changes
+      // Reset department, internshipDomain, and mode when college changes
       setFormData((prev) => ({
         ...prev,
         college: value,
         department: "",
+        internshipDomain: "",
+        mode: "",
       }));
     } else if (name === "degree") {
-      // Reset internship domain when degree changes (since domains differ by tech/non-tech)
+      // Reset internship domain and mode when degree changes (since domains differ by tech/non-tech)
       setFormData((prev) => ({
         ...prev,
         degree: value,
         internshipDomain: "",
+        mode: "",
       }));
+    } else if (name === "department") {
+      // Reset internship domain and mode when department changes
+      setFormData((prev) => ({
+        ...prev,
+        department: value,
+        internshipDomain: "",
+        mode: "",
+      }));
+    } else if (name === "internshipDomain") {
+      const domainValue = value;
+      const normDegree = normaliseDegree(formData.degree);
+      setFormData((prev) => {
+        const matchingInternships = dbInternships.filter(
+          (item) =>
+            (item.status === "Active" || item.status === "Published") &&
+            item.degree === normDegree &&
+            item.department === prev.department &&
+            item.domain === domainValue
+        );
+        // Preserve original casing from the DB (Online / Offline / Hybrid)
+        const modes = matchingInternships.map((item) => item.mode).filter(Boolean);
+        const uniqueModes = [...new Set(modes)];
+
+        // Always auto-pick: if only 1 mode exists use it; if current mode is still valid keep it
+        let newMode = "";
+        if (uniqueModes.length === 1) {
+          newMode = uniqueModes[0]; // auto-select the single mode
+        } else if (uniqueModes.length > 1) {
+          newMode = uniqueModes.includes(prev.mode) ? prev.mode : uniqueModes[0];
+        }
+
+        return {
+          ...prev,
+          internshipDomain: domainValue,
+          mode: newMode,
+        };
+      });
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -1699,60 +1755,47 @@ export default function RegisterPage() {
     return 0;
   };
 
-  const isMatchingDepartmentGroup = (internshipDept, studentDept, studentDegree) => {
-    if (!internshipDept || !studentDept || !studentDegree) return false;
-
-    const lowerStudentDept = studentDept.toLowerCase();
-    const lowerStudentDeg = studentDegree.toLowerCase();
-     
-    const isStudentTech = (
-      lowerStudentDeg === "b.tech" || 
-      lowerStudentDeg === "diploma" || 
-      lowerStudentDept.includes("computer") || 
-      lowerStudentDept.includes("cs") || 
-      lowerStudentDept.includes("it") || 
-      lowerStudentDept.includes("software") || 
-      lowerStudentDept.includes("electronics") || 
-      lowerStudentDept.includes("bca")
-    );
-
-    const isStudentBusiness = (
-      lowerStudentDeg === "ba" ||
-      lowerStudentDeg === "bcom" ||
-      lowerStudentDeg === "bsc" ||
-      lowerStudentDept.includes("commerce") || 
-      lowerStudentDept.includes("bcom") || 
-      lowerStudentDept.includes("bba") || 
-      lowerStudentDept.includes("business") || 
-      lowerStudentDept.includes("management")
-    );
-
-    const techDepts = ["BTech", "BCA","Diploma"];
-    const businessDepts = ["BA", "BCom","Bsc"];
-
-    if (isStudentTech) {
-      return techDepts.includes(internshipDept);
-    }
-    if (isStudentBusiness) {
-      return businessDepts.includes(internshipDept);
-    }
-    // Else General (BA, Bsc, Other)
-    return !techDepts.includes(internshipDept) && !businessDepts.includes(internshipDept);
+  // ── Degree normaliser: maps form radio values → Internship model enum ────────
+  const normaliseDegree = (deg) => {
+    if (!deg) return "";
+    const map = { "B.Tech": "BTech", "Bcom": "BCom", "Bsc": "BSc" };
+    return map[deg] ?? deg; // Diploma / BA stay as-is
   };
 
-  // Get available internship domains based on degree type and database availability
+  // Get available internship domains: exact match on degree + department from admin-created internships
   const getAvailableInternshipDomains = () => {
     if (!formData.department || !formData.degree) return [];
 
-    // Filter the dbInternships by matching department group
-    const matchingInternships = dbInternships.filter(item => 
-      (item.status === "Active" || item.status === "Published") &&
-      isMatchingDepartmentGroup(item.department, formData.department, formData.degree)
+    const normDegree = normaliseDegree(formData.degree);
+
+    const matching = dbInternships.filter(
+      (item) =>
+        (item.status === "Active" || item.status === "Published") &&
+        item.degree === normDegree &&
+        item.department === formData.department
     );
 
-    // Extract unique domains
-    const domains = matchingInternships.map(item => item.domain || item.category).filter(Boolean);
-    return [...new Set(domains)];
+    const domains = matching.map((item) => item.domain).filter(Boolean);
+    return [...new Set(domains)].sort();
+  };
+
+  // Get available modes for the selected internship domain (exact degree + department match)
+  // Returns original DB casing: "Online" | "Offline" | "Hybrid"
+  const getAvailableModes = () => {
+    if (!formData.internshipDomain || !formData.department || !formData.degree) return [];
+
+    const normDegree = normaliseDegree(formData.degree);
+
+    const matching = dbInternships.filter(
+      (item) =>
+        (item.status === "Active" || item.status === "Published") &&
+        item.degree === normDegree &&
+        item.department === formData.department &&
+        item.domain === formData.internshipDomain
+    );
+
+    const modes = matching.map((item) => item.mode).filter(Boolean);
+    return [...new Set(modes)];
   };
 
   const validateStep = () => {
@@ -1781,6 +1824,7 @@ export default function RegisterPage() {
       if (!formData.college) newErrors.college = "College is required";
       if (!formData.degree) newErrors.degree = "Degree is required";
       if (!formData.department) newErrors.department = "Department is required";
+      if (!formData.rollNumber.trim()) newErrors.rollNumber = "Roll number is required";
       if (!formData.semester) newErrors.semester = "Semester is required";
       if (!formData.session) newErrors.session = "Session is required";
       if (!formData.registrationNumber.trim())
@@ -2016,22 +2060,37 @@ export default function RegisterPage() {
                         type="email"
                         name="email"
                         value={formData.email}
-                        onChange={handleInputChange}
+                        onChange={(e) => {
+                          // Clear the registered-email block when the user types a new address
+                          if (emailAlreadyRegistered) {
+                            setEmailAlreadyRegistered(false);
+                            setOtpError("");
+                          }
+                          handleInputChange(e);
+                        }}
                         disabled={isEmailVerified}
                         placeholder="you@example.com"
                         className={`w-full sm:flex-1 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                          errors.email ? "border-red-500" : "border-border-main"
+                          errors.email || emailAlreadyRegistered
+                            ? "border-red-500"
+                            : "border-border-main"
                         } ${isEmailVerified ? "opacity-60 cursor-not-allowed bg-emerald-500/5 border-emerald-500/30" : ""}`}
                       />
                       {!isEmailVerified && (
                         <button
                           type="button"
                           onClick={handleSendOtp}
-                          disabled={otpLoading || otpCooldown > 0}
-                          className="w-full sm:w-auto px-4 py-3 bg-brand-primary hover:bg-brand-primary/90 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center sm:min-w-[110px]"
+                          disabled={otpLoading || otpCooldown > 0 || emailAlreadyRegistered}
+                          className={`w-full sm:w-auto px-4 py-3 rounded-xl font-semibold font-poppins text-sm transition-all disabled:cursor-not-allowed flex items-center justify-center sm:min-w-[110px] ${
+                            emailAlreadyRegistered
+                              ? "bg-red-100 text-red-600 border-2 border-red-300 opacity-70"
+                              : "bg-brand-primary hover:bg-brand-primary/90 text-white disabled:opacity-50"
+                          }`}
                         >
                           {otpLoading ? (
                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          ) : emailAlreadyRegistered ? (
+                            "Already Registered"
                           ) : otpCooldown > 0 ? (
                             `Resend in ${otpCooldown}s`
                           ) : (
@@ -2040,6 +2099,26 @@ export default function RegisterPage() {
                         </button>
                       )}
                     </div>
+
+                    {/* Inline OTP error shown immediately (before OTP input appears) */}
+                    {otpError && !otpSent && (
+                      <div className="mt-3 flex items-start gap-2.5 p-3.5 bg-red-500/8 border border-red-500/25 rounded-xl animate-fade-in">
+                        <span className="text-red-500 text-base mt-0.5 shrink-0">⚠️</span>
+                        <div>
+                          <p className="text-red-600 text-sm font-semibold">{otpError}</p>
+                          {emailAlreadyRegistered && (
+                            <p className="text-red-500/80 text-xs mt-1">
+                              Please{" "}
+                              <a href="/login" className="underline font-bold hover:text-red-600 transition-colors">
+                                log in
+                              </a>{" "}
+                              or use a different email address to register.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
                     {errors.email && (
                       <p className="text-red-500 text-xs mt-1">
                         {errors.email}
@@ -2345,7 +2424,28 @@ export default function RegisterPage() {
                     )}
                   </div>
 
-                  <div className="sm:col-span-2">
+                  <div>
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Roll Number *
+                    </label>
+                    <input
+                      type="text"
+                      name="rollNumber"
+                      value={formData.rollNumber}
+                      onChange={handleInputChange}
+                      placeholder="Enter roll number"
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.rollNumber ? "border-red-500" : "border-border-main"
+                      }`}
+                    />
+                    {errors.rollNumber && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.rollNumber}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Registration Number *
                     </label>
@@ -2425,21 +2525,57 @@ export default function RegisterPage() {
 
                       <div>
                         <label className="block text-sm font-semibold text-text-main mb-2">
-                          Mode *
+                          Internship Mode *
                         </label>
-                        <select
-                          name="mode"
-                          value={formData.mode}
-                          onChange={handleInputChange}
-                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                            errors.mode ? "border-red-500" : "border-border-main"
-                          }`}
-                        >
-                          <option value="">Select Mode</option>
-                          <option value="online">Online</option>
-                          <option value="offline">Offline</option>
-                          <option value="hybrid">Hybrid</option>
-                        </select>
+                        {(() => {
+                          const availModes = getAvailableModes();
+                          const isSingleMode = availModes.length === 1;
+                          const hasMode = !!formData.mode;
+
+                          // Single mode → show auto-selected read-only pill
+                          if (formData.internshipDomain && isSingleMode) {
+                            return (
+                              <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-brand-primary/40 bg-brand-primary/5 w-full">
+                                  <span className="text-brand-primary text-sm font-bold">
+                                    ✓ {formData.mode}
+                                  </span>
+                                  <span className="ml-auto text-[11px] font-semibold text-brand-primary/70 uppercase tracking-wider bg-brand-primary/10 px-2 py-0.5 rounded-full">
+                                    Auto-selected
+                                  </span>
+                                </div>
+                                {/* Hidden input to keep form value in sync */}
+                                <input type="hidden" name="mode" value={formData.mode} />
+                              </div>
+                            );
+                          }
+
+                          // Multiple modes → regular dropdown
+                          return (
+                            <select
+                              name="mode"
+                              value={formData.mode}
+                              onChange={handleInputChange}
+                              disabled={!formData.internshipDomain || availModes.length === 0}
+                              className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                                errors.mode ? "border-red-500" : "border-border-main"
+                              } ${(!formData.internshipDomain || availModes.length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
+                            >
+                              <option value="">
+                                {!formData.internshipDomain
+                                  ? "Select Internship Domain first"
+                                  : availModes.length === 0
+                                    ? "No modes available"
+                                    : "Select Mode"}
+                              </option>
+                              {availModes.map((m) => (
+                                <option key={m} value={m}>
+                                  {m}
+                                </option>
+                              ))}
+                            </select>
+                          );
+                        })()}
                         {errors.mode && (
                           <p className="text-red-500 text-xs mt-1">{errors.mode}</p>
                         )}
@@ -2677,7 +2813,8 @@ export default function RegisterPage() {
                   <span className="ml-3 text-sm text-text-muted group-hover:text-text-main transition-colors">
                     I agree to the{" "}
                     <Link
-                      href="/terms"
+                      href="/terms-of-use"
+                      target="_blank"
                       className="text-brand-primary hover:underline font-semibold"
                     >
                       Terms & Privacy Policy

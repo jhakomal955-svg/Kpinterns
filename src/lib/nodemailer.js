@@ -161,7 +161,8 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
     paymentId,    // Razorpay payment ID
     orderId,      // Razorpay order ID
     date,         // Date object
-    isNewRegistration // Boolean - triggers registration welcome reward message
+    isNewRegistration, // Boolean - triggers registration welcome reward message
+    receiptPdfBuffer,  // Optional Buffer - PDF receipt to attach
   } = details;
 
   const formattedDate = date ? new Date(date).toLocaleString() : new Date().toLocaleString();
@@ -270,6 +271,8 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
         ${rewardSection}
         ${receiptTable}
         
+        ${receiptPdfBuffer ? `<p style="font-size: 13px; color: #475569; margin-top: 12px;">📎 Your <strong>Payment Receipt PDF</strong> is attached to this email for your records.</p>` : ""}
+
         <p style="font-size: 14px; line-height: 1.6; color: #475569;">
           If you have any questions or require support regarding your payments or programs, please contact our support team at <a href="mailto:support@kpinterns.com" style="color: #2563eb; text-decoration: underline;">support@kpinterns.com</a>.
         </p>
@@ -279,6 +282,15 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
         </p>
       </div>
     `,
+    attachments: receiptPdfBuffer
+      ? [
+          {
+            filename: `KpInterns_Payment_Receipt.pdf`,
+            content: receiptPdfBuffer,
+            contentType: "application/pdf",
+          },
+        ]
+      : [],
   };
 
   try {

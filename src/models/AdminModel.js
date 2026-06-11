@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const AdminModel = {
   // Personal Information
@@ -72,4 +72,4 @@ const AdminModel = {
   },
 };
 
-module.exports = AdminModel;
+export default AdminModel;

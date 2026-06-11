@@ -2,7 +2,7 @@
  * Internship Model
  * Represents an internship opportunity with multimedia content and company details
  */
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const InternshipModel = {
   // Basic Information
@@ -40,7 +40,7 @@ const InternshipModel = {
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Admin",
-    required: false,
+    required: true,
   },
 
   // Company Information
@@ -51,83 +51,249 @@ const InternshipModel = {
   },
 
   // Internship Details
-  department:{
+  degree: {
     type: String,
     required: true,
-    enum: ["Bsc", "BTech", "BBA", "BCom", "BA", "BCA", "BScIT", "BScCS", "Other"],
+    enum: [
+      "BTech",
+      "Diploma",
+      "BSc",
+      "BA",
+      "BCom",
+    ],
   },
+
+  department: {
+    type: String,
+    required: true,
+    enum: [
+      // ── Engineering (B.Tech / Diploma) ─────────────────────────────
+      "Computer Science & Engineering",
+      "Mechanical Engineering",
+      "Civil Engineering",
+      "Electrical Engineering",
+      "Electronics & Communication",
+      "Chemical Engineering",
+      // ── Pure & Applied Sciences (BSc) ──────────────────────────────
+      "Physics",
+      "Chemistry",
+      "Mathematics",
+      "Statistics",
+      "Botany",
+      "Zoology",
+      "Microbiology",
+      "Biotechnology",
+      "Biochemistry",
+      "Computer Science",   // BSc CS / BCA / BScIT / BScCS
+      "Data Science",
+      "Agriculture",
+      "Nursing",
+      "Forensic Science",
+      // ── Arts & Humanities (BA) ──────────────────────────────────────
+      "Humanities",
+      "Social Sciences",
+      "Languages",
+      "Arts & Media",
+      "Vocational/Applied",
+      // ── Commerce & Business (BCom / BBA) ───────────────────────────
+      "Accounting & Finance",
+      "Business Administration",
+      "Banking & Insurance",
+      "Taxation",
+      "Economics",
+      "Sales & Marketing",
+      "Computer Applications",
+      // ── Education ───────────────────────────────────────────────────
+      "General Teacher Training",
+      // ── Law ─────────────────────────────────────────────────────────
+      "Civil Law",
+      "Criminal Law",
+      "Corporate Law",
+    ],
+  },
+
   domain: {
     type: String,
     required: true,
-    validate: {
-      validator: function(value) {
-        // Find department value, checking both document save context and update query context
-        let dept = this.department;
-        if (!dept && typeof this.getUpdate === "function") {
-          const update = this.getUpdate();
-          dept = update.department || (update.$set && update.$set.department);
-        }
-
-        const techDepartments = ["BTech", "BCA", "BScIT", "BScCS"];
-        const businessDepartments = ["BBA", "BCom"];
-
-        const techDomains = [
-          "Full Stack Development",
-          "Frontend Development",
-          "Backend Development",
-          "Mobile App Development",
-          "Data Science & Machine Learning",
-          "DevOps & Cloud Computing",
-          "Cybersecurity",
-          "IoT & Embedded Systems",
-          "Artificial Intelligence",
-          "Blockchain Development",
-          "Game Development",
-          "Web3 & Cryptocurrency",
-          "Other Tech"
-        ];
-
-        const businessDomains = [
-          "Finance & Accounting",
-          "Human Resources",
-          "Marketing & Branding",
-          "Sales & Business Development",
-          "Management Consulting",
-          "Supply Chain Management",
-          "Operations Management",
-          "Other Business"
-        ];
-
-        const artsGeneralDomains = [
-          "Public Relations",
-          "Event Management",
-          "Journalism & Media",
-          "Tourism & Hospitality",
-          "Legal Services",
-          "Content Writing",
-          "Graphic Design",
-          "Other"
-        ];
-
-        const allValidDomains = [...techDomains, ...businessDomains, ...artsGeneralDomains];
-
-        // If department is not provided yet or is not in the list, check against all valid domains
-        if (!dept) {
-          return allValidDomains.includes(value);
-        }
-
-        if (techDepartments.includes(dept)) {
-          return techDomains.includes(value);
-        }
-        if (businessDepartments.includes(dept)) {
-          return businessDomains.includes(value);
-        }
-        // General BA, Bsc, or Other departments
-        return artsGeneralDomains.includes(value);
-      },
-      message: "Selected domain is invalid for this department"
-    }
+    enum: [
+      // ── Computer Science & Engineering ──────────────────────────────
+      "Full Stack Development",
+      "Frontend Development",
+      "Backend Development",
+      "Mobile App Development",
+      "Data Science & Machine Learning",
+      "Artificial Intelligence",
+      "DevOps & Cloud Computing",
+      "Cybersecurity",
+      "Blockchain Development",
+      "Web3 & Cryptocurrency",
+      "Game Development",
+      "IoT & Embedded Systems",
+      "Software Testing & QA",
+      "Database Administration",
+      "UI/UX Design",
+      "Other Tech",
+      // ── Mechanical Engineering ───────────────────────────────────────
+      "Product Design & Development",
+      "CAD/CAM Design",
+      "Manufacturing & Production",
+      "Automobile Engineering",
+      "Thermal & HVAC Engineering",
+      "Robotics & Automation",
+      "Quality Control & Inspection",
+      "Industrial Engineering",
+      "Maintenance Engineering",
+      "Energy & Power Systems",
+      "3D Printing & Additive Manufacturing",
+      "Project Management (Mechanical)",
+      "Other Mechanical",
+      // ── Civil Engineering ────────────────────────────────────────────
+      "Structural Engineering",
+      "Construction Management",
+      "Urban Planning & Design",
+      "Geotechnical Engineering",
+      "Transportation Engineering",
+      "Water Resources & Irrigation",
+      "Environmental Engineering",
+      "Surveying & GIS",
+      "Building Information Modelling (BIM)",
+      "Project Management (Civil)",
+      "Other Civil",
+      // ── Electrical Engineering ───────────────────────────────────────
+      "Power Systems & Grid Engineering",
+      "Renewable Energy & Solar",
+      "Control Systems & Automation",
+      "Electrical Machine Design",
+      "High Voltage & Power Electronics",
+      "PLC & SCADA Programming",
+      "Instrumentation & Measurement",
+      "EV & Battery Technology",
+      "Electrical Project Management",
+      "Other Electrical",
+      // ── Electronics & Communication ──────────────────────────────────
+      "Embedded Systems & IoT",
+      "VLSI Design",
+      "PCB Design & Prototyping",
+      "Signal Processing",
+      "Telecommunications & Networking",
+      "RF & Microwave Engineering",
+      "Consumer Electronics Testing",
+      "Firmware Development",
+      "Other Electronics",
+      // ── Chemical Engineering ─────────────────────────────────────────
+      "Process Engineering",
+      "Petroleum & Refinery",
+      "Pharmaceutical Manufacturing",
+      "Polymer & Materials Science",
+      "Food Technology",
+      "Environmental & Safety Engineering",
+      "Quality Assurance (Chemical)",
+      "Research & Development (Chemical)",
+      "Other Chemical",
+      // ── Data Science ─────────────────────────────────────────────────
+      "Data Analysis & Visualization",
+      "Machine Learning Engineering",
+      "Business Intelligence",
+      "Data Engineering & Pipelines",
+      "AI Research",
+      "Statistical Modelling",
+      "Other Data Science",
+      // ── Biotechnology ────────────────────────────────────────────────
+      "Molecular Biology Research",
+      "Pharmaceutical Biotechnology",
+      "Agricultural Biotechnology",
+      "Bioinformatics",
+      "Environmental Biotechnology",
+      "Other Biotechnology",
+      // ── Life Sciences (Micro / Biochem / Zoology / Botany) ───────────
+      "Clinical Microbiology",
+      "Food & Beverage Microbiology",
+      "Research & Development (Micro)",
+      "Quality Control (Lab)",
+      "Clinical Research",
+      "Pharmaceutical R&D",
+      "Nutrition & Dietetics",
+      "Wildlife Conservation",
+      "Veterinary Support",
+      "Plant Research",
+      "Horticulture",
+      "Pharmaceutical Botany",
+      "Other Life Sciences",
+      // ── Pure Sciences ────────────────────────────────────────────────
+      "Research & Development",
+      "Instrumentation",
+      "Renewable Energy",
+      "Analytical Chemistry",
+      "Actuarial Science",
+      "Quantitative Finance",
+      "Market Research",
+      "Other Sciences",
+      // ── Agriculture ──────────────────────────────────────────────────
+      "Agribusiness Management",
+      "Agricultural Research",
+      "Rural Development",
+      "Other Agriculture",
+      // ── Healthcare ───────────────────────────────────────────────────
+      "Clinical Nursing",
+      "Community Health",
+      "Hospital Administration",
+      "Other Healthcare",
+      // ── Forensic ─────────────────────────────────────────────────────
+      "Crime Investigation Support",
+      "Lab Analysis",
+      "Legal Services",
+      "Other Forensic",
+      // ── Commerce / Finance ───────────────────────────────────────────
+      "Financial Analysis",
+      "Accounting & Audit",
+      "Taxation",
+      "Investment Banking",
+      "Financial Modelling",
+      "Other Finance",
+      "General Management",
+      "Operations Management",
+      "Project Management",
+      "Entrepreneurship",
+      "Other Business",
+      "Banking Operations",
+      "Insurance Sales & Advisory",
+      "Risk Management",
+      "Loan Processing",
+      "GST & Indirect Taxation",
+      "Direct Taxation",
+      "Tax Audit & Compliance",
+      "Economic Research & Policy",
+      "Other Economics",
+      "Digital Marketing",
+      "Content Marketing",
+      "Sales & Business Development",
+      "Brand Management",
+      "Social Media Marketing",
+      "Other Marketing",
+      // ── Arts / Humanities ────────────────────────────────────────────
+      "Content Writing",
+      "Journalism & Media",
+      "Public Relations",
+      "Event Management",
+      "Social Work & NGO",
+      "Other Humanities",
+      "Public Policy Research",
+      "Community Development",
+      "Other Social Sciences",
+      "Translation & Interpretation",
+      "Teaching & Tutoring",
+      "Other Languages",
+      "Graphic Design",
+      "Photography & Videography",
+      "Animation & VFX",
+      "Film Production",
+      "Other Media",
+      "Tourism & Hospitality",
+      "Retail Management",
+      "Other Vocational"
+    ],
   },
+
   internshipType: {
     type: String,
     enum: ["Full-Time", "Part-Time", "Summer", "Winter", "Project-Based"],
@@ -145,7 +311,7 @@ const InternshipModel = {
     enum: ["1-week", "2-weeks", "1-month", "3-months", "6-months", "1-year"],
     default: "1-month",
   },
-  applicationDeadline: Date,
+ 
 
   // Requirements
   requirements: [String],
@@ -165,7 +331,6 @@ const InternshipModel = {
       id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Admin",
-        required: true,
       },
     },
   ],
@@ -224,52 +389,6 @@ const InternshipModel = {
     type: Boolean,
     default: true,
   },
-
-  // Applications & Tracking
-  applications: [
-    {
-      userId: { type: String },
-      userName: { type: String },
-      userEmail: { type: String },
-      applicationDate: {
-        type: Date,
-        default: Date.now,
-      },
-      status: {
-        type: String,
-        enum: ["Applied", "Shortlisted", "Interview", "Accepted", "Rejected"],
-        default: "Applied",
-      },
-      resume: { type: String },
-      coverLetter: { type: String },
-      applicationText: { type: String },
-    },
-  ],
-  totalApplications: {
-    type: Number,
-    default: 0,
-  },
-  selectedCandidates: [
-    {
-      userId: { type: String },
-      userName: { type: String },
-      selectedDate: { type: Date },
-    },
-  ],
-
-  // Contact Information
-  contactPerson: {
-    name: String,
-    email: String,
-    phone: String,
-    designation: String,
-  },
-
-  // Engagement & Metrics
-  views: {
-    type: Number,
-    default: 0,
-  },
   averageRating: {
     type: Number,
     default: 0,
@@ -313,4 +432,4 @@ const InternshipModel = {
   publishedAt: Date,
 };
 
-module.exports = InternshipModel;
+export default InternshipModel;

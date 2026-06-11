@@ -24,8 +24,7 @@ export default function CourseEditPage() {
     description: "",
     shortDescription: "",
     thumbnail: "",
-    department: "Bsc",
-    domain: "Full Stack Development",
+    department: "Technical",
     difficultyLevel: "Beginner",
     language: "English",
     price: 0,
@@ -57,38 +56,7 @@ export default function CourseEditPage() {
     externalLink: "",
   });
 
-  const departments = ["Bsc", "BTech", "BBA", "BCom", "BA", "BCA", "BScIT", "BScCS", "Other"];
-  const domains = [
-    "Full Stack Development",
-    "Frontend Development",
-    "Backend Development",
-    "Mobile App Development",
-    "Data Science & Machine Learning",
-    "DevOps & Cloud Computing",
-    "Cybersecurity",
-    "IoT & Embedded Systems",
-    "Artificial Intelligence",
-    "Blockchain Development",
-    "Game Development",
-    "Web3 & Cryptocurrency",
-    "Other Tech",
-    "Finance & Accounting",
-    "Human Resources",
-    "Marketing & Branding",
-    "Sales & Business Development",
-    "Management Consulting",
-    "Supply Chain Management",
-    "Operations Management",
-    "Other Business",
-    "Public Relations",
-    "Event Management",
-    "Journalism & Media",
-    "Tourism & Hospitality",
-    "Legal Services",
-    "Content Writing",
-    "Graphic Design",
-    "Other"
-  ];
+  const departments = ["Technical", "NonTechnical"];
   const difficulties = ["Beginner", "Intermediate", "Advanced", "Expert"];
   const accessDurations = ["1-month", "3-months", "6-months", "1-year", "lifetime"];
 
@@ -130,8 +98,7 @@ export default function CourseEditPage() {
           description: course.description || "",
           shortDescription: course.shortDescription || "",
           thumbnail: course.thumbnail || "",
-          department: course.department || "Bsc",
-          domain: course.domain || course.category || "Full Stack Development",
+          department: course.department || "Technical",
           difficultyLevel: course.difficultyLevel || "Beginner",
           language: course.language || "English",
           price: course.price || 0,
@@ -331,10 +298,6 @@ export default function CourseEditPage() {
       setError("Department is required");
       return;
     }
-    if (!formData.domain) {
-      setError("Domain is required");
-      return;
-    }
     if (!formData.instructors || formData.instructors.length === 0) {
       setError("At least one instructor is required");
       return;
@@ -348,7 +311,6 @@ export default function CourseEditPage() {
         shortDescription: formData.shortDescription,
         thumbnail: formData.thumbnail,
         department: formData.department,
-        domain: formData.domain,
         difficultyLevel: formData.difficultyLevel,
         language: formData.language,
         price: Number(formData.price),
@@ -553,13 +515,6 @@ export default function CourseEditPage() {
                 <label className="block text-sm font-semibold text-text-muted mb-2">Department *</label>
                 <select name="department" value={formData.department} onChange={handleBasicInputChange} className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition">
                   {departments.map((dept) => <option key={dept} value={dept}>{dept}</option>)}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-text-muted mb-2">Domain *</label>
-                <select name="domain" value={formData.domain} onChange={handleBasicInputChange} className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition">
-                  {domains.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
                 </select>
               </div>
 

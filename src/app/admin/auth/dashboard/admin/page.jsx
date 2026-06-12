@@ -29,10 +29,16 @@ export default function AdminsAdminPage() {
   const fetchAdmins = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch("/api/admin");
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch("/api/admin", {
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await res.json();
       if (data.success) {
-        setAdmins(data.data);
+        const filtered = (data.data || []).filter(
+          (a) => a.role === "Admin"
+        );
+        setAdmins(filtered);
       } else {
         setError(data.error || "Failed to fetch admins");
       }
@@ -118,9 +124,13 @@ export default function AdminsAdminPage() {
         payload.isAdminCreation = true;
       }
 
+      const token = localStorage.getItem("adminToken");
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(payload),
       });
 
@@ -140,8 +150,10 @@ export default function AdminsAdminPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this admin account?")) return;
     try {
+      const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/admin?id=${id}`, {
         method: "DELETE",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
       });
       const data = await res.json();
       if (data.success) {
@@ -157,9 +169,13 @@ export default function AdminsAdminPage() {
 
   const toggleVerification = async (admin) => {
     try {
+      const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/admin?id=${admin._id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({ verified: !admin.verified }),
       });
       const data = await res.json();

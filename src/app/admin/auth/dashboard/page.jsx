@@ -5,11 +5,14 @@ import Link from "next/link";
 
 export default function DashboardPage() {
   const [stats, setStats] = useState({
-    users: 1245,
-    admins: 8,
-    courses: 42,
-    internships: 156,
-    contactMessages: 89,
+    users: 0,
+    admins: 0,
+    instructors: 0,
+    collegePartners: 0,
+    cybercafePartners: 0,
+    courses: 0,
+    internships: 0,
+    contactMessages: 0,
   });
   const [courses, setCourses] = useState([]);
   const [internships, setInternships] = useState([]);
@@ -26,6 +29,18 @@ export default function DashboardPage() {
         if (stored) {
           currentAdmin = JSON.parse(stored);
           setAdminData(currentAdmin);
+
+          // Redirect role-specific admins to their designated panels
+          if (currentAdmin.role === "Instructor") {
+            window.location.href = "/admin/auth/instructors";
+            return;
+          } else if (currentAdmin.role === "College Admin") {
+            window.location.href = "/admin/auth/college-admin";
+            return;
+          } else if (currentAdmin.role === "Cybercafe Partner") {
+            window.location.href = "/admin/auth/cybercafe-partner";
+            return;
+          }
         }
       } catch (err) {
         console.error(err);
@@ -56,9 +71,18 @@ export default function DashboardPage() {
           if (coursesRes.success) setCourses(coursesRes.data || []);
           if (internshipsRes.success) setInternships(internshipsRes.data || []);
 
+          const allAdmins = admins.success && Array.isArray(admins.data) ? admins.data : [];
+          const adminCount = allAdmins.filter(a => a.role === "Admin" || !a.role).length;
+          const instructorCount = allAdmins.filter(a => a.role === "Instructor").length;
+          const collegeCount = allAdmins.filter(a => a.role === "College Admin").length;
+          const cybercafeCount = allAdmins.filter(a => a.role === "Cybercafe Partner").length;
+
           setStats({
             users: users.success && Array.isArray(users.data) ? users.data.length : 0,
-            admins: admins.success && Array.isArray(admins.data) ? admins.data.length : 0,
+            admins: adminCount,
+            instructors: instructorCount,
+            collegePartners: collegeCount,
+            cybercafePartners: cybercafeCount,
             courses: coursesRes.success && Array.isArray(coursesRes.data) ? coursesRes.data.length : 0,
             internships: internshipsRes.success && Array.isArray(internshipsRes.data) ? internshipsRes.data.length : 0,
             contactMessages: contacts.success && Array.isArray(contacts.data) ? contacts.data.length : 0,
@@ -124,6 +148,57 @@ export default function DashboardPage() {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary mx-auto mb-4"></div>
           <p className="text-text-muted">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (adminData?.role === "College Admin" || adminData?.role === "Cybercafe Partner") {
+    return (
+      <div className="space-y-6 md:space-y-8">
+        {/* Welcome Section */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-brand-primary via-brand-primary to-brand-secondary rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 text-white shadow-2xl">
+          {/* Background Decoration */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full -ml-16 -mb-16 blur-3xl"></div>
+
+          <div className="relative z-10">
+            <div className="flex flex-col gap-4 sm:gap-6">
+              <div>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3">
+                  Welcome back, {adminData?.name}! 👋
+                </h1>
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl opacity-90 leading-relaxed">
+                  Your {adminData?.role === "College Admin" ? "College Partner" : "Cybercafe Partner"} account is verified.
+                </p>
+              </div>
+
+              {/* Quick Date Info */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 border border-white/20 text-xs sm:text-sm md:text-base w-fit">
+                <p className="font-semibold">
+                  {new Date().toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Informational Card */}
+        <div className="p-8 bg-bg-card border-2 border-border-main rounded-2xl text-center space-y-4 max-w-lg mx-auto shadow-xl">
+          <div className="mx-auto w-16 h-16 bg-brand-primary/10 text-brand-primary rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-text-main">No Permissions Assigned Yet</h2>
+          <p className="text-sm text-text-muted leading-relaxed">
+            Your account has been verified successfully. The platform administrator will assign your permissions and dashboard tools shortly.
+          </p>
         </div>
       </div>
     );
@@ -307,7 +382,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Main Stats Grid - Responsive */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
         {/* Total Users */}
         <StatCard
           icon={
@@ -354,6 +429,78 @@ export default function DashboardPage() {
           href="/admin/auth/dashboard/admin"
           color="bg-purple-100 dark:bg-purple-900/30"
           trend="↑ 2 new this month"
+        />
+
+        {/* Total Instructors */}
+        <StatCard
+          icon={
+            <svg
+              className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-pink-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.9c2.785 0 5.372-.468 7.732-1.32a60.47 60.47 0 00-.491-6.348L12 14.778l-7.74-4.631zm0 0l-.034-.002a7.5 7.5 0 1115.548 0L12 14.778l-7.74-4.631z"
+              />
+            </svg>
+          }
+          label="Total Instructors"
+          count={stats.instructors}
+          href="/admin/auth/dashboard/instructor"
+          color="bg-pink-100 dark:bg-pink-900/30"
+          trend="↑ 1 new this month"
+        />
+
+        {/* Total College Partners */}
+        <StatCard
+          icon={
+            <svg
+              className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-amber-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.685 0-5.223.588-7.5 1.582V21m15 0h-16.5"
+              />
+            </svg>
+          }
+          label="College Partners"
+          count={stats.collegePartners}
+          href="/admin/auth/dashboard/college-admin"
+          color="bg-amber-100 dark:bg-amber-900/30"
+          trend="Pending verification"
+        />
+
+        {/* Total Cybercafe Partners */}
+        <StatCard
+          icon={
+            <svg
+              className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-cyan-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 21v-7.5a.75.75 0 00-.75-.75h-1.5a.75.75 0 00-.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75zm10.5 0h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H16.5a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"
+              />
+            </svg>
+          }
+          label="Cybercafe Partners"
+          count={stats.cybercafePartners}
+          href="/admin/auth/dashboard/cybercafe"
+          color="bg-cyan-100 dark:bg-cyan-900/30"
+          trend="Pending verification"
         />
 
         {/* Total Courses */}

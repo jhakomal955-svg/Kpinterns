@@ -6,6 +6,7 @@ import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
 import { generatePaymentReceipt } from "@/lib/pdfGenerator";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
+import { verifyAuth } from "@/lib/jwt";
 
 function calculateEndDate(startDate, durationStr) {
   const date = new Date(startDate);
@@ -62,6 +63,12 @@ export async function POST(request) {
   try {
     await connectDB();
 
+    // Authenticate user
+    const auth = verifyAuth(request, ["User", "Admin"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const {
       razorpay_payment_id,
       razorpay_order_id,
@@ -73,6 +80,11 @@ export async function POST(request) {
 
     if (!userId || !type || !itemId) {
       return Response.json({ error: "Missing required enrollment fields" }, { status: 400 });
+    }
+
+    // A User role can only verify payments and enroll for their own userId
+    if (auth.user.role === "User" && auth.user._id !== userId) {
+      return Response.json({ error: "Access denied: unauthorized operation." }, { status: 403 });
     }
 
     let price = 0;

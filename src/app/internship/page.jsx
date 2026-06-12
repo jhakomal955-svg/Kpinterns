@@ -239,6 +239,18 @@ export default function InternshipsPage() {
   const [internships, setInternships] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const userJson = localStorage.getItem("userData");
+    if (userJson) {
+      try {
+        setUserData(JSON.parse(userJson));
+      } catch (e) {
+        console.error("Error parsing user data:", e);
+      }
+    }
+  }, []);
 
   // Search & Filter States
   const [searchTerm, setSearchTerm] = useState("");
@@ -690,12 +702,23 @@ export default function InternshipsPage() {
                           </div>
                         </div>
 
-                        <Link
-                          href={`/internship/${internship._id}`}
-                          className="w-full mt-6 bg-brand-primary hover:bg-brand-primary/95 text-white font-bold py-3 px-4 rounded-xl text-center shadow transition-all block"
-                        >
-                          View Details
-                        </Link>
+                        {(() => {
+                          const isEnrolled = userData?.ActiveInternship?.some(
+                            (i) => (i.internship?._id || i.internship) === internship._id
+                          );
+                          return (
+                            <Link
+                              href={`/internship/${internship._id}`}
+                              className={`w-full mt-6 font-bold py-3 px-4 rounded-xl text-center shadow transition-all block ${
+                                isEnrolled
+                                  ? "bg-brand-success hover:bg-brand-success/95 text-white"
+                                  : "bg-brand-primary hover:bg-brand-primary/95 text-white"
+                              }`}
+                            >
+                              {isEnrolled ? "Start Learning" : "View Details"}
+                            </Link>
+                          );
+                        })()}
                       </div>
                     </div>
                   </ScrollReveal>

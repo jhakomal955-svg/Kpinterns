@@ -8,6 +8,18 @@ export default function CoursesPage() {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const userJson = localStorage.getItem("userData");
+    if (userJson) {
+      try {
+        setUserData(JSON.parse(userJson));
+      } catch (e) {
+        console.error("Error parsing user data:", e);
+      }
+    }
+  }, []);
 
   // Search & Filter States
   const [searchTerm, setSearchTerm] = useState("");
@@ -313,12 +325,23 @@ export default function CoursesPage() {
                           </div>
                         </div>
 
-                        <Link
-                          href={`/courses/${course._id}`}
-                          className="w-full mt-6 bg-brand-primary hover:bg-brand-primary/95 text-white font-bold py-3 px-4 rounded-xl text-center shadow transition-all block"
-                        >
-                          View Details
-                        </Link>
+                        {(() => {
+                          const isEnrolled = userData?.ActiveCources?.some(
+                            (c) => (c.course?._id || c.course) === course._id
+                          );
+                          return (
+                            <Link
+                              href={`/courses/${course._id}`}
+                              className={`w-full mt-6 font-bold py-3 px-4 rounded-xl text-center shadow transition-all block ${
+                                isEnrolled
+                                  ? "bg-brand-success hover:bg-brand-success/95 text-white"
+                                  : "bg-brand-primary hover:bg-brand-primary/95 text-white"
+                              }`}
+                            >
+                              {isEnrolled ? "Start Learning" : "View Details"}
+                            </Link>
+                          );
+                        })()}
                       </div>
                     </div>
                   </ScrollReveal>

@@ -29,7 +29,11 @@ export default function ProfilePage() {
       const parsedUser = JSON.parse(savedUser);
 
       // Fetch fresh data from the server
-      const res = await fetch(`/api/user?id=${parsedUser._id}`);
+      const res = await fetch(`/api/user?id=${parsedUser._id}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
       const result = await res.json();
 
       let profile = parsedUser;
@@ -97,10 +101,12 @@ export default function ProfilePage() {
 
   const handleMarkAttendance = async (internshipId) => {
     try {
+      const token = localStorage.getItem("userToken");
       const res = await fetch("/api/attendance", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
           userId: profileData._id,

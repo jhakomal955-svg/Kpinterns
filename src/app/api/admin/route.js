@@ -9,15 +9,15 @@
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { AdminModel, VerificationOtpModel } from "@/models";
+import { AdminModel, VerificationOtpModel, UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
 
 export async function GET(request) {
   try {
     await connectDB();
 
-    // Authenticate Admin or Instructor
-    const auth = verifyAuth(request, ["Admin", "Instructor"]);
+    // Authenticate Admin, Instructor, College Admin, or Cybercafe Partner
+    const auth = verifyAuth(request, ["Admin", "Instructor", "College Admin", "Cybercafe Partner"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }
@@ -28,8 +28,28 @@ export async function GET(request) {
     const Admin = createModel("Admin", AdminModel);
 
     if (adminId) {
+      // Role-based check: College Admin and Cybercafe Partner should only fetch their own details
+      if ((auth.user.role === "College Admin" || auth.user.role === "Cybercafe Partner") && auth.user._id !== adminId) {
+        return Response.json({ error: "Access denied: insufficient permissions to view other admin profiles." }, { status: 403 });
+      }
+
+      // Ensure referenced models are registered for populate
+      createModel("User", UserModel);
+      createModel("Course", CourseModel);
+      createModel("Internship", InternshipModel);
+      createModel("Attendance", AttendanceModel);
+
       // Get single admin by ID
-      const admin = await Admin.findById(adminId).select("-password");
+      const admin = await Admin.findById(adminId)
+        .populate({
+          path: "Usercreated",
+          populate: [
+            { path: "ActiveCources.course" },
+            { path: "ActiveInternship.internship" },
+            { path: "ActiveInternship.attendance" }
+          ]
+        })
+        .select("-password");
 
       if (!admin) {
         return Response.json({ error: "Admin not found" }, { status: 404 });
@@ -98,6 +118,8 @@ export async function POST(request) {
       verified: isDashboardCreation ? (rawData.verified === true) : false,
       role: rawData.role || "Admin",
       bio: rawData.bio?.trim() || "",
+      UniversityName: rawData.role === "College Admin" ? (rawData.UniversityName || "") : "",
+      CollegeName: rawData.role === "College Admin" ? (rawData.CollegeName || "") : "",
     };
 
     // Validate required fields
@@ -178,8 +200,8 @@ export async function PUT(request) {
   try {
     await connectDB();
 
-    // Authenticate Admin or Instructor
-    const auth = verifyAuth(request, ["Admin", "Instructor"]);
+    // Authenticate Admin, Instructor, College Admin, or Cybercafe Partner
+    const auth = verifyAuth(request, ["Admin", "Instructor", "College Admin", "Cybercafe Partner"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }
@@ -191,10 +213,10 @@ export async function PUT(request) {
       return Response.json({ error: "Admin ID is required" }, { status: 400 });
     }
 
-    // Role-based validation: Instructors can only edit their own profile
-    if (auth.user.role === "Instructor" && auth.user._id !== adminId) {
+    // Role-based validation: Non-Admins can only edit their own profile
+    if (auth.user.role !== "Admin" && auth.user._id !== adminId) {
       return Response.json(
-        { error: "Access denied: Instructors can only edit their own profile." },
+        { error: `Access denied: ${auth.user.role}s can only edit their own profile.` },
         { status: 403 }
       );
     }

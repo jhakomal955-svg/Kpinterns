@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { universitiesData } from "@/lib/data/universities";
 
 export default function AdminRegisterPage() {
   const [step, setStep] = useState(1);
@@ -14,6 +15,8 @@ export default function AdminRegisterPage() {
     role: "Admin",
     bio: "",
     agreeTerms: false,
+    UniversityName: "",
+    CollegeName: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -27,16 +30,40 @@ export default function AdminRegisterPage() {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    setFormData((prev) => {
+      const updated = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
+      if (name === "role" && value !== "College Admin") {
+        updated.UniversityName = "";
+        updated.CollegeName = "";
+      } else if (name === "UniversityName") {
+        updated.CollegeName = "";
+      }
+      return updated;
+    });
 
     // Clear error on input change
     if (errors[name]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
+        return newErrors;
+      });
+    }
+
+    if (name === "role") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.UniversityName;
+        delete newErrors.CollegeName;
+        return newErrors;
+      });
+    } else if (name === "UniversityName") {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors.CollegeName;
         return newErrors;
       });
     }
@@ -171,6 +198,16 @@ export default function AdminRegisterPage() {
         newErrors.confirmPassword = "Passwords do not match";
       }
 
+      // University & College validation for College Partner
+      if (formData.role === "College Admin") {
+        if (!formData.UniversityName) {
+          newErrors.UniversityName = "University selection is required";
+        }
+        if (!formData.CollegeName) {
+          newErrors.CollegeName = "College selection is required";
+        }
+      }
+
       // Terms validation
       if (!formData.agreeTerms) {
         newErrors.agreeTerms = "You must agree to the terms and conditions";
@@ -201,6 +238,13 @@ export default function AdminRegisterPage() {
       return;
     }
 
+    const resolvedUniversityName = formData.role === "College Admin" && formData.UniversityName
+      ? (universitiesData[formData.UniversityName]?.name || formData.UniversityName)
+      : "";
+    const resolvedCollegeName = formData.role === "College Admin" && formData.UniversityName && formData.CollegeName
+      ? (universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName)
+      : "";
+
     setIsLoading(true);
     try {
       const response = await fetch("/api/admin", {
@@ -214,6 +258,8 @@ export default function AdminRegisterPage() {
           role: formData.role,
           bio: formData.bio.trim(),
           agreeTerms: formData.agreeTerms,
+          UniversityName: resolvedUniversityName,
+          CollegeName: resolvedCollegeName,
         }),
       });
 
@@ -487,8 +533,70 @@ export default function AdminRegisterPage() {
                     >
                       <option value="Admin">Admin</option>
                       <option value="Instructor">Instructor</option>
+                      <option value="College Admin">College Partner</option>
+                      <option value="Cybercafe Partner">Cybercafe Partner</option>
                     </select>
                   </div>
+
+                  {formData.role === "College Admin" && (
+                    <>
+                      <div>
+                        <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                          University *
+                        </label>
+                        <select
+                          name="UniversityName"
+                          value={formData.UniversityName}
+                          onChange={handleInputChange}
+                          className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none ${
+                            errors.UniversityName ? "border-red-500" : ""
+                          }`}
+                        >
+                          <option value="">Select University</option>
+                          {Object.entries(universitiesData).map(([key, u]) => (
+                            <option key={key} value={key}>
+                              {u.name}
+                            </option>
+                          ))}
+                        </select>
+                        {errors.UniversityName && (
+                          <p className="text-red-500 text-sm mt-2 font-medium">
+                            {errors.UniversityName}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                          College *
+                        </label>
+                        <select
+                          name="CollegeName"
+                          value={formData.CollegeName}
+                          onChange={handleInputChange}
+                          disabled={!formData.UniversityName}
+                          className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none ${
+                            errors.CollegeName ? "border-red-500" : ""
+                          } ${!formData.UniversityName ? "opacity-50 cursor-not-allowed" : ""}`}
+                        >
+                          <option value="">
+                            {formData.UniversityName ? "Select College" : "Select University first"}
+                          </option>
+                          {formData.UniversityName &&
+                            Object.entries(universitiesData[formData.UniversityName]?.colleges || {}).map(([key, c]) => (
+                              <option key={key} value={key}>
+                                {c.name}
+                              </option>
+                            ))}
+                        </select>
+                        {errors.CollegeName && (
+                          <p className="text-red-500 text-sm mt-2 font-medium">
+                            {errors.CollegeName}
+                          </p>
+                        )}
+                      </div>
+                    </>
+                  )}
 
                   {/* Bio Input */}
                   <div>

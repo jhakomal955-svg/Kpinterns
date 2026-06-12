@@ -1,9 +1,15 @@
 import { uploadToCloudinary, uploadBufferToCloudinary } from "@/lib/cloudinary";
+import { verifyAuth } from "@/lib/jwt";
 
 export const maxDuration = 300; // 5 minutes execution duration limit
 
 export async function POST(request) {
   try {
+    const auth = verifyAuth(request, ["Admin", "Instructor", "College Admin", "Cybercafe Partner"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
     const contentType = request.headers.get("content-type") || "";
 
     if (contentType.includes("multipart/form-data")) {

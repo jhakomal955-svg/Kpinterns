@@ -45,13 +45,28 @@ const AdminModel = {
   },
   role: {
     type: String,
-    enum: ["Admin", "Instructor"],
+    enum: ["Admin", "Instructor","College Admin","Cybercafe Partner"],
     default: "Admin",
+  },
+  UniversityName: {
+    type: String,
+    default: "",
+  },
+  CollegeName: {
+    type: String,
+    default: "",
   },
   bio: {
     type: String,
     default: "",
   },
+  Usercreated:[
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"User",
+    }
+  ]
+  ,
   coursesOffered: [
     {
       type: mongoose.Schema.Types.ObjectId,

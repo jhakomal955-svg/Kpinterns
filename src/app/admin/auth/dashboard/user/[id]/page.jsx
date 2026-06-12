@@ -91,8 +91,10 @@ function BeautifulFileUploader({ label, value, onChange, onRemove }) {
     try {
       const fData = new FormData();
       fData.append("file", file);
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
       const res = await fetch("/api/cloudinary", {
         method: "POST",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {},
         body: fData,
       });
       const resData = await res.json();
@@ -230,7 +232,9 @@ export default function UserEditPage() {
     if (!intId || !userId) return;
     setAttendanceLoading(true);
     try {
-      const res = await fetch(`/api/attendance?userId=${userId}&internshipId=${intId}`);
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+      const res = await fetch(`/api/attendance?userId=${userId}&internshipId=${intId}`, { headers });
       const result = await res.json();
       if (result.success && result.data) {
         setAttendanceInfo(result.data);
@@ -258,9 +262,13 @@ export default function UserEditPage() {
 
   const handleSaveAttendanceRecord = async (date, status) => {
     try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
       const res = await fetch("/api/attendance", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({
           userId: userId,
           internshipId: selectedIntId,
@@ -282,23 +290,31 @@ export default function UserEditPage() {
 
   const getDatesRange = () => {
     if (!attendanceInfo?.startDate) return [];
-    const dates = [];
-    const start = new Date(attendanceInfo.startDate);
-    start.setHours(0, 0, 0, 0);
+    
+    const getKolkataDateString = (dateObj) => {
+      return new Date(dateObj).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+    };
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
+    const startStr = getKolkataDateString(attendanceInfo.startDate);
     const end = attendanceInfo.endDate ? new Date(attendanceInfo.endDate) : null;
-    if (end) end.setHours(0, 0, 0, 0);
+    const today = new Date();
+    const limitDate = (end && end < today) ? end : today;
+    const limitStr = getKolkataDateString(limitDate);
 
-    const limit = (end && end < today) ? end : today;
-    const current = new Date(start);
+    const [sYear, sMonth, sDay] = startStr.split("-").map(Number);
+    const [lYear, lMonth, lDay] = limitStr.split("-").map(Number);
 
-    while (current <= limit) {
-      const dateStr = current.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
-      dates.push(dateStr);
-      current.setDate(current.getDate() + 1);
+    const startDateUTC = new Date(Date.UTC(sYear, sMonth - 1, sDay));
+    const limitDateUTC = new Date(Date.UTC(lYear, lMonth - 1, lDay));
+
+    const dates = [];
+    const current = new Date(startDateUTC);
+    while (current <= limitDateUTC) {
+      const yyyy = current.getUTCFullYear();
+      const mm = String(current.getUTCMonth() + 1).padStart(2, '0');
+      const dd = String(current.getUTCDate()).padStart(2, '0');
+      dates.push(`${yyyy}-${mm}-${dd}`);
+      current.setUTCDate(current.getUTCDate() + 1);
     }
 
     return dates.reverse();
@@ -306,9 +322,11 @@ export default function UserEditPage() {
 
   const fetchDropdownData = async () => {
     try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
       const [resInt, resCourse] = await Promise.all([
-        fetch("/api/internship"),
-        fetch("/api/course"),
+        fetch("/api/internship", { headers }),
+        fetch("/api/course", { headers }),
       ]);
       const dataInt = await resInt.json();
       const dataCourse = await resCourse.json();
@@ -326,7 +344,9 @@ export default function UserEditPage() {
   const fetchUser = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch(`/api/user?id=${userId}`);
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+      const res = await fetch(`/api/user?id=${userId}`, { headers });
       const data = await res.json();
       if (data.success) {
         const u = data.data;
@@ -408,6 +428,8 @@ export default function UserEditPage() {
           paymentStatus: i.paymentStatus || false,
           paymentDate: i.paymentDate || new Date(),
           paymentId: i.paymentId || "",
+          paymentreceipt: i.paymentreceipt || "",
+          attendance: i.attendance?._id || i.attendance || null,
           amount: i.amount || 0,
           offerLetterUrl: i.offerLetterUrl || "",
           certificationUrl: i.certificationUrl || "",
@@ -423,6 +445,7 @@ export default function UserEditPage() {
           paymentStatus: c.paymentStatus || false,
           paymentDate: c.paymentDate || new Date(),
           paymentId: c.paymentId || "",
+          paymentreceipt: c.paymentreceipt || "",
           amount: c.amount || 0,
           certificateUrl: c.certificateUrl || "",
           completedModules: c.completedModules || [],
@@ -435,9 +458,13 @@ export default function UserEditPage() {
         delete payload.password; // Do not send empty password on update
       }
 
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify(payload),
       });
 
@@ -975,7 +1002,7 @@ export default function UserEditPage() {
                         </div>                  </div>
 
                         {/* Beautiful custom file uploaders */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 border-t border-border-main/40">
                           <BeautifulFileUploader
                             label="Offer Letter"
                             value={item.offerLetterUrl}
@@ -1009,6 +1036,25 @@ export default function UserEditPage() {
                               setFormData((prev) => {
                                 const list = [...prev.ActiveInternship];
                                 list[index] = { ...list[index], certificationUrl: "" };
+                                return { ...prev, ActiveInternship: list };
+                              });
+                            }}
+                          />
+
+                          <BeautifulFileUploader
+                            label="Payment Receipt"
+                            value={item.paymentreceipt}
+                            onChange={(url) => {
+                              setFormData((prev) => {
+                                const list = [...prev.ActiveInternship];
+                                list[index] = { ...list[index], paymentreceipt: url };
+                                return { ...prev, ActiveInternship: list };
+                              });
+                            }}
+                            onRemove={() => {
+                              setFormData((prev) => {
+                                const list = [...prev.ActiveInternship];
+                                list[index] = { ...list[index], paymentreceipt: "" };
                                 return { ...prev, ActiveInternship: list };
                               });
                             }}
@@ -1233,7 +1279,7 @@ export default function UserEditPage() {
                         </div>
 
                         {/* Beautiful custom file uploaders */}
-                        <div className="grid grid-cols-1 gap-4 pt-3 border-t border-border-main/40">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
                           <BeautifulFileUploader
                             label="Course Certificate"
                             value={item.certificateUrl}
@@ -1248,6 +1294,25 @@ export default function UserEditPage() {
                               setFormData((prev) => {
                                 const list = [...prev.ActiveCources];
                                 list[index] = { ...list[index], certificateUrl: "" };
+                                return { ...prev, ActiveCources: list };
+                              });
+                            }}
+                          />
+
+                          <BeautifulFileUploader
+                            label="Payment Receipt"
+                            value={item.paymentreceipt}
+                            onChange={(url) => {
+                              setFormData((prev) => {
+                                const list = [...prev.ActiveCources];
+                                list[index] = { ...list[index], paymentreceipt: url };
+                                return { ...prev, ActiveCources: list };
+                              });
+                            }}
+                            onRemove={() => {
+                              setFormData((prev) => {
+                                const list = [...prev.ActiveCources];
+                                list[index] = { ...list[index], paymentreceipt: "" };
                                 return { ...prev, ActiveCources: list };
                               });
                             }}

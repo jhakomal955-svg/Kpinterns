@@ -3,8 +3,11 @@
 import Image from "next/image";
 import React from "react";
 import ScrollReveal from "@/components/ScrollReveal";
+import { useRouter } from "next/navigation";
 
 export default function AboutPage() {
+  const router = useRouter();
+
   const achievements = [
     {
       icon: "👥",
@@ -418,11 +421,11 @@ export default function AboutPage() {
                 potential in the world of design and development.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-brand-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-brand-primary/90 transition-all shadow-md">
-                  Get Started Today
+                <button onClick={() => router.push('/internship')} className="bg-brand-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-brand-primary/90 transition-all shadow-md">
+                  Start internships today
                 </button>
-                <button className="border-2 border-brand-primary text-brand-primary font-semibold px-8 py-3 rounded-lg hover:bg-brand-primary/5 transition-all">
-                  Learn More
+                <button onClick={() => router.push('/courses')} className="border-2 border-brand-primary text-brand-primary font-semibold px-8 py-3 rounded-lg hover:bg-brand-primary/5 transition-all">
+                  Learn course
                 </button>
               </div>
             </div>

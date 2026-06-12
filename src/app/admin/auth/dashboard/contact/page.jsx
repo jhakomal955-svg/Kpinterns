@@ -20,7 +20,10 @@ export default function ContactsAdminPage() {
   const fetchContacts = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch("/api/contact");
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch("/api/contact", {
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await res.json();
       if (data.success) {
         setContacts(data.data);
@@ -43,9 +46,13 @@ export default function ContactsAdminPage() {
     try {
       setMessage(null);
       setError(null);
+      const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/contact?id=${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({ status: newStatus }),
       });
       const data = await res.json();
@@ -67,8 +74,10 @@ export default function ContactsAdminPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this submission?")) return;
     try {
+      const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/contact?id=${id}`, {
         method: "DELETE",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
       });
       const data = await res.json();
       if (data.success) {

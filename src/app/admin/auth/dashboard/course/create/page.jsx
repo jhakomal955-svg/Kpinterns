@@ -75,7 +75,10 @@ export default function CourseCreatePage() {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const res = await fetch("/api/admin");
+        const token = localStorage.getItem("adminToken");
+        const res = await fetch("/api/admin", {
+          headers: token ? { "Authorization": `Bearer ${token}` } : {}
+        });
         const data = await res.json();
         if (data.success) {
           setAdminsList(data.data || []);
@@ -102,7 +105,12 @@ export default function CourseCreatePage() {
       const payload = new FormData();
       payload.append("file", file);
 
-      const response = await fetch("/api/cloudinary", { method: "POST", body: payload });
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch("/api/cloudinary", { 
+        method: "POST", 
+        body: payload,
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -125,7 +133,12 @@ export default function CourseCreatePage() {
       const payload = new FormData();
       payload.append("file", file);
 
-      const response = await fetch("/api/cloudinary", { method: "POST", body: payload });
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch("/api/cloudinary", { 
+        method: "POST", 
+        body: payload,
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -252,9 +265,13 @@ export default function CourseCreatePage() {
         updates: formData.updates,
       };
 
+      const token = localStorage.getItem("adminToken");
       const res = await fetch("/api/course", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(payload),
       });
 

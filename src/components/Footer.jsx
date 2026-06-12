@@ -44,34 +44,34 @@ const Footer = () => {
                 <h3 className="text-sm font-bold uppercase tracking-wider text-text-main mb-4">LEGAL</h3>
                 <nav className="flex flex-col gap-y-4">
                   <Link
-                    href="/privacy-policy"
-                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
-                  >
-                    Privacy Policy
-                  </Link>
-                  <Link
-                    href="/terms-of-use"
-                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
-                  >
-                    Terms Of Use
-                  </Link>
-                   <Link
-                    href="/profile"
-                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
-                  >
-                    Profile
-                  </Link>
-                   <Link
-                    href="/admin/auth"
+                    href="/admin/auth/dashboard"
                     className="text-md text-text-muted hover:text-brand-primary transition-colors"
                   >
                     Admin Panel
                   </Link>
                   <Link
-                    href="/admin/auth/dashboard"
+                    href="/admin/auth/instructors"
                     className="text-md text-text-muted hover:text-brand-primary transition-colors"
                   >
-                    Admin Dashboard
+                    Instructor Panel
+                  </Link>
+                   <Link
+                    href="/admin/auth/college-admin"
+                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
+                  >
+                    College Panel
+                  </Link>
+                   <Link
+                    href="/admin/auth/cybercafe-partner"
+                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
+                  >
+                    Cybercafe partner
+                  </Link>
+                  <Link
+                    href="/privacy-policy"
+                    className="text-md text-text-muted hover:text-brand-primary transition-colors"
+                  >
+                    Privacy policy
                   </Link>
                 </nav>
               </div>

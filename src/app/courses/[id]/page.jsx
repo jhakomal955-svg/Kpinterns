@@ -41,9 +41,13 @@ export default function CourseDetailLearnPage() {
     setIsUpdatingProgress(true);
     try {
       const isCompleted = userCourseData?.completedModules?.includes(moduleId);
+      const token = localStorage.getItem("userToken");
       const res = await fetch("/api/user/progress", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({
           userId: userData._id,
           itemId: courseId,
@@ -87,7 +91,11 @@ export default function CourseDetailLearnPage() {
         }, 0);
 
         // Fetch fresh profile details from DB to sync
-        fetch(`/api/user?id=${parsedUser._id}`)
+        fetch(`/api/user?id=${parsedUser._id}`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        })
           .then(res => res.json())
           .then(result => {
             if (result.success && result.data) {
@@ -154,9 +162,13 @@ export default function CourseDetailLearnPage() {
           },
         ];
 
+        const token = localStorage.getItem("userToken");
         const res = await fetch(`/api/user?id=${userData._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify({ ActiveCources: updatedActiveCourses }),
         });
 
@@ -170,9 +182,14 @@ export default function CourseDetailLearnPage() {
         }
       } else {
         // Paid course enrollment - Razorpay flow
+        const token = localStorage.getItem("userToken");
+        const headers = { "Content-Type": "application/json" };
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
         const resOrder = await fetch("/api/payment/order", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers,
           body: JSON.stringify({ type: "course", itemId: courseId }),
         });
 
@@ -197,9 +214,13 @@ export default function CourseDetailLearnPage() {
           handler: async function (response) {
             try {
               setIsLoading(true);
+              const token = localStorage.getItem("userToken");
               const verifyRes = await fetch("/api/payment/verify", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+                },
                 body: JSON.stringify({
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_order_id: response.razorpay_order_id,

@@ -98,8 +98,16 @@ export default function AdminLoginPage() {
         localStorage.setItem("adminToken", data.token || "token-" + Date.now());
         localStorage.setItem("adminData", JSON.stringify(data.data));
         console.log("Admin Login successful:", data.data);
-        // Redirect to dashboard
-        window.location.href = "/admin/auth/dashboard";
+        // Redirect to appropriate dashboard based on role
+        if (data.data && data.data.role === "Instructor") {
+          window.location.href = "/admin/auth/instructors";
+        } else if (data.data && data.data.role === "College Admin") {
+          window.location.href = "/admin/auth/college-admin";
+        } else if (data.data && data.data.role === "Cybercafe Partner") {
+          window.location.href = "/admin/auth/cybercafe-partner";
+        } else {
+          window.location.href = "/admin/auth/dashboard";
+        }
       } else {
         setErrors({ submit: data.error || "Login failed" });
       }

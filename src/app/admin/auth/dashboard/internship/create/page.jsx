@@ -342,7 +342,10 @@ export default function InternshipCreatePage() {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const res = await fetch("/api/admin");
+        const token = localStorage.getItem("adminToken");
+        const res = await fetch("/api/admin", {
+          headers: token ? { "Authorization": `Bearer ${token}` } : {}
+        });
         const data = await res.json();
         if (data.success) {
           setAdminsList(data.data || []);
@@ -369,8 +372,10 @@ export default function InternshipCreatePage() {
       const payload = new FormData();
       payload.append("file", file);
 
+      const token = localStorage.getItem("adminToken");
       const response = await fetch("/api/cloudinary", {
         method: "POST",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {},
         body: payload,
       });
       const data = await response.json();
@@ -398,8 +403,10 @@ export default function InternshipCreatePage() {
       const payload = new FormData();
       payload.append("file", file);
 
+      const token = localStorage.getItem("adminToken");
       const response = await fetch("/api/cloudinary", {
         method: "POST",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {},
         body: payload,
       });
       const data = await response.json();
@@ -559,9 +566,13 @@ export default function InternshipCreatePage() {
         updates: formData.updates,
       };
 
+      const token = localStorage.getItem("adminToken");
       const res = await fetch("/api/internship", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(payload),
       });
 

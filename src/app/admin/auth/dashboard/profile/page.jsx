@@ -67,10 +67,14 @@ export default function ProfileAdminPage() {
         return;
       }
 
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
       // Update via API
       const res = await fetch(`/api/admin?id=${adminData._id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(formData),
       });
 

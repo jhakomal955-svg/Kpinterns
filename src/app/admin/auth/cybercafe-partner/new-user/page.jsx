@@ -1,0 +1,1371 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { universitiesData } from "@/lib/data/universities";
+
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if (window.Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
+
+export default function RegisterPage() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [dbInternships, setDbInternships] = useState([]);
+  const [isLoadingInternships, setIsLoadingInternships] = useState(true);
+
+  const [purchaseType, setPurchaseType] = useState("internship");
+  const [itemId, setItemId] = useState(null);
+  const [selectedItemDetails, setSelectedItemDetails] = useState(null);
+
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    // Personal Info
+    fullName: "",
+    email: "",
+    phone: "",
+    gender: "",
+    parentName: "",
+    // Academic Info
+    university: "",
+    college: "",
+    degree: "",
+    department: "",
+    rollNumber: "",
+    semester: "",
+    session: "",
+    registrationNumber: "",
+    internshipDomain: "",
+    mode: "",
+    // Security
+    password: "",
+    confirmPassword: "",
+    agreeTerms: false,
+  });
+
+  const [errors, setErrors] = useState({});
+  const [completedPaymentDetails, setCompletedPaymentDetails] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Email Verification states
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpInput, setOtpInput] = useState("");
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
+  const [otpCooldown, setOtpCooldown] = useState(0);
+  const [otpError, setOtpError] = useState("");
+  const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const type = searchParams.get("type") || "internship";
+    const id = searchParams.get("id");
+    
+    setPurchaseType(type);
+    setItemId(id);
+    
+    if (type === "course" && id) {
+      fetch(`/api/course?id=${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.data) {
+            setSelectedItemDetails(data.data);
+            setFormData((prev) => ({
+              ...prev,
+              internshipDomain: data.data.domain || "",
+              mode: "online",
+            }));
+          }
+        })
+        .catch((err) => console.error("Error fetching course:", err));
+    } else if (type === "internship" && id) {
+      fetch(`/api/internship?id=${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.data) {
+            setSelectedItemDetails(data.data);
+            setFormData((prev) => ({
+              ...prev,
+              internshipDomain: data.data.domain || "",
+              mode: data.data.mode?.toLowerCase() || "",
+            }));
+          }
+        })
+        .catch((err) => console.error("Error fetching internship:", err));
+    }
+  }, []);
+
+  useEffect(() => {
+    async function fetchDbInternships() {
+      try {
+        const res = await fetch("/api/internship");
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          setDbInternships(data.data);
+        }
+      } catch (err) {
+        console.error("Error fetching internships:", err);
+      } finally {
+        setIsLoadingInternships(false);
+      }
+    }
+    fetchDbInternships();
+  }, []);
+
+  const getPayableAmount = () => {
+    if (purchaseType === "course") {
+      return selectedItemDetails?.price || 0;
+    }
+    if (selectedItemDetails) {
+      return selectedItemDetails.RegistrationFee?.amount || 500;
+    }
+    if (formData.internshipDomain) {
+      const matched = dbInternships.find(
+        (item) => item.domain === formData.internshipDomain || item.category === formData.internshipDomain
+      );
+      return matched?.RegistrationFee?.amount || 500;
+    }
+    return 500;
+  };
+
+  useEffect(() => {
+    let timer;
+    if (otpCooldown > 0) {
+      timer = setTimeout(() => setOtpCooldown(otpCooldown - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [otpCooldown]);
+
+  const handleSendOtp = async () => {
+    setOtpError("");
+    setEmailAlreadyRegistered(false);
+    if (!formData.email.trim()) {
+      setErrors((prev) => ({ ...prev, email: "Email is required to send OTP" }));
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setErrors((prev) => ({ ...prev, email: "Invalid email format" }));
+      return;
+    }
+
+    setOtpLoading(true);
+    try {
+      const res = await fetch("/api/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setOtpSent(true);
+        setOtpCooldown(60);
+        alert(data.message || "OTP sent successfully!");
+      } else {
+        const errMsg = data.error || "Failed to send OTP.";
+        setOtpError(errMsg);
+        if (
+          errMsg.toLowerCase().includes("already registered") ||
+          errMsg.toLowerCase().includes("already in use")
+        ) {
+          setEmailAlreadyRegistered(true);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      setOtpError(`Failed to request OTP. Please try again.`);
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setOtpError("");
+    if (otpInput.length !== 6) {
+      setOtpError("Please enter a valid 6-digit OTP code");
+      return;
+    }
+
+    setOtpVerifyLoading(true);
+    try {
+      const res = await fetch("/api/otp/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email, otp: otpInput }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsEmailVerified(true);
+        setOtpSent(false);
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors.email;
+          return newErrors;
+        });
+      } else {
+        setOtpError(data.error || "Invalid OTP code.");
+      }
+    } catch (err) {
+      console.error(err);
+      setOtpError("Verification failed. Please try again.");
+    } finally {
+      setOtpVerifyLoading(false);
+    }
+  };
+
+  const totalSteps = 4;
+  const stepTitles = ["Personal", "Academic", "Security & Payments", "Register"];
+
+  const handlePayFee = async () => {
+    setIsLoading(true);
+    try {
+      let finalItemId = itemId;
+      if (!finalItemId && purchaseType === "internship" && formData.internshipDomain) {
+        const matched = dbInternships.find(
+          (item) => item.domain === formData.internshipDomain || item.category === formData.internshipDomain
+        );
+        finalItemId = matched?._id;
+      }
+
+      const payableAmount = getPayableAmount();
+
+      const resOrder = await fetch("/api/payment/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: purchaseType, itemId: finalItemId }),
+      });
+
+      const orderData = await resOrder.json();
+      if (!resOrder.ok) {
+        throw new Error(orderData.error || "Failed to initiate payment");
+      }
+
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        alert("Failed to load payment gateway. Please check your internet connection.");
+        setIsLoading(false);
+        return;
+      }
+
+      const options = {
+        key: orderData.key,
+        amount: orderData.amount * 100,
+        currency: orderData.currency,
+        name: "KpInterns",
+        description: `Payment for ${orderData.title}`,
+        order_id: orderData.orderId,
+        handler: async function (response) {
+          const paymentInfo = {
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+            type: purchaseType,
+            itemId: finalItemId,
+            amount: payableAmount,
+          };
+          setCompletedPaymentDetails(paymentInfo);
+          setErrors((prev) => {
+            const newErrors = { ...prev };
+            delete newErrors.payment;
+            return newErrors;
+          });
+          alert("Payment successful! You can now proceed to the next step.");
+          setIsLoading(false);
+        },
+        prefill: {
+          name: formData.fullName,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: {
+          color: "#2563eb",
+        },
+        modal: {
+          ondismiss: function () {
+            setIsLoading(false);
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert(error.message || "An error occurred. Please try again.");
+      setIsLoading(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (["university", "college", "degree", "internshipDomain"].includes(name)) {
+      setCompletedPaymentDetails(null);
+    }
+
+    if (name === "university") {
+      setFormData((prev) => ({
+        ...prev,
+        university: value,
+        college: "",
+        department: "",
+        internshipDomain: "",
+        mode: "",
+      }));
+    } else if (name === "college") {
+      setFormData((prev) => ({
+        ...prev,
+        college: value,
+        department: "",
+        internshipDomain: "",
+        mode: "",
+      }));
+    } else if (name === "degree") {
+      setFormData((prev) => ({
+        ...prev,
+        degree: value,
+        internshipDomain: "",
+        mode: "",
+      }));
+    } else if (name === "department") {
+      setFormData((prev) => ({
+        ...prev,
+        department: value,
+        internshipDomain: "",
+        mode: "",
+      }));
+    } else if (name === "internshipDomain") {
+      const domainValue = value;
+      const normDegree = normaliseDegree(formData.degree);
+      setFormData((prev) => {
+        const matchingInternships = dbInternships.filter(
+          (item) =>
+            (item.status === "Active" || item.status === "Published") &&
+            item.degree === normDegree &&
+            item.department === prev.department &&
+            item.domain === domainValue
+        );
+        const modes = matchingInternships.map((item) => item.mode).filter(Boolean);
+        const uniqueModes = [...new Set(modes)];
+
+        let newMode = "";
+        if (uniqueModes.length === 1) {
+          newMode = uniqueModes[0];
+        } else if (uniqueModes.length > 1) {
+          newMode = uniqueModes.includes(prev.mode) ? prev.mode : uniqueModes[0];
+        }
+
+        return {
+          ...prev,
+          internshipDomain: domainValue,
+          mode: newMode,
+        };
+      });
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
+
+    if (errors[name]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const getAvailableColleges = () => {
+    if (!formData.university) return [];
+    const universityData = universitiesData[formData.university];
+    if (!universityData) return [];
+    return Object.entries(universityData.colleges).map(([key, college]) => ({
+      id: key,
+      name: college.name,
+    }));
+  };
+
+  const getAvailableDepartments = () => {
+    if (!formData.university || !formData.college || !formData.degree) return [];
+    const universityData = universitiesData[formData.university];
+    if (!universityData) return [];
+    const collegeData = universityData.colleges[formData.college];
+    if (!collegeData) return [];
+    
+    let degreeKey = formData.degree;
+    if (degreeKey === "Bcom") degreeKey = "BCom";
+    if (degreeKey === "Bsc") degreeKey = "BSc";
+    
+    const depts = collegeData.departments?.[degreeKey];
+    return Array.isArray(depts) ? depts : [];
+  };
+
+  const getAvailableSemestersCount = () => {
+    if (!formData.degree) return 0;
+    if (formData.degree === "Diploma") {
+      return 6;
+    } else if (formData.degree === "B.Tech") {
+      return 8;
+    } else if (["Bachelor", "BA", "Bcom", "Bsc"].includes(formData.degree)) {
+      return 6;
+    } else if (formData.degree === "Master") {
+      return 4;
+    }
+    return 0;
+  };
+
+  const normaliseDegree = (deg) => {
+    if (!deg) return "";
+    const map = { "B.Tech": "BTech", "Bcom": "BCom", "Bsc": "BSc" };
+    return map[deg] ?? deg;
+  };
+
+  const getAvailableInternshipDomains = () => {
+    if (!formData.department || !formData.degree) return [];
+    const normDegree = normaliseDegree(formData.degree);
+    const matching = dbInternships.filter(
+      (item) =>
+        (item.status === "Active" || item.status === "Published") &&
+        item.degree === normDegree &&
+        item.department === formData.department
+    );
+    const domains = matching.map((item) => item.domain).filter(Boolean);
+    return [...new Set(domains)].sort();
+  };
+
+  const getAvailableModes = () => {
+    if (!formData.internshipDomain || !formData.department || !formData.degree) return [];
+    const normDegree = normaliseDegree(formData.degree);
+    const matching = dbInternships.filter(
+      (item) =>
+        (item.status === "Active" || item.status === "Published") &&
+        item.degree === normDegree &&
+        item.department === formData.department &&
+        item.domain === formData.internshipDomain
+    );
+    const modes = matching.map((item) => item.mode).filter(Boolean);
+    return [...new Set(modes)];
+  };
+
+  const validateStep = () => {
+    const newErrors = {};
+
+    if (step === 1) {
+      if (!formData.fullName.trim())
+        newErrors.fullName = "Full name is required";
+      if (!formData.email.trim()) {
+        newErrors.email = "Email is required";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        newErrors.email = "Invalid email format";
+      } else if (!isEmailVerified) {
+        newErrors.email = "Please verify student email using OTP.";
+      }
+      if (!formData.phone.trim()) {
+        newErrors.phone = "Phone number is required";
+      } else if (!/^\d{10}$/.test(formData.phone.trim())) {
+        newErrors.phone = "Phone number must be exactly 10 digits";
+      }
+      if (!formData.gender) newErrors.gender = "Please select gender";
+      if (!formData.parentName.trim())
+        newErrors.parentName = "Parent name is required";
+    } else if (step === 2) {
+      if (!formData.university) newErrors.university = "University is required";
+      if (!formData.college) newErrors.college = "College is required";
+      if (!formData.degree) newErrors.degree = "Degree is required";
+      if (!formData.department) newErrors.department = "Department is required";
+      if (!formData.rollNumber.trim()) newErrors.rollNumber = "Roll number is required";
+      if (!formData.semester) newErrors.semester = "Semester is required";
+      if (!formData.session) newErrors.session = "Session is required";
+      if (!formData.registrationNumber.trim())
+        newErrors.registrationNumber = "Registration number is required";
+      
+      if (purchaseType !== "course") {
+        if (!formData.internshipDomain)
+          newErrors.internshipDomain = "Internship domain is required";
+        if (!formData.mode) newErrors.mode = "Mode is required";
+      }
+    } else if (step === 3) {
+      if (!formData.password) newErrors.password = "Password is required";
+      if (formData.password.length < 6)
+        newErrors.password = "Password must be at least 6 characters";
+      if (formData.password !== formData.confirmPassword)
+        newErrors.confirmPassword = "Passwords do not match";
+      
+      const payableAmount = getPayableAmount();
+      if (payableAmount > 0 && !completedPaymentDetails) {
+        newErrors.payment = "Please complete the registration fee payment to proceed.";
+      }
+    } else if (step === 4) {
+      if (!formData.agreeTerms)
+        newErrors.agreeTerms = "You must agree to terms and conditions";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleNext = () => {
+    if (validateStep()) {
+      setStep(step + 1);
+    }
+  };
+
+  const handleBack = () => {
+    setStep(step - 1);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateStep()) {
+      setIsLoading(true);
+      try {
+        let finalItemId = itemId;
+        if (!finalItemId && purchaseType === "internship" && formData.internshipDomain) {
+          const matched = dbInternships.find(
+            (item) => item.domain === formData.internshipDomain || item.category === formData.internshipDomain
+          );
+          finalItemId = matched?._id;
+        }
+
+        const payableAmount = getPayableAmount();
+
+        const hasValidExistingPayment = 
+          completedPaymentDetails &&
+          completedPaymentDetails.type === purchaseType &&
+          completedPaymentDetails.itemId === finalItemId &&
+          completedPaymentDetails.amount === payableAmount;
+
+        if (payableAmount > 0 && !hasValidExistingPayment) {
+          alert("Payment is required to complete registration. Please complete payment first.");
+          setStep(3);
+          setIsLoading(false);
+          return;
+        }
+
+        const universityObj = universitiesData[formData.university];
+        const collegeObj = universityObj?.colleges?.[formData.college];
+
+        const userPayload = {
+          ...formData,
+          university: universityObj ? universityObj.name : formData.university,
+          college: collegeObj ? collegeObj.name : formData.college,
+          courseId: purchaseType === "course" ? finalItemId : undefined,
+          internshipId: purchaseType === "internship" ? finalItemId : undefined,
+          paymentDetails: hasValidExistingPayment ? completedPaymentDetails : undefined,
+        };
+
+        const token = localStorage.getItem("adminToken");
+        const response = await fetch("/api/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify(userPayload),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Student registration completed successfully!");
+          router.push("/admin/auth/cybercafe-partner");
+        } else {
+          alert(data.error || "Registration failed. Please check details.");
+        }
+      } catch (error) {
+        console.error("Registration error:", error);
+        alert(error.message || "An error occurred. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  return (
+    <div className="max-w-2xl mx-auto space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-text-main">
+          New Student Registration
+        </h1>
+        <p className="text-text-muted text-sm sm:text-base">
+          Enroll a new student and associate their record with your Cybercafe Partner account.
+        </p>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="mb-8">
+        <div className="flex items-start justify-between mb-4">
+          {stepTitles.map((title, index) => (
+            <div key={index} className="flex flex-col items-center flex-1">
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+                  index + 1 <= step
+                    ? "bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-lg"
+                    : "bg-bg-card border-2 border-border-main text-text-muted"
+                }`}
+              >
+                {index + 1 < step ? (
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  index + 1
+                )}
+              </div>
+              <span className={`text-[10px] sm:text-xs mt-2 font-semibold text-center px-1 break-words ${index + 1 <= step ? "text-brand-primary" : "text-text-muted"}`}>
+                {title}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Progress Line */}
+        <div className="h-1 bg-border-main rounded-full overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary transition-all duration-500"
+            style={{ width: `${((step - 1) / (totalSteps - 1)) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Form Card */}
+      <div className="bg-bg-card rounded-3xl shadow-xl p-5 sm:p-8 border border-border-main backdrop-blur-sm">
+        <form onSubmit={handleSubmit}>
+          {/* Step 1: Personal Information */}
+          {step === 1 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl font-bold text-text-main border-b border-border-main pb-2">
+                Personal Information
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    placeholder="Student's full name"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.fullName ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.fullName && (
+                    <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Gender *
+                  </label>
+                  <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.gender ? "border-red-500" : "border-border-main"
+                    }`}
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                  {errors.gender && (
+                    <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Email Address *
+                  </label>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={(e) => {
+                        if (emailAlreadyRegistered) {
+                          setEmailAlreadyRegistered(false);
+                          setOtpError("");
+                        }
+                        handleInputChange(e);
+                      }}
+                      disabled={isEmailVerified}
+                      placeholder="student@example.com"
+                      className={`w-full sm:flex-1 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.email || emailAlreadyRegistered ? "border-red-500" : "border-border-main"
+                      } ${isEmailVerified ? "opacity-60 cursor-not-allowed bg-emerald-500/5 border-emerald-500/30" : ""}`}
+                    />
+                    {!isEmailVerified && (
+                      <button
+                        type="button"
+                        onClick={handleSendOtp}
+                        disabled={otpLoading || otpCooldown > 0 || emailAlreadyRegistered}
+                        className={`w-full sm:w-auto px-4 py-3 rounded-xl font-semibold font-poppins text-sm transition-all disabled:cursor-not-allowed flex items-center justify-center sm:min-w-[110px] ${
+                          emailAlreadyRegistered
+                            ? "bg-red-100 text-red-600 border-2 border-red-300 opacity-70"
+                            : "bg-brand-primary hover:bg-brand-primary/90 text-white disabled:opacity-50"
+                        }`}
+                      >
+                        {otpLoading ? (
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : emailAlreadyRegistered ? (
+                          "Registered"
+                        ) : otpCooldown > 0 ? (
+                          `Resend in ${otpCooldown}s`
+                        ) : (
+                          "Send OTP"
+                        )}
+                      </button>
+                    )}
+                  </div>
+
+                  {otpError && !otpSent && (
+                    <div className="mt-3 flex items-start gap-2.5 p-3.5 bg-red-500/8 border border-red-500/25 rounded-xl animate-fade-in">
+                      <span className="text-red-500 text-base mt-0.5 shrink-0">⚠️</span>
+                      <div>
+                        <p className="text-red-600 text-sm font-semibold">{otpError}</p>
+                        {emailAlreadyRegistered && (
+                          <p className="text-red-500/80 text-xs mt-1">
+                            This student is already registered in the system.
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
+                  {isEmailVerified && (
+                    <p className="text-brand-success text-xs mt-1 flex items-center gap-1 font-semibold">
+                      <span>✓</span> Email verified successfully!
+                    </p>
+                  )}
+                </div>
+
+                {otpSent && !isEmailVerified && (
+                  <div className="sm:col-span-2 bg-brand-primary/5 border border-brand-primary/10 rounded-2xl p-5 animate-fade-in space-y-3">
+                    <label className="block text-sm font-semibold text-text-main">
+                      Enter Verification Code *
+                    </label>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <input
+                        type="text"
+                        maxLength={6}
+                        value={otpInput}
+                        onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ""))}
+                        placeholder="Enter 6-digit OTP"
+                        className="w-full sm:flex-1 px-4 py-3 rounded-xl border-2 border-border-main focus:outline-none focus:border-brand-primary bg-bg-main font-mono text-center tracking-widest text-lg font-bold"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleVerifyOtp}
+                        disabled={otpInput.length !== 6 || otpVerifyLoading}
+                        className="w-full sm:w-auto px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                      >
+                        {otpVerifyLoading ? (
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                          "Verify Code"
+                        )}
+                      </button>
+                    </div>
+                    {otpError && (
+                      <p className="text-red-500 text-xs mt-1 font-medium">{otpError}</p>
+                    )}
+                    <p className="text-text-muted text-[11px] font-poppins">
+                      An OTP code was sent to <span className="font-semibold text-text-main">{formData.email}</span>.
+                    </p>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="10-digit number"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.phone ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Parent/Guardian Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="parentName"
+                    value={formData.parentName}
+                    onChange={handleInputChange}
+                    placeholder="Enter parent/guardian name"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.parentName ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.parentName && (
+                    <p className="text-red-500 text-xs mt-1">{errors.parentName}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: Academic Information */}
+          {step === 2 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl font-bold text-text-main border-b border-border-main pb-2">
+                Academic Information
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    University *
+                  </label>
+                  <select
+                    name="university"
+                    value={formData.university}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.university ? "border-red-500" : "border-border-main"
+                    }`}
+                  >
+                    <option value="">Select University</option>
+                    {Object.entries(universitiesData).map(([key, university]) => (
+                      <option key={key} value={key}>
+                        {university.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.university && (
+                    <p className="text-red-500 text-xs mt-1">{errors.university}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    College *
+                  </label>
+                  <select
+                    name="college"
+                    value={formData.college}
+                    onChange={handleInputChange}
+                    disabled={!formData.university}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.college ? "border-red-500" : "border-border-main"
+                    } ${!formData.university ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">
+                      {formData.university ? "Select College" : "Select University first"}
+                    </option>
+                    {getAvailableColleges().map((college) => (
+                      <option key={college.id} value={college.id}>
+                        {college.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.college && (
+                    <p className="text-red-500 text-xs mt-1">{errors.college}</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Degree *
+                  </label>
+                  <div className="flex flex-wrap gap-4">
+                    {["Diploma", "B.Tech", "BA", "Bcom", "Bsc"].map((degree) => (
+                      <label key={degree} className="flex items-center cursor-pointer">
+                        <input
+                          type="radio"
+                          name="degree"
+                          value={degree}
+                          checked={formData.degree === degree}
+                          onChange={handleInputChange}
+                          className="w-4 h-4 accent-brand-primary cursor-pointer"
+                        />
+                        <span className="ml-2 text-sm font-medium text-text-main">{degree}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {errors.degree && (
+                    <p className="text-red-500 text-xs mt-1">{errors.degree}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Department *
+                  </label>
+                  <select
+                    name="department"
+                    value={formData.department}
+                    onChange={handleInputChange}
+                    disabled={!formData.college}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.department ? "border-red-500" : "border-border-main"
+                    } ${!formData.college ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">
+                      {formData.college ? "Select Department" : "Select College first"}
+                    </option>
+                    {getAvailableDepartments().map((dept, index) => (
+                      <option key={index} value={dept}>
+                        {dept}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.department && (
+                    <p className="text-red-500 text-xs mt-1">{errors.department}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Semester *
+                  </label>
+                  <select
+                    name="semester"
+                    value={formData.semester}
+                    onChange={handleInputChange}
+                    disabled={!formData.university || !formData.degree}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.semester ? "border-red-500" : "border-border-main"
+                    } ${!formData.university || !formData.degree ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">
+                      {formData.university && formData.degree
+                        ? "Select Semester"
+                        : "Select University & Degree first"}
+                    </option>
+                    {formData.university &&
+                      Array.from(
+                        { length: getAvailableSemestersCount() },
+                        (_, i) => i + 1
+                      ).map((sem) => {
+                        const suffix = sem === 1 ? "st" : sem === 2 ? "nd" : sem === 3 ? "rd" : "th";
+                        return (
+                          <option key={sem} value={sem}>
+                            {sem}
+                            {suffix} Semester
+                          </option>
+                        );
+                      })}
+                  </select>
+                  {errors.semester && (
+                    <p className="text-red-500 text-xs mt-1">{errors.semester}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Session *
+                  </label>
+                  <select
+                    name="session"
+                    value={formData.session}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.session ? "border-red-500" : "border-border-main"
+                    }`}
+                  >
+                    <option value="">Select Session</option>
+                    <option value="2024-25">2024-25</option>
+                    <option value="2025-26">2025-26</option>
+                  </select>
+                  {errors.session && (
+                    <p className="text-red-500 text-xs mt-1">{errors.session}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Roll Number *
+                  </label>
+                  <input
+                    type="text"
+                    name="rollNumber"
+                    value={formData.rollNumber}
+                    onChange={handleInputChange}
+                    placeholder="Roll number"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.rollNumber ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.rollNumber && (
+                    <p className="text-red-500 text-xs mt-1">{errors.rollNumber}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Registration Number *
+                  </label>
+                  <input
+                    type="text"
+                    name="registrationNumber"
+                    value={formData.registrationNumber}
+                    onChange={handleInputChange}
+                    placeholder="Registration number"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.registrationNumber ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.registrationNumber && (
+                    <p className="text-red-500 text-xs mt-1">{errors.registrationNumber}</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Internship Domain *
+                  </label>
+                  <select
+                    name="internshipDomain"
+                    value={formData.internshipDomain}
+                    onChange={handleInputChange}
+                    disabled={!formData.degree || !formData.department || isLoadingInternships || getAvailableInternshipDomains().length === 0}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.internshipDomain ? "border-red-500" : "border-border-main"
+                    } ${(!formData.degree || !formData.department || isLoadingInternships || getAvailableInternshipDomains().length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">
+                      {isLoadingInternships
+                        ? "Loading available internships..."
+                        : !formData.degree
+                        ? "Select Degree first"
+                        : !formData.department
+                        ? "Select Department first"
+                        : getAvailableInternshipDomains().length === 0
+                        ? "No internships found for this stream"
+                        : "Select Internship Domain"}
+                    </option>
+                    {getAvailableInternshipDomains().map((domain) => (
+                      <option key={domain} value={domain}>
+                        {domain}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.internshipDomain && (
+                    <p className="text-red-500 text-xs mt-1">{errors.internshipDomain}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Internship Mode *
+                  </label>
+                  {(() => {
+                    const availModes = getAvailableModes();
+                    const isSingleMode = availModes.length === 1;
+
+                    if (formData.internshipDomain && isSingleMode) {
+                      return (
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-brand-primary/40 bg-brand-primary/5 w-full">
+                            <span className="text-brand-primary text-sm font-bold">
+                              ✓ {formData.mode}
+                            </span>
+                            <span className="ml-auto text-[11px] font-semibold text-brand-primary/70 uppercase tracking-wider bg-brand-primary/10 px-2 py-0.5 rounded-full">
+                              Auto-selected
+                            </span>
+                          </div>
+                          <input type="hidden" name="mode" value={formData.mode} />
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <select
+                        name="mode"
+                        value={formData.mode}
+                        onChange={handleInputChange}
+                        disabled={!formData.internshipDomain || availModes.length === 0}
+                        className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                          errors.mode ? "border-red-500" : "border-border-main"
+                        } ${(!formData.internshipDomain || availModes.length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
+                      >
+                        <option value="">
+                          {!formData.internshipDomain
+                            ? "Select Internship Domain first"
+                            : availModes.length === 0
+                            ? "No modes available"
+                            : "Select Mode"}
+                        </option>
+                        {availModes.map((m) => (
+                          <option key={m} value={m}>
+                            {m}
+                          </option>
+                        ))}
+                      </select>
+                    );
+                  })()}
+                  {errors.mode && (
+                    <p className="text-red-500 text-xs mt-1">{errors.mode}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Security & Payments */}
+          {step === 3 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl font-bold text-text-main border-b border-border-main pb-2">
+                Security & Payments
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-6 border-b border-border-main/50">
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Create Password *
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      placeholder="Create a strong password"
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.password ? "border-red-500" : "border-border-main"
+                      }`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-3.5 text-text-muted hover:text-text-main"
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </button>
+                  </div>
+                  {errors.password && (
+                    <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Confirm Password *
+                  </label>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    placeholder="Confirm password"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.confirmPassword ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.confirmPassword && (
+                    <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Payments */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold text-text-main font-poppins">
+                  Registration Fee Payment
+                </h3>
+
+                {getPayableAmount() > 0 ? (
+                  <div className="bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 border border-border-main rounded-2xl p-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                        <span className="text-xs text-text-muted uppercase tracking-wider font-semibold block mb-1">Total Payable</span>
+                        <span className="text-3xl font-extrabold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent font-poppins">
+                          ₹{getPayableAmount()}
+                        </span>
+                      </div>
+
+                      {completedPaymentDetails ? (
+                        <div className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 rounded-xl px-4 py-3 text-sm font-semibold flex items-center gap-2">
+                          <span>✅</span>
+                          <div>
+                            <span>Payment Successful</span>
+                            <span className="block text-[10px] font-mono text-text-muted mt-0.5">Ref ID: {completedPaymentDetails.razorpay_payment_id}</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={handlePayFee}
+                          disabled={isLoading}
+                          className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-primary/95 hover:to-brand-secondary/95 text-white font-bold rounded-xl shadow-lg transition-all text-sm font-poppins"
+                        >
+                          Pay Registration Fee (₹{getPayableAmount()})
+                        </button>
+                      )}
+                    </div>
+
+                    {errors.payment && (
+                      <p className="text-red-500 text-xs mt-3 font-semibold">
+                        ⚠️ {errors.payment}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6 flex items-center gap-3">
+                    <span className="text-2xl">🎉</span>
+                    <div>
+                      <span className="font-bold text-emerald-600 dark:text-emerald-400 block">No Payment Required</span>
+                      <span className="text-text-muted text-sm">This registration is free.</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Step 4: Review & Complete */}
+          {step === 4 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl font-bold text-text-main border-b border-border-main pb-2">
+                Review & Register
+              </h2>
+              <p className="text-text-muted text-sm mb-4">
+                Please review your details carefully before completing registration.
+              </p>
+
+              <div className="bg-bg-main border border-border-main rounded-2xl p-6 space-y-4 text-sm font-poppins">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
+                  <div>
+                    <span className="text-text-muted text-xs block">Full Name</span>
+                    <span className="text-text-main font-semibold">{formData.fullName}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Email</span>
+                    <span className="text-text-main font-semibold break-all">{formData.email}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Phone</span>
+                    <span className="text-text-main font-semibold">{formData.phone}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Parent's Name</span>
+                    <span className="text-text-main font-semibold">{formData.parentName}</span>
+                  </div>
+                  <div className="sm:col-span-2 border-t border-border-main/50 my-1"></div>
+                  <div>
+                    <span className="text-text-muted text-xs block">College</span>
+                    <span className="text-text-main font-semibold">{formData.college}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Degree & Dept</span>
+                    <span className="text-text-main font-semibold">{formData.degree} ({formData.department})</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Reg No / Sem</span>
+                    <span className="text-text-main font-semibold">{formData.registrationNumber} (Sem {formData.semester})</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Selected Internship Domain</span>
+                    <span className="text-brand-primary font-bold">
+                      {formData.internshipDomain} ({formData.mode})
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {getPayableAmount() > 0 && completedPaymentDetails && (
+                <div className="bg-emerald-500/15 border border-emerald-500/30 rounded-2xl p-4 flex items-center justify-between">
+                  <div>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold block text-sm">✅ Payment Verified</span>
+                    <span className="text-text-muted font-mono text-[10px]">Ref: {completedPaymentDetails.razorpay_payment_id}</span>
+                  </div>
+                  <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">₹{getPayableAmount()}</span>
+                </div>
+              )}
+
+              <label className="flex items-start cursor-pointer p-4 rounded-xl border-2 border-border-main hover:border-brand-primary transition-colors group">
+                <input
+                  type="checkbox"
+                  name="agreeTerms"
+                  checked={formData.agreeTerms}
+                  onChange={handleInputChange}
+                  className="w-5 h-5 rounded accent-brand-primary cursor-pointer mt-1 flex-shrink-0"
+                />
+                <span className="ml-3 text-sm text-text-muted group-hover:text-text-main transition-colors">
+                  I agree to the Terms & Privacy Policy and internship terms.
+                </span>
+              </label>
+              {errors.agreeTerms && (
+                <p className="text-red-500 text-xs">{errors.agreeTerms}</p>
+              )}
+            </div>
+          )}
+
+          {/* Navigation Buttons */}
+          <div className="flex gap-4 mt-8 pt-6 border-t border-border-main">
+            {step > 1 && (
+              <button
+                type="button"
+                onClick={handleBack}
+                className="flex-1 px-6 py-3 rounded-xl border-2 border-border-main text-text-main font-semibold hover:border-brand-primary hover:bg-bg-main transition-all"
+              >
+                ← Back
+              </button>
+            )}
+            {step < totalSteps ? (
+              <button
+                type="button"
+                onClick={handleNext}
+                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold hover:shadow-lg transition-all"
+              >
+                Next →
+              </button>
+            ) : (
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Registering...</span>
+                  </div>
+                ) : (
+                  "Complete Registration"
+                )}
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

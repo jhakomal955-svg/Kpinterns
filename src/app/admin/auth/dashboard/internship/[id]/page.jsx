@@ -328,7 +328,10 @@ export default function InternshipEditPage() {
   const fetchInternship = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch(`/api/internship?id=${internshipId}`);
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const res = await fetch(`/api/internship?id=${internshipId}`, {
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await res.json();
       if (data.success) {
         const internship = data.data;
@@ -440,7 +443,10 @@ export default function InternshipEditPage() {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const res = await fetch("/api/admin");
+        const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+        const res = await fetch("/api/admin", {
+          headers: token ? { "Authorization": `Bearer ${token}` } : {}
+        });
         const data = await res.json();
         if (data.success) {
           setAdminsList(data.data || []);
@@ -467,8 +473,10 @@ export default function InternshipEditPage() {
       const payload = new FormData();
       payload.append("file", file);
 
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
       const response = await fetch("/api/cloudinary", {
         method: "POST",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {},
         body: payload,
       });
       const data = await response.json();
@@ -496,8 +504,10 @@ export default function InternshipEditPage() {
       const payload = new FormData();
       payload.append("file", file);
 
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
       const response = await fetch("/api/cloudinary", {
         method: "POST",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {},
         body: payload,
       });
       const data = await response.json();
@@ -660,9 +670,13 @@ export default function InternshipEditPage() {
       const url = isEditing ? `/api/internship?id=${internshipId}` : "/api/internship";
       const method = isEditing ? "PUT" : "POST";
 
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(payload),
       });
 

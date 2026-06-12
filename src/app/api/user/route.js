@@ -8,11 +8,12 @@
  */
 
 import connectDB from "@/lib/mongodb";
+import bcrypt from "bcryptjs";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, AdminModel } from "@/models";
 import crypto from "crypto";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
-import { verifyAuth } from "@/lib/jwt";
+import { verifyAuth, getAuthUser } from "@/lib/jwt";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
 import { generatePaymentReceipt } from "@/lib/pdfGenerator";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
@@ -73,8 +74,8 @@ export async function GET(request) {
   try {
     await connectDB();
 
-    // Authenticate Admin or User
-    const auth = verifyAuth(request, ["Admin", "User"]);
+    // Authenticate Admin, College Admin, or User
+    const auth = verifyAuth(request, ["Admin", "College Admin", "User"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }
@@ -83,7 +84,7 @@ export async function GET(request) {
     const url = new URL(request.url);
     const userId = url.searchParams.get("id");
 
-    // Enforce matching user ID if not Admin
+    // Enforce matching user ID if not Admin / College Admin
     if (auth.user.role === "User" && userId !== auth.user._id) {
       return Response.json({ error: "Access denied: cannot retrieve another user's profile information." }, { status: 403 });
     }
@@ -93,6 +94,20 @@ export async function GET(request) {
     createModel("Internship", InternshipModel);
     const Attendance = createModel("Attendance", AttendanceModel);
     const User = createModel("User", UserModel);
+    const Admin = createModel("Admin", AdminModel);
+
+    // If College Admin, retrieve their CollegeName
+    let collegeNameFilter = null;
+    if (auth.user.role === "College Admin") {
+      const collegeAdminDoc = await Admin.findById(auth.user._id);
+      if (!collegeAdminDoc || !collegeAdminDoc.CollegeName) {
+        if (userId) {
+          return Response.json({ error: "Access denied: your account is not associated with a college." }, { status: 403 });
+        }
+        return Response.json({ success: true, data: [], total: 0 }, { status: 200 });
+      }
+      collegeNameFilter = collegeAdminDoc.CollegeName.trim();
+    }
 
     if (userId) {
       // Trigger automated document checks (heals any missed offer letters or certificates on profile view)
@@ -110,6 +125,14 @@ export async function GET(request) {
 
       if (!user) {
         return Response.json({ error: "User not found" }, { status: 404 });
+      }
+
+      // If College Admin, verify the student belongs to their college
+      if (collegeNameFilter) {
+        const isSameCollege = user.college?.toLowerCase().trim() === collegeNameFilter.toLowerCase();
+        if (!isSameCollege) {
+          return Response.json({ error: "Access denied: student does not belong to your college." }, { status: 403 });
+        }
       }
 
       // Lazy link any missing Attendance docs
@@ -137,13 +160,19 @@ export async function GET(request) {
 
       return Response.json({ success: true, data: userObj }, { status: 200 });
     } else {
-      // Block non-Admin users from listing all users
-      if (auth.user.role !== "Admin") {
+      // Block non-authorized users from listing all users
+      if (auth.user.role !== "Admin" && auth.user.role !== "College Admin") {
         return Response.json({ error: "Access denied: insufficient permissions to list all users." }, { status: 403 });
       }
 
-      // Get all users with populated courses & internships
-      const users = await User.find()
+      // Query filter
+      const query = {};
+      if (collegeNameFilter) {
+        query.college = { $regex: new RegExp("^" + collegeNameFilter + "$", "i") };
+      }
+
+      // Get users with populated courses & internships
+      const users = await User.find(query)
         .populate("ActiveCources.course")
         .populate("ActiveInternship.internship")
         .populate("ActiveInternship.attendance");
@@ -167,6 +196,16 @@ export async function POST(request) {
     await connectDB();
 
     const data = await request.json();
+
+    // Check if registered by a Cybercafe Partner
+    let cybercafePartnerId = null;
+    const authHeader = request.headers.get("authorization");
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      const decoded = getAuthUser(request);
+      if (decoded && decoded.role === "Cybercafe Partner") {
+        cybercafePartnerId = decoded._id;
+      }
+    }
 
     // Verify OTP first before any processing or DB checks
     const normalizedEmail = data.email?.trim().toLowerCase();
@@ -408,6 +447,14 @@ export async function POST(request) {
     const newUser = new User(data);
     await newUser.save();
 
+    // Store in cybercafe Usercreated field if created by a Cybercafe Partner
+    if (cybercafePartnerId) {
+      const Admin = createModel("Admin", AdminModel);
+      await Admin.findByIdAndUpdate(cybercafePartnerId, {
+        $addToSet: { Usercreated: newUser._id }
+      });
+    }
+
     // Delete the verified OTP record so it cannot be reused
     if (!isDashboardCreation) {
       await VerificationOtp.deleteOne({ email: normalizedEmail });
@@ -523,6 +570,12 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
+
+    // Hash password if updated by admin
+    if (data.password) {
+      const salt = await bcrypt.genSalt(10);
+      data.password = await bcrypt.hash(data.password, salt);
+    }
 
     // Capitalize gender to match schema enum ["Male", "Female", "Other"]
     if (data.gender) {

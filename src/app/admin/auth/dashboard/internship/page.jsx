@@ -25,7 +25,10 @@ export default function InternshipsAdminPage() {
   const fetchInternships = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch("/api/internship");
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch("/api/internship", {
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await res.json();
       if (data.success) {
         setInternships(data.data);
@@ -57,8 +60,10 @@ export default function InternshipsAdminPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this internship?")) return;
     try {
+      const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/internship?id=${id}`, {
         method: "DELETE",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
       });
       const data = await res.json();
       if (data.success) {

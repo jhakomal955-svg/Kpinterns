@@ -3,26 +3,70 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import { useAdminAuth } from "@/context/AdminAuthContext";
 
 export default function AdminAuthPage({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const isDashboard = pathname.includes("/dashboard");
+  const { admin, isAuthenticated, isLoading: contextLoading } = useAdminAuth();
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
-  // Check authentication status
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    setIsAuthenticated(!!token);
-    setIsLoading(false);
+  const isDashboard = 
+    pathname.includes("/dashboard") ||
+    pathname.includes("/instructors") ||
+    pathname.includes("/college-admin") ||
+    pathname.includes("/cybercafe-partner");
 
-    // Redirect unauthenticated users away from dashboard
-    if (!token && isDashboard) {
-      router.push("/admin/auth");
+  const redirectCorrectDashboard = (role) => {
+    if (role === "Instructor") {
+      router.push("/admin/auth/instructors");
+    } else if (role === "College Admin") {
+      router.push("/admin/auth/college-admin");
+    } else if (role === "Cybercafe Partner") {
+      router.push("/admin/auth/cybercafe-partner");
+    } else if (role === "Admin") {
+      router.push("/admin/auth/dashboard");
+    } else {
+      router.push("/admin/auth/login");
     }
-  }, []);
+  };
+
+  // Guard routes based on auth status and role
+  useEffect(() => {
+    if (contextLoading) return;
+
+    const token = localStorage.getItem("adminToken");
+    const role = admin?.role;
+
+    if (!token || !isAuthenticated) {
+      if (isDashboard) {
+        router.push("/admin/auth");
+      }
+    } else {
+      // User is authenticated
+      const isAuthEntrance = pathname === "/admin/auth" || pathname === "/admin/auth/login" || pathname === "/admin/auth/register";
+      
+      if (isAuthEntrance) {
+        redirectCorrectDashboard(role);
+      } else {
+        // Guard unauthorized role access
+        const isInstructorPortal = pathname === "/admin/auth/instructors" || pathname.startsWith("/admin/auth/instructors/");
+        const isCollegeAdminPortal = pathname === "/admin/auth/college-admin" || pathname.startsWith("/admin/auth/college-admin/");
+        const isCybercafePortal = pathname === "/admin/auth/cybercafe-partner" || pathname.startsWith("/admin/auth/cybercafe-partner/");
+        const isDashboardPortal = pathname === "/admin/auth/dashboard" || pathname.startsWith("/admin/auth/dashboard/");
+
+        if (isInstructorPortal && role !== "Instructor") {
+          redirectCorrectDashboard(role);
+        } else if (isCollegeAdminPortal && role !== "College Admin") {
+          redirectCorrectDashboard(role);
+        } else if (isCybercafePortal && role !== "Cybercafe Partner") {
+          redirectCorrectDashboard(role);
+        } else if (isDashboardPortal && role !== "Admin") {
+          redirectCorrectDashboard(role);
+        }
+      }
+    }
+  }, [pathname, isAuthenticated, contextLoading, admin, isDashboard, router]);
 
   // Sync theme class with global document tag
   useEffect(() => {
@@ -34,7 +78,7 @@ export default function AdminAuthPage({ children }) {
     }
   }, [isDarkMode]);
 
-  if (isLoading) {
+  if (contextLoading) {
     return (
       <div className="min-h-screen bg-bg-main flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary"></div>

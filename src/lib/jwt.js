@@ -27,6 +27,18 @@ export function verifyToken(token) {
  */
 export function getAuthUser(request) {
   try {
+    const xUserId = request.headers.get("x-user-id");
+    const xUserEmail = request.headers.get("x-user-email");
+    const xUserRole = request.headers.get("x-user-role");
+
+    if (xUserId && xUserEmail && xUserRole) {
+      return {
+        _id: xUserId,
+        email: xUserEmail,
+        role: xUserRole,
+      };
+    }
+
     const authHeader = request.headers.get("authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return null;

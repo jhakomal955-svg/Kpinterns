@@ -15,7 +15,10 @@ export default function CoursesAdminPage() {
   const fetchCourses = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch("/api/course");
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch("/api/course", {
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await res.json();
       if (data.success) {
         setCourses(data.data);
@@ -47,7 +50,11 @@ export default function CoursesAdminPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
     try {
-      const res = await fetch(`/api/course?id=${id}`, { method: "DELETE" });
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`/api/course?id=${id}`, { 
+        method: "DELETE",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await res.json();
       if (data.success) {
         setMessage("Course deleted successfully!");

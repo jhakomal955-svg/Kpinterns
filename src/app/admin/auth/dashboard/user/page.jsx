@@ -8,13 +8,19 @@ export default function UsersAdminPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSession, setSelectedSession] = useState("");
+  const [selectedDegree, setSelectedDegree] = useState("");
+  const [selectedUniversity, setSelectedUniversity] = useState("");
+  const [selectedCollege, setSelectedCollege] = useState("");
   const [message, setMessage] = useState(null);
 
   // Fetch Users
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch("/api/user");
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+      const res = await fetch("/api/user", { headers });
       const data = await res.json();
       if (data.success) {
         setUsers(data.data);
@@ -36,8 +42,11 @@ export default function UsersAdminPage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
       const res = await fetch(`/api/user?id=${id}`, {
         method: "DELETE",
+        headers,
       });
       const data = await res.json();
       if (data.success) {
@@ -51,15 +60,38 @@ export default function UsersAdminPage() {
     }
   };
 
+  // Get unique values for filters
+  const uniqueSessions = [...new Set(users.map((u) => u.session).filter(Boolean))].sort();
+  const uniqueDegrees = [...new Set(users.map((u) => u.degree).filter(Boolean))].sort();
+  const uniqueUniversities = [...new Set(users.map((u) => u.university).filter(Boolean))].sort();
+  const uniqueColleges = [...new Set(users.map((u) => u.college).filter(Boolean))].sort();
+
+  const handleResetFilters = () => {
+    setSelectedSession("");
+    setSelectedDegree("");
+    setSelectedUniversity("");
+    setSelectedCollege("");
+    setSearchQuery("");
+  };
+
+  const hasActiveFilters = searchQuery || selectedSession || selectedDegree || selectedUniversity || selectedCollege;
+
   // Filtered Users
   const filteredUsers = users.filter((user) => {
     const term = searchQuery.toLowerCase();
-    return (
+    const matchesSearch =
+      !term ||
       user.fullName?.toLowerCase().includes(term) ||
       user.email?.toLowerCase().includes(term) ||
       user.phone?.includes(term) ||
-      user.registrationNumber?.toLowerCase().includes(term)
-    );
+      user.registrationNumber?.toLowerCase().includes(term);
+
+    const matchesSession = !selectedSession || user.session === selectedSession;
+    const matchesDegree = !selectedDegree || user.degree === selectedDegree;
+    const matchesUniversity = !selectedUniversity || user.university === selectedUniversity;
+    const matchesCollege = !selectedCollege || user.college === selectedCollege;
+
+    return matchesSearch && matchesSession && matchesDegree && matchesUniversity && matchesCollege;
   });
 
   const getAdminAttendanceStats = (i) => {
@@ -113,7 +145,7 @@ export default function UsersAdminPage() {
           </p>
         </div>
         <Link
-          href="/admin/auth/dashboard/user/new"
+          href="/admin/auth/dashboard/user/create"
           className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -138,8 +170,9 @@ export default function UsersAdminPage() {
       )}
 
       {/* Filters & Search */}
-      <div className="bg-bg-card border-2 border-border-main rounded-2xl p-4 flex flex-col md:flex-row gap-4">
-        <div className="relative flex-1">
+      <div className="bg-bg-card border-2 border-border-main rounded-2xl p-5 space-y-4">
+        {/* Search input */}
+        <div className="relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-text-muted">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -153,6 +186,79 @@ export default function UsersAdminPage() {
             className="w-full pl-10 pr-4 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main placeholder-text-muted focus:border-brand-primary outline-none transition text-sm sm:text-base"
           />
         </div>
+
+        {/* Filter selectors grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label className="block text-xs font-bold text-text-muted mb-1.5 uppercase tracking-wider">Session</label>
+            <select
+              value={selectedSession}
+              onChange={(e) => setSelectedSession(e.target.value)}
+              className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base appearance-none cursor-pointer"
+            >
+              <option value="">All Sessions</option>
+              {uniqueSessions.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-text-muted mb-1.5 uppercase tracking-wider">Degree</label>
+            <select
+              value={selectedDegree}
+              onChange={(e) => setSelectedDegree(e.target.value)}
+              className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base appearance-none cursor-pointer"
+            >
+              <option value="">All Degrees</option>
+              {uniqueDegrees.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-text-muted mb-1.5 uppercase tracking-wider">University</label>
+            <select
+              value={selectedUniversity}
+              onChange={(e) => setSelectedUniversity(e.target.value)}
+              className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base appearance-none cursor-pointer"
+            >
+              <option value="">All Universities</option>
+              {uniqueUniversities.map((u) => (
+                <option key={u} value={u}>{u}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-text-muted mb-1.5 uppercase tracking-wider">College</label>
+            <select
+              value={selectedCollege}
+              onChange={(e) => setSelectedCollege(e.target.value)}
+              className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base appearance-none cursor-pointer"
+            >
+              <option value="">All Colleges</option>
+              {uniqueColleges.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {hasActiveFilters && (
+          <div className="flex justify-end pt-1">
+            <button
+              onClick={handleResetFilters}
+              className="text-xs font-bold text-red-500 hover:text-red-600 transition duration-150 flex items-center gap-1.5 cursor-pointer"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Clear All Filters & Search
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Main Table / Grid */}

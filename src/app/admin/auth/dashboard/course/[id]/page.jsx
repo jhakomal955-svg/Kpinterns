@@ -63,7 +63,10 @@ export default function CourseEditPage() {
   const fetchCourse = async () => {
     try {
       setIsLoading(true);
-      const res = await fetch(`/api/course?id=${courseId}`);
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`/api/course?id=${courseId}`, {
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await res.json();
       if (data.success) {
         const course = data.data;
@@ -150,7 +153,10 @@ export default function CourseEditPage() {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const res = await fetch("/api/admin");
+        const token = localStorage.getItem("adminToken");
+        const res = await fetch("/api/admin", {
+          headers: token ? { "Authorization": `Bearer ${token}` } : {}
+        });
         const data = await res.json();
         if (data.success) {
           setAdminsList(data.data || []);
@@ -177,7 +183,12 @@ export default function CourseEditPage() {
       const payload = new FormData();
       payload.append("file", file);
 
-      const response = await fetch("/api/cloudinary", { method: "POST", body: payload });
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch("/api/cloudinary", { 
+        method: "POST", 
+        body: payload,
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -200,7 +211,12 @@ export default function CourseEditPage() {
       const payload = new FormData();
       payload.append("file", file);
 
-      const response = await fetch("/api/cloudinary", { method: "POST", body: payload });
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch("/api/cloudinary", { 
+        method: "POST", 
+        body: payload,
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -330,9 +346,13 @@ export default function CourseEditPage() {
       const url = isEditing ? `/api/course?id=${courseId}` : "/api/course";
       const method = isEditing ? "PUT" : "POST";
 
+      const token = localStorage.getItem("adminToken");
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(payload),
       });
 

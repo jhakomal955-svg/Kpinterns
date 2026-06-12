@@ -2,8 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function VerifyPage() {
+  const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const [verificationResults, setVerificationResults] = useState(null);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
@@ -518,69 +521,82 @@ export default function VerifyPage() {
         </section>
 
         {/* Security & Trust Badges */}
-        <section className="mb-20 bg-gradient-to-r from-brand-primary/5 to-brand-secondary/5 rounded-2xl p-12 border border-brand-primary/10">
-          <h2 className="text-3xl font-bold text-text-main mb-8 text-center">
-            Trust & Security
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-            <div className="text-center">
-              <div className="flex justify-center mb-4">
-                <svg
-                  className="w-16 h-16 text-brand-primary"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" />
-                </svg>
-              </div>
-              <h3 className="font-bold text-text-main mb-2">SSL Encrypted</h3>
-              <p className="text-sm text-text-muted">
-                Industry-standard security for all transactions
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="flex justify-center mb-4">
-                <svg
-                  className="w-16 h-16 text-brand-secondary"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2.166 4.999a11.954 11.954 0 010 10.002 8 8 0 1015.668 0c.11-.202.223-.404.332-.602a11.955 11.955 0 01-15.668-9.4"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <h3 className="font-bold text-text-main mb-2">ISO Certified</h3>
-              <p className="text-sm text-text-muted">
-                Meets international quality standards
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="flex justify-center mb-4">
-                <svg
-                  className="w-16 h-16 text-brand-success"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 3.062v6.372a3.066 3.066 0 01-2.812 3.062p-7.44 0a3.066 3.066 0 01-2.812-3.062V6.517a3.066 3.066 0 012.812-3.062zM9 11a1 1 0 11-2 0 1 1 0 012 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <h3 className="font-bold text-text-main mb-2">Verified Data</h3>
-              <p className="text-sm text-text-muted">
-                All certificates are verified and authentic
-              </p>
-            </div>
-          </div>
-        </section>
+        <div className="flex flex-col justify-start items-start sm:flex-row sm:justify-center sm:items-center gap-10 sm:gap-32 mt-10 bg-bg-main/40 border border-border-main rounded-2xl p-8">
+                  {/* ISO Badge */}
+                  <div className="flex flex-col sm:items-center">
+                    <div className="w-16 h-16 flex items-center justify-start sm:justify-center mb-3">
+                      <Image
+                        src="/iso.png"
+                        alt="ISO Certification"
+                        width={50}
+                        height={50}
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="text-sm text-text-muted sm:text-center">
+                      <span className="text-base font-bold text-text-main block mb-1">ISO 9001:2015</span>
+                      certified for quality management systems, ensuring consistent delivery of 
+                      <br /> high-quality courses and services.
+                    </p>
+                  </div>
+        
+                  <div className="flex flex-col sm:items-center">
+                    <div className="w-16 h-16 flex items-center justify-start sm:justify-center mb-3">
+                      <Image
+                        src="/msme.png"
+                        alt="MSME Certification"
+                        width={50}
+                        height={50}
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="text-sm text-text-muted sm:text-center">
+                      <span className="text-base font-bold text-text-main block mb-1">MSME Certified</span>
+                      Recognized as a Micro, Small & Medium Enterprise 
+                      <br /> by the Government of India
+                    </p>
+                  </div>
+                  
+        
+                  {/* Verification Badge */}
+                  <div className="flex flex-col sm:items-center">
+                    <div className="w-16 h-16 flex items-center justify-start sm:justify-center mb-3">
+                      <Image
+                        src="/aicte.png"
+                        alt="Regulated Entity"
+                        width={50}
+                        height={50}
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="text-sm text-text-muted sm:text-center">
+                      <span className="text-base font-bold text-text-main block mb-1">AICTE Registered</span>
+                      All technical programs follow All India Council for 
+                      <br /> Technical Education standards
+                    </p>
+                  </div>
+        
+                  {/* Secure Badge */}
+                  <div className="flex flex-col sm:items-center">
+                    <div className="w-16 h-16 flex items-center justify-start sm:justify-center  mb-3">
+                      <Image
+                        src="/ugc.jpg"
+                        alt="Secure Platform"
+                        width={50}
+                        height={50}
+                        className="object-cover rounded-full"
+                      />
+                    </div>
+                    <p className="text-sm text-text-muted sm:text-center">
+                      <span className="text-base font-bold text-text-main block mb-1">UGC Compliant</span>
+                      Non-technical courses follow University Grants
+                      <br /> Commission regulation
+                    </p>
+                  </div>
+                </div>
 
         {/* FAQ Section */}
-        <section>
+        <section className="mt-10">
           <h2 className="text-4xl font-extrabold text-text-main mb-12 text-center">
             Frequently Asked Questions
           </h2>
@@ -626,10 +642,10 @@ export default function VerifyPage() {
             industry-recognized certificates from Kp Interns.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-brand-primary font-bold px-8 py-4 rounded-xl hover:shadow-lg transition-all">
+            <button onClick={() => router.push('/courses')} className="bg-white text-brand-primary font-bold px-8 py-4 rounded-xl hover:shadow-lg transition-all">
               Explore Courses
             </button>
-            <button className="border-2 border-white text-white font-bold px-8 py-4 rounded-xl hover:bg-white/10 transition-all">
+            <button onClick={() => router.push('/internship')} className="border-2 border-white text-white font-bold px-8 py-4 rounded-xl hover:bg-white/10 transition-all">
               View Internships
             </button>
           </div>

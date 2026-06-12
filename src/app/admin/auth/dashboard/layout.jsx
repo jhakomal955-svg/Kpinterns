@@ -94,6 +94,63 @@ export default function DashboardLayout({ children }) {
       href: "/admin/auth/dashboard/admin",
     },
     {
+      label: "Instructors",
+      icon: (
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="2"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.9c2.785 0 5.372-.468 7.732-1.32a60.47 60.47 0 00-.491-6.348L12 14.778l-7.74-4.631zm0 0l-.034-.002a7.5 7.5 0 1115.548 0L12 14.778l-7.74-4.631z"
+          />
+        </svg>
+      ),
+      href: "/admin/auth/dashboard/instructor",
+    },
+    {
+      label: "College Partners",
+      icon: (
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="2"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.685 0-5.223.588-7.5 1.582V21m15 0h-16.5"
+          />
+        </svg>
+      ),
+      href: "/admin/auth/dashboard/college-admin",
+    },
+    {
+      label: "Cybercafe Partners",
+      icon: (
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="2"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M13.5 21v-7.5a.75.75 0 00-.75-.75h-1.5a.75.75 0 00-.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75zm10.5 0h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H16.5a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"
+          />
+        </svg>
+      ),
+      href: "/admin/auth/dashboard/cybercafe",
+    },
+    {
       label: "Courses",
       icon: (
         <svg
@@ -221,10 +278,15 @@ export default function DashboardLayout({ children }) {
 
         {/* Navigation Items */}
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-          {(adminData?.role === "Instructor"
-            ? navItems.filter(item => ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label))
-            : navItems
-          ).map((item, index) => {
+          {(() => {
+            if (adminData?.role === "Instructor") {
+              return navItems.filter(item => ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label));
+            }
+            if (adminData?.role === "College Admin" || adminData?.role === "Cybercafe Partner") {
+              return navItems.filter(item => ["Profile"].includes(item.label));
+            }
+            return navItems;
+          })().map((item, index) => {
             const isActive =
               pathname === item.href || pathname.startsWith(item.href + "/");
             return (
@@ -338,10 +400,15 @@ export default function DashboardLayout({ children }) {
 
         {/* Navigation Items */}
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-          {(adminData?.role === "Instructor"
-            ? navItems.filter(item => ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label))
-            : navItems
-          ).map((item, index) => {
+          {(() => {
+            if (adminData?.role === "Instructor") {
+              return navItems.filter(item => ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label));
+            }
+            if (adminData?.role === "College Admin" || adminData?.role === "Cybercafe Partner") {
+              return navItems.filter(item => ["Profile"].includes(item.label));
+            }
+            return navItems;
+          })().map((item, index) => {
             const isActive =
               pathname === item.href || pathname.startsWith(item.href + "/");
             return (
@@ -484,13 +551,43 @@ export default function DashboardLayout({ children }) {
         {/* Page Content */}
         <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
           {(() => {
-            const isInstructor = adminData?.role === "Instructor";
-            const isRestrictedPath =
+            const role = adminData?.role;
+            const isInstructor = role === "Instructor";
+            const isPartner = role === "College Admin" || role === "Cybercafe Partner";
+
+            // Paths restricted for Instructor
+            const isInstructorRestricted =
               pathname.startsWith("/admin/auth/dashboard/user") ||
               pathname.startsWith("/admin/auth/dashboard/admin") ||
-              pathname.startsWith("/admin/auth/dashboard/contact");
+              pathname.startsWith("/admin/auth/dashboard/contact") ||
+              pathname.startsWith("/admin/auth/dashboard/college-admin") ||
+              pathname.startsWith("/admin/auth/dashboard/cybercafe") ||
+              pathname.startsWith("/admin/auth/dashboard/instructor");
 
-            if (isInstructor && isRestrictedPath) {
+            // Paths restricted for College Partner & Cybercafe Partner (they can only access dashboard base and profile)
+            const isPartnerRestricted =
+              pathname !== "/admin/auth/dashboard" &&
+              pathname !== "/admin/auth/dashboard/profile";
+
+            if (isPartner && isPartnerRestricted) {
+              return (
+                <div className="flex items-center justify-center min-h-[60vh]">
+                  <div className="bg-bg-card border-2 border-border-main p-8 rounded-2xl max-w-md w-full text-center space-y-4 shadow-xl">
+                    <div className="mx-auto w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                    </div>
+                    <h2 className="text-xl font-bold text-text-main">Access Denied</h2>
+                    <p className="text-sm text-text-muted leading-relaxed">
+                      You do not have permission to access this page. Please contact the administrator.
+                    </p>
+                  </div>
+                </div>
+              );
+            }
+
+            if (isInstructor && isInstructorRestricted) {
               return (
                 <div className="flex items-center justify-center min-h-[60vh]">
                   <div className="bg-bg-card border-2 border-border-main p-8 rounded-2xl max-w-md w-full text-center space-y-4 shadow-xl">

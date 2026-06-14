@@ -95,7 +95,7 @@ const Why = () => {
       ),
       title: "Affordable Fee",
       description:
-        "Transparent pricing (₹400-₹500) with special discounts for BNMU and Purnea University students.",
+        "Transparent pricing (₹400-₹500) with special discounts for  University students.",
       color: "from-purple-500 to-indigo-600",
       lightColor: "from-purple-50 to-indigo-100/50",
     },

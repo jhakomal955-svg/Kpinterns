@@ -91,7 +91,7 @@ export default function AdminAuthPage({ children }) {
       {/* Header with Logo and Theme Toggle - Hidden on Dashboard */}
       {!isDashboard && (
         <header className="bg-bg-card border-b border-border-main sticky top-0 z-50 transition-colors duration-200 shadow-sm">
-          <div className="px-4 sm:px-8 lg:px-[96px]">
+          <div className="px-4 sm:px-8 lg:px-[60px]">
             <div className="flex items-center justify-between h-16">
               {/* Logo */}
               <Link href="/admin/auth" className="flex items-center group">
@@ -150,7 +150,7 @@ export default function AdminAuthPage({ children }) {
       {/* Footer - Hidden on Dashboard */}
       {!isDashboard && (
         <footer className="bg-bg-card border-t border-border-main mt-20 py-8 transition-colors duration-200">
-          <div className="px-4 sm:px-8 lg:px-[96px] text-center text-text-muted text-sm">
+          <div className="px-4 sm:px-8 lg:px-[60px] text-center text-text-muted text-sm">
             <p>&copy; 2026 KpInterns. All rights reserved. | Admin Portal</p>
           </div>
         </footer>

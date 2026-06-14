@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import VideoPlayer from "@/components/VideoPlayer";
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -18,6 +19,35 @@ const loadRazorpayScript = () => {
   });
 };
 
+const getYouTubeEmbedUrl = (url) => {
+  if (!url) return null;
+  let videoId = null;
+  try {
+    const urlObj = new URL(url);
+    if (urlObj.hostname.includes("youtube.com") || urlObj.hostname.includes("youtu.be")) {
+      if (urlObj.hostname.includes("youtu.be")) {
+        videoId = urlObj.pathname.substring(1);
+      } else if (urlObj.pathname.includes("/embed/")) {
+        videoId = urlObj.pathname.split("/embed/")[1]?.split(/[?#]/)[0];
+      } else if (urlObj.pathname.includes("/shorts/")) {
+        videoId = urlObj.pathname.split("/shorts/")[1]?.split(/[?#]/)[0];
+      } else {
+        videoId = urlObj.searchParams.get("v");
+      }
+    }
+  } catch (e) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    if (match && match[2].length === 11) {
+      videoId = match[2];
+    }
+  }
+  if (videoId) {
+    return `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3&fs=1`;
+  }
+  return null;
+};
+
 export default function CourseDetailLearnPage() {
   const params = useParams();
   const router = useRouter();
@@ -30,6 +60,7 @@ export default function CourseDetailLearnPage() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isUpdatingProgress, setIsUpdatingProgress] = useState(false);
+  const [showAllUpdates, setShowAllUpdates] = useState(false);
 
   const userCourseData = userData?.ActiveCources?.find(
     (c) => (c.course?._id || c.course) === courseId
@@ -44,7 +75,7 @@ export default function CourseDetailLearnPage() {
       const token = localStorage.getItem("userToken");
       const res = await fetch("/api/user/progress", {
         method: "PUT",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
@@ -76,13 +107,13 @@ export default function CourseDetailLearnPage() {
     // Check if user is logged in and enrolled
     const token = localStorage.getItem("userToken");
     const userJson = localStorage.getItem("userData");
-    
+
     if (userJson) {
       try {
         const parsedUser = JSON.parse(userJson);
         setTimeout(() => {
           setUserData(parsedUser);
-          
+
           // Check if this course id is in their ActiveCources
           const enrolled = (parsedUser.ActiveCources || []).some(
             c => (c.course?._id || c.course) === courseId
@@ -165,7 +196,7 @@ export default function CourseDetailLearnPage() {
         const token = localStorage.getItem("userToken");
         const res = await fetch(`/api/user?id=${userData._id}`, {
           method: "PUT",
-          headers: { 
+          headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
           },
@@ -217,7 +248,7 @@ export default function CourseDetailLearnPage() {
               const token = localStorage.getItem("userToken");
               const verifyRes = await fetch("/api/payment/verify", {
                 method: "POST",
-                headers: { 
+                headers: {
                   "Content-Type": "application/json",
                   "Authorization": `Bearer ${token}`
                 },
@@ -316,7 +347,7 @@ export default function CourseDetailLearnPage() {
             </div>
             <h1 className="text-xl sm:text-2xl font-bold font-poppins">{course.title}</h1>
           </div>
-          
+
           <div>
             {!isEnrolled ? (
               <button
@@ -340,7 +371,7 @@ export default function CourseDetailLearnPage() {
         /* Preview Layout */
         <div className="max-w-4xl mx-auto py-12 px-4 flex-1 w-full">
           <div className="bg-bg-card border-2 border-border-main rounded-2xl p-8 shadow-md space-y-8">
-            
+
             {/* Course Overview */}
             <div>
               <h2 className="text-2xl font-bold mb-4 font-poppins">Course Overview</h2>
@@ -425,11 +456,10 @@ export default function CourseDetailLearnPage() {
               </div>
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <span className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border ${
-                userCourseData?.courseStatus === "Completed"
-                  ? "bg-brand-success/15 border-brand-success/30 text-brand-success"
-                  : "bg-brand-primary/15 border-brand-primary/30 text-brand-primary"
-              }`}>
+              <span className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border ${userCourseData?.courseStatus === "Completed"
+                ? "bg-brand-success/15 border-brand-success/30 text-brand-success"
+                : "bg-brand-primary/15 border-brand-primary/30 text-brand-primary"
+                }`}>
                 {userCourseData?.courseStatus === "Completed" ? "🏆 Completed" : "⚡ In Progress"}
               </span>
             </div>
@@ -442,26 +472,61 @@ export default function CourseDetailLearnPage() {
                 <h3 className="font-bold text-sm uppercase tracking-wider text-text-muted mb-4 px-2">
                   Lessons Map
                 </h3>
+
+                {/* Course Updates */}
+                {course.updates && course.updates.length > 0 && (
+                  <div className="mb-4 p-3 bg-brand-primary/5 border border-brand-primary/20 rounded-xl space-y-2">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-brand-primary flex items-center gap-1 px-1">
+                      📢 Updates
+                    </h4>
+                    <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                      {(course.updates || []).slice(-2).reverse().map((update, idx) => (
+                        <div key={idx} className="text-xs leading-relaxed border-b border-border-main/40 pb-1.5 last:border-b-0 last:pb-0">
+                          {update.externalLink ? (
+                            <a
+                              href={update.externalLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-text-main hover:text-brand-primary font-medium hover:underline block"
+                            >
+                              {update.title} 🔗
+                            </a>
+                          ) : (
+                            <span className="text-text-muted block">{update.title}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => setShowAllUpdates(true)}
+                      className="text-xs font-bold text-brand-primary hover:underline mt-2 block w-full text-left cursor-pointer"
+                    >
+                      All Updates →
+                    </button>
+                  </div>
+                )}
+
                 <div className="space-y-2">
                   {(course.content || []).map((mod, idx) => {
                     const isCompleted = userCourseData?.completedModules?.includes(mod._id);
                     return (
                       <button
                         key={idx}
-                        onClick={() => setSelectedModuleIndex(idx)}
-                        className={`w-full text-left p-3 rounded-xl border text-sm font-semibold transition-all flex items-start gap-3 ${
-                          selectedModuleIndex === idx
-                            ? "bg-brand-primary/10 border-brand-primary text-brand-primary shadow-sm"
-                            : "bg-bg-card border-border-main hover:bg-bg-main text-text-muted hover:text-text-main"
-                        }`}
+                        onClick={() => {
+                          setSelectedModuleIndex(idx);
+                          setShowAllUpdates(false);
+                        }}
+                        className={`w-full text-left p-3 rounded-xl border text-sm font-semibold transition-all flex items-start gap-3 ${selectedModuleIndex === idx
+                          ? "bg-brand-primary/10 border-brand-primary text-brand-primary shadow-sm"
+                          : "bg-bg-card border-border-main hover:bg-bg-main text-text-muted hover:text-text-main"
+                          }`}
                       >
-                        <span className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${
-                          isCompleted
-                            ? "bg-brand-success text-white"
-                            : selectedModuleIndex === idx
-                              ? "bg-brand-primary text-white"
-                              : "bg-bg-main"
-                        }`}>
+                        <span className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${isCompleted
+                          ? "bg-brand-success text-white"
+                          : selectedModuleIndex === idx
+                            ? "bg-brand-primary text-white"
+                            : "bg-bg-main"
+                          }`}>
                           {isCompleted ? "✓" : idx + 1}
                         </span>
                         <span className="line-clamp-2 mt-0.5">{mod.title}</span>
@@ -474,8 +539,53 @@ export default function CourseDetailLearnPage() {
 
             {/* Module Content Pane */}
             <div className="flex-1 bg-bg-card border-2 border-border-main rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col min-w-0">
-              {currentModule ? (
+              {showAllUpdates ? (
                 <div className="space-y-6">
+                  <div className="flex items-center justify-between pb-4 border-b border-border-main">
+                    <div>
+                      <span className="text-xs font-bold text-brand-primary uppercase tracking-widest block mb-1">
+                        Announcements
+                      </span>
+                      <h2 className="text-2xl font-bold font-poppins">All Course Updates</h2>
+                    </div>
+                    <button
+                      onClick={() => setShowAllUpdates(false)}
+                      className="px-4 py-2 bg-bg-main hover:bg-border-main text-text-muted hover:text-text-main rounded-xl border border-border-main text-xs font-bold transition cursor-pointer"
+                    >
+                      Back to Lesson
+                    </button>
+                  </div>
+
+                  <div className="space-y-4">
+                    {(course.updates || []).slice().reverse().map((update, idx) => (
+                      <div key={idx} className="p-5 bg-bg-main border border-border-main rounded-2xl space-y-2 animate-fade-in">
+                        <span className="text-xs font-semibold text-text-muted">
+                          Update #{course.updates.length - idx}
+                        </span>
+                        <h3 className="font-bold text-base text-text-main">{update.title}</h3>
+                        {update.externalLink && (
+                          <a
+                            href={update.externalLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-primary bg-brand-primary/10 hover:bg-brand-primary/20 px-3 py-1.5 rounded-lg border border-brand-primary/20 transition mt-2"
+                          >
+                            🔗 Attachment Link
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                    {(!course.updates || course.updates.length === 0) && (
+                      <div className="text-center py-12 text-text-muted">
+                        <span className="text-3xl block mb-2">📢</span>
+                        <p>No updates published yet.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : currentModule ? (
+                <div className="space-y-6">
+
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border-main">
                     <div>
                       <span className="text-xs font-bold text-brand-primary uppercase tracking-widest block mb-1">
@@ -487,11 +597,10 @@ export default function CourseDetailLearnPage() {
                       <button
                         onClick={() => handleToggleModuleComplete(currentModule._id)}
                         disabled={isUpdatingProgress}
-                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition duration-200 border cursor-pointer ${
-                          userCourseData?.completedModules?.includes(currentModule._id)
-                            ? "bg-brand-success/10 border-brand-success/30 text-brand-success hover:bg-brand-success/20"
-                            : "bg-brand-primary text-white border-brand-primary hover:bg-brand-primary/90"
-                        }`}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition duration-200 border cursor-pointer ${userCourseData?.completedModules?.includes(currentModule._id)
+                          ? "bg-brand-success/10 border-brand-success/30 text-brand-success hover:bg-brand-success/20"
+                          : "bg-brand-primary text-white border-brand-primary hover:bg-brand-primary/90"
+                          }`}
                       >
                         {userCourseData?.completedModules?.includes(currentModule._id)
                           ? "✓ Completed"
@@ -501,16 +610,8 @@ export default function CourseDetailLearnPage() {
                   </div>
 
                   {/* Video Player */}
-                  {currentModule.VideoUrl && (
-                    <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-border-main bg-black">
-                      <iframe
-                        src={currentModule.VideoUrl}
-                        title={currentModule.title}
-                        className="absolute inset-0 w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
+                  {(currentModule.VideoUrl || (currentModule.externalink && getYouTubeEmbedUrl(currentModule.externalink))) && (
+                    <VideoPlayer videoUrl={currentModule.VideoUrl || currentModule.externalink} />
                   )}
 
                   {/* Text Content */}
@@ -522,7 +623,7 @@ export default function CourseDetailLearnPage() {
                   </div>
 
                   {/* Resources */}
-                  {(currentModule.pdfurl || currentModule.externalink) && (
+                  {(currentModule.pdfurl || (currentModule.externalink && !getYouTubeEmbedUrl(currentModule.externalink))) && (
                     <div className="pt-6 border-t border-border-main space-y-3">
                       <h4 className="text-sm font-bold uppercase tracking-wider text-text-muted">
                         Study Materials & Resource Links
@@ -538,7 +639,7 @@ export default function CourseDetailLearnPage() {
                             📄 Download Notes / PDF
                           </a>
                         )}
-                        {currentModule.externalink && (
+                        {currentModule.externalink && !getYouTubeEmbedUrl(currentModule.externalink) && (
                           <a
                             href={currentModule.externalink}
                             target="_blank"

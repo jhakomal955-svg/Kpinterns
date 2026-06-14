@@ -44,7 +44,7 @@ const How = () => {
   ];
 
   return (
-    <section className="relative px-4 sm:px-8 lg:px-[96px] py-8 bg-bg-main overflow-hidden">
+    <section className="relative px-4 sm:px-8 lg:px-[60px] py-8 bg-bg-main overflow-hidden">
       {/* Background gradient elements */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-br from-brand-primary/10 to-transparent rounded-full blur-3xl -z-10"></div>
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-brand-secondary/10 to-transparent rounded-full blur-3xl -z-10"></div>

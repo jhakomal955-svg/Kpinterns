@@ -17,6 +17,7 @@ import { verifyAuth, getAuthUser } from "@/lib/jwt";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
 import { generatePaymentReceipt } from "@/lib/pdfGenerator";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
+import { syncUserProgressAndStatus } from "@/lib/progressSync";
 
 function calculateEndDate(startDate, durationStr) {
   const date = new Date(startDate);
@@ -110,6 +111,14 @@ export async function GET(request) {
     }
 
     if (userId) {
+      const user = await User.findById(userId);
+      if (!user) {
+        return Response.json({ error: "User not found" }, { status: 404 });
+      }
+
+      // Sync progress & status before checking/generating documents
+      await syncUserProgressAndStatus(user);
+
       // Trigger automated document checks (heals any missed offer letters or certificates on profile view)
       try {
         await checkAndAutomateDocuments(userId);
@@ -117,30 +126,30 @@ export async function GET(request) {
         console.error("❌ Failed to run automated document checks on GET user profile:", docError);
       }
 
-      // Get single user by ID with populated courses & internships
-      const user = await User.findById(userId)
+      // Refetch the latest user from the DB (with populated fields) to ensure we have any newly generated documents
+      const freshUser = await User.findById(userId)
         .populate("ActiveCources.course")
         .populate("ActiveInternship.internship")
         .populate("ActiveInternship.attendance");
 
-      if (!user) {
+      if (!freshUser) {
         return Response.json({ error: "User not found" }, { status: 404 });
       }
 
       // If College Admin, verify the student belongs to their college
       if (collegeNameFilter) {
-        const isSameCollege = user.college?.toLowerCase().trim() === collegeNameFilter.toLowerCase();
+        const isSameCollege = freshUser.college?.toLowerCase().trim() === collegeNameFilter.toLowerCase();
         if (!isSameCollege) {
           return Response.json({ error: "Access denied: student does not belong to your college." }, { status: 403 });
         }
       }
 
-      // Lazy link any missing Attendance docs
+      // Lazy link any missing Attendance docs on the freshUser
       let hasAttendanceChanges = false;
-      for (const item of user.ActiveInternship || []) {
+      for (const item of freshUser.ActiveInternship || []) {
         if (!item.attendance && item.internship) {
           const newAtt = new Attendance({
-            user: user._id,
+            user: freshUser._id,
             internship: item.internship._id || item.internship,
             records: []
           });
@@ -150,11 +159,11 @@ export async function GET(request) {
         }
       }
       if (hasAttendanceChanges) {
-        user.markModified("ActiveInternship");
-        await user.save();
+        freshUser.markModified("ActiveInternship");
+        await freshUser.save();
       }
 
-      const userObj = user.toObject();
+      const userObj = freshUser.toObject();
       userObj.internshipDomain = userObj.ActiveInternship?.[0]?.internship?.domain || userObj.ActiveInternship?.[0]?.internship?.category || "";
       userObj.mode = userObj.ActiveInternship?.[0]?.internship?.mode || "";
 
@@ -596,17 +605,18 @@ export async function PUT(request) {
 
     console.log("✅ User updated successfully:", userId);
 
+    // Sync progress & status based on any admin updates
+    await syncUserProgressAndStatus(updatedUser);
+
     // Run automated document checks (e.g. checking completion status or new enrollments updated by admin)
     let finalUser = updatedUser;
     try {
-      const documentsGenerated = await checkAndAutomateDocuments(userId);
-      if (documentsGenerated) {
-        // Refetch to return populated URLs
-        finalUser = await User.findById(userId)
-          .populate("ActiveCources.course")
-          .populate("ActiveInternship.internship")
-          .populate("ActiveInternship.attendance");
-      }
+      await checkAndAutomateDocuments(userId);
+      // Refetch to return populated URLs and updated progress/status
+      finalUser = await User.findById(userId)
+        .populate("ActiveCources.course")
+        .populate("ActiveInternship.internship")
+        .populate("ActiveInternship.attendance");
     } catch (docError) {
       console.error("❌ Failed to run automated document checks on update:", docError);
     }

@@ -57,7 +57,7 @@ export default function AdminPortalPage() {
   ];
 
   return (
-    <main className="px-4 sm:px-8 lg:px-[96px] py-12 sm:py-16">
+    <main className="px-4 sm:px-8 lg:px-[60px] py-12 sm:py-16">
       {/* Hero Header */}
       <div className="text-center mb-12 animate-fade-in">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-text-main mb-4 tracking-tight">

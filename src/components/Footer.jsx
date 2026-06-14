@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     // Main footer container changing seamlessly with your theme variables
     <footer
-      className="px-4 sm:px-8 lg:px-[96px] py-8 text-text-main relative bg-bg-card border-t border-border-main"
+      className="px-4 sm:px-8 lg:px-[60px] py-8 text-text-main relative bg-bg-card border-t border-border-main"
       id="newsletter"
     >
       {/* Content wrapper with relative positioning */}

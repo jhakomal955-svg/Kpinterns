@@ -79,7 +79,8 @@ export async function PUT(request) {
       }
 
       courseItem.progress = progress;
-      if (progress === 100) {
+      const hasDatePassed = courseItem.endDate ? new Date() >= new Date(courseItem.endDate) : false;
+      if (progress === 100 && (courseItem.courseStatus === "Completed" || hasDatePassed)) {
         courseItem.courseStatus = "Completed";
       } else {
         courseItem.courseStatus = "Active";
@@ -126,7 +127,8 @@ export async function PUT(request) {
       }
 
       internshipItem.progress = progress;
-      if (progress === 100) {
+      const hasDatePassed = internshipItem.endDate ? new Date() >= new Date(internshipItem.endDate) : false;
+      if (progress === 100 && (internshipItem.internshipStatus === "Completed" || hasDatePassed)) {
         internshipItem.internshipStatus = "Completed";
       } else {
         internshipItem.internshipStatus = "Active";

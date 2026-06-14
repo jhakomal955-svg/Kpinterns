@@ -39,7 +39,7 @@ export default function PrivacyPolicyPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-bg-main py-12 px-4 sm:px-8 lg:px-[96px] transition-colors duration-200">
+    <div className="min-h-screen bg-bg-main py-12 px-4 sm:px-8 lg:px-[60px] transition-colors duration-200">
       <div className="max-w-4xl mx-auto">
         
         {/* Header Block */}

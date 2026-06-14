@@ -101,7 +101,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-bg-main py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-bg-main px-4 sm:px-8 lg:px-[60px] py-8">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <ScrollReveal className="text-center mb-16" direction="fade">

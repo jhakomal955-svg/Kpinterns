@@ -148,7 +148,7 @@ const Why = () => {
   ];
 
   return (
-    <section className="relative px-4 sm:px-8 lg:px-[96px] py-8  bg-bg-main overflow-hidden">
+    <section className="relative px-4 sm:px-8 lg:px-[60px] py-8  bg-bg-main overflow-hidden">
       {/* Animated background gradient elements */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-gradient-to-br from-brand-primary/15 to-transparent rounded-full blur-3xl -z-10 animate-pulse"></div>
       <div

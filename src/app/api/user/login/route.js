@@ -9,6 +9,7 @@ import { UserModel, CourseModel, InternshipModel } from "@/models";
 import { signToken } from "@/lib/jwt";
 import { verifyTurnstileToken } from "@/lib/turnstile";
 import bcrypt from "bcryptjs";
+import { syncUserProgressAndStatus } from "@/lib/progressSync";
 
 export async function POST(request) {
   try {
@@ -64,6 +65,9 @@ export async function POST(request) {
         { status: 404 },
       );
     }
+
+    // Sync progress & status before returning data
+    await syncUserProgressAndStatus(user);
 
     // Determine if the password stored in DB is a bcrypt hash
     const isHashed = user.password && (user.password.startsWith("$2a$") || user.password.startsWith("$2b$") || user.password.startsWith("$2y$"));

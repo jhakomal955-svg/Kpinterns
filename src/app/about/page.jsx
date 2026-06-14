@@ -68,7 +68,7 @@ export default function AboutPage() {
   
 
       {/* Main Content */}
-      <div className=" mx-auto px-4 sm:px-8 lg:px-[96px]">
+      <div className=" mx-auto px-4 sm:px-8 lg:px-[60px]">
         {/* About Section */}
         <section className="py-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

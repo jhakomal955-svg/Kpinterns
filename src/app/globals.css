@@ -113,3 +113,64 @@ html, body {
     animation: word-fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 }
+
+/* Custom variables for Plyr to match KpInterns branding */
+:root {
+  --plyr-color-main: #4f46e5;
+  --plyr-color-main-hover: #06b6d4;
+  --plyr-video-control-color-hover: #ffffff;
+}
+
+/* Ensure player wrapper fits correctly */
+.plyr-custom-theme .plyr {
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+/* Custom Fullscreen Mode styling for VideoPlayer with Live Chat */
+.plyr-fullscreen-wrapper:fullscreen {
+  background-color: #0c111d !important;
+  padding: 16px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+/* Stack vertical layouts on mobile/tablet screens in fullscreen */
+@media (max-width: 1023px) {
+  .plyr-fullscreen-wrapper:fullscreen {
+    flex-direction: column !important;
+    padding: 8px !important;
+  }
+}
+
+/* Force elements inside wrapper to expand to full height/width */
+.plyr-fullscreen-wrapper:fullscreen .plyr-video-box {
+  flex: 1 !important;
+  height: 100% !important;
+  max-height: 100% !important;
+}
+
+.plyr-fullscreen-wrapper:fullscreen .plyr-custom-theme,
+.plyr-fullscreen-wrapper:fullscreen .plyr-custom-theme .plyr {
+  height: 100% !important;
+  max-height: 100% !important;
+  border-radius: 0 !important;
+}
+
+.plyr-fullscreen-wrapper:fullscreen .plyr-chat-panel {
+  height: 100% !important;
+  max-height: 100% !important;
+  border-radius: 8px !important;
+  border: 1px solid #1e293b !important;
+}
+
+.plyr-fullscreen-wrapper:fullscreen .toggle-chat-btn {
+  display: none !important; /* Hide toggle button in fullscreen to maximize player real estate */
+}
+

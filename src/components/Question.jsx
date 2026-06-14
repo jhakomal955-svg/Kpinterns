@@ -41,7 +41,7 @@ const Question = () => {
   };
 
   return (
-    <div className="px-4 sm:px-8 lg:px-[96px] py-4 bg-bg-main">
+    <div className="px-4 sm:px-8 lg:px-[60px] py-4 bg-bg-main">
       <div className="flex flex-col lg:flex-row lg:gap-x-20">
         <div className="flex flex-col p-3">
           <p className="text-brand-primary text-2xl mb-4 lg:mb-20 font-bold uppercase tracking-widest">

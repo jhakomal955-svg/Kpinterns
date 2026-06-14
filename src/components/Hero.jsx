@@ -75,7 +75,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-bg-main  flex items-center justify-center px-4 sm:px-8 lg:px-[96px] py-8 ">
+    <section className="relative overflow-hidden bg-bg-main  flex items-center justify-center px-4 sm:px-8 lg:px-[60px] py-8 ">
       {/* Animated gradient background using theme colors - Enhanced */}
       <div className="absolute top-0 left-0 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] lg:w-[600px] lg:h-[600px] bg-gradient-to-br from-brand-primary/20 to-brand-secondary/15 rounded-full -translate-x-1/3 -translate-y-1/3 blur-3xl animate-pulse"></div>
       <div
@@ -243,8 +243,8 @@ const Hero = () => {
               ></div>
             </div>
 
-            {/* Floating testimonial card - Enhanced */}
-            <div className="absolute bottom-3 sm:bottom-6 lg:bottom-8 -left-4 sm:-left-8 lg:-left-16 bg-bg-card/95 dark:bg-bg-card backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-6 max-w-xs sm:max-w-sm z-30 hover:shadow-3xl hover:-translate-y-3 transition-all duration-300 border border-brand-primary/20 hover:border-brand-primary/40 hidden sm:block group/card">
+            {/* Floating testimonial card - Enhanced
+            <div className="absolute bottom-3 sm:bottom-6 lg:bottom-8 -left-4 sm:right-8 lg:right-0 bg-bg-card/95 dark:bg-bg-card backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-6 max-w-xs sm:max-w-sm z-30 hover:shadow-3xl hover:-translate-y-3 transition-all duration-300 border border-brand-primary/20 hover:border-brand-primary/40 hidden lg:block group/card">
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex-shrink-0">
                   <div className="w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-lg group-hover/card:scale-110 transition-transform">
@@ -278,8 +278,8 @@ const Hero = () => {
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
 
             {/* Decorative elements - Enhanced */}
             <div className="absolute top-10 -right-16 sm:-right-24 w-32 sm:w-48 h-32 sm:h-48 bg-gradient-to-br from-brand-secondary/30 to-transparent rounded-full blur-3xl animate-pulse"></div>

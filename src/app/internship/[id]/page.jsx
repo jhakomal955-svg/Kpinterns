@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import VideoPlayer from "@/components/VideoPlayer";
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -18,6 +19,35 @@ const loadRazorpayScript = () => {
   });
 };
 
+const getYouTubeEmbedUrl = (url) => {
+  if (!url) return null;
+  let videoId = null;
+  try {
+    const urlObj = new URL(url);
+    if (urlObj.hostname.includes("youtube.com") || urlObj.hostname.includes("youtu.be")) {
+      if (urlObj.hostname.includes("youtu.be")) {
+        videoId = urlObj.pathname.substring(1);
+      } else if (urlObj.pathname.includes("/embed/")) {
+        videoId = urlObj.pathname.split("/embed/")[1]?.split(/[?#]/)[0];
+      } else if (urlObj.pathname.includes("/shorts/")) {
+        videoId = urlObj.pathname.split("/shorts/")[1]?.split(/[?#]/)[0];
+      } else {
+        videoId = urlObj.searchParams.get("v");
+      }
+    }
+  } catch (e) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    if (match && match[2].length === 11) {
+      videoId = match[2];
+    }
+  }
+  if (videoId) {
+    return `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3&fs=1`;
+  }
+  return null;
+};
+
 export default function InternshipDetailLearnPage() {
   const params = useParams();
   const router = useRouter();
@@ -30,6 +60,7 @@ export default function InternshipDetailLearnPage() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isUpdatingProgress, setIsUpdatingProgress] = useState(false);
+  const [showAllUpdates, setShowAllUpdates] = useState(false);
 
   const userInternshipData = userData?.ActiveInternship?.find(
     (i) => (i.internship?._id || i.internship) === internshipId
@@ -44,7 +75,7 @@ export default function InternshipDetailLearnPage() {
       const token = localStorage.getItem("userToken");
       const res = await fetch("/api/user/progress", {
         method: "PUT",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
@@ -76,13 +107,13 @@ export default function InternshipDetailLearnPage() {
     // Check if user is logged in and enrolled
     const token = localStorage.getItem("userToken");
     const userJson = localStorage.getItem("userData");
-    
+
     if (userJson) {
       try {
         const parsedUser = JSON.parse(userJson);
         setTimeout(() => {
           setUserData(parsedUser);
-          
+
           // Check if this internship id is in their ActiveInternship
           const enrolled = (parsedUser.ActiveInternship || []).some(
             i => (i.internship?._id || i.internship) === internshipId
@@ -165,7 +196,7 @@ export default function InternshipDetailLearnPage() {
         const token = localStorage.getItem("userToken");
         const res = await fetch(`/api/user?id=${userData._id}`, {
           method: "PUT",
-          headers: { 
+          headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
           },
@@ -217,7 +248,7 @@ export default function InternshipDetailLearnPage() {
               const token = localStorage.getItem("userToken");
               const verifyRes = await fetch("/api/payment/verify", {
                 method: "POST",
-                headers: { 
+                headers: {
                   "Content-Type": "application/json",
                   "Authorization": `Bearer ${token}`
                 },
@@ -322,7 +353,7 @@ export default function InternshipDetailLearnPage() {
               🏢 {internship.company || "KpInterns"} | 📍 {internship.mode} Mode
             </span>
           </div>
-          
+
           <div>
             {!isEnrolled ? (
               <button
@@ -346,7 +377,7 @@ export default function InternshipDetailLearnPage() {
         /* Preview Layout */
         <div className="max-w-4xl mx-auto py-12 px-4 flex-1 space-y-6 w-full">
           <div className="bg-bg-card border-2 border-border-main rounded-2xl p-8 shadow-md space-y-8">
-            
+
             {/* Role Description */}
             <div>
               <h2 className="text-2xl font-bold mb-4 font-poppins">Role Description</h2>
@@ -455,11 +486,10 @@ export default function InternshipDetailLearnPage() {
               </div>
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <span className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border ${
-                userInternshipData?.internshipStatus === "Completed"
-                  ? "bg-brand-success/15 border-brand-success/30 text-brand-success"
-                  : "bg-brand-secondary/15 border-brand-secondary/30 text-brand-secondary"
-              }`}>
+              <span className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border ${userInternshipData?.internshipStatus === "Completed"
+                ? "bg-brand-success/15 border-brand-success/30 text-brand-success"
+                : "bg-brand-secondary/15 border-brand-secondary/30 text-brand-secondary"
+                }`}>
                 {userInternshipData?.internshipStatus === "Completed" ? "🏆 Completed" : "⚡ In Progress"}
               </span>
             </div>
@@ -472,26 +502,61 @@ export default function InternshipDetailLearnPage() {
                 <h3 className="font-bold text-sm uppercase tracking-wider text-text-muted mb-4 px-2">
                   Project Milestones
                 </h3>
+
+                {/* Internship Updates */}
+                {internship.updates && internship.updates.length > 0 && (
+                  <div className="mb-4 p-3 bg-brand-secondary/5 border border-brand-secondary/20 rounded-xl space-y-2">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-brand-secondary flex items-center gap-1 px-1">
+                      📢 Updates
+                    </h4>
+                    <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                      {(internship.updates || []).slice(-2).reverse().map((update, idx) => (
+                        <div key={idx} className="text-xs leading-relaxed border-b border-border-main/40 pb-1.5 last:border-b-0 last:pb-0">
+                          {update.externalLink ? (
+                            <a
+                              href={update.externalLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-text-main hover:text-brand-secondary font-medium hover:underline block"
+                            >
+                              {update.title} 🔗
+                            </a>
+                          ) : (
+                            <span className="text-text-muted block">{update.title}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => setShowAllUpdates(true)}
+                      className="text-xs font-bold text-brand-secondary hover:underline mt-2 block w-full text-left cursor-pointer"
+                    >
+                      All Updates →
+                    </button>
+                  </div>
+                )}
+
                 <div className="space-y-2">
                   {(internship.content || []).map((mod, idx) => {
                     const isCompleted = userInternshipData?.completedModules?.includes(mod._id);
                     return (
                       <button
                         key={idx}
-                        onClick={() => setSelectedMilestoneIndex(idx)}
-                        className={`w-full text-left p-3 rounded-xl border text-sm font-semibold transition-all flex items-start gap-3 ${
-                          selectedMilestoneIndex === idx
-                            ? "bg-brand-secondary/10 border-brand-secondary text-brand-secondary shadow-sm"
-                            : "bg-bg-card border-border-main hover:bg-bg-main text-text-muted hover:text-text-main"
-                        }`}
+                        onClick={() => {
+                          setSelectedMilestoneIndex(idx);
+                          setShowAllUpdates(false);
+                        }}
+                        className={`w-full text-left p-3 rounded-xl border text-sm font-semibold transition-all flex items-start gap-3 ${selectedMilestoneIndex === idx
+                          ? "bg-brand-secondary/10 border-brand-secondary text-brand-secondary shadow-sm"
+                          : "bg-bg-card border-border-main hover:bg-bg-main text-text-muted hover:text-text-main"
+                          }`}
                       >
-                        <span className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${
-                          isCompleted
-                            ? "bg-brand-success text-white"
-                            : selectedMilestoneIndex === idx
-                              ? "bg-brand-secondary text-white"
-                              : "bg-bg-main"
-                        }`}>
+                        <span className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${isCompleted
+                          ? "bg-brand-success text-white"
+                          : selectedMilestoneIndex === idx
+                            ? "bg-brand-secondary text-white"
+                            : "bg-bg-main"
+                          }`}>
                           {isCompleted ? "✓" : idx + 1}
                         </span>
                         <span className="line-clamp-2 mt-0.5">{mod.title}</span>
@@ -504,8 +569,53 @@ export default function InternshipDetailLearnPage() {
 
             {/* Milestone Content Pane */}
             <div className="flex-1 bg-bg-card border-2 border-border-main rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col min-w-0">
-              {currentMilestone ? (
+              {showAllUpdates ? (
                 <div className="space-y-6">
+                  <div className="flex items-center justify-between pb-4 border-b border-border-main">
+                    <div>
+                      <span className="text-xs font-bold text-brand-secondary uppercase tracking-widest block mb-1">
+                        Announcements
+                      </span>
+                      <h2 className="text-2xl font-bold font-poppins">All Internship Updates</h2>
+                    </div>
+                    <button
+                      onClick={() => setShowAllUpdates(false)}
+                      className="px-4 py-2 bg-bg-main hover:bg-border-main text-text-muted hover:text-text-main rounded-xl border border-border-main text-xs font-bold transition cursor-pointer"
+                    >
+                      Back to Milestone
+                    </button>
+                  </div>
+
+                  <div className="space-y-4">
+                    {(internship.updates || []).slice().reverse().map((update, idx) => (
+                      <div key={idx} className="p-5 bg-bg-main border border-border-main rounded-2xl space-y-2 animate-fade-in">
+                        <span className="text-xs font-semibold text-text-muted">
+                          Update #{internship.updates.length - idx}
+                        </span>
+                        <h3 className="font-bold text-base text-text-main">{update.title}</h3>
+                        {update.externalLink && (
+                          <a
+                            href={update.externalLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-secondary bg-brand-secondary/10 hover:bg-brand-secondary/20 px-3 py-1.5 rounded-lg border border-brand-secondary/20 transition mt-2"
+                          >
+                            🔗 Attachment Link
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                    {(!internship.updates || internship.updates.length === 0) && (
+                      <div className="text-center py-12 text-text-muted">
+                        <span className="text-3xl block mb-2">📢</span>
+                        <p>No updates published yet.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : currentMilestone ? (
+                <div className="space-y-6">
+
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border-main">
                     <div>
                       <span className="text-xs font-bold text-brand-secondary uppercase tracking-widest block mb-1">
@@ -517,11 +627,10 @@ export default function InternshipDetailLearnPage() {
                       <button
                         onClick={() => handleToggleMilestoneComplete(currentMilestone._id)}
                         disabled={isUpdatingProgress}
-                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition duration-200 border cursor-pointer ${
-                          userInternshipData?.completedModules?.includes(currentMilestone._id)
-                            ? "bg-brand-success/10 border-brand-success/30 text-brand-success hover:bg-brand-success/20"
-                            : "bg-brand-secondary text-white border-brand-secondary hover:bg-brand-secondary/90"
-                        }`}
+                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition duration-200 border cursor-pointer ${userInternshipData?.completedModules?.includes(currentMilestone._id)
+                          ? "bg-brand-success/10 border-brand-success/30 text-brand-success hover:bg-brand-success/20"
+                          : "bg-brand-secondary text-white border-brand-secondary hover:bg-brand-secondary/90"
+                          }`}
                       >
                         {userInternshipData?.completedModules?.includes(currentMilestone._id)
                           ? "✓ Completed"
@@ -531,16 +640,8 @@ export default function InternshipDetailLearnPage() {
                   </div>
 
                   {/* Video Briefing */}
-                  {currentMilestone.VideoUrl && (
-                    <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-border-main bg-black">
-                      <iframe
-                        src={currentMilestone.VideoUrl}
-                        title={currentMilestone.title}
-                        className="absolute inset-0 w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
+                  {(currentMilestone.VideoUrl || (currentMilestone.externalink && getYouTubeEmbedUrl(currentMilestone.externalink))) && (
+                    <VideoPlayer videoUrl={currentMilestone.VideoUrl || currentMilestone.externalink} />
                   )}
 
                   {/* Text Guidelines */}
@@ -552,7 +653,7 @@ export default function InternshipDetailLearnPage() {
                   </div>
 
                   {/* Resources */}
-                  {(currentMilestone.pdfurl || currentMilestone.externalink) && (
+                  {(currentMilestone.pdfurl || (currentMilestone.externalink && !getYouTubeEmbedUrl(currentMilestone.externalink))) && (
                     <div className="pt-6 border-t border-border-main space-y-3">
                       <h4 className="text-sm font-bold uppercase tracking-wider text-text-muted">
                         Milestone Study Files & Resource Links
@@ -568,7 +669,7 @@ export default function InternshipDetailLearnPage() {
                             📄 Project Brief / Notes
                           </a>
                         )}
-                        {currentMilestone.externalink && (
+                        {currentMilestone.externalink && !getYouTubeEmbedUrl(currentMilestone.externalink) && (
                           <a
                             href={currentMilestone.externalink}
                             target="_blank"

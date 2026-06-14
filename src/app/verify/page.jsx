@@ -198,7 +198,7 @@ export default function VerifyPage() {
       </section>
 
       {/* Main Verification Section */}
-      <div className=" mx-auto px-4 sm:px-8 lg:px-[96px] py-20">
+      <div className=" mx-auto px-4 sm:px-8 lg:px-[60px] py-20">
         {/* Verification Form */}
         <div className="mb-20">
           <div className="bg-bg-card border border-border-main rounded-2xl shadow-lg p-8 md:p-12">

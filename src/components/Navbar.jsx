@@ -61,7 +61,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-bg-card border-b border-border-main sticky top-0 z-50 transition-colors duration-200 shadow-sm">
-      <div className="px-4 sm:px-8 lg:px-[96px]">
+      <div className="px-4 sm:px-8 lg:px-[60px]">
         <div className="flex items-center justify-between h-16">
           
           {/* Brand Logo Section from your notes */}

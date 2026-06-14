@@ -71,15 +71,11 @@ export async function checkAndAutomateDocuments(userId) {
           }
         }
 
-        // B. Internship Certificate Generation: Completed or 100% progress but certificationUrl is missing
-        const isCompleted = item.internshipStatus === "Completed" || item.progress === 100;
+        // B. Internship Certificate Generation: Only generate if status is Completed
+        const isCompleted = item.internshipStatus === "Completed";
         if (isCompleted && !item.certificationUrl) {
           try {
             console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);
-
-            // Ensure progress is updated to 100% and status is marked Completed
-            item.progress = 100;
-            item.internshipStatus = "Completed";
 
             // Generate Landscape PDF Buffer
             const pdfBuffer = await generateCertificate(user, internship, "internship", verificationId);
@@ -117,15 +113,11 @@ export async function checkAndAutomateDocuments(userId) {
 
         const programTitle = course.title || "Specialized Course";
 
-        // A. Course Certificate Generation: Completed or 100% progress but certificateUrl is missing
-        const isCompleted = item.courseStatus === "Completed" || item.progress === 100;
+        // A. Course Certificate Generation: Only generate if status is Completed
+        const isCompleted = item.courseStatus === "Completed";
         if (isCompleted && !item.certificateUrl) {
           try {
             console.log(`[Document Automation] Generating course completion certificate for user: ${user.fullName}, course: ${programTitle}`);
-
-            // Ensure progress is updated to 100% and status is marked Completed
-            item.progress = 100;
-            item.courseStatus = "Completed";
 
             // Generate Landscape PDF Buffer
             const pdfBuffer = await generateCertificate(user, course, "course", verificationId);

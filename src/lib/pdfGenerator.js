@@ -249,10 +249,10 @@ export async function generateOfferLetter(student, internship, verificationId) {
         }
       };
 
-      drawAccreditationBadge("Aicte.png", "Aicte.png", 90, badgeY, 40, 40);
+      drawAccreditationBadge("aicte.png", "aicte.png", 90, badgeY, 40, 40);
       drawAccreditationBadge("Mca.png", "Mca.png", 185, badgeY + 4, 65, 32);
-      drawAccreditationBadge("Iso.png", "Iso.png", 305, badgeY, 40, 40);
-      drawAccreditationBadge("Msme.png", "Msme.png", 410, badgeY, 55, 47);
+      drawAccreditationBadge("iso.png", "iso.png", 305, badgeY, 40, 40);
+      drawAccreditationBadge("msme.png", "msme.png", 410, badgeY, 55, 47);
 
       // --- 11. Bottom Decorative Contact Banner ---
       doc.rect(0, 806, 595.28, 4).fill(accentColor);
@@ -370,7 +370,7 @@ export async function generateCertificate(student, program, type, verificationId
       // MSME Accreditation Logo (Top-Right)
       const msmeRightX = 725;
       const msmeRightY = 40;
-      let msmePath = path.join(process.cwd(), "public", "Msme.png");
+      let msmePath = path.join(process.cwd(), "public", "msme.png");
       if (fs.existsSync(msmePath)) {
         doc.image(msmePath, msmeRightX, msmeRightY, { fit: [55, 47] });
       }
@@ -463,10 +463,10 @@ export async function generateCertificate(student, program, type, verificationId
         }
       };
 
-      drawBottomBadge("Aicte.png", "Aicte.png", 280, bottomBadgeY, 32, 32);
+      drawBottomBadge("aicte.png", "aicte.png", 280, bottomBadgeY, 32, 32);
       drawBottomBadge("Mca.png", "Mca.png", 345, bottomBadgeY + 4, 48, 24);
-      drawBottomBadge("Iso.png", "Iso.png", 425, bottomBadgeY, 32, 32);
-      drawBottomBadge("Msme.png", "Msme.png", 485, bottomBadgeY, 40, 34);
+      drawBottomBadge("iso.png", "iso.png", 425, bottomBadgeY, 32, 32);
+      drawBottomBadge("msme.png", "msme.png", 485, bottomBadgeY, 40, 34);
 
       doc.end();
     } catch (error) {
@@ -648,10 +648,10 @@ export async function generatePaymentReceipt(student, details) {
         if (!fs.existsSync(p)) p = path.join(process.cwd(), "public", fn);
         if (fs.existsSync(p)) doc.image(p, x, y, { fit: [w, h] });
       };
-      drawBadge("Aicte.png",  90,  badgesY, 40, 40);
+      drawBadge("aicte.png",  90,  badgesY, 40, 40);
       drawBadge("Mca.png",   185,  badgesY + 4, 65, 32);
-      drawBadge("Iso.png",   305,  badgesY, 40, 40);
-      drawBadge("Msme.png",  410,  badgesY, 55, 47);
+      drawBadge("iso.png",   305,  badgesY, 40, 40);
+      drawBadge("msme.png",  410,  badgesY, 55, 47);
 
       // ── 10. Bottom accent bar ─────────────────────────────────────────────────
       doc.rect(0, 806, 595.28, 4).fill(accentColor);

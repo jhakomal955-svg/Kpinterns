@@ -15,19 +15,19 @@ const TrustMarquee = () => {
       type: "compliance",
       name: "AICTE Registered",
       detail: "Technical Course Regulated",
-      image: "/Aicte.png",
+      image: "/aicte.png",
     },
     {
       type: "compliance",
       name: "ISO 9001:2015",
       detail: "Certified Quality System",
-      image: "/Iso.png",
+      image: "/iso.png",
     },
     {
       type: "compliance",
       name: "MSME Registered",
       detail: "Govt of India Enterprise",
-      image: "/Msme.png",
+      image: "/msme.png",
     },
     {
       type: "compliance",
@@ -55,7 +55,7 @@ const TrustMarquee = () => {
     },
     {
       type: "university",
-      name: "BRABU Muzaffarpur",
+      name: "Sbte bihar ",
       detail: "4 Academic Credits",
       icon: "🏢",
     },
@@ -67,7 +67,7 @@ const TrustMarquee = () => {
     },
     {
       type: "university",
-      name: "TMBU Bhagalpur",
+      name: "Bihar Engg University",
       detail: "NEP Credit Compliant",
       icon: "✍️",
     },

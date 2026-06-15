@@ -10,7 +10,9 @@ const DashboardPreview = () => {
     { id: "dashboard", label: "💻 Student Dashboard", desc: "Access lectures, tracks & quizzes" },
     { id: "acceptance", label: "✉️ Acceptance Letter", desc: "Official enrollment confirmation" },
     { id: "certificate", label: "🎉 Verifiable Certificate", desc: "NEP-2020 Credit Framework" },
-    { id: "verification", label: "🔍 Verification Portal", desc: "Online credential checking" }
+    { id: "verification", label: "🔍 Verification Portal", desc: "Online credential checking" },
+    { id: "content", label: "📚 Detailed Content Support", desc: "Class notes, syllabus & guidelines" },
+    { id: "support", label: "💬 24*7 Help & Support", desc: "Mentorship & quick ticket resolution" }
   ];
 
   const tabContent = {
@@ -65,6 +67,45 @@ const DashboardPreview = () => {
         "Displays verified name, batch, domain, and grade card.",
         "Ensures absolute trust with placement partners."
       ]
+    },
+    admin: {
+      badge: "Institutional Control",
+      title: "Multi-Admin & Sub-Admin Panels",
+      description: "Empower department heads, registrars, and training coordinators with dedicated sub-admin dashboards to track their specific student batches.",
+      image: "/format/Mutiple Admin feature.png",
+      alt: "Multiple Admin Support Dashboard",
+      features: [
+        "Department-specific batch allocation.",
+        "Sub-admin profile creation and authorization.",
+        "Direct analytics for institution coordinators.",
+        "Independent student verify & approval workflow."
+      ]
+    },
+    content: {
+      badge: "Syllabus Resource",
+      title: "Comprehensive Courseware Repository",
+      description: "Access in-depth learning materials, curated notes, syllabus breakdowns, and project submission guidelines straight from your dashboard.",
+      image: "/format/detailded instrsnhip.png",
+      alt: "Detailed Internship Content Panel",
+      features: [
+        "Downloadable slide decks and lecture notes.",
+        "Topic-wise assignments and challenge tasks.",
+        "Project guidelines and submission checklists.",
+        "NEP-2020 aligned course curriculum resources."
+      ]
+    },
+    support: {
+      badge: "Student Care",
+      title: "Around-the-Clock Mentorship Support",
+      description: "Connect directly with domain mentors, submit feedback, or raise support tickets anytime to resolve technical problems instantly.",
+      image: "/format/support.png",
+      alt: "Support and Help Center Screen",
+      features: [
+        "Direct WhatsApp mentoring group integration.",
+        "Raise technical assistance support tickets.",
+        "Dedicated live doubt-clearing sessions.",
+        "Constant feedback loops on project submissions."
+      ]
     }
   };
 
@@ -90,88 +131,95 @@ const DashboardPreview = () => {
           </p>
         </ScrollReveal>
 
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mt-12">
-          {/* Left: Tab Selectors & Features Info (5 Cols) */}
-          <div className="lg:col-span-5 space-y-6">
-            {/* Custom Tab buttons */}
-            <div className="space-y-2.5">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setSelectedTab(tab.id)}
-                  className={`w-full text-left p-3.5 rounded-2xl border-2 transition-all duration-300 flex items-start gap-4 hover:-translate-y-0.5 cursor-pointer ${
-                    selectedTab === tab.id
-                      ? "bg-bg-card border-brand-primary shadow-lg"
-                      : "bg-transparent border-transparent hover:bg-bg-card/40 hover:border-border-main/50"
-                  }`}
-                >
-                  <div className="flex-1 min-w-0">
-                    <span className={`text-sm sm:text-base font-black ${selectedTab === tab.id ? "text-brand-primary" : "text-text-main"}`}>
-                      {tab.label}
+        {/* Accordion List */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-start max-w-6xl mx-auto mt-12">
+          {tabs.map((tab) => (
+            <div
+              key={tab.id}
+              className={`bg-bg-card border rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 ${
+                selectedTab === tab.id
+                  ? "border-brand-primary bg-brand-primary/5"
+                  : "border-border-main hover:border-brand-primary/40"
+              }`}
+            >
+              {/* Tab Header Button */}
+              <button
+                onClick={() => setSelectedTab(selectedTab === tab.id ? null : tab.id)}
+                className="w-full flex items-center justify-between p-4 sm:p-5 text-left focus:outline-none group cursor-pointer"
+              >
+                <div className="flex-1 min-w-0 pr-4">
+                  <span className={`text-base sm:text-lg font-black block ${selectedTab === tab.id ? "text-brand-primary" : "text-text-main"}`}>
+                    {tab.label}
+                  </span>
+                  <span className="text-xs text-text-muted mt-1 block font-semibold">
+                    {tab.desc}
+                  </span>
+                </div>
+
+                {/* Chevron Arrow Icon */}
+                <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110">
+                  <svg
+                    className={`w-5 h-5 transition-transform duration-300 ${
+                      selectedTab === tab.id ? "rotate-180" : "rotate-0"
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </div>
+              </button>
+
+              {/* Expanded Content */}
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  selectedTab === tab.id
+                    ? "max-h-[1000px] opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="px-5 pb-5 pt-0">
+                  <div className="border-t border-border-main/50 pt-4 space-y-4">
+                    <span className="inline-block bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-lg">
+                      {tabContent[tab.id].badge}
                     </span>
+                    <h4 className="text-base sm:text-lg font-bold text-text-main">
+                      {tabContent[tab.id].title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-text-muted leading-relaxed font-semibold">
+                      {tabContent[tab.id].description}
+                    </p>
+
+                    {/* Bullet Features list */}
+                    <ul className="grid grid-cols-1 gap-2 pt-1">
+                      {tabContent[tab.id].features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs text-text-muted font-bold">
+                          <span className="text-brand-success text-sm font-black leading-none mt-0.5">✓</span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Inline Image Container for Feature */}
+                    <div className="mt-4 rounded-xl overflow-hidden border border-border-main/60 bg-white/70 dark:bg-bg-card/50 p-2 shadow-sm">
+                      <img
+                        src={tabContent[tab.id].image}
+                        alt={tabContent[tab.id].alt}
+                        className="w-full h-auto object-contain rounded-lg shadow-xs hover:scale-[1.01] transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
-                  {selectedTab === tab.id && (
-                    <span className="text-brand-primary font-black text-lg self-center">➔</span>
-                  )}
-                </button>
-              ))}
-            </div>
-
-            {/* Selected Tab Description card */}
-            <div className="p-6 bg-bg-card border border-border-main/60 rounded-2xl shadow-md space-y-4">
-              <span className="bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full">
-                {tabContent[selectedTab].badge}
-              </span>
-              <h3 className="text-xl font-bold text-text-main">
-                {tabContent[selectedTab].title}
-              </h3>
-              <p className="text-sm text-text-muted leading-relaxed font-semibold">
-                {tabContent[selectedTab].description}
-              </p>
-
-              {/* Bullet Features list */}
-              <ul className="space-y-2.5 pt-2">
-                {tabContent[selectedTab].features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs text-text-muted font-bold">
-                    <span className="text-brand-success text-sm font-black mt-0.5">✓</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Right: High-Fidelity Image Container (7 Cols) */}
-          <div className="lg:col-span-7 h-full flex flex-col justify-center">
-            {/* Mock browser container */}
-            <div className="w-full bg-bg-card border-4 border-border-main rounded-3xl shadow-2xl overflow-hidden aspect-[4/3] flex flex-col">
-              {/* Browser top-bar */}
-              <div className="bg-bg-main px-4 py-3 border-b border-border-main/50 flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-red-400"></span>
-                  <span className="w-3 h-3 rounded-full bg-yellow-400"></span>
-                  <span className="w-3 h-3 rounded-full bg-green-400"></span>
-                </div>
-                <div className="bg-bg-card border border-border-main/40 rounded-lg text-[10px] font-bold text-text-muted/70 px-8 py-1 truncate max-w-[220px] text-center select-none shadow-sm">
-                  kpinterns.in/format/{selectedTab}
-                </div>
-                <div className="w-10"></div>
-              </div>
-
-              {/* Browser Viewport - Renders the real upload image */}
-              <div className="flex-1 p-3 bg-bg-main relative flex flex-col justify-center items-center overflow-hidden">
-                <div className="w-full h-full relative rounded-xl overflow-hidden bg-white/80 dark:bg-bg-card/40 border border-border-main/40 p-2 flex items-center justify-center">
-                  <img
-                    src={tabContent[selectedTab].image}
-                    alt={tabContent[selectedTab].alt}
-                    className="max-h-full max-w-full object-contain rounded-lg shadow-md hover:scale-[1.02] transition-transform duration-500 select-none"
-                    loading="lazy"
-                  />
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

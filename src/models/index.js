@@ -10,6 +10,7 @@ import CourseModel from "./Course.js";
 import InternshipModel from "./Internship.js";
 import VerificationOtpModel from "./VerificationOtpModel.js";
 import AttendanceModel from "./Attendance.js";
+import TestimonialModel from "./Testimonial.js";
 
 export {
   UserModel,
@@ -19,4 +20,5 @@ export {
   InternshipModel,
   VerificationOtpModel,
   AttendanceModel,
+  TestimonialModel,
 };

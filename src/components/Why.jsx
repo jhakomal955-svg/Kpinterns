@@ -72,7 +72,7 @@ const Why = () => {
       ),
       title: "Verifiable Certificates",
       description:
-        "Every certificate has a unique ID and QR code. Employers can verify it instantly on our portal — no fakes possible.",
+        "Every certificate has a unique ID and QR code. Employers can verify it instantly on our portal, ensuring absolute authenticity and credit transfer validity.",
       color: "from-orange-500 to-red-600",
       lightColor: "from-orange-50 to-red-100/50",
     },
@@ -95,7 +95,7 @@ const Why = () => {
       ),
       title: "Affordable Fee",
       description:
-        "Transparent pricing (₹400-₹500) with special discounts for  University students.",
+        "Transparent pricing (₹400-₹500) with special subsidies for state university students.",
       color: "from-purple-500 to-indigo-600",
       lightColor: "from-purple-50 to-indigo-100/50",
     },

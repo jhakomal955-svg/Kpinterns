@@ -82,25 +82,25 @@ export default function VerifyPage() {
       icon: "🔒",
       title: "Secure Verification",
       description:
-        "Industry-standard SSL encryption and security protocols to protect your data and ensure authenticity.",
+        "Industry-standard secure database search and data protocols to protect student records and check authenticity.",
     },
     {
       icon: "✅",
       title: "Instant Results",
       description:
-        "Get immediate verification results for certificates issued by Kp Interns with real-time database checks.",
+        "Get immediate verification results for student certificates issued by Kp Interns with real-time database lookups.",
     },
     {
       icon: "🌐",
-      title: "Globally Recognized",
+      title: "Academic Recognition",
       description:
-        "Our certificates are recognized internationally and verified by employers worldwide.",
+        "Our certificates follow AICTE & UGC standards, recognized for credit transfers and resumes across India.",
     },
     {
       icon: "📋",
       title: "Official Records",
       description:
-        "All verification data is maintained in our secure database with complete audit trails.",
+        "All verification data is maintained in our secure database with complete student enrollment audits.",
     },
   ];
 
@@ -140,27 +140,22 @@ export default function VerifyPage() {
     {
       question: "How long does verification take?",
       answer:
-        "Verification is instant! Results are displayed immediately after you submit your information.",
+        "Verification is instant! Results are displayed immediately after you submit your Certificate ID or student details.",
     },
     {
       question: "Is my personal information secure?",
       answer:
-        "Yes, we use industry-standard SSL encryption and secure databases to protect all personal and certificate information.",
+        "Yes, we use secure database lookups and encryption protocols to protect student records while maintaining secure public lookup details.",
     },
     {
-      question: "Can I verify someone else's certificate?",
+      question: "Can my college or employer verify my credentials?",
       answer:
-        "Yes, employers and institutions can verify certificates using the publicly available Certificate ID.",
+        "Yes, any academic registrar, placement officer, or hiring manager can instantly search your credentials on this portal using your unique Certificate ID.",
     },
     {
-      question: "What if my certificate has expired?",
+      question: "How long are Kp Interns certificates valid?",
       answer:
-        "Expired certificates can still be verified, but will be clearly marked as expired. You can renew your certificate by contacting our support team.",
-    },
-    {
-      question: "How long are certificates valid?",
-      answer:
-        "Most Kp Interns certificates are valid for one year from the date of issue. Validity period is mentioned in your certificate.",
+        "All Kp Interns certificates are valid for a lifetime. Since they represent completed academic internship hours and technical training credits, they do not expire.",
     },
   ];
 

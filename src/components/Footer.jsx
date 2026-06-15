@@ -32,9 +32,7 @@ const Footer = () => {
               </div>
               {/* Company tagline */}
               <p className="text-md text-text-muted text-justify leading-relaxed">
-                  kp Interns is your comprehensive learning and growth partner – helping you track,
-                plan, and upscale your professional career with personalized insights and smarter
-                educational roadmaps. Because your future deserves the absolute best!
+                Kp Interns is your comprehensive learning and credit compliance partner – helping UG students complete mandatory internships and transfer academic credits under NEP-2020 guidelines with expert mentorship and verifiable certificates.
               </p>
             </div>
             
@@ -82,7 +80,7 @@ const Footer = () => {
                     Home
                   </Link>
                   <Link
-                    href="/internships"
+                    href="/internship"
                     className="text-md text-text-muted hover:text-brand-primary transition-colors"
                   >
                     Internship

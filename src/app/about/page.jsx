@@ -10,55 +10,55 @@ export default function AboutPage() {
 
   const achievements = [
     {
-      icon: "👥",
-      title: "Trusted by Thousands",
+      icon: "🎓",
+      title: "50,000+ Students Guided",
       description:
-        "We have successfully served thousands of students, helping them unlock their potential and achieve their career goals.",
+        "We have successfully trained and verified over 50,000 undergraduates, assisting them in transferring academic credits smoothly.",
     },
     {
-      icon: "🏆",
-      title: "Award-Winning Courses",
+      icon: "📜",
+      title: "UGC & NEP-2020 Aligned",
       description:
-        "Our courses have received recognition and accolades in the industry for their quality, depth of content, and effective teaching methodologies.",
+        "Our curriculum complies with CCFUP Choice Based Credit System (CBCS) rules, recognized by college heads for credit validation.",
     },
     {
-      icon: "⭐",
-      title: "Positive Student Feedback",
+      icon: "🔍",
+      title: "Verifiable Digital Portals",
       description:
-        "We take pride in the positive feedback we receive from our students, who appreciate the practicality and relevance of our courses and mentorship.",
+        "Every certificate is issued with a unique verification code and secure QR seal to ensure zero credential forgery.",
     },
     {
       icon: "🤝",
-      title: "Industry Partnerships",
+      title: "University Recognitions",
       description:
-        "We have established strong partnerships with industry leaders, enabling us to provide our students with access to the latest tools and technologies.",
+        "We are trusted across major state universities in Bihar and other regions, adapting to local academic calendars.",
     },
   ];
 
   const goals = [
     {
       icon: "💡",
-      title: "Provide Practical Skills",
+      title: "Bridge Theory & Practice",
       description:
-        "We focus on developing practical skills that are relevant to the current industry standards with hands-on experience and real-world projects.",
+        "We complement university learning with project-based, hands-on exposure to make students industry-ready.",
+    },
+    {
+      icon: "🪙",
+      title: "Democratize Education",
+      description:
+        "We offer premium mentor-guided programs at highly affordable fees (₹400-₹500), ensuring equal opportunities.",
+    },
+    {
+      icon: "📝",
+      title: "Enable Credit Compliance",
+      description:
+        "We simplify college submissions by offering authorized onboarding letters, attendance sheets, and verified grades.",
     },
     {
       icon: "🚀",
-      title: "Faster Creative Problem-Solving",
+      title: "Strengthen Employability",
       description:
-        "We encourage creative thinking and problem-solving approaches, allowing our students to tackle complex challenges with innovative solutions.",
-    },
-    {
-      icon: "🌐",
-      title: "Promote Collaboration and Community",
-      description:
-        "We believe in the power of collaboration and peer learning. Our platform fosters a supportive community where learners can connect and grow together.",
-    },
-    {
-      icon: "📈",
-      title: "Stay Ahead of the Curve",
-      description:
-        "We stay updated with the latest industry trends and continuously evolve our curriculum to ensure our students remain competitive and relevant.",
+        "We help students build real-world portfolios, project profiles, and core skills to stand out in hiring drives.",
     },
   ];
 
@@ -77,24 +77,13 @@ export default function AboutPage() {
                 About <span className="text-bg-main bg-text-main rounded-full p-2"> Kp</span><span className="text-brand-primary">Interns</span>
               </h2>
               <p className="text-lg text-text-muted leading-relaxed mb-4">
-                Welcome to our platform, where we are passionate about
-                empowering individuals to master the world of design and
-                development. We offer a wide range of online courses designed to
-                equip learners with the skills and knowledge needed to succeed
-                in the dynamic digital industry.
+                Welcome to Kp Interns, India's leading compliance and up-skilling platform designed for undergraduate and diploma students. We focus on bridging the gap between university syllabus requirements and real-world industrial skills, enabling students across state universities to seamlessly complete mandatory credit-bearing internships.
               </p>
               <p className="text-lg text-text-muted leading-relaxed mb-4">
-                Our mission is to democratize quality education and provide
-                accessible learning opportunities for everyone, regardless of
-                their background or experience level. We believe that education
-                should be engaging, practical, and tailored to meet the needs of
-                today's rapidly evolving job market.
+                Our mission is to democratize professional training. We provide structured online programs aligned with the NEP-2020 Choice Based Credit System (CBCS) / CCFUP guidelines, offering a 120-hour academic coursework structure that fits perfectly with your college calendar.
               </p>
               <p className="text-lg text-text-muted leading-relaxed">
-                Whether you're a beginner looking to start your journey in tech
-                or an experienced professional seeking to upgrade your skills,
-                our comprehensive courses and personalized mentorship will guide
-                you towards achieving your career goals.
+                Whether you are pursuing a Technical degree (B.Tech, Diploma, BCA, BSc) or a Non-Technical stream (BA, BCom, BBA), our project-based curriculum, interactive live sessions on Google Meet, and dedicated WhatsApp mentoring will guide you to academic excellence and placement readiness.
               </p>
             </div>
             <div className="relative">
@@ -300,12 +289,10 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-text-main mb-2">
-                    Expert Instructors
+                    Expert Domain Mentors
                   </h3>
                   <p className="text-text-muted">
-                    Learn from industry professionals with years of hands-on
-                    experience and proven track records in their respective
-                    fields.
+                    Learn from industry professionals with years of hands-on experience who guide you step-by-step through WhatsApp groups and live sessions.
                   </p>
                 </div>
               </div>
@@ -332,11 +319,10 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-text-main mb-2">
-                    Practical Projects
+                    Academic-Aligned Projects
                   </h3>
                   <p className="text-text-muted">
-                    Work on real-world projects and build a portfolio that
-                    showcases your skills to potential employers.
+                    Work on practical, domain-specific capstone projects that fulfill your mandatory university credit requirements.
                   </p>
                 </div>
               </div>
@@ -363,11 +349,10 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-text-main mb-2">
-                    Career Support
+                    Credit Validation Support
                   </h3>
                   <p className="text-text-muted">
-                    Get guidance and support with job placements, resume building,
-                    and interview preparation from our dedicated career team.
+                    We provide authorized onboarding letters, evaluations, and verifiable grade-card sheets needed for college submissions.
                   </p>
                 </div>
               </div>
@@ -394,11 +379,10 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-text-main mb-2">
-                    Flexible Learning
+                    Flexible Virtual Schedule
                   </h3>
                   <p className="text-text-muted">
-                    Learn at your own pace with flexible schedules that fit your
-                    lifestyle and professional commitments.
+                    Complete your coursework and projects online. Attend live Meet calls from your mobile phone without affecting your exam schedules.
                   </p>
                 </div>
               </div>

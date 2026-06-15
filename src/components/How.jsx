@@ -13,7 +13,7 @@ const How = () => {
       number: 1,
       title: "Register",
       description:
-        "Fill in your details and choose your desired course from our comprehensive catalog.",
+        "Fill in your details and choose your desired internship domain or training course.",
       icon: "📝",
       color: "from-brand-primary to-brand-secondary",
     },
@@ -37,7 +37,7 @@ const How = () => {
       number: 4,
       title: "Get Certificate",
       description:
-        "Receive your verified digital certificate and showcase your achievements to employers.",
+        "Receive your verified digital certificate with academic credit details, ready for college submission and resumes.",
       icon: "🎉",
       color: "from-brand-primary to-brand-secondary",
     },
@@ -183,7 +183,7 @@ const How = () => {
       <ScrollReveal className="max-w-3xl mx-auto text-center mt-16" direction="scale">
         <div className="bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 border border-brand-primary/20 rounded-3xl p-8 sm:p-10 lg:p-12 backdrop-blur-sm hover:border-brand-primary/40 transition-all duration-300">
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-main mb-4">
-            Ready to Transform Your Career?
+            Ready to Fulfill Your Internship Credits and Up-skill?
           </h3>
           <p className="text-text-muted text-base sm:text-lg mb-8 leading-relaxed">
             Join thousands of students who are already learning, growing, and

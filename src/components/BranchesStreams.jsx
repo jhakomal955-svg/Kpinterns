@@ -23,7 +23,7 @@ const BranchesStreams = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden px-4 sm:px-8 lg:px-[60px] py-8bg-bg-main">
+    <section className="relative overflow-hidden px-4 sm:px-8 lg:px-[60px] py-8bg-bg-main lg:mb-10">
       {/* Animated Background Elements */}
       <div className="absolute top-32 right-10 w-[280px] h-[280px] md:w-[350px] md:h-[350px] bg-gradient-to-bl from-brand-secondary/20 to-transparent rounded-full blur-3xl -z-10 animate-pulse"></div>
       <div

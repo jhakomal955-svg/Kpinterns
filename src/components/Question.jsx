@@ -11,27 +11,32 @@ const Question = () => {
     {
       question: "What is Kp Interns?",
       answer:
-        "Kp Interns is a comprehensive online learning platform that provides industry-relevant courses, internship opportunities, and mentorship from experienced professionals. We empower students and professionals to master in-demand skills in design, development, and modern technologies to excel in their careers.",
+        "Kp Interns is India's leading learning and compliance platform designed specifically for undergraduate and diploma students. We provide AICTE-registered and UGC-compliant virtual internships and skill-training courses structured under the NEP-2020 Choice Based Credit System (CBCS) to help you gain professional competence and transfer academic credits.",
     },
     {
       question: "How do the internship programs work?",
       answer:
-        "Our internship programs are designed to give you hands-on experience with real-world projects. You'll work alongside industry experts, gain practical skills, build a professional portfolio, and receive mentorship to kickstart your career. Each internship program is tailored to your skill level and career goals.",
+        "Our internships are structured 120-hour programs split into training and hands-on project execution. You will attend interactive live classes via Google Meet, access recordings and study notes in your student dashboard, submit assignments, and work on real-world capstone projects under the guidance of assigned domain mentors.",
     },
     {
-      question: "What courses are available on Kp Interns?",
+      question: "Are these internships valid for university credit submission?",
       answer:
-        "We offer a wide range of courses covering web development, app development, UI/UX design, digital marketing, and more. All courses are designed to be practical, project-based, and aligned with current industry standards. Each course includes video lessons, assignments, and real-world projects.",
+        "Yes, absolutely. Our curriculum matches the 4-credit academic requirements of CCFUP / CBCS guidelines. Once you complete the internship, you receive a digitally signed certificate containing an integrated grade card, which is recognized and validated by state university registrars and department heads across Bihar and other states.",
     },
     {
-      question: "Do you provide certificates after completing courses?",
+      question: "What courses and streams are available on Kp Interns?",
       answer:
-        "Yes! Upon successful completion of any course or internship program, you'll receive a recognized certificate that showcases your achievement and newly acquired skills. Our certificates are valued by industry leaders and can be added to your professional portfolio.",
+        "We support a wide range of streams. For Technical tracks (BTech/Diploma), we offer Full Stack Development, IoT, ECE, Civil, Electrical, and Mechanical projects. For Non-Technical tracks, we offer customized programs in Arts (BA), Science (BSc), Commerce (BCom), BBA, and BCA domains tailored to fits your academic curriculum.",
     },
     {
-      question: "How can I get support if I'm stuck on something?",
+      question: "Do you provide verifiable certificates?",
       answer:
-        "We have a dedicated support system including instructor mentorship, community forums, live Q&A sessions, and one-on-one guidance. You can connect with instructors, ask questions, and get help from peers in our collaborative community. We're committed to ensuring your learning success.",
+        "Yes. Every completion certificate is embedded with a unique Certificate ID and a secure QR code. Employers and college administrators can instantly search and verify your record's authenticity on our public Verification Portal to ensure complete trust.",
+    },
+    {
+      question: "How can I get support if I get stuck during my training?",
+      answer:
+        "We provide dedicated WhatsApp support group access with your domain mentor, alongside scheduled live interactive Q&A sessions. You can ask queries, submit intermediate drafts for review, and receive customized technical guidance directly from industry experts.",
     },
   ];
 
@@ -41,7 +46,7 @@ const Question = () => {
   };
 
   return (
-    <div className="px-4 sm:px-8 lg:px-[60px] py-4 bg-bg-main">
+    <div className="px-4 sm:px-8 lg:px-[60px] py-4 lg:pb-10 bg-bg-main">
       <div className="flex flex-col lg:flex-row lg:gap-x-20">
         <div className="flex flex-col p-3">
           <p className="text-brand-primary text-2xl mb-4 lg:mb-20 font-bold uppercase tracking-widest">
@@ -108,80 +113,6 @@ const Question = () => {
           ))}
         </div>
       </div>
-      {/* Security / Certification Badges section */}
-        <div className="flex flex-col justify-start items-start sm:flex-row sm:justify-center sm:items-center gap-10 sm:gap-32 mt-10 bg-bg-main/40 border border-border-main rounded-2xl p-8">
-          {/* ISO Badge */}
-          <div className="flex flex-col sm:items-center">
-            <div className="w-16 h-16 flex items-center justify-start sm:justify-center mb-3">
-              <Image
-                src="/iso.png"
-                alt="ISO Certification"
-                width={50}
-                height={50}
-                className="object-contain"
-              />
-            </div>
-            <p className="text-sm text-text-muted sm:text-center">
-              <span className="text-base font-bold text-text-main block mb-1">ISO 9001:2015</span>
-              certified for quality management systems, ensuring consistent delivery of 
-              <br /> high-quality courses and services.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:items-center">
-            <div className="w-16 h-16 flex items-center justify-start sm:justify-center mb-3">
-              <Image
-                src="/msme.png"
-                alt="MSME Certification"
-                width={50}
-                height={50}
-                className="object-contain"
-              />
-            </div>
-            <p className="text-sm text-text-muted sm:text-center">
-              <span className="text-base font-bold text-text-main block mb-1">MSME Certified</span>
-              Recognized as a Micro, Small & Medium Enterprise 
-              <br /> by the Government of India
-            </p>
-          </div>
-          
-
-          {/* Verification Badge */}
-          <div className="flex flex-col sm:items-center">
-            <div className="w-16 h-16 flex items-center justify-start sm:justify-center mb-3">
-              <Image
-                src="/aicte.png"
-                alt="Regulated Entity"
-                width={50}
-                height={50}
-                className="object-contain"
-              />
-            </div>
-            <p className="text-sm text-text-muted sm:text-center">
-              <span className="text-base font-bold text-text-main block mb-1">AICTE Registered</span>
-              All technical programs follow All India Council for 
-              <br /> Technical Education standards
-            </p>
-          </div>
-
-          {/* Secure Badge */}
-          <div className="flex flex-col sm:items-center">
-            <div className="w-16 h-16 flex items-center justify-start sm:justify-center  mb-3">
-              <Image
-                src="/ugc.jpg"
-                alt="Secure Platform"
-                width={50}
-                height={50}
-                className="object-cover rounded-full"
-              />
-            </div>
-            <p className="text-sm text-text-muted sm:text-center">
-              <span className="text-base font-bold text-text-main block mb-1">UGC Compliant</span>
-              Non-technical courses follow University Grants
-              <br /> Commission regulation
-            </p>
-          </div>
-        </div>
     </div>
   );
 };

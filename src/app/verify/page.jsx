@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,23 @@ export default function VerifyPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
+
+  const [activeTrust, setActiveTrust] = useState(0);
+  const [activeHow, setActiveHow] = useState(0);
+
+  const trustRef = useRef(null);
+  const howRef = useRef(null);
+
+  const handleScroll = (ref, setter, totalCount) => {
+    if (!ref.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+    if (scrollWidth === clientWidth) return;
+    const newIndex = Math.min(
+      Math.max(Math.round((scrollLeft / (scrollWidth - clientWidth)) * (totalCount - 1)), 0),
+      totalCount - 1
+    );
+    setter(newIndex);
+  };
 
   const performVerification = async (query) => {
     if (!query) return;
@@ -462,10 +479,15 @@ export default function VerifyPage() {
           <h2 className="text-4xl font-extrabold text-text-main mb-12 text-center">
             Why Verify With Us?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            ref={trustRef}
+            onScroll={() => handleScroll(trustRef, setActiveTrust, trustFeatures.length)}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 md:pb-0 scrollbar-hide"
+          >
             {trustFeatures.map((feature, index) => (
               <ScrollReveal
                 key={index}
+                className="flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center h-full"
                 direction="up"
                 delay={index * 80}
               >
@@ -483,6 +505,18 @@ export default function VerifyPage() {
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center gap-1.5 mt-2 md:hidden">
+            {trustFeatures.map((_, idx) => (
+              <div
+                key={idx}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeTrust === idx ? "bg-brand-primary w-5" : "bg-border-main w-2"
+                }`}
+              />
+            ))}
+          </div>
         </section>
 
         {/* How It Works Section */}
@@ -490,11 +524,15 @@ export default function VerifyPage() {
           <h2 className="text-4xl font-extrabold text-text-main mb-12 text-center">
             How Verification Works
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            ref={howRef}
+            onScroll={() => handleScroll(howRef, setActiveHow, howItWorks.length)}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 lg:grid lg:grid-cols-4 lg:gap-6 lg:pb-0 scrollbar-hide"
+          >
             {howItWorks.map((item, index) => (
               <ScrollReveal
                 key={index}
-                className="relative"
+                className="relative flex-shrink-0 w-[285px] sm:w-[320px] lg:w-auto lg:flex-shrink snap-center h-full"
                 direction="up"
                 delay={index * 80}
               >
@@ -513,6 +551,17 @@ export default function VerifyPage() {
               </ScrollReveal>
             ))}
           </div>
+          {/* Dots Indicator */}
+          <div className="flex justify-center gap-1.5 mt-2 lg:hidden">
+            {howItWorks.map((_, idx) => (
+              <div
+                key={idx}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeHow === idx ? "bg-brand-primary w-5" : "bg-border-main w-2"
+                }`}
+              />
+            ))}
+          </div>
         </section>
 
         {/* Security & Trust Badges */}
@@ -525,6 +574,7 @@ export default function VerifyPage() {
                         alt="ISO Certification"
                         width={50}
                         height={50}
+                        style={{ height: 'auto' }}
                         className="object-contain"
                       />
                     </div>
@@ -542,6 +592,7 @@ export default function VerifyPage() {
                         alt="MSME Certification"
                         width={50}
                         height={50}
+                        style={{ height: 'auto' }}
                         className="object-contain"
                       />
                     </div>
@@ -561,6 +612,7 @@ export default function VerifyPage() {
                         alt="Regulated Entity"
                         width={50}
                         height={50}
+                        style={{ height: 'auto' }}
                         className="object-contain"
                       />
                     </div>
@@ -579,6 +631,7 @@ export default function VerifyPage() {
                         alt="Secure Platform"
                         width={50}
                         height={50}
+                        style={{ height: 'auto' }}
                         className="object-cover rounded-full"
                       />
                     </div>

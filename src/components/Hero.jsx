@@ -221,7 +221,7 @@ const Hero = () => {
           {/* Right Content - Image Section - Enhanced */}
           <div className="relative h-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:max-h-[600px] animate-float">
             {/* Main hero image with enhanced styling */}
-            <div className="relative h-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-brand-primary/20 group hover:border-brand-primary/40 transition-all duration-300">
+            <div style={{ position: 'relative' }} className="relative h-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-2 sm:border-4 border-brand-primary/20 group hover:border-brand-primary/40 transition-all duration-300">
               {/* Premium gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/20 via-transparent to-brand-secondary/20 z-20 pointer-events-none group-hover:from-brand-primary/30 group-hover:to-brand-secondary/30 transition-all duration-300"></div>
               {/* Image */}
@@ -230,6 +230,7 @@ const Hero = () => {
                 alt="Transform Your Skills and Career"
                 fill
                 priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-contain object-center group-hover:scale-110 transition-transform duration-700"
               />
               {/* Shine effect */}

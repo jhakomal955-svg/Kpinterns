@@ -1,10 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ScrollReveal from "./ScrollReveal.jsx";
 
 const Why = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef(null);
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    if (scrollWidth === clientWidth) return;
+    const newIndex = Math.min(
+      Math.max(Math.round((scrollLeft / (scrollWidth - clientWidth)) * (features.length - 1)), 0),
+      features.length - 1
+    );
+    if (newIndex !== activeIndex) {
+      setActiveIndex(newIndex);
+    }
+  };
 
   const features = [
     {
@@ -175,11 +190,15 @@ const Why = () => {
 
       {/* Features Grid */}
       <div className="mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6  md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 scrollbar-hide"
+        >
           {features.map((feature, index) => (
             <ScrollReveal
               key={feature.id}
-              className="group relative"
+              className="group relative flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center"
               direction="up"
               delay={index * 80}
               onMouseEnter={() => setHoveredCard(feature.id)}
@@ -187,7 +206,7 @@ const Why = () => {
             >
               {/* Card Container */}
               <div
-                className={`relative h-full bg-bg-card border border-border-main rounded-2xl p-6 sm:p-8 transition-all duration-300 overflow-hidden ${
+                className={`relative h-full bg-bg-card border border-border-main rounded-2xl p-6 sm:p-8 mt-4  transition-all duration-300 overflow-hidden ${
                   hoveredCard === feature.id
                     ? "border-brand-primary/50 shadow-2xl -translate-y-2"
                     : "shadow-lg hover:shadow-xl hover:border-brand-primary/30"
@@ -252,6 +271,18 @@ const Why = () => {
                 ></div>
               </div>
             </ScrollReveal>
+          ))}
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center gap-1.5 mt-2 md:hidden">
+          {features.map((_, idx) => (
+            <div
+              key={idx}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeIndex === idx ? "bg-brand-primary w-5" : "bg-border-main w-2"
+              }`}
+            />
           ))}
         </div>
       </div>

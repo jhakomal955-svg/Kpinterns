@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import ScrollReveal from "./ScrollReveal.jsx";
 
@@ -10,6 +10,30 @@ const FeaturedSpotlight = () => {
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef(null);
+
+  // Reset activeIndex when tab changes
+  useEffect(() => {
+    setActiveIndex(0);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0;
+    }
+  }, [activeTab]);
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    if (scrollWidth === clientWidth) return;
+    const itemsCount = activeTab === "internships" ? activeInternships.length : activeCourses.length;
+    const newIndex = Math.min(
+      Math.max(Math.round((scrollLeft / (scrollWidth - clientWidth)) * (itemsCount - 1)), 0),
+      itemsCount - 1
+    );
+    if (newIndex !== activeIndex) {
+      setActiveIndex(newIndex);
+    }
+  };
 
   // Read logged-in student data to display personalized enrollment states
   useEffect(() => {
@@ -190,7 +214,11 @@ const FeaturedSpotlight = () => {
         </ScrollReveal>
 
         {/* Display Grid of Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <div
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 mt-12 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 scrollbar-hide"
+        >
           {activeTab === "internships"
             ? activeInternships.map((internship, index) => {
                 const isEnrolled = userData?.ActiveInternship?.some(
@@ -200,7 +228,7 @@ const FeaturedSpotlight = () => {
                 return (
                   <ScrollReveal
                     key={internship._id}
-                    className="h-full"
+                    className="h-full flex-shrink-0 w-[290px] sm:w-[330px] md:w-auto md:flex-shrink snap-center"
                     direction="up"
                     delay={index * 80}
                   >
@@ -299,7 +327,7 @@ const FeaturedSpotlight = () => {
                 return (
                   <ScrollReveal
                     key={course._id}
-                    className="h-full"
+                    className="h-full flex-shrink-0 w-[290px] sm:w-[330px] md:w-auto md:flex-shrink snap-center"
                     direction="up"
                     delay={index * 80}
                   >
@@ -376,6 +404,18 @@ const FeaturedSpotlight = () => {
                   </ScrollReveal>
                 );
               })}
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center gap-1.5 mt-2 md:hidden mb-6">
+          {(activeTab === "internships" ? activeInternships : activeCourses).map((_, idx) => (
+            <div
+              key={idx}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeIndex === idx ? "bg-brand-primary w-5" : "bg-border-main w-2"
+              }`}
+            />
+          ))}
         </div>
 
         {/* View All CTA Links */}

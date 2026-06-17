@@ -128,8 +128,23 @@ html, body {
     animation: marquee 35s linear infinite;
   }
 
-  .animate-marquee-paused:hover .animate-marquee {
+  .animate-marquee-slow {
+    display: flex;
+    width: max-content;
+    animation: marquee 70s linear infinite;
+  }
+
+  .animate-marquee-paused:hover .animate-marquee,
+  .animate-marquee-paused:hover .animate-marquee-slow {
     animation-play-state: paused;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 

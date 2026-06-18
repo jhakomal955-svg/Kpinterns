@@ -87,16 +87,16 @@ const How = () => {
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="lg:hidden flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 scrollbar-hide"
+          className="lg:hidden flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6 scrollbar-hide"
         >
           {steps.map((step) => (
             <ScrollReveal
               key={step.number}
-              className="group relative flex-shrink-0 w-[285px] sm:w-[320px] snap-center"
+              className="group relative flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] snap-center"
               direction="up"
               delay={step.number * 80}
             >
-              <div className="bg-bg-card border border-border-main rounded-2xl p-6 sm:p-8 hover:border-brand-primary/40 hover:shadow-xl transition-all duration-300 h-full">
+              <div className="bg-bg-card border border-border-main rounded-2xl p-6 sm:p-8 hover:border-brand-primary/40 hover:shadow-xl transition-all duration-300 flex-1">
                 {/* Step Number Circle */}
                 <div
                   className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br ${step.color} text-white font-black text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}

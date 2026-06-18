@@ -297,12 +297,13 @@ export default function VerifyPage() {
                   {verificationResults.map((cert, index) => (
                     <ScrollReveal
                       key={cert.certificateId}
+                      className="flex flex-col h-full"
                       direction="up"
                       delay={index * 80}
                     >
                       <div
                         onClick={() => setSelectedCertificate(cert)}
-                        className="bg-bg-main hover:bg-bg-card p-6 rounded-2xl border border-border-main hover:border-brand-primary hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col justify-between h-full"
+                        className="bg-bg-main hover:bg-bg-card p-6 rounded-2xl border border-border-main hover:border-brand-primary hover:shadow-lg transition-all duration-200 cursor-pointer flex flex-col justify-between flex-1"
                       >
                         <div>
                           <div className="flex justify-between items-start mb-4">
@@ -482,17 +483,17 @@ export default function VerifyPage() {
           <div
             ref={trustRef}
             onScroll={() => handleScroll(trustRef, setActiveTrust, trustFeatures.length)}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 md:pb-0 scrollbar-hide"
+            className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 md:pb-0 scrollbar-hide"
           >
             {trustFeatures.map((feature, index) => (
               <ScrollReveal
                 key={index}
-                className="flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center h-full"
+                className="flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center"
                 direction="up"
                 delay={index * 80}
               >
                 <div
-                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all hover:border-brand-primary/50 h-full"
+                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all hover:border-brand-primary/50 flex-1"
                 >
                   <div className="text-5xl mb-4">{feature.icon}</div>
                   <h3 className="text-xl font-bold text-text-main mb-3">
@@ -527,16 +528,16 @@ export default function VerifyPage() {
           <div
             ref={howRef}
             onScroll={() => handleScroll(howRef, setActiveHow, howItWorks.length)}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 lg:grid lg:grid-cols-4 lg:gap-6 lg:pb-0 scrollbar-hide"
+            className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6 lg:grid lg:grid-cols-4 lg:gap-6 lg:pb-0 scrollbar-hide"
           >
             {howItWorks.map((item, index) => (
               <ScrollReveal
                 key={index}
-                className="relative flex-shrink-0 w-[285px] sm:w-[320px] lg:w-auto lg:flex-shrink snap-center h-full"
+                className="relative flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] lg:w-auto lg:flex-shrink snap-center"
                 direction="up"
                 delay={index * 80}
               >
-                <div className="bg-bg-card border border-border-main rounded-2xl p-8 h-full">
+                <div className="bg-bg-card border border-border-main rounded-2xl p-8 flex-1">
                   <div className="bg-gradient-to-br from-brand-primary to-brand-secondary text-white rounded-xl w-16 h-16 flex items-center justify-center text-2xl font-bold mb-6">
                     {item.step}
                   </div>

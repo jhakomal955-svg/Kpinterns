@@ -53,8 +53,8 @@ const BranchesStreams = () => {
         {/* Content Section - Both Cards Visible */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
           {/* Technical Courses Card */}
-          <ScrollReveal className="h-full" direction="left" delay={100}>
-            <div className="group relative overflow-hidden rounded-2xl border border-brand-primary/20 hover:border-brand-primary/50 bg-bg-card shadow-lg hover:shadow-xl transition-all duration-300 p-8 md:p-10 h-full">
+          <ScrollReveal className="flex flex-col" direction="left" delay={100}>
+            <div className="group relative overflow-hidden rounded-2xl border border-brand-primary/20 hover:border-brand-primary/50 bg-bg-card shadow-lg hover:shadow-xl transition-all duration-300 p-8 md:p-10 flex-1">
             {/* Gradient background overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 via-transparent to-brand-secondary/5 pointer-events-none"></div>
 
@@ -123,8 +123,8 @@ const BranchesStreams = () => {
         </ScrollReveal>
 
           {/* Non-Technical Courses Card */}
-          <ScrollReveal className="h-full" direction="right" delay={150}>
-            <div className="group relative overflow-hidden rounded-2xl border border-brand-secondary/20 hover:border-brand-secondary/50 bg-bg-card shadow-lg hover:shadow-xl transition-all duration-300 p-8 md:p-10 h-full">
+          <ScrollReveal className="flex flex-col" direction="right" delay={150}>
+            <div className="group relative overflow-hidden rounded-2xl border border-brand-secondary/20 hover:border-brand-secondary/50 bg-bg-card shadow-lg hover:shadow-xl transition-all duration-300 p-8 md:p-10 flex-1">
             {/* Gradient background overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-brand-secondary/5 via-transparent to-brand-primary/5 pointer-events-none"></div>
 

@@ -259,13 +259,13 @@ export default function CoursesPage() {
                   {filteredCourses.map((course, index) => (
                     <ScrollReveal
                       key={course._id}
-                      className="h-full"
+                      className="flex flex-col"
                       direction="up"
                       delay={(index % 3) * 80}
                       duration={600}
                     >
                       <div
-                        className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+                        className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col flex-1"
                       >
                       {/* Visual Thumbnail representation */}
                       <div className="relative h-48 bg-gradient-to-br from-brand-primary/20 via-brand-secondary/20 to-brand-primary/10 flex items-center justify-center overflow-hidden border-b border-border-main">

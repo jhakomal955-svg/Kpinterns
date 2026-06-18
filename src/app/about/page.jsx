@@ -139,17 +139,17 @@ export default function AboutPage() {
           <div
             ref={achievementRef}
             onScroll={() => handleScroll(achievementRef, setActiveAchievement, achievements.length)}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-2 md:gap-8 md:pb-0 scrollbar-hide"
+            className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-2 md:gap-8 md:pb-0 scrollbar-hide"
           >
             {achievements.map((achievement, index) => (
               <ScrollReveal
                 key={index}
-                className="flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center h-full"
+                className="flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center"
                 direction="up"
                 delay={index * 80}
               >
                 <div
-                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full"
+                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex-1"
                 >
                   <div className="text-5xl mb-4">{achievement.icon}</div>
                   <h3 className="text-xl font-bold text-text-main mb-3">
@@ -194,17 +194,17 @@ export default function AboutPage() {
           <div
             ref={goalRef}
             onScroll={() => handleScroll(goalRef, setActiveGoal, goals.length)}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-2 md:gap-8 md:pb-0 scrollbar-hide"
+            className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-2 md:gap-8 md:pb-0 scrollbar-hide"
           >
             {goals.map((goal, index) => (
               <ScrollReveal
                 key={index}
-                className="flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center h-full"
+                className="flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center"
                 direction="up"
                 delay={index * 80}
               >
                 <div
-                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full"
+                  className="bg-bg-card border border-border-main rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex-1"
                 >
                   <div className="text-5xl mb-4">{goal.icon}</div>
                   <h3 className="text-xl font-bold text-text-main mb-3">
@@ -239,10 +239,10 @@ export default function AboutPage() {
           <div
             ref={valueRef}
             onScroll={() => handleScroll(valueRef, setActiveValue, 3)}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-3 md:gap-8 md:pb-0 scrollbar-hide"
+            className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-3 md:gap-8 md:pb-0 scrollbar-hide"
           >
-            <ScrollReveal direction="up" delay={50} className="flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center h-full">
-              <div className="bg-gradient-to-br from-brand-primary/10 to-brand-primary/5 border border-brand-primary/20 rounded-2xl p-8 h-full">
+            <ScrollReveal direction="up" delay={50} className="flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center">
+              <div className="bg-gradient-to-br from-brand-primary/10 to-brand-primary/5 border border-brand-primary/20 rounded-2xl p-8 flex-1">
                 <div className="text-4xl mb-4">🎓</div>
                 <h3 className="text-xl font-bold text-text-main mb-3">
                   Excellence in Education
@@ -254,8 +254,8 @@ export default function AboutPage() {
                 </p>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="up" delay={150} className="flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center h-full">
-              <div className="bg-gradient-to-br from-brand-secondary/10 to-brand-secondary/5 border border-brand-secondary/20 rounded-2xl p-8 h-full">
+            <ScrollReveal direction="up" delay={150} className="flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center">
+              <div className="bg-gradient-to-br from-brand-secondary/10 to-brand-secondary/5 border border-brand-secondary/20 rounded-2xl p-8 flex-1">
                 <div className="text-4xl mb-4">🤲</div>
                 <h3 className="text-xl font-bold text-text-main mb-3">
                   Accessibility & Inclusivity
@@ -266,8 +266,8 @@ export default function AboutPage() {
                 </p>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="up" delay={250} className="flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center h-full">
-              <div className="bg-gradient-to-br from-brand-success/10 to-brand-success/5 border border-brand-success/20 rounded-2xl p-8 h-full">
+            <ScrollReveal direction="up" delay={250} className="flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center">
+              <div className="bg-gradient-to-br from-brand-success/10 to-brand-success/5 border border-brand-success/20 rounded-2xl p-8 flex-1">
                 <div className="text-4xl mb-4">🚀</div>
                 <h3 className="text-xl font-bold text-text-main mb-3">
                   Innovation & Growth
@@ -299,26 +299,26 @@ export default function AboutPage() {
           <div
             ref={statRef}
             onScroll={() => handleScroll(statRef, setActiveStat, 4)}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-4 md:gap-8 md:pb-0 scrollbar-hide"
+            className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6 md:grid md:grid-cols-4 md:gap-8 md:pb-0 scrollbar-hide"
           >
-            <ScrollReveal direction="scale" delay={50} className="flex-shrink-0 w-[200px] sm:w-[240px] md:w-auto md:flex-shrink snap-center h-full">
-              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center h-full">
+            <ScrollReveal direction="scale" delay={50} className="flex flex-col flex-shrink-0 w-[200px] sm:w-[240px] md:w-auto md:flex-shrink snap-center">
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center flex-1">
                 <div className="text-5xl font-bold text-brand-primary mb-2">
                   50K+
                 </div>
                 <p className="text-text-muted font-semibold">Students Trained</p>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="scale" delay={120} className="flex-shrink-0 w-[200px] sm:w-[240px] md:w-auto md:flex-shrink snap-center h-full">
-              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center h-full">
+            <ScrollReveal direction="scale" delay={120} className="flex flex-col flex-shrink-0 w-[200px] sm:w-[240px] md:w-auto md:flex-shrink snap-center">
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center flex-1">
                 <div className="text-5xl font-bold text-brand-primary mb-2">
                   200+
                 </div>
                 <p className="text-text-muted font-semibold">Courses Available</p>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="scale" delay={190} className="flex-shrink-0 w-[200px] sm:w-[240px] md:w-auto md:flex-shrink snap-center h-full">
-              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center h-full">
+            <ScrollReveal direction="scale" delay={190} className="flex flex-col flex-shrink-0 w-[200px] sm:w-[240px] md:w-auto md:flex-shrink snap-center">
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center flex-1">
                 <div className="text-5xl font-bold text-brand-primary mb-2">
                   95%
                 </div>
@@ -327,8 +327,8 @@ export default function AboutPage() {
                 </p>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="scale" delay={260} className="flex-shrink-0 w-[200px] sm:w-[240px] md:w-auto md:flex-shrink snap-center h-full">
-              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center h-full">
+            <ScrollReveal direction="scale" delay={260} className="flex flex-col flex-shrink-0 w-[200px] sm:w-[240px] md:w-auto md:flex-shrink snap-center">
+              <div className="bg-bg-card border border-border-main rounded-2xl p-8 text-center flex-1">
                 <div className="text-5xl font-bold text-brand-primary mb-2">
                   100+
                 </div>

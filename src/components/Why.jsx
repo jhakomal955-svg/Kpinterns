@@ -193,12 +193,12 @@ const Why = () => {
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6  md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 scrollbar-hide"
+          className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6  md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 scrollbar-hide"
         >
           {features.map((feature, index) => (
             <ScrollReveal
               key={feature.id}
-              className="group relative flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center"
+              className="group relative flex flex-col flex-shrink-0 w-[285px] sm:w-[320px] md:w-auto md:flex-shrink snap-center"
               direction="up"
               delay={index * 80}
               onMouseEnter={() => setHoveredCard(feature.id)}
@@ -206,7 +206,7 @@ const Why = () => {
             >
               {/* Card Container */}
               <div
-                className={`relative h-full bg-bg-card border border-border-main rounded-2xl p-6 sm:p-8 mt-4  transition-all duration-300 overflow-hidden ${
+                className={`relative flex-1 bg-bg-card border border-border-main rounded-2xl p-6 sm:p-8 mt-4  transition-all duration-300 overflow-hidden ${
                   hoveredCard === feature.id
                     ? "border-brand-primary/50 shadow-2xl -translate-y-2"
                     : "shadow-lg hover:shadow-xl hover:border-brand-primary/30"

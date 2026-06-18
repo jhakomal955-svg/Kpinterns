@@ -217,7 +217,7 @@ const FeaturedSpotlight = () => {
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 mt-12 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 scrollbar-hide"
+          className="flex items-stretch overflow-x-auto snap-x snap-mandatory gap-6 pb-6 mt-12 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:pb-0 scrollbar-hide"
         >
           {activeTab === "internships"
             ? activeInternships.map((internship, index) => {
@@ -228,11 +228,11 @@ const FeaturedSpotlight = () => {
                 return (
                   <ScrollReveal
                     key={internship._id}
-                    className="h-full flex-shrink-0 w-[290px] sm:w-[330px] md:w-auto md:flex-shrink snap-center"
+                    className="flex flex-col flex-shrink-0 w-[290px] sm:w-[330px] md:w-auto md:flex-shrink snap-center"
                     direction="up"
                     delay={index * 80}
                   >
-                    <div className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                    <div className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col flex-1">
                       {/* Visual Header / Thumbnail (Matches Internship Page Card layout) */}
                       <div className="relative h-48 bg-gradient-to-br from-brand-secondary/20 via-brand-primary/20 to-brand-secondary/10 flex items-center justify-center overflow-hidden border-b border-border-main">
                         {internship.thumbnail ? (
@@ -327,11 +327,11 @@ const FeaturedSpotlight = () => {
                 return (
                   <ScrollReveal
                     key={course._id}
-                    className="h-full flex-shrink-0 w-[290px] sm:w-[330px] md:w-auto md:flex-shrink snap-center"
+                    className="flex flex-col flex-shrink-0 w-[290px] sm:w-[330px] md:w-auto md:flex-shrink snap-center"
                     direction="up"
                     delay={index * 80}
                   >
-                    <div className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                    <div className="group bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col flex-1">
                       {/* Visual Header / Thumbnail (Matches Courses Page Card layout) */}
                       <div className="relative h-48 bg-gradient-to-br from-brand-primary/20 via-brand-secondary/20 to-brand-primary/10 flex items-center justify-center overflow-hidden border-b border-border-main">
                         {course.thumbnail ? (

@@ -83,7 +83,6 @@ export async function POST(request) {
         // Upgrade plain-text password to bcrypt hash on the fly
         user.password = password; // pre-save hook will automatically hash it when we save!
         await user.save();
-        console.log(`🔒 Upgraded password to bcrypt for User: ${user.email}`);
       }
     }
 

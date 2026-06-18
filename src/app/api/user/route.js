@@ -12,6 +12,7 @@ import bcrypt from "bcryptjs";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, AdminModel } from "@/models";
 import crypto from "crypto";
+import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
 import { verifyAuth, getAuthUser } from "@/lib/jwt";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
@@ -464,81 +465,87 @@ export async function POST(request) {
       });
     }
 
-    // Delete the verified OTP record so it cannot be reused
-    if (!isDashboardCreation) {
-      await VerificationOtp.deleteOne({ email: normalizedEmail });
-    }
-
-    // Send the allotment and receipt email to the user (only for client-side registrations)
-    if (!isDashboardCreation && resolvedType) {
-      let receiptPdfBuffer = null;
-
-      // Step 1: Generate PDF receipt
+    // Defer slow operations to run in the background after response is sent
+    after(async () => {
       try {
-        receiptPdfBuffer = await generatePaymentReceipt(newUser.toObject(), {
-          purchaseType: resolvedType,
-          title: resolvedTitle,
-          amount: resolvedPrice,
-          paymentId: paymentDetails?.razorpay_payment_id || "N/A",
-          orderId: paymentDetails?.razorpay_order_id || "N/A",
-          date: new Date(),
-        });
-      } catch (pdfErr) {
-        console.error("❌ Failed to generate payment receipt PDF:", pdfErr);
-      }
-
-      // Step 2: Upload PDF to Cloudinary and save URL on user document
-      if (receiptPdfBuffer) {
-        try {
-          const filename = `payment_receipt_${newUser._id}_${Date.now()}`;
-          const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
-            public_id: filename,
-            folder: "kpinterns/receipts",
-            resource_type: "auto",
-          });
-          const receiptCloudinaryUrl = uploadResult.secure_url;
-
-          // Save URL directly on the in-memory newUser object (same as offerLetterUrl pattern)
-          if (resolvedType === "internship" && newUser.ActiveInternship?.length > 0) {
-            newUser.ActiveInternship[newUser.ActiveInternship.length - 1].paymentreceipt = receiptCloudinaryUrl;
-            newUser.markModified("ActiveInternship");
-          } else if (resolvedType === "course" && newUser.ActiveCources?.length > 0) {
-            newUser.ActiveCources[newUser.ActiveCources.length - 1].paymentreceipt = receiptCloudinaryUrl;
-            newUser.markModified("ActiveCources");
-          }
-          await newUser.save();
-          console.log("✅ Payment receipt uploaded to Cloudinary & saved:", receiptCloudinaryUrl);
-        } catch (uploadErr) {
-          console.error("❌ Failed to upload receipt PDF to Cloudinary:", uploadErr);
+        // Delete the verified OTP record so it cannot be reused
+        if (!isDashboardCreation) {
+          await VerificationOtp.deleteOne({ email: normalizedEmail });
         }
+
+        // Send the allotment and receipt email to the user (only for client-side registrations)
+        if (!isDashboardCreation && resolvedType) {
+          let receiptPdfBuffer = null;
+
+          // Step 1: Generate PDF receipt
+          try {
+            receiptPdfBuffer = await generatePaymentReceipt(newUser.toObject(), {
+              purchaseType: resolvedType,
+              title: resolvedTitle,
+              amount: resolvedPrice,
+              paymentId: paymentDetails?.razorpay_payment_id || "N/A",
+              orderId: paymentDetails?.razorpay_order_id || "N/A",
+              date: new Date(),
+            });
+          } catch (pdfErr) {
+            console.error("❌ Failed to generate payment receipt PDF:", pdfErr);
+          }
+
+          // Step 2: Upload PDF to Cloudinary and save URL on user document
+          if (receiptPdfBuffer) {
+            try {
+              const filename = `payment_receipt_${newUser._id}_${Date.now()}`;
+              const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
+                public_id: filename,
+                folder: "kpinterns/receipts",
+                resource_type: "auto",
+              });
+              const receiptCloudinaryUrl = uploadResult.secure_url;
+
+              // Save URL directly on the user record in database to avoid in-memory model saves
+              if (resolvedType === "internship" && newUser.ActiveInternship?.length > 0) {
+                await User.updateOne(
+                  { _id: newUser._id, "ActiveInternship.internship": newUser.ActiveInternship[newUser.ActiveInternship.length - 1].internship },
+                  { $set: { "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl } }
+                );
+              } else if (resolvedType === "course" && newUser.ActiveCources?.length > 0) {
+                await User.updateOne(
+                  { _id: newUser._id, "ActiveCources.course": newUser.ActiveCources[newUser.ActiveCources.length - 1].course },
+                  { $set: { "ActiveCources.$.paymentreceipt": receiptCloudinaryUrl } }
+                );
+              }
+            } catch (uploadErr) {
+              console.error("❌ Failed to upload receipt PDF to Cloudinary:", uploadErr);
+            }
+          }
+
+          // Step 3: Send confirmation email (with PDF buffer as attachment)
+          try {
+            await sendAllotmentAndPaymentSlipEmail(normalizedEmail, data.fullName, {
+              purchaseType: resolvedType,
+              title: resolvedTitle,
+              amount: resolvedPrice,
+              paymentId: paymentDetails?.razorpay_payment_id || "N/A",
+              orderId: paymentDetails?.razorpay_order_id || "N/A",
+              date: new Date(),
+              isNewRegistration: true,
+              receiptPdfBuffer,
+            });
+          } catch (mailError) {
+            console.error("❌ Failed to send registration allotment receipt email:", mailError);
+          }
+        }
+
+        // Run automated document generation (e.g. generate and email offer letter for new internship enrollment)
+        try {
+          await checkAndAutomateDocuments(newUser._id.toString());
+        } catch (docError) {
+          console.error("❌ Failed to run automated document checks on registration:", docError);
+        }
+      } catch (bgError) {
+        console.error("❌ Error running background registration jobs:", bgError);
       }
-
-      // Step 3: Send confirmation email (with PDF buffer as attachment)
-      try {
-        await sendAllotmentAndPaymentSlipEmail(normalizedEmail, data.fullName, {
-          purchaseType: resolvedType,
-          title: resolvedTitle,
-          amount: resolvedPrice,
-          paymentId: paymentDetails?.razorpay_payment_id || "N/A",
-          orderId: paymentDetails?.razorpay_order_id || "N/A",
-          date: new Date(),
-          isNewRegistration: true,
-          receiptPdfBuffer,
-        });
-      } catch (mailError) {
-        console.error("❌ Failed to send registration allotment receipt email:", mailError);
-      }
-    }
-
-
-    // Run automated document generation (e.g. generate and email offer letter for new internship enrollment)
-    try {
-      await checkAndAutomateDocuments(newUser._id.toString());
-    } catch (docError) {
-      console.error("❌ Failed to run automated document checks on registration:", docError);
-    }
-
-    console.log("✅ User created successfully:", newUser._id);
+    });
 
     const userWithoutPassword = newUser.toObject();
     delete userWithoutPassword.password;
@@ -549,6 +556,21 @@ export async function POST(request) {
     );
   } catch (error) {
     console.error("Error creating user:", error);
+
+    // Handle MongoDB unique key constraints cleanly (duplicate registration/phone/email)
+    if (error.code === 11000) {
+      const duplicateField = Object.keys(error.keyPattern || {})[0] || "field";
+      let fieldLabel = duplicateField;
+      if (duplicateField === "email") fieldLabel = "email address";
+      if (duplicateField === "phone") fieldLabel = "phone number";
+      if (duplicateField === "registrationNumber") fieldLabel = "registration number";
+      
+      return Response.json(
+        { error: `User with this ${fieldLabel} already exists.` },
+        { status: 400 }
+      );
+    }
+
     return Response.json(
       { error: "Failed to create user", details: error.message },
       { status: 500 },
@@ -603,7 +625,7 @@ export async function PUT(request) {
       return Response.json({ error: "User not found" }, { status: 404 });
     }
 
-    console.log("✅ User updated successfully:", userId);
+    // User updated
 
     // Sync progress & status based on any admin updates
     await syncUserProgressAndStatus(updatedUser);
@@ -664,7 +686,7 @@ export async function DELETE(request) {
       return Response.json({ error: "User not found" }, { status: 404 });
     }
 
-    console.log("✅ User deleted successfully:", userId);
+    // User deleted
 
     return Response.json(
       {

@@ -2,6 +2,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
 import crypto from "crypto";
+import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
 import { generatePaymentReceipt } from "@/lib/pdfGenerator";
@@ -203,72 +204,79 @@ export async function POST(request) {
     user.updatedAt = new Date();
     await user.save();
 
-    // Send the payment receipt and enrollment confirmation email to the user
-    let receiptPdfBuffer = null;
-
-    // Step 1: Generate PDF receipt
-    try {
-      receiptPdfBuffer = await generatePaymentReceipt(user.toObject(), {
-        purchaseType: type,
-        title,
-        amount: price,
-        paymentId: razorpay_payment_id || "N/A",
-        orderId: razorpay_order_id || "N/A",
-        date: new Date(),
-      });
-    } catch (pdfErr) {
-      console.error("❌ Failed to generate payment receipt PDF:", pdfErr);
-    }
-
-    // Step 2: Upload to Cloudinary and save URL directly on user document
-    if (receiptPdfBuffer) {
+    // Defer slow operations to run in the background after response is sent
+    after(async () => {
       try {
-        const filename = `payment_receipt_${userId}_${Date.now()}`;
-        const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
-          public_id: filename,
-          folder: "kpinterns/receipts",
-          resource_type: "auto",
-        });
-        const receiptCloudinaryUrl = uploadResult.secure_url;
+        let receiptPdfBuffer = null;
 
-        // Save URL directly on the in-memory user object (same as offerLetterUrl pattern)
-        if (type === "internship" && user.ActiveInternship?.length > 0) {
-          user.ActiveInternship[user.ActiveInternship.length - 1].paymentreceipt = receiptCloudinaryUrl;
-          user.markModified("ActiveInternship");
-        } else if (type === "course" && user.ActiveCources?.length > 0) {
-          user.ActiveCources[user.ActiveCources.length - 1].paymentreceipt = receiptCloudinaryUrl;
-          user.markModified("ActiveCources");
+        // Step 1: Generate PDF receipt
+        try {
+          receiptPdfBuffer = await generatePaymentReceipt(user.toObject(), {
+            purchaseType: type,
+            title,
+            amount: price,
+            paymentId: razorpay_payment_id || "N/A",
+            orderId: razorpay_order_id || "N/A",
+            date: new Date(),
+          });
+        } catch (pdfErr) {
+          console.error("❌ Failed to generate payment receipt PDF:", pdfErr);
         }
-        await user.save();
-        console.log("✅ Payment receipt uploaded to Cloudinary & saved:", receiptCloudinaryUrl);
-      } catch (uploadErr) {
-        console.error("❌ Failed to upload receipt PDF to Cloudinary:", uploadErr);
+
+        // Step 2: Upload to Cloudinary and save URL directly on user document
+        if (receiptPdfBuffer) {
+          try {
+            const filename = `payment_receipt_${userId}_${Date.now()}`;
+            const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
+              public_id: filename,
+              folder: "kpinterns/receipts",
+              resource_type: "auto",
+            });
+            const receiptCloudinaryUrl = uploadResult.secure_url;
+
+            // Save URL directly on the user record in database to avoid concurrent state overwriting
+            if (type === "internship" && user.ActiveInternship?.length > 0) {
+              await User.updateOne(
+                { _id: userId, "ActiveInternship.internship": itemId },
+                { $set: { "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl } }
+              );
+            } else if (type === "course" && user.ActiveCources?.length > 0) {
+              await User.updateOne(
+                { _id: userId, "ActiveCources.course": itemId },
+                { $set: { "ActiveCources.$.paymentreceipt": receiptCloudinaryUrl } }
+              );
+            }
+          } catch (uploadErr) {
+            console.error("❌ Failed to upload receipt PDF to Cloudinary:", uploadErr);
+          }
+        }
+
+        // Step 3: Send confirmation email with PDF attached
+        try {
+          await sendAllotmentAndPaymentSlipEmail(user.email, user.fullName, {
+            purchaseType: type,
+            title: title,
+            amount: price,
+            paymentId: razorpay_payment_id || "N/A",
+            orderId: razorpay_order_id || "N/A",
+            date: new Date(),
+            isNewRegistration: false,
+            receiptPdfBuffer,
+          });
+        } catch (mailError) {
+          console.error("❌ Failed to send course purchase receipt email:", mailError);
+        }
+
+        // Run automated document generation (e.g. generate and email offer letter for new internship enrollment)
+        try {
+          await checkAndAutomateDocuments(userId);
+        } catch (docError) {
+          console.error("❌ Failed to run automated document checks on payment verify:", docError);
+        }
+      } catch (bgError) {
+        console.error("❌ Error running background checkout tasks:", bgError);
       }
-    }
-
-    // Step 3: Send confirmation email with PDF attached
-    try {
-      await sendAllotmentAndPaymentSlipEmail(user.email, user.fullName, {
-        purchaseType: type,
-        title: title,
-        amount: price,
-        paymentId: razorpay_payment_id || "N/A",
-        orderId: razorpay_order_id || "N/A",
-        date: new Date(),
-        isNewRegistration: false,
-        receiptPdfBuffer,
-      });
-    } catch (mailError) {
-      console.error("❌ Failed to send course purchase receipt email:", mailError);
-    }
-
-
-    // Run automated document generation (e.g. generate and email offer letter for new internship enrollment)
-    try {
-      await checkAndAutomateDocuments(userId);
-    } catch (docError) {
-      console.error("❌ Failed to run automated document checks on payment verify:", docError);
-    }
+    });
 
     // Populate user references so the client has full details
     createModel("Course", CourseModel);

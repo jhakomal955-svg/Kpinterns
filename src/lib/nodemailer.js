@@ -27,11 +27,12 @@ const getTransporter = () => {
  * @returns {Promise<{success: boolean, mocked?: boolean}>}
  */
 export async function sendOtpEmail(email, otp) {
-  // Always log the OTP to the console as a reliable development fallback
-  console.log("\n" + "━".repeat(50));
-  console.log(`🔑 REGISTRATION VERIFICATION OTP FOR: ${email}`);
-  console.log(`👉 CODE: ${otp}`);
-  console.log("━".repeat(50) + "\n");
+  if (process.env.NODE_ENV === "development") {
+    console.log("\n" + "━".repeat(50));
+    console.log(`🔑 REGISTRATION VERIFICATION OTP FOR: ${email}`);
+    console.log(`👉 CODE: ${otp}`);
+    console.log("━".repeat(50) + "\n");
+  }
 
   const transporter = getTransporter();
 
@@ -91,11 +92,12 @@ export async function sendOtpEmail(email, otp) {
  * @returns {Promise<{success: boolean, mocked?: boolean}>}
  */
 export async function sendForgotPasswordOtpEmail(email, name, otp, role = "User") {
-  // Always log the OTP to the console as a reliable development fallback
-  console.log("\n" + "━".repeat(50));
-  console.log(`🔑 FORGOT PASSWORD OTP FOR ${role.toUpperCase()}: ${email}`);
-  console.log(`👉 CODE: ${otp}`);
-  console.log("━".repeat(50) + "\n");
+  if (process.env.NODE_ENV === "development") {
+    console.log("\n" + "━".repeat(50));
+    console.log(`🔑 FORGOT PASSWORD OTP FOR ${role.toUpperCase()}: ${email}`);
+    console.log(`👉 CODE: ${otp}`);
+    console.log("━".repeat(50) + "\n");
+  }
 
   const transporter = getTransporter();
 
@@ -167,13 +169,14 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
 
   const formattedDate = date ? new Date(date).toLocaleString() : new Date().toLocaleString();
 
-  // Always log the receipt to the console as fallback
-  console.log("\n" + "━".repeat(50));
-  console.log(`🧾 EMAIL ALLOTMENT & RECEIPT FOR: ${email}`);
-  console.log(`📦 ITEM: ${title} (${purchaseType})`);
-  console.log(`💰 AMOUNT: ₹${amount}`);
-  console.log(`💳 PAYMENT ID: ${paymentId}`);
-  console.log("━".repeat(50) + "\n");
+  if (process.env.NODE_ENV === "development") {
+    console.log("\n" + "━".repeat(50));
+    console.log(`🧾 EMAIL ALLOTMENT & RECEIPT FOR: ${email}`);
+    console.log(`📦 ITEM: ${title} (${purchaseType})`);
+    console.log(`💰 AMOUNT: ₹${amount}`);
+    console.log(`💳 PAYMENT ID: ${paymentId}`);
+    console.log("━".repeat(50) + "\n");
+  }
 
   const transporter = getTransporter();
 
@@ -311,7 +314,9 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
  * @returns {Promise<{success: boolean, mocked?: boolean}>}
  */
 export async function sendOfferLetterEmail(email, userName, programTitle, pdfBuffer) {
-  console.log(`✉️ SENDING OFFER LETTER EMAIL TO: ${email} for ${programTitle}`);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`✉️ SENDING OFFER LETTER EMAIL TO: ${email} for ${programTitle}`);
+  }
 
   const transporter = getTransporter();
 
@@ -379,7 +384,9 @@ export async function sendOfferLetterEmail(email, userName, programTitle, pdfBuf
  * @returns {Promise<{success: boolean, mocked?: boolean}>}
  */
 export async function sendCertificateEmail(email, userName, programTitle, type, pdfBuffer) {
-  console.log(`✉️ SENDING CERTIFICATE EMAIL TO: ${email} for ${programTitle}`);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`✉️ SENDING CERTIFICATE EMAIL TO: ${email} for ${programTitle}`);
+  }
 
   const transporter = getTransporter();
 

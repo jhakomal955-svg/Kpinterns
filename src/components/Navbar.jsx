@@ -51,7 +51,7 @@ export default function Navbar() {
   // Dynamic Array for your menu links to keep code clean and maintainable
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Internship", href: "/internship" },
+    { label: "Explore Internships", href: "/internship" },
     { label: "Courses", href: "/courses" },
     { label: "Verify", href: "/verify" },
     { label: "About us", href: "/about" },

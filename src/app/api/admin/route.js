@@ -177,7 +177,7 @@ export async function POST(request) {
       await VerificationOtp.deleteOne({ email: cleanEmail });
     }
 
-    console.log("✅ Admin created successfully:", newAdmin._id);
+    // Admin created
 
     // Return without password
     const adminData = newAdmin.toObject();
@@ -240,7 +240,7 @@ export async function PUT(request) {
       return Response.json({ error: "Admin not found" }, { status: 404 });
     }
 
-    console.log("✅ Admin updated successfully:", adminId);
+    // Admin updated
 
     return Response.json(
       {
@@ -290,7 +290,7 @@ export async function DELETE(request) {
       return Response.json({ error: "Admin not found" }, { status: 404 });
     }
 
-    console.log("✅ Admin deleted successfully:", adminId);
+    // Admin deleted
 
     return Response.json(
       { success: true, message: "Admin deleted successfully" },

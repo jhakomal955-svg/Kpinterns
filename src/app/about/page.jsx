@@ -217,6 +217,18 @@ export default function AboutPage() {
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center gap-1.5 mt-2 md:hidden">
+            {goals.map((_, idx) => (
+              <div
+                key={idx}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeGoal === idx ? "bg-brand-primary w-5" : "bg-border-main w-2"
+                }`}
+              />
+            ))}
+          </div>
         </section>
 
         {/* Values Section */}

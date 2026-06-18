@@ -191,7 +191,7 @@ export async function POST(request) {
       }
     }
 
-    console.log("✅ Course created successfully:", newCourse._id);
+    // Course created
 
     return Response.json(
       {
@@ -282,7 +282,7 @@ export async function PUT(request) {
       );
     }
 
-    console.log("✅ Course updated successfully:", courseId);
+    // Course updated
 
     return Response.json(
       {
@@ -334,7 +334,7 @@ export async function DELETE(request) {
       { $pull: { coursesOffered: courseId } }
     );
 
-    console.log("✅ Course deleted successfully:", courseId);
+    // Course deleted
 
     return Response.json(
       {

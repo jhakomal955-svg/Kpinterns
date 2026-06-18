@@ -29,6 +29,10 @@ async function connectDB() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      maxPoolSize: 10,
+      minPoolSize: 2,
+      socketTimeoutMS: 30000,
+      connectTimeoutMS: 30000,
     };
 
     cached.promise = mongoose
@@ -43,12 +47,6 @@ async function connectDB() {
         createModel("VerificationOtp", VerificationOtpModel);
         createModel("Attendance", AttendanceModel);
 
-        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        console.log("✅ MongoDB Connection Successful!");
-        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        console.log(`📊 Connected to: ${MONGODB_URI.split("@")[1]}`);
-        console.log(`⏰ Connection Time: ${new Date().toLocaleString()}`);
-        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
         return mongoose;
       })
       .catch((error) => {

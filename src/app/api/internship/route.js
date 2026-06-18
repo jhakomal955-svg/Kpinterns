@@ -180,7 +180,7 @@ export async function POST(request) {
       }
     }
 
-    console.log("✅ Internship created successfully:", newInternship._id);
+    // Internship created
 
     return Response.json(
       {
@@ -278,7 +278,7 @@ export async function PUT(request) {
       );
     }
 
-    console.log("✅ Internship updated successfully:", internshipId);
+    // Internship updated
 
     return Response.json(
       {
@@ -333,7 +333,7 @@ export async function DELETE(request) {
       { $pull: { internshipsOffered: internshipId } }
     );
 
-    console.log("✅ Internship deleted successfully:", internshipId);
+    // Internship deleted
 
     return Response.json(
       {

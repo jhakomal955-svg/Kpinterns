@@ -111,7 +111,7 @@ export async function POST(request) {
     const newContact = new Contact(data);
     await newContact.save();
 
-    console.log("✅ Contact created successfully:", newContact._id);
+    // Contact created
 
     return Response.json(
       {
@@ -163,7 +163,7 @@ export async function PUT(request) {
       return Response.json({ error: "Contact not found" }, { status: 404 });
     }
 
-    console.log("✅ Contact updated successfully:", contactId);
+    // Contact updated
 
     return Response.json(
       {
@@ -211,7 +211,7 @@ export async function DELETE(request) {
       return Response.json({ error: "Contact not found" }, { status: 404 });
     }
 
-    console.log("✅ Contact deleted successfully:", contactId);
+    // Contact deleted
 
     return Response.json(
       { success: true, message: "Contact deleted successfully" },

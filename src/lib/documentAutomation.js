@@ -46,7 +46,9 @@ export async function checkAndAutomateDocuments(userId) {
         // A. Offer Letter Generation: Enrolled/Paid but offerLetterUrl is missing
         if (item.paymentStatus === true && !item.offerLetterUrl) {
           try {
-            console.log(`[Document Automation] Generating offer letter for user: ${user.fullName}, program: ${programTitle}`);
+            if (process.env.NODE_ENV === "development") {
+              console.log(`[Document Automation] Generating offer letter for user: ${user.fullName}, program: ${programTitle}`);
+            }
             
             // Generate PDF Buffer
             const pdfBuffer = await generateOfferLetter(user, internship, verificationId);
@@ -65,7 +67,9 @@ export async function checkAndAutomateDocuments(userId) {
 
             // Send Email with PDF Attachment
             await sendOfferLetterEmail(user.email, user.fullName, programTitle, pdfBuffer);
-            console.log(`[Document Automation] Offer letter successfully generated & sent for verification ID: ${verificationId}`);
+            if (process.env.NODE_ENV === "development") {
+              console.log(`[Document Automation] Offer letter successfully generated & sent for verification ID: ${verificationId}`);
+            }
           } catch (err) {
             console.error(`[Document Automation] Failed to generate/email offer letter for verification ID: ${verificationId}`, err);
           }
@@ -75,7 +79,9 @@ export async function checkAndAutomateDocuments(userId) {
         const isCompleted = item.internshipStatus === "Completed";
         if (isCompleted && !item.certificationUrl) {
           try {
-            console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);
+            if (process.env.NODE_ENV === "development") {
+              console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);
+            }
 
             // Generate Landscape PDF Buffer
             const pdfBuffer = await generateCertificate(user, internship, "internship", verificationId);
@@ -94,7 +100,9 @@ export async function checkAndAutomateDocuments(userId) {
 
             // Send Email with PDF Attachment
             await sendCertificateEmail(user.email, user.fullName, programTitle, "internship", pdfBuffer);
-            console.log(`[Document Automation] Completion certificate successfully generated & sent for verification ID: ${verificationId}`);
+            if (process.env.NODE_ENV === "development") {
+              console.log(`[Document Automation] Completion certificate successfully generated & sent for verification ID: ${verificationId}`);
+            }
           } catch (err) {
             console.error(`[Document Automation] Failed to generate/email internship certificate for verification ID: ${verificationId}`, err);
           }
@@ -117,7 +125,9 @@ export async function checkAndAutomateDocuments(userId) {
         const isCompleted = item.courseStatus === "Completed";
         if (isCompleted && !item.certificateUrl) {
           try {
-            console.log(`[Document Automation] Generating course completion certificate for user: ${user.fullName}, course: ${programTitle}`);
+            if (process.env.NODE_ENV === "development") {
+              console.log(`[Document Automation] Generating course completion certificate for user: ${user.fullName}, course: ${programTitle}`);
+            }
 
             // Generate Landscape PDF Buffer
             const pdfBuffer = await generateCertificate(user, course, "course", verificationId);
@@ -136,7 +146,9 @@ export async function checkAndAutomateDocuments(userId) {
 
             // Send Email with PDF Attachment
             await sendCertificateEmail(user.email, user.fullName, programTitle, "course", pdfBuffer);
-            console.log(`[Document Automation] Course completion certificate successfully generated & sent for verification ID: ${verificationId}`);
+            if (process.env.NODE_ENV === "development") {
+              console.log(`[Document Automation] Course completion certificate successfully generated & sent for verification ID: ${verificationId}`);
+            }
           } catch (err) {
             console.error(`[Document Automation] Failed to generate/email course certificate for verification ID: ${verificationId}`, err);
           }
@@ -150,7 +162,9 @@ export async function checkAndAutomateDocuments(userId) {
       user.markModified("ActiveCources");
       user.updatedAt = new Date();
       await user.save();
-      console.log(`[Document Automation] Successfully updated and saved document URLs for user: ${user.fullName} (${userId})`);
+      if (process.env.NODE_ENV === "development") {
+        console.log(`[Document Automation] Successfully updated and saved document URLs for user: ${user.fullName} (${userId})`);
+      }
       return true;
     }
 

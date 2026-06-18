@@ -83,7 +83,7 @@ const Footer = () => {
                     href="/internship"
                     className="text-md text-text-muted hover:text-brand-primary transition-colors"
                   >
-                    Internship
+                    Explore Internships
                   </Link>
                   <Link
                     href="/courses"

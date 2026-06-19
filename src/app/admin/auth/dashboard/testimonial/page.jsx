@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
 export default function TestimonialAdminPage() {
   const [testimonials, setTestimonials] = useState([]);
@@ -9,6 +10,8 @@ export default function TestimonialAdminPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [message, setMessage] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [targetIdToDelete, setTargetIdToDelete] = useState(null);
 
   // Fetch all testimonials
   const fetchTestimonials = async () => {
@@ -65,7 +68,6 @@ export default function TestimonialAdminPage() {
 
   // Delete testimonial
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this testimonial?")) return;
     try {
       setMessage(null);
       setError(null);
@@ -77,6 +79,8 @@ export default function TestimonialAdminPage() {
       const data = await res.json();
       if (data.success) {
         setMessage("Testimonial deleted successfully!");
+        setShowConfirmModal(false);
+        setTargetIdToDelete(null);
         fetchTestimonials();
       } else {
         setError(data.error || "Failed to delete testimonial");
@@ -242,7 +246,10 @@ export default function TestimonialAdminPage() {
                           </button>
                         )}
                         <button
-                          onClick={() => handleDelete(review._id)}
+                          onClick={() => {
+                            setTargetIdToDelete(review._id);
+                            setShowConfirmModal(true);
+                          }}
                           className="p-2 rounded-xl text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
                           title="Delete Testimonial"
                         >
@@ -259,6 +266,15 @@ export default function TestimonialAdminPage() {
           </div>
         )}
       </div>
+      <DeleteConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setTargetIdToDelete(null);
+        }}
+        onConfirm={() => handleDelete(targetIdToDelete)}
+        itemName="testimonial"
+      />
     </div>
   );
 }

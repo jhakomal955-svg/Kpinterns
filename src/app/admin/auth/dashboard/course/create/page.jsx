@@ -50,6 +50,9 @@ export default function CourseCreatePage() {
     externalLink: "",
   });
 
+  const [editingContentIndex, setEditingContentIndex] = useState(null);
+  const [editingUpdateIndex, setEditingUpdateIndex] = useState(null);
+
   const departments = ["Technical", "NonTechnical"];
   const difficulties = ["Beginner", "Intermediate", "Advanced", "Expert"];
   const accessDurations = ["1-month", "3-months", "6-months", "1-year", "lifetime"];
@@ -163,16 +166,45 @@ export default function CourseCreatePage() {
     }
   };
 
+  const editContentItem = (index) => {
+    setEditingContentIndex(index);
+    setCurrentContentItem(formData.contentItems[index]);
+  };
+
+  const cancelEditContentItem = () => {
+    setEditingContentIndex(null);
+    setCurrentContentItem({
+      title: "",
+      textContent: "",
+      VideoUrl: "",
+      pdfurl: "",
+      imageurl: "",
+      externalink: "",
+    });
+  };
+
   const addContentItem = () => {
     if (!currentContentItem.title.trim()) {
       setError("Please enter a content title");
       return;
     }
 
-    setFormData((prev) => ({
-      ...prev,
-      contentItems: [...prev.contentItems, currentContentItem],
-    }));
+    setFormData((prev) => {
+      let newItems;
+      if (editingContentIndex !== null) {
+        newItems = [...prev.contentItems];
+        newItems[editingContentIndex] = currentContentItem;
+      } else {
+        newItems = [...prev.contentItems, currentContentItem];
+      }
+      return {
+        ...prev,
+        contentItems: newItems,
+      };
+    });
+
+    const isEditMode = editingContentIndex !== null;
+    setEditingContentIndex(null);
 
     setCurrentContentItem({
       title: "",
@@ -183,7 +215,7 @@ export default function CourseCreatePage() {
       externalink: "",
     });
 
-    setMessage("Content item added successfully!");
+    setMessage(isEditMode ? "Content item updated successfully!" : "Content item added successfully!");
   };
 
   const removeContentItem = (index) => {
@@ -191,6 +223,24 @@ export default function CourseCreatePage() {
       ...prev,
       contentItems: prev.contentItems.filter((_, i) => i !== index),
     }));
+    if (editingContentIndex === index) {
+      cancelEditContentItem();
+    } else if (editingContentIndex > index) {
+      setEditingContentIndex(editingContentIndex - 1);
+    }
+  };
+
+  const editUpdateItem = (index) => {
+    setEditingUpdateIndex(index);
+    setCurrentUpdate(formData.updates[index]);
+  };
+
+  const cancelEditUpdateItem = () => {
+    setEditingUpdateIndex(null);
+    setCurrentUpdate({
+      title: "",
+      externalLink: "",
+    });
   };
 
   const addUpdateItem = () => {
@@ -199,17 +249,29 @@ export default function CourseCreatePage() {
       return;
     }
 
-    setFormData((prev) => ({
-      ...prev,
-      updates: [...(prev.updates || []), currentUpdate],
-    }));
+    setFormData((prev) => {
+      let newUpdates;
+      if (editingUpdateIndex !== null) {
+        newUpdates = [...prev.updates];
+        newUpdates[editingUpdateIndex] = currentUpdate;
+      } else {
+        newUpdates = [...(prev.updates || []), currentUpdate];
+      }
+      return {
+        ...prev,
+        updates: newUpdates,
+      };
+    });
+
+    const isEditMode = editingUpdateIndex !== null;
+    setEditingUpdateIndex(null);
 
     setCurrentUpdate({
       title: "",
       externalLink: "",
     });
 
-    setMessage("Update item added successfully!");
+    setMessage(isEditMode ? "Update item updated successfully!" : "Update item added successfully!");
   };
 
   const removeUpdateItem = (index) => {
@@ -217,6 +279,11 @@ export default function CourseCreatePage() {
       ...prev,
       updates: prev.updates.filter((_, i) => i !== index),
     }));
+    if (editingUpdateIndex === index) {
+      cancelEditUpdateItem();
+    } else if (editingUpdateIndex > index) {
+      setEditingUpdateIndex(editingUpdateIndex - 1);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -519,9 +586,27 @@ export default function CourseCreatePage() {
                 <input type="url" value={currentContentItem.externalink} onChange={(e) => setCurrentContentItem((prev) => ({ ...prev, externalink: e.target.value }))} placeholder="https://example.com" className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition" />
               </div>
 
-              <button type="button" disabled={uploadingFile} onClick={addContentItem} className="w-full bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                {uploadingFile ? "Uploading File..." : "Add Content Item"}
-              </button>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  disabled={uploadingFile}
+                  onClick={addContentItem}
+                  className="flex-1 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {uploadingFile 
+                    ? "Uploading File..." 
+                    : (editingContentIndex !== null ? "Update Content Item" : "Add Content Item")}
+                </button>
+                {editingContentIndex !== null && (
+                  <button
+                    type="button"
+                    onClick={cancelEditContentItem}
+                    className="px-6 bg-bg-main border-2 border-border-main text-text-muted hover:text-text-main font-semibold py-3 rounded-xl transition"
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
             </div>
 
             {formData.contentItems.length > 0 && (
@@ -540,9 +625,22 @@ export default function CourseCreatePage() {
                           {item.externalink && <span className="text-xs bg-purple-500/20 text-purple-500 px-2 py-1 rounded-full font-medium">🔗 Link</span>}
                         </div>
                       </div>
-                      <button type="button" onClick={() => removeContentItem(idx)} className="ml-4 p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
-                      </button>
+                      <div className="ml-4 flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => editContentItem(idx)}
+                          className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition text-sm font-semibold flex items-center justify-center"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removeContentItem(idx)}
+                          className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -563,9 +661,24 @@ export default function CourseCreatePage() {
                 <label className="block text-sm font-semibold text-text-muted mb-2">External Link (Optional)</label>
                 <input type="url" value={currentUpdate.externalLink} onChange={(e) => setCurrentUpdate((prev) => ({ ...prev, externalLink: e.target.value }))} placeholder="https://example.com/document" className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition" />
               </div>
-              <button type="button" onClick={addUpdateItem} className="w-full bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2">
-                Add Update Item
-              </button>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={addUpdateItem}
+                  className="flex-1 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2"
+                >
+                  {editingUpdateIndex !== null ? "Update Update Item" : "Add Update Item"}
+                </button>
+                {editingUpdateIndex !== null && (
+                  <button
+                    type="button"
+                    onClick={cancelEditUpdateItem}
+                    className="px-6 bg-bg-main border-2 border-border-main text-text-muted hover:text-text-main font-semibold py-3 rounded-xl transition"
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
             </div>
 
             {formData.updates && formData.updates.length > 0 && (
@@ -578,9 +691,21 @@ export default function CourseCreatePage() {
                         <h4 className="font-semibold text-text-main mb-1">{item.title}</h4>
                         {item.externalLink && <a href={item.externalLink} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-primary hover:underline truncate max-w-xl block mt-1">{item.externalLink}</a>}
                       </div>
-                      <button type="button" onClick={() => removeUpdateItem(idx)} className="ml-4 p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
-                      </button>
+                      <div className="ml-4 flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => editUpdateItem(idx)}
+                          className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition text-sm font-semibold flex items-center justify-center"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removeUpdateItem(idx)}
+                          className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition">
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>

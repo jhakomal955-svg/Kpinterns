@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import LogoutConfirmModal from "./LogoutConfirmModal.jsx";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   useEffect(() => {
     const checkLogin = () => {
@@ -32,6 +34,10 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const performLogout = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userData");
     window.dispatchEvent(new Event("user-login-change"));
@@ -60,7 +66,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-bg-card border-b border-border-main sticky top-0 z-50 transition-colors duration-200 shadow-sm">
+    <>
+      <nav className="bg-bg-card border-b border-border-main sticky top-0 z-50 transition-colors duration-200 shadow-sm">
       <div className="px-4 sm:px-8 lg:px-[60px]">
         <div className="flex items-center justify-between h-16">
           
@@ -211,5 +218,11 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+      <LogoutConfirmModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={performLogout}
+      />
+    </>
   );
 }

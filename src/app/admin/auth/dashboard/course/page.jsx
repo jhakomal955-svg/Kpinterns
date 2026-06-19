@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
 export default function CoursesAdminPage() {
   const [courses, setCourses] = useState([]);
@@ -11,6 +12,8 @@ export default function CoursesAdminPage() {
   const [deptFilter, setDeptFilter] = useState("All");
   const [message, setMessage] = useState(null);
   const [adminData, setAdminData] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [targetIdToDelete, setTargetIdToDelete] = useState(null);
 
   const fetchCourses = async () => {
     try {
@@ -48,7 +51,6 @@ export default function CoursesAdminPage() {
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this course?")) return;
     try {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/course?id=${id}`, { 
@@ -58,6 +60,8 @@ export default function CoursesAdminPage() {
       const data = await res.json();
       if (data.success) {
         setMessage("Course deleted successfully!");
+        setShowConfirmModal(false);
+        setTargetIdToDelete(null);
         fetchCourses();
       } else {
         setError(data.error || "Failed to delete course");
@@ -70,7 +74,7 @@ export default function CoursesAdminPage() {
   const filteredCourses = courses.filter((course) => {
     if (adminData?.role === "Instructor") {
       const isAssigned = course.instructor?.some((inst) => {
-        const instId = typeof inst.id === "object" ? inst.id?._id : inst.id;
+        const instId = inst.id?._id?.toString() || inst.id?.toString();
         return instId === adminData._id;
       });
       if (!isAssigned) return false;
@@ -180,13 +184,31 @@ export default function CoursesAdminPage() {
               <div className="px-5 py-4 bg-bg-main/50 border-t border-border-main flex items-center justify-end gap-3">
                 <Link href={`/admin/auth/dashboard/course/${course._id}`} className="p-2 rounded-xl text-blue-500 bg-bg-card border border-border-main hover:bg-blue-50 text-xs font-semibold">Edit</Link>
                 {adminData?.role !== "Instructor" && (
-                  <button type="button" onClick={() => handleDelete(course._id)} className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:bg-red-50 text-xs font-semibold">Delete</button>
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      setTargetIdToDelete(course._id);
+                      setShowConfirmModal(true);
+                    }} 
+                    className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:bg-red-50 text-xs font-semibold"
+                  >
+                    Delete
+                  </button>
                 )}
               </div>
             </div>
           ))}
         </div>
       )}
+      <DeleteConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setTargetIdToDelete(null);
+        }}
+        onConfirm={() => handleDelete(targetIdToDelete)}
+        itemName="course"
+      />
     </div>
   );
 }

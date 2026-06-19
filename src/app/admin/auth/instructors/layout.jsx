@@ -3,12 +3,20 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LogoutConfirmModal from "@/components/LogoutConfirmModal";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [adminData, setAdminData] = useState(null);
   const pathname = usePathname();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleLogoutConfirm = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminData");
+    window.location.href = "/admin/auth/login";
+  };
 
   // Sync theme class with global document tag
   useEffect(() => {
@@ -219,11 +227,7 @@ export default function DashboardLayout({ children }) {
 
           {/* Logout Button */}
           <button
-            onClick={() => {
-              localStorage.removeItem("adminToken");
-              localStorage.removeItem("adminData");
-              window.location.href = "/admin/auth/login";
-            }}
+            onClick={() => setIsLogoutModalOpen(true)}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-text-muted hover:text-white hover:bg-red-500 text-base"
           >
             <svg
@@ -345,9 +349,7 @@ export default function DashboardLayout({ children }) {
           <button
             onClick={() => {
               setSidebarOpen(false);
-              localStorage.removeItem("adminToken");
-              localStorage.removeItem("adminData");
-              window.location.href = "/admin/auth/login";
+              setIsLogoutModalOpen(true);
             }}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-text-muted hover:text-white hover:bg-red-500 text-base"
           >
@@ -494,6 +496,11 @@ export default function DashboardLayout({ children }) {
           })()}
         </div>
       </main>
+      <LogoutConfirmModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleLogoutConfirm}
+      />
     </div>
   );
 }

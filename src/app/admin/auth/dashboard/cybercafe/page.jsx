@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
 export default function CybercafePage() {
   const [partners, setPartners] = useState([]);
@@ -9,6 +10,8 @@ export default function CybercafePage() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [message, setMessage] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [targetIdToDelete, setTargetIdToDelete] = useState(null);
 
 
 
@@ -42,7 +45,6 @@ export default function CybercafePage() {
 
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this Cybercafe Partner account?")) return;
     try {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/admin?id=${id}`, {
@@ -52,6 +54,8 @@ export default function CybercafePage() {
       const data = await res.json();
       if (data.success) {
         setMessage("Cybercafe Partner deleted successfully!");
+        setShowConfirmModal(false);
+        setTargetIdToDelete(null);
         fetchPartners();
       } else {
         setError(data.error || "Failed to delete Cybercafe Partner");
@@ -208,8 +212,11 @@ export default function CybercafePage() {
                           </svg>
                         </Link>
                         <button
-                          onClick={() => handleDelete(partner._id)}
-                          className="p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          onClick={() => {
+                            setTargetIdToDelete(partner._id);
+                            setShowConfirmModal(true);
+                          }}
+                          className="p-2 rounded-lg text-red-500 hover:bg-red-550 dark:hover:bg-red-900/20 transition-colors"
                           title="Delete Partner"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -225,6 +232,15 @@ export default function CybercafePage() {
           </div>
         )}
       </div>
+      <DeleteConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setTargetIdToDelete(null);
+        }}
+        onConfirm={() => handleDelete(targetIdToDelete)}
+        itemName="Cybercafe Partner account"
+      />
     </div>
   );
 }

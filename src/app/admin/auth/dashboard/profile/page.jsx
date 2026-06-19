@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import LogoutConfirmModal from "@/components/LogoutConfirmModal";
 
 export default function ProfileAdminPage() {
   const [adminData, setAdminData] = useState(null);
@@ -8,6 +9,13 @@ export default function ProfileAdminPage() {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleLogoutConfirm = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminData");
+    window.location.href = "/admin/auth/login";
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -482,16 +490,18 @@ export default function ProfileAdminPage() {
           Logout from your admin account
         </p>
         <button
-          onClick={() => {
-            localStorage.removeItem("adminToken");
-            localStorage.removeItem("adminData");
-            window.location.href = "/admin/auth/login";
-          }}
+          onClick={() => setIsLogoutModalOpen(true)}
           className="px-6 py-2.5 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition"
         >
           Logout
         </button>
       </div>
+
+      <LogoutConfirmModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleLogoutConfirm}
+      />
     </div>
   );
 }

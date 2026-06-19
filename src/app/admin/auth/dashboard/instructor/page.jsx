@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
 export default function InstructorsPage() {
   const [instructors, setInstructors] = useState([]);
@@ -9,6 +10,8 @@ export default function InstructorsPage() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [message, setMessage] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [targetIdToDelete, setTargetIdToDelete] = useState(null);
 
 
 
@@ -42,7 +45,6 @@ export default function InstructorsPage() {
 
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this instructor account?")) return;
     try {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/admin?id=${id}`, {
@@ -52,6 +54,8 @@ export default function InstructorsPage() {
       const data = await res.json();
       if (data.success) {
         setMessage("Instructor deleted successfully!");
+        setShowConfirmModal(false);
+        setTargetIdToDelete(null);
         fetchInstructors();
       } else {
         setError(data.error || "Failed to delete instructor");
@@ -208,7 +212,10 @@ export default function InstructorsPage() {
                           </svg>
                         </Link>
                         <button
-                          onClick={() => handleDelete(instructor._id)}
+                          onClick={() => {
+                            setTargetIdToDelete(instructor._id);
+                            setShowConfirmModal(true);
+                          }}
                           className="p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                           title="Delete Instructor"
                         >
@@ -225,6 +232,15 @@ export default function InstructorsPage() {
           </div>
         )}
       </div>
+      <DeleteConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setTargetIdToDelete(null);
+        }}
+        onConfirm={() => handleDelete(targetIdToDelete)}
+        itemName="instructor account"
+      />
     </div>
   );
 }

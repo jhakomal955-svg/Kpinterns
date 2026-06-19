@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
 export default function ContactsAdminPage() {
   const [contacts, setContacts] = useState([]);
@@ -13,6 +14,8 @@ export default function ContactsAdminPage() {
   // Form/Modal state for viewing detail
   const [selectedContact, setSelectedContact] = useState(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [targetIdToDelete, setTargetIdToDelete] = useState(null);
 
   const statuses = ["New", "Reviewed", "Responded", "Closed"];
 
@@ -72,7 +75,6 @@ export default function ContactsAdminPage() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this submission?")) return;
     try {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/contact?id=${id}`, {
@@ -83,6 +85,8 @@ export default function ContactsAdminPage() {
       if (data.success) {
         setMessage("Submission deleted successfully!");
         setShowDetailModal(false);
+        setShowConfirmModal(false);
+        setTargetIdToDelete(null);
         fetchContacts();
       } else {
         setError(data.error || "Failed to delete submission");
@@ -256,8 +260,11 @@ export default function ContactsAdminPage() {
                           </svg>
                         </button>
                         <button
-                          onClick={() => handleDelete(contact._id)}
-                          className="p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          onClick={() => {
+                            setTargetIdToDelete(contact._id);
+                            setShowConfirmModal(true);
+                          }}
+                          className="p-2 rounded-lg text-red-500 hover:bg-red-550 dark:hover:bg-red-900/20 transition-colors"
                           title="Delete Submission"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -385,7 +392,10 @@ export default function ContactsAdminPage() {
 
                 <div className="flex items-center gap-3 self-end sm:self-auto">
                   <button
-                    onClick={() => handleDelete(selectedContact._id)}
+                    onClick={() => {
+                      setTargetIdToDelete(selectedContact._id);
+                      setShowConfirmModal(true);
+                    }}
                     className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -405,6 +415,15 @@ export default function ContactsAdminPage() {
           </div>
         </div>
       )}
+      <DeleteConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setTargetIdToDelete(null);
+        }}
+        onConfirm={() => handleDelete(targetIdToDelete)}
+        itemName="submission"
+      />
     </div>
   );
 }

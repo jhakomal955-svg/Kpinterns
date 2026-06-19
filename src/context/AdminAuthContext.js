@@ -5,6 +5,22 @@ import { useRouter, usePathname } from "next/navigation";
 
 const AdminAuthContext = createContext();
 
+// Helper to validate client-side token expiration
+function isTokenExpired(token) {
+  if (!token) return true;
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) return true;
+    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+    if (payload.exp && Date.now() >= payload.exp * 1000) {
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return true;
+  }
+}
+
 export function AdminAuthProvider({ children }) {
   const [admin, setAdmin] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,13 +35,49 @@ export function AdminAuthProvider({ children }) {
         const token = localStorage.getItem("adminToken");
         const adminData = localStorage.getItem("adminData");
 
+        const isAdminProtectedRoute = pathname.startsWith("/admin") && 
+          !pathname.startsWith("/admin/auth/login") && 
+          !pathname.startsWith("/admin/auth/register") && 
+          !pathname.startsWith("/admin/auth/forgot-password") &&
+          pathname !== "/admin/auth";
+
         if (token && adminData) {
+          if (isTokenExpired(token)) {
+            localStorage.removeItem("adminToken");
+            localStorage.removeItem("adminData");
+            setAdmin(null);
+            setIsAuthenticated(false);
+            if (isAdminProtectedRoute) {
+              router.push("/admin/auth/login");
+            }
+            return;
+          }
+
           setAdmin(JSON.parse(adminData));
           setIsAuthenticated(true);
+
+          // Verify token server-side
+          try {
+            const res = await fetch("/api/auth/verify", {
+              headers: { "Authorization": `Bearer ${token}` }
+            });
+            const result = await res.json();
+            if (!result.success) {
+              localStorage.removeItem("adminToken");
+              localStorage.removeItem("adminData");
+              setAdmin(null);
+              setIsAuthenticated(false);
+              if (isAdminProtectedRoute) {
+                router.push("/admin/auth/login");
+              }
+            }
+          } catch (e) {
+            console.error("Admin session verification error:", e);
+          }
         } else {
           setIsAuthenticated(false);
           // Redirect to login if accessing protected routes
-          if (pathname.includes("/admin/auth/dashboard")) {
+          if (isAdminProtectedRoute) {
             router.push("/admin/auth/login");
           }
         }
@@ -42,10 +94,16 @@ export function AdminAuthProvider({ children }) {
 
   // Monitor pathname changes and redirect if not authenticated
   useEffect(() => {
+    const isAdminProtectedRoute = pathname.startsWith("/admin") && 
+      !pathname.startsWith("/admin/auth/login") && 
+      !pathname.startsWith("/admin/auth/register") && 
+      !pathname.startsWith("/admin/auth/forgot-password") &&
+      pathname !== "/admin/auth";
+
     if (
       !isLoading &&
       !isAuthenticated &&
-      pathname.includes("/admin/auth/dashboard")
+      isAdminProtectedRoute
     ) {
       router.push("/admin/auth/login");
     }

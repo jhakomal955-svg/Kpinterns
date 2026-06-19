@@ -67,6 +67,12 @@ export async function POST(request) {
   try {
     await connectDB();
 
+    // Authenticate logged-in users/admins
+    const auth = verifyAuth(request);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status || 401 });
+    }
+
     const data = await request.json();
 
     // Validate required fields

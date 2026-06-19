@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
 export default function InternshipsAdminPage() {
   const [internships, setInternships] = useState([]);
@@ -14,6 +15,8 @@ export default function InternshipsAdminPage() {
   const [departmentFilter, setDepartmentFilter] = useState("All");
   const [message, setMessage] = useState(null);
   const [adminData, setAdminData] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [targetIdToDelete, setTargetIdToDelete] = useState(null);
 
   const internshipTypes = [
     "Full-Time",
@@ -105,7 +108,6 @@ export default function InternshipsAdminPage() {
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this internship?")) return;
     try {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/internship?id=${id}`, {
@@ -115,6 +117,8 @@ export default function InternshipsAdminPage() {
       const data = await res.json();
       if (data.success) {
         setMessage("Internship deleted successfully!");
+        setShowConfirmModal(false);
+        setTargetIdToDelete(null);
         fetchInternships();
       } else {
         setError(data.error || "Failed to delete internship");
@@ -127,7 +131,7 @@ export default function InternshipsAdminPage() {
   const filteredInternships = internships.filter((internship) => {
     if (adminData?.role === "Instructor") {
       const isAssigned = internship.instructor?.some((inst) => {
-        const instId = typeof inst.id === "object" ? inst.id?._id : inst.id;
+        const instId = inst.id?._id?.toString() || inst.id?.toString();
         return instId === adminData._id;
       });
       if (!isAssigned) return false;
@@ -377,8 +381,11 @@ export default function InternshipsAdminPage() {
                 </Link>
                 {adminData?.role !== "Instructor" && (
                   <button
-                    onClick={() => handleDelete(internship._id)}
-                    className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:border-red-500/40 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all flex items-center gap-1.5 font-semibold text-xs sm:text-sm"
+                    onClick={() => {
+                      setTargetIdToDelete(internship._id);
+                      setShowConfirmModal(true);
+                    }}
+                    className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:border-red-550 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all flex items-center gap-1.5 font-semibold text-xs sm:text-sm cursor-pointer"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -391,6 +398,15 @@ export default function InternshipsAdminPage() {
           ))}
         </div>
       )}
+      <DeleteConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setTargetIdToDelete(null);
+        }}
+        onConfirm={() => handleDelete(targetIdToDelete)}
+        itemName="internship"
+      />
     </div>
   );
 }

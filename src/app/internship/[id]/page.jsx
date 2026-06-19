@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import VideoPlayer from "@/components/VideoPlayer";
+import SuccessAlertModal from "@/components/SuccessAlertModal";
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -61,6 +62,11 @@ export default function InternshipDetailLearnPage() {
   const [userData, setUserData] = useState(null);
   const [isUpdatingProgress, setIsUpdatingProgress] = useState(false);
   const [showAllUpdates, setShowAllUpdates] = useState(false);
+  const [successModal, setSuccessModal] = useState({
+    isOpen: false,
+    title: "",
+    message: "",
+  });
 
   const userInternshipData = userData?.ActiveInternship?.find(
     (i) => (i.internship?._id || i.internship) === internshipId
@@ -207,7 +213,11 @@ export default function InternshipDetailLearnPage() {
         if (data.success) {
           localStorage.setItem("userData", JSON.stringify(data.data));
           setIsEnrolled(true);
-          alert(`Successfully applied and enrolled in ${internship.title}!`);
+          setSuccessModal({
+            isOpen: true,
+            title: "Enrollment Successful!",
+            message: `Successfully applied and enrolled in the internship: ${internship.title}!`,
+          });
         } else {
           alert(data.error || "Failed to register for internship");
         }
@@ -267,7 +277,11 @@ export default function InternshipDetailLearnPage() {
               if (verifyRes.ok && verifyData.success) {
                 localStorage.setItem("userData", JSON.stringify(verifyData.data));
                 setIsEnrolled(true);
-                alert(`Successfully paid and registered for ${internship.title}!`);
+                setSuccessModal({
+                  isOpen: true,
+                  title: "Enrollment Successful!",
+                  message: `Successfully paid and registered for the internship: ${internship.title}!`,
+                });
               } else {
                 alert(verifyData.error || "Payment verification failed.");
               }
@@ -693,6 +707,12 @@ export default function InternshipDetailLearnPage() {
           </div>
         </div>
       )}
+      <SuccessAlertModal
+        isOpen={successModal.isOpen}
+        onClose={() => setSuccessModal((prev) => ({ ...prev, isOpen: false }))}
+        title={successModal.title}
+        message={successModal.message}
+      />
     </div>
   );
 }

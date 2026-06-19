@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import LogoutConfirmModal from "@/components/LogoutConfirmModal";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -835,33 +836,11 @@ export default function ProfilePage() {
       </div>
 
       {/* Logout Confirmation Modal */}
-      {showLogoutModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-bg-card dark:bg-bg-card rounded-2xl p-8 max-w-sm w-full animate-fade-in shadow-2xl">
-            <h2 className="text-2xl font-bold text-text-main dark:text-text-main font-poppins mb-4">
-              Confirm Logout
-            </h2>
-            <p className="text-text-muted dark:text-text-muted font-poppins mb-8">
-              Are you sure you want to logout? You&apos;ll need to login again to
-              access your profile.
-            </p>
-            <div className="flex gap-4">
-              <button
-                onClick={() => setShowLogoutModal(false)}
-                className="flex-1 px-4 py-2 border border-border-main dark:border-border-main text-text-main dark:text-text-main rounded-lg hover:bg-bg-main dark:hover:bg-bg-main transition font-poppins font-semibold"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleLogout}
-                className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-poppins font-semibold"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <LogoutConfirmModal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        onConfirm={handleLogout}
+      />
     </div>
   );
 }

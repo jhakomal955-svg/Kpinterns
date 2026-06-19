@@ -241,7 +241,7 @@ export async function PUT(request) {
     // Role-based validation: Instructors can only edit their assigned courses
     if (auth.user.role === "Instructor") {
       const isAssigned = oldCourse.instructor?.some((inst) => {
-        const instId = typeof inst.id === "object" ? inst.id?._id?.toString() : inst.id?.toString();
+        const instId = inst.id?._id?.toString() || inst.id?.toString();
         return instId === auth.user._id;
       });
       if (!isAssigned) {

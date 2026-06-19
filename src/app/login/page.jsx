@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Turnstile from "@/components/Turnstile";
+import SuccessAlertModal from "@/components/SuccessAlertModal";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function LoginPage() {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -100,7 +102,10 @@ export default function LoginPage() {
         localStorage.setItem("userToken", data.token);
         localStorage.setItem("userData", JSON.stringify(data.data));
         window.dispatchEvent(new Event("user-login-change"));
-        router.push("/profile");
+        setShowSuccessAlert(true);
+        setTimeout(() => {
+          router.push("/profile");
+        }, 1500);
       } else {
         alert(data.error || "Login failed. Please check your credentials.");
       }
@@ -326,6 +331,16 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+      <SuccessAlertModal 
+        isOpen={showSuccessAlert} 
+        onClose={() => {
+          setShowSuccessAlert(false);
+          router.push("/profile");
+        }} 
+        onAction={() => router.push("/profile")}
+        title="Login Successful!"
+        message="Welcome back! Redirecting you to your profile..."
+      />
     </div>
   );
 }

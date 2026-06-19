@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
 export default function AdminsAdminPage() {
   const [admins, setAdmins] = useState([]);
@@ -9,6 +10,8 @@ export default function AdminsAdminPage() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [message, setMessage] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [targetIdToDelete, setTargetIdToDelete] = useState(null);
 
 
 
@@ -44,7 +47,6 @@ export default function AdminsAdminPage() {
 
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this admin account?")) return;
     try {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/admin?id=${id}`, {
@@ -54,6 +56,8 @@ export default function AdminsAdminPage() {
       const data = await res.json();
       if (data.success) {
         setMessage("Admin deleted successfully!");
+        setShowConfirmModal(false);
+        setTargetIdToDelete(null);
         fetchAdmins();
       } else {
         setError(data.error || "Failed to delete admin");
@@ -219,8 +223,11 @@ export default function AdminsAdminPage() {
                           </svg>
                         </Link>
                         <button
-                          onClick={() => handleDelete(admin._id)}
-                          className="p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          onClick={() => {
+                            setTargetIdToDelete(admin._id);
+                            setShowConfirmModal(true);
+                          }}
+                          className="p-2 rounded-lg text-red-500 hover:bg-red-550 dark:hover:bg-red-900/20 transition-colors"
                           title="Delete Admin"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -236,6 +243,15 @@ export default function AdminsAdminPage() {
           </div>
         )}
       </div>
+      <DeleteConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setTargetIdToDelete(null);
+        }}
+        onConfirm={() => handleDelete(targetIdToDelete)}
+        itemName="admin account"
+      />
     </div>
   );
 }

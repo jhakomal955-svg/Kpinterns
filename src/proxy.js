@@ -71,49 +71,57 @@ async function verifyJWT(token, secret) {
 export async function proxy(request) {
   const { pathname } = request.nextUrl;
 
-  const isUserRoute = pathname === '/api/user';
-  const isAttendanceRoute = pathname === '/api/attendance';
-  const isProgressRoute = pathname === '/api/user/progress';
-  const isPaymentVerifyRoute = pathname === '/api/payment/verify';
-  const isPaymentOrderRoute = pathname === '/api/payment/order';
+  // Only apply to /api/ routes
+  if (!pathname.startsWith('/api/')) {
+    return NextResponse.next();
+  }
 
-  const requiresAuth = 
-    (isUserRoute && request.method !== 'POST') || 
-    isAttendanceRoute || 
-    isProgressRoute || 
-    isPaymentVerifyRoute;
+  // 1. Identify public routes that NEVER need auth
+  const isPublicRoute = 
+    (pathname.startsWith('/api/auth/') && pathname !== '/api/auth/verify') ||
+    pathname === '/api/user/login' ||
+    pathname === '/api/admin/login' ||
+    pathname === '/api/otp' ||
+    pathname === '/api/verify' ||
+    (pathname === '/api/user' && request.method === 'POST') ||
+    (pathname === '/api/admin' && request.method === 'POST') ||
+    (pathname === '/api/testimonial' && request.method === 'GET') ||
+    (pathname === '/api/course' && request.method === 'GET') ||
+    (pathname === '/api/internship' && request.method === 'GET');
 
   const authHeader = request.headers.get('authorization');
-
-  if (requiresAuth || (isPaymentOrderRoute && authHeader)) {
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return new NextResponse(
-        JSON.stringify({ error: 'Authentication token missing. Please login again.' }),
-        { status: 401, headers: { 'content-type': 'application/json' } }
-      );
-    }
-
+  
+  // 2. If authorization header is present, verify it and forward user details
+  if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
     const decoded = await verifyJWT(token, JWT_SECRET);
-
-    if (!decoded) {
+    if (decoded) {
+      const requestHeaders = new Headers(request.headers);
+      requestHeaders.set('x-user-id', decoded._id || '');
+      requestHeaders.set('x-user-email', decoded.email || '');
+      requestHeaders.set('x-user-role', decoded.role || '');
+      return NextResponse.next({
+        request: {
+          headers: requestHeaders,
+        },
+      });
+    } else {
+      // Token is present but expired or invalid. Reject request.
       return new NextResponse(
         JSON.stringify({ error: 'Authentication token is invalid or expired. Please login again.' }),
         { status: 401, headers: { 'content-type': 'application/json' } }
       );
     }
+  }
 
-    // Forward the decoded user info in request headers
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set('x-user-id', decoded._id || '');
-    requestHeaders.set('x-user-email', decoded.email || '');
-    requestHeaders.set('x-user-role', decoded.role || '');
+  // 3. If no auth header, check if route requires auth
+  const requiresAuth = !isPublicRoute;
 
-    return NextResponse.next({
-      request: {
-        headers: requestHeaders,
-      },
-    });
+  if (requiresAuth) {
+    return new NextResponse(
+      JSON.stringify({ error: 'Authentication token missing. Please login again.' }),
+      { status: 401, headers: { 'content-type': 'application/json' } }
+    );
   }
 
   return NextResponse.next();
@@ -121,11 +129,5 @@ export async function proxy(request) {
 
 // Config to specify matching routes
 export const config = {
-  matcher: [
-    '/api/user',
-    '/api/attendance',
-    '/api/user/progress',
-    '/api/payment/verify',
-    '/api/payment/order',
-  ],
+  matcher: '/api/:path*',
 };

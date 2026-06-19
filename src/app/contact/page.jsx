@@ -1,10 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import ScrollReveal from "@/components/ScrollReveal";
+import AuthAlertModal from "@/components/AuthAlertModal";
+import SuccessAlertModal from "@/components/SuccessAlertModal";
 
 export default function ContactPage() {
+  const [mounted, setMounted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -19,6 +24,77 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showAuthAlert, setShowAuthAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  const handleFieldInteraction = (e) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      setShowAuthAlert(true);
+    }
+  };
+
+  useEffect(() => {
+    setMounted(true);
+
+    const checkLoginState = () => {
+      const userToken = localStorage.getItem("userToken");
+      const adminToken = localStorage.getItem("adminToken");
+      const loggedInToken = userToken || adminToken;
+      
+      if (loggedInToken) {
+        setIsLoggedIn(true);
+        setToken(loggedInToken);
+        
+        // Auto-populate the form if user/admin details exist
+        const userData = localStorage.getItem("userData");
+        const adminData = localStorage.getItem("adminData");
+        
+        try {
+          if (userToken && userData) {
+            const u = JSON.parse(userData);
+            setFormData((prev) => ({
+              ...prev,
+              fullName: u.fullName || prev.fullName || "",
+              email: u.email || prev.email || "",
+              phone: u.phone || prev.phone || "",
+              course: u.ActiveCources?.[0]?.course?.title || u.degree || prev.course || "",
+              university: u.university || prev.university || "",
+              college: u.college || prev.college || "",
+              semester: u.semester || prev.semester || "",
+            }));
+          } else if (adminToken && adminData) {
+            const a = JSON.parse(adminData);
+            setFormData((prev) => ({
+              ...prev,
+              fullName: a.name || prev.fullName || "",
+              email: a.email || prev.email || "",
+              phone: a.mobile || prev.phone || "",
+            }));
+          }
+        } catch (e) {
+          console.error("Error auto-populating contact form:", e);
+        }
+      } else {
+        setIsLoggedIn(false);
+        setToken("");
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          course: "",
+          university: "",
+          college: "",
+          semester: "",
+          message: "",
+        });
+      }
+    };
+
+    checkLoginState();
+    window.addEventListener("user-login-change", checkLoginState);
+    return () => window.removeEventListener("user-login-change", checkLoginState);
+  }, []);
 
   // Form validation
   const validateForm = () => {
@@ -43,6 +119,10 @@ export default function ContactPage() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isLoggedIn) {
+      setShowAuthAlert(true);
+      return;
+    }
     const newErrors = validateForm();
 
     if (Object.keys(newErrors).length > 0) {
@@ -54,27 +134,22 @@ export default function ContactPage() {
     setErrors({});
 
     try {
-      // Simulate API call
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setSubmitted(true);
-        setFormData({
-          fullName: "",
-          email: "",
-          phone: "",
-          course: "",
-          university: "",
-          college: "",
-          semester: "",
+        setShowSuccessAlert(true);
+        setFormData((prev) => ({
+          ...prev,
           message: "",
-        });
+        }));
         setTimeout(() => setSubmitted(false), 5000);
       }
     } catch (error) {
@@ -314,6 +389,11 @@ export default function ContactPage() {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                <fieldset 
+                  onClick={handleFieldInteraction} 
+                  onFocus={handleFieldInteraction}
+                  className="space-y-6 border-0 p-0 m-0"
+                >
                 {/* Full Name Field */}
                 <div>
                   <label
@@ -517,12 +597,13 @@ export default function ContactPage() {
                     </p>
                   )}
                 </div>
+              </fieldset>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-brand-primary to-brand-primary/80 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-brand-primary to-brand-primary/80 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-3"
                 >
                   {loading ? (
                     <>
@@ -546,6 +627,10 @@ export default function ContactPage() {
                         />
                       </svg>
                       Sending...
+                    </>
+                  ) : (mounted && !isLoggedIn) ? (
+                    <>
+                      <span>Login Required to Send Message</span>
                     </>
                   ) : (
                     <>
@@ -622,6 +707,13 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
+      <AuthAlertModal isOpen={showAuthAlert} onClose={() => setShowAuthAlert(false)} />
+      <SuccessAlertModal 
+        isOpen={showSuccessAlert} 
+        onClose={() => setShowSuccessAlert(false)} 
+        title="Message Sent!"
+        message="Thank you! Your message has been sent successfully. We will get back to you soon."
+      />
     </div>
   );
 }

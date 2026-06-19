@@ -5,9 +5,26 @@ import { useEffect } from "react";
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
 
+// Client-safe JWT expiration validation check
+function isTokenExpired(token) {
+  if (!token) return true;
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) return true;
+    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+    if (payload.exp && Date.now() >= payload.exp * 1000) {
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return true;
+  }
+}
+
 export default function LayoutWrapper({ children }) {
   const pathname = usePathname();
 
+  // Patch window.fetch to automatically include headers and intercept 401s
   useEffect(() => {
     if (typeof window !== "undefined" && !window.fetchPatched) {
       const originalFetch = window.fetch;
@@ -46,11 +63,109 @@ export default function LayoutWrapper({ children }) {
             }
           }
         }
-        return originalFetch(input, init);
+
+        const response = await originalFetch(input, init);
+
+        // Intercept 401 Unauthorized globally for protected routes
+        if (response.status === 401 && !url.includes("/api/user/login") && !url.includes("/api/admin/login")) {
+          localStorage.removeItem("adminToken");
+          localStorage.removeItem("adminData");
+          localStorage.removeItem("userToken");
+          localStorage.removeItem("userData");
+          
+          window.dispatchEvent(new Event("user-login-change"));
+
+          const isUserProtectedRoute = pathname.startsWith("/profile");
+          const isAdminProtectedRoute = pathname.startsWith("/admin") && 
+            !pathname.startsWith("/admin/auth/login") && 
+            !pathname.startsWith("/admin/auth/register") && 
+            !pathname.startsWith("/admin/auth/forgot-password");
+
+          if (isAdminProtectedRoute) {
+            window.location.href = "/admin/auth/login";
+          } else if (isUserProtectedRoute) {
+            window.location.href = "/login";
+          }
+        }
+
+        return response;
       };
       window.fetchPatched = true;
     }
-  }, []);
+  }, [pathname]);
+
+  // Check token validity whenever the pathname changes
+  useEffect(() => {
+    const verifyInitialTokens = async () => {
+      if (typeof window === "undefined") return;
+
+      const adminToken = localStorage.getItem("adminToken");
+      const userToken = localStorage.getItem("userToken");
+
+      const handleUserLogout = () => {
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("userData");
+        window.dispatchEvent(new Event("user-login-change"));
+        
+        const isUserProtectedRoute = pathname.startsWith("/profile");
+        if (isUserProtectedRoute) {
+          window.location.href = "/login";
+        }
+      };
+
+      const handleAdminLogout = () => {
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminData");
+        
+        const isAdminProtectedRoute = pathname.startsWith("/admin") && 
+          !pathname.startsWith("/admin/auth/login") && 
+          !pathname.startsWith("/admin/auth/register") && 
+          !pathname.startsWith("/admin/auth/forgot-password");
+
+        if (isAdminProtectedRoute) {
+          window.location.href = "/admin/auth/login";
+        }
+      };
+
+      // Check adminToken
+      if (adminToken) {
+        if (isTokenExpired(adminToken)) {
+          handleAdminLogout();
+        } else {
+          try {
+            const res = await fetch("/api/auth/verify", {
+              headers: { "Authorization": `Bearer ${adminToken}` }
+            });
+            if (res.status === 401) {
+              handleAdminLogout();
+            }
+          } catch (e) {
+            console.error("Admin verification error:", e);
+          }
+        }
+      }
+
+      // Check userToken
+      if (userToken) {
+        if (isTokenExpired(userToken)) {
+          handleUserLogout();
+        } else {
+          try {
+            const res = await fetch("/api/auth/verify", {
+              headers: { "Authorization": `Bearer ${userToken}` }
+            });
+            if (res.status === 401) {
+              handleUserLogout();
+            }
+          } catch (e) {
+            console.error("User verification error:", e);
+          }
+        }
+      }
+    };
+
+    verifyInitialTokens();
+  }, [pathname]);
 
   // Hide navbar and footer for admin/auth routes
   const isAdminAuthRoute = pathname.startsWith("/admin/auth");
@@ -63,3 +178,4 @@ export default function LayoutWrapper({ children }) {
     </>
   );
 }
+

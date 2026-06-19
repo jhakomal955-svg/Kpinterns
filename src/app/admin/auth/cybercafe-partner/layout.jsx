@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LogoutConfirmModal from "@/components/LogoutConfirmModal";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -10,6 +11,13 @@ export default function DashboardLayout({ children }) {
   const [adminData, setAdminData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleLogoutConfirm = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminData");
+    window.location.href = "/admin/auth/login";
+  };
 
   // Sync theme class with global document tag
   useEffect(() => {
@@ -220,11 +228,7 @@ export default function DashboardLayout({ children }) {
           </Link>
 
           <button
-            onClick={() => {
-              localStorage.removeItem("adminToken");
-              localStorage.removeItem("adminData");
-              window.location.href = "/admin/auth/login";
-            }}
+            onClick={() => setIsLogoutModalOpen(true)}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-text-muted hover:text-white hover:bg-red-500 text-base"
           >
             <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
@@ -307,9 +311,7 @@ export default function DashboardLayout({ children }) {
           <button
             onClick={() => {
               setSidebarOpen(false);
-              localStorage.removeItem("adminToken");
-              localStorage.removeItem("adminData");
-              window.location.href = "/admin/auth/login";
+              setIsLogoutModalOpen(true);
             }}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-text-muted hover:text-white hover:bg-red-500 text-base"
           >
@@ -362,6 +364,11 @@ export default function DashboardLayout({ children }) {
           {children}
         </div>
       </main>
+      <LogoutConfirmModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleLogoutConfirm}
+      />
     </div>
   );
 }

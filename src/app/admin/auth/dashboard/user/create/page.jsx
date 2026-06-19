@@ -81,6 +81,7 @@ export default function UserCreatePage() {
     semester: "",
     session: "",
     registrationNumber: "",
+    internshipId: "",
     internshipDomain: "",
     mode: "",
     courseId: "",
@@ -131,6 +132,7 @@ export default function UserCreatePage() {
         university: value,
         college: "",
         department: "",
+        internshipId: "",
         internshipDomain: "",
         mode: "",
         courseId: "",
@@ -140,6 +142,7 @@ export default function UserCreatePage() {
         ...prev,
         college: value,
         department: "",
+        internshipId: "",
         internshipDomain: "",
         mode: "",
         courseId: "",
@@ -148,6 +151,7 @@ export default function UserCreatePage() {
       setFormData((prev) => ({
         ...prev,
         degree: value,
+        internshipId: "",
         internshipDomain: "",
         mode: "",
         courseId: "",
@@ -156,9 +160,19 @@ export default function UserCreatePage() {
       setFormData((prev) => ({
         ...prev,
         department: value,
+        internshipId: "",
         internshipDomain: "",
         mode: "",
         courseId: "",
+      }));
+    } else if (name === "internshipId") {
+      const selectedId = value;
+      const matched = dbInternships.find((item) => item._id === selectedId);
+      setFormData((prev) => ({
+        ...prev,
+        internshipId: selectedId,
+        internshipDomain: matched ? matched.domain : "",
+        mode: matched ? matched.mode : "",
       }));
     } else if (name === "internshipDomain") {
       const domainValue = value;
@@ -243,6 +257,17 @@ export default function UserCreatePage() {
     return map[deg] ?? deg;
   };
 
+  const getFilteredInternshipsForBranchDept = () => {
+    if (!formData.department || !formData.degree) return [];
+    const normDegree = normaliseDegree(formData.degree);
+    return dbInternships.filter(
+      (item) =>
+        (item.status === "Active" || item.status === "Published") &&
+        (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+        (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department)
+    );
+  };
+
   const getAvailableInternshipDomains = () => {
     if (!formData.department || !formData.degree) return [];
     const normDegree = normaliseDegree(formData.degree);
@@ -298,7 +323,7 @@ export default function UserCreatePage() {
       if (!formData.registrationNumber.trim()) newErrors.registrationNumber = "Registration number is required";
       
       if (purchaseType === "internship") {
-        if (!formData.internshipDomain) newErrors.internshipDomain = "Internship domain is required";
+        if (!formData.internshipId) newErrors.internshipId = "Internship is required";
         if (!formData.mode) newErrors.mode = "Mode is required";
       } else {
         if (!formData.courseId) newErrors.courseId = "Course selection is required";
@@ -343,15 +368,9 @@ export default function UserCreatePage() {
         };
 
         // Construct programs arrays
-        if (purchaseType === "internship" && formData.internshipDomain) {
-          const normDegree = normaliseDegree(formData.degree);
+        if (purchaseType === "internship" && formData.internshipId) {
           const matchedInt = dbInternships.find(
-            (item) =>
-              (item.status === "Active" || item.status === "Published") &&
-              (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
-              (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department) &&
-              item.domain === formData.internshipDomain &&
-              (!formData.mode || item.mode === formData.mode)
+            (item) => item._id === formData.internshipId
           );
 
           if (matchedInt) {
@@ -863,16 +882,16 @@ export default function UserCreatePage() {
                   <>
                     <div>
                       <label className="block text-sm font-semibold text-text-main mb-2">
-                        Internship Domain *
+                        Select Internship *
                       </label>
                       <select
-                        name="internshipDomain"
-                        value={formData.internshipDomain}
+                        name="internshipId"
+                        value={formData.internshipId}
                         onChange={handleInputChange}
-                        disabled={!formData.degree || !formData.department || isLoadingInternships || getAvailableInternshipDomains().length === 0}
+                        disabled={!formData.degree || !formData.department || isLoadingInternships || getFilteredInternshipsForBranchDept().length === 0}
                         className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                          errors.internshipDomain ? "border-red-500" : "border-border-main"
-                        } ${(!formData.degree || !formData.department || isLoadingInternships || getAvailableInternshipDomains().length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
+                          errors.internshipId ? "border-red-500" : "border-border-main"
+                        } ${(!formData.degree || !formData.department || isLoadingInternships || getFilteredInternshipsForBranchDept().length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
                       >
                         <option value="">
                           {isLoadingInternships
@@ -881,75 +900,53 @@ export default function UserCreatePage() {
                               ? "Select Degree first"
                               : !formData.department
                                 ? "Select Department first"
-                                : getAvailableInternshipDomains().length === 0
-                                  ? "Internship domain is coming soon"
-                                  : "Select Internship Domain"}
+                                  : getFilteredInternshipsForBranchDept().length === 0
+                                    ? "No internships available for this branch & department"
+                                    : `Select Internship (${getFilteredInternshipsForBranchDept().length} available)`}
                         </option>
-                        {getAvailableInternshipDomains().map((domain) => (
-                          <option key={domain} value={domain}>
-                            {domain}
+                        {getFilteredInternshipsForBranchDept().map((item) => (
+                          <option key={item._id} value={item._id}>
+                            {item.title} ({item.position}) - Fee: ₹{item.RegistrationFee?.amount || 0}
                           </option>
                         ))}
                       </select>
-                      {formData.degree && formData.department && !isLoadingInternships && getAvailableInternshipDomains().length === 0 && (
+                      {formData.degree && formData.department && !isLoadingInternships && getFilteredInternshipsForBranchDept().length === 0 && (
                         <p className="text-amber-500 text-xs mt-2 font-semibold">
-                          ⚠️ Internship domain is coming soon for this stream!
+                          ⚠️ No internships available for this stream currently.
                         </p>
                       )}
-                      {errors.internshipDomain && (
-                        <p className="text-red-500 text-xs mt-1">{errors.internshipDomain}</p>
+                      {formData.degree && formData.department && getFilteredInternshipsForBranchDept().length > 0 && (
+                        <p className="text-brand-primary text-xs mt-2 font-semibold">
+                          ℹ️ {getFilteredInternshipsForBranchDept().length} internship(s) found for your branch & department.
+                        </p>
+                      )}
+                      {errors.internshipId && (
+                        <p className="text-red-500 text-xs mt-1">{errors.internshipId}</p>
                       )}
                     </div>
 
                     <div>
                       <label className="block text-sm font-semibold text-text-main mb-2">
-                        Internship Mode *
+                        Internship Mode
                       </label>
-                      {(() => {
-                        const availModes = getAvailableModes();
-                        const isSingleMode = availModes.length === 1;
-
-                        if (formData.internshipDomain && isSingleMode) {
-                          return (
-                            <div className="flex items-center gap-3">
-                              <div className="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-brand-primary/40 bg-brand-primary/5 w-full">
-                                <span className="text-brand-primary text-sm font-bold">
-                                  ✓ {formData.mode}
-                                </span>
-                                <span className="ml-auto text-[11px] font-semibold text-brand-primary/70 uppercase tracking-wider bg-brand-primary/10 px-2 py-0.5 rounded-full">
-                                  Auto-selected
-                                </span>
-                              </div>
-                              <input type="hidden" name="mode" value={formData.mode} />
-                            </div>
-                          );
-                        }
-
-                        return (
-                          <select
-                            name="mode"
-                            value={formData.mode}
-                            onChange={handleInputChange}
-                            disabled={!formData.internshipDomain || availModes.length === 0}
-                            className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                              errors.mode ? "border-red-500" : "border-border-main"
-                            } ${(!formData.internshipDomain || availModes.length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
-                          >
-                            <option value="">
-                              {!formData.internshipDomain
-                                ? "Select Internship Domain first"
-                                : availModes.length === 0
-                                  ? "No modes available"
-                                  : "Select Mode"}
-                            </option>
-                            {availModes.map((m) => (
-                              <option key={m} value={m}>
-                                {m}
-                              </option>
-                            ))}
-                          </select>
-                        );
-                      })()}
+                      {formData.internshipId && formData.mode ? (
+                        <div className="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-brand-primary/40 bg-brand-primary/5 w-full">
+                          <span className="text-brand-primary text-sm font-bold">
+                            ✓ {formData.mode}
+                          </span>
+                          <span className="ml-auto text-[11px] font-semibold text-brand-primary/70 uppercase tracking-wider bg-brand-primary/10 px-2 py-0.5 rounded-full">
+                            Auto-filled
+                          </span>
+                          <input type="hidden" name="mode" value={formData.mode} />
+                        </div>
+                      ) : (
+                        <input
+                          type="text"
+                          placeholder="Select internship first"
+                          disabled
+                          className="w-full px-4 py-3 rounded-xl border-2 border-border-main bg-bg-main opacity-50 cursor-not-allowed font-poppins"
+                        />
+                      )}
                       {errors.mode && (
                         <p className="text-red-500 text-xs mt-1">{errors.mode}</p>
                       )}

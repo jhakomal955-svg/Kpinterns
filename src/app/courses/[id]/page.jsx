@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import VideoPlayer from "@/components/VideoPlayer";
+import SuccessAlertModal from "@/components/SuccessAlertModal";
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -61,6 +62,11 @@ export default function CourseDetailLearnPage() {
   const [userData, setUserData] = useState(null);
   const [isUpdatingProgress, setIsUpdatingProgress] = useState(false);
   const [showAllUpdates, setShowAllUpdates] = useState(false);
+  const [successModal, setSuccessModal] = useState({
+    isOpen: false,
+    title: "",
+    message: "",
+  });
 
   const userCourseData = userData?.ActiveCources?.find(
     (c) => (c.course?._id || c.course) === courseId
@@ -207,7 +213,11 @@ export default function CourseDetailLearnPage() {
         if (data.success) {
           localStorage.setItem("userData", JSON.stringify(data.data));
           setIsEnrolled(true);
-          alert(`Successfully enrolled in ${course.title}!`);
+          setSuccessModal({
+            isOpen: true,
+            title: "Enrollment Successful!",
+            message: `Successfully enrolled in the course: ${course.title}!`,
+          });
         } else {
           alert(data.error || "Failed to enroll in course");
         }
@@ -267,7 +277,11 @@ export default function CourseDetailLearnPage() {
               if (verifyRes.ok && verifyData.success) {
                 localStorage.setItem("userData", JSON.stringify(verifyData.data));
                 setIsEnrolled(true);
-                alert(`Successfully paid and enrolled in ${course.title}!`);
+                setSuccessModal({
+                  isOpen: true,
+                  title: "Enrollment Successful!",
+                  message: `Successfully paid and enrolled in the course: ${course.title}!`,
+                });
               } else {
                 alert(verifyData.error || "Payment verification failed.");
               }
@@ -663,6 +677,12 @@ export default function CourseDetailLearnPage() {
           </div>
         </div>
       )}
+      <SuccessAlertModal
+        isOpen={successModal.isOpen}
+        onClose={() => setSuccessModal((prev) => ({ ...prev, isOpen: false }))}
+        title={successModal.title}
+        message={successModal.message}
+      />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 
 export default function UsersAdminPage() {
   const [users, setUsers] = useState([]);
@@ -13,6 +14,8 @@ export default function UsersAdminPage() {
   const [selectedUniversity, setSelectedUniversity] = useState("");
   const [selectedCollege, setSelectedCollege] = useState("");
   const [message, setMessage] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [targetIdToDelete, setTargetIdToDelete] = useState(null);
 
   // Fetch Users
   const fetchUsers = async () => {
@@ -40,7 +43,6 @@ export default function UsersAdminPage() {
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
       const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
       const headers = token ? { "Authorization": `Bearer ${token}` } : {};
@@ -51,6 +53,8 @@ export default function UsersAdminPage() {
       const data = await res.json();
       if (data.success) {
         setMessage("User deleted successfully!");
+        setShowConfirmModal(false);
+        setTargetIdToDelete(null);
         fetchUsers();
       } else {
         setError(data.error || "Failed to delete user");
@@ -421,8 +425,11 @@ export default function UsersAdminPage() {
                           </svg>
                         </Link>
                         <button
-                          onClick={() => handleDelete(user._id)}
-                          className="p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          onClick={() => {
+                            setTargetIdToDelete(user._id);
+                            setShowConfirmModal(true);
+                          }}
+                          className="p-2 rounded-lg text-red-500 hover:bg-red-550 dark:hover:bg-red-900/20 transition-colors"
                           title="Delete User"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -438,6 +445,15 @@ export default function UsersAdminPage() {
           </div>
         )}
       </div>
+      <DeleteConfirmModal
+        isOpen={showConfirmModal}
+        onClose={() => {
+          setShowConfirmModal(false);
+          setTargetIdToDelete(null);
+        }}
+        onConfirm={() => handleDelete(targetIdToDelete)}
+        itemName="user"
+      />
     </div>
   );
 }

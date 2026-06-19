@@ -14,6 +14,11 @@ export default function CybercafePartnerProfilePage() {
     email: "",
     mobile: "",
     bio: "",
+    bankDetails: {
+      name: "",
+      accountNumber: "",
+      ifscCode: ""
+    }
   });
 
   // Load partner data on mount
@@ -28,6 +33,11 @@ export default function CybercafePartnerProfilePage() {
           email: adminInfo.email || "",
           mobile: adminInfo.mobile || "",
           bio: adminInfo.bio || "",
+          bankDetails: {
+            name: adminInfo.bankDetails?.name || "",
+            accountNumber: adminInfo.bankDetails?.accountNumber || "",
+            ifscCode: adminInfo.bankDetails?.ifscCode || "",
+          }
         });
       } else {
         setError("No partner session details found. Please login again.");
@@ -69,6 +79,21 @@ export default function CybercafePartnerProfilePage() {
         return;
       }
 
+      if (!formData.bankDetails?.name || formData.bankDetails.name.trim().length < 3) {
+        setError("Account holder name must be at least 3 characters");
+        return;
+      }
+
+      if (!formData.bankDetails?.accountNumber || !/^\d{9,18}$/.test(formData.bankDetails.accountNumber.trim())) {
+        setError("Account number must be between 9 and 18 digits");
+        return;
+      }
+
+      if (!formData.bankDetails?.ifscCode || !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(formData.bankDetails.ifscCode.trim().toUpperCase())) {
+        setError("Invalid IFSC code format (e.g. SBIN0001234)");
+        return;
+      }
+
       const token = localStorage.getItem("adminToken");
       const headers = {
         "Content-Type": "application/json",
@@ -78,7 +103,14 @@ export default function CybercafePartnerProfilePage() {
       const res = await fetch(`/api/admin?id=${adminData._id}`, {
         method: "PUT",
         headers,
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          bankDetails: {
+            name: formData.bankDetails.name.trim(),
+            accountNumber: formData.bankDetails.accountNumber.trim(),
+            ifscCode: formData.bankDetails.ifscCode.trim().toUpperCase(),
+          }
+        }),
       });
 
       const data = await res.json();
@@ -227,6 +259,82 @@ export default function CybercafePartnerProfilePage() {
                 </p>
               </div>
 
+              {/* Bank Details */}
+              <div className="space-y-4 pt-4 border-t border-border-main">
+                <h3 className="font-bold text-lg text-text-main">
+                  Bank Account Details
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-bg-main rounded-xl p-5 border border-border-main">
+                    <span className="text-xs font-bold text-text-muted uppercase block mb-2">
+                      Account Holder Name
+                    </span>
+                    <span className="text-lg font-semibold text-text-main">
+                      {adminData.bankDetails?.name || "N/A"}
+                    </span>
+                  </div>
+                  <div className="bg-bg-main rounded-xl p-5 border border-border-main">
+                    <span className="text-xs font-bold text-text-muted uppercase block mb-2">
+                      Account Number
+                    </span>
+                    <span className="text-lg font-semibold text-text-main">
+                      {adminData.bankDetails?.accountNumber || "N/A"}
+                    </span>
+                  </div>
+                  <div className="bg-bg-main rounded-xl p-5 border border-border-main">
+                    <span className="text-xs font-bold text-text-muted uppercase block mb-2">
+                      IFSC Code
+                    </span>
+                    <span className="text-lg font-semibold text-text-main font-mono">
+                      {adminData.bankDetails?.ifscCode || "N/A"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Financial & Joining Details */}
+              <div className="space-y-4 pt-4 border-t border-border-main">
+                <h3 className="font-bold text-lg text-text-main">
+                  Employment & Financial Details
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  <div className="bg-bg-main rounded-xl p-5 border border-border-main">
+                    <span className="text-xs font-bold text-text-muted uppercase block mb-2">
+                      Commission %
+                    </span>
+                    <span className="text-lg font-semibold text-text-main">
+                      {adminData.commissionPercentage || 0}%
+                    </span>
+                  </div>
+                  <div className="bg-bg-main rounded-xl p-5 border border-border-main">
+                    <span className="text-xs font-bold text-text-muted uppercase block mb-2">
+                      Payments Done (Paid)
+                    </span>
+                    <span className="text-lg font-semibold text-text-main">
+                      ₹{adminData.paymentsDone || 0}
+                    </span>
+                  </div>
+                  <div className="bg-bg-main rounded-xl p-5 border border-border-main">
+                    <span className="text-xs font-bold text-text-muted uppercase block mb-2">
+                      Total Revenue
+                    </span>
+                    <span className="text-lg font-semibold text-text-main">
+                      ₹{adminData.totalRevenue || 0}
+                    </span>
+                  </div>
+                  <div className="bg-bg-main rounded-xl p-5 border border-border-main">
+                    <span className="text-xs font-bold text-text-muted uppercase block mb-2">
+                      Date of Joining
+                    </span>
+                    <span className="text-lg font-semibold text-text-main">
+                      {adminData.employedate
+                        ? new Date(adminData.employedate).toLocaleDateString()
+                        : "N/A"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               {/* Additional Stats */}
               <div className="space-y-4 pt-4 border-t border-border-main text-sm">
                 <h3 className="font-bold text-lg text-text-main">
@@ -312,6 +420,63 @@ export default function CybercafePartnerProfilePage() {
                   rows="4"
                   className="w-full p-4 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition resize-none"
                 />
+              </div>
+
+              {/* Bank details editable */}
+              <div className="space-y-4 pt-4 border-t border-border-main">
+                <h3 className="font-bold text-lg text-text-main">
+                  Bank Account Details
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Account Holder Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="bank_name"
+                      value={formData.bankDetails.name}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        bankDetails: { ...prev.bankDetails, name: e.target.value }
+                      }))}
+                      className="w-full p-4 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Account Number *
+                    </label>
+                    <input
+                      type="text"
+                      name="bank_accountNumber"
+                      value={formData.bankDetails.accountNumber}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        bankDetails: { ...prev.bankDetails, accountNumber: e.target.value }
+                      }))}
+                      className="w-full p-4 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      IFSC Code *
+                    </label>
+                    <input
+                      type="text"
+                      name="bank_ifscCode"
+                      value={formData.bankDetails.ifscCode}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        bankDetails: { ...prev.bankDetails, ifscCode: e.target.value.toUpperCase() }
+                      }))}
+                      className="w-full p-4 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="flex gap-4 pt-4">

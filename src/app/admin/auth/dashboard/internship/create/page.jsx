@@ -23,14 +23,14 @@ export default function InternshipCreatePage() {
     shortDescription: "",
     thumbnail: "",
     position: "",
-    department: "Computer Science & Engineering",
+    department: [],
     internshipType: "Full-Time",
     mode: "Hybrid",
     duration: "1-month",
     status: "Draft",
     company: "Kpinterns",
     domain: "Full Stack Development",
-    degree: "BTech",
+    degree: [],
     createdBy: "",
     tags: "",
     requirements: "",
@@ -365,6 +365,19 @@ export default function InternshipCreatePage() {
     }));
   };
 
+  const handleCheckboxChange = (name, value) => {
+    setFormData((prev) => {
+      const list = Array.isArray(prev[name]) ? prev[name] : [];
+      const newList = list.includes(value)
+        ? list.filter((item) => item !== value)
+        : [...list, value];
+      return {
+        ...prev,
+        [name]: newList,
+      };
+    });
+  };
+
   const handleThumbnailPickerSelect = async (file) => {
     setUploadingThumbnail(true);
     setError(null);
@@ -506,12 +519,12 @@ export default function InternshipCreatePage() {
       setError("Position is required");
       return;
     }
-    if (!formData.degree) {
-      setError("Degree is required");
+    if (!formData.degree || formData.degree.length === 0) {
+      setError("At least one target degree is required");
       return;
     }
-    if (!formData.department) {
-      setError("Department is required");
+    if (!formData.department || formData.department.length === 0) {
+      setError("At least one department is required");
       return;
     }
     if (!formData.internshipType) {
@@ -694,38 +707,56 @@ export default function InternshipCreatePage() {
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Target Degree *</label>
-                <select
-                  name="degree"
-                  required
-                  value={formData.degree}
-                  onChange={handleBasicInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                >
-                  {degrees.map((deg) => (
-                    <option key={deg} value={deg}>{deg}</option>
-                  ))}
-                </select>
+              <div className="md:col-span-2">
+                <label className="block text-xs font-bold text-text-muted mb-2 uppercase tracking-wider">Target Degrees *</label>
+                <div className="flex flex-wrap gap-2.5">
+                  {degrees.map((deg) => {
+                    const isChecked = Array.isArray(formData.degree) && formData.degree.includes(deg);
+                    return (
+                      <button
+                        type="button"
+                        key={deg}
+                        onClick={() => handleCheckboxChange("degree", deg)}
+                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all border-2 ${
+                          isChecked
+                            ? "bg-brand-primary/10 border-brand-primary text-brand-primary"
+                            : "bg-bg-main border-border-main text-text-muted hover:border-text-muted/40"
+                        }`}
+                      >
+                        {deg}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Department / Stream *</label>
-                <select
-                  name="department"
-                  required
-                  value={formData.department}
-                  onChange={handleBasicInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm"
-                >
+              <div className="md:col-span-2">
+                <label className="block text-xs font-bold text-text-muted mb-3 uppercase tracking-wider">Target Departments *</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-bg-main border-2 border-border-main rounded-2xl p-5 max-h-96 overflow-y-auto">
                   {Object.entries(departmentGroups).map(([group, list]) => (
-                    <optgroup key={group} label={group}>
-                      {list.map((dept) => (
-                        <option key={dept} value={dept}>{dept}</option>
-                      ))}
-                    </optgroup>
+                    <div key={group} className="space-y-2">
+                      <h4 className="text-xs font-extrabold text-brand-secondary uppercase tracking-wider border-b border-border-main pb-1">
+                        {group}
+                      </h4>
+                      <div className="flex flex-col gap-1.5">
+                        {list.map((dept) => {
+                          const isChecked = Array.isArray(formData.department) && formData.department.includes(dept);
+                          return (
+                            <label key={dept} className="flex items-start gap-2.5 text-sm font-semibold text-text-main cursor-pointer select-none">
+                              <input
+                                type="checkbox"
+                                checked={isChecked}
+                                onChange={() => handleCheckboxChange("department", dept)}
+                                className="mt-1 h-4 w-4 rounded border-border-main text-brand-primary focus:ring-brand-primary cursor-pointer"
+                              />
+                              <span>{dept}</span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
                   ))}
-                </select>
+                </div>
               </div>
 
               <div>

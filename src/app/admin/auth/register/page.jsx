@@ -17,6 +17,11 @@ export default function AdminRegisterPage() {
     agreeTerms: false,
     UniversityName: "",
     CollegeName: "",
+    bankDetails: {
+      name: "",
+      accountNumber: "",
+      ifscCode: "",
+    },
   });
 
   const [errors, setErrors] = useState({});
@@ -25,8 +30,8 @@ export default function AdminRegisterPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const totalSteps = 2;
-  const stepTitles = ["Verification", "Admin Details"];
+  const totalSteps = 3;
+  const stepTitles = ["Verification", "Admin Details", "Bank Account"];
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -64,6 +69,25 @@ export default function AdminRegisterPage() {
       setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors.CollegeName;
+        return newErrors;
+      });
+    }
+  };
+
+  const handleBankDetailsChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      bankDetails: {
+        ...prev.bankDetails,
+        [name]: value,
+      },
+    }));
+
+    if (errors[`bank_${name}`]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[`bank_${name}`];
         return newErrors;
       });
     }
@@ -207,6 +231,17 @@ export default function AdminRegisterPage() {
           newErrors.CollegeName = "College selection is required";
         }
       }
+    } else if (step === 3) {
+      // Bank details validation
+      if (!formData.bankDetails.name || formData.bankDetails.name.trim().length < 3) {
+        newErrors.bank_name = "Account holder name is required (minimum 3 characters)";
+      }
+      if (!formData.bankDetails.accountNumber || !/^\d{9,18}$/.test(formData.bankDetails.accountNumber.trim())) {
+        newErrors.bank_accountNumber = "A valid account number is required (9-18 digits)";
+      }
+      if (!formData.bankDetails.ifscCode || !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(formData.bankDetails.ifscCode.trim().toUpperCase())) {
+        newErrors.bank_ifscCode = "A valid IFSC code is required (e.g. SBIN0001234)";
+      }
 
       // Terms validation
       if (!formData.agreeTerms) {
@@ -221,13 +256,13 @@ export default function AdminRegisterPage() {
   const handleNext = (e) => {
     e.preventDefault();
     if (validateStep()) {
-      setStep(2);
+      setStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handleBack = () => {
-    setStep(1);
+    setStep((prev) => prev - 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -260,6 +295,11 @@ export default function AdminRegisterPage() {
           agreeTerms: formData.agreeTerms,
           UniversityName: resolvedUniversityName,
           CollegeName: resolvedCollegeName,
+          bankDetails: {
+            name: formData.bankDetails.name.trim(),
+            accountNumber: formData.bankDetails.accountNumber.trim(),
+            ifscCode: formData.bankDetails.ifscCode.trim().toUpperCase(),
+          },
         }),
       });
 
@@ -372,7 +412,7 @@ export default function AdminRegisterPage() {
               </div>
             </div>
           ) : (
-            <form onSubmit={step === 1 ? handleNext : handleSubmit} className="space-y-5">
+            <form onSubmit={step < 3 ? handleNext : handleSubmit} className="space-y-5">
               {step === 1 && (
                 <div className="space-y-5 animate-fade-in">
                   {/* Name Input */}
@@ -745,6 +785,108 @@ export default function AdminRegisterPage() {
                     )}
                   </div>
 
+                  <div className="flex gap-4">
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      className="flex-1 py-4 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition-all animate-fade-in"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-lg hover:shadow-2xl hover:shadow-brand-primary/40 transition-all transform hover:scale-105"
+                    >
+                      Continue
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {step === 3 && (
+                <div className="space-y-5 animate-fade-in">
+                  <h2 className="text-xl font-bold text-text-main font-poppins mb-1">
+                    Bank Account Details
+                  </h2>
+                  <p className="text-text-muted text-xs font-poppins mb-4">
+                    Enter the bank account details where payments/payouts will be processed.
+                  </p>
+
+                  {/* Account Holder Name */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Account Holder Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.bankDetails.name}
+                      onChange={handleBankDetailsChange}
+                      placeholder="Name as in bank account"
+                      className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                        errors.bank_name
+                          ? "border-red-500"
+                          : "border-border-main focus:border-brand-primary"
+                      }`}
+                    />
+                    {errors.bank_name && (
+                      <p className="text-red-500 text-sm mt-2 font-medium">
+                        {errors.bank_name}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Account Number */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      Account Number *
+                    </label>
+                    <input
+                      type="text"
+                      name="accountNumber"
+                      value={formData.bankDetails.accountNumber}
+                      onChange={handleBankDetailsChange}
+                      placeholder="Enter bank account number"
+                      className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                        errors.bank_accountNumber
+                          ? "border-red-500"
+                          : "border-border-main focus:border-brand-primary"
+                      }`}
+                    />
+                    {errors.bank_accountNumber && (
+                      <p className="text-red-500 text-sm mt-2 font-medium">
+                        {errors.bank_accountNumber}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* IFSC Code */}
+                  <div>
+                    <label className="block text-sm font-bold text-text-main uppercase tracking-wider mb-3 ml-1">
+                      IFSC Code *
+                    </label>
+                    <input
+                      type="text"
+                      name="ifscCode"
+                      value={formData.bankDetails.ifscCode}
+                      onChange={(e) => {
+                        e.target.value = e.target.value.toUpperCase();
+                        handleBankDetailsChange(e);
+                      }}
+                      placeholder="e.g. SBIN0001234"
+                      className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                        errors.bank_ifscCode
+                          ? "border-red-500"
+                          : "border-border-main focus:border-brand-primary"
+                      }`}
+                    />
+                    {errors.bank_ifscCode && (
+                      <p className="text-red-500 text-sm mt-2 font-medium">
+                        {errors.bank_ifscCode}
+                      </p>
+                    )}
+                  </div>
+
                   {/* Terms and Conditions Checkbox */}
                   <label className="flex items-start p-4 rounded-xl border-2 border-border-main hover:border-brand-primary/50 hover:bg-bg-main transition-all cursor-pointer group">
                     <div className="relative flex-shrink-0 w-6 h-6 border-2 border-border-main rounded-lg group-hover:border-brand-primary transition-colors mt-1">
@@ -821,7 +963,6 @@ export default function AdminRegisterPage() {
                   </div>
                 </div>
               )}
-
               {/* Login Link */}
               <div className="text-center pt-4 border-t border-border-main">
                 <p className="text-text-muted font-poppins">

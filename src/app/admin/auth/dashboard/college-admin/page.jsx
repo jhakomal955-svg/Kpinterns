@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { universitiesData } from "@/lib/data/universities";
 
 export default function CollegeAdminPage() {
@@ -10,38 +11,9 @@ export default function CollegeAdminPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [message, setMessage] = useState(null);
 
-  // Form State
-  const [showModal, setShowModal] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    password: "",
-    role: "College Admin",
-    bio: "",
-    agreeTerms: true,
-    verified: false,
-    UniversityName: "",
-    CollegeName: "",
-  });
 
-  // Look up university key by full name
-  const findUniversityKey = (fullName) => {
-    if (!fullName) return "";
-    const found = Object.entries(universitiesData).find(([key, u]) => u.name === fullName);
-    return found ? found[0] : "";
-  };
 
-  // Look up college key by university key and full name
-  const findCollegeKey = (univKey, fullName) => {
-    if (!univKey || !fullName) return "";
-    const colleges = universitiesData[univKey]?.colleges || {};
-    const found = Object.entries(colleges).find(([key, c]) => c.name === fullName);
-    return found ? found[0] : "";
-  };
+
 
   // Fetch College Partners
   const fetchPartners = async () => {
@@ -70,130 +42,8 @@ export default function CollegeAdminPage() {
     fetchPartners();
   }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => {
-      const updated = {
-        ...prev,
-        [name]: type === "checkbox" ? checked : value,
-      };
-      if (name === "UniversityName") {
-        updated.CollegeName = "";
-      }
-      return updated;
-    });
-  };
+  
 
-  const openAddModal = () => {
-    setIsEditing(false);
-    setSelectedId(null);
-    setShowPassword(false);
-    setFormData({
-      name: "",
-      email: "",
-      mobile: "",
-      password: "",
-      role: "College Admin",
-      bio: "",
-      agreeTerms: true,
-      verified: false,
-      UniversityName: "",
-      CollegeName: "",
-    });
-    setShowModal(true);
-  };
-
-  const openEditModal = (partner) => {
-    setIsEditing(true);
-    setSelectedId(partner._id);
-    setShowPassword(false);
-
-    const univKey = findUniversityKey(partner.UniversityName);
-    const collegeKey = findCollegeKey(univKey, partner.CollegeName);
-
-    setFormData({
-      name: partner.name || "",
-      email: partner.email || "",
-      mobile: partner.mobile || "",
-      role: "College Admin",
-      bio: partner.bio || "",
-      agreeTerms: partner.agreeTerms !== undefined ? partner.agreeTerms : true,
-      verified: partner.verified !== undefined ? partner.verified : false,
-      UniversityName: univKey,
-      CollegeName: collegeKey,
-      password: "", // Hide password
-    });
-    setShowModal(true);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setMessage(null);
-      setError(null);
-
-      if (!/^\d{10}$/.test(formData.mobile)) {
-        setError("Mobile number must be exactly 10 digits");
-        return;
-      }
-
-      if (!isEditing && (!formData.password || formData.password.length < 6)) {
-        setError("Password is required and must be at least 6 characters");
-        return;
-      }
-
-      if (!formData.UniversityName) {
-        setError("University selection is required");
-        return;
-      }
-
-      if (!formData.CollegeName) {
-        setError("College selection is required");
-        return;
-      }
-
-      const url = isEditing ? `/api/admin?id=${selectedId}` : "/api/admin";
-      const method = isEditing ? "PUT" : "POST";
-
-      const resolvedUniversityName = universitiesData[formData.UniversityName]?.name || formData.UniversityName;
-      const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
-
-      const payload = {
-        ...formData,
-        UniversityName: resolvedUniversityName,
-        CollegeName: resolvedCollegeName,
-      };
-
-      if (isEditing) {
-        if (!payload.password) {
-          delete payload.password; // Do not update empty password
-        }
-      } else {
-        payload.isAdminCreation = true;
-      }
-
-      const token = localStorage.getItem("adminToken");
-      const res = await fetch(url, {
-        method,
-        headers: { 
-          "Content-Type": "application/json",
-          ...(token ? { "Authorization": `Bearer ${token}` } : {})
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        setMessage(isEditing ? "College Partner profile updated successfully!" : "College Partner account created successfully!");
-        setShowModal(false);
-        fetchPartners();
-      } else {
-        setError(data.error || "Failed to save College Partner");
-      }
-    } catch (err) {
-      setError("An error occurred while saving the College Partner");
-    }
-  };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this College Partner account?")) return;
@@ -259,15 +109,15 @@ export default function CollegeAdminPage() {
             Verify, edit, and manage registered College Partner (College Admin) accounts.
           </p>
         </div>
-        <button
-          onClick={openAddModal}
+        <Link
+          href="/admin/auth/dashboard/college-admin/create"
           className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
           </svg>
           Add College Partner
-        </button>
+        </Link>
       </div>
 
       {/* Notifications */}
@@ -367,15 +217,15 @@ export default function CollegeAdminPage() {
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center justify-center gap-3">
-                        <button
-                          onClick={() => openEditModal(partner)}
+                        <Link
+                          href={`/admin/auth/dashboard/college-admin/${partner._id}`}
                           className="p-2 rounded-lg text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
                           title="Edit Partner"
                         >
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                           </svg>
-                        </button>
+                        </Link>
                         <button
                           onClick={() => handleDelete(partner._id)}
                           className="p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
@@ -394,184 +244,6 @@ export default function CollegeAdminPage() {
           </div>
         )}
       </div>
-
-      {/* College Partner Form Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-bg-card border-2 border-border-main rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            {/* Modal Header */}
-            <div className="p-5 border-b border-border-main flex items-center justify-between bg-bg-main">
-              <h2 className="text-lg sm:text-xl font-bold text-text-main">
-                {isEditing ? "Edit College Partner Credentials" : "Create College Partner Account"}
-              </h2>
-              <button
-                onClick={() => setShowModal(false)}
-                className="p-1 rounded-lg hover:bg-border-main transition-colors text-text-muted hover:text-text-main"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Modal Body */}
-            <form onSubmit={handleSubmit} className="p-6 space-y-4 text-sm sm:text-base overflow-y-auto">
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Full Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="e.g. Dr. John Doe"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Email Address *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="e.g. partner@college.edu"
-                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Mobile Number *</label>
-                  <input
-                    type="tel"
-                    name="mobile"
-                    required
-                    value={formData.mobile}
-                    onChange={handleInputChange}
-                    placeholder="10-digit mobile number"
-                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                  />
-                </div>
-              </div>
-
-              {/* University Select */}
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">University *</label>
-                <select
-                  name="UniversityName"
-                  value={formData.UniversityName}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition appearance-none"
-                >
-                  <option value="">Select University</option>
-                  {Object.entries(universitiesData).map(([key, u]) => (
-                    <option key={key} value={key}>
-                      {u.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* College Select */}
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College *</label>
-                <select
-                  name="CollegeName"
-                  value={formData.CollegeName}
-                  onChange={handleInputChange}
-                  disabled={!formData.UniversityName}
-                  required
-                  className={`w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition appearance-none ${
-                    !formData.UniversityName ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                >
-                  <option value="">
-                    {formData.UniversityName ? "Select College" : "Select University first"}
-                  </option>
-                  {formData.UniversityName &&
-                    Object.entries(universitiesData[formData.UniversityName]?.colleges || {}).map(([key, c]) => (
-                      <option key={key} value={key}>
-                        {c.name}
-                      </option>
-                    ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">
-                  Password {isEditing ? "(leave blank)" : "*"}
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    required={!isEditing}
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    placeholder="Min 6 characters"
-                    className="w-full p-2.5 pr-10 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors text-sm"
-                  >
-                    {showPassword ? "👁️" : "🙈"}
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Bio <span className="normal-case font-normal">(optional)</span></label>
-                <textarea
-                  name="bio"
-                  value={formData.bio}
-                  onChange={handleInputChange}
-                  placeholder="Brief description about the university partner or coordinator..."
-                  rows={2}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition resize-none"
-                />
-              </div>
-
-              <div className="flex items-center gap-4 pt-2">
-                <div className="flex items-center">
-                  <input
-                    id="verified"
-                    name="verified"
-                    type="checkbox"
-                    checked={formData.verified}
-                    onChange={handleInputChange}
-                    className="w-4.5 h-4.5 text-brand-primary border-border-main rounded focus:ring-brand-primary"
-                  />
-                  <label htmlFor="verified" className="ml-2 block text-sm font-semibold text-text-main select-none cursor-pointer">
-                    Verified Account (Allows partner to login)
-                  </label>
-                </div>
-              </div>
-
-              {/* Modal Footer Actions */}
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border-main">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="px-5 py-2.5 rounded-xl border-2 border-border-main hover:bg-bg-main text-text-main font-semibold transition"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold shadow transition"
-                >
-                  {isEditing ? "Save Changes" : "Create Account"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

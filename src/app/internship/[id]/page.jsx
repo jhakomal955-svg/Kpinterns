@@ -339,7 +339,7 @@ export default function InternshipDetailLearnPage() {
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className="bg-brand-secondary/10 text-brand-secondary text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">
-                {internship.department}
+                {Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}
               </span>
               <span className="bg-bg-main text-text-muted text-xs font-semibold px-2.5 py-1 rounded-md border border-border-main">
                 {internship.domain}

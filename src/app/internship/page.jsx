@@ -343,8 +343,16 @@ export default function InternshipsPage() {
       internship.shortDescription?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       internship.domain?.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesDegree = !selectedDegree || internship.degree === selectedDegree;
-    const matchesDept = !selectedDept || internship.department === selectedDept;
+    const matchesDegree =
+      !selectedDegree ||
+      (Array.isArray(internship.degree)
+        ? internship.degree.includes(selectedDegree)
+        : internship.degree === selectedDegree);
+    const matchesDept =
+      !selectedDept ||
+      (Array.isArray(internship.department)
+        ? internship.department.includes(selectedDept)
+        : internship.department === selectedDept);
     const matchesDomain = !selectedDomain || internship.domain === selectedDomain;
     const matchesType = !selectedType || internship.internshipType === selectedType;
     const matchesMode = !selectedMode || internship.mode === selectedMode;
@@ -650,7 +658,7 @@ export default function InternshipsPage() {
                         {/* Badges Overlay */}
                         <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
                           <span className="bg-bg-card/90 text-text-main text-[11px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full shadow border border-border-main">
-                            {internship.degree}
+                            {Array.isArray(internship.degree) ? internship.degree.join(", ") : internship.degree}
                           </span>
                           <span className="bg-brand-primary text-white text-[11px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full shadow">
                             {internship.mode}
@@ -677,8 +685,8 @@ export default function InternshipsPage() {
                           🏢 {internship.company || "KpInterns"}
                         </span>
 
-                        <span className="text-xs font-semibold text-text-muted mb-4 block">
-                          📚 {internship.department}
+                        <span className="text-xs font-semibold text-text-muted mb-4 block line-clamp-1" title={Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}>
+                          📚 {Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}
                         </span>
 
                         <p className="text-text-muted text-sm line-clamp-3 mb-6 flex-1">

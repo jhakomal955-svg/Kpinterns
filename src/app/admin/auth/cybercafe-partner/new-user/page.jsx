@@ -352,8 +352,8 @@ export default function RegisterPage() {
         const matchingInternships = dbInternships.filter(
           (item) =>
             (item.status === "Active" || item.status === "Published") &&
-            item.degree === normDegree &&
-            item.department === prev.department &&
+            (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+            (Array.isArray(item.department) ? item.department.includes(prev.department) : item.department === prev.department) &&
             item.domain === domainValue
         );
         const modes = matchingInternships.map((item) => item.mode).filter(Boolean);
@@ -439,8 +439,8 @@ export default function RegisterPage() {
     const matching = dbInternships.filter(
       (item) =>
         (item.status === "Active" || item.status === "Published") &&
-        item.degree === normDegree &&
-        item.department === formData.department
+        (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+        (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department)
     );
     const domains = matching.map((item) => item.domain).filter(Boolean);
     return [...new Set(domains)].sort();
@@ -452,8 +452,8 @@ export default function RegisterPage() {
     const matching = dbInternships.filter(
       (item) =>
         (item.status === "Active" || item.status === "Published") &&
-        item.degree === normDegree &&
-        item.department === formData.department &&
+        (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+        (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department) &&
         item.domain === formData.internshipDomain
     );
     const modes = matching.map((item) => item.mode).filter(Boolean);

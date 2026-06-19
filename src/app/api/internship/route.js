@@ -128,7 +128,8 @@ export async function POST(request) {
 
     // Validate degree enum
     const validDegrees = InternshipModel.degree.enum;
-    if (!validDegrees.includes(data.degree)) {
+    const degreeArray = Array.isArray(data.degree) ? data.degree : (data.degree ? [data.degree] : []);
+    if (degreeArray.length === 0 || !degreeArray.every((d) => validDegrees.includes(d))) {
       return Response.json(
         { error: "Invalid degree selected" },
         { status: 400 },
@@ -137,7 +138,8 @@ export async function POST(request) {
 
     // Validate department enum
     const validDepartments = InternshipModel.department.enum;
-    if (!validDepartments.includes(data.department)) {
+    const departmentArray = Array.isArray(data.department) ? data.department : (data.department ? [data.department] : []);
+    if (departmentArray.length === 0 || !departmentArray.every((d) => validDepartments.includes(d))) {
       return Response.json(
         { error: "Invalid department selected" },
         { status: 400 },

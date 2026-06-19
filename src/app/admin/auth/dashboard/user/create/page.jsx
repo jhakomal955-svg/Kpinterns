@@ -1,5 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { universitiesData } from "@/lib/data/universities";
+
 function calculateEndDate(startDate, durationStr) {
   const date = new Date(startDate);
   switch (durationStr) {
@@ -51,161 +56,23 @@ function calculateCourseEndDate(startDate, accessDuration) {
   return date;
 }
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
-
-// Premium Custom File Uploader Component
-function BeautifulFileUploader({ label, value, onChange, onRemove }) {
-  const [isUploading, setIsUploading] = useState(false);
-  const [dragActive, setDragActive] = useState(false);
-  const fileInputRef = useRef(null);
-
-  const handleDrag = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  };
-
-  const handleDrop = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      uploadFile(e.dataTransfer.files[0]);
-    }
-  };
-
-  const handleChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      uploadFile(e.target.files[0]);
-    }
-  };
-
-  const uploadFile = async (file) => {
-    setIsUploading(true);
-    try {
-      const fData = new FormData();
-      fData.append("file", file);
-      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
-      const res = await fetch("/api/cloudinary", {
-        method: "POST",
-        headers: token ? { "Authorization": `Bearer ${token}` } : {},
-        body: fData,
-      });
-      const resData = await res.json();
-      if (resData.success) {
-        onChange(resData.data.secure_url);
-      } else {
-        alert(resData.error || "Upload failed");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to upload file");
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  return (
-    <div className="space-y-2">
-      <label className="block text-xs font-bold text-text-muted uppercase tracking-wider">{label}</label>
-      {value ? (
-        <div className="flex items-center justify-between bg-bg-card p-3.5 rounded-2xl border border-emerald-500/20 shadow-sm transition-all duration-200">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-lg shadow-inner">
-              📄
-            </div>
-            <div className="flex flex-col min-w-0">
-              <span className="text-xs font-semibold text-text-main truncate max-w-[180px]" title={value}>
-                {value.split("/").pop().split("?")[0]}
-              </span>
-              <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider">Uploaded Successfully</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <a
-              href={value}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-brand-primary bg-brand-primary/10 hover:bg-brand-primary/20 px-3 py-2 rounded-xl font-bold transition duration-200 flex items-center gap-1.5"
-            >
-              View
-            </a>
-            <button
-              type="button"
-              onClick={onRemove}
-              className="text-red-500 hover:text-white bg-red-500/10 hover:bg-red-50 p-2 rounded-xl font-bold transition duration-200 flex items-center justify-center"
-              title="Remove File"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
-          onClick={() => fileInputRef.current?.click()}
-          className={`relative border-2 border-dashed rounded-2xl p-6 transition-all duration-300 text-center cursor-pointer flex flex-col items-center justify-center min-h-[110px] ${
-            dragActive
-              ? "border-brand-primary bg-brand-primary/5 scale-[1.01]"
-              : "border-border-main bg-bg-main hover:border-brand-primary/60 hover:bg-bg-card"
-          }`}
-        >
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="application/pdf,image/*"
-            onChange={handleChange}
-            className="hidden"
-            disabled={isUploading}
-          />
-          {isUploading ? (
-            <div className="flex flex-col items-center justify-center space-y-2">
-              <div className="w-6 h-6 border-2 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-xs font-semibold text-text-muted">Uploading resource...</span>
-            </div>
-          ) : (
-            <>
-              <div className="text-2xl mb-1.5">📤</div>
-              <p className="text-xs font-bold text-text-main">
-                {dragActive ? "Drop file here" : `Click or Drag to Upload ${label}`}
-              </p>
-              <p className="text-[10px] text-text-muted mt-1">Supports PDF & image files (Max 10MB)</p>
-            </>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
 export default function UserCreatePage() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState("personal");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [error, setError] = useState(null);
-
-  const [allInternships, setAllInternships] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [dbInternships, setDbInternships] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
-  const [showPassword, setShowPassword] = useState(false);
+  const [isLoadingInternships, setIsLoadingInternships] = useState(true);
 
+  const [purchaseType, setPurchaseType] = useState("internship");
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
+    // Personal Info
     fullName: "",
     email: "",
     phone: "",
-    gender: "Male",
+    gender: "",
     parentName: "",
+    // Academic Info
     university: "",
     college: "",
     degree: "",
@@ -214,135 +81,356 @@ export default function UserCreatePage() {
     semester: "",
     session: "",
     registrationNumber: "",
+    internshipDomain: "",
+    mode: "",
+    courseId: "",
+    // Security
     password: "",
-    ActiveInternship: [],
-    ActiveCources: [],
+    confirmPassword: "",
+    agreeTerms: true,
   });
 
-  const fetchDropdownData = async () => {
-    try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
-      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
-      const [resInt, resCourse] = await Promise.all([
-        fetch("/api/internship", { headers }),
-        fetch("/api/course", { headers }),
-      ]);
-      const dataInt = await resInt.json();
-      const dataCourse = await resCourse.json();
-      if (dataInt.success) {
-        setAllInternships(dataInt.data);
+  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    async function fetchOptions() {
+      try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+        const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+        const [resInt, resCourse] = await Promise.all([
+          fetch("/api/internship", { headers }),
+          fetch("/api/course", { headers }),
+        ]);
+        const dataInt = await resInt.json();
+        const dataCourse = await resCourse.json();
+        if (dataInt.success && Array.isArray(dataInt.data)) {
+          setDbInternships(dataInt.data);
+        }
+        if (dataCourse.success && Array.isArray(dataCourse.data)) {
+          setAllCourses(dataCourse.data);
+        }
+      } catch (err) {
+        console.error("Error fetching options:", err);
+      } finally {
+        setIsLoadingInternships(false);
       }
-      if (dataCourse.success) {
-        setAllCourses(dataCourse.data);
-      }
-    } catch (err) {
-      console.error("Error fetching program options:", err);
+    }
+    fetchOptions();
+  }, []);
+
+  const totalSteps = 4;
+  const stepTitles = ["Personal", "Academic", "Security", "Register"];
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (name === "university") {
+      setFormData((prev) => ({
+        ...prev,
+        university: value,
+        college: "",
+        department: "",
+        internshipDomain: "",
+        mode: "",
+        courseId: "",
+      }));
+    } else if (name === "college") {
+      setFormData((prev) => ({
+        ...prev,
+        college: value,
+        department: "",
+        internshipDomain: "",
+        mode: "",
+        courseId: "",
+      }));
+    } else if (name === "degree") {
+      setFormData((prev) => ({
+        ...prev,
+        degree: value,
+        internshipDomain: "",
+        mode: "",
+        courseId: "",
+      }));
+    } else if (name === "department") {
+      setFormData((prev) => ({
+        ...prev,
+        department: value,
+        internshipDomain: "",
+        mode: "",
+        courseId: "",
+      }));
+    } else if (name === "internshipDomain") {
+      const domainValue = value;
+      const normDegree = normaliseDegree(formData.degree);
+      setFormData((prev) => {
+        const matchingInternships = dbInternships.filter(
+          (item) =>
+            (item.status === "Active" || item.status === "Published") &&
+            (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+            (Array.isArray(item.department) ? item.department.includes(prev.department) : item.department === prev.department) &&
+            item.domain === domainValue
+        );
+        const modes = matchingInternships.map((item) => item.mode).filter(Boolean);
+        const uniqueModes = [...new Set(modes)];
+
+        let newMode = "";
+        if (uniqueModes.length === 1) {
+          newMode = uniqueModes[0];
+        } else if (uniqueModes.length > 1) {
+          newMode = uniqueModes.includes(prev.mode) ? prev.mode : uniqueModes[0];
+        }
+
+        return {
+          ...prev,
+          internshipDomain: domainValue,
+          mode: newMode,
+        };
+      });
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
+
+    if (errors[name]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
     }
   };
 
-  useEffect(() => {
-    fetchDropdownData();
-  }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
+  const getAvailableColleges = () => {
+    if (!formData.university) return [];
+    const universityData = universitiesData[formData.university];
+    if (!universityData) return [];
+    return Object.entries(universityData.colleges).map(([key, college]) => ({
+      id: key,
+      name: college.name,
     }));
+  };
+
+  const getAvailableDepartments = () => {
+    if (!formData.university || !formData.college || !formData.degree) return [];
+    const universityData = universitiesData[formData.university];
+    if (!universityData) return [];
+    const collegeData = universityData.colleges[formData.college];
+    if (!collegeData) return [];
+    
+    let degreeKey = formData.degree;
+    if (degreeKey === "Bcom") degreeKey = "BCom";
+    if (degreeKey === "Bsc") degreeKey = "BSc";
+    
+    const depts = collegeData.departments?.[degreeKey];
+    return Array.isArray(depts) ? depts : [];
+  };
+
+  const getAvailableSemestersCount = () => {
+    if (!formData.degree) return 0;
+    if (formData.degree === "Diploma") return 6;
+    if (formData.degree === "B.Tech") return 8;
+    if (["Bachelor", "BA", "Bcom", "Bsc"].includes(formData.degree)) return 6;
+    if (formData.degree === "Master") return 4;
+    return 0;
+  };
+
+  const normaliseDegree = (deg) => {
+    if (!deg) return "";
+    const map = { "B.Tech": "BTech", "Bcom": "BCom", "Bsc": "BSc" };
+    return map[deg] ?? deg;
+  };
+
+  const getAvailableInternshipDomains = () => {
+    if (!formData.department || !formData.degree) return [];
+    const normDegree = normaliseDegree(formData.degree);
+    const matching = dbInternships.filter(
+      (item) =>
+        (item.status === "Active" || item.status === "Published") &&
+        (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+        (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department)
+    );
+    const domains = matching.map((item) => item.domain).filter(Boolean);
+    return [...new Set(domains)].sort();
+  };
+
+  const getAvailableModes = () => {
+    if (!formData.internshipDomain || !formData.department || !formData.degree) return [];
+    const normDegree = normaliseDegree(formData.degree);
+    const matching = dbInternships.filter(
+      (item) =>
+        (item.status === "Active" || item.status === "Published") &&
+        (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+        (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department) &&
+        item.domain === formData.internshipDomain
+    );
+    const modes = matching.map((item) => item.mode).filter(Boolean);
+    return [...new Set(modes)];
+  };
+
+  const validateStep = () => {
+    const newErrors = {};
+
+    if (step === 1) {
+      if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
+      if (!formData.email.trim()) {
+        newErrors.email = "Email is required";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        newErrors.email = "Invalid email format";
+      }
+      if (!formData.phone.trim()) {
+        newErrors.phone = "Phone number is required";
+      } else if (!/^\d{10}$/.test(formData.phone.trim())) {
+        newErrors.phone = "Phone number must be exactly 10 digits";
+      }
+      if (!formData.gender) newErrors.gender = "Please select gender";
+      if (!formData.parentName.trim()) newErrors.parentName = "Parent name is required";
+    } else if (step === 2) {
+      if (!formData.university) newErrors.university = "University is required";
+      if (!formData.college) newErrors.college = "College is required";
+      if (!formData.degree) newErrors.degree = "Degree is required";
+      if (!formData.department) newErrors.department = "Department is required";
+      if (!formData.rollNumber.trim()) newErrors.rollNumber = "Roll number is required";
+      if (!formData.semester) newErrors.semester = "Semester is required";
+      if (!formData.session) newErrors.session = "Session is required";
+      if (!formData.registrationNumber.trim()) newErrors.registrationNumber = "Registration number is required";
+      
+      if (purchaseType === "internship") {
+        if (!formData.internshipDomain) newErrors.internshipDomain = "Internship domain is required";
+        if (!formData.mode) newErrors.mode = "Mode is required";
+      } else {
+        if (!formData.courseId) newErrors.courseId = "Course selection is required";
+      }
+    } else if (step === 3) {
+      if (!formData.password) newErrors.password = "Password is required";
+      if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
+      if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
+    } else if (step === 4) {
+      if (!formData.agreeTerms) newErrors.agreeTerms = "You must agree to terms and conditions";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleNext = () => {
+    if (validateStep()) {
+      setStep(step + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleBack = () => {
+    setStep(step - 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setMessage(null);
-      setError(null);
-      setIsSubmitting(true);
+    if (validateStep()) {
+      setIsLoading(true);
+      try {
+        const universityObj = universitiesData[formData.university];
+        const collegeObj = universityObj?.colleges?.[formData.college];
 
-      // Validate phone formatting
-      if (!/^\d{10}$/.test(formData.phone)) {
-        setError("Phone number must be exactly 10 digits");
-        setIsSubmitting(false);
-        return;
-      }
+        const userPayload = {
+          ...formData,
+          university: universityObj ? universityObj.name : formData.university,
+          college: collegeObj ? collegeObj.name : formData.college,
+          isAdminCreation: true,
+        };
 
-      // Password requirement
-      if (!formData.password || formData.password.length < 6) {
-        setError("Password is required and must be at least 6 characters");
-        setIsSubmitting(false);
-        return;
-      }
+        // Construct programs arrays
+        if (purchaseType === "internship" && formData.internshipDomain) {
+          const normDegree = normaliseDegree(formData.degree);
+          const matchedInt = dbInternships.find(
+            (item) =>
+              (item.status === "Active" || item.status === "Published") &&
+              (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+              (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department) &&
+              item.domain === formData.internshipDomain &&
+              (!formData.mode || item.mode === formData.mode)
+          );
 
-      const payload = {
-        ...formData,
-        isAdminCreation: true,
-        ActiveInternship: (formData.ActiveInternship || []).map((i) => ({
-          internship: i.internship?._id || i.internship,
-          internshipStatus: i.internshipStatus || "Active",
-          progress: i.progress || 0,
-          paymentStatus: i.paymentStatus || false,
-          paymentDate: i.paymentDate || new Date(),
-          paymentId: i.paymentId || "",
-          paymentreceipt: i.paymentreceipt || "",
-          amount: i.amount || 0,
-          offerLetterUrl: i.offerLetterUrl || "",
-          certificationUrl: i.certificationUrl || "",
-          completedModules: i.completedModules || [],
-          startDate: i.startDate || new Date(),
-          endDate: i.endDate || null,
-        })),
-        ActiveCources: (formData.ActiveCources || []).map((c) => ({
-          course: c.course?._id || c.course,
-          courseStatus: c.courseStatus || "Active",
-          progress: c.progress || 0,
-          paymentStatus: c.paymentStatus || false,
-          paymentDate: c.paymentDate || new Date(),
-          paymentId: c.paymentId || "",
-          paymentreceipt: c.paymentreceipt || "",
-          amount: c.amount || 0,
-          certificateUrl: c.certificateUrl || "",
-          completedModules: c.completedModules || [],
-          startDate: c.startDate || new Date(),
-          endDate: c.endDate || null,
-        })),
-      };
+          if (matchedInt) {
+            const startDate = new Date();
+            const duration = matchedInt.duration || "1-month";
+            const endDate = calculateEndDate(startDate, duration);
+            userPayload.ActiveInternship = [
+              {
+                internship: matchedInt._id,
+                internshipStatus: "Active",
+                progress: 0,
+                paymentStatus: true,
+                paymentDate: startDate,
+                paymentId: "ADMIN_FREE_CREATION",
+                amount: matchedInt.RegistrationFee?.amount || 500,
+                startDate: startDate,
+                endDate: endDate,
+              }
+            ];
+          }
+        } else if (purchaseType === "course" && formData.courseId) {
+          const matchedCourse = allCourses.find((c) => c._id === formData.courseId);
+          if (matchedCourse) {
+            const startDate = new Date();
+            const accessDuration = matchedCourse.accessDuration || "lifetime";
+            const endDate = calculateCourseEndDate(startDate, accessDuration);
+            userPayload.ActiveCources = [
+              {
+                course: matchedCourse._id,
+                courseStatus: "Active",
+                progress: 0,
+                paymentStatus: true,
+                paymentDate: startDate,
+                paymentId: "ADMIN_FREE_CREATION",
+                amount: matchedCourse.price || 0,
+                startDate: startDate,
+                endDate: endDate,
+              }
+            ];
+          }
+        }
 
-      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
-      const res = await fetch("/api/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify(payload),
-      });
+        const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+        const response = await fetch("/api/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify(userPayload),
+        });
 
-      const data = await res.json();
-      if (data.success) {
-        setMessage("User registered successfully!");
-        setTimeout(() => {
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          alert("Student registration successful!");
           router.push("/admin/auth/dashboard/user");
-        }, 1500);
-      } else {
-        setError(data.error || "Failed to register user");
+        } else {
+          alert(data.error || "Registration failed. Please check your details.");
+        }
+      } catch (error) {
+        console.error("Registration error:", error);
+        alert(error.message || "An error occurred. Please try again.");
+      } finally {
+        setIsLoading(false);
       }
-    } catch (err) {
-      setError("An error occurred while registering the user");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header section */}
+    <div className="space-y-6 max-w-2xl mx-auto">
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-text-main">
-            Register New User
+          <h1 className="text-2xl sm:text-3xl font-bold text-text-main font-poppins">
+            Add New User
           </h1>
           <p className="text-text-muted text-sm sm:text-base">
-            Create academic and personal profiles for new students.
+            Register a new student profile without OTP or payments.
           </p>
         </div>
         <Link
@@ -353,832 +441,708 @@ export default function UserCreatePage() {
         </Link>
       </div>
 
-      {/* Notifications */}
-      {message && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-brand-success flex items-center justify-between text-sm sm:text-base">
-          <span>{message}</span>
-          <button type="button" onClick={() => setMessage(null)} className="font-bold ml-2">×</button>
-        </div>
-      )}
-      {error && (
-        <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-500 flex items-center justify-between text-sm sm:text-base">
-          <span>{error}</span>
-          <button type="button" onClick={() => setError(null)} className="font-bold ml-2">×</button>
-        </div>
-      )}
-
-      {/* Form and Navigation tabs */}
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="flex gap-2 border-b-2 border-border-main mb-4 bg-bg-card rounded-t-2xl p-4">
-          <button
-            type="button"
-            onClick={() => setActiveTab("personal")}
-            className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
-              activeTab === "personal"
-                ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
-                : "border-transparent text-text-muted hover:text-text-main"
-            }`}
-          >
-            Personal Info
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("academic")}
-            className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
-              activeTab === "academic"
-                ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
-                : "border-transparent text-text-muted hover:text-text-main"
-            }`}
-          >
-            Academic Details
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("programs")}
-            className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
-              activeTab === "programs"
-                ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
-                : "border-transparent text-text-muted hover:text-text-main"
-            }`}
-          >
-            Enrolled Programs
-          </button>
+      {/* Progress Bar */}
+      <div className="bg-bg-card border-2 border-border-main rounded-2xl p-5 shadow-sm">
+        <div className="flex items-start justify-between mb-4">
+          {stepTitles.map((title, index) => (
+            <div key={index} className="flex flex-col items-center flex-1">
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+                  index + 1 <= step
+                    ? "bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-lg"
+                    : "bg-bg-card border-2 border-border-main text-text-muted"
+                }`}
+              >
+                {index + 1 < step ? (
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  index + 1
+                )}
+              </div>
+              <span
+                className={`text-[10px] sm:text-xs mt-2 font-semibold transition-colors text-center px-1 break-words ${index + 1 <= step ? "text-brand-primary" : "text-text-muted"}`}
+              >
+                {title}
+              </span>
+            </div>
+          ))}
         </div>
 
-        {/* Tab 1: Personal Info */}
-        {activeTab === "personal" && (
-          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-              1. Personal Information
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Full Name *</label>
-                <input
-                  type="text"
-                  name="fullName"
-                  required
-                  value={formData.fullName}
-                  onChange={handleInputChange}
-                  placeholder="e.g. John Doe"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
+        {/* Progress Line */}
+        <div className="h-1 bg-border-main rounded-full overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary transition-all duration-500"
+            style={{ width: `${((step - 1) / (totalSteps - 1)) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Form Content Card */}
+      <div className="bg-bg-card rounded-3xl shadow-xl p-6 sm:p-10 border border-border-main">
+        <form onSubmit={handleSubmit}>
+          {/* Step 1: Personal Information */}
+          {step === 1 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl sm:text-2xl font-bold text-text-main">
+                Personal Information
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    placeholder="Enter full name"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.fullName ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.fullName && (
+                    <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Gender *
+                  </label>
+                  <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.gender ? "border-red-500" : "border-border-main"
+                    }`}
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                  {errors.gender && (
+                    <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="you@example.com"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.email ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="10-digit number"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.phone ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Parent/Guardian Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="parentName"
+                    value={formData.parentName}
+                    onChange={handleInputChange}
+                    placeholder="Enter parent/guardian name"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.parentName ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.parentName && (
+                    <p className="text-red-500 text-xs mt-1">{errors.parentName}</p>
+                  )}
+                </div>
               </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="e.g. john@example.com"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
+            </div>
+          )}
+
+          {/* Step 2: Academic Information & Domain */}
+          {step === 2 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl sm:text-2xl font-bold text-text-main">
+                Academic Details & Program Selection
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Program Type Selection */}
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Registration Program Type
+                  </label>
+                  <div className="flex gap-4">
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="radio"
+                        name="purchaseType"
+                        checked={purchaseType === "internship"}
+                        onChange={() => setPurchaseType("internship")}
+                        className="w-4.5 h-4.5 accent-brand-primary cursor-pointer"
+                      />
+                      <span className="ml-2 text-sm font-medium text-text-main">Internship Program</span>
+                    </label>
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="radio"
+                        name="purchaseType"
+                        checked={purchaseType === "course"}
+                        onChange={() => setPurchaseType("course")}
+                        className="w-4.5 h-4.5 accent-brand-primary cursor-pointer"
+                      />
+                      <span className="ml-2 text-sm font-medium text-text-main">Course Program</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    University *
+                  </label>
+                  <select
+                    name="university"
+                    value={formData.university}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.university ? "border-red-500" : "border-border-main"
+                    }`}
+                  >
+                    <option value="">Select University</option>
+                    {Object.entries(universitiesData).map(([key, u]) => (
+                      <option key={key} value={key}>
+                        {u.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.university && (
+                    <p className="text-red-500 text-xs mt-1">{errors.university}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    College *
+                  </label>
+                  <select
+                    name="college"
+                    value={formData.college}
+                    onChange={handleInputChange}
+                    disabled={!formData.university}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.college ? "border-red-500" : "border-border-main"
+                    } ${!formData.university ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">
+                      {formData.university ? "Select College" : "Select University first"}
+                    </option>
+                    {getAvailableColleges().map((college) => (
+                      <option key={college.id} value={college.id}>
+                        {college.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.college && (
+                    <p className="text-red-500 text-xs mt-1">{errors.college}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Degree *
+                  </label>
+                  <div className="flex flex-wrap gap-4 pt-1">
+                    {["Diploma", "B.Tech", "BA", "Bcom", "Bsc"].map((degree) => (
+                      <label key={degree} className="flex items-center cursor-pointer">
+                        <input
+                          type="radio"
+                          name="degree"
+                          value={degree}
+                          checked={formData.degree === degree}
+                          onChange={handleInputChange}
+                          className="w-4 h-4 accent-brand-primary cursor-pointer"
+                        />
+                        <span className="ml-2 text-sm font-medium text-text-main">{degree}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {errors.degree && (
+                    <p className="text-red-500 text-xs mt-1">{errors.degree}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Department *
+                  </label>
+                  <select
+                    name="department"
+                    value={formData.department}
+                    onChange={handleInputChange}
+                    disabled={!formData.college}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.department ? "border-red-500" : "border-border-main"
+                    } ${!formData.college ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">
+                      {formData.college ? "Select Department" : "Select College first"}
+                    </option>
+                    {getAvailableDepartments().map((dept, index) => (
+                      <option key={index} value={dept}>
+                        {dept}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.department && (
+                    <p className="text-red-500 text-xs mt-1">{errors.department}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Semester *
+                  </label>
+                  <select
+                    name="semester"
+                    value={formData.semester}
+                    onChange={handleInputChange}
+                    disabled={!formData.university || !formData.degree}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.semester ? "border-red-500" : "border-border-main"
+                    } ${!formData.university || !formData.degree ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">
+                      {formData.university && formData.degree
+                        ? "Select Semester"
+                        : "Select University & Degree first"}
+                    </option>
+                    {formData.university &&
+                      Array.from(
+                        { length: getAvailableSemestersCount() },
+                        (_, i) => i + 1
+                      ).map((sem) => {
+                        const suffix = sem === 1 ? "st" : sem === 2 ? "nd" : sem === 3 ? "rd" : "th";
+                        return (
+                          <option key={sem} value={sem}>
+                            {sem}{suffix} Semester
+                          </option>
+                        );
+                      })}
+                  </select>
+                  {errors.semester && (
+                    <p className="text-red-500 text-xs mt-1">{errors.semester}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Session *
+                  </label>
+                  <select
+                    name="session"
+                    value={formData.session}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.session ? "border-red-500" : "border-border-main"
+                    }`}
+                  >
+                    <option value="">Select Session</option>
+                    <option value="2024-25">2024-25</option>
+                    <option value="2025-26">2025-26</option>
+                  </select>
+                  {errors.session && (
+                    <p className="text-red-500 text-xs mt-1">{errors.session}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Roll Number *
+                  </label>
+                  <input
+                    type="text"
+                    name="rollNumber"
+                    value={formData.rollNumber}
+                    onChange={handleInputChange}
+                    placeholder="Enter student roll number"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.rollNumber ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.rollNumber && (
+                    <p className="text-red-500 text-xs mt-1">{errors.rollNumber}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Registration Number *
+                  </label>
+                  <input
+                    type="text"
+                    name="registrationNumber"
+                    value={formData.registrationNumber}
+                    onChange={handleInputChange}
+                    placeholder="Enter registration number"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.registrationNumber ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
+                  {errors.registrationNumber && (
+                    <p className="text-red-500 text-xs mt-1">{errors.registrationNumber}</p>
+                  )}
+                </div>
+
+                {purchaseType === "course" ? (
+                  <div className="sm:col-span-2">
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Select Course *
+                    </label>
+                    <select
+                      name="courseId"
+                      value={formData.courseId}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.courseId ? "border-red-500" : "border-border-main"
+                      }`}
+                    >
+                      <option value="">Select Course</option>
+                      {allCourses
+                        .filter((c) => c.status === "Active" || c.status === "Published")
+                        .map((c) => (
+                          <option key={c._id} value={c._id}>
+                            {c.title} (₹{c.price || 0})
+                          </option>
+                        ))}
+                    </select>
+                    {errors.courseId && (
+                      <p className="text-red-500 text-xs mt-1">{errors.courseId}</p>
+                    )}
+                  </div>
+                ) : (
+                  <>
+                    <div>
+                      <label className="block text-sm font-semibold text-text-main mb-2">
+                        Internship Domain *
+                      </label>
+                      <select
+                        name="internshipDomain"
+                        value={formData.internshipDomain}
+                        onChange={handleInputChange}
+                        disabled={!formData.degree || !formData.department || isLoadingInternships || getAvailableInternshipDomains().length === 0}
+                        className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                          errors.internshipDomain ? "border-red-500" : "border-border-main"
+                        } ${(!formData.degree || !formData.department || isLoadingInternships || getAvailableInternshipDomains().length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
+                      >
+                        <option value="">
+                          {isLoadingInternships
+                            ? "Loading available internships..."
+                            : !formData.degree
+                              ? "Select Degree first"
+                              : !formData.department
+                                ? "Select Department first"
+                                : getAvailableInternshipDomains().length === 0
+                                  ? "Internship domain is coming soon"
+                                  : "Select Internship Domain"}
+                        </option>
+                        {getAvailableInternshipDomains().map((domain) => (
+                          <option key={domain} value={domain}>
+                            {domain}
+                          </option>
+                        ))}
+                      </select>
+                      {formData.degree && formData.department && !isLoadingInternships && getAvailableInternshipDomains().length === 0 && (
+                        <p className="text-amber-500 text-xs mt-2 font-semibold">
+                          ⚠️ Internship domain is coming soon for this stream!
+                        </p>
+                      )}
+                      {errors.internshipDomain && (
+                        <p className="text-red-500 text-xs mt-1">{errors.internshipDomain}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-text-main mb-2">
+                        Internship Mode *
+                      </label>
+                      {(() => {
+                        const availModes = getAvailableModes();
+                        const isSingleMode = availModes.length === 1;
+
+                        if (formData.internshipDomain && isSingleMode) {
+                          return (
+                            <div className="flex items-center gap-3">
+                              <div className="flex items-center gap-2 px-4 py-3 rounded-xl border-2 border-brand-primary/40 bg-brand-primary/5 w-full">
+                                <span className="text-brand-primary text-sm font-bold">
+                                  ✓ {formData.mode}
+                                </span>
+                                <span className="ml-auto text-[11px] font-semibold text-brand-primary/70 uppercase tracking-wider bg-brand-primary/10 px-2 py-0.5 rounded-full">
+                                  Auto-selected
+                                </span>
+                              </div>
+                              <input type="hidden" name="mode" value={formData.mode} />
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <select
+                            name="mode"
+                            value={formData.mode}
+                            onChange={handleInputChange}
+                            disabled={!formData.internshipDomain || availModes.length === 0}
+                            className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                              errors.mode ? "border-red-500" : "border-border-main"
+                            } ${(!formData.internshipDomain || availModes.length === 0) ? "opacity-50 cursor-not-allowed" : ""}`}
+                          >
+                            <option value="">
+                              {!formData.internshipDomain
+                                ? "Select Internship Domain first"
+                                : availModes.length === 0
+                                  ? "No modes available"
+                                  : "Select Mode"}
+                            </option>
+                            {availModes.map((m) => (
+                              <option key={m} value={m}>
+                                {m}
+                              </option>
+                            ))}
+                          </select>
+                        );
+                      })()}
+                      {errors.mode && (
+                        <p className="text-red-500 text-xs mt-1">{errors.mode}</p>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Phone Number *</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  required
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="10-digit number"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Gender *</label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Parent / Guardian Name *</label>
-                <input
-                  type="text"
-                  name="parentName"
-                  required
-                  value={formData.parentName}
-                  onChange={handleInputChange}
-                  placeholder="Parent's full name"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">
-                  Password *
-                </label>
-                <div className="relative">
+            </div>
+          )}
+
+          {/* Step 3: Security */}
+          {step === 3 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl sm:text-2xl font-bold text-text-main">
+                Security
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-6 border-b border-border-main/50">
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Create Password *
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      placeholder="Create a strong password"
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.password ? "border-red-500" : "border-border-main"
+                      }`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-3 text-text-muted hover:text-text-main"
+                    >
+                      {showPassword ? "👁️" : "🙈"}
+                    </button>
+                  </div>
+                  {errors.password && (
+                    <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Confirm Password *
+                  </label>
                   <input
                     type={showPassword ? "text" : "password"}
-                    name="password"
-                    required
-                    value={formData.password}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    placeholder="Minimum 6 characters"
-                    className="w-full p-2.5 pr-10 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                    placeholder="Confirm your password"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.confirmPassword ? "border-red-500" : "border-border-main"
+                    }`}
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors text-sm"
-                  >
-                    {showPassword ? "👁️" : "🙈"}
-                  </button>
+                  {errors.confirmPassword && (
+                    <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Informational Banner indicating payment is bypassed */}
+              <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6 flex items-center gap-3">
+                <span className="text-2xl">🎉</span>
+                <div>
+                  <span className="font-bold text-emerald-600 dark:text-emerald-400 block">
+                    No Payment Required
+                  </span>
+                  <span className="text-text-muted text-sm">
+                    Creating a student directly from the admin dashboard bypasses the registration fee payment process.
+                  </span>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Tab 2: Academic details */}
-        {activeTab === "academic" && (
-          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-              2. Academic Details
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="md:col-span-2">
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">University *</label>
-                <input
-                  type="text"
-                  name="university"
-                  required
-                  value={formData.university}
-                  onChange={handleInputChange}
-                  placeholder="University name"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College *</label>
-                <input
-                  type="text"
-                  name="college"
-                  required
-                  value={formData.college}
-                  onChange={handleInputChange}
-                  placeholder="College name"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Degree *</label>
-                <input
-                  type="text"
-                  name="degree"
-                  required
-                  value={formData.degree}
-                  onChange={handleInputChange}
-                  placeholder="e.g. B.Tech, MCA"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Department *</label>
-                <input
-                  type="text"
-                  name="department"
-                  required
-                  value={formData.department}
-                  onChange={handleInputChange}
-                  placeholder="e.g. CSE, IT"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Roll Number *</label>
-                <input
-                  type="text"
-                  name="rollNumber"
-                  required
-                  value={formData.rollNumber}
-                  onChange={handleInputChange}
-                  placeholder="Enter Student Roll Number"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Registration Number *</label>
-                <input
-                  type="text"
-                  name="registrationNumber"
-                  required
-                  value={formData.registrationNumber}
-                  onChange={handleInputChange}
-                  placeholder="University enrollment reg no."
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Semester *</label>
-                <input
-                  type="text"
-                  name="semester"
-                  required
-                  value={formData.semester}
-                  onChange={handleInputChange}
-                  placeholder="e.g. 6th, 8th"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Session *</label>
-                <input
-                  type="text"
-                  name="session"
-                  required
-                  value={formData.session}
-                  onChange={handleInputChange}
-                  placeholder="e.g. 2024-2025"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-            </div>
-          </div>
-        )}
+          {/* Step 4: Review & Register */}
+          {step === 4 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl sm:text-2xl font-bold text-text-main">
+                Review & Register
+              </h2>
+              <p className="text-text-muted text-sm">
+                Please review the details carefully before completing registration.
+              </p>
 
-        {/* Tab 3: Enrolled Programs */}
-        {activeTab === "programs" && (
-          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-              3. Enrolled Internships & Courses
-            </h3>
-
-            {/* Internships section */}
-            <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-main/50 pb-2">
-                <h4 className="text-base font-bold text-text-main flex items-center gap-2">
-                  <span>💼</span> Applied Internships
-                </h4>
-                <div className="flex items-center gap-2 self-end sm:self-auto">
-                  <select
-                    id="add-internship-select"
-                    className="p-2 bg-bg-main border-2 border-border-main rounded-xl text-xs focus:border-brand-primary outline-none text-text-main font-semibold"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>Select Internship</option>
-                    {allInternships
-                      .filter(
-                        (item) =>
-                          !formData.ActiveInternship?.some(
-                            (act) => (act.internship?._id || act.internship) === item._id
-                          )
-                      )
-                      .map((item) => (
-                        <option key={item._id} value={item._id}>
-                          {item.title} ({item.company})
-                        </option>
-                      ))}
-                  </select>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const selectEl = document.getElementById("add-internship-select");
-                      const intId = selectEl.value;
-                      if (!intId) return;
-                      const selectedInt = allInternships.find((i) => i._id === intId);
-                      if (!selectedInt) return;
-
-                      setFormData((prev) => ({
-                        ...prev,
-                        ActiveInternship: [
-                          ...(prev.ActiveInternship || []),
-                          {
-                            internship: selectedInt,
-                            internshipStatus: "Active",
-                            progress: 0,
-                            paymentStatus: false,
-                            amount: selectedInt.RegistrationFee?.amount || 500,
-                            offerLetterUrl: "",
-                            certificationUrl: "",
-                            completedModules: [],
-                            startDate: new Date(),
-                            endDate: calculateEndDate(new Date(), selectedInt.duration || "1-month"),
-                          },
-                        ],
-                      }));
-                      selectEl.value = "";
-                    }}
-                    className="bg-brand-primary text-white text-xs font-bold py-2 px-4 rounded-xl hover:bg-brand-primary/90 transition shadow-sm"
-                  >
-                    + Add
-                  </button>
+              {/* Summary Details Grid */}
+              <div className="bg-bg-main border border-border-main rounded-2xl p-6 space-y-4 text-sm font-poppins">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
+                  <div>
+                    <span className="text-text-muted text-xs block">Full Name</span>
+                    <span className="text-text-main font-semibold">{formData.fullName}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Email</span>
+                    <span className="text-text-main font-semibold break-all">{formData.email}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Phone</span>
+                    <span className="text-text-main font-semibold">{formData.phone}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Parent's Name</span>
+                    <span className="text-text-main font-semibold">{formData.parentName}</span>
+                  </div>
+                  <div className="sm:col-span-2 border-t border-border-main/50 my-1"></div>
+                  <div>
+                    <span className="text-text-muted text-xs block">College</span>
+                    <span className="text-text-main font-semibold">{formData.college}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Degree & Dept</span>
+                    <span className="text-text-main font-semibold">{formData.degree} ({formData.department})</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Reg No / Sem</span>
+                    <span className="text-text-main font-semibold">{formData.registrationNumber} (Sem {formData.semester})</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">
+                      {purchaseType === "course" ? "Selected Course" : "Selected Internship"}
+                    </span>
+                    <span className="text-brand-primary font-bold">
+                      {purchaseType === "course"
+                        ? (allCourses.find((c) => c._id === formData.courseId)?.title || "Selected Course")
+                        : `${formData.internshipDomain} (${formData.mode})`}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {(formData.ActiveInternship || []).length === 0 ? (
-                <p className="text-sm text-text-muted italic bg-bg-main p-4 rounded-2xl border border-border-main/50 text-center">
-                  No enrolled internships.
-                </p>
-              ) : (
-                <div className="space-y-4">
-                  {formData.ActiveInternship.map((item, index) => {
-                    const intDetails = item.internship;
-                    const title = intDetails?.title || "Internship Reference";
-                    const company = intDetails?.company || "KpInterns";
-
-                    return (
-                      <div
-                        key={index}
-                        className="bg-bg-main border-2 border-border-main p-5 rounded-2xl space-y-4 relative group"
-                      >
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              ActiveInternship: prev.ActiveInternship.filter((_, idx) => idx !== index),
-                            }));
-                          }}
-                          className="absolute top-4 right-4 text-red-500 hover:text-white bg-red-500/10 hover:bg-red-50 p-2 rounded-xl transition font-semibold text-xs flex items-center gap-1"
-                        >
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                          Remove
-                        </button>
-
-                        <div className="font-bold text-sm text-text-main pr-20 flex items-center gap-2">
-                          <span className="text-xl">💼</span> {title} <span className="text-xs font-semibold text-text-muted">({company})</span>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-center">
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Status</label>
-                            <select
-                              value={item.internshipStatus || "Active"}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveInternship];
-                                  list[index] = { ...list[index], internshipStatus: val };
-                                  return { ...prev, ActiveInternship: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            >
-                              <option value="Active">Active</option>
-                              <option value="Completed">Completed</option>
-                            </select>
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Progress (%)</label>
-                            <input
-                              type="number"
-                              min="0"
-                              max="100"
-                              value={item.progress || 0}
-                              onChange={(e) => {
-                                const val = parseInt(e.target.value) || 0;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveInternship];
-                                  list[index] = { ...list[index], progress: Math.min(100, Math.max(0, val)) };
-                                  return { ...prev, ActiveInternship: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Fee (₹)</label>
-                            <input
-                              type="number"
-                              value={item.amount || 0}
-                              onChange={(e) => {
-                                const val = parseInt(e.target.value) || 0;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveInternship];
-                                  list[index] = { ...list[index], amount: val };
-                                  return { ...prev, ActiveInternship: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            />
-                          </div>
-
-                          <div className="flex items-center sm:justify-center pt-4">
-                            <label className="flex items-center gap-3 cursor-pointer text-xs font-bold uppercase tracking-wider text-text-main">
-                              <input
-                                type="checkbox"
-                                checked={item.paymentStatus || false}
-                                onChange={(e) => {
-                                  const val = e.target.checked;
-                                  setFormData((prev) => {
-                                    const list = [...prev.ActiveInternship];
-                                    list[index] = { ...list[index], paymentStatus: val };
-                                    return { ...prev, ActiveInternship: list };
-                                  });
-                                }}
-                                className="accent-brand-primary w-5 h-5 rounded-lg cursor-pointer"
-                              />
-                              Registration Paid
-                            </label>
-                          </div>
-                        </div>
-
-                        {/* Start and End Date Inputs */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Start Date</label>
-                            <input
-                              type="date"
-                              value={item.startDate ? new Date(item.startDate).toISOString().split('T')[0] : ""}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveInternship];
-                                  const newStart = val ? new Date(val) : new Date();
-                                  const duration = intDetails?.duration || "1-month";
-                                  const newEnd = calculateEndDate(newStart, duration);
-                                  list[index] = { ...list[index], startDate: newStart, endDate: newEnd };
-                                  return { ...prev, ActiveInternship: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">End Date</label>
-                            <input
-                              type="date"
-                              value={item.endDate ? new Date(item.endDate).toISOString().split('T')[0] : ""}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveInternship];
-                                  list[index] = { ...list[index], endDate: val ? new Date(val) : null };
-                                  return { ...prev, ActiveInternship: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Beautiful custom file uploaders */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 border-t border-border-main/40">
-                          <BeautifulFileUploader
-                            label="Offer Letter"
-                            value={item.offerLetterUrl}
-                            onChange={(url) => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveInternship];
-                                list[index] = { ...list[index], offerLetterUrl: url };
-                                return { ...prev, ActiveInternship: list };
-                              });
-                            }}
-                            onRemove={() => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveInternship];
-                                list[index] = { ...list[index], offerLetterUrl: "" };
-                                return { ...prev, ActiveInternship: list };
-                              });
-                            }}
-                          />
-
-                          <BeautifulFileUploader
-                            label="Internship Certificate"
-                            value={item.certificationUrl}
-                            onChange={(url) => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveInternship];
-                                list[index] = { ...list[index], certificationUrl: url };
-                                return { ...prev, ActiveInternship: list };
-                              });
-                            }}
-                            onRemove={() => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveInternship];
-                                list[index] = { ...list[index], certificationUrl: "" };
-                                return { ...prev, ActiveInternship: list };
-                              });
-                            }}
-                          />
-
-                          <BeautifulFileUploader
-                            label="Payment Receipt"
-                            value={item.paymentreceipt}
-                            onChange={(url) => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveInternship];
-                                list[index] = { ...list[index], paymentreceipt: url };
-                                return { ...prev, ActiveInternship: list };
-                              });
-                            }}
-                            onRemove={() => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveInternship];
-                                list[index] = { ...list[index], paymentreceipt: "" };
-                                return { ...prev, ActiveInternship: list };
-                              });
-                            }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+              {/* Terms Checkbox */}
+              <label className="flex items-start cursor-pointer p-4 rounded-xl border-2 border-border-main hover:border-brand-primary transition-colors group">
+                <input
+                  type="checkbox"
+                  name="agreeTerms"
+                  checked={formData.agreeTerms}
+                  onChange={handleInputChange}
+                  className="w-5 h-5 rounded accent-brand-primary cursor-pointer mt-1 flex-shrink-0"
+                />
+                <span className="ml-3 text-sm text-text-muted group-hover:text-text-main transition-colors">
+                  I agree to the Terms & Privacy Policy and internship terms.
+                </span>
+              </label>
+              {errors.agreeTerms && (
+                <p className="text-red-500 text-xs">{errors.agreeTerms}</p>
               )}
             </div>
+          )}
 
-            {/* Courses section */}
-            <div className="space-y-4 pt-6 border-t border-border-main">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-main/50 pb-2">
-                <h4 className="text-base font-bold text-text-main flex items-center gap-2">
-                  <span>📚</span> Enrolled Courses
-                </h4>
-                <div className="flex items-center gap-2 self-end sm:self-auto">
-                  <select
-                    id="add-course-select"
-                    className="p-2 bg-bg-main border-2 border-border-main rounded-xl text-xs focus:border-brand-primary outline-none text-text-main font-semibold"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>Select Course</option>
-                    {allCourses
-                      .filter(
-                        (item) =>
-                          !formData.ActiveCources?.some(
-                            (act) => (act.course?._id || act.course) === item._id
-                          )
-                      )
-                      .map((item) => (
-                        <option key={item._id} value={item._id}>
-                          {item.title}
-                        </option>
-                      ))}
-                  </select>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const selectEl = document.getElementById("add-course-select");
-                      const cId = selectEl.value;
-                      if (!cId) return;
-                      const selectedC = allCourses.find((c) => c._id === cId);
-                      if (!selectedC) return;
-
-                      setFormData((prev) => ({
-                        ...prev,
-                        ActiveCources: [
-                          ...(prev.ActiveCources || []),
-                          {
-                            course: selectedC,
-                            courseStatus: "Active",
-                            progress: 0,
-                            paymentStatus: false,
-                            amount: selectedC.price || 0,
-                            certificateUrl: "",
-                            completedModules: [],
-                            startDate: new Date(),
-                            endDate: calculateCourseEndDate(new Date(), selectedC.accessDuration || "lifetime"),
-                          },
-                        ],
-                      }));
-                      selectEl.value = "";
-                    }}
-                    className="bg-brand-primary text-white text-xs font-bold py-2 px-4 rounded-xl hover:bg-brand-primary/90 transition shadow-sm"
-                  >
-                    + Add
-                  </button>
-                </div>
-              </div>
-
-              {(formData.ActiveCources || []).length === 0 ? (
-                <p className="text-sm text-text-muted italic bg-bg-main p-4 rounded-2xl border border-border-main/50 text-center">
-                  No enrolled courses.
-                </p>
-              ) : (
-                <div className="space-y-4">
-                  {formData.ActiveCources.map((item, index) => {
-                    const cDetails = item.course;
-                    const title = cDetails?.title || "Course Reference";
-
-                    return (
-                      <div
-                        key={index}
-                        className="bg-bg-main border-2 border-border-main p-5 rounded-2xl space-y-4 relative group"
-                      >
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              ActiveCources: prev.ActiveCources.filter((_, idx) => idx !== index),
-                            }));
-                          }}
-                          className="absolute top-4 right-4 text-red-500 hover:text-white bg-red-500/10 hover:bg-red-50 p-2 rounded-xl transition font-semibold text-xs flex items-center gap-1"
-                        >
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                          Remove
-                        </button>
-
-                        <div className="font-bold text-sm text-text-main pr-20 flex items-center gap-2">
-                          <span className="text-xl">📚</span> {title}
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-center">
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Status</label>
-                            <select
-                              value={item.courseStatus || "Active"}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveCources];
-                                  list[index] = { ...list[index], courseStatus: val };
-                                  return { ...prev, ActiveCources: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            >
-                              <option value="Active">Active</option>
-                              <option value="Completed">Completed</option>
-                            </select>
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Progress (%)</label>
-                            <input
-                              type="number"
-                              min="0"
-                              max="100"
-                              value={item.progress || 0}
-                              onChange={(e) => {
-                                const val = parseInt(e.target.value) || 0;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveCources];
-                                  list[index] = { ...list[index], progress: Math.min(100, Math.max(0, val)) };
-                                  return { ...prev, ActiveCources: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Fee (₹)</label>
-                            <input
-                              type="number"
-                              value={item.amount || 0}
-                              onChange={(e) => {
-                                const val = parseInt(e.target.value) || 0;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveCources];
-                                  list[index] = { ...list[index], amount: val };
-                                  return { ...prev, ActiveCources: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            />
-                          </div>
-
-                          <div className="flex items-center sm:justify-center pt-4">
-                            <label className="flex items-center gap-3 cursor-pointer text-xs font-bold uppercase tracking-wider text-text-main">
-                              <input
-                                type="checkbox"
-                                checked={item.paymentStatus || false}
-                                onChange={(e) => {
-                                  const val = e.target.checked;
-                                  setFormData((prev) => {
-                                    const list = [...prev.ActiveCources];
-                                    list[index] = { ...list[index], paymentStatus: val };
-                                    return { ...prev, ActiveCources: list };
-                                  });
-                                }}
-                                className="accent-brand-primary w-5 h-5 rounded-lg cursor-pointer"
-                              />
-                              Enrollment Paid
-                            </label>
-                          </div>
-                        </div>
-
-                        {/* Start and End Date Inputs for Course */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Start Date</label>
-                            <input
-                              type="date"
-                              value={item.startDate ? new Date(item.startDate).toISOString().split('T')[0] : ""}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveCources];
-                                  const newStart = val ? new Date(val) : new Date();
-                                  const accessDuration = cDetails?.accessDuration || "lifetime";
-                                  const newEnd = calculateCourseEndDate(newStart, accessDuration);
-                                  list[index] = { ...list[index], startDate: newStart, endDate: newEnd };
-                                  return { ...prev, ActiveCources: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">End Date</label>
-                            <input
-                              type="date"
-                              value={item.endDate ? new Date(item.endDate).toISOString().split('T')[0] : ""}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                setFormData((prev) => {
-                                  const list = [...prev.ActiveCources];
-                                  list[index] = { ...list[index], endDate: val ? new Date(val) : null };
-                                  return { ...prev, ActiveCources: list };
-                                });
-                              }}
-                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Beautiful custom file uploaders */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
-                          <BeautifulFileUploader
-                            label="Course Certificate"
-                            value={item.certificateUrl}
-                            onChange={(url) => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveCources];
-                                list[index] = { ...list[index], certificateUrl: url };
-                                return { ...prev, ActiveCources: list };
-                              });
-                            }}
-                            onRemove={() => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveCources];
-                                list[index] = { ...list[index], certificateUrl: "" };
-                                return { ...prev, ActiveCources: list };
-                              });
-                            }}
-                          />
-
-                          <BeautifulFileUploader
-                            label="Payment Receipt"
-                            value={item.paymentreceipt}
-                            onChange={(url) => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveCources];
-                                list[index] = { ...list[index], paymentreceipt: url };
-                                return { ...prev, ActiveCources: list };
-                              });
-                            }}
-                            onRemove={() => {
-                              setFormData((prev) => {
-                                const list = [...prev.ActiveCources];
-                                list[index] = { ...list[index], paymentreceipt: "" };
-                                return { ...prev, ActiveCources: list };
-                              });
-                            }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Action Save/Cancel Footer */}
-        <div className="flex items-center justify-end gap-4 bg-bg-card border-2 border-border-main rounded-2xl p-4 shadow-sm">
-          <Link
-            href="/admin/auth/dashboard/user"
-            className="px-6 py-3 rounded-xl border-2 border-border-main hover:bg-bg-main text-text-main font-semibold transition"
-          >
-            Cancel
-          </Link>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="px-8 py-3 rounded-xl bg-brand-primary hover:bg-brand-primary/90 text-white font-bold shadow-lg shadow-brand-primary/20 hover:shadow-brand-primary/30 transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? (
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                <span>Registering User...</span>
-              </div>
-            ) : (
-              "Register User"
+          {/* Navigation Buttons */}
+          <div className="flex gap-4 mt-8 pt-8 border-t border-border-main">
+            {step > 1 && (
+              <button
+                type="button"
+                onClick={handleBack}
+                className="flex-1 px-6 py-3 rounded-xl border-2 border-border-main text-text-main font-semibold hover:border-brand-primary hover:bg-bg-main transition-all hover:shadow-md"
+              >
+                ← Back
+              </button>
             )}
-          </button>
-        </div>
-      </form>
+            {step < totalSteps ? (
+              <button
+                type="button"
+                onClick={handleNext}
+                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold hover:shadow-lg hover:shadow-brand-primary/30 transition-all transform hover:scale-105"
+              >
+                Next →
+              </button>
+            ) : (
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold hover:shadow-lg hover:shadow-brand-primary/30 transition-all transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Registering Student...</span>
+                  </div>
+                ) : (
+                  "Complete Registration"
+                )}
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

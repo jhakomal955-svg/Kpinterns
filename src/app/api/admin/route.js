@@ -120,7 +120,25 @@ export async function POST(request) {
       bio: rawData.bio?.trim() || "",
       UniversityName: rawData.role === "College Admin" ? (rawData.UniversityName || "") : "",
       CollegeName: rawData.role === "College Admin" ? (rawData.CollegeName || "") : "",
+      bankDetails: {
+        name: rawData.bankDetails?.name?.trim(),
+        accountNumber: rawData.bankDetails?.accountNumber?.trim(),
+        ifscCode: rawData.bankDetails?.ifscCode?.trim(),
+      },
     };
+
+    // Validate bank details
+    if (
+      !data.bankDetails ||
+      !data.bankDetails.name ||
+      !data.bankDetails.accountNumber ||
+      !data.bankDetails.ifscCode
+    ) {
+      return Response.json(
+        { error: "Bank Details (Holder Name, Account Number, and IFSC Code) are required." },
+        { status: 400 }
+      );
+    }
 
     // Validate required fields
     const requiredFields = ["name", "email", "mobile", "password"];
@@ -224,10 +242,28 @@ export async function PUT(request) {
     const data = await request.json();
     const Admin = createModel("Admin", AdminModel);
 
-    // Only Admins can modify verification status and roles
+    // Only Admins can modify verification status, roles, and financial/restricted details
     if (auth.user.role !== "Admin") {
       delete data.verified;
       delete data.role;
+      delete data.commissionPercentage;
+      delete data.paymentsDone;
+      delete data.totalRevenue;
+      delete data.employedate;
+    }
+
+    // Validate bank details if present in the update
+    if (data.bankDetails) {
+      if (
+        data.bankDetails.name === "" ||
+        data.bankDetails.accountNumber === "" ||
+        data.bankDetails.ifscCode === ""
+      ) {
+        return Response.json(
+          { error: "Bank Details (Name, Account Number, and IFSC Code) cannot be empty." },
+          { status: 400 }
+        );
+      }
     }
 
     // Update admin

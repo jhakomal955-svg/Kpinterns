@@ -365,8 +365,8 @@ export default function RegisterPage() {
         const matchingInternships = dbInternships.filter(
           (item) =>
             (item.status === "Active" || item.status === "Published") &&
-            item.degree === normDegree &&
-            item.department === prev.department &&
+            (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+            (Array.isArray(item.department) ? item.department.includes(prev.department) : item.department === prev.department) &&
             item.domain === domainValue
         );
         // Preserve original casing from the DB (Online / Offline / Hybrid)
@@ -466,8 +466,8 @@ export default function RegisterPage() {
     const matching = dbInternships.filter(
       (item) =>
         (item.status === "Active" || item.status === "Published") &&
-        item.degree === normDegree &&
-        item.department === formData.department
+        (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+        (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department)
     );
 
     const domains = matching.map((item) => item.domain).filter(Boolean);
@@ -484,8 +484,8 @@ export default function RegisterPage() {
     const matching = dbInternships.filter(
       (item) =>
         (item.status === "Active" || item.status === "Published") &&
-        item.degree === normDegree &&
-        item.department === formData.department &&
+        (Array.isArray(item.degree) ? item.degree.includes(normDegree) : item.degree === normDegree) &&
+        (Array.isArray(item.department) ? item.department.includes(formData.department) : item.department === formData.department) &&
         item.domain === formData.internshipDomain
     );
 

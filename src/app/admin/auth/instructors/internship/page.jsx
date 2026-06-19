@@ -10,6 +10,8 @@ export default function InstructorInternshipsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [modeFilter, setModeFilter] = useState("All");
   const [typeFilter, setTypeFilter] = useState("All");
+  const [degreeFilter, setDegreeFilter] = useState("All");
+  const [departmentFilter, setDepartmentFilter] = useState("All");
   const [adminData, setAdminData] = useState(null);
 
   const internshipTypes = [
@@ -20,6 +22,51 @@ export default function InstructorInternshipsPage() {
     "Project-Based",
   ];
   const internshipModes = ["Online", "Offline", "Hybrid"];
+  const internshipDegrees = [
+    "BTech",
+    "Diploma",
+    "BSc",
+    "BA",
+    "BCom",
+  ];
+  const internshipDepartments = [
+    "Computer Science & Engineering",
+    "Mechanical Engineering",
+    "Civil Engineering",
+    "Electrical Engineering",
+    "Electronics & Communication",
+    "Chemical Engineering",
+    "Physics",
+    "Chemistry",
+    "Mathematics",
+    "Statistics",
+    "Botany",
+    "Zoology",
+    "Microbiology",
+    "Biotechnology",
+    "Biochemistry",
+    "Computer Science",
+    "Data Science",
+    "Agriculture",
+    "Nursing",
+    "Forensic Science",
+    "Humanities",
+    "Social Sciences",
+    "Languages",
+    "Arts & Media",
+    "Vocational/Applied",
+    "Accounting & Finance",
+    "Business Administration",
+    "Banking & Insurance",
+    "Taxation",
+    "Economics",
+    "Sales & Marketing",
+    "Computer Applications",
+    "General Teacher Training",
+    "Civil Law",
+    "Criminal Law",
+    "Corporate Law",
+  ];
 
   const fetchInternships = async () => {
     try {
@@ -71,13 +118,27 @@ export default function InstructorInternshipsPage() {
       internship.title?.toLowerCase().includes(term) ||
       internship.description?.toLowerCase().includes(term) ||
       internship.position?.toLowerCase().includes(term) ||
-      internship.department?.toLowerCase().includes(term);
+      (Array.isArray(internship.department)
+        ? internship.department.some((d) => d.toLowerCase().includes(term))
+        : internship.department?.toLowerCase().includes(term));
 
     const matchesMode = modeFilter === "All" || internship.mode === modeFilter;
     const matchesType =
       typeFilter === "All" || internship.internshipType === typeFilter;
+    const matchesDegree =
+      degreeFilter === "All" ||
+      (internship.degree &&
+        (Array.isArray(internship.degree)
+          ? internship.degree.includes(degreeFilter)
+          : internship.degree === degreeFilter));
+    const matchesDepartment =
+      departmentFilter === "All" ||
+      (internship.department &&
+        (Array.isArray(internship.department)
+          ? internship.department.includes(departmentFilter)
+          : internship.department === departmentFilter));
 
-    return matchesSearch && matchesMode && matchesType;
+    return matchesSearch && matchesMode && matchesType && matchesDegree && matchesDepartment;
   });
 
   return (
@@ -103,8 +164,8 @@ export default function InstructorInternshipsPage() {
       )}
 
       {/* Filters & Search */}
-      <div className="bg-bg-card border-2 border-border-main rounded-2xl p-4 flex flex-col lg:flex-row gap-4">
-        <div className="relative flex-1">
+      <div className="bg-bg-card border-2 border-border-main rounded-2xl p-4 space-y-4">
+        <div className="relative w-full">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-text-muted">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -118,7 +179,7 @@ export default function InstructorInternshipsPage() {
             className="w-full pl-10 pr-4 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main placeholder-text-muted focus:border-brand-primary outline-none transition text-sm sm:text-base"
           />
         </div>
-        <div className="grid grid-cols-2 gap-4 w-full lg:w-96">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           <select
             value={modeFilter}
             onChange={(e) => setModeFilter(e.target.value)}
@@ -137,6 +198,26 @@ export default function InstructorInternshipsPage() {
             <option value="All">All Types</option>
             {internshipTypes.map((t) => (
               <option key={t} value={t}>{t}</option>
+            ))}
+          </select>
+          <select
+            value={degreeFilter}
+            onChange={(e) => setDegreeFilter(e.target.value)}
+            className="p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm"
+          >
+            <option value="All">All Degrees</option>
+            {internshipDegrees.map((d) => (
+              <option key={d} value={d}>{d}</option>
+            ))}
+          </select>
+          <select
+            value={departmentFilter}
+            onChange={(e) => setDepartmentFilter(e.target.value)}
+            className="p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm"
+          >
+            <option value="All">All Departments</option>
+            {internshipDepartments.map((dept) => (
+              <option key={dept} value={dept}>{dept}</option>
             ))}
           </select>
         </div>
@@ -186,7 +267,7 @@ export default function InstructorInternshipsPage() {
                 <div className="space-y-3">
                   <div>
                     <span className="text-xs uppercase font-extrabold text-brand-secondary tracking-wider">
-                      {internship.department}
+                      {Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}
                     </span>
                     <h3 className="font-bold text-lg text-text-main line-clamp-1">
                       {internship.position || "N/A"}

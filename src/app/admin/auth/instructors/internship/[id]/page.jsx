@@ -122,8 +122,8 @@ export default function InstructorInternshipEditPage() {
           shortDescription: internship.shortDescription || "",
           thumbnail: internship.thumbnail || "",
           position: internship.position || "",
-          degree: internship.degree || "BTech",
-          department: internship.department || "Computer Science & Engineering",
+          degree: Array.isArray(internship.degree) ? internship.degree : (internship.degree ? [internship.degree] : []),
+          department: Array.isArray(internship.department) ? internship.department : (internship.department ? [internship.department] : []),
           domain: internship.domain || "Full Stack Development",
           internshipType: internship.internshipType || "Full-Time",
           mode: internship.mode || "Hybrid",
@@ -390,7 +390,7 @@ export default function InstructorInternshipEditPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <span className="text-xs uppercase font-extrabold text-brand-secondary tracking-wider">{formData.department} ({formData.domain})</span>
+          <span className="text-xs uppercase font-extrabold text-brand-secondary tracking-wider">{Array.isArray(formData.department) ? formData.department.join(", ") : formData.department} ({formData.domain})</span>
           <h1 className="text-2xl sm:text-3xl font-bold text-text-main">
             {formData.position} Internship
           </h1>

@@ -52,7 +52,7 @@ const InternshipModel = {
 
   // Internship Details
   degree: {
-    type: String,
+    type: [String],
     required: true,
     enum: [
       "BTech",
@@ -64,7 +64,7 @@ const InternshipModel = {
   },
 
   department: {
-    type: String,
+    type: [String],
     required: true,
     enum: [
       // ── Engineering (B.Tech / Diploma) ─────────────────────────────

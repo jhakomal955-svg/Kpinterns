@@ -329,7 +329,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
                     <div className="space-y-1">
-                      <span className="text-[10px] uppercase font-bold text-brand-secondary">{internship.department}</span>
+                      <span className="text-[10px] uppercase font-bold text-brand-secondary">{Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}</span>
                       <h4 className="font-bold text-base text-text-main line-clamp-1">{internship.position}</h4>
                       <h5 className="font-semibold text-xs text-text-muted">{internship.title}</h5>
                     </div>

@@ -60,6 +60,36 @@ const AdminModel = {
     type: String,
     default: "",
   },
+  bankDetails:{
+    name:{
+      type:String,
+      required:true,
+    },
+    accountNumber:{
+      type:String,
+      required:true,
+    },
+    ifscCode:{
+      type:String,
+      required:true,
+    },
+  },
+  commissionPercentage:{
+    type:Number,
+    default:0,
+  },
+  paymentsDone:{
+   type:Number,
+   default:0
+  },
+  totalRevenue:{
+    type:Number,
+    default:0
+  },
+  employedate:{
+    type:Date,
+    default:Date.now,
+  },
   Usercreated:[
     {
       type:mongoose.Schema.Types.ObjectId,

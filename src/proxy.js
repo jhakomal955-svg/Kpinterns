@@ -81,8 +81,11 @@ export async function proxy(request) {
     (pathname.startsWith('/api/auth/') && pathname !== '/api/auth/verify') ||
     pathname === '/api/user/login' ||
     pathname === '/api/admin/login' ||
-    pathname === '/api/otp' ||
+    pathname === '/api/user/forgot-password' ||
+    pathname === '/api/admin/forgot-password' ||
+    pathname.startsWith('/api/otp/') ||
     pathname === '/api/verify' ||
+    pathname === '/api/payment/order' ||
     (pathname === '/api/user' && request.method === 'POST') ||
     (pathname === '/api/admin' && request.method === 'POST') ||
     (pathname === '/api/testimonial' && request.method === 'GET') ||

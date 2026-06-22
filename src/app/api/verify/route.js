@@ -2,6 +2,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel } from "@/models";
 import mongoose from "mongoose";
+import { getObjectIdFromSequentialNumber, getSequentialNumber } from "@/lib/pdfGenerator";
 
 export const maxDuration = 60; // 1 minute execution limit
 
@@ -26,13 +27,24 @@ export async function GET(request) {
 
     let users = [];
     const trimmedQuery = query.trim();
+    let lookupId = trimmedQuery;
+
+    // Check if query is in format: kpinterns/year/number (case-insensitive)
+    const match = trimmedQuery.match(/^kpinterns\/\d{4}\/(\d+)$/i);
+    if (match) {
+      const seqNo = match[1];
+      const objectId = await getObjectIdFromSequentialNumber(seqNo);
+      if (objectId) {
+        lookupId = objectId;
+      }
+    }
 
     // 1. Check if the query is a valid MongoDB ObjectId (to look up specific certificate ID)
-    if (mongoose.Types.ObjectId.isValid(trimmedQuery)) {
+    if (mongoose.Types.ObjectId.isValid(lookupId)) {
       const user = await User.findOne({
         $or: [
-          { "ActiveCources._id": trimmedQuery },
-          { "ActiveInternship._id": trimmedQuery }
+          { "ActiveCources._id": lookupId },
+          { "ActiveInternship._id": lookupId }
         ]
       })
       .populate("ActiveCources.course")
@@ -72,12 +84,21 @@ export async function GET(request) {
         for (const c of user.ActiveCources) {
           // Verify both that certificate URL exists
           if (c.certificateUrl) {
-            // If query is a valid ObjectId, only include the certificate that matches it
-            if (mongoose.Types.ObjectId.isValid(trimmedQuery) && c._id.toString() !== trimmedQuery) {
+            // If query is a valid ObjectId/parsed ID, only include the certificate that matches it
+            if (mongoose.Types.ObjectId.isValid(lookupId) && c._id.toString() !== lookupId) {
               continue;
             }
+
+            const seqNum = await getSequentialNumber(c._id);
+            const courseYear = c.startDate 
+              ? new Date(c.startDate).getFullYear() 
+              : c.paymentDate 
+                ? new Date(c.paymentDate).getFullYear() 
+                : new Date(user.createdAt).getFullYear();
+            const formattedId = `kpinterns/${courseYear}/${seqNum}`;
+
             certificates.push({
-              certificateId: c._id.toString(),
+              certificateId: formattedId,
               holder: user.fullName,
               course: c.course?.title || "Specialized Course",
               type: "Course Completion Certificate",
@@ -102,53 +123,63 @@ export async function GET(request) {
       // Extract from internships
       if (user.ActiveInternship && user.ActiveInternship.length > 0) {
         for (const i of user.ActiveInternship) {
-          const isDirectMatch = mongoose.Types.ObjectId.isValid(trimmedQuery) && i._id.toString() === trimmedQuery;
-          const isGenericMatch = !mongoose.Types.ObjectId.isValid(trimmedQuery);
+          const isDirectMatch = mongoose.Types.ObjectId.isValid(lookupId) && i._id.toString() === lookupId;
+          const isGenericMatch = !mongoose.Types.ObjectId.isValid(lookupId);
 
-          // 1. Internship Certificate
-          if (i.certificationUrl && (isDirectMatch || isGenericMatch)) {
-            certificates.push({
-              certificateId: i._id.toString(),
-              holder: user.fullName,
-              course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
-              type: "Internship Completion Certificate",
-              issuedDate: i.paymentDate
-                ? new Date(i.paymentDate).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
-                : new Date(user.createdAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }),
-              expiryDate: "Lifetime Validity",
-              certificateUrl: i.certificationUrl,
-            });
-          }
+          if ((i.certificationUrl || i.offerLetterUrl) && (isDirectMatch || isGenericMatch)) {
+            const seqNum = await getSequentialNumber(i._id);
+            const internshipYear = i.startDate 
+              ? new Date(i.startDate).getFullYear() 
+              : i.paymentDate 
+                ? new Date(i.paymentDate).getFullYear() 
+                : new Date(user.createdAt).getFullYear();
+            const formattedId = `kpinterns/${internshipYear}/${seqNum}`;
 
-          // 2. Internship Offer Letter
-          if (i.offerLetterUrl && (isDirectMatch || isGenericMatch)) {
-            certificates.push({
-              certificateId: i._id.toString(),
-              holder: user.fullName,
-              course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
-              type: "Internship Offer Letter",
-              issuedDate: i.paymentDate
-                ? new Date(i.paymentDate).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
-                : new Date(user.createdAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }),
-              expiryDate: "Active during internship",
-              certificateUrl: i.offerLetterUrl,
-            });
+            // 1. Internship Certificate
+            if (i.certificationUrl && (isDirectMatch || isGenericMatch)) {
+              certificates.push({
+                certificateId: formattedId,
+                holder: user.fullName,
+                course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
+                type: "Internship Completion Certificate",
+                issuedDate: i.paymentDate
+                  ? new Date(i.paymentDate).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : new Date(user.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }),
+                expiryDate: "Lifetime Validity",
+                certificateUrl: i.certificationUrl,
+              });
+            }
+
+            // 2. Internship Offer Letter
+            if (i.offerLetterUrl && (isDirectMatch || isGenericMatch)) {
+              certificates.push({
+                certificateId: formattedId,
+                holder: user.fullName,
+                course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
+                type: "Internship Offer Letter",
+                issuedDate: i.paymentDate
+                  ? new Date(i.paymentDate).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : new Date(user.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }),
+                expiryDate: "Active during internship",
+                certificateUrl: i.offerLetterUrl,
+              });
+            }
           }
         }
       }

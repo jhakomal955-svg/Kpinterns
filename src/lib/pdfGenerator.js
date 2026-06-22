@@ -2,6 +2,98 @@ import PDFDocument from "pdfkit";
 import QRCode from "qrcode";
 import fs from "fs";
 import path from "path";
+import connectDB from "@/lib/mongodb";
+import { createModel } from "@/lib/utils/schemaBuilder";
+import { UserModel, CourseModel, InternshipModel } from "@/models";
+
+/**
+ * Retrieves the sequential index (1-based) of a given course/internship subdocument ID.
+ * @param {string} subdocumentId - MongoDB ObjectId of the course/internship enrollment
+ * @returns {Promise<number>} - 1-based chronological index
+ */
+export async function getSequentialNumber(subdocumentId) {
+  try {
+    await connectDB();
+    createModel("Course", CourseModel);
+    createModel("Internship", InternshipModel);
+    const User = createModel("User", UserModel);
+
+    // Retrieve only the ObjectIds of active internships and courses
+    const users = await User.find({}, { "ActiveInternship._id": 1, "ActiveCources._id": 1 });
+
+    const allIds = [];
+    for (const user of users) {
+      if (user.ActiveInternship) {
+        for (const item of user.ActiveInternship) {
+          if (item._id) {
+            allIds.push(item._id.toString());
+          }
+        }
+      }
+      if (user.ActiveCources) {
+        for (const item of user.ActiveCources) {
+          if (item._id) {
+            allIds.push(item._id.toString());
+          }
+        }
+      }
+    }
+
+    // Sort alphabetically so they are ordered chronologically by creation time
+    allIds.sort();
+
+    const idx = allIds.indexOf(subdocumentId.toString());
+    return idx !== -1 ? idx + 1 : 1;
+  } catch (error) {
+    console.error("Error getting sequential number:", error);
+    return 1;
+  }
+}
+
+/**
+ * Resolves a 1-based sequential index back to its corresponding MongoDB ObjectId.
+ * @param {string|number} seqNum - 1-based chronological index
+ * @returns {Promise<string|null>} - MongoDB ObjectId of the subdocument, or null
+ */
+export async function getObjectIdFromSequentialNumber(seqNum) {
+  try {
+    await connectDB();
+    createModel("Course", CourseModel);
+    createModel("Internship", InternshipModel);
+    const User = createModel("User", UserModel);
+
+    const users = await User.find({}, { "ActiveInternship._id": 1, "ActiveCources._id": 1 });
+
+    const allIds = [];
+    for (const user of users) {
+      if (user.ActiveInternship) {
+        for (const item of user.ActiveInternship) {
+          if (item._id) {
+            allIds.push(item._id.toString());
+          }
+        }
+      }
+      if (user.ActiveCources) {
+        for (const item of user.ActiveCources) {
+          if (item._id) {
+            allIds.push(item._id.toString());
+          }
+        }
+      }
+    }
+
+    allIds.sort();
+
+    const targetIdx = parseInt(seqNum, 10) - 1;
+    if (targetIdx >= 0 && targetIdx < allIds.length) {
+      return allIds[targetIdx];
+    }
+    return null;
+  } catch (error) {
+    console.error("Error getting ObjectId from sequential number:", error);
+    return null;
+  }
+}
 
 /**
  * Helper to safely format Date objects or strings into DD-MM-YYYY format
@@ -41,8 +133,18 @@ export async function generateOfferLetter(student, internship, verificationId) {
       const wellColor = "#f8fafc";      // Very Light Indigo-Gray
       const borderColor = "#e2e8f0";    // Border line color
 
+      const enrollment = student.ActiveInternship?.find(
+        (i) => (i.internship?._id || i.internship)?.toString() === (internship._id || internship)?.toString()
+      );
+
+      const seqNum = await getSequentialNumber(verificationId);
+      const startYear = enrollment?.startDate 
+        ? new Date(enrollment.startDate).getFullYear() 
+        : new Date().getFullYear();
+      const formattedVerificationId = `kpinterns/${startYear}/${seqNum}`;
+
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kpinterns.com";
-      const verifyUrl = `${siteUrl}/verify?id=${verificationId}`;
+      const verifyUrl = `${siteUrl}/verify?id=${formattedVerificationId}`;
       
       // Generate secure verification QR Code Data URL
       const qrCodeDataUrl = await QRCode.toDataURL(verifyUrl, { 
@@ -100,7 +202,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
         .text(`Date: ${issueDate}`, 40, 112);
 
       doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor)
-        .text(`Ref ID: ${verificationId}`, 300, 112, { align: "right", width: 255.28 });
+        .text(`Ref no: ${formattedVerificationId}`, 300, 112, { align: "right", width: 255.28 });
 
       // --- 4. Title ---
       doc.font("Helvetica-Bold").fontSize(18).fillColor(darkColor)
@@ -114,10 +216,6 @@ export async function generateOfferLetter(student, internship, verificationId) {
 
       doc.font("Helvetica-Bold").fontSize(11).fillColor(darkColor)
         .text(`Dear ${studentName},`, 40, 185);
-
-      const enrollment = student.ActiveInternship?.find(
-        (i) => (i.internship?._id || i.internship)?.toString() === (internship._id || internship)?.toString()
-      );
 
       const position = internship.position || "Intern";
       const semester = student.semester ? `${student.semester} Semester` : "N/A";
@@ -249,10 +347,12 @@ export async function generateOfferLetter(student, internship, verificationId) {
         }
       };
 
-      drawAccreditationBadge("aicte.png", "aicte.png", 90, badgeY, 40, 40);
+      //drawAccreditationBadge("aicte.png", "aicte.png", 90, badgeY, 40, 40);
+      drawAccreditationBadge("aicte.png", "aicte.png", 185, badgeY + 4, 65, 32);
       // drawAccreditationBadge("Mca.png", "Mca.png", 185, badgeY + 4, 65, 32);
       // drawAccreditationBadge("iso.png", "iso.png", 305, badgeY, 40, 40);
-      drawAccreditationBadge("msme.png", "msme.png", 410, badgeY, 55, 47);
+      drawAccreditationBadge("msme.png", "msme.png", 305, badgeY, 40, 40);
+      //drawAccreditationBadge("msme.png", "msme.png", 410, badgeY, 55, 47);
 
       // --- 11. Bottom Decorative Contact Banner ---
       doc.rect(0, 806, 595.28, 4).fill(accentColor);
@@ -295,16 +395,6 @@ export async function generateCertificate(student, program, type, verificationId
       const frameBgColor = "#ffffff";   // White certificate background
       const borderColor = "#e2e8f0";    // Light border color
 
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kpinterns.com";
-      const verifyUrl = `${siteUrl}/verify?id=${verificationId}`;
-      
-      // Generate QR Code Data URL
-      const qrCodeDataUrl = await QRCode.toDataURL(verifyUrl, { 
-        margin: 1, 
-        width: 120,
-        color: { dark: "#0f172a", light: "#ffffff" }
-      });
-
       // Look up student's enrollment details for the program
       const enrollment = type === "internship"
         ? student.ActiveInternship?.find(
@@ -313,6 +403,22 @@ export async function generateCertificate(student, program, type, verificationId
         : student.ActiveCources?.find(
             (c) => (c.course?._id || c.course)?.toString() === (program._id || program)?.toString()
           );
+
+      const seqNum = await getSequentialNumber(verificationId);
+      const startYear = enrollment?.startDate 
+        ? new Date(enrollment.startDate).getFullYear() 
+        : new Date().getFullYear();
+      const formattedVerificationId = `kpinterns/${startYear}/${seqNum}`;
+
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kpinterns.com";
+      const verifyUrl = `${siteUrl}/verify?id=${formattedVerificationId}`;
+      
+      // Generate QR Code Data URL
+      const qrCodeDataUrl = await QRCode.toDataURL(verifyUrl, { 
+        margin: 1, 
+        width: 120,
+        color: { dark: "#0f172a", light: "#ffffff" }
+      });
 
       // Normalize structured variables to safe string defaults
       const studentName = student.fullName || "N/A";
@@ -430,7 +536,7 @@ export async function generateCertificate(student, program, type, verificationId
 
       doc.font("Helvetica").fontSize(7).fillColor(mutedColor)
         .text(
-          `Verify online registry at: ${siteUrl.replace('https://', '')}/verify\nCertificate ID: ${verificationId}\nDate of Certificate: ${issueDateStr}`,
+          `Verify online registry at: ${siteUrl.replace('https://', '')}/verify\nCertificate ID: ${formattedVerificationId}\nDate of Certificate: ${issueDateStr}`,
           qrX + 65,
           qrY + 16,
           { lineGap: 2.5, width: 250 }

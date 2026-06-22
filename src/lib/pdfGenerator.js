@@ -207,7 +207,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
         .text("Prabhash Kumar", 40, footerY + 45);
       
       doc.font("Helvetica").fontSize(9).fillColor(mutedColor)
-        .text("Founder & Ceo\nKpinterns Acpsk Technology Private Limited", 40, footerY + 58, { lineGap: 2 });
+        .text("Founder & Ceo\nKpinterns", 40, footerY + 58, { lineGap: 2 });
 
       // Verification Container Box
       const vBoxX = 330;
@@ -250,8 +250,8 @@ export async function generateOfferLetter(student, internship, verificationId) {
       };
 
       drawAccreditationBadge("aicte.png", "aicte.png", 90, badgeY, 40, 40);
-      drawAccreditationBadge("Mca.png", "Mca.png", 185, badgeY + 4, 65, 32);
-      drawAccreditationBadge("iso.png", "iso.png", 305, badgeY, 40, 40);
+      // drawAccreditationBadge("Mca.png", "Mca.png", 185, badgeY + 4, 65, 32);
+      // drawAccreditationBadge("iso.png", "iso.png", 305, badgeY, 40, 40);
       drawAccreditationBadge("msme.png", "msme.png", 410, badgeY, 55, 47);
 
       // --- 11. Bottom Decorative Contact Banner ---

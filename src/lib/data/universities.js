@@ -665,6 +665,19 @@ export const universitiesData = {
           ]
         },
       },
+      "kns-samastipur":{
+        name:"KAMESHWAR NARAYAN SINGH GOVERNMENT POLYTECHNIC, SAMASTIPUR",
+         departments: {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering",
+          ]
+        },
+      }
     },
   },
   "bihar-engineering": {

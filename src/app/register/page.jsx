@@ -51,6 +51,8 @@ export default function RegisterPage() {
     internshipId: "",
     internshipDomain: "",
     mode: "",
+    universityCustom: "",
+    collegeCustom: "",
     // Security
     password: "",
     confirmPassword: "",
@@ -343,11 +345,13 @@ export default function RegisterPage() {
       setFormData((prev) => ({
         ...prev,
         university: value,
-        college: "",
+        college: value === "others" ? "others" : "",
         department: "",
         internshipId: "",
         internshipDomain: "",
         mode: "",
+        universityCustom: "",
+        collegeCustom: "",
       }));
     } else if (name === "college") {
       // Reset department, internshipId, internshipDomain, and mode when college changes
@@ -358,6 +362,7 @@ export default function RegisterPage() {
         internshipId: "",
         internshipDomain: "",
         mode: "",
+        collegeCustom: "",
       }));
     } else if (name === "degree") {
       // Reset internshipId, internship domain and mode when degree changes (since domains differ by tech/non-tech)
@@ -431,9 +436,53 @@ export default function RegisterPage() {
     }
   };
 
+  const getDepartmentsForDegreeFallback = (deg) => {
+    if (!deg) return [];
+    if (deg === "Diploma" || deg === "B.Tech") {
+      return [
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Electrical Engineering",
+        "Electronics & Communication",
+        "Computer Science & Engineering",
+        "Chemical Engineering",
+      ];
+    } else if (deg === "BA") {
+      return ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"];
+    } else if (deg === "Bsc" || deg === "BSc") {
+      return [
+        "Physics",
+        "Chemistry",
+        "Mathematics",
+        "Statistics",
+        "Botany",
+        "Zoology",
+        "Microbiology",
+        "Biotechnology",
+        "Biochemistry",
+        "Computer Science",
+        "Data Science",
+        "Agriculture",
+        "Nursing",
+        "Forensic Science",
+      ];
+    } else if (deg === "Bcom" || deg === "BCom") {
+      return [
+        "Accounting & Finance",
+        "Business Administration",
+        "Banking & Insurance",
+        "Taxation",
+        "Economics",
+        "Sales & Marketing",
+        "Computer Applications",
+      ];
+    }
+    return [];
+  };
+
   // Get available colleges for selected university
   const getAvailableColleges = () => {
-    if (!formData.university) return [];
+    if (!formData.university || formData.university === "others") return [];
     const universityData = universitiesData[formData.university];
     if (!universityData) return [];
     return Object.entries(universityData.colleges).map(([key, college]) => ({
@@ -445,37 +494,46 @@ export default function RegisterPage() {
   // Get available departments for selected college
   const getAvailableDepartments = () => {
     if (!formData.university || !formData.college || !formData.degree) return [];
+
+    if (formData.university === "others" || formData.college === "others") {
+      return getDepartmentsForDegreeFallback(formData.degree);
+    }
+
     const universityData = universitiesData[formData.university];
-    if (!universityData) return [];
+    if (!universityData) return getDepartmentsForDegreeFallback(formData.degree);
     const collegeData = universityData.colleges[formData.college];
-    if (!collegeData) return [];
+    if (!collegeData) return getDepartmentsForDegreeFallback(formData.degree);
     
     let degreeKey = formData.degree;
     if (degreeKey === "Bcom") degreeKey = "BCom";
     if (degreeKey === "Bsc") degreeKey = "BSc";
     
     const depts = collegeData.departments?.[degreeKey];
-    return Array.isArray(depts) ? depts : [];
+    return Array.isArray(depts) && depts.length > 0 ? depts : getDepartmentsForDegreeFallback(formData.degree);
   };
 
   // Get available semesters count based on degree
   const getAvailableSemestersCount = () => {
-    // Diploma: 6 semesters (3 years)
-    // B.Tech: 8 semesters (4 years)
-    // Bachelor (BA/BSc/BCom - Non-Tech): 6 semesters (3 years)
-    // Master (MA/MSc/MCom - Non-Tech): 4 semesters (2 years)
     if (!formData.degree) return 0;
 
     if (formData.degree === "Diploma") {
-      return 6; // 3-year diploma program
-    } else if (formData.degree === "B.Tech") {
-      return 8; // 4-year B.Tech program
-    } else if (["Bachelor", "BA", "Bcom", "Bsc"].includes(formData.degree)) {
-      return 6; // 3-year non-tech bachelor program (BA/BSc/BCom)
+      return 6; // 3-year diploma program (6 semesters)
+    } else if (["B.Tech", "BA", "Bcom", "Bsc"].includes(formData.degree)) {
+      return 8; // 4-year programs (8 semesters)
     } else if (formData.degree === "Master") {
-      return 4; // 2-year master program (MA/MSc/MCom)
+      return 4; // 2-year master program (4 semesters)
     }
     return 0;
+  };
+
+  const getAvailableSessions = (degree) => {
+    if (!degree) return [];
+    if (["B.Tech", "BA", "Bcom", "Bsc"].includes(degree)) {
+      return ["2023-27", "2024-28", "2025-29"];
+    } else if (degree === "Diploma") {
+      return ["2023-26", "2024-27", "2025-28"];
+    }
+    return ["2024-25", "2025-26"]; // fallback
   };
 
   // ── Degree normaliser: maps form radio values → Internship model enum ────────
@@ -555,7 +613,13 @@ export default function RegisterPage() {
         newErrors.parentName = "Parent name is required";
     } else if (step === 2) {
       if (!formData.university) newErrors.university = "University is required";
+      if (formData.university === "others" && !formData.universityCustom?.trim()) {
+        newErrors.universityCustom = "Please enter university name";
+      }
       if (!formData.college) newErrors.college = "College is required";
+      if (formData.college === "others" && !formData.collegeCustom?.trim()) {
+        newErrors.collegeCustom = "Please enter college name";
+      }
       if (!formData.degree) newErrors.degree = "Degree is required";
       if (!formData.department) newErrors.department = "Department is required";
       if (!formData.rollNumber.trim()) newErrors.rollNumber = "Roll number is required";
@@ -630,11 +694,13 @@ export default function RegisterPage() {
         const universityObj = universitiesData[formData.university];
         const collegeObj = universityObj?.colleges?.[formData.college];
 
+        const { universityCustom, collegeCustom, ...restFormData } = formData;
+
         // Register directly
         const userPayload = {
-          ...formData,
-          university: universityObj ? universityObj.name : formData.university,
-          college: collegeObj ? collegeObj.name : formData.college,
+          ...restFormData,
+          university: formData.university === "others" ? formData.universityCustom : (universityObj ? universityObj.name : formData.university),
+          college: formData.college === "others" ? formData.collegeCustom : (collegeObj ? collegeObj.name : formData.college),
           courseId: purchaseType === "course" ? finalItemId : undefined,
           internshipId: purchaseType === "internship" ? finalItemId : undefined,
           paymentDetails: hasValidExistingPayment ? completedPaymentDetails : undefined,
@@ -992,11 +1058,34 @@ export default function RegisterPage() {
                           </option>
                         ),
                       )}
+                      <option value="others">Others</option>
                     </select>
                     {errors.university && (
                       <p className="text-red-500 text-xs mt-1">
                         {errors.university}
                       </p>
+                    )}
+                    {formData.university === "others" && (
+                      <div className="mt-3">
+                        <label className="block text-sm font-semibold text-text-main mb-2">
+                          Enter University Name *
+                        </label>
+                        <input
+                          type="text"
+                          name="universityCustom"
+                          value={formData.universityCustom || ""}
+                          onChange={handleInputChange}
+                          placeholder="Enter your university name"
+                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                            errors.universityCustom ? "border-red-500" : "border-border-main"
+                          }`}
+                        />
+                        {errors.universityCustom && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.universityCustom}
+                          </p>
+                        )}
+                      </div>
                     )}
                   </div>
 
@@ -1023,11 +1112,36 @@ export default function RegisterPage() {
                           {college.name}
                         </option>
                       ))}
+                      {formData.university && (
+                        <option value="others">Others</option>
+                      )}
                     </select>
                     {errors.college && (
                       <p className="text-red-500 text-xs mt-1">
                         {errors.college}
                       </p>
+                    )}
+                    {formData.college === "others" && (
+                      <div className="mt-3">
+                        <label className="block text-sm font-semibold text-text-main mb-2">
+                          Enter College Name *
+                        </label>
+                        <input
+                          type="text"
+                          name="collegeCustom"
+                          value={formData.collegeCustom || ""}
+                          onChange={handleInputChange}
+                          placeholder="Enter your college name"
+                          className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                            errors.collegeCustom ? "border-red-500" : "border-border-main"
+                          }`}
+                        />
+                        {errors.collegeCustom && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.collegeCustom}
+                          </p>
+                        )}
+                      </div>
                     )}
                   </div>
 
@@ -1155,13 +1269,19 @@ export default function RegisterPage() {
                       name="session"
                       value={formData.session}
                       onChange={handleInputChange}
+                      disabled={!formData.degree}
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.session ? "border-red-500" : "border-border-main"
-                      }`}
+                      } ${!formData.degree ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
-                      <option value="">Select Session</option>
-                      <option value="2024-25">2024-25</option>
-                      <option value="2025-26">2025-26</option>
+                      <option value="">
+                        {formData.degree ? "Select Session" : "Select Degree first"}
+                      </option>
+                      {getAvailableSessions(formData.degree).map((sess) => (
+                        <option key={sess} value={sess}>
+                          {sess}
+                        </option>
+                      ))}
                     </select>
                     {errors.session && (
                       <p className="text-red-500 text-xs mt-1">

@@ -101,6 +101,8 @@ const ALL_DEPARTMENTS = [
 
 const DOMAINS_BY_DEPARTMENT = {
   "Computer Science & Engineering": [
+    "Web Development", "🤖 Machine Learning", "🧠 Artificial Intelligence",
+    "📊 Data Science", "🔒 Cyber Security", "☁️ Cloud Computing", "📱 Android Development",
     "Full Stack Development", "Frontend Development", "Backend Development",
     "Mobile App Development", "Data Science & Machine Learning", "Artificial Intelligence",
     "DevOps & Cloud Computing", "Cybersecurity", "Blockchain Development",
@@ -108,6 +110,7 @@ const DOMAINS_BY_DEPARTMENT = {
     "Software Testing & QA", "Database Administration", "UI/UX Design", "Other Tech",
   ],
   "Mechanical Engineering": [
+    "AutoCAD", "🚗 Car Designing", "🚒 IC Engine", "🚜 Hybrid Electric Vehicle", "🛠️ SolidWorks",
     "Product Design & Development", "CAD/CAM Design", "Manufacturing & Production",
     "Automobile Engineering", "Thermal & HVAC Engineering", "Robotics & Automation",
     "Quality Control & Inspection", "Industrial Engineering", "Maintenance Engineering",
@@ -115,12 +118,15 @@ const DOMAINS_BY_DEPARTMENT = {
     "Project Management (Mechanical)", "Other Mechanical",
   ],
   "Civil Engineering": [
+    "AutoCAD", "🏗️ Construction Planning", "🏢 Revit Architecture", "🛠️ SolidWorks",
+    "🎨 3ds Max", "🏭 Industrial Training",
     "Structural Engineering", "Construction Management", "Urban Planning & Design",
     "Geotechnical Engineering", "Transportation Engineering", "Water Resources & Irrigation",
     "Environmental Engineering", "Surveying & GIS", "Building Information Modelling (BIM)",
     "Project Management (Civil)", "Other Civil",
   ],
   "Electrical Engineering": [
+    "Internet of Things (IoT)", "🤖 Robotics", "🔌 VLSI Design", "🖲️ Embedded Systems",
     "Power Systems & Grid Engineering", "Renewable Energy & Solar",
     "Control Systems & Automation", "Electrical Machine Design",
     "High Voltage & Power Electronics", "PLC & SCADA Programming",
@@ -128,6 +134,7 @@ const DOMAINS_BY_DEPARTMENT = {
     "Electrical Project Management", "Other Electrical",
   ],
   "Electronics & Communication": [
+    "Internet of Things (IoT)", "🤖 Robotics", "🔌 VLSI Design", "🖲️ Embedded Systems",
     "Embedded Systems & IoT", "VLSI Design", "PCB Design & Prototyping",
     "Signal Processing", "Telecommunications & Networking", "RF & Microwave Engineering",
     "Consumer Electronics Testing", "Firmware Development", "Other Electronics",
@@ -184,10 +191,12 @@ const DOMAINS_BY_DEPARTMENT = {
     "Crime Investigation Support", "Lab Analysis", "Legal Services", "Other Forensic",
   ],
   "Accounting & Finance": [
+    "💰 Finance", "📉 Stock Market",
     "Financial Analysis", "Accounting & Audit", "Taxation", "Investment Banking",
     "Financial Modelling", "Other Finance",
   ],
   "Business Administration": [
+    "📊 Business Analytics", "👥 Human Resource Management",
     "General Management", "Operations Management", "Project Management",
     "Entrepreneurship", "Other Business",
   ],
@@ -202,6 +211,7 @@ const DOMAINS_BY_DEPARTMENT = {
     "Economic Research & Policy", "Financial Analysis", "Market Research", "Other Economics",
   ],
   "Sales & Marketing": [
+    "Marketing", "📱 Digital Marketing",
     "Digital Marketing", "Content Marketing", "Sales & Business Development",
     "Brand Management", "Social Media Marketing", "Other Marketing",
   ],

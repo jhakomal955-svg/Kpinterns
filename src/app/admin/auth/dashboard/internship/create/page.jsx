@@ -74,12 +74,10 @@ export default function InternshipCreatePage() {
   const internshipModes = ["Online", "Offline", "Hybrid"];
   const statuses = ["Draft", "Published", "Active", "Closed", "Archived"];
   const durations = [
-    "1-week",
-    "2-weeks",
-    "1-month",
-    "3-months",
-    "6-months",
-    "1-year",
+    "4-week",
+    "6-weeks",
+    "8-weeks",
+    "12-weeks",
   ];
 
   // Grouped departments according to Internship model enums
@@ -131,6 +129,13 @@ export default function InternshipCreatePage() {
   // Grouped domains according to Internship model enums
   const domainGroups = {
     "Computer Science & Engineering": [
+      "Web Development",
+      "🤖 Machine Learning",
+      "🧠 Artificial Intelligence",
+      "📊 Data Science",
+      "🔒 Cyber Security",
+      "☁️ Cloud Computing",
+      "📱 Android Development",
       "Full Stack Development",
       "Frontend Development",
       "Backend Development",
@@ -149,6 +154,11 @@ export default function InternshipCreatePage() {
       "Other Tech",
     ],
     "Mechanical Engineering": [
+      "AutoCAD",
+      "🚗 Car Designing",
+      "🚒 IC Engine",
+      "🚜 Hybrid Electric Vehicle",
+      "🛠️ SolidWorks",
       "Product Design & Development",
       "CAD/CAM Design",
       "Manufacturing & Production",
@@ -164,6 +174,12 @@ export default function InternshipCreatePage() {
       "Other Mechanical",
     ],
     "Civil Engineering": [
+      "AutoCAD",
+      "🏗️ Construction Planning",
+      "🏢 Revit Architecture",
+      "🛠️ SolidWorks",
+      "🎨 3ds Max",
+      "🏭 Industrial Training",
       "Structural Engineering",
       "Construction Management",
       "Urban Planning & Design",
@@ -177,6 +193,10 @@ export default function InternshipCreatePage() {
       "Other Civil",
     ],
     "Electrical Engineering": [
+      "Internet of Things (IoT)",
+      "🤖 Robotics",
+      "🔌 VLSI Design",
+      "🖲️ Embedded Systems",
       "Power Systems & Grid Engineering",
       "Renewable Energy & Solar",
       "Control Systems & Automation",
@@ -189,6 +209,10 @@ export default function InternshipCreatePage() {
       "Other Electrical",
     ],
     "Electronics & Communication": [
+      "Internet of Things (IoT)",
+      "🤖 Robotics",
+      "🔌 VLSI Design",
+      "🖲️ Embedded Systems",
       "Embedded Systems & IoT",
       "VLSI Design",
       "PCB Design & Prototyping",
@@ -271,6 +295,12 @@ export default function InternshipCreatePage() {
       "Other Forensic",
     ],
     "Commerce / Finance / Business": [
+      "Marketing",
+      "📱 Digital Marketing",
+      "📊 Business Analytics",
+      "💰 Finance",
+      "👥 Human Resource Management",
+      "📉 Stock Market",
       "Financial Analysis",
       "Accounting & Audit",
       "Taxation",

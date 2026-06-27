@@ -117,6 +117,13 @@ const InternshipModel = {
     required: true,
     enum: [
       // ── Computer Science & Engineering ──────────────────────────────
+      "Web Development",
+      "🤖 Machine Learning",
+      "🧠 Artificial Intelligence",
+      "📊 Data Science",
+      "🔒 Cyber Security",
+      "☁️ Cloud Computing",
+      "📱 Android Development",
       "Full Stack Development",
       "Frontend Development",
       "Backend Development",
@@ -134,6 +141,11 @@ const InternshipModel = {
       "UI/UX Design",
       "Other Tech",
       // ── Mechanical Engineering ───────────────────────────────────────
+      "AutoCAD",
+      "🚗 Car Designing",
+      "🚒 IC Engine",
+      "🚜 Hybrid Electric Vehicle",
+      "🛠️ SolidWorks",
       "Product Design & Development",
       "CAD/CAM Design",
       "Manufacturing & Production",
@@ -148,6 +160,12 @@ const InternshipModel = {
       "Project Management (Mechanical)",
       "Other Mechanical",
       // ── Civil Engineering ────────────────────────────────────────────
+      "AutoCAD",
+      "🏗️ Construction Planning",
+      "🏢 Revit Architecture",
+      "🛠️ SolidWorks",
+      "🎨 3ds Max",
+      "🏭 Industrial Training",
       "Structural Engineering",
       "Construction Management",
       "Urban Planning & Design",
@@ -160,6 +178,10 @@ const InternshipModel = {
       "Project Management (Civil)",
       "Other Civil",
       // ── Electrical Engineering ───────────────────────────────────────
+      "Internet of Things (IoT)",
+      "🤖 Robotics",
+      "🔌 VLSI Design",
+      "🖲️ Embedded Systems",
       "Power Systems & Grid Engineering",
       "Renewable Energy & Solar",
       "Control Systems & Automation",
@@ -171,6 +193,10 @@ const InternshipModel = {
       "Electrical Project Management",
       "Other Electrical",
       // ── Electronics & Communication ──────────────────────────────────
+      "Internet of Things (IoT)",
+      "🤖 Robotics",
+      "🔌 VLSI Design",
+      "🖲️ Embedded Systems",
       "Embedded Systems & IoT",
       "VLSI Design",
       "PCB Design & Prototyping",
@@ -244,6 +270,12 @@ const InternshipModel = {
       "Legal Services",
       "Other Forensic",
       // ── Commerce / Finance ───────────────────────────────────────────
+      "Marketing",
+      "📱 Digital Marketing",
+      "📊 Business Analytics",
+      "💰 Finance",
+      "👥 Human Resource Management",
+      "📉 Stock Market",
       "Financial Analysis",
       "Accounting & Audit",
       "Taxation",
@@ -308,7 +340,7 @@ const InternshipModel = {
   // Duration & Timeline
   duration: {
     type: String,
-    enum: ["1-week", "2-weeks", "1-month", "3-months", "6-months", "1-year"],
+    enum: ["1-week", "2-weeks", "1-month", "3-months", "6-months", "1-year", "4-week", "4-weeks", "6-weeks", "8-weeks", "12-weeks"],
     default: "1-month",
   },
  

@@ -18,6 +18,19 @@ function calculateEndDate(startDate, durationStr) {
     case "2-weeks":
       date.setDate(date.getDate() + 14);
       break;
+    case "4-week":
+    case "4-weeks":
+      date.setDate(date.getDate() + 28);
+      break;
+    case "6-weeks":
+      date.setDate(date.getDate() + 42);
+      break;
+    case "8-weeks":
+      date.setDate(date.getDate() + 56);
+      break;
+    case "12-weeks":
+      date.setDate(date.getDate() + 84);
+      break;
     case "1-month":
       date.setMonth(date.getMonth() + 1);
       break;

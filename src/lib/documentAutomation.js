@@ -22,8 +22,20 @@ export async function checkAndAutomateDocuments(userId) {
     const User = createModel("User", UserModel);
 
     const user = await User.findById(userId)
-      .populate("ActiveCources.course")
-      .populate("ActiveInternship.internship");
+      .populate({
+        path: "ActiveCources.course",
+        populate: {
+          path: "instructor.id",
+          model: "Admin",
+        }
+      })
+      .populate({
+        path: "ActiveInternship.internship",
+        populate: {
+          path: "instructor.id",
+          model: "Admin",
+        }
+      });
 
     if (!user) {
       console.warn(`[Document Automation] User not found for ID: ${userId}`);
@@ -77,7 +89,19 @@ export async function checkAndAutomateDocuments(userId) {
 
         // B. Internship Certificate Generation: Only generate if status is Completed
         const isCompleted = item.internshipStatus === "Completed";
-        if (isCompleted && !item.certificationUrl) {
+        
+        let isTestPending = false;
+        if (
+          internship.test &&
+          internship.test.status === "Published" &&
+          internship.test.questions &&
+          internship.test.questions.length > 0 &&
+          !item.testTaken
+        ) {
+          isTestPending = true;
+        }
+
+        if (isCompleted && !item.certificationUrl && !isTestPending) {
           try {
             if (process.env.NODE_ENV === "development") {
               console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);

@@ -223,7 +223,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
       const mode = enrollment?.mode || internship.mode || "Hybrid";
       const startDate = formatDate(enrollment?.startDate);
       const endDate = formatDate(enrollment?.endDate);
-      const supervisor = "Kp Admin";
+      const supervisor = internship.supervisorName || internship.instructor?.[0]?.id?.name || "Kp Admin";
 
       // --- 6. Letter Body ---
       doc.font("Helvetica").fontSize(10).fillColor(darkColor)
@@ -429,7 +429,9 @@ export async function generateCertificate(student, program, type, verificationId
       const durationRange = enrollment?.duration || program.duration || "4 weeks";
       
       const attendanceMetric = enrollment?.attendanceRate || student.attendanceRate || "100%";
-      const gradingScore = enrollment?.finalScore || student.finalScore || "A+";
+      const gradingScore = (enrollment?.testScore !== undefined && enrollment?.testScore !== null)
+        ? enrollment.testScore
+        : (enrollment?.finalScore || student.finalScore || "85");
 
       const startDateStr = formatDate(enrollment?.startDate || program.startDate);
       const endDateStr = formatDate(enrollment?.endDate || program.endDate);
@@ -548,8 +550,9 @@ export async function generateCertificate(student, program, type, verificationId
       
       doc.moveTo(sigX, sigY).lineTo(750, sigY).lineWidth(1.25).strokeColor(darkColor).stroke();
       
+      const signatoryName = program.instructor?.[0]?.id?.name || "Kp Admin";
       doc.font("Helvetica-Bold").fontSize(10.5).fillColor(primaryColor)
-        .text("Kp Admin", sigX, sigY + 8, { align: "center", width: 200 });
+        .text(signatoryName, sigX, sigY + 8, { align: "center", width: 200 });
 
       doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
         .text("Authorized Signatory\nKpInterns Certification Registry", sigX, sigY + 22, { align: "center", width: 200, lineGap: 2 });

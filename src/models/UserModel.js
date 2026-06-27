@@ -93,6 +93,9 @@ const UserModel = {
       offerLetterUrl: { type: String },
       certificationUrl: { type: String },
       completedModules: { type: [String], default: [] },
+      testScore: { type: Number, default: null },
+      testTaken: { type: Boolean, default: false },
+      testTakenAt: { type: Date, default: null },
     },
   ],
 

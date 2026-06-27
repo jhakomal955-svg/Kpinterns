@@ -322,7 +322,26 @@ const InternshipModel = {
       "Other Media",
       "Tourism & Hospitality",
       "Retail Management",
-      "Other Vocational"
+      "Other Vocational",
+      "Machine Learning",
+      "Data Science",
+      "Cyber Security",
+      "Cloud Computing",
+      "Android Development",
+      "Car Designing",
+      "IC Engine",
+      "Hybrid Electric Vehicle",
+      "SolidWorks",
+      "Construction Planning",
+      "Revit Architecture",
+      "3ds Max",
+      "Industrial Training",
+      "Robotics",
+      "Embedded Systems",
+      "Business Analytics",
+      "Finance",
+      "Human Resource Management",
+      "Stock Market"
     ],
   },
 
@@ -403,7 +422,6 @@ const InternshipModel = {
       },
     },
   ],
-
   RegistrationFee: {
     type: Object,
     default: {},
@@ -440,6 +458,25 @@ const InternshipModel = {
     },
   ],
 
+  // Test Section
+  test: {
+    status: {
+      type: String,
+      enum: ["Draft", "Published"],
+      default: "Draft",
+    },
+    questions: [
+      {
+        questionText: { type: String, required: true },
+        options: { type: [String], required: true },
+        correctOptionIndex: { type: Number, required: true },
+      }
+    ]
+  },
+  intersnhipReport: {
+    type: String,
+    default: "",
+  },
   // Status
   status: {
     type: String,

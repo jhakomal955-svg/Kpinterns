@@ -1,0 +1,108 @@
+import connectDB from "@/lib/mongodb";
+import { createModel } from "@/lib/utils/schemaBuilder";
+import { InternshipModel, UserModel } from "@/models";
+import { verifyAuth } from "@/lib/jwt";
+import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
+
+export async function POST(request) {
+  try {
+    await connectDB();
+
+    // Authenticate student user
+    const auth = verifyAuth(request, ["User"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
+    const { internshipId, answers } = await request.json();
+
+    if (!internshipId || !Array.isArray(answers)) {
+      return Response.json({ error: "internshipId and answers array are required" }, { status: 400 });
+    }
+
+    const User = createModel("User", UserModel);
+    const Internship = createModel("Internship", InternshipModel);
+
+    // Fetch the internship
+    const internship = await Internship.findById(internshipId);
+    if (!internship) {
+      return Response.json({ error: "Internship not found" }, { status: 404 });
+    }
+
+    // Verify test exists and is Published
+    if (!internship.test || internship.test.status !== "Published") {
+      return Response.json({ error: "Test is not published for this internship" }, { status: 400 });
+    }
+
+    const questions = internship.test.questions || [];
+    if (questions.length === 0) {
+      return Response.json({ error: "Test has no questions" }, { status: 400 });
+    }
+
+    // Fetch the student
+    const student = await User.findById(auth.user._id);
+    if (!student) {
+      return Response.json({ error: "User not found" }, { status: 404 });
+    }
+
+    // Locate active internship
+    const enrollmentIndex = student.ActiveInternship?.findIndex(
+      (i) => (i.internship?._id || i.internship)?.toString() === internshipId
+    );
+
+    if (enrollmentIndex === -1 || enrollmentIndex === undefined) {
+      return Response.json({ error: "You are not enrolled in this internship" }, { status: 400 });
+    }
+
+    const enrollment = student.ActiveInternship[enrollmentIndex];
+
+    // Check if internship is completed
+    if (enrollment.internshipStatus !== "Completed") {
+      return Response.json({ error: "You must complete the internship first before appearing for the test" }, { status: 400 });
+    }
+
+    // Check if test was already taken
+    if (enrollment.testTaken) {
+      return Response.json({ error: "You have already appeared for this test" }, { status: 400 });
+    }
+
+    // Grade the test
+    let correctCount = 0;
+    questions.forEach((q, idx) => {
+      const userAnswer = answers[idx];
+      if (userAnswer !== undefined && userAnswer !== null && Number(userAnswer) === q.correctOptionIndex) {
+        correctCount++;
+      }
+    });
+
+    const scorePercentage = Math.round((correctCount / questions.length) * 100);
+
+    // Save test score details
+    student.ActiveInternship[enrollmentIndex].testScore = scorePercentage;
+    student.ActiveInternship[enrollmentIndex].testTaken = true;
+    student.ActiveInternship[enrollmentIndex].testTakenAt = new Date();
+
+    student.markModified("ActiveInternship");
+    await student.save();
+
+    // Trigger certificate generation automatically
+    try {
+      await checkAndAutomateDocuments(student._id.toString());
+    } catch (docErr) {
+      console.error("Failed to run checkAndAutomateDocuments after test submission:", docErr);
+    }
+
+    return Response.json({
+      success: true,
+      message: "Test submitted successfully",
+      score: scorePercentage,
+    }, { status: 200 });
+
+  } catch (error) {
+    console.error("Error submitting test:", error);
+    return Response.json(
+      { error: "Failed to submit test", details: error.message },
+      { status: 500 }
+    );
+  }
+}

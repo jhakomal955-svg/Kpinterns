@@ -1,6 +1,6 @@
 export const universitiesData = {
   "sbte-polytechnic": {
-    name: "SBTE Bihar Board (Polytechnic College)",
+    name: "STATE BOARD OF TEACHNICAL EDUCATION PATNA (SBTE PATNA)",
     colleges: {
       "gpt-patna": {
         name: "Government Polytechnic, Patna-13 (Gulzarbagh)",

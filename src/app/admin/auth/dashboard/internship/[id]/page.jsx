@@ -15,6 +15,7 @@ export default function InternshipEditPage() {
   const [isLoading, setIsLoading] = useState(isEditing);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
+  const [uploadingReport, setUploadingReport] = useState(false);
   const [uploadingFile, setUploadingFile] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -49,6 +50,9 @@ export default function InternshipEditPage() {
     instructors: [],
     contentItems: [],
     updates: [],
+    testStatus: "Draft",
+    testQuestions: [],
+    intersnhipReport: "",
   });
 
   const [currentContentItem, setCurrentContentItem] = useState({
@@ -120,18 +124,17 @@ export default function InternshipEditPage() {
   const domainGroups = {
     "Computer Science & Engineering": [
       "Web Development",
-      "🤖 Machine Learning",
-      "🧠 Artificial Intelligence",
-      "📊 Data Science",
-      "🔒 Cyber Security",
-      "☁️ Cloud Computing",
-      "📱 Android Development",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Data Science",
+      "Cyber Security",
+      "Cloud Computing",
+      "Android Development",
       "Full Stack Development",
       "Frontend Development",
       "Backend Development",
       "Mobile App Development",
       "Data Science & Machine Learning",
-      "Artificial Intelligence",
       "DevOps & Cloud Computing",
       "Cybersecurity",
       "Blockchain Development",
@@ -145,10 +148,10 @@ export default function InternshipEditPage() {
     ],
     "Mechanical Engineering": [
       "AutoCAD",
-      "🚗 Car Designing",
-      "🚒 IC Engine",
-      "🚜 Hybrid Electric Vehicle",
-      "🛠️ SolidWorks",
+      "Car Designing",
+      "IC Engine",
+      "Hybrid Electric Vehicle",
+      "SolidWorks",
       "Product Design & Development",
       "CAD/CAM Design",
       "Manufacturing & Production",
@@ -165,11 +168,11 @@ export default function InternshipEditPage() {
     ],
     "Civil Engineering": [
       "AutoCAD",
-      "🏗️ Construction Planning",
-      "🏢 Revit Architecture",
-      "🛠️ SolidWorks",
-      "🎨 3ds Max",
-      "🏭 Industrial Training",
+      "Construction Planning",
+      "Revit Architecture",
+      "SolidWorks",
+      "3ds Max",
+      "Industrial Training",
       "Structural Engineering",
       "Construction Management",
       "Urban Planning & Design",
@@ -184,9 +187,9 @@ export default function InternshipEditPage() {
     ],
     "Electrical Engineering": [
       "Internet of Things (IoT)",
-      "🤖 Robotics",
-      "🔌 VLSI Design",
-      "🖲️ Embedded Systems",
+      "Robotics",
+      "VLSI Design",
+      "Embedded Systems",
       "Power Systems & Grid Engineering",
       "Renewable Energy & Solar",
       "Control Systems & Automation",
@@ -200,11 +203,10 @@ export default function InternshipEditPage() {
     ],
     "Electronics & Communication": [
       "Internet of Things (IoT)",
-      "🤖 Robotics",
-      "🔌 VLSI Design",
-      "🖲️ Embedded Systems",
-      "Embedded Systems & IoT",
+      "Robotics",
       "VLSI Design",
+      "Embedded Systems",
+      "Embedded Systems & IoT",
       "PCB Design & Prototyping",
       "Signal Processing",
       "Telecommunications & Networking",
@@ -286,11 +288,11 @@ export default function InternshipEditPage() {
     ],
     "Commerce / Finance / Business": [
       "Marketing",
-      "📱 Digital Marketing",
-      "📊 Business Analytics",
-      "💰 Finance",
-      "👥 Human Resource Management",
-      "📉 Stock Market",
+      "Digital Marketing",
+      "Business Analytics",
+      "Finance",
+      "Human Resource Management",
+      "Stock Market",
       "Financial Analysis",
       "Accounting & Audit",
       "Taxation",
@@ -311,7 +313,6 @@ export default function InternshipEditPage() {
       "Tax Audit & Compliance",
       "Economic Research & Policy",
       "Other Economics",
-      "Digital Marketing",
       "Content Marketing",
       "Sales & Business Development",
       "Brand Management",
@@ -439,6 +440,9 @@ export default function InternshipEditPage() {
           instructors: internship.instructor?.map(inst => typeof inst.id === "object" ? inst.id._id : (inst.id || "")).filter(Boolean) || [],
           contentItems: internship.content || [],
           updates: internship.updates || [],
+          testStatus: internship.test?.status || "Draft",
+          testQuestions: internship.test?.questions || [],
+          intersnhipReport: internship.intersnhipReport || "",
         });
       } else {
         setError(data.error || "Failed to load internship");
@@ -536,10 +540,39 @@ export default function InternshipEditPage() {
       } else {
         setError("Failed to upload thumbnail banner image.");
       }
+    } finally {
+      setUploadingThumbnail(false);
+    }
+  };
+
+  const handleReportPickerSelect = async (file) => {
+    setUploadingReport(true);
+    setError(null);
+    try {
+      const payload = new FormData();
+      payload.append("file", file);
+
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const response = await fetch("/api/cloudinary", {
+        method: "POST",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {},
+        body: payload,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setFormData((prev) => ({
+          ...prev,
+          intersnhipReport: data.data.secure_url,
+        }));
+        setMessage("Internship report PDF uploaded successfully!");
+      } else {
+        setError("Failed to upload internship report PDF.");
+      }
     } catch (err) {
       setError("Upload error: " + err.message);
     } finally {
-      setUploadingThumbnail(false);
+      setUploadingReport(false);
     }
   };
 
@@ -775,6 +808,11 @@ export default function InternshipEditPage() {
         },
         content: formData.contentItems,
         updates: formData.updates,
+        test: {
+          status: formData.testStatus,
+          questions: formData.testQuestions,
+        },
+        intersnhipReport: formData.intersnhipReport || "",
       };
 
       const url = isEditing ? `/api/internship?id=${internshipId}` : "/api/internship";
@@ -891,6 +929,13 @@ export default function InternshipEditPage() {
             className={`px-5 py-3 font-semibold transition-all ${activeTab === "updates" ? "border-b-2 border-brand-primary text-brand-primary -mb-4" : "border-transparent text-text-muted hover:text-text-main"}`}
           >
             Manage Updates
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("test")}
+            className={`px-5 py-3 font-semibold transition-all ${activeTab === "test" ? "border-b-2 border-brand-primary text-brand-primary -mb-4" : "border-transparent text-text-muted hover:text-text-main"}`}
+          >
+            Test Section
           </button>
         </div>
 
@@ -1043,6 +1088,23 @@ export default function InternshipEditPage() {
                   multiple={false}
                 />
                 {error && <p className="text-xs text-red-500 mt-2 font-medium">{error}</p>}
+              </div>
+
+              {/* Internship Final Report PDF Uploader */}
+              <div className="md:col-span-2 bg-bg-main/40 border border-dashed border-border-main rounded-xl p-4">
+                <label className="block text-xs font-bold text-text-muted mb-3 uppercase tracking-wider">Internship Final Report PDF</label>
+                <MediaPicker
+                  onFileSelect={handleReportPickerSelect}
+                  isUploading={uploadingReport}
+                  uploadedItems={[formData.intersnhipReport].filter(Boolean)}
+                  maxSize={50}
+                  multiple={false}
+                />
+                {formData.intersnhipReport && (
+                  <p className="text-xs text-brand-success mt-2 font-medium">
+                    ✓ Report uploaded: <a href={formData.intersnhipReport} target="_blank" rel="noopener noreferrer" className="underline font-bold text-brand-primary">View PDF</a>
+                  </p>
+                )}
               </div>
 
               <div>
@@ -1464,6 +1526,145 @@ export default function InternshipEditPage() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {activeTab === "test" && (
+          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border-main pb-4">
+              <div>
+                <h3 className="text-lg font-bold text-text-main">Internship Test Settings</h3>
+                <p className="text-text-muted text-xs">Configure the final assessment test for this internship</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <label className="text-xs font-bold text-text-muted uppercase">Test Status:</label>
+                <select
+                  value={formData.testStatus}
+                  onChange={(e) => setFormData(prev => ({ ...prev, testStatus: e.target.value }))}
+                  className="p-2 bg-bg-main border-2 border-border-main rounded-xl text-xs focus:border-brand-primary outline-none text-text-main font-semibold"
+                >
+                  <option value="Draft">Draft (Only Admin/Instructor can see)</option>
+                  <option value="Published">Published (Enrolled student completes internship to see)</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h4 className="font-bold text-text-main">Questions ({formData.testQuestions.length})</h4>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData(prev => ({
+                      ...prev,
+                      testQuestions: [
+                        ...prev.testQuestions,
+                        { questionText: "", options: ["", "", "", ""], correctOptionIndex: 0 }
+                      ]
+                    }));
+                  }}
+                  className="bg-brand-primary text-white text-xs font-bold py-2 px-4 rounded-xl hover:bg-brand-primary/90 transition shadow-sm"
+                >
+                  + Add Question
+                </button>
+              </div>
+
+              {formData.testQuestions.length === 0 ? (
+                <p className="text-sm text-text-muted italic bg-bg-main p-6 rounded-2xl border border-border-main/50 text-center">
+                  No questions added yet. Click "+ Add Question" to start building the test.
+                </p>
+              ) : (
+                <div className="space-y-6">
+                  {formData.testQuestions.map((q, qIdx) => (
+                    <div key={qIdx} className="bg-bg-main border-2 border-border-main p-5 rounded-2xl space-y-4 relative group">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData(prev => ({
+                            ...prev,
+                            testQuestions: prev.testQuestions.filter((_, idx) => idx !== qIdx)
+                          }));
+                        }}
+                        className="absolute top-4 right-4 text-red-500 hover:text-white bg-red-500/10 hover:bg-red-500 p-2 rounded-xl transition font-semibold text-xs flex items-center gap-1"
+                      >
+                        Remove
+                      </button>
+                      
+                      <div className="font-bold text-sm text-brand-primary flex items-center gap-2">
+                        <span>❓</span> Question {qIdx + 1}
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-xs font-semibold text-text-muted uppercase">Question Text *</label>
+                        <input
+                          type="text"
+                          required
+                          value={q.questionText}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setFormData(prev => {
+                              const newList = [...prev.testQuestions];
+                              newList[qIdx] = { ...newList[qIdx], questionText: val };
+                              return { ...prev, testQuestions: newList };
+                            });
+                          }}
+                          placeholder="e.g. What is the output of 2 + 2 in JavaScript?"
+                          className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {q.options.map((opt, optIdx) => (
+                          <div key={optIdx} className="space-y-1.5">
+                            <label className="block text-[10px] font-bold text-text-muted uppercase">Option {optIdx + 1} *</label>
+                            <input
+                              type="text"
+                              required
+                              value={opt}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setFormData(prev => {
+                                  const newList = [...prev.testQuestions];
+                                  const newOptions = [...newList[qIdx].options];
+                                  newOptions[optIdx] = val;
+                                  newList[qIdx] = { ...newList[qIdx], options: newOptions };
+                                  return { ...prev, testQuestions: newList };
+                                });
+                              }}
+                              placeholder={`Option ${optIdx + 1}`}
+                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
+                            />
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="w-full sm:w-1/2 pt-2">
+                        <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase font-poppins">Correct Option *</label>
+                        <select
+                          value={q.correctOptionIndex}
+                          onChange={(e) => {
+                            const val = parseInt(e.target.value) || 0;
+                            setFormData(prev => {
+                              const newList = [...prev.testQuestions];
+                              newList[qIdx] = { ...newList[qIdx], correctOptionIndex: val };
+                              return { ...prev, testQuestions: newList };
+                            });
+                          }}
+                          className="p-2.5 bg-bg-card border-2 border-border-main rounded-xl text-xs focus:border-brand-primary outline-none text-text-main font-semibold w-full"
+                        >
+                          {q.options.map((opt, optIdx) => (
+                            <option key={optIdx} value={optIdx}>
+                              Option {optIdx + 1} {opt ? `(${opt})` : ""}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
 

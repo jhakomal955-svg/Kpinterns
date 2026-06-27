@@ -72,6 +72,11 @@ export default function ProfilePage() {
         certificationUrl: i.certificationUrl || "",
         paymentReceipt: i.paymentreceipt || "",
         attendance: i.attendance || null,
+        testScore: i.testScore,
+        testTaken: i.testTaken || false,
+        reportPdfUrl: i.internship?.intersnhipReport || "",
+        testStatus: i.internship?.test?.status || "Draft",
+        testQuestionsCount: i.internship?.test?.questions?.length || 0,
       }));
 
       setAppliedItems({
@@ -547,136 +552,138 @@ export default function ProfilePage() {
                       <div
                         className="bg-bg-card dark:bg-bg-card rounded-xl border border-border-main dark:border-border-main p-6 hover:shadow-lg transition"
                       >
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-start gap-3 mb-3">
-                            <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-lg flex items-center justify-center flex-shrink-0">
-                              <span className="text-xl">💼</span>
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <h3 className="text-lg font-bold text-text-main dark:text-text-main font-poppins">
-                                  {internship.company}
-                                </h3>
-                                {internship.offerLetterUrl && (
-                                  <span className="bg-blue-500/15 text-blue-600 dark:text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-500/30 font-poppins flex items-center gap-1">
-                                    ✉️ Offer Letter Issued
-                                  </span>
-                                )}
-                                {internship.certificationUrl && (
-                                  <span className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 font-poppins flex items-center gap-1 animate-pulse">
-                                    🏆 Certificate Issued
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-brand-primary font-poppins font-semibold">
-                                {internship.position}
-                              </p>
-                            </div>
+                      <div className="flex flex-col gap-5">
+                        {/* Internship header details */}
+                        <div className="flex items-start gap-3">
+                          <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-lg flex items-center justify-center flex-shrink-0">
+                            <span className="text-xl">💼</span>
                           </div>
-
-                          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
-                            <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
-                              <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
-                                Duration
-                              </p>
-                              <p className="text-sm font-semibold text-text-main dark:text-text-main">
-                                {internship.duration}
-                              </p>
+                          <div className="flex-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h3 className="text-lg font-bold text-text-main dark:text-text-main font-poppins">
+                                {internship.company}
+                              </h3>
+                              {internship.offerLetterUrl && (
+                                <span className="bg-blue-500/15 text-blue-600 dark:text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-500/30 font-poppins flex items-center gap-1">
+                                  ✉️ Offer Letter Issued
+                                </span>
+                              )}
+                              {internship.certificationUrl && (
+                                <span className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 font-poppins flex items-center gap-1 animate-pulse">
+                                  🏆 Certificate Issued
+                                </span>
+                              )}
                             </div>
-                            <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
-                              <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
-                                Start Date
-                              </p>
-                              <p className="text-sm font-semibold text-text-main dark:text-text-main">
-                                {internship.startDate}
-                              </p>
-                            </div>
-                            <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
-                              <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
-                                End Date
-                              </p>
-                              <p className="text-sm font-semibold text-text-main dark:text-text-main">
-                                {internship.endDate || "N/A"}
-                              </p>
-                            </div>
-                            <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
-                              <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
-                                Status
-                              </p>
-                              <span
-                                className={`text-sm font-semibold ${
-                                  internship.status === "Active"
-                                    ? "text-brand-success"
-                                    : "text-brand-secondary"
-                                }`}
-                              >
-                                {internship.status}
-                              </span>
-                            </div>
-                            <div className="px-3 py-2 bg-bg-main dark:bg-bg-main rounded-lg">
-                              <p className="text-xs text-text-muted dark:text-text-muted font-poppins mb-1">
-                                Internship ID
-                              </p>
-                              <span className="text-sm font-semibold text-text-main dark:text-text-main font-mono truncate block select-all" title={internship.id}>
-                                {internship.id}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Internship Progress Bar */}
-                          <div className="mt-5">
-                            <div className="w-full bg-border-main dark:bg-border-main rounded-full h-2 mb-2">
-                              <div
-                                className="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary transition-all duration-300"
-                                style={{ width: `${internship.progress}%` }}
-                              ></div>
-                            </div>
-                            <p className="text-xs text-text-muted dark:text-text-muted font-poppins">
-                              {internship.progress}% Complete
+                            <p className="text-brand-primary font-poppins font-semibold">
+                              {internship.position}
                             </p>
                           </div>
-
-                          {/* Attendance Tracker Section */}
-                          {internship.status === "Active" && (
-                            <div className="mt-5 pt-4 border-t border-border-main/50 space-y-3 animate-fade-in">
-                              <div className="flex flex-wrap items-center justify-between gap-2">
-                                <span className="text-xs font-bold text-text-main font-poppins flex items-center gap-1">
-                                  📅 Attendance Tracker
-                                </span>
-                                <span className={`text-xs font-bold font-poppins px-2 py-0.5 rounded-full ${
-                                  calculateAttendanceStats(internship).percentage >= 75
-                                    ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                    : "bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                                }`}>
-                                  {calculateAttendanceStats(internship).percentage}% Present
-                                </span>
-                              </div>
-                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-bg-main dark:bg-bg-main/50 p-3.5 rounded-xl border border-border-main/50">
-                                <div className="text-xs text-text-muted dark:text-text-muted font-poppins">
-                                  Present: <span className="font-bold text-text-main">{calculateAttendanceStats(internship).presentCount}</span> | 
-                                  Leaves: <span className="font-bold text-text-main"> {calculateAttendanceStats(internship).leaveCount}</span> | 
-                                  Total Elapsed: <span className="font-bold text-text-main"> {calculateAttendanceStats(internship).totalCalendarDays} days</span>
-                                </div>
-                                {calculateAttendanceStats(internship).isMarkedToday ? (
-                                  <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5 self-start sm:self-auto bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
-                                    ✓ Marked Today
-                                  </span>
-                                ) : (
-                                  <button
-                                    onClick={() => handleMarkAttendance(internship.id)}
-                                    className="px-3 py-1.5 bg-brand-primary hover:bg-brand-primary/95 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-brand-primary/20 hover:shadow-brand-primary/35 self-start sm:self-auto"
-                                  >
-                                    Mark Today's Attendance
-                                  </button>
-                                )}
-                              </div>
-                            </div>
-                          )}
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                          <Link href={`/internship/${internship.id}`} className="px-6 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center whitespace-nowrap flex-1 sm:flex-initial">
+                        {/* Grid with full width on larger screens and proper columns */}
+                        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                          <div className="px-3 py-2 bg-bg-main dark:bg-bg-main/30 border border-border-main/50 rounded-xl">
+                            <p className="text-[10px] uppercase font-bold text-text-muted dark:text-text-muted font-poppins mb-1">
+                              Duration
+                            </p>
+                            <p className="text-sm font-bold text-text-main dark:text-text-main">
+                              {internship.duration}
+                            </p>
+                          </div>
+                          <div className="px-3 py-2 bg-bg-main dark:bg-bg-main/30 border border-border-main/50 rounded-xl">
+                            <p className="text-[10px] uppercase font-bold text-text-muted dark:text-text-muted font-poppins mb-1">
+                              Start Date
+                            </p>
+                            <p className="text-sm font-bold text-text-main dark:text-text-main">
+                              {internship.startDate}
+                            </p>
+                          </div>
+                          <div className="px-3 py-2 bg-bg-main dark:bg-bg-main/30 border border-border-main/50 rounded-xl">
+                            <p className="text-[10px] uppercase font-bold text-text-muted dark:text-text-muted font-poppins mb-1">
+                              End Date
+                            </p>
+                            <p className="text-sm font-bold text-text-main dark:text-text-main">
+                              {internship.endDate || "N/A"}
+                            </p>
+                          </div>
+                          <div className="px-3 py-2 bg-bg-main dark:bg-bg-main/30 border border-border-main/50 rounded-xl">
+                            <p className="text-[10px] uppercase font-bold text-text-muted dark:text-text-muted font-poppins mb-1">
+                              Status
+                            </p>
+                            <span
+                              className={`text-sm font-bold ${
+                                internship.status === "Active"
+                                  ? "text-brand-success"
+                                  : "text-brand-secondary"
+                              }`}
+                            >
+                              {internship.status}
+                            </span>
+                          </div>
+                          <div className="px-3 py-2 bg-bg-main dark:bg-bg-main/30 border border-border-main/50 rounded-xl col-span-2 sm:col-span-1">
+                            <p className="text-[10px] uppercase font-bold text-text-muted dark:text-text-muted font-poppins mb-1">
+                              Internship ID
+                            </p>
+                            <span className="text-xs font-semibold text-text-main dark:text-text-main font-mono truncate block select-all" title={internship.id}>
+                              {internship.id}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Internship Progress Bar */}
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between text-xs text-text-muted dark:text-text-muted font-poppins">
+                            <span>Program Progress</span>
+                            <span className="font-bold text-text-main">{internship.progress}% Complete</span>
+                          </div>
+                          <div className="w-full bg-border-main dark:bg-border-main/50 rounded-full h-2">
+                            <div
+                              className="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary transition-all duration-300"
+                              style={{ width: `${internship.progress}%` }}
+                            ></div>
+                          </div>
+                        </div>
+
+                        {/* Attendance Tracker Section */}
+                        {internship.status === "Active" && (
+                          <div className="pt-2 border-t border-border-main/30 space-y-3 animate-fade-in">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <span className="text-xs font-bold text-text-main font-poppins flex items-center gap-1">
+                                📅 Attendance Tracker
+                              </span>
+                              <span className={`text-xs font-bold font-poppins px-2 py-0.5 rounded-full ${
+                                calculateAttendanceStats(internship).percentage >= 75
+                                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                                  : "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                              }`}>
+                                {calculateAttendanceStats(internship).percentage}% Present
+                              </span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-bg-main dark:bg-bg-main/30 p-3.5 rounded-xl border border-border-main/50">
+                              <div className="text-xs text-text-muted dark:text-text-muted font-poppins">
+                                Present: <span className="font-bold text-text-main">{calculateAttendanceStats(internship).presentCount}</span> | 
+                                Leaves: <span className="font-bold text-text-main"> {calculateAttendanceStats(internship).leaveCount}</span> | 
+                                Total Elapsed: <span className="font-bold text-text-main"> {calculateAttendanceStats(internship).totalCalendarDays} days</span>
+                              </div>
+                              {calculateAttendanceStats(internship).isMarkedToday ? (
+                                <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5 self-start sm:self-auto bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
+                                  ✓ Marked Today
+                                </span>
+                              ) : (
+                                <button
+                                  onClick={() => handleMarkAttendance(internship.id)}
+                                  className="px-3 py-1.5 bg-brand-primary hover:bg-brand-primary/95 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-brand-primary/20 hover:shadow-brand-primary/35 self-start sm:self-auto"
+                                >
+                                  Mark Today's Attendance
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Dedicated Footer Action Buttons Row */}
+                        <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-border-main/30 w-full">
+                          <Link href={`/internship/${internship.id}`} className="px-5 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md hover:bg-brand-primary/90 transition font-poppins font-semibold text-center whitespace-nowrap text-xs flex-1 sm:flex-initial">
                             Details
                           </Link>
                           {internship.paymentReceipt && (
@@ -684,7 +691,7 @@ export default function ProfilePage() {
                               href={internship.paymentReceipt}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-6 py-2 bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap flex-1 sm:flex-initial"
+                              className="px-5 py-2 bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial"
                             >
                               <span>🧾</span> Receipt
                             </a>
@@ -694,7 +701,7 @@ export default function ProfilePage() {
                               href={internship.offerLetterUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap flex-1 sm:flex-initial"
+                              className="px-5 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial"
                             >
                               <span>✉️</span> Offer Letter
                             </a>
@@ -704,14 +711,37 @@ export default function ProfilePage() {
                               href={internship.certificationUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-6 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap flex-1 sm:flex-initial"
+                              className="px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial"
                             >
                               <span>🏆</span> Certificate
                             </a>
                           )}
+                          {internship.status === "Completed" && internship.reportPdfUrl && (
+                            <a
+                              href={internship.reportPdfUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial"
+                            >
+                              <span>📋</span> Download Report
+                            </a>
+                          )}
+                          {internship.status === "Completed" && internship.testStatus === "Published" && internship.testQuestionsCount > 0 && !internship.testTaken && (
+                            <Link
+                              href={`/internship/${internship.id}/test`}
+                              className="px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial animate-pulse"
+                            >
+                              <span>📝</span> Appear for Test
+                            </Link>
+                          )}
+                          {internship.status === "Completed" && internship.testTaken && (
+                            <span className="px-5 py-2 bg-bg-main dark:bg-bg-main/50 text-text-main border border-border-main rounded-lg text-xs font-semibold font-poppins text-center flex items-center justify-center gap-1.5 whitespace-nowrap flex-1 sm:flex-initial">
+                              🎯 Score: {internship.testScore}%
+                            </span>
+                          )}
                         </div>
                       </div>
-                      </div>
+                    </div>
                     </ScrollReveal>
                   ))}
                 </div>

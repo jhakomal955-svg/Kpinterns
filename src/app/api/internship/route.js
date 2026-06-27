@@ -9,8 +9,37 @@
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { InternshipModel, AdminModel } from "@/models";
-import { verifyAuth } from "@/lib/jwt";
+import { InternshipModel, AdminModel, UserModel } from "@/models";
+import { verifyAuth, getAuthUser } from "@/lib/jwt";
+
+function sanitizeInternship(internship, isAdminOrInstructor, hasCompletedInternship = false) {
+  if (!internship) return null;
+  const obj = typeof internship.toObject === "function" ? internship.toObject() : internship;
+
+  if (!isAdminOrInstructor) {
+    if (!hasCompletedInternship) {
+      delete obj.intersnhipReport;
+    }
+  }
+
+  if (!obj.test) return obj;
+
+  if (isAdminOrInstructor) {
+    return obj;
+  }
+
+  if (obj.test.status === "Draft" || !hasCompletedInternship) {
+    delete obj.test;
+  } else {
+    if (obj.test.questions) {
+      obj.test.questions = obj.test.questions.map((q) => {
+        const { correctOptionIndex, ...rest } = q;
+        return rest;
+      });
+    }
+  }
+  return obj;
+}
 
 export async function GET(request) {
   try {
@@ -24,7 +53,30 @@ export async function GET(request) {
     const domain = url.searchParams.get("domain");
 
     createModel("Admin", AdminModel);
+    const User = createModel("User", UserModel);
     const Internship = createModel("Internship", InternshipModel);
+
+    // Check permissions
+    let isAdminOrInstructor = false;
+    let hasCompletedInternship = false;
+    try {
+      const decoded = getAuthUser(request);
+      if (decoded) {
+        if (decoded.role === "Admin" || decoded.role === "Instructor") {
+          isAdminOrInstructor = true;
+        } else if (decoded.role === "User" && internshipId) {
+          const student = await User.findById(decoded._id);
+          if (student && student.ActiveInternship) {
+            const enrollment = student.ActiveInternship.find(
+              (i) => (i.internship?._id || i.internship)?.toString() === internshipId
+            );
+            if (enrollment && enrollment.internshipStatus === "Completed") {
+              hasCompletedInternship = true;
+            }
+          }
+        }
+      }
+    } catch (err) {}
 
     if (internshipId) {
       // Get single internship by ID and POPULATE instructor/mentor referenced data
@@ -39,7 +91,7 @@ export async function GET(request) {
       }
 
       return Response.json(
-        { success: true, data: internship },
+        { success: true, data: sanitizeInternship(internship, isAdminOrInstructor, hasCompletedInternship) },
         { status: 200 },
       );
     } else if (position) {
@@ -47,8 +99,10 @@ export async function GET(request) {
       const internships = await Internship.find({ position })
         .populate("instructor.id", "name role avatar");
 
+      const sanitizedList = internships.map(item => sanitizeInternship(item, isAdminOrInstructor, false));
+
       return Response.json(
-        { success: true, data: internships, total: internships.length },
+        { success: true, data: sanitizedList, total: sanitizedList.length },
         { status: 200 },
       );
     } else {
@@ -62,8 +116,10 @@ export async function GET(request) {
       const internships = await Internship.find(query)
         .populate("instructor.id", "name role avatar");
 
+      const sanitizedList = internships.map(item => sanitizeInternship(item, isAdminOrInstructor, false));
+
       return Response.json(
-        { success: true, data: internships, total: internships.length },
+        { success: true, data: sanitizedList, total: sanitizedList.length },
         { status: 200 },
       );
     }

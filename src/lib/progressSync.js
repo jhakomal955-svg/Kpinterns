@@ -48,6 +48,8 @@ export async function syncUserProgressAndStatus(user) {
           let newStatus = "Active";
           if (item.progress === 100 && (item.internshipStatus === "Completed" || hasDatePassed)) {
             newStatus = "Completed";
+          } else if (item.internshipStatus === "Completed") {
+            newStatus = "Completed";
           } else {
             newStatus = "Active";
           }
@@ -89,6 +91,8 @@ export async function syncUserProgressAndStatus(user) {
           const hasDatePassed = item.endDate ? now >= new Date(item.endDate) : false;
           let newStatus = "Active";
           if (item.progress === 100 && (item.courseStatus === "Completed" || hasDatePassed)) {
+            newStatus = "Completed";
+          } else if (item.courseStatus === "Completed") {
             newStatus = "Completed";
           } else {
             newStatus = "Active";

@@ -449,6 +449,9 @@ export default function UserEditPage() {
           completedModules: i.completedModules || [],
           startDate: i.startDate || new Date(),
           endDate: i.endDate || null,
+          testScore: i.testScore !== undefined ? i.testScore : null,
+          testTaken: i.testTaken || false,
+          testTakenAt: i.testTakenAt || null,
         })),
         ActiveCources: (formData.ActiveCources || []).map((c) => ({
           ...(c._id ? { _id: c._id } : {}),
@@ -1012,7 +1015,56 @@ export default function UserEditPage() {
                               className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
                             />
                           </div>
-                        </div>                  </div>
+                        </div>
+
+                        {/* Test Details Section */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-border-main/40">
+                          <div className="flex items-center pt-4">
+                            <label className="flex items-center gap-3 cursor-pointer text-xs font-bold uppercase tracking-wider text-text-main">
+                              <input
+                                type="checkbox"
+                                checked={item.testTaken || false}
+                                onChange={(e) => {
+                                  const val = e.target.checked;
+                                  setFormData((prev) => {
+                                    const list = [...prev.ActiveInternship];
+                                    list[index] = { 
+                                      ...list[index], 
+                                      testTaken: val,
+                                      testTakenAt: val ? (list[index].testTakenAt || new Date()) : null,
+                                      testScore: val ? (list[index].testScore !== null && list[index].testScore !== undefined ? list[index].testScore : 0) : null
+                                    };
+                                    return { ...prev, ActiveInternship: list };
+                                  });
+                                }}
+                                className="accent-brand-primary w-5 h-5 rounded-lg cursor-pointer"
+                              />
+                              Test Attended / Taken
+                            </label>
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Test Score</label>
+                            <input
+                              type="number"
+                              min="0"
+                              max="100"
+                              disabled={!item.testTaken}
+                              value={item.testScore !== null && item.testScore !== undefined ? item.testScore : ""}
+                              onChange={(e) => {
+                                const val = e.target.value === "" ? "" : Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
+                                setFormData((prev) => {
+                                  const list = [...prev.ActiveInternship];
+                                  list[index] = { ...list[index], testScore: val === "" ? null : val };
+                                  return { ...prev, ActiveInternship: list };
+                                });
+                              }}
+                              placeholder={item.testTaken ? "Enter score (0-100)" : "N/A - Test not taken"}
+                              className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main disabled:opacity-50 disabled:cursor-not-allowed"
+                            />
+                          </div>
+                        </div>
+                      </div>
 
                         {/* Beautiful custom file uploaders */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 border-t border-border-main/40">

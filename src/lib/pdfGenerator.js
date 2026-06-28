@@ -243,59 +243,119 @@ export async function generateOfferLetter(student, internship, verificationId) {
 
       // --- 7. Styled Information Well (Dashboard Grid) ---
       const boxY = 315;
-      const boxHeight = 150;
       
+      // Details Columns
+      const col1X = 60;
+      const col2X = 310;
+      const col1Width = 230;
+      const col2Width = 220;
+
+      // Define grid items to render dynamically
+      const gridRows = [
+        {
+          col1: { label: "Candidate Name", val: studentName, width: col1Width },
+          col2: { label: "Roll Number", val: rollNumber, width: col2Width }
+        },
+        {
+          col1: { label: "Institution", val: collegeName, width: col1Width },
+          col2: { label: "Registration No", val: regNumber, width: col2Width }
+        },
+        {
+          col1: { label: "Position / Role", val: `${position} Intern`, width: col1Width },
+          col2: { label: "Domain / Tech", val: domain, width: col2Width }
+        },
+        {
+          col1: { label: "Start Date", val: startDate, width: col1Width },
+          col2: { label: "End Date", val: endDate, width: col2Width }
+        },
+        {
+          col1: { label: "Internship Mode", val: mode, width: col1Width },
+          col2: { label: "Supervisor", val: supervisor, width: col2Width }
+        }
+      ];
+
+      // Measure row heights to determine dynamic well height
+      let tempY = boxY + 15;
+      const rowMetrics = [];
+      const targetRowSpacing = 25; // standard spacing between rows
+
+      gridRows.forEach((row) => {
+        doc.font("Helvetica-Bold").fontSize(9.5);
+        
+        // Col 1 measurement
+        const l1Width = doc.widthOfString(`${row.col1.label}: `);
+        const v1Width = row.col1.width - l1Width;
+        const h1 = doc.heightOfString(row.col1.val, { width: v1Width });
+
+        // Col 2 measurement
+        const l2Width = doc.widthOfString(`${row.col2.label}: `);
+        const v2Width = row.col2.width - l2Width;
+        const h2 = doc.heightOfString(row.col2.val, { width: v2Width });
+
+        const rowHeight = Math.max(h1, h2);
+        // If text wraps, rowHeight will be larger than a single line (~11pt)
+        // Space next row by at least 25pt, or rowHeight + padding
+        const spacing = Math.max(targetRowSpacing, rowHeight + 13);
+        
+        rowMetrics.push({
+          rowHeight,
+          spacing,
+          l1Width,
+          v1Width,
+          l2Width,
+          v2Width
+        });
+        tempY += spacing;
+      });
+
+      // Calculate final box bottom and height
+      const lastRowIdx = gridRows.length - 1;
+      const lastRowSpacing = rowMetrics[lastRowIdx].spacing;
+      const lastRowHeight = rowMetrics[lastRowIdx].rowHeight;
+      const boxBottomY = (tempY - lastRowSpacing) + lastRowHeight + 15;
+      const boxHeight = boxBottomY - boxY;
+
       // Draw background well
       doc.rect(40, boxY, 515.28, boxHeight).fill(wellColor);
       doc.rect(40, boxY, 515.28, boxHeight).lineWidth(1).strokeColor(borderColor).stroke();
 
-      // Details Columns
-      const col1X = 60;
-      const col2X = 310;
-      
-      // Row offsets
-      const textRowY = (index) => boxY + 15 + (index * 25);
+      // Draw text rows inside the well
+      let drawY = boxY + 15;
+      gridRows.forEach((row, idx) => {
+        const { l1Width, v1Width, l2Width, v2Width, spacing } = rowMetrics[idx];
 
-      const drawGridItem = (label, val, x, y, valWidth = 220) => {
-        doc.font("Helvetica-Bold").fontSize(9.5).fillColor(mutedColor).text(`${label}: `, x, y);
-        const labelWidth = doc.widthOfString(`${label}: `);
-        doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor).text(val, x + labelWidth, y, { width: valWidth - labelWidth });
-      };
+        // Draw Col 1
+        doc.font("Helvetica-Bold").fontSize(9.5).fillColor(mutedColor).text(`${row.col1.label}: `, col1X, drawY);
+        doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor).text(row.col1.val, col1X + l1Width, drawY, { width: v1Width });
 
-      // Row 1
-      drawGridItem("Candidate Name", studentName, col1X, textRowY(0));
-      drawGridItem("Roll Number", rollNumber, col2X, textRowY(0));
+        // Draw Col 2
+        doc.font("Helvetica-Bold").fontSize(9.5).fillColor(mutedColor).text(`${row.col2.label}: `, col2X, drawY);
+        doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor).text(row.col2.val, col2X + l2Width, drawY, { width: v2Width });
 
-      // Row 2
-      drawGridItem("Institution", collegeName, col1X, textRowY(1), 230);
-      drawGridItem("Registration No", regNumber, col2X, textRowY(1));
-
-      // Row 3
-      drawGridItem("Position / Role", `${position} Intern`, col1X, textRowY(2));
-      drawGridItem("Domain / Tech", domain, col2X, textRowY(2));
-
-      // Row 4
-      drawGridItem("Start Date", startDate, col1X, textRowY(3));
-      drawGridItem("End Date", endDate, col2X, textRowY(3));
-
-      // Row 5
-      drawGridItem("Internship Mode", mode, col1X, textRowY(4));
-      drawGridItem("Supervisor", supervisor, col2X, textRowY(4));
+        drawY += spacing;
+      });
 
       // --- 8. Closing Block ---
+      const closingBlockY = boxY + boxHeight + 20;
       doc.font("Helvetica").fontSize(10).fillColor(darkColor)
         .text(
           "We look forward to a mutually beneficial association and are confident that this internship will be a valuable milestone in your professional growth. We wish you the very best for a successful tenure with us.",
           40,
-          485,
+          closingBlockY,
           { width: 515.28, lineGap: 4, align: "justify" }
         );
 
-      // Footer Divider
-      doc.moveTo(40, 560).lineTo(555.28, 560).lineWidth(1).strokeColor(borderColor).stroke();
+      const closingBlockHeight = doc.font("Helvetica").fontSize(10).heightOfString(
+        "We look forward to a mutually beneficial association and are confident that this internship will be a valuable milestone in your professional growth. We wish you the very best for a successful tenure with us.",
+        { width: 515.28, lineGap: 4 }
+      );
+
+      // Footer Divider Y
+      const footerDividerY = closingBlockY + closingBlockHeight + 25;
+      doc.moveTo(40, footerDividerY).lineTo(555.28, footerDividerY).lineWidth(1).strokeColor(borderColor).stroke();
 
       // --- 9. Signatures & Secure Verification Footer ---
-      const footerY = 575;
+      const footerY = footerDividerY + 15;
       
       // Signature Section
       doc.font("Helvetica-Bold").fontSize(10).fillColor(darkColor)
@@ -332,10 +392,11 @@ export async function generateOfferLetter(student, internship, verificationId) {
         );
 
       // --- 10. Footer Accreditation Badges Row ---
-      const badgeY = 705;
+      const accreditationDividerY = footerY + 85 + 25;
+      const badgeY = accreditationDividerY + 15;
       
       // Horizontal Line above footer accreditations
-      doc.moveTo(40, badgeY - 15).lineTo(555.28, badgeY - 15).lineWidth(0.5).strokeColor(borderColor).stroke();
+      doc.moveTo(40, accreditationDividerY).lineTo(555.28, accreditationDividerY).lineWidth(0.5).strokeColor(borderColor).stroke();
 
       const drawAccreditationBadge = (fileName, fallbackName, x, y, width, height) => {
         let badgePath = path.join(process.cwd(), "public", "format", fileName);
@@ -548,14 +609,18 @@ export async function generateCertificate(student, program, type, verificationId
       const sigX = 550;
       const sigY = footerY + 25;
       
+      // Paste signature image
+      const signaturePath = path.join(process.cwd(), "public", "kpsigns.png");
+      if (fs.existsSync(signaturePath)) {
+        // Center it above the line
+        doc.image(signaturePath, sigX + 40, sigY - 28, { fit: [150, 50] });
+      }
+
       doc.moveTo(sigX, sigY).lineTo(750, sigY).lineWidth(1.25).strokeColor(darkColor).stroke();
       
-      const signatoryName = program.instructor?.[0]?.id?.name || "Kp Admin";
-      doc.font("Helvetica-Bold").fontSize(10.5).fillColor(primaryColor)
+      const signatoryName = "Founder & CEO\nKpInterns";
+      doc.font("Helvetica-Bold").fontSize(10.5).fillColor(darkColor)
         .text(signatoryName, sigX, sigY + 8, { align: "center", width: 200 });
-
-      doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
-        .text("Authorized Signatory\nKpInterns Certification Registry", sigX, sigY + 22, { align: "center", width: 200, lineGap: 2 });
 
       // --- 6. Footer Accreditations Row ---
       const bottomBadgeY = 518;
@@ -572,10 +637,10 @@ export async function generateCertificate(student, program, type, verificationId
         }
       };
 
-      drawBottomBadge("aicte.png", "aicte.png", 280, bottomBadgeY, 32, 32);
-      drawBottomBadge("Mca.png", "Mca.png", 345, bottomBadgeY + 4, 48, 24);
-      drawBottomBadge("iso.png", "iso.png", 425, bottomBadgeY, 32, 32);
-      drawBottomBadge("msme.png", "msme.png", 485, bottomBadgeY, 40, 34);
+      // drawBottomBadge("aicte.png", "aicte.png", 280, bottomBadgeY, 32, 32);
+      drawBottomBadge("aicte.png", "aicte.png", 345, bottomBadgeY + 4, 48, 24);
+      drawBottomBadge("msme.png", "msme.png", 425, bottomBadgeY, 32, 32);
+      // drawBottomBadge("msme.png", "msme.png", 485, bottomBadgeY, 40, 34);
 
       doc.end();
     } catch (error) {

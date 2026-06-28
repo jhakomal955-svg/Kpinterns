@@ -63,7 +63,7 @@ export default function ProfilePage() {
         enrollmentId: i._id || null,
         company: i.internship?.company || "KpInterns",
         position: i.internship?.position || "Intern",
-        duration: i.internship?.duration || "1 month",
+        duration: i.internship?.duration || "2-weeks",
         status: i.internshipStatus || "Active",
         startDate: i.startDate ? new Date(i.startDate).toLocaleDateString() : (i.paymentDate ? new Date(i.paymentDate).toLocaleDateString() : "N/A"),
         endDate: i.endDate ? new Date(i.endDate).toLocaleDateString() : "N/A",

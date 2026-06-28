@@ -40,7 +40,7 @@ function calculateEndDate(startDate, durationStr) {
       date.setFullYear(date.getFullYear() + 1);
       break;
     default:
-      date.setMonth(date.getMonth() + 1);
+      date.setDate(date.getDate() + 14);
   }
   return date;
 }
@@ -459,7 +459,7 @@ export default function UserCreatePage() {
 
           if (matchedInt) {
             const startDate = new Date();
-            const duration = matchedInt.duration || "1-month";
+            const duration = matchedInt.duration || "2-weeks";
             const endDate = calculateEndDate(startDate, duration);
             userPayload.ActiveInternship = [
               {

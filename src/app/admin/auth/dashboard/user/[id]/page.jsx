@@ -35,7 +35,7 @@ function calculateEndDate(startDate, durationStr) {
       date.setFullYear(date.getFullYear() + 1);
       break;
     default:
-      date.setMonth(date.getMonth() + 1);
+      date.setDate(date.getDate() + 14);
   }
   return date;
 }
@@ -854,7 +854,7 @@ export default function UserEditPage() {
                             certificationUrl: "",
                             completedModules: [],
                             startDate: new Date(),
-                            endDate: calculateEndDate(new Date(), selectedInt.duration || "1-month"),
+                            endDate: calculateEndDate(new Date(), selectedInt.duration || "2-weeks"),
                           },
                         ],
                       }));
@@ -989,7 +989,7 @@ export default function UserEditPage() {
                                 setFormData((prev) => {
                                   const list = [...prev.ActiveInternship];
                                   const newStart = val ? new Date(val) : new Date();
-                                  const duration = intDetails?.duration || "1-month";
+                                  const duration = intDetails?.duration || "2-weeks";
                                   const newEnd = calculateEndDate(newStart, duration);
                                   list[index] = { ...list[index], startDate: newStart, endDate: newEnd };
                                   return { ...prev, ActiveInternship: list };

@@ -34,7 +34,7 @@ export default function InternshipEditPage() {
     domain: "Full Stack Development",
     internshipType: "Full-Time",
     mode: "Hybrid",
-    duration: "1-month",
+    duration: "2-weeks",
     status: "Draft",
     company: "Kpinterns",
     createdBy: "admin",
@@ -353,10 +353,10 @@ export default function InternshipEditPage() {
   const internshipModes = ["Online", "Offline", "Hybrid"];
   const statuses = ["Draft", "Published", "Active", "Closed", "Archived"];
   const durations = [
-    "4-week",
+    "2-weeks",
+    "4-weeks",
     "6-weeks",
     "8-weeks",
-    "12-weeks",
   ];
 
   const fetchInternship = async () => {

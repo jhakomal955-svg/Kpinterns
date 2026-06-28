@@ -573,7 +573,7 @@ export async function generateCertificate(student, program, type, verificationId
         certProse = `Registration no. ${registrationNumber} s/o, d/o of ${student.parentName || "N/A"} bearing Roll no ${rollNumber} of ${institutionName} has successfully completed the professional certification course in ${programTitle} under the ${program.domain || "Specialized"} Domain (${program.difficultyLevel || "Advanced"} Level) from ${startDateStr} to ${endDateStr} of duration ${durationRange}. The student has successfully completed all academic modules, assignments, and assessments.`;
         closingProse = "We appreciate his/her dedication throughout the program and wish them the best for future opportunities.";
       } else {
-        certProse = `Registration no. ${registrationNumber} s/o, d/o of ${student.parentName || "N/A"} bearing Roll no ${rollNumber} of ${institutionName} has successfully completed internship training in ${programTitle} from ${startDateStr} to ${endDateStr} of ${durationRange}, The student maintained ${attendanceMetric} percent attendance and secured ${gradingScore} percentage marks in the final assessment.`;
+        certProse = `Registration no. ${registrationNumber} s/o, d/o of ${student.parentName || "N/A"} bearing Roll no ${rollNumber} of ${institutionName} has successfully completed internship training in ${programTitle} from ${startDateStr} to ${endDateStr} of ${durationRange}, The student maintained ${attendanceMetric} attendance and secured ${gradingScore} percentage marks in the final assessment.`;
         closingProse = "We appreciate his/her sincere participation and wish for their best for future opportunities.";
       }
 

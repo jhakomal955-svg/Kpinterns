@@ -44,7 +44,7 @@ function calculateEndDate(startDate, durationStr) {
       date.setFullYear(date.getFullYear() + 1);
       break;
     default:
-      date.setMonth(date.getMonth() + 1);
+      date.setDate(date.getDate() + 14);
   }
   return date;
 }
@@ -187,7 +187,7 @@ export async function POST(request) {
 
       if (!isAlreadyEnrolled) {
         const startDate = new Date();
-        const duration = internship.duration || "1-month";
+        const duration = internship.duration || "2-weeks";
         const endDate = calculateEndDate(startDate, duration);
 
         const Attendance = createModel("Attendance", AttendanceModel);

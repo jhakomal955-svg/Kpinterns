@@ -55,7 +55,7 @@ function calculateEndDate(startDate, durationStr) {
       date.setFullYear(date.getFullYear() + 1);
       break;
     default:
-      date.setMonth(date.getMonth() + 1);
+      date.setDate(date.getDate() + 14);
     }
   return date;
 }
@@ -446,7 +446,7 @@ export async function POST(request) {
         }
 
         const startDate = new Date();
-        const duration = matchedInternship.duration || "1-month";
+        const duration = matchedInternship.duration || "2-weeks";
         const endDate = calculateEndDate(startDate, duration);
 
         // Map selected domain & mode to ActiveInternship reference on the User document

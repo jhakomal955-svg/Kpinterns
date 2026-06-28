@@ -294,7 +294,7 @@ export default function InstructorInternshipsPage() {
                     </div>
                     <div>
                       <span className="text-xs text-text-muted block uppercase font-bold">Duration</span>
-                      <span className="text-sm font-semibold text-text-main">{internship.duration || "1-month"}</span>
+                      <span className="text-sm font-semibold text-text-main">{internship.duration || "2-weeks"}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between gap-3">

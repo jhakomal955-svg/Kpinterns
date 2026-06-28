@@ -24,26 +24,29 @@ const getYouTubeEmbedUrl = (url) => {
   if (!url) return null;
   let videoId = null;
   try {
-    const urlObj = new URL(url);
+    const urlObj = new URL(url.trim());
     if (urlObj.hostname.includes("youtube.com") || urlObj.hostname.includes("youtu.be")) {
       if (urlObj.hostname.includes("youtu.be")) {
-        videoId = urlObj.pathname.substring(1);
+        const segment = urlObj.pathname.split("/").filter(Boolean)[0];
+        if (segment) videoId = segment.split(/[?#]/)[0];
       } else if (urlObj.pathname.includes("/embed/")) {
         videoId = urlObj.pathname.split("/embed/")[1]?.split(/[?#]/)[0];
       } else if (urlObj.pathname.includes("/shorts/")) {
         videoId = urlObj.pathname.split("/shorts/")[1]?.split(/[?#]/)[0];
+      } else if (urlObj.pathname.includes("/live/")) {
+        videoId = urlObj.pathname.split("/live/")[1]?.split(/[?#]/)[0];
       } else {
         videoId = urlObj.searchParams.get("v");
       }
     }
   } catch (e) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|live\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
-    if (match && match[2].length === 11) {
+    if (match && match[2] && match[2].length === 11) {
       videoId = match[2];
     }
   }
-  if (videoId) {
+  if (videoId && videoId.length === 11) {
     return `https://www.youtube.com/embed/${videoId}?modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3&fs=1`;
   }
   return null;

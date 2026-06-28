@@ -7,49 +7,203 @@ import "plyr/dist/plyr.css";
  * Reusable video player wrapper using Plyr.io
  * Skins YouTube and standard video links with a consistent premium UI,
  * hiding default branding, share options, and right-click menus.
- * Includes optional side-panel integration for YouTube Live Chat.
+ * Automatically checks if a YouTube video is currently broadcasting live,
+ * enabling a pulsing "LIVE" badge and KpInterns Custom Live Chat panel dynamically.
  */
 export default function VideoPlayer({ videoUrl }) {
   const containerRef = useRef(null);
   const playerRef = useRef(null);
-  const [showChat, setShowChat] = useState(false);
+  
+  // Custom Live Status & Chat states
+  const [isLive, setIsLive] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [sending, setSending] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const lastFetchedRef = useRef(null);
+  const chatBottomRef = useRef(null);
+  const chatIntervalRef = useRef(null);
 
   // Extract YouTube ID from various YouTube URL formats
   const getYouTubeId = (url) => {
     if (!url) return null;
     let videoId = null;
     try {
-      const urlObj = new URL(url);
+      const urlObj = new URL(url.trim());
       if (urlObj.hostname.includes("youtube.com") || urlObj.hostname.includes("youtu.be")) {
         if (urlObj.hostname.includes("youtu.be")) {
-          videoId = urlObj.pathname.substring(1);
+          const segment = urlObj.pathname.split("/").filter(Boolean)[0];
+          if (segment) videoId = segment.split(/[?#]/)[0];
         } else if (urlObj.pathname.includes("/embed/")) {
           videoId = urlObj.pathname.split("/embed/")[1]?.split(/[?#]/)[0];
         } else if (urlObj.pathname.includes("/shorts/")) {
           videoId = urlObj.pathname.split("/shorts/")[1]?.split(/[?#]/)[0];
+        } else if (urlObj.pathname.includes("/live/")) {
+          videoId = urlObj.pathname.split("/live/")[1]?.split(/[?#]/)[0];
         } else {
           videoId = urlObj.searchParams.get("v");
         }
       }
     } catch (e) {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|live\/|watch\?v=|\&v=)([^#\&\?]*).*/;
       const match = url.match(regExp);
-      if (match && match[2].length === 11) {
+      if (match && match[2] && match[2].length === 11) {
         videoId = match[2];
       }
     }
-    return videoId;
+    return videoId && videoId.length === 11 ? videoId : null;
   };
 
   const videoId = getYouTubeId(videoUrl);
 
+  // Load current user profile from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const admin = localStorage.getItem("adminData");
+        if (admin) {
+          setCurrentUser(JSON.parse(admin));
+          return;
+        }
+        const user = localStorage.getItem("userData");
+        if (user) {
+          setCurrentUser(JSON.parse(user));
+        }
+      } catch (e) {
+        console.error("Error loading user profile", e);
+      }
+    }
+  }, []);
+
+  // Monitor live status
+  useEffect(() => {
+    if (!videoId) {
+      setIsLive(false);
+      return;
+    }
+
+    const checkLiveStatus = async () => {
+      try {
+        const res = await fetch(`/api/live-status?videoId=${videoId}`).then(r => r.json());
+        if (res.success) {
+          setIsLive(res.isLive);
+        }
+      } catch (err) {
+        console.error("Error checking live status", err);
+      }
+    };
+
+    checkLiveStatus();
+    const statusInterval = setInterval(checkLiveStatus, 30000); // Check live status every 30 seconds
+
+    return () => clearInterval(statusInterval);
+  }, [videoId]);
+
+  // Manage Live Chat messages and polling
+  useEffect(() => {
+    if (chatIntervalRef.current) {
+      clearInterval(chatIntervalRef.current);
+      chatIntervalRef.current = null;
+    }
+
+    if (!isLive || !videoId) {
+      setMessages([]);
+      lastFetchedRef.current = null;
+      return;
+    }
+
+    const fetchChatHistory = async () => {
+      try {
+        const res = await fetch(`/api/live-chat?videoId=${videoId}`).then(r => r.json());
+        if (res.success && res.data) {
+          setMessages(res.data);
+          if (res.data.length > 0) {
+            lastFetchedRef.current = res.data[res.data.length - 1].createdAt;
+          }
+          setTimeout(() => chatBottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+        }
+      } catch (e) {
+        console.error("Error fetching chat history", e);
+      }
+    };
+
+    const pollNewMessages = async () => {
+      if (!lastFetchedRef.current) return;
+      try {
+        const res = await fetch(
+          `/api/live-chat?videoId=${videoId}&since=${encodeURIComponent(lastFetchedRef.current)}`
+        ).then(r => r.json());
+        if (res.success && res.data && res.data.length > 0) {
+          setMessages(prev => {
+            const filteredNew = res.data.filter(
+              newMsg => !prev.some(msg => msg._id === newMsg._id)
+            );
+            if (filteredNew.length === 0) return prev;
+            return [...prev, ...filteredNew];
+          });
+          lastFetchedRef.current = res.data[res.data.length - 1].createdAt;
+          setTimeout(() => chatBottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+        }
+      } catch (e) {
+        console.error("Error polling chat messages", e);
+      }
+    };
+
+    fetchChatHistory().then(() => {
+      chatIntervalRef.current = setInterval(pollNewMessages, 3000); // Poll chat messages every 3 seconds
+    });
+
+    return () => {
+      if (chatIntervalRef.current) {
+        clearInterval(chatIntervalRef.current);
+      }
+    };
+  }, [isLive, videoId]);
+
+  // Handle sending a message
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!newMessage.trim() || !videoId || sending) return;
+
+    try {
+      setSending(true);
+      const token = localStorage.getItem("adminToken") || localStorage.getItem("userToken");
+      const headers = {
+        "Content-Type": "application/json",
+        ...(token ? { "Authorization": `Bearer ${token}` } : {})
+      };
+
+      const res = await fetch("/api/live-chat", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          videoId,
+          message: newMessage.trim()
+        })
+      }).then(r => r.json());
+
+      if (res.success && res.data) {
+        setMessages(prev => [...prev, res.data]);
+        lastFetchedRef.current = res.data.createdAt;
+        setNewMessage("");
+        setTimeout(() => chatBottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+      }
+    } catch (err) {
+      console.error("Error sending live chat message", err);
+    } finally {
+      setSending(false);
+    }
+  };
+
+  // Instantiates Plyr player wrapper
   useEffect(() => {
     if (!containerRef.current) return;
 
     let isMounted = true;
     let playerInstance = null;
 
-    // Dynamically import Plyr to prevent server-side ReferenceError: document is not defined
+    // Dynamically import Plyr to prevent server-side ReferenceError
     import("plyr").then(({ default: Plyr }) => {
       if (!isMounted || !containerRef.current) return;
 
@@ -60,6 +214,7 @@ export default function VideoPlayer({ videoUrl }) {
         // YouTube embed setup
         const playerDiv = document.createElement("div");
         playerDiv.dataset.plyrProvider = "youtube";
+        playerDiv.dataset.plyrTarget = videoId;
         playerDiv.dataset.plyrEmbedId = videoId;
         containerRef.current.appendChild(playerDiv);
 
@@ -151,44 +306,99 @@ export default function VideoPlayer({ videoUrl }) {
       <div className="flex-1 min-w-0 flex flex-col plyr-video-box">
         <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-border-main bg-black plyr-custom-theme">
           <div ref={containerRef} className="w-full h-full" />
+          
+          {/* Pulsing LIVE Overlay Badge */}
+          {isLive && (
+            <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 px-3 py-1 bg-red-600/90 text-white text-[10px] font-black uppercase tracking-wider rounded-md shadow-md animate-pulse">
+              <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+              Live
+            </div>
+          )}
         </div>
-        
-        {/* Toggle Button for YouTube Videos */}
-        {videoId && (
-          <div className="mt-3 flex justify-end toggle-chat-btn">
-            <button
-              onClick={() => setShowChat(!showChat)}
-              className="flex items-center gap-2 px-4 py-2 bg-brand-primary/10 hover:bg-brand-primary/20 text-brand-primary hover:text-brand-primary/90 font-bold text-xs rounded-xl border border-brand-primary/20 transition cursor-pointer"
-            >
-              <span>💬</span>
-              <span>{showChat ? "Hide Live Chat" : "Show Live Chat"}</span>
-            </button>
-          </div>
-        )}
       </div>
 
       {/* Live Chat Panel */}
-      {showChat && videoId && (
-        <div className="lg:w-80 w-full h-[350px] lg:h-auto bg-bg-card border-2 border-border-main rounded-xl overflow-hidden shadow-sm flex flex-col shrink-0 animate-fade-in plyr-chat-panel">
-          <div className="bg-bg-main px-4 py-3 border-b border-border-main flex items-center justify-between">
+      {isLive && videoId && (
+        <div className="lg:w-80 w-full h-[500px] lg:h-auto lg:min-h-[500px] bg-bg-card border-2 border-border-main rounded-xl overflow-hidden shadow-sm flex flex-col shrink-0 animate-fade-in plyr-chat-panel">
+          <div className="bg-bg-main px-4 py-3 border-b border-border-main flex items-center justify-between shrink-0">
             <span className="text-xs font-bold font-poppins text-text-main flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shrink-0"></span>
               Live Chat
             </span>
-            <button
-              onClick={() => setShowChat(false)}
-              className="text-text-muted hover:text-text-main text-xs font-bold cursor-pointer"
-            >
-              ✕
-            </button>
           </div>
-          <iframe
-            src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${
-              typeof window !== "undefined" ? window.location.hostname : "localhost"
-            }`}
-            className="w-full flex-1 min-h-0"
-            frameBorder="0"
-          ></iframe>
+
+          {/* Chat Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-bg-main/5 min-h-0">
+            {messages.length === 0 ? (
+              <div className="h-full flex flex-col items-center justify-center text-center text-text-muted py-10">
+                <span className="text-2xl mb-2">💬</span>
+                <p className="text-[11px] font-medium text-text-muted">No messages yet. Join the conversation!</p>
+              </div>
+            ) : (
+              messages.map((msg) => {
+                const isSelf = msg.user === currentUser?._id;
+                const isInstructor = msg.senderRole === "Instructor" || msg.senderRole === "Admin";
+                return (
+                  <div
+                    key={msg._id}
+                    className={`flex flex-col max-w-[85%] ${
+                      isSelf ? "ml-auto items-end" : "mr-auto items-start"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1 mb-0.5">
+                      <span className="text-[9px] font-bold text-text-main leading-none">
+                        {msg.senderName}
+                      </span>
+                      {isInstructor && (
+                        <span className="text-[7px] font-black uppercase tracking-wider px-1 rounded bg-amber-500/15 text-amber-600 border border-amber-500/20 leading-none">
+                          Instructor
+                        </span>
+                      )}
+                    </div>
+                    <div
+                      className={`px-3 py-1.5 rounded-xl text-[11px] leading-relaxed break-words whitespace-pre-wrap ${
+                        isSelf
+                          ? "bg-brand-primary text-white rounded-tr-none shadow-sm shadow-brand-primary/10"
+                          : isInstructor
+                          ? "bg-amber-500/10 border border-amber-500/20 text-text-main rounded-tl-none"
+                          : "bg-bg-main border border-border-main text-text-main rounded-tl-none"
+                      }`}
+                    >
+                      {msg.message}
+                    </div>
+                  </div>
+                );
+              })
+            )}
+            <div ref={chatBottomRef} />
+          </div>
+
+          {/* Chat Input */}
+          <form
+            onSubmit={handleSendMessage}
+            className="p-3 bg-bg-card border-t border-border-main flex gap-2 items-center shrink-0"
+          >
+            <input
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              placeholder={currentUser ? "Say something..." : "Please log in to chat"}
+              className="flex-1 bg-bg-main border-2 border-border-main rounded-lg px-3 py-1.5 text-[11px] text-text-main placeholder-text-muted focus:border-brand-primary outline-none transition"
+              maxLength={500}
+              disabled={sending || !currentUser}
+            />
+            <button
+              type="submit"
+              disabled={sending || !newMessage.trim() || !currentUser}
+              className="px-3 py-1.5 bg-brand-primary hover:bg-brand-primary/95 disabled:bg-brand-primary/50 text-white font-bold text-[11px] rounded-lg shadow transition cursor-pointer flex items-center justify-center"
+            >
+              {sending ? (
+                <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              ) : (
+                <span>✈</span>
+              )}
+            </button>
+          </form>
         </div>
       )}
     </div>

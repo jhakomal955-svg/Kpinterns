@@ -11,6 +11,7 @@ import InternshipModel from "./Internship.js";
 import VerificationOtpModel from "./VerificationOtpModel.js";
 import AttendanceModel from "./Attendance.js";
 import TestimonialModel from "./Testimonial.js";
+import LiveChatMessageModel from "./LiveChatMessage.js";
 
 export {
   UserModel,
@@ -21,4 +22,5 @@ export {
   VerificationOtpModel,
   AttendanceModel,
   TestimonialModel,
+  LiveChatMessageModel,
 };

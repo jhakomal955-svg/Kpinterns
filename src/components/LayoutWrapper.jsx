@@ -94,9 +94,9 @@ export default function LayoutWrapper({ children }) {
     }
   }, [pathname]);
 
-  // Check token validity whenever the pathname changes
+  // 1. Verify tokens with server ONLY on initial mount (app boot/refresh)
   useEffect(() => {
-    const verifyInitialTokens = async () => {
+    const verifyTokensOnMount = async () => {
       if (typeof window === "undefined") return;
 
       const adminToken = localStorage.getItem("adminToken");
@@ -107,7 +107,7 @@ export default function LayoutWrapper({ children }) {
         localStorage.removeItem("userData");
         window.dispatchEvent(new Event("user-login-change"));
         
-        const isUserProtectedRoute = pathname.startsWith("/profile");
+        const isUserProtectedRoute = window.location.pathname.startsWith("/profile");
         if (isUserProtectedRoute) {
           window.location.href = "/login";
         }
@@ -117,17 +117,18 @@ export default function LayoutWrapper({ children }) {
         localStorage.removeItem("adminToken");
         localStorage.removeItem("adminData");
         
-        const isAdminProtectedRoute = pathname.startsWith("/admin") && 
-          !pathname.startsWith("/admin/auth/login") && 
-          !pathname.startsWith("/admin/auth/register") && 
-          !pathname.startsWith("/admin/auth/forgot-password");
+        const path = window.location.pathname;
+        const isAdminProtectedRoute = path.startsWith("/admin") && 
+          !path.startsWith("/admin/auth/login") && 
+          !path.startsWith("/admin/auth/register") && 
+          !path.startsWith("/admin/auth/forgot-password");
 
         if (isAdminProtectedRoute) {
           window.location.href = "/admin/auth/login";
         }
       };
 
-      // Check adminToken
+      // Check adminToken against server
       if (adminToken) {
         if (isTokenExpired(adminToken)) {
           handleAdminLogout();
@@ -145,7 +146,7 @@ export default function LayoutWrapper({ children }) {
         }
       }
 
-      // Check userToken
+      // Check userToken against server
       if (userToken) {
         if (isTokenExpired(userToken)) {
           handleUserLogout();
@@ -164,7 +165,48 @@ export default function LayoutWrapper({ children }) {
       }
     };
 
-    verifyInitialTokens();
+    verifyTokensOnMount();
+  }, []);
+
+  // 2. Perform fast local-only JWT expiry validation on page transitions (without server hit)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const adminToken = localStorage.getItem("adminToken");
+    const userToken = localStorage.getItem("userToken");
+
+    const handleUserLogout = () => {
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userData");
+      window.dispatchEvent(new Event("user-login-change"));
+      
+      const isUserProtectedRoute = pathname.startsWith("/profile");
+      if (isUserProtectedRoute) {
+        window.location.href = "/login";
+      }
+    };
+
+    const handleAdminLogout = () => {
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("adminData");
+      
+      const isAdminProtectedRoute = pathname.startsWith("/admin") && 
+        !pathname.startsWith("/admin/auth/login") && 
+        !pathname.startsWith("/admin/auth/register") && 
+        !pathname.startsWith("/admin/auth/forgot-password");
+
+      if (isAdminProtectedRoute) {
+        window.location.href = "/admin/auth/login";
+      }
+    };
+
+    if (adminToken && isTokenExpired(adminToken)) {
+      handleAdminLogout();
+    }
+
+    if (userToken && isTokenExpired(userToken)) {
+      handleUserLogout();
+    }
   }, [pathname]);
 
   // Hide navbar and footer for admin/auth routes

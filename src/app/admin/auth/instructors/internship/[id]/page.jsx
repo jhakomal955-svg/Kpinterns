@@ -35,7 +35,7 @@ export default function InstructorInternshipEditPage() {
     domain: "Full Stack Development",
     internshipType: "Full-Time",
     mode: "Hybrid",
-    duration: "2-weeks",
+    duration: "2 Weeks",
     status: "Draft",
     company: "Kpinterns",
     createdBy: "admin",
@@ -133,7 +133,7 @@ export default function InstructorInternshipEditPage() {
           domain: internship.domain || "Full Stack Development",
           internshipType: internship.internshipType || "Full-Time",
           mode: internship.mode || "Hybrid",
-          duration: internship.duration || "2-weeks",
+          duration: internship.duration || "2 Weeks",
           status: internship.status || "Draft",
           company: internship.company || "Kpinterns",
           createdBy: (internship.createdBy && internship.createdBy !== "admin")

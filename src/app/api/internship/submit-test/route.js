@@ -66,6 +66,18 @@ export async function POST(request) {
       return Response.json({ error: "You have already appeared for this test" }, { status: 400 });
     }
 
+    // Verify that the test was started and check the duration limit
+    if (!enrollment.testStartedAt) {
+      return Response.json({ error: "Test session was not properly initialized" }, { status: 400 });
+    }
+
+    const testDurationSeconds = questions.length * 60;
+    const elapsedSeconds = Math.floor((Date.now() - new Date(enrollment.testStartedAt).getTime()) / 1000);
+    // Allow a grace period of 30 seconds for network latency/server processing
+    if (elapsedSeconds > testDurationSeconds + 30) {
+      return Response.json({ error: "Test submission time limit exceeded" }, { status: 400 });
+    }
+
     // Grade the test
     let correctCount = 0;
     questions.forEach((q, idx) => {

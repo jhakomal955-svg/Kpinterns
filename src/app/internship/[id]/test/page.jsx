@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -20,6 +20,12 @@ export default function InternshipTestPage() {
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [testResult, setTestResult] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(null);
+
+  const handleSubmitRef = useRef(null);
+  useEffect(() => {
+    handleSubmitRef.current = handleSubmitTest;
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +93,30 @@ export default function InternshipTestPage() {
           return;
         }
 
+        // Initialize test session and get start time
+        const startRes = await fetch("/api/internship/start-test", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ internshipId })
+        });
+        const startData = await startRes.json();
+        if (!startRes.ok || !startData.success) {
+          throw new Error(startData.error || "Failed to initialize test session");
+        }
+
         setInternship(internData.data);
+
+        // Calculate remaining time
+        const questionsList = internData.data.test?.questions || [];
+        const testDurationSeconds = questionsList.length * 60;
+        const testStartTime = new Date(startData.testStartedAt).getTime();
+        const elapsedSeconds = Math.floor((Date.now() - testStartTime) / 1000);
+        const initialTimeLeft = Math.max(0, testDurationSeconds - elapsedSeconds);
+        
+        setTimeLeft(initialTimeLeft);
       } catch (err) {
         console.error(err);
         setError(err.message || "An error occurred while loading the test.");
@@ -98,6 +127,35 @@ export default function InternshipTestPage() {
 
     fetchData();
   }, [internshipId, router]);
+
+  // Countdown timer effect
+  useEffect(() => {
+    if (timeLeft === null || testResult || isSubmitting) return;
+
+    if (timeLeft <= 0) {
+      handleSubmitRef.current?.(true);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          handleSubmitRef.current?.(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft, testResult, isSubmitting]);
+
+  const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  };
 
   const handleSelectOption = (optIdx) => {
     setSelectedAnswers((prev) => ({
@@ -118,13 +176,17 @@ export default function InternshipTestPage() {
     }
   };
 
-  const handleSubmitTest = async () => {
-    const unansweredCount = questions.length - Object.keys(selectedAnswers).length;
-    if (unansweredCount > 0) {
-      const confirmSubmit = window.confirm(
-        `You have ${unansweredCount} unanswered questions. Are you sure you want to submit?`
-      );
-      if (!confirmSubmit) return;
+  async function handleSubmitTest(isTimeout = false) {
+    if (!isTimeout) {
+      const unansweredCount = questions.length - Object.keys(selectedAnswers).length;
+      if (unansweredCount > 0) {
+        const confirmSubmit = window.confirm(
+          `You have ${unansweredCount} unanswered questions. Are you sure you want to submit?`
+        );
+        if (!confirmSubmit) return;
+      }
+    } else {
+      alert("Time's up! Your test will be automatically submitted.");
     }
 
     try {
@@ -271,12 +333,24 @@ export default function InternshipTestPage() {
             <h1 className="text-lg font-bold text-text-main font-poppins line-clamp-1">{internship.title}</h1>
             <p className="text-xs text-text-muted font-poppins">Final Assessment Test</p>
           </div>
-          <Link
-            href="/profile"
-            className="text-xs text-text-muted hover:text-brand-primary font-semibold font-poppins border border-border-main hover:border-brand-primary px-3 py-1.5 rounded-lg transition"
-          >
-            Exit Test
-          </Link>
+          <div className="flex items-center gap-3">
+            {timeLeft !== null && (
+              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold font-poppins shadow-sm transition-all duration-300 ${
+                timeLeft < 60 
+                  ? "bg-red-500/10 border-red-500/30 text-red-500 animate-pulse" 
+                  : "bg-brand-primary/10 border-brand-primary/30 text-brand-primary"
+              }`}>
+                <span>⏱️</span>
+                <span>{formatTime(timeLeft)}</span>
+              </div>
+            )}
+            <Link
+              href="/profile"
+              className="text-xs text-text-muted hover:text-brand-primary font-semibold font-poppins border border-border-main hover:border-brand-primary px-3 py-1.5 rounded-lg transition"
+            >
+              Exit Test
+            </Link>
+          </div>
         </div>
 
         {/* Quiz Box */}

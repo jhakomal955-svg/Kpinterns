@@ -27,7 +27,7 @@ export default function InternshipCreatePage() {
     department: [],
     internshipType: "Full-Time",
     mode: "Hybrid",
-    duration: "2-weeks",
+    duration: "2 Weeks",
     status: "Draft",
     company: "Kpinterns",
     domain: "Full Stack Development",
@@ -78,10 +78,10 @@ export default function InternshipCreatePage() {
   const internshipModes = ["Online", "Offline", "Hybrid"];
   const statuses = ["Draft", "Published", "Active", "Closed", "Archived"];
   const durations = [
-    "2-weeks",
-    "4-weeks",
-    "6-weeks",
-    "8-weeks",
+    "2 Weeks",
+    "4 Weeks",
+    "6 Weeks",
+    "8 Weeks",
   ];
 
   // Grouped departments according to Internship model enums

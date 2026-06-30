@@ -96,6 +96,7 @@ const UserModel = {
       testScore: { type: Number, default: null },
       testTaken: { type: Boolean, default: false },
       testTakenAt: { type: Date, default: null },
+      testStartedAt: { type: Date, default: null },
     },
   ],
 

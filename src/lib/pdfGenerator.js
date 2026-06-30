@@ -570,10 +570,10 @@ export async function generateCertificate(student, program, type, verificationId
       let closingProse = "";
 
       if (type === "course") {
-        certProse = `Registration No. ${registrationNumber} s/o, d/o of ${student.parentName || "N/A"} bearing Roll No. ${rollNumber} at ${institutionName} has successfully completed the professional certification course in ${programTitle} under the ${program.domain || "Specialized"} Domain (${program.difficultyLevel || "Advanced"} Level) from ${startDateStr} to ${endDateStr} of duration ${durationRange}. The student has successfully completed all academic modules, assignments, and assessments.`;
+        certProse = `Registration No. ${registrationNumber} S/O, D/O of ${student.parentName || "N/A"} bearing Roll No. ${rollNumber} at ${institutionName} has successfully completed the professional certification course in ${programTitle} under the ${program.domain || "Specialized"} Domain (${program.difficultyLevel || "Advanced"} Level) from ${startDateStr} to ${endDateStr} of duration ${durationRange}. The student has successfully completed all academic modules, assignments, and assessments.`;
         closingProse = "We appreciate their dedication throughout the program and wish them the best for future opportunities.";
       } else {
-        certProse = `Registration No. ${registrationNumber} s/o, d/o of ${student.parentName || "N/A"} bearing Roll No. ${rollNumber} at ${institutionName} has successfully completed an internship training in ${programTitle} from ${startDateStr} to ${endDateStr} , for a duration of ${durationRange}. The student maintained ${attendanceMetric} attendance and secured ${gradingScore}% score in the final assessment.`;
+        certProse = `Registration No. ${registrationNumber} S/o, D/o of ${student.parentName || "N/A"} bearing Roll No. ${rollNumber} at ${institutionName} has successfully completed an internship training in ${programTitle} from ${startDateStr} to ${endDateStr} , for a duration of ${durationRange}. The student maintained ${attendanceMetric} attendance and secured ${gradingScore}% score in the final assessment.`;
         closingProse = "We appreciate their sincere participation and wish them the best for future opportunities.";
       }
 

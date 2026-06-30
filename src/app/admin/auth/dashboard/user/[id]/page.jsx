@@ -4,22 +4,28 @@ function calculateEndDate(startDate, durationStr) {
   const date = new Date(startDate);
   switch (durationStr) {
     case "1-week":
+    case "1 Week":
       date.setDate(date.getDate() + 7);
       break;
     case "2-weeks":
+    case "2 Weeks":
       date.setDate(date.getDate() + 14);
       break;
     case "4-week":
     case "4-weeks":
+    case "4 Weeks":
       date.setDate(date.getDate() + 28);
       break;
     case "6-weeks":
+    case "6 Weeks":
       date.setDate(date.getDate() + 42);
       break;
     case "8-weeks":
+    case "8 Weeks":
       date.setDate(date.getDate() + 56);
       break;
     case "12-weeks":
+    case "12 Weeks":
       date.setDate(date.getDate() + 84);
       break;
     case "1-month":
@@ -854,7 +860,7 @@ export default function UserEditPage() {
                             certificationUrl: "",
                             completedModules: [],
                             startDate: new Date(),
-                            endDate: calculateEndDate(new Date(), selectedInt.duration || "2-weeks"),
+                            endDate: calculateEndDate(new Date(), selectedInt.duration || "2 Weeks"),
                           },
                         ],
                       }));
@@ -957,7 +963,8 @@ export default function UserEditPage() {
                               }}
                               className="w-full p-2.5 bg-bg-card border-2 border-border-main rounded-xl focus:border-brand-primary outline-none text-xs font-semibold text-text-main"
                             />
-                                     <div className="flex items-center sm:justify-center pt-4">
+                            </div>
+                            <div className="flex items-center sm:justify-center pt-4">
                             <label className="flex items-center gap-3 cursor-pointer text-xs font-bold uppercase tracking-wider text-text-main">
                               <input
                                 type="checkbox"
@@ -989,7 +996,7 @@ export default function UserEditPage() {
                                 setFormData((prev) => {
                                   const list = [...prev.ActiveInternship];
                                   const newStart = val ? new Date(val) : new Date();
-                                  const duration = intDetails?.duration || "2-weeks";
+                                  const duration = intDetails?.duration || "2 Weeks";
                                   const newEnd = calculateEndDate(newStart, duration);
                                   list[index] = { ...list[index], startDate: newStart, endDate: newEnd };
                                   return { ...prev, ActiveInternship: list };

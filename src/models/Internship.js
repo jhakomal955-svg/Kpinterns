@@ -359,8 +359,8 @@ const InternshipModel = {
   // Duration & Timeline
   duration: {
     type: String,
-    enum: ["2-weeks", "4-weeks", "6-weeks", "8-weeks"],
-    default: "2-weeks",
+    enum: ["2 Weeks", "4 Weeks", "6 Weeks", "8 Weeks"],
+    default: "2 Weeks",
   },
  
 

@@ -1071,7 +1071,6 @@ export default function UserEditPage() {
                             />
                           </div>
                         </div>
-                      </div>
 
                         {/* Beautiful custom file uploaders */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 border-t border-border-main/40">

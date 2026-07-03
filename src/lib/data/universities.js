@@ -2344,5 +2344,498 @@ export const universitiesData = {
         }
       }
     }
+  },
+  "babasaheb-bhimrao-ambedkar-bihar-university": {
+    name: "Babasaheb Bhimrao Ambedkar Bihar University",
+    colleges: {
+      "ls-college-muzaffarpur": {
+        name: "L.S. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "mddm-college-muzaffarpur": {
+        name: "M.D.D.M. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rds-college-muzaffarpur": {
+        name: "R.D.S. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rbbm-college-muzaffarpur": {
+        name: "R.B.B.M. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "mpssc-college-muzaffarpur": {
+        name: "M.P.S.Sc. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "nitishwar-mahavidyalaya-muzaffarpur": {
+        name: "Nitishwar Mahavidyalaya, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "dr-rmls-college-muzaffarpur": {
+        name: "Dr. R.M.L.S. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "mskb-college-muzaffarpur": {
+        name: "M.S.K.B. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "lnt-college-muzaffarpur": {
+        name: "L.N.T. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rs-college-muzaffarpur": {
+        name: "R.S. College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "srps-college-jaintpur-muzaffarpur": {
+        name: "S.R.P.S. College, Jaintpur, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "cn-college-sahebganj-muzaffarpur": {
+        name: "C.N. College, Sahebganj, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rc-college-sakra-muzaffarpur": {
+        name: "R.C. College, Sakra, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "jeewach-college-motipur": {
+        name: "Jeewach College, Motipur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "jbsd-college-bakuchi-muzaffarpur": {
+        name: "J.B.S.D. College, Bakuchi, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "srkg-college-sitamarhi": {
+        name: "S.R.K.G. College, Sitamarhi",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "slk-college-sitamarhi": {
+        name: "S.L.K. College, Sitamarhi",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rss-sc-college-sitamarhi": {
+        name: "R.S.S. Sc. College, Sitamarhi",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rss-mahila-college-sitamarhi": {
+        name: "R.S.S. Mahila College, Sitamarhi",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "js-college-chandauli-sitamarhi": {
+        name: "J.S. College, Chandauli, Sitamarhi",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "ms-college-motihari": {
+        name: "M.S. College, Motihari",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "lnd-college-motihari": {
+        name: "L.N.D. College, Motihari",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "sns-college-motihari": {
+        name: "S.N.S. College, Motihari",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "dr-sks-womens-college-motihari": {
+        name: "Dr. S.K.S. Women's College, Motihari",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "jlnm-college-ghorasahan": {
+        name: "J.L.N.M. College, Ghorasahan",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "kctc-college-raxaul": {
+        name: "K.C.T.C. College, Raxaul",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "srap-college-barachakia": {
+        name: "S.R.A.P. College, Barachakia",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "mssg-college-areraj": {
+        name: "M.S.S.G. College, Areraj",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rlsy-college-bettiah": {
+        name: "R.L.S.Y. College, Bettiah",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "mjk-college-bettiah": {
+        name: "M.J.K. College, Bettiah",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "tp-verma-college-narkatiaganj": {
+        name: "T.P. Verma College, Narkatiaganj",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rn-college-hajipur": {
+        name: "R.N. College, Hajipur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "ln-college-bhagwanpur": {
+        name: "L.N. College, Bhagwanpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "bmd-college-dayalpur": {
+        name: "B.M.D. College, Dayalpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "jamuni-lal-college-hajipur": {
+        name: "Jamuni Lal College, Hajipur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "deo-chand-college-hajipur": {
+        name: "Deo Chand College, Hajipur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "rps-college-chakeyaj": {
+        name: "R.P.S. College, Chakeyaj",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "samta-college-jandaha": {
+        name: "Samta College, Jandaha",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "vaishali-mahila-college-hajipur": {
+        name: "Vaishali Mahila College, Hajipur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "sub-divisional-govt-degree-college-sheohar": {
+        name: "Sub Divisional Govt. Degree College, Sheohar",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "sub-divisional-govt-degree-college-pakridayal": {
+        name: "Sub Divisional Govt. Degree College, Pakridayal",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "sub-divisional-govt-degree-college-bagaha": {
+        name: "Sub Divisional Govt. Degree College, Bagaha",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "dr-jagarnath-mishra-college-muzaffarpur": {
+        name: "Dr. Jagarnath Mishra College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "syamnandan-sahay-college-muzaffarpur": {
+        name: "Syamnandan Sahay College, Muzaffarpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "pt-yamuna-karji-college-bagahi-kharauna-dholi": {
+        name: "Pt. Yamuna Karji College, Bagahi Kharauna Dholi",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "ramshresta-singh-college-chochhan-belsar": {
+        name: "Ramshresta Singh College, Chochhan Belsar",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "jawahar-lal-nehru-memorial-college-nawahi-sursand": {
+        name: "Jawahar Lal Nehru Memorial College, Nawahi Sursand",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "awadh-bihari-singh-college-lalganj": {
+        name: "Awadh Bihari Singh College, Lalganj",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "virchand-patel-smarak-college-desri": {
+        name: "Virchand Patel Smarak College, Desri",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "nirsu-narayan-college-singhara": {
+        name: "Nirsu Narayan College, Singhara",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "akshaywat-college-mahua": {
+        name: "Akshaywat College, Mahua",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "sns-college-hajipur": {
+        name: "S.N.S. College, Hajipur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "pt-ugam-pandey-college-motihari": {
+        name: "Pt. Ugam Pandey College, Motihari",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "pt-uma-shankar-tiwari-mahila-college-bagaha": {
+        name: "Pt. Uma Shankar Tiwari Mahila College, Bagaha",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "giridharan-mishra-hari-shankar-pathak-college-bagaha": {
+        name: "Giridharan Mishra Hari Shankar Pathak College, Bagaha",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "maheshwarnath-mahamaya-mahila-college-bettiah": {
+        name: "Maheshwarnath Mahamaya Mahila College, Bettiah",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "dr-ram-balak-rai-college-hajipur": {
+        name: "Dr. Ram Balak Rai College, Hajipur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "ram-sharan-rai-college-panapur-makkanpur": {
+        name: "Ram Sharan Rai College, Panapur Makkanpur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "chaurasia-raj-kishore-degree-college-hajipur": {
+        name: "Chaurasia Raj Kishore Degree College, Hajipur",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "baba-bhootnath-mahavidyalay-bagaha": {
+        name: "Baba Bhootnath Mahavidyalay, Bagaha",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      },
+      "priya-rani-rai-degree-college-bairgania": {
+        name: "Priya Rani Rai Degree College, Bairgania",
+        departments: {
+          BA: ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"],
+          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
+          BCom: ["Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        }
+      }
+    }
   }
 };

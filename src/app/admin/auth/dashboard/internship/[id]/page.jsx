@@ -422,7 +422,16 @@ export default function InternshipEditPage() {
           domain: internship.domain || "Full Stack Development",
           internshipType: internship.internshipType || "Full-Time",
           mode: internship.mode || "Hybrid",
-          duration: internship.duration || "1-month",
+          duration: (() => {
+            const raw = internship.duration;
+            if (!raw) return "2 Weeks";
+            const lower = raw.toLowerCase().replace(/[^a-z0-9]/g, "");
+            if (lower.startsWith("2")) return "2 Weeks";
+            if (lower.startsWith("4")) return "4 Weeks";
+            if (lower.startsWith("6")) return "6 Weeks";
+            if (lower.startsWith("8")) return "8 Weeks";
+            return "2 Weeks";
+          })(),
           status: internship.status || "Draft",
           company: internship.company || "Kpinterns",
           createdBy: (internship.createdBy && internship.createdBy !== "admin")

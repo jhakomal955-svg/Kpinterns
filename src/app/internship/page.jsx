@@ -41,22 +41,8 @@ const DEPARTMENTS_BY_DEGREE = {
     "Nursing",
     "Forensic Science",
   ],
-  BA: [
-    "Humanities",
-    "Social Sciences",
-    "Languages",
-    "Arts & Media",
-    "Vocational/Applied",
-  ],
-  BCom: [
-    "Accounting & Finance",
-    "Business Administration",
-    "Banking & Insurance",
-    "Taxation",
-    "Economics",
-    "Sales & Marketing",
-    "Computer Applications",
-  ],
+  BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"],
+  BCom: ["Commerce","Accounting & Finance","Business Administration","Banking & Insurance","Taxation","Economics","Sales & Marketing","Computer Applications"],
 };
 
 // All departments (for when no degree is selected)
@@ -81,22 +67,34 @@ const ALL_DEPARTMENTS = [
   "Agriculture",
   "Nursing",
   "Forensic Science",
-  "Humanities",
-  "Social Sciences",
-  "Languages",
-  "Arts & Media",
-  "Vocational/Applied",
+  "Arts",
+  "Ancient indian history",
+  "Anthropology",
+  "Bojpuri",
+  "Economics",
+  "English",
+  "Geography",
+  "History",
+  "Political Science",
+  "Psychology",
+  "Sociology",
+  "Urdu",
+  "Maithili",
+  "Hindi",
+  "Sanskrit",
+  "Music",
+  "Rural Economics",
+  "Commerce",
   "Accounting & Finance",
   "Business Administration",
   "Banking & Insurance",
   "Taxation",
-  "Economics",
   "Sales & Marketing",
   "Computer Applications",
   "General Teacher Training",
   "Civil Law",
   "Criminal Law",
-  "Corporate Law",
+  "Corporate Law"
 ];
 
 const DOMAINS_BY_DEPARTMENT = {
@@ -218,25 +216,6 @@ const DOMAINS_BY_DEPARTMENT = {
   "Computer Applications": [
     "Full Stack Development", "Frontend Development", "Backend Development",
     "Mobile App Development", "UI/UX Design", "Other Tech",
-  ],
-  "Humanities": [
-    "Content Writing", "Journalism & Media", "Public Relations",
-    "Event Management", "Social Work & NGO", "Other Humanities",
-  ],
-  "Social Sciences": [
-    "Public Policy Research", "Community Development", "Social Work & NGO",
-    "Other Social Sciences",
-  ],
-  "Languages": [
-    "Translation & Interpretation", "Teaching & Tutoring", "Content Writing",
-    "Journalism & Media", "Other Languages",
-  ],
-  "Arts & Media": [
-    "Graphic Design", "Photography & Videography", "Animation & VFX",
-    "Film Production", "UI/UX Design", "Other Media",
-  ],
-  "Vocational/Applied": [
-    "Tourism & Hospitality", "Retail Management", "Other Vocational",
   ],
 };
 
@@ -708,7 +687,7 @@ export default function InternshipsPage() {
                           <div className="flex flex-col">
                             <span className="text-xs text-text-muted uppercase font-bold tracking-wider">Registration Fee</span>
                             <span className="text-lg font-black text-text-main">
-                              {internship.RegistrationFee?.amount ? `₹${internship.RegistrationFee.amount}` : "Free"}
+                              {internship.RegistrationFee?.amount ? `Free` : "Free"}
                             </span>
                           </div>
 

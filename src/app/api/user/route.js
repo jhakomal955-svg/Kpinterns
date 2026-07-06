@@ -95,8 +95,8 @@ export async function GET(request) {
   try {
     await connectDB();
 
-    // Authenticate Admin, College Admin, or User
-    const auth = verifyAuth(request, ["Admin", "College Admin", "User"]);
+    // Authenticate Admin, College Admin, Instructor, or User
+    const auth = verifyAuth(request, ["Admin", "College Admin", "Instructor", "User"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }
@@ -167,7 +167,7 @@ export async function GET(request) {
       // Lazy link any missing Attendance docs on the freshUser
       let hasAttendanceChanges = false;
       for (const item of freshUser.ActiveInternship || []) {
-        if (!item.attendance && item.internship) {
+        if (!item.attendance && item.internship && item.internshipStatus !== "Completed") {
           const newAtt = new Attendance({
             user: freshUser._id,
             internship: item.internship._id || item.internship,
@@ -190,7 +190,7 @@ export async function GET(request) {
       return Response.json({ success: true, data: userObj }, { status: 200 });
     } else {
       // Block non-authorized users from listing all users
-      if (auth.user.role !== "Admin" && auth.user.role !== "College Admin") {
+      if (auth.user.role !== "Admin" && auth.user.role !== "College Admin" && auth.user.role !== "Instructor") {
         return Response.json({ error: "Access denied: insufficient permissions to list all users." }, { status: 403 });
       }
 

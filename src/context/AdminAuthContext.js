@@ -61,8 +61,8 @@ export function AdminAuthProvider({ children }) {
             const res = await fetch("/api/auth/verify", {
               headers: { "Authorization": `Bearer ${token}` }
             });
-            const result = await res.json();
-            if (!result.success) {
+
+            const handleVerificationFailure = () => {
               localStorage.removeItem("adminToken");
               localStorage.removeItem("adminData");
               setAdmin(null);
@@ -70,6 +70,21 @@ export function AdminAuthProvider({ children }) {
               if (isAdminProtectedRoute) {
                 router.push("/admin/auth/login");
               }
+            };
+
+            if (res.status === 401) {
+              handleVerificationFailure();
+              return;
+            }
+
+            const contentType = res.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+              const result = await res.json();
+              if (!result.success) {
+                handleVerificationFailure();
+              }
+            } else {
+              console.warn("Admin verify response was not JSON:", res.status);
             }
           } catch (e) {
             console.error("Admin session verification error:", e);

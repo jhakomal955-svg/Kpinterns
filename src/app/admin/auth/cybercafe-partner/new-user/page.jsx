@@ -51,6 +51,7 @@ export default function RegisterPage() {
     mode: "",
     universityCustom: "",
     collegeCustom: "",
+    consent_letter: "",
     // Security
     password: "",
     confirmPassword: "",
@@ -70,6 +71,45 @@ export default function RegisterPage() {
   const [otpCooldown, setOtpCooldown] = useState(0);
   const [otpError, setOtpError] = useState("");
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
+
+  const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
+
+  const handleConsentLetterUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const validTypes = ["application/pdf", "image/jpeg", "image/png", "image/webp"];
+    if (!validTypes.includes(file.type)) {
+      alert("Invalid file format. Please upload a PDF or an image (JPEG, PNG, WEBP).");
+      return;
+    }
+
+    setUploadingConsentLetter(true);
+    try {
+      const payload = new FormData();
+      payload.append("file", file);
+
+      const response = await fetch("/api/cloudinary?public=true", {
+        method: "POST",
+        body: payload,
+      });
+
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setFormData((prev) => ({
+          ...prev,
+          consent_letter: data.data.secure_url,
+        }));
+      } else {
+        alert(data.error || "Failed to upload file. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error uploading consent letter:", err);
+      alert("An error occurred during file upload.");
+    } finally {
+      setUploadingConsentLetter(false);
+    }
+  };
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -421,34 +461,11 @@ export default function RegisterPage() {
         "Chemical Engineering",
       ];
     } else if (deg === "BA") {
-      return ["Humanities", "Social Sciences", "Languages", "Arts & Media", "Vocational/Applied"];
+      return ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"];
     } else if (deg === "Bsc" || deg === "BSc") {
-      return [
-        "Physics",
-        "Chemistry",
-        "Mathematics",
-        "Statistics",
-        "Botany",
-        "Zoology",
-        "Microbiology",
-        "Biotechnology",
-        "Biochemistry",
-        "Computer Science",
-        "Data Science",
-        "Agriculture",
-        "Nursing",
-        "Forensic Science",
-      ];
+      return ["Physics","Chemistry","Mathematics","Statistics","Botany","Zoology","Microbiology","Biotechnology","Biochemistry","Computer Science","Data Science","Agriculture","Nursing","Forensic Science"];
     } else if (deg === "Bcom" || deg === "BCom") {
-      return [
-        "Accounting & Finance",
-        "Business Administration",
-        "Banking & Insurance",
-        "Taxation",
-        "Economics",
-        "Sales & Marketing",
-        "Computer Applications",
-      ];
+      return ["Commerce","Accounting & Finance","Business Administration","Banking & Insurance","Taxation","Economics","Sales & Marketing","Computer Applications"];
     }
     return [];
   };
@@ -1275,6 +1292,45 @@ export default function RegisterPage() {
                     </div>
                   </>
                 )}
+
+                {/* Consent Letter Section */}
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Upload Consent Letter (Optional)
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={handleConsentLetterUpload}
+                      className="hidden"
+                      id="consent-letter-upload"
+                    />
+                    <label
+                      htmlFor="consent-letter-upload"
+                      className="px-4 py-2.5 bg-bg-main border-2 border-dashed border-border-main hover:border-brand-primary text-text-muted hover:text-brand-primary rounded-xl cursor-pointer transition flex items-center gap-2 text-sm font-semibold"
+                    >
+                      📁 {formData.consent_letter ? "Change Consent Letter" : "Choose PDF/Image"}
+                    </label>
+                    {uploadingConsentLetter && (
+                      <div className="w-5 h-5 border-2 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
+                    )}
+                    {formData.consent_letter && (
+                      <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 rounded-xl">
+                        <span className="text-emerald-500 font-bold text-xs">✓ Uploaded</span>
+                        <a
+                          href={formData.consent_letter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-brand-primary hover:underline font-semibold"
+                        >
+                          View Document
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
               </div>
             </div>
           )}

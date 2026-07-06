@@ -71,6 +71,16 @@ export default function InternshipDetailLearnPage() {
     message: "",
   });
 
+  const [submissionText, setSubmissionText] = useState("");
+  const [submissionFileUrl, setSubmissionFileUrl] = useState("");
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const [submittingAssignment, setSubmittingAssignment] = useState(false);
+
+  useEffect(() => {
+    setSubmissionText("");
+    setSubmissionFileUrl("");
+  }, [selectedMilestoneIndex]);
+
   const userInternshipData = userData?.ActiveInternship?.find(
     (i) => (i.internship?._id || i.internship) === internshipId
   );
@@ -109,6 +119,75 @@ export default function InternshipDetailLearnPage() {
       alert("An error occurred while updating your progress.");
     } finally {
       setIsUpdatingProgress(false);
+    }
+  };
+
+  const handleAssignmentFileChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingFile(true);
+    try {
+      const fData = new FormData();
+      fData.append("file", file);
+      const token = localStorage.getItem("userToken");
+      const res = await fetch("/api/cloudinary", {
+        method: "POST",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {},
+        body: fData,
+      });
+      const result = await res.json();
+      if (res.ok && result.success) {
+        setSubmissionFileUrl(result.data.secure_url);
+        alert("File uploaded successfully!");
+      } else {
+        alert(result.error || "Failed to upload file");
+      }
+    } catch (err) {
+      console.error("Error uploading assignment file:", err);
+      alert("Failed to upload file");
+    } finally {
+      setUploadingFile(false);
+    }
+  };
+
+  const handleAssignmentSubmit = async (moduleId) => {
+    if (!internshipId || !moduleId) return;
+
+    setSubmittingAssignment(true);
+    try {
+      const token = localStorage.getItem("userToken");
+      const res = await fetch("/api/internship/submit-assignment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          internshipId,
+          moduleId,
+          submissionText,
+          fileUrl: submissionFileUrl,
+        }),
+      });
+
+      const result = await res.json();
+      if (res.ok && result.success && result.data) {
+        setUserData(result.data);
+        localStorage.setItem("userData", JSON.stringify(result.data));
+        setSuccessModal({
+          isOpen: true,
+          title: "Success",
+          message: "Assignment submitted successfully!",
+        });
+      } else {
+        alert(result.error || "Failed to submit assignment");
+      }
+    } catch (err) {
+      console.error("Error submitting assignment:", err);
+      alert("An error occurred while submitting your assignment.");
+    } finally {
+      setSubmittingAssignment(false);
     }
   };
 
@@ -696,6 +775,201 @@ export default function InternshipDetailLearnPage() {
                             🔗 External Reference Link
                           </a>
                         )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Assignment Area */}
+                  {currentMilestone.assignmentTitle && (
+                    <div className="pt-8 border-t border-border-main space-y-5">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xl">📋</span>
+                        <h4 className="text-sm font-bold uppercase tracking-wider text-text-muted">
+                          Milestone Assignment Project
+                        </h4>
+                      </div>
+                      
+                      <div className="bg-gradient-to-br from-bg-card to-bg-card/70 border border-border-main/80 rounded-2xl p-6 shadow-md space-y-5">
+                        <div className="space-y-2">
+                          <h5 className="text-lg font-bold text-text-main font-poppins tracking-tight">
+                            {currentMilestone.assignmentTitle}
+                          </h5>
+                          <p className="text-text-muted text-sm sm:text-base leading-relaxed whitespace-pre-wrap">
+                            {currentMilestone.assignmentDesc || "Follow the guidelines above to complete this assignment."}
+                          </p>
+                        </div>
+
+                        {currentMilestone.assignmentFileUrl && (
+                          <div className="pt-1">
+                            <a
+                              href={currentMilestone.assignmentFileUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2.5 text-xs font-bold text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-indigo-500/20 transform hover:-translate-y-0.5 transition duration-200"
+                            >
+                              <span>📥</span> Download Assignment Guidelines (PDF)
+                            </a>
+                          </div>
+                        )}
+
+                        {/* Check if student has already submitted */}
+                        {(() => {
+                          const submission = userInternshipData?.assignments?.find(
+                            (a) => a.moduleId === currentMilestone._id.toString()
+                          );
+
+                          if (submission) {
+                            return (
+                              <div className="mt-6 pt-6 border-t border-border-main/60 space-y-4">
+                                <div className="flex items-center justify-between flex-wrap gap-2">
+                                  <span className="text-xs font-extrabold text-text-muted uppercase tracking-wider">Your Submission</span>
+                                  <span className={`text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5 ${
+                                    submission.status === "Graded"
+                                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                                      : "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 animate-pulse"
+                                  }`}>
+                                    {submission.status === "Graded" ? (
+                                      <>
+                                        <span>🏆</span> Graded
+                                      </>
+                                    ) : (
+                                      <>
+                                        <span className="inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                                        Pending Evaluation
+                                      </>
+                                    )}
+                                  </span>
+                                </div>
+
+                                {submission.submittedText && (
+                                  <div className="p-4 bg-bg-main/60 rounded-xl border border-border-main text-sm text-text-main whitespace-pre-wrap leading-relaxed">
+                                    {submission.submittedText}
+                                  </div>
+                                )}
+
+                                {submission.fileUrl && (
+                                  <div className="pt-1">
+                                    <a
+                                      href={submission.fileUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center gap-2 text-xs font-bold text-brand-primary bg-brand-primary/10 hover:bg-brand-primary/20 px-4 py-2 rounded-lg border border-brand-primary/20 transition"
+                                    >
+                                      📄 View Submitted Attachment File
+                                    </a>
+                                  </div>
+                                )}
+
+                                <div className="text-[10px] text-text-muted flex items-center gap-1">
+                                  <span>📅</span> Submitted on: {new Date(submission.submittedAt).toLocaleString()}
+                                </div>
+
+                                {submission.status === "Graded" && (
+                                  <div className="mt-4 p-5 bg-gradient-to-br from-brand-primary/10 to-brand-primary/5 border border-brand-primary/20 rounded-2xl space-y-3">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-2">
+                                        <span className="text-lg">⭐</span>
+                                        <span className="text-xs font-extrabold text-brand-primary uppercase tracking-wider">Evaluation Grade:</span>
+                                      </div>
+                                      <span className="text-lg font-black text-brand-primary">{submission.marks} / 10</span>
+                                    </div>
+                                    {submission.feedback && (
+                                      <div className="pt-2 border-t border-brand-primary/10">
+                                        <p className="text-xs font-semibold text-text-muted italic leading-relaxed">
+                                          " {submission.feedback} "
+                                        </p>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }
+
+                          return (
+                            <div className="mt-6 pt-6 border-t border-border-main/60 space-y-5">
+                              <div className="space-y-1">
+                                <span className="text-xs font-extrabold text-text-muted uppercase tracking-wider block">Submit Work Solution</span>
+                                <p className="text-xs text-text-muted">Fill out the fields below to submit your milestone project for evaluation.</p>
+                              </div>
+
+                              <div className="space-y-2">
+                                <label className="block text-xs font-bold text-text-main">
+                                  Submission Notes / Links
+                                </label>
+                                <textarea
+                                  value={submissionText}
+                                  onChange={(e) => setSubmissionText(e.target.value)}
+                                  placeholder="Provide descriptive explanations or paste your active hosting/repository links (e.g. GitHub URL)..."
+                                  rows="4"
+                                  className="w-full p-4 bg-bg-main border-2 border-border-main rounded-xl text-sm outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/15 transition font-sans"
+                                />
+                              </div>
+
+                              <div className="space-y-2">
+                                <label className="block text-xs font-bold text-text-main">
+                                  Solution File Attachment (Zip, PDF, or screenshots)
+                                </label>
+                                
+                                <div className="relative">
+                                  <input
+                                    type="file"
+                                    id="assignment-file"
+                                    onChange={handleAssignmentFileChange}
+                                    className="hidden"
+                                    disabled={uploadingFile}
+                                  />
+                                  <label
+                                    htmlFor="assignment-file"
+                                    className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-2xl cursor-pointer transition duration-200 bg-bg-main/50 hover:bg-bg-main ${
+                                      submissionFileUrl 
+                                        ? "border-emerald-500/50 bg-emerald-500/5" 
+                                        : uploadingFile 
+                                          ? "border-brand-primary/50 animate-pulse" 
+                                          : "border-border-main/80 hover:border-brand-primary"
+                                    }`}
+                                  >
+                                    <div className="space-y-2 text-center flex flex-col items-center">
+                                      {uploadingFile ? (
+                                        <>
+                                          <div className="w-8 h-8 border-3 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
+                                          <span className="text-xs font-bold text-brand-primary">Uploading your file to Cloudinary...</span>
+                                        </>
+                                      ) : submissionFileUrl ? (
+                                        <>
+                                          <span className="text-2xl text-emerald-500">✓</span>
+                                          <span className="text-xs font-bold text-emerald-500">File Attached Successfully!</span>
+                                          <span className="text-[10px] text-text-muted font-mono">{submissionFileUrl.split("/").pop()}</span>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <span className="text-3xl text-text-muted">☁️</span>
+                                          <span className="text-xs font-bold text-text-main">Drag file here or click to browse</span>
+                                          <span className="text-[10px] text-text-muted font-medium">Supports ZIP, PDF, PNG, JPG (Max 100MB)</span>
+                                        </>
+                                      )}
+                                    </div>
+                                  </label>
+                                </div>
+                              </div>
+
+                              <button
+                                onClick={() => handleAssignmentSubmit(currentMilestone._id)}
+                                disabled={submittingAssignment || (!submissionText.trim() && !submissionFileUrl)}
+                                className="w-full py-3.5 bg-gradient-to-r from-brand-primary to-brand-primary/90 hover:from-brand-primary/95 hover:to-brand-primary text-white text-sm font-bold rounded-xl shadow-md hover:shadow-lg hover:shadow-brand-primary/10 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                              >
+                                {submittingAssignment ? (
+                                  <div className="flex items-center justify-center gap-2">
+                                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                    <span>Submitting for Evaluation...</span>
+                                  </div>
+                                ) : (
+                                  "Submit Assignment Project"
+                                )}
+                              </button>
+                            </div>
+                          );
+                        })()}
                       </div>
                     </div>
                   )}

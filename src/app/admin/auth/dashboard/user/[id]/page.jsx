@@ -238,6 +238,7 @@ export default function UserEditPage() {
     semester: "",
     session: "",
     registrationNumber: "",
+    consent_letter: "",
     password: "",
     ActiveInternship: [],
     ActiveCources: [],
@@ -246,6 +247,19 @@ export default function UserEditPage() {
   const [selectedIntId, setSelectedIntId] = useState("");
   const [attendanceInfo, setAttendanceInfo] = useState(null);
   const [attendanceLoading, setAttendanceLoading] = useState(false);
+
+  const [selectedGradeIntId, setSelectedGradeIntId] = useState("");
+  const [gradingAssignmentModuleId, setGradingAssignmentModuleId] = useState("");
+  const [gradingMarks, setGradingMarks] = useState("");
+  const [gradingFeedback, setGradingFeedback] = useState("");
+  const [gradingSubmitting, setGradingSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (activeTab === "assignments" && formData.ActiveInternship?.length > 0 && !selectedGradeIntId) {
+      const firstInt = formData.ActiveInternship[0];
+      setSelectedGradeIntId(firstInt.internship?._id || firstInt.internship);
+    }
+  }, [activeTab, formData.ActiveInternship, selectedGradeIntId]);
 
   const fetchAttendance = async (intId) => {
     if (!intId || !userId) return;
@@ -304,6 +318,50 @@ export default function UserEditPage() {
     } catch (err) {
       console.error(err);
       alert("Error saving attendance record");
+    }
+  };
+
+  const handleSaveGrade = async (moduleId) => {
+    if (!userId || !selectedGradeIntId || !moduleId || gradingMarks === "") {
+      alert("Please enter marks to grade");
+      return;
+    }
+
+    setGradingSubmitting(true);
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const res = await fetch("/api/internship/grade-assignment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          userId,
+          internshipId: selectedGradeIntId,
+          moduleId,
+          marks: Number(gradingMarks),
+          feedback: gradingFeedback,
+        }),
+      });
+      const result = await res.json();
+      if (res.ok && result.success && result.data) {
+        alert("Assignment graded successfully!");
+        setGradingAssignmentModuleId("");
+        setGradingMarks("");
+        setGradingFeedback("");
+        setFormData(prev => ({
+          ...prev,
+          ActiveInternship: result.data.ActiveInternship || [],
+        }));
+      } else {
+        alert(result.error || "Failed to grade assignment");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error grading assignment");
+    } finally {
+      setGradingSubmitting(false);
     }
   };
 
@@ -383,6 +441,7 @@ export default function UserEditPage() {
           semester: u.semester || "",
           session: u.session || "",
           registrationNumber: u.registrationNumber || "",
+          consent_letter: u.consent_letter || "",
           password: "", // Hide password for security
           ActiveInternship: u.ActiveInternship || [],
           ActiveCources: u.ActiveCources || [],
@@ -600,6 +659,19 @@ export default function UserEditPage() {
               Attendance Logs
             </button>
           )}
+          {isEditing && (
+            <button
+              type="button"
+              onClick={() => setActiveTab("assignments")}
+              className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
+                activeTab === "assignments"
+                  ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
+                  : "border-transparent text-text-muted hover:text-text-main"
+              }`}
+            >
+              Assignments
+            </button>
+          )}
         </div>
 
         {/* Tab 1: Personal Info */}
@@ -798,6 +870,14 @@ export default function UserEditPage() {
                   onChange={handleInputChange}
                   placeholder="e.g. 2024-2025"
                   className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                />
+              </div>
+              <div className="md:col-span-4 pt-4 border-t border-border-main/50">
+                <BeautifulFileUploader
+                  label="Consent Letter (PDF or Image)"
+                  value={formData.consent_letter}
+                  onChange={(url) => setFormData(prev => ({ ...prev, consent_letter: url }))}
+                  onRemove={() => setFormData(prev => ({ ...prev, consent_letter: "" }))}
                 />
               </div>
             </div>
@@ -1526,6 +1606,245 @@ export default function UserEditPage() {
                 Failed to load attendance records.
               </p>
             )}
+          </div>
+        )}
+
+        {/* Tab 5: Assignments Grading */}
+        {activeTab === "assignments" && isEditing && (
+          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+              5. Student Assignments & Grading
+            </h3>
+
+            {/* Select Enrolled Internship */}
+            <div>
+              <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Select Internship Program</label>
+              <select
+                value={selectedGradeIntId}
+                onChange={(e) => setSelectedGradeIntId(e.target.value)}
+                className="w-full sm:w-1/2 p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none font-semibold text-text-main"
+              >
+                <option value="" disabled>-- Select Program --</option>
+                {(formData.ActiveInternship || []).map((item, index) => {
+                  const intDetails = allInternships.find(i => i._id === (item.internship?._id || item.internship));
+                  return (
+                    <option key={index} value={item.internship?._id || item.internship}>
+                      {intDetails?.title || "Internship Reference"}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            {!selectedGradeIntId ? (
+              <p className="text-sm text-text-muted italic bg-bg-main p-4 rounded-xl text-center">
+                Select an active internship program above to view and grade student assignments.
+              </p>
+            ) : (() => {
+              const enrollment = formData.ActiveInternship?.find(
+                (item) => (item.internship?._id || item.internship) === selectedGradeIntId
+              );
+              const intDetails = allInternships.find((i) => i._id === selectedGradeIntId);
+              const modules = intDetails?.content || [];
+
+              if (modules.length === 0) {
+                return (
+                  <p className="text-sm text-text-muted italic bg-bg-main p-4 rounded-xl text-center">
+                    This internship has no coursework content modules uploaded.
+                  </p>
+                );
+              }
+
+              return (
+                <div className="space-y-4">
+                  <span className="text-xs font-bold text-text-muted uppercase tracking-wider block">
+                    Coursework Assignment Modules ({modules.length})
+                  </span>
+
+                  <div className="space-y-4">
+                    {modules.map((mod, idx) => {
+                      const submission = enrollment?.assignments?.find(
+                        (a) => a.moduleId === mod._id.toString()
+                      );
+
+                      const isCurrentlyGrading = gradingAssignmentModuleId === mod._id.toString();
+
+                      return (
+                        <div
+                          key={mod._id}
+                          className="bg-bg-card border border-border-main/80 rounded-2xl p-6 shadow-sm space-y-4"
+                        >
+                          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-border-main/50">
+                            <div>
+                              <span className="text-[10px] text-text-muted font-bold uppercase tracking-wider block">Module {idx + 1}</span>
+                              <h4 className="text-base font-bold text-text-main font-poppins">{mod.title}</h4>
+                            </div>
+                            <div>
+                              {mod.assignmentTitle ? (
+                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                  submission
+                                    ? submission.status === "Graded"
+                                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                                      : "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
+                                    : "bg-bg-main text-text-muted border border-border-main"
+                                }`}>
+                                  {submission
+                                    ? submission.status === "Graded"
+                                      ? `🏆 Graded: ${submission.marks}/10`
+                                      : "⏳ Submitted - Review Pending"
+                                    : "📝 No Submission"}
+                                </span>
+                              ) : (
+                                <span className="px-3 py-1 rounded-full text-xs font-semibold text-text-muted bg-bg-main border border-border-main">
+                                  No Assignment
+                                </span>
+                              )}
+                            </div>
+                          </div>
+
+                          {mod.assignmentTitle && (
+                            <div className="text-xs text-text-muted space-y-2 bg-bg-main/50 p-4 rounded-xl border border-border-main/60">
+                              <span className="font-bold text-text-main">Assignment Task: {mod.assignmentTitle}</span>
+                              <p className="leading-relaxed">{mod.assignmentDesc || "No details provided."}</p>
+                              {mod.assignmentFileUrl && (
+                                <div className="pt-1">
+                                  <a
+                                    href={mod.assignmentFileUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-brand-secondary hover:underline font-bold"
+                                  >
+                                    📄 Download Assignment Brief Attachment
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {submission ? (
+                            <div className="space-y-4 pt-2">
+                              <div className="space-y-2">
+                                <span className="text-xs font-bold text-text-muted uppercase tracking-wider block">Student Submission Info</span>
+                                {submission.submittedText && (
+                                  <div className="p-4 bg-bg-main/30 rounded-xl border border-border-main text-sm text-text-main whitespace-pre-wrap leading-relaxed">
+                                    {submission.submittedText}
+                                  </div>
+                                )}
+                                {submission.fileUrl && (
+                                  <div className="pt-1">
+                                    <a
+                                      href={submission.fileUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center gap-2 text-xs font-bold text-brand-primary bg-brand-primary/10 px-4 py-2 rounded-xl border border-brand-primary/20 hover:bg-brand-primary/20 transition"
+                                    >
+                                      📥 Download Submission File Attachment
+                                    </a>
+                                  </div>
+                                )}
+                                <p className="text-[10px] text-text-muted">
+                                  📅 Submitted at: {new Date(submission.submittedAt).toLocaleString()}
+                                </p>
+                              </div>
+
+                              {submission.status === "Graded" && !isCurrentlyGrading && (
+                                <div className="p-5 bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-2xl space-y-2">
+                                  <div className="flex items-center justify-between font-bold text-emerald-700 dark:text-emerald-400 text-sm">
+                                    <span className="flex items-center gap-1.5">🏆 Grade Score:</span>
+                                    <span>{submission.marks} / 10</span>
+                                  </div>
+                                  {submission.feedback && (
+                                    <p className="text-xs text-text-muted italic leading-relaxed pt-1.5 border-t border-emerald-500/10">
+                                      Instructor Feedback: "{submission.feedback}"
+                                    </p>
+                                  )}
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setGradingAssignmentModuleId(mod._id.toString());
+                                      setGradingMarks(submission.marks.toString());
+                                      setGradingFeedback(submission.feedback || "");
+                                    }}
+                                    className="text-xs text-brand-primary font-bold hover:underline block pt-2 cursor-pointer"
+                                  >
+                                    ✏️ Edit Score / Feedback Comments
+                                  </button>
+                                </div>
+                              )}
+
+                              {(!submission.status || submission.status !== "Graded" || isCurrentlyGrading) && (
+                                <div className="p-5 bg-gradient-to-br from-brand-primary/10 to-brand-primary/5 border border-brand-primary/20 rounded-2xl space-y-4">
+                                  <span className="text-xs font-bold text-brand-primary uppercase tracking-wider block">
+                                    {isCurrentlyGrading ? "✏️ Update Assignment Evaluation" : "📝 Evaluate Student Solution"}
+                                  </span>
+
+                                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div>
+                                      <label className="block text-[10px] font-bold text-text-muted uppercase mb-1.5">
+                                        Evaluation Score (0 - 10)
+                                      </label>
+                                      <input
+                                        type="number"
+                                        min="0"
+                                        max="10"
+                                        value={gradingMarks}
+                                        onChange={(e) => setGradingMarks(e.target.value)}
+                                        placeholder="e.g. 9"
+                                        className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl outline-none focus:border-brand-primary text-xs font-bold text-text-main"
+                                      />
+                                    </div>
+                                    <div className="sm:col-span-2">
+                                      <label className="block text-[10px] font-bold text-text-muted uppercase mb-1.5">
+                                        Feedback Comments for student
+                                      </label>
+                                      <input
+                                        type="text"
+                                        value={gradingFeedback}
+                                        onChange={(e) => setGradingFeedback(e.target.value)}
+                                        placeholder="Good grid structure, correct implementation of flexbox rules..."
+                                        className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl outline-none focus:border-brand-primary text-xs text-text-main"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="flex gap-2">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleSaveGrade(mod._id.toString())}
+                                      disabled={gradingSubmitting || gradingMarks === ""}
+                                      className="px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/95 text-white text-xs font-bold rounded-xl shadow-md disabled:opacity-50 transition cursor-pointer"
+                                    >
+                                      {gradingSubmitting ? "Saving Score..." : "Submit Grade Evaluation"}
+                                    </button>
+                                    {isCurrentlyGrading && (
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setGradingAssignmentModuleId("");
+                                          setGradingMarks("");
+                                          setGradingFeedback("");
+                                        }}
+                                        className="px-5 py-2.5 bg-bg-main border border-border-main text-text-muted hover:text-text-main text-xs font-bold rounded-xl transition cursor-pointer"
+                                      >
+                                        Cancel
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ) : mod.assignmentTitle ? (
+                            <p className="text-xs text-text-muted italic bg-bg-main/50 p-4 rounded-xl border border-border-main/55 text-center">
+                              No assignment submission received from student for this module yet.
+                            </p>
+                          ) : null}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         )}
 

@@ -72,6 +72,10 @@ const UserModel = {
     unique: true,
     trim: true,
   },
+  consent_letter:{
+   type:String,
+   default:""
+  },
 
   // Internship Information
   ActiveInternship: [
@@ -92,6 +96,19 @@ const UserModel = {
       endDate: { type: Date },
       offerLetterUrl: { type: String },
       certificationUrl: { type: String },
+      attendanceCertificateUrl: { type: String },
+      attendanceRate: { type: String },
+      assignments: [
+        {
+          moduleId: { type: String, required: true },
+          submittedText: { type: String },
+          fileUrl: { type: String },
+          submittedAt: { type: Date, default: Date.now },
+          marks: { type: Number, default: null },
+          feedback: { type: String },
+          status: { type: String, enum: ["Submitted", "Graded"], default: "Submitted" },
+        }
+      ],
       completedModules: { type: [String], default: [] },
       testScore: { type: Number, default: null },
       testTaken: { type: Boolean, default: false },
@@ -135,7 +152,6 @@ const UserModel = {
     type: Boolean,
     default: false,
   },
-
   // Metadata
   createdAt: {
     type: Date,

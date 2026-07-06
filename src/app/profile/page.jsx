@@ -17,6 +17,71 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("personal");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [copiedCertId, setCopiedCertId] = useState(null);
+  const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
+
+  const handleProfileConsentLetterUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const validTypes = ["application/pdf", "image/jpeg", "image/png", "image/webp"];
+    if (!validTypes.includes(file.type)) {
+      alert("Invalid file format. Please upload a PDF or an image (JPEG, PNG, WEBP).");
+      return;
+    }
+
+    setUploadingConsentLetter(true);
+    try {
+      const token = localStorage.getItem("userToken");
+      const payload = new FormData();
+      payload.append("file", file);
+
+      const uploadRes = await fetch("/api/cloudinary", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        body: payload,
+      });
+
+      const uploadData = await uploadRes.json();
+      if (!uploadRes.ok || !uploadData.success) {
+        throw new Error(uploadData.error || "Failed to upload file to Cloudinary");
+      }
+
+      const consentLetterUrl = uploadData.data.secure_url;
+
+      const updateRes = await fetch(`/api/user?id=${profileData._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ consent_letter: consentLetterUrl }),
+      });
+
+      const updateData = await updateRes.json();
+      if (updateRes.ok && updateData.success) {
+        setProfileData((prev) => ({
+          ...prev,
+          consent_letter: consentLetterUrl,
+        }));
+        const stored = localStorage.getItem("userData");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          parsed.consent_letter = consentLetterUrl;
+          localStorage.setItem("userData", JSON.stringify(parsed));
+        }
+        alert("Consent letter updated successfully!");
+      } else {
+        alert(updateData.error || "Failed to save consent letter. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error updating consent letter:", err);
+      alert(err.message || "An error occurred during file upload.");
+    } finally {
+      setUploadingConsentLetter(false);
+    }
+  };
 
   const fetchUserData = async () => {
     try {
@@ -70,6 +135,8 @@ export default function ProfilePage() {
         progress: i.progress || 0,
         offerLetterUrl: i.offerLetterUrl || "",
         certificationUrl: i.certificationUrl || "",
+        attendanceCertificateUrl: i.attendanceCertificateUrl || "",
+        attendanceRate: i.attendanceRate || "",
         paymentReceipt: i.paymentreceipt || "",
         attendance: i.attendance || null,
         testScore: i.testScore,
@@ -134,6 +201,18 @@ export default function ProfilePage() {
   };
 
   const calculateAttendanceStats = (internship) => {
+    if (internship.status === "Completed" && internship.attendanceRate) {
+      const percentage = parseInt(internship.attendanceRate.replace("%", ""), 10) || 85;
+      return {
+        presentCount: Math.round(20 * (percentage / 100)),
+        leaveCount: 0,
+        absentCount: 20 - Math.round(20 * (percentage / 100)),
+        totalCalendarDays: 20,
+        percentage,
+        isMarkedToday: true,
+      };
+    }
+
     const records = internship.attendance?.records || [];
     const presentCount = records.filter(r => r.status === "Present").length;
     const explicitAbsentCount = records.filter(r => r.status === "Absent").length;
@@ -432,6 +511,59 @@ export default function ProfilePage() {
                   <InfoRow label="Mode" value={profileData.mode} />
                 </div>
               </div>
+
+              {/* Consent Letter */}
+              <div className="md:col-span-2 bg-bg-card dark:bg-bg-card rounded-2xl border border-border-main dark:border-border-main p-6 shadow-md hover:shadow-lg transition">
+                <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins mb-4 pb-4 border-b border-border-main dark:border-border-main flex items-center gap-2">
+                  <span>📁</span> College Consent Letter
+                </h3>
+                <p className="text-sm text-text-muted dark:text-text-muted font-poppins mb-6">
+                  You can upload your college consent letter here. Supported formats: PDF and images (JPEG, PNG, WEBP). This document is optional.
+                </p>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                  <div>
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={handleProfileConsentLetterUpload}
+                      className="hidden"
+                      id="profile-consent-letter-upload"
+                    />
+                    <label
+                      htmlFor="profile-consent-letter-upload"
+                      className="inline-block px-5 py-3 bg-bg-main border-2 border-dashed border-border-main hover:border-brand-primary text-text-muted hover:text-brand-primary rounded-xl cursor-pointer transition text-sm font-semibold text-center"
+                    >
+                      {uploadingConsentLetter ? (
+                        <span className="flex items-center gap-2 justify-center">
+                          <span className="w-4 h-4 border-2 border-brand-primary border-t-transparent rounded-full animate-spin"></span>
+                          Uploading...
+                        </span>
+                      ) : profileData.consent_letter ? (
+                        "Change Consent Letter"
+                      ) : (
+                        "Upload Consent Letter"
+                      )}
+                    </label>
+                  </div>
+                  {profileData.consent_letter ? (
+                    <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 px-4 py-2.5 rounded-xl">
+                      <span className="text-emerald-500 font-bold text-xs">✓ Consent Letter Uploaded</span>
+                      <a
+                        href={profileData.consent_letter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-brand-primary hover:underline font-semibold bg-brand-primary/10 px-3 py-1.5 rounded-lg"
+                      >
+                        View File
+                      </a>
+                    </div>
+                  ) : (
+                    <div className="text-amber-600 dark:text-amber-400 text-xs font-semibold px-4 py-2.5 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+                      ⚠️ No consent letter uploaded yet.
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
@@ -714,6 +846,16 @@ export default function ProfilePage() {
                               className="px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial"
                             >
                               <span>🏆</span> Certificate
+                            </a>
+                          )}
+                          {internship.attendanceCertificateUrl && (
+                            <a
+                              href={internship.attendanceCertificateUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial"
+                            >
+                              <span>📅</span> Attendance Sheet
                             </a>
                           )}
                           {internship.status === "Completed" && internship.reportPdfUrl && (

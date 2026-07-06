@@ -62,6 +62,8 @@ export default function InternshipEditPage() {
     pdfurl: "",
     imageurl: "",
     externalink: "",
+    assignmentTitle: "",
+    assignmentDesc: "",
   });
 
   const [currentUpdate, setCurrentUpdate] = useState({
@@ -636,6 +638,9 @@ export default function InternshipEditPage() {
       pdfurl: "",
       imageurl: "",
       externalink: "",
+      assignmentTitle: "",
+      assignmentDesc: "",
+      assignmentFileUrl: "",
     });
   };
 
@@ -669,6 +674,9 @@ export default function InternshipEditPage() {
       pdfurl: "",
       imageurl: "",
       externalink: "",
+      assignmentTitle: "",
+      assignmentDesc: "",
+      assignmentFileUrl: "",
     });
 
     setMessage(isEditMode ? "Content item updated successfully!" : "Content item added successfully!");
@@ -1396,6 +1404,97 @@ export default function InternshipEditPage() {
                   placeholder="https://example.com"
                   className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
                 />
+              </div>
+              <div className="pt-4 border-t border-border-main/50 space-y-4">
+                <h4 className="text-xs font-bold text-text-main uppercase tracking-wider">Assignment Details (Optional)</h4>
+                <div>
+                  <label className="block text-[10px] font-semibold text-text-muted mb-2 uppercase">Assignment Title</label>
+                  <input
+                    type="text"
+                    value={currentContentItem.assignmentTitle || ""}
+                    onChange={(e) => setCurrentContentItem((prev) => ({ ...prev, assignmentTitle: e.target.value }))}
+                    placeholder="e.g. Implement Responsive Grid Layout"
+                    className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-semibold text-text-muted mb-2 uppercase">Assignment Description / Instructions</label>
+                  <textarea
+                    value={currentContentItem.assignmentDesc || ""}
+                    onChange={(e) => setCurrentContentItem((prev) => ({ ...prev, assignmentDesc: e.target.value }))}
+                    placeholder="Provide details of what students need to submit..."
+                    rows="3"
+                    className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-semibold text-text-muted mb-2 uppercase">Assignment Brief PDF / Attachment (Optional)</label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      id="assignment-brief-file"
+                      accept=".pdf,.zip,.doc,.docx,.png,.jpg,.jpeg"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const statusEl = document.getElementById("assignment-upload-status");
+                        if (statusEl) statusEl.innerText = "⏳ Uploading attachment...";
+                        try {
+                          const fData = new FormData();
+                          fData.append("file", file);
+                          const token = localStorage.getItem("userToken") || localStorage.getItem("adminToken");
+                          const res = await fetch("/api/cloudinary", {
+                            method: "POST",
+                            headers: token ? { "Authorization": `Bearer ${token}` } : {},
+                            body: fData,
+                          });
+                          const result = await res.json();
+                          if (res.ok && result.success) {
+                            setCurrentContentItem((prev) => ({ ...prev, assignmentFileUrl: result.data.secure_url }));
+                            if (statusEl) statusEl.innerText = "✓ Uploaded";
+                          } else {
+                            alert(result.error || "Failed to upload assignment attachment");
+                            if (statusEl) statusEl.innerText = "";
+                          }
+                        } catch (err) {
+                          console.error(err);
+                          alert("Error uploading attachment");
+                          if (statusEl) statusEl.innerText = "";
+                        }
+                      }}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="assignment-brief-file"
+                      className={`flex flex-col items-center justify-center p-5 border-2 border-dashed rounded-2xl cursor-pointer transition bg-bg-main/30 hover:bg-bg-main ${
+                        currentContentItem.assignmentFileUrl 
+                          ? "border-emerald-500/40 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400" 
+                          : "border-border-main/80 hover:border-brand-primary text-text-muted"
+                      }`}
+                    >
+                      <div className="text-center space-y-1 flex flex-col items-center">
+                        <span className="text-2xl">📁</span>
+                        <span className="text-xs font-bold text-text-main">
+                          {currentContentItem.assignmentFileUrl ? "Change Brief File" : "Choose Assignment Brief File"}
+                        </span>
+                        <span className="text-[10px] text-text-muted font-medium">Supports PDF, ZIP, DOCX, PNG (Max 100MB)</span>
+                        <span id="assignment-upload-status" className="text-[10px] font-bold text-brand-primary block mt-1"></span>
+                      </div>
+                    </label>
+                    {currentContentItem.assignmentFileUrl && (
+                      <div className="mt-2 flex items-center justify-between bg-bg-main p-2 rounded-lg border border-border-main text-[10px] text-text-muted">
+                        <span className="truncate max-w-[200px] font-mono">{currentContentItem.assignmentFileUrl.split("/").pop()}</span>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentContentItem(prev => ({ ...prev, assignmentFileUrl: "" }))}
+                          className="text-red-500 font-bold hover:underline cursor-pointer"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className="flex gap-3">
                 <button

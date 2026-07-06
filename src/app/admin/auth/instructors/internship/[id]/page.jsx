@@ -21,6 +21,14 @@ export default function InstructorInternshipEditPage() {
   const [isAccessDenied, setIsAccessDenied] = useState(false);
   const [adminData, setAdminData] = useState(null);
 
+  const [enrolledStudents, setEnrolledStudents] = useState([]);
+  const [studentsLoading, setStudentsLoading] = useState(false);
+  const [selectedStudentId, setSelectedStudentId] = useState("");
+  const [gradingModuleId, setGradingModuleId] = useState("");
+  const [gradingMarks, setGradingMarks] = useState("");
+  const [gradingFeedback, setGradingFeedback] = useState("");
+  const [gradingSubmitting, setGradingSubmitting] = useState(false);
+
   const [editingContentIndex, setEditingContentIndex] = useState(null);
   const [editingUpdateIndex, setEditingUpdateIndex] = useState(null);
 
@@ -63,12 +71,85 @@ export default function InstructorInternshipEditPage() {
     pdfurl: "",
     imageurl: "",
     externalink: "",
+    assignmentTitle: "",
+    assignmentDesc: "",
+    assignmentFileUrl: "",
   });
 
   const [currentUpdate, setCurrentUpdate] = useState({
     title: "",
     externalLink: "",
   });
+
+  const fetchEnrolledStudents = async () => {
+    if (!internshipId) return;
+    setStudentsLoading(true);
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+      const res = await fetch("/api/user", { headers });
+      const result = await res.json();
+      if (result.success && result.data) {
+        // Filter users enrolled in this internship
+        const enrolled = result.data.filter(u => 
+          u.ActiveInternship?.some(item => (item.internship?._id || item.internship) === internshipId)
+        );
+        setEnrolledStudents(enrolled);
+      }
+    } catch (err) {
+      console.error("Error fetching students:", err);
+    } finally {
+      setStudentsLoading(false);
+    }
+  };
+
+  const handleSaveGradeInstructor = async (studentId, moduleId) => {
+    if (!studentId || !internshipId || !moduleId || gradingMarks === "") {
+      alert("Please enter marks to grade");
+      return;
+    }
+
+    setGradingSubmitting(true);
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const res = await fetch("/api/internship/grade-assignment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          userId: studentId,
+          internshipId,
+          moduleId,
+          marks: Number(gradingMarks),
+          feedback: gradingFeedback,
+        }),
+      });
+      const result = await res.json();
+      if (res.ok && result.success) {
+        alert("Assignment graded successfully!");
+        setGradingModuleId("");
+        setGradingMarks("");
+        setGradingFeedback("");
+        // Reload student data
+        await fetchEnrolledStudents();
+      } else {
+        alert(result.error || "Failed to grade assignment");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error grading assignment");
+    } finally {
+      setGradingSubmitting(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === "submissions") {
+      fetchEnrolledStudents();
+    }
+  }, [activeTab, internshipId]);
 
   const fetchInternship = async () => {
     try {
@@ -255,6 +336,9 @@ export default function InstructorInternshipEditPage() {
       pdfurl: "",
       imageurl: "",
       externalink: "",
+      assignmentTitle: "",
+      assignmentDesc: "",
+      assignmentFileUrl: "",
     });
   };
 
@@ -288,6 +372,9 @@ export default function InstructorInternshipEditPage() {
       pdfurl: "",
       imageurl: "",
       externalink: "",
+      assignmentTitle: "",
+      assignmentDesc: "",
+      assignmentFileUrl: "",
     });
 
     setMessage(isEditMode ? "Content item updated successfully!" : "Content item added successfully!");
@@ -521,6 +608,13 @@ export default function InstructorInternshipEditPage() {
           >
             Test Section
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("submissions")}
+            className={`px-5 py-3 font-semibold transition-all cursor-pointer ${activeTab === "submissions" ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold" : "border-transparent text-text-muted hover:text-text-main"}`}
+          >
+            Student Submissions
+          </button>
         </div>
 
         {activeTab === "content" && (
@@ -570,6 +664,98 @@ export default function InstructorInternshipEditPage() {
                   placeholder="https://github.com/example/repo"
                   className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
                 />
+              </div>
+
+              <div className="pt-4 border-t border-border-main/50 space-y-4">
+                <h4 className="text-sm font-bold text-text-main uppercase tracking-wider">Assignment Details (Optional)</h4>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-2">Assignment Title</label>
+                  <input
+                    type="text"
+                    value={currentContentItem.assignmentTitle || ""}
+                    onChange={(e) => setCurrentContentItem((prev) => ({ ...prev, assignmentTitle: e.target.value }))}
+                    placeholder="e.g. Implement Responsive Grid Layout"
+                    className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-2">Assignment Description / Instructions</label>
+                  <textarea
+                    value={currentContentItem.assignmentDesc || ""}
+                    onChange={(e) => setCurrentContentItem((prev) => ({ ...prev, assignmentDesc: e.target.value }))}
+                    placeholder="Provide details of what students need to submit..."
+                    rows="3"
+                    className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-2">Assignment Brief PDF / Attachment (Optional)</label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      id="assignment-brief-file"
+                      accept=".pdf,.zip,.doc,.docx,.png,.jpg,.jpeg"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const statusEl = document.getElementById("assignment-upload-status");
+                        if (statusEl) statusEl.innerText = "⏳ Uploading attachment...";
+                        try {
+                          const fData = new FormData();
+                          fData.append("file", file);
+                          const token = localStorage.getItem("userToken") || localStorage.getItem("adminToken");
+                          const res = await fetch("/api/cloudinary", {
+                            method: "POST",
+                            headers: token ? { "Authorization": `Bearer ${token}` } : {},
+                            body: fData,
+                          });
+                          const result = await res.json();
+                          if (res.ok && result.success) {
+                            setCurrentContentItem((prev) => ({ ...prev, assignmentFileUrl: result.data.secure_url }));
+                            if (statusEl) statusEl.innerText = "✓ Uploaded";
+                          } else {
+                            alert(result.error || "Failed to upload assignment attachment");
+                            if (statusEl) statusEl.innerText = "";
+                          }
+                        } catch (err) {
+                          console.error(err);
+                          alert("Error uploading attachment");
+                          if (statusEl) statusEl.innerText = "";
+                        }
+                      }}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="assignment-brief-file"
+                      className={`flex flex-col items-center justify-center p-5 border-2 border-dashed rounded-2xl cursor-pointer transition bg-bg-main/30 hover:bg-bg-main ${
+                        currentContentItem.assignmentFileUrl 
+                          ? "border-emerald-500/40 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400" 
+                          : "border-border-main/80 hover:border-brand-primary text-text-muted"
+                      }`}
+                    >
+                      <div className="text-center space-y-1 flex flex-col items-center">
+                        <span className="text-2xl">📁</span>
+                        <span className="text-xs font-bold text-text-main">
+                          {currentContentItem.assignmentFileUrl ? "Change Brief File" : "Choose Assignment Brief File"}
+                        </span>
+                        <span className="text-[10px] text-text-muted font-medium">Supports PDF, ZIP, DOCX, PNG (Max 100MB)</span>
+                        <span id="assignment-upload-status" className="text-[10px] font-bold text-brand-primary block mt-1"></span>
+                      </div>
+                    </label>
+                    {currentContentItem.assignmentFileUrl && (
+                      <div className="mt-2 flex items-center justify-between bg-bg-main p-2 rounded-lg border border-border-main text-[10px] text-text-muted">
+                        <span className="truncate max-w-[200px] font-mono">{currentContentItem.assignmentFileUrl.split("/").pop()}</span>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentContentItem(prev => ({ ...prev, assignmentFileUrl: "" }))}
+                          className="text-red-500 font-bold hover:underline cursor-pointer"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
 
               <div className="flex gap-3">
@@ -848,6 +1034,296 @@ export default function InstructorInternshipEditPage() {
                   ))}
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "submissions" && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Left Column: Student List */}
+              <div className="md:col-span-1 bg-bg-card border-2 border-border-main rounded-2xl p-5 space-y-4">
+                <div>
+                  <h3 className="text-lg font-bold text-text-main">Enrolled Students</h3>
+                  <p className="text-text-muted text-[11px]">Select a student to view and grade assignment projects.</p>
+                </div>
+
+                {studentsLoading ? (
+                  <div className="flex flex-col items-center justify-center py-10 space-y-2">
+                    <div className="w-6 h-6 border-2 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
+                    <span className="text-xs text-text-muted">Loading students...</span>
+                  </div>
+                ) : enrolledStudents.length === 0 ? (
+                  <div className="text-center py-10 text-xs text-text-muted italic bg-bg-main rounded-xl border border-border-main">
+                    No students enrolled in this internship yet.
+                  </div>
+                ) : (
+                  <div className="space-y-2.5 max-h-[500px] overflow-y-auto pr-1">
+                    {enrolledStudents.map((student) => {
+                      const studentEnrollment = student.ActiveInternship?.find(
+                        item => (item.internship?._id || item.internship) === internshipId
+                      );
+                      const pendingCount = studentEnrollment?.assignments?.filter(
+                        a => a.status !== "Graded"
+                      ).length || 0;
+
+                      return (
+                        <button
+                          key={student._id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedStudentId(student._id);
+                            setGradingModuleId("");
+                            setGradingMarks("");
+                            setGradingFeedback("");
+                          }}
+                          className={`w-full text-left p-3.5 rounded-xl border transition-all duration-200 flex flex-col gap-1.5 cursor-pointer ${
+                            selectedStudentId === student._id
+                              ? "bg-brand-primary/10 border-brand-primary text-brand-primary shadow-sm"
+                              : "bg-bg-main hover:bg-bg-main/70 border-border-main text-text-main"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between w-full">
+                            <span className="font-bold text-xs truncate max-w-[120px]">{student.name}</span>
+                            {pendingCount > 0 && (
+                              <span className="bg-blue-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full">
+                                {pendingCount} Pending
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-[10px] text-text-muted truncate max-w-[150px]">{student.email}</span>
+                          <span className="text-[9px] text-text-muted font-medium bg-bg-card px-2 py-0.5 rounded border border-border-main/50 self-start">
+                            {student.college || "No College"}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Right Column: Grade Solutions */}
+              <div className="md:col-span-2 space-y-4">
+                {(() => {
+                  if (!selectedStudentId) {
+                    return (
+                      <div className="bg-bg-card border-2 border-border-main rounded-2xl p-10 text-center flex flex-col items-center justify-center space-y-3">
+                        <span className="text-4xl">🎓</span>
+                        <h4 className="text-sm font-bold text-text-muted uppercase tracking-wider">Select a Student</h4>
+                        <p className="text-xs text-text-muted max-w-sm">
+                          Choose an enrolled student from the list on the left to review their submissions and input grades.
+                        </p>
+                      </div>
+                    );
+                  }
+
+                  const selectedStudent = enrolledStudents.find(s => s._id === selectedStudentId);
+                  const studentEnrollment = selectedStudent?.ActiveInternship?.find(
+                    item => (item.internship?._id || item.internship) === internshipId
+                  );
+
+                  return (
+                    <div className="space-y-4">
+                      {/* Student Details Card */}
+                      <div className="bg-bg-card border-2 border-border-main rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                          <span className="text-[10px] text-text-muted font-extrabold uppercase tracking-wider">Evaluating Student</span>
+                          <h3 className="text-base font-extrabold text-text-main font-poppins">{selectedStudent?.name}</h3>
+                          <p className="text-xs text-text-muted">{selectedStudent?.email}</p>
+                        </div>
+                        <div className="bg-bg-main p-3 rounded-xl border border-border-main text-right">
+                          <span className="text-[9px] text-text-muted font-bold uppercase tracking-wider block">Attendance Rate</span>
+                          <span className="text-xs font-black text-brand-primary">
+                            {studentEnrollment?.attendanceRate || "0"}%
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Coursework Modules list */}
+                      <div className="space-y-4">
+                        {formData.contentItems.map((mod, idx) => {
+                          const submission = studentEnrollment?.assignments?.find(
+                            (a) => a.moduleId === mod._id?.toString()
+                          );
+                          const isCurrentlyGrading = gradingModuleId === mod._id?.toString();
+
+                          return (
+                            <div
+                              key={mod._id || idx}
+                              className="bg-bg-card border border-border-main/80 rounded-2xl p-6 shadow-sm space-y-4"
+                            >
+                              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-border-main/50">
+                                <div>
+                                  <span className="text-[10px] text-text-muted font-bold uppercase tracking-wider block">Module {idx + 1}</span>
+                                  <h4 className="text-sm font-bold text-text-main">{mod.title}</h4>
+                                </div>
+                                <div>
+                                  {mod.assignmentTitle ? (
+                                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                      submission
+                                        ? submission.status === "Graded"
+                                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                                          : "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 animate-pulse"
+                                        : "bg-bg-main text-text-muted border border-border-main"
+                                    }`}>
+                                      {submission
+                                        ? submission.status === "Graded"
+                                          ? `🏆 Graded: ${submission.marks}/10`
+                                          : "⏳ Submitted - Review Pending"
+                                        : "📝 No Submission"}
+                                    </span>
+                                  ) : (
+                                    <span className="px-3 py-1 rounded-full text-xs font-semibold text-text-muted bg-bg-main border border-border-main">
+                                      No Assignment
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+
+                              {mod.assignmentTitle && (
+                                <div className="text-xs text-text-muted space-y-2 bg-bg-main/50 p-4 rounded-xl border border-border-main/60">
+                                  <span className="font-bold text-text-main">Assignment Task: {mod.assignmentTitle}</span>
+                                  <p className="leading-relaxed">{mod.assignmentDesc || "No details provided."}</p>
+                                  {mod.assignmentFileUrl && (
+                                    <div className="pt-1">
+                                      <a
+                                        href={mod.assignmentFileUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1.5 text-brand-secondary hover:underline font-bold"
+                                      >
+                                        📄 Download Assignment Brief Attachment
+                                      </a>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+
+                              {submission ? (
+                                <div className="space-y-4 pt-2">
+                                  <div className="space-y-2">
+                                    <span className="text-xs font-bold text-text-muted uppercase tracking-wider block">Student Submission Info</span>
+                                    {submission.submittedText && (
+                                      <div className="p-4 bg-bg-main/30 rounded-xl border border-border-main text-sm text-text-main whitespace-pre-wrap leading-relaxed">
+                                        {submission.submittedText}
+                                      </div>
+                                    )}
+                                    {submission.fileUrl && (
+                                      <div className="pt-1">
+                                        <a
+                                          href={submission.fileUrl}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="inline-flex items-center gap-2 text-xs font-bold text-brand-primary bg-brand-primary/10 px-4 py-2 rounded-xl border border-brand-primary/20 hover:bg-brand-primary/20 transition"
+                                        >
+                                          📥 Download Submission File Attachment
+                                        </a>
+                                      </div>
+                                    )}
+                                    <p className="text-[10px] text-text-muted">
+                                      📅 Submitted at: {new Date(submission.submittedAt).toLocaleString()}
+                                    </p>
+                                  </div>
+
+                                  {submission.status === "Graded" && !isCurrentlyGrading && (
+                                    <div className="p-5 bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-2xl space-y-2">
+                                      <div className="flex items-center justify-between font-bold text-emerald-700 dark:text-emerald-400 text-sm">
+                                        <span className="flex items-center gap-1.5">🏆 Grade Score:</span>
+                                        <span>{submission.marks} / 10</span>
+                                      </div>
+                                      {submission.feedback && (
+                                        <p className="text-xs text-text-muted italic leading-relaxed pt-1.5 border-t border-emerald-500/10">
+                                          Instructor Feedback: "{submission.feedback}"
+                                        </p>
+                                      )}
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setGradingModuleId(mod._id?.toString() || "");
+                                          setGradingMarks(submission.marks.toString());
+                                          setGradingFeedback(submission.feedback || "");
+                                        }}
+                                        className="text-xs text-brand-primary font-bold hover:underline block pt-2 cursor-pointer"
+                                      >
+                                        ✏️ Edit Score / Feedback Comments
+                                      </button>
+                                    </div>
+                                  )}
+
+                                  {(!submission.status || submission.status !== "Graded" || isCurrentlyGrading) && (
+                                    <div className="p-5 bg-gradient-to-br from-brand-primary/10 to-brand-primary/5 border border-brand-primary/20 rounded-2xl space-y-4">
+                                      <span className="text-xs font-bold text-brand-primary uppercase tracking-wider block">
+                                        {isCurrentlyGrading ? "✏️ Update Assignment Evaluation" : "📝 Evaluate Student Solution"}
+                                      </span>
+
+                                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                        <div>
+                                          <label className="block text-[10px] font-bold text-text-muted uppercase mb-1.5">
+                                            Evaluation Score (0 - 10)
+                                          </label>
+                                          <input
+                                            type="number"
+                                            min="0"
+                                            max="10"
+                                            value={gradingMarks}
+                                            onChange={(e) => setGradingMarks(e.target.value)}
+                                            placeholder="e.g. 9"
+                                            className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl outline-none focus:border-brand-primary text-xs font-bold text-text-main"
+                                          />
+                                        </div>
+                                        <div className="sm:col-span-2">
+                                          <label className="block text-[10px] font-bold text-text-muted uppercase mb-1.5">
+                                            Feedback Comments for student
+                                          </label>
+                                          <input
+                                            type="text"
+                                            value={gradingFeedback}
+                                            onChange={(e) => setGradingFeedback(e.target.value)}
+                                            placeholder="Good grid structure, correct implementation of flexbox rules..."
+                                            className="w-full p-3 bg-bg-main border-2 border-border-main rounded-xl outline-none focus:border-brand-primary text-xs text-text-main"
+                                          />
+                                        </div>
+                                      </div>
+
+                                      <div className="flex gap-2">
+                                        <button
+                                          type="button"
+                                          onClick={() => handleSaveGradeInstructor(selectedStudentId, mod._id?.toString())}
+                                          disabled={gradingSubmitting || gradingMarks === ""}
+                                          className="px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/95 text-white text-xs font-bold rounded-xl shadow-md disabled:opacity-50 transition cursor-pointer"
+                                        >
+                                          {gradingSubmitting ? "Saving Score..." : "Submit Grade Evaluation"}
+                                        </button>
+                                        {isCurrentlyGrading && (
+                                          <button
+                                            type="button"
+                                            onClick={() => {
+                                              setGradingModuleId("");
+                                              setGradingMarks("");
+                                              setGradingFeedback("");
+                                            }}
+                                            className="px-5 py-2.5 bg-bg-main border border-border-main text-text-muted hover:text-text-main text-xs font-bold rounded-xl transition cursor-pointer"
+                                          >
+                                            Cancel
+                                          </button>
+                                        )}
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              ) : mod.assignmentTitle ? (
+                                <p className="text-xs text-text-muted italic bg-bg-main/50 p-4 rounded-xl border border-border-main/55 text-center">
+                                  No assignment submission received from student for this module yet.
+                                </p>
+                              ) : null}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
             </div>
           </div>
         )}

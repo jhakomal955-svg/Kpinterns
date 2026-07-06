@@ -67,14 +67,12 @@ const InternshipModel = {
     type: [String],
     required: true,
     enum: [
-      // ── Engineering (B.Tech / Diploma) ─────────────────────────────
       "Computer Science & Engineering",
       "Mechanical Engineering",
       "Civil Engineering",
       "Electrical Engineering",
       "Electronics & Communication",
       "Chemical Engineering",
-      // ── Pure & Applied Sciences (BSc) ──────────────────────────────
       "Physics",
       "Chemistry",
       "Mathematics",
@@ -84,31 +82,39 @@ const InternshipModel = {
       "Microbiology",
       "Biotechnology",
       "Biochemistry",
-      "Computer Science",   // BSc CS / BCA / BScIT / BScCS
+      "Computer Science",
       "Data Science",
       "Agriculture",
       "Nursing",
       "Forensic Science",
-      // ── Arts & Humanities (BA) ──────────────────────────────────────
-      "Humanities",
-      "Social Sciences",
-      "Languages",
-      "Arts & Media",
-      "Vocational/Applied",
-      // ── Commerce & Business (BCom / BBA) ───────────────────────────
+      "Arts",
+      "Ancient indian history",
+      "Anthropology",
+      "Bojpuri",
+      "Economics",
+      "English",
+      "Geography",
+      "History",
+      "Political Science",
+      "Psychology",
+      "Sociology",
+      "Urdu",
+      "Maithili",
+      "Hindi",
+      "Sanskrit",
+      "Music",
+      "Rural Economics",
+      "Commerce",
       "Accounting & Finance",
       "Business Administration",
       "Banking & Insurance",
       "Taxation",
-      "Economics",
       "Sales & Marketing",
       "Computer Applications",
-      // ── Education ───────────────────────────────────────────────────
       "General Teacher Training",
-      // ── Law ─────────────────────────────────────────────────────────
       "Civil Law",
       "Criminal Law",
-      "Corporate Law",
+      "Corporate Law"
     ],
   },
 
@@ -406,6 +412,15 @@ const InternshipModel = {
         type: String,
       },
       externalink: {
+        type: String,
+      },
+      assignmentTitle: {
+        type: String,
+      },
+      assignmentDesc: {
+        type: String,
+      },
+      assignmentFileUrl: {
         type: String,
       },
     },

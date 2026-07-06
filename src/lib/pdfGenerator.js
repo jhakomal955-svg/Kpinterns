@@ -842,3 +842,358 @@ export async function generatePaymentReceipt(student, details) {
     }
   });
 }
+
+/**
+ * Local helper to generate 20 consecutive days starting from a date.
+ */
+function getWeekdays(startDate, count = 20) {
+  const dates = [];
+  let current = new Date(startDate);
+  if (isNaN(current.getTime())) {
+    current = new Date();
+  }
+  while (dates.length < count) {
+    dates.push(new Date(current));
+    current.setDate(current.getDate() + 1);
+  }
+  return dates;
+}
+
+/**
+ * Generates the multi-page Attendance Sheet (Annexure-2) and Daily Log Book (Annexure-3) PDF.
+ */
+export async function generateAttendanceCertificate(student, internship, verificationId, percentage) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Create A4 Portrait Document (595.28 x 841.89 points)
+      const doc = new PDFDocument({ size: "A4", margin: 40 });
+      const chunks = [];
+      doc.on("data", (chunk) => chunks.push(chunk));
+      doc.on("end", () => resolve(Buffer.concat(chunks)));
+      doc.on("error", (err) => reject(err));
+
+      const enrollment = student.ActiveInternship?.find(
+        (i) => (i.internship?._id || i.internship)?.toString() === (internship._id || internship)?.toString()
+      );
+
+      const userAssignments = enrollment?.assignments || [];
+
+      // Calculate 20 weekdays
+      const rawStart = enrollment?.startDate || new Date();
+      const weekdays = getWeekdays(rawStart, 20);
+
+      // Distribute statuses
+      const statuses = Array(20).fill("Present");
+      const presentCount = Math.round(20 * (percentage / 100));
+      const absentCount = 20 - presentCount;
+      if (absentCount > 0) {
+        const step = Math.floor(20 / (absentCount + 1)) || 1;
+        for (let a = 1; a <= absentCount; a++) {
+          const idx = (a * step) % 20;
+          statuses[idx] = "Absent";
+        }
+      }
+
+      // Draw helper function for student details
+      const drawStudentDetailsBlock = (doc, titleText, pageNumStr) => {
+        doc.font("Helvetica-Bold").fontSize(12).fillColor("#1e3a8a").text(titleText, 40, 45, { align: "center", width: 515 });
+        doc.moveTo(40, 62).lineTo(555, 62).lineWidth(1.5).strokeColor("#3b82f6").stroke();
+
+        doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("STUDENT DETAILS:-", 40, 75);
+
+        const details = [
+          { label: "NAME:", value: student.fullName || "N/A" },
+          { label: "UNIVERSITY ROLL NO. :", value: student.rollNumber || "N/A" },
+          { label: "COLLEGE NAME:", value: student.college || "N/A" },
+          { label: "PHONE:", value: student.phone || "N/A" },
+          { label: "FATHER'S NAME:", value: student.parentName || "N/A" },
+          { label: "PROGRAMME / SEMESTER:", value: `${student.degree || "N/A"} / ${student.semester || "N/A"}` },
+          { label: "DOMAIN:", value: internship.domain || "N/A" },
+          { label: "MODE OF INTERNSHIP:", value: internship.mode || "N/A" },
+          { label: "START DATE:", value: formatDate(enrollment?.startDate || rawStart) },
+          { label: "END DATE:", value: formatDate(enrollment?.endDate) }
+        ];
+
+        let currentY = 92;
+        details.forEach((field) => {
+          doc.font("Helvetica-Bold").fontSize(8).fillColor("#475569").text(field.label, 45, currentY, { width: 160 });
+          doc.font("Helvetica").fontSize(8).fillColor("#0f172a").text(field.value, 210, currentY, { width: 330 });
+          doc.moveTo(210, currentY + 9).lineTo(550, currentY + 9).lineWidth(0.5).strokeColor("#cbd5e1").stroke();
+          currentY += 13;
+        });
+
+        // Page number
+        doc.font("Helvetica").fontSize(8).fillColor("#64748b").text(pageNumStr, 520, 800, { align: "right" });
+      };
+
+      // Helper to draw attendance table headers
+      const drawAttendanceHeader = (y) => {
+        const columns = [
+          { title: "Day", width: 55 },
+          { title: "Date", width: 120 },
+          { title: "P/A", width: 80 },
+          { title: "Signature", width: 260 }
+        ];
+        doc.rect(40, y, 515, 20).fill("#f1f5f9");
+        let currentX = 40;
+        columns.forEach(col => {
+          doc.font("Helvetica-Bold").fontSize(8).fillColor("#334155").text(col.title, currentX, y + 5, { width: col.width, align: "center" });
+          doc.rect(currentX, y, col.width, 20).lineWidth(0.5).strokeColor("#94a3b8").stroke();
+          currentX += col.width;
+        });
+      };
+
+      // Helper to draw attendance row
+      const drawAttendanceRow = (y, dayNum, dateStr, status, isHighlight = false) => {
+        const columns = [
+          { width: 55, val: dayNum.toString() },
+          { width: 120, val: dateStr },
+          { width: 80, val: status === "Present" ? "P" : "A" },
+          { width: 260, val: status === "Present" ? "Verified" : "-" }
+        ];
+        if (isHighlight) {
+          doc.rect(40, y, 515, 18).fill("#f8fafc");
+        }
+        let currentX = 40;
+        columns.forEach((col, index) => {
+          doc.font(index === 2 && status === "Present" ? "Helvetica-Bold" : "Helvetica")
+            .fontSize(8)
+            .fillColor(index === 2 ? (status === "Present" ? "#10b981" : "#ef4444") : "#0f172a")
+            .text(col.val, currentX, y + 5, { width: col.width, align: "center" });
+          doc.rect(currentX, y, col.width, 18).lineWidth(0.5).strokeColor("#cbd5e1").stroke();
+          currentX += col.width;
+        });
+      };
+
+      // Helper to draw activity table headers
+      const drawActivityHeader = (y) => {
+        const columns = [
+          { title: "Day", width: 40 },
+          { title: "Date", width: 80 },
+          { title: "Task / Activity", width: 235 },
+          { title: "completed", width: 60 },
+          { title: "Marks", width: 50 },
+          { title: "Sign.", width: 50 }
+        ];
+        doc.rect(40, y, 515, 20).fill("#f1f5f9");
+        let currentX = 40;
+        columns.forEach(col => {
+          doc.font("Helvetica-Bold").fontSize(8).fillColor("#334155").text(col.title, currentX, y + 5, { width: col.width, align: "center" });
+          doc.rect(currentX, y, col.width, 20).lineWidth(0.5).strokeColor("#94a3b8").stroke();
+          currentX += col.width;
+        });
+      };
+
+      // Helper to draw activity row
+      const drawActivityRow = (y, dayNum, dateStr, taskText, completedVal, marksVal, isHighlight = false) => {
+        const columns = [
+          { width: 40, val: dayNum.toString(), align: "center" },
+          { width: 80, val: dateStr, align: "center" },
+          { width: 235, val: taskText, align: "left" },
+          { width: 60, val: completedVal, align: "center" },
+          { width: 50, val: marksVal, align: "center" },
+          { width: 50, val: completedVal === "Yes" ? "Sd/-" : "-", align: "center" }
+        ];
+        if (isHighlight) {
+          doc.rect(40, y, 515, 22).fill("#f8fafc");
+        }
+        let currentX = 40;
+        columns.forEach((col, index) => {
+          doc.font("Helvetica")
+            .fontSize(7.5)
+            .fillColor("#0f172a");
+
+          if (index === 2) {
+            doc.text(col.val, currentX + 5, y + 4, { width: col.width - 10, align: "left", lineGap: 1 });
+          } else {
+            doc.text(col.val, currentX, y + 6, { width: col.width, align: "center" });
+          }
+
+          doc.rect(currentX, y, col.width, 22).lineWidth(0.5).strokeColor("#cbd5e1").stroke();
+          currentX += col.width;
+        });
+      };
+
+      const modules = internship.content || [];
+
+      // ==========================================
+      // PAGE 1: Annexure-2. Attendance Sheet (Part 1, Days 1-7)
+      // ==========================================
+      drawStudentDetailsBlock(doc, "Annexure-2. ATTENDANCE SHEET", "8");
+
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("DAY-WISE ATTENDANCE", 40, 245);
+      
+      let tableY = 265;
+      drawAttendanceHeader(tableY);
+      tableY += 20;
+
+      for (let day = 1; day <= 7; day++) {
+        const date = weekdays[day - 1];
+        const status = statuses[day - 1];
+        drawAttendanceRow(tableY, day, formatDate(date), status, day % 2 === 0);
+        tableY += 18;
+      }
+
+      // ==========================================
+      // PAGE 2: Annexure-2. Attendance Sheet (Part 2, Days 8-20)
+      // ==========================================
+      doc.addPage({ size: "A4", margin: 40 });
+      
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("DAY-WISE ATTENDANCE (Continued)", 40, 45);
+      
+      tableY = 65;
+      drawAttendanceHeader(tableY);
+      tableY += 20;
+
+      for (let day = 8; day <= 19; day++) {
+        const date = weekdays[day - 1];
+        const status = statuses[day - 1];
+        drawAttendanceRow(tableY, day, formatDate(date), status, day % 2 === 0);
+        tableY += 18;
+      }
+
+      // Final evaluation section
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("Final evaluation:-", 40, tableY + 20);
+      tableY += 40;
+
+      const date20 = weekdays[19];
+      const status20 = statuses[19];
+      drawAttendanceRow(tableY, 20, formatDate(date20), status20, true);
+
+      doc.font("Helvetica").fontSize(8).fillColor("#64748b").text("9", 520, 800, { align: "right" });
+
+      // ==========================================
+      // PAGE 3: Annexure-3. Daily Log Book / Daily Activity (Part 1, Days 1-7)
+      // ==========================================
+      doc.addPage({ size: "A4", margin: 40 });
+      drawStudentDetailsBlock(doc, "Annexure-3- DAILY LOG BOOK / DAILY ACTIVITY", "10");
+
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("ACTIVITIES", 40, 245);
+
+      tableY = 265;
+      drawActivityHeader(tableY);
+      tableY += 20;
+
+      for (let day = 1; day <= 7; day++) {
+        const date = weekdays[day - 1];
+        const status = statuses[day - 1];
+        
+        let taskText = `Study module: ${modules[day - 1]?.title || "Practical Session on " + (internship.domain || "Internship")}`;
+        let completedVal = "Yes";
+        let marksVal = "9/10";
+
+        const modItem = modules[day - 1];
+        if (modItem) {
+          const submittedAssignment = userAssignments.find(a => a.moduleId === modItem._id.toString());
+          if (modItem.assignmentTitle) {
+            taskText = `Assignment: ${modItem.assignmentTitle}`;
+            if (submittedAssignment) {
+              completedVal = "Yes";
+              marksVal = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
+            } else {
+              completedVal = "No";
+              marksVal = "0/10";
+            }
+          }
+        }
+
+        if (status === "Absent") {
+          completedVal = "No";
+          marksVal = "0/10";
+          taskText = `Absent - Revision Work`;
+        }
+
+        drawActivityRow(tableY, day, formatDate(date), taskText, completedVal, marksVal, day % 2 === 0);
+        tableY += 22;
+      }
+
+      // ==========================================
+      // PAGE 4: Annexure-3. Daily Log Book / Daily Activity (Part 2, Days 8-20)
+      // ==========================================
+      doc.addPage({ size: "A4", margin: 40 });
+      
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("ACTIVITIES (Continued)", 40, 45);
+
+      tableY = 65;
+      drawActivityHeader(tableY);
+      tableY += 20;
+
+      for (let day = 8; day <= 19; day++) {
+        const date = weekdays[day - 1];
+        const status = statuses[day - 1];
+
+        let taskText = `Study module: ${modules[day - 1]?.title || "Practical Session on " + (internship.domain || "Internship")}`;
+        let completedVal = "Yes";
+        let marksVal = "9/10";
+
+        const modItem = modules[day - 1];
+        if (modItem) {
+          const submittedAssignment = userAssignments.find(a => a.moduleId === modItem._id.toString());
+          if (modItem.assignmentTitle) {
+            taskText = `Assignment: ${modItem.assignmentTitle}`;
+            if (submittedAssignment) {
+              completedVal = "Yes";
+              marksVal = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
+            } else {
+              completedVal = "No";
+              marksVal = "0/10";
+            }
+          }
+        }
+
+        if (status === "Absent") {
+          completedVal = "No";
+          marksVal = "0/10";
+          taskText = `Absent - Revision Work`;
+        }
+
+        drawActivityRow(tableY, day, formatDate(date), taskText, completedVal, marksVal, day % 2 === 0);
+        tableY += 22;
+      }
+
+      // Final Evaluation
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("Final Evaluation", 40, tableY + 20);
+      tableY += 40;
+
+      const date20Activity = weekdays[19];
+      const status20Activity = statuses[19];
+      let taskText20 = "Final assessment & evaluation test submission";
+      let completedVal20 = "Yes";
+      let marksVal20 = "9/10";
+      
+      const modItem20 = modules[19];
+      if (modItem20) {
+        const submittedAssignment = userAssignments.find(a => a.moduleId === modItem20._id.toString());
+        if (modItem20.assignmentTitle) {
+          taskText20 = `Final Assignment: ${modItem20.assignmentTitle}`;
+          if (submittedAssignment) {
+            completedVal20 = "Yes";
+            marksVal20 = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
+          } else {
+            completedVal20 = "No";
+            marksVal20 = "0/10";
+          }
+        }
+      }
+
+      if (status20Activity === "Absent") {
+        completedVal20 = "No";
+        marksVal20 = "0/10";
+        taskText20 = "Absent - Missed Final Assessment";
+      }
+
+      drawActivityRow(tableY, 20, formatDate(date20Activity), taskText20, completedVal20, marksVal20, true);
+
+      // Signature line at bottom
+      tableY += 45;
+      doc.font("Helvetica-Bold").fontSize(9).fillColor("#1e293b").text("KpInterns Evaluation Committee", 370, tableY);
+      doc.font("Helvetica").fontSize(8).fillColor("#475569").text("Authorized Digital Sd/- Signature", 370, tableY + 12);
+
+      doc.font("Helvetica").fontSize(8).fillColor("#64748b").text("11", 520, 800, { align: "right" });
+
+      doc.end();
+    } catch (err) {
+      reject(err);
+    }
+  });
+}

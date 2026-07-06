@@ -1,8 +1,8 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
-import { generateOfferLetter, generateCertificate } from "@/lib/pdfGenerator";
+import { generateOfferLetter, generateCertificate, generateAttendanceCertificate } from "@/lib/pdfGenerator";
 import { sendOfferLetterEmail, sendCertificateEmail } from "@/lib/nodemailer";
 
 /**
@@ -104,10 +104,65 @@ export async function checkAndAutomateDocuments(userId) {
         if (isCompleted && !item.certificationUrl && !isTestPending) {
           try {
             if (process.env.NODE_ENV === "development") {
-              console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);
+              console.log(`[Document Automation] Generating completion certificate & attendance sheet for user: ${user.fullName}, program: ${programTitle}`);
             }
 
-            // Generate Landscape PDF Buffer
+            // A. Generate Attendance & Daily Activity Log Sheets (Annexure-2 & 3)
+            let percentage = 100;
+            try {
+              const Attendance = createModel("Attendance", AttendanceModel);
+              let attendanceDoc = null;
+              if (item.attendance) {
+                attendanceDoc = await Attendance.findById(item.attendance);
+              }
+
+              if (attendanceDoc) {
+                const records = attendanceDoc.records || [];
+                const presentCount = records.filter(r => r.status === "Present").length;
+                const explicitAbsentCount = records.filter(r => r.status === "Absent").length;
+                const leaveCount = records.filter(r => r.status === "Leave").length;
+
+                const startDate = item.startDate || item.paymentDate || new Date();
+                const endDate = item.endDate || null;
+                const totalCalendarDays = getElapsedDays(startDate, endDate);
+
+                const recordedDays = records.length;
+                const unmarkedDays = Math.max(0, totalCalendarDays - recordedDays);
+                const absentCount = explicitAbsentCount + unmarkedDays;
+
+                const denominator = totalCalendarDays - leaveCount;
+                percentage = denominator > 0 ? Math.round((presentCount / denominator) * 100) : 100;
+                percentage = Math.min(100, Math.max(0, percentage));
+              }
+
+              // Auto set minimum 85% attendance
+              if (percentage < 85) {
+                percentage = 85;
+              }
+
+              item.attendanceRate = `${percentage}%`;
+
+              // Generate attendance sheet PDF
+              const attendancePdfBuffer = await generateAttendanceCertificate(user, internship, verificationId, percentage);
+              const attFilename = `attendance_sheet_${verificationId}_${Date.now()}`;
+              const attUploadResult = await uploadBufferToCloudinary(attendancePdfBuffer, {
+                public_id: attFilename,
+                folder: "kpinterns/attendance_sheets",
+                resource_type: "auto",
+              });
+
+              item.attendanceCertificateUrl = attUploadResult.secure_url;
+
+              // Delete student daily attendance record to prevent database load
+              if (item.attendance) {
+                await Attendance.findByIdAndDelete(item.attendance);
+                item.attendance = null;
+              }
+            } catch (attErr) {
+              console.error(`[Document Automation] Failed to generate/upload attendance sheet for verification ID: ${verificationId}`, attErr);
+            }
+
+            // B. Generate standard landscape Completion Certificate
             const pdfBuffer = await generateCertificate(user, internship, "internship", verificationId);
 
             // Upload Buffer to Cloudinary
@@ -197,4 +252,20 @@ export async function checkAndAutomateDocuments(userId) {
     console.error("[Document Automation] Error occurred during checkAndAutomateDocuments:", error);
     return false;
   }
+}
+
+function getElapsedDays(startDate, endDate) {
+  const start = new Date(startDate);
+  start.setHours(0, 0, 0, 0);
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const end = endDate ? new Date(endDate) : null;
+  if (end) end.setHours(0, 0, 0, 0);
+
+  const referenceDate = (end && end < today) ? end : today;
+  const diffTime = referenceDate.getTime() - start.getTime();
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+  return diffDays < 1 ? 1 : diffDays;
 }

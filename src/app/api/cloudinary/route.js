@@ -5,9 +5,14 @@ export const maxDuration = 300; // 5 minutes execution duration limit
 
 export async function POST(request) {
   try {
-    const auth = verifyAuth(request, ["Admin", "Instructor", "College Admin", "Cybercafe Partner"]);
-    if (!auth.authenticated) {
-      return Response.json({ error: auth.error }, { status: auth.status });
+    const url = new URL(request.url);
+    const isPublic = url.searchParams.get("public") === "true";
+
+    if (!isPublic) {
+      const auth = verifyAuth(request, ["Admin", "Instructor", "College Admin", "Cybercafe Partner", "User"]);
+      if (!auth.authenticated) {
+        return Response.json({ error: auth.error }, { status: auth.status });
+      }
     }
 
     const contentType = request.headers.get("content-type") || "";

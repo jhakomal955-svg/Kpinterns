@@ -101,15 +101,22 @@ export async function checkAndAutomateDocuments(userId) {
           isTestPending = true;
         }
 
-        if (isCompleted && !item.certificationUrl && !isTestPending) {
-          try {
-            if (process.env.NODE_ENV === "development") {
-              console.log(`[Document Automation] Generating completion certificate & attendance sheet for user: ${user.fullName}, program: ${programTitle}`);
-            }
-
-            // A. Generate Attendance & Daily Activity Log Sheets (Annexure-2 & 3)
-            let percentage = 100;
+        if (isCompleted && !isTestPending) {
+          // A. Generate Attendance & Daily Activity Log Sheets (Annexure-2 & 3)
+          if (!item.attendanceCertificateUrl) {
             try {
+              if (process.env.NODE_ENV === "development") {
+                console.log(`[Document Automation] Generating attendance sheet for user: ${user.fullName}, program: ${programTitle}`);
+              }
+
+              let percentage = 100;
+              if (item.attendanceRate) {
+                const parsed = parseInt(item.attendanceRate);
+                if (!isNaN(parsed)) {
+                  percentage = parsed;
+                }
+              }
+
               const Attendance = createModel("Attendance", AttendanceModel);
               let attendanceDoc = null;
               if (item.attendance) {
@@ -152,6 +159,7 @@ export async function checkAndAutomateDocuments(userId) {
               });
 
               item.attendanceCertificateUrl = attUploadResult.secure_url;
+              hasChanges = true;
 
               // Delete student daily attendance record to prevent database load
               if (item.attendance) {
@@ -161,29 +169,36 @@ export async function checkAndAutomateDocuments(userId) {
             } catch (attErr) {
               console.error(`[Document Automation] Failed to generate/upload attendance sheet for verification ID: ${verificationId}`, attErr);
             }
+          }
 
-            // B. Generate standard landscape Completion Certificate
-            const pdfBuffer = await generateCertificate(user, internship, "internship", verificationId);
+          // B. Generate standard landscape Completion Certificate
+          if (!item.certificationUrl) {
+            try {
+              if (process.env.NODE_ENV === "development") {
+                console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);
+              }
+              const pdfBuffer = await generateCertificate(user, internship, "internship", verificationId);
 
-            // Upload Buffer to Cloudinary
-            const filename = `internship_certificate_${verificationId}_${Date.now()}`;
-            const uploadResult = await uploadBufferToCloudinary(pdfBuffer, {
-              public_id: filename,
-              folder: "kpinterns/certificates",
-              resource_type: "auto",
-            });
+              // Upload Buffer to Cloudinary
+              const filename = `internship_certificate_${verificationId}_${Date.now()}`;
+              const uploadResult = await uploadBufferToCloudinary(pdfBuffer, {
+                public_id: filename,
+                folder: "kpinterns/certificates",
+                resource_type: "auto",
+              });
 
-            // Update user record
-            item.certificationUrl = uploadResult.secure_url;
-            hasChanges = true;
+              // Update user record
+              item.certificationUrl = uploadResult.secure_url;
+              hasChanges = true;
 
-            // Send Email with PDF Attachment
-            await sendCertificateEmail(user.email, user.fullName, programTitle, "internship", pdfBuffer);
-            if (process.env.NODE_ENV === "development") {
-              console.log(`[Document Automation] Completion certificate successfully generated & sent for verification ID: ${verificationId}`);
+              // Send Email with PDF Attachment
+              await sendCertificateEmail(user.email, user.fullName, programTitle, "internship", pdfBuffer);
+              if (process.env.NODE_ENV === "development") {
+                console.log(`[Document Automation] Completion certificate successfully generated & sent for verification ID: ${verificationId}`);
+              }
+            } catch (err) {
+              console.error(`[Document Automation] Failed to generate/email internship certificate for verification ID: ${verificationId}`, err);
             }
-          } catch (err) {
-            console.error(`[Document Automation] Failed to generate/email internship certificate for verification ID: ${verificationId}`, err);
           }
         }
       }

@@ -168,12 +168,9 @@ export default function LayoutWrapper({ children }) {
     verifyTokensOnMount();
   }, []);
 
-  // 2. Perform fast local-only JWT expiry validation on page transitions (without server hit)
+  // 2. Perform fast local-only JWT expiry validation on page transitions & periodically (every 15s)
   useEffect(() => {
     if (typeof window === "undefined") return;
-
-    const adminToken = localStorage.getItem("adminToken");
-    const userToken = localStorage.getItem("userToken");
 
     const handleUserLogout = () => {
       localStorage.removeItem("userToken");
@@ -200,13 +197,25 @@ export default function LayoutWrapper({ children }) {
       }
     };
 
-    if (adminToken && isTokenExpired(adminToken)) {
-      handleAdminLogout();
-    }
+    const checkExpiry = () => {
+      const adminToken = localStorage.getItem("adminToken");
+      const userToken = localStorage.getItem("userToken");
 
-    if (userToken && isTokenExpired(userToken)) {
-      handleUserLogout();
-    }
+      if (adminToken && isTokenExpired(adminToken)) {
+        handleAdminLogout();
+      }
+
+      if (userToken && isTokenExpired(userToken)) {
+        handleUserLogout();
+      }
+    };
+
+    // Run check immediately on mount/transition
+    checkExpiry();
+
+    // Setup periodic check interval
+    const interval = setInterval(checkExpiry, 15000);
+    return () => clearInterval(interval);
   }, [pathname]);
 
   // Hide navbar and footer for admin/auth routes

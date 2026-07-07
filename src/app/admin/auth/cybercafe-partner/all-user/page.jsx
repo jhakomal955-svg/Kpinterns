@@ -416,6 +416,16 @@ export default function CybercafeAllUsersPage() {
                                   📄 Offer Letter
                                 </a>
                               )}
+                              {i.attendanceCertificateUrl && (
+                                <a
+                                  href={i.attendanceCertificateUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-xs bg-indigo-500/10 text-indigo-600 hover:bg-indigo-500/20 px-3 py-1.5 rounded-lg font-semibold transition"
+                                >
+                                  📄 Attendance Sheet
+                                </a>
+                              )}
                               {i.certificationUrl && (
                                 <a
                                   href={i.certificationUrl}

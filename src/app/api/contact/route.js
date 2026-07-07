@@ -11,6 +11,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { ContactModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 export async function GET(request) {
   try {
@@ -67,13 +68,16 @@ export async function POST(request) {
   try {
     await connectDB();
 
-    // Authenticate logged-in users/admins
-    const auth = verifyAuth(request);
-    if (!auth.authenticated) {
-      return Response.json({ error: auth.error }, { status: auth.status || 401 });
-    }
+    const { turnstileToken, ...data } = await request.json();
 
-    const data = await request.json();
+    // Verify Turnstile Token to prevent human & bot spam flood attacks
+    const isHuman = await verifyTurnstileToken(turnstileToken);
+    if (!isHuman) {
+      return Response.json(
+        { error: "Human verification failed. Please try again." },
+        { status: 400 },
+      );
+    }
 
     // Validate required fields
     const requiredFields = [

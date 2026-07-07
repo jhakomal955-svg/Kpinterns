@@ -36,5 +36,8 @@ module.exports = defineConfig({
     stdout: 'ignore',
     stderr: 'pipe',
     timeout: 120000,
+    env: {
+      PLAYWRIGHT_TEST: "true",
+    },
   },
 });

@@ -570,10 +570,10 @@ export async function generateCertificate(student, program, type, verificationId
       let closingProse = "";
 
       if (type === "course") {
-        certProse = `Registration No. ${registrationNumber} S/O, D/O of ${student.parentName || "N/A"} bearing Roll No. ${rollNumber} at ${institutionName} has successfully completed the professional certification course in ${programTitle} under the ${program.domain || "Specialized"} Domain (${program.difficultyLevel || "Advanced"} Level) from ${startDateStr} to ${endDateStr} of duration ${durationRange}. The student has successfully completed all academic modules, assignments, and assessments.`;
+        certProse = `Registration No. ${registrationNumber} S/O, D/O ${student.parentName || "N/A"} bearing Roll No. ${rollNumber} at ${institutionName} has successfully completed the professional certification course in ${programTitle} under the ${program.domain || "Specialized"} Domain (${program.difficultyLevel || "Advanced"} Level) from ${startDateStr} to ${endDateStr} of duration ${durationRange}. The student has successfully completed all academic modules, assignments, and assessments.`;
         closingProse = "We appreciate their dedication throughout the program and wish them the best for future opportunities.";
       } else {
-        certProse = `Registration No. ${registrationNumber} S/o, D/o of ${student.parentName || "N/A"} bearing Roll No. ${rollNumber} at ${institutionName} has successfully completed an internship training in ${programTitle} from ${startDateStr} to ${endDateStr} , for a duration of ${durationRange}. The student maintained ${attendanceMetric} attendance and secured ${gradingScore}% score in the final assessment.`;
+        certProse = `Registration No. ${registrationNumber} S/o, D/o ${student.parentName || "N/A"} bearing Roll No. ${rollNumber} at ${institutionName} has successfully completed an internship training in ${programTitle} from ${startDateStr} to ${endDateStr} , for a duration of ${durationRange}. The student maintained ${attendanceMetric} attendance and secured ${gradingScore}% score in the final assessment.`;
         closingProse = "We appreciate their sincere participation and wish them the best for future opportunities.";
       }
 
@@ -844,9 +844,9 @@ export async function generatePaymentReceipt(student, details) {
 }
 
 /**
- * Local helper to generate 20 consecutive days starting from a date.
+ * Local helper to generate consecutive days starting from a date.
  */
-function getWeekdays(startDate, count = 20) {
+function getWeekdays(startDate, count) {
   const dates = [];
   let current = new Date(startDate);
   if (isNaN(current.getTime())) {
@@ -878,28 +878,79 @@ export async function generateAttendanceCertificate(student, internship, verific
 
       const userAssignments = enrollment?.assignments || [];
 
-      // Calculate 20 weekdays
+      // Calculate consecutive calendar days between start and end date (fallback to 20 if no end date)
       const rawStart = enrollment?.startDate || new Date();
-      const weekdays = getWeekdays(rawStart, 20);
+      const rawEnd = enrollment?.endDate;
+      let count = 20;
+      if (rawEnd) {
+        const s = new Date(rawStart);
+        const e = new Date(rawEnd);
+        s.setHours(0, 0, 0, 0);
+        e.setHours(0, 0, 0, 0);
+        const diffTime = e.getTime() - s.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        if (diffDays > 0) {
+          count = diffDays;
+        }
+      }
+      const weekdays = getWeekdays(rawStart, count);
 
-      // Distribute statuses
-      const statuses = Array(20).fill("Present");
-      const presentCount = Math.round(20 * (percentage / 100));
-      const absentCount = 20 - presentCount;
+      // Distribute statuses dynamically across total duration
+      const statuses = Array(count).fill("Present");
+      const presentCount = Math.round(count * (percentage / 100));
+      const absentCount = count - presentCount;
       if (absentCount > 0) {
-        const step = Math.floor(20 / (absentCount + 1)) || 1;
+        const step = Math.floor(count / (absentCount + 1)) || 1;
         for (let a = 1; a <= absentCount; a++) {
-          const idx = (a * step) % 20;
+          const idx = (a * step) % count;
           statuses[idx] = "Absent";
         }
       }
 
       // Draw helper function for student details
       const drawStudentDetailsBlock = (doc, titleText, pageNumStr) => {
-        doc.font("Helvetica-Bold").fontSize(12).fillColor("#1e3a8a").text(titleText, 40, 45, { align: "center", width: 515 });
-        doc.moveTo(40, 62).lineTo(555, 62).lineWidth(1.5).strokeColor("#3b82f6").stroke();
+        const primaryColor = "#4f46e5";   // Modern Indigo/Violet
+        const accentColor = "#d97706";    // Gold Accent
+        const darkColor = "#0f172a";      // Deep Slate
+        const mutedColor = "#475569";     // Muted Slate Gray
+        const borderColor = "#e2e8f0";    // Border line color
 
-        doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("STUDENT DETAILS:-", 40, 75);
+        // --- 1. Top Decorative Brand Accent Bars ---
+        doc.rect(0, 0, 595.28, 15).fill(primaryColor);
+        doc.rect(0, 15, 595.28, 4).fill(accentColor);
+
+        // --- 2. Corporate Header / Logo Block ---
+        // Draw Stylized Kp Circle Logo
+        const logoX = 40;
+        const logoY = 32;
+        doc.circle(logoX + 15, logoY + 15, 15).fill(darkColor);
+        doc.font("Helvetica-Bold").fontSize(12).fillColor("#ffffff")
+          .text("Kp", logoX + 5, logoY + 9, { width: 20, align: "center" });
+
+        // Draw Logo Text
+        doc.font("Helvetica-Bold").fontSize(20).fillColor(primaryColor)
+          .text("Interns", logoX + 32, logoY + 4);
+        
+        doc.font("Helvetica").fontSize(8).fillColor(mutedColor)
+          .text("www.kpinterns.com", logoX + 33, logoY + 24);
+
+        // Top Right Section: Corporate Contact Details
+        const contactX = 300;
+        const contactY = 28;
+        const contactWidth = 255.28;
+        const contactText = "Mob: +91 9204312848   |   Email: info@kpinterns.com\nAddress: Saraswati Nagar, Matsyagandha Road,\nPolice Line, Saharsa, Bihar - 852201";
+        
+        doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
+          .text(contactText, contactX, contactY, { align: "right", width: contactWidth, lineGap: 2.5 });
+
+        // Elegant Separator Line
+        doc.moveTo(40, 80).lineTo(555.28, 80).lineWidth(1).strokeColor(borderColor).stroke();
+
+        // Title and Student Details Block
+        doc.font("Helvetica-Bold").fontSize(11).fillColor("#1e3a8a").text(titleText, 40, 90, { align: "center", width: 515 });
+        doc.moveTo(40, 105).lineTo(555, 105).lineWidth(1.25).strokeColor("#3b82f6").stroke();
+
+        doc.font("Helvetica-Bold").fontSize(9).fillColor("#1e293b").text("STUDENT DETAILS:-", 40, 115);
 
         const details = [
           { label: "NAME:", value: student.fullName || "N/A" },
@@ -914,7 +965,7 @@ export async function generateAttendanceCertificate(student, internship, verific
           { label: "END DATE:", value: formatDate(enrollment?.endDate) }
         ];
 
-        let currentY = 92;
+        let currentY = 130;
         details.forEach((field) => {
           doc.font("Helvetica-Bold").fontSize(8).fillColor("#475569").text(field.label, 45, currentY, { width: 160 });
           doc.font("Helvetica").fontSize(8).fillColor("#0f172a").text(field.value, 210, currentY, { width: 330 });
@@ -922,8 +973,12 @@ export async function generateAttendanceCertificate(student, internship, verific
           currentY += 13;
         });
 
-        // Page number
-        doc.font("Helvetica").fontSize(8).fillColor("#64748b").text(pageNumStr, 520, 800, { align: "right" });
+        // Page number (save Y cursor and temporarily reset bottom margin to avoid premature page-breaks)
+        const oldBottomMargin = doc.page.margins.bottom;
+        doc.page.margins.bottom = 0;
+        doc.font("Helvetica").fontSize(8).fillColor("#64748b").text(pageNumStr.toString(), 520, 790, { align: "right" });
+        doc.page.margins.bottom = oldBottomMargin;
+        doc.y = currentY;
       };
 
       // Helper to draw attendance table headers
@@ -945,11 +1000,12 @@ export async function generateAttendanceCertificate(student, internship, verific
 
       // Helper to draw attendance row
       const drawAttendanceRow = (y, dayNum, dateStr, status, isHighlight = false) => {
+        const instName = internship.supervisorName || (internship.instructor?.[0]?.id?.name || internship.instructor?.[0]?.name) || "Prabhash Kumar";
         const columns = [
           { width: 55, val: dayNum.toString() },
           { width: 120, val: dateStr },
           { width: 80, val: status === "Present" ? "P" : "A" },
-          { width: 260, val: status === "Present" ? "Verified" : "-" }
+          { width: 260, val: status === "Present" ? instName : "-" }
         ];
         if (isHighlight) {
           doc.rect(40, y, 515, 18).fill("#f8fafc");
@@ -986,13 +1042,24 @@ export async function generateAttendanceCertificate(student, internship, verific
 
       // Helper to draw activity row
       const drawActivityRow = (y, dayNum, dateStr, taskText, completedVal, marksVal, isHighlight = false) => {
+        let signText = "-";
+        if (completedVal === "Yes") {
+          const instName = internship.supervisorName || (internship.instructor?.[0]?.id?.name || internship.instructor?.[0]?.name) || "Prabhash Kumar";
+          const parts = instName.trim().split(/\s+/);
+          if (parts.length > 1) {
+            signText = `${parts[0]}\n${parts.slice(1).join(" ")}`;
+          } else {
+            signText = instName;
+          }
+        }
+
         const columns = [
           { width: 40, val: dayNum.toString(), align: "center" },
           { width: 80, val: dateStr, align: "center" },
           { width: 235, val: taskText, align: "left" },
           { width: 60, val: completedVal, align: "center" },
           { width: 50, val: marksVal, align: "center" },
-          { width: 50, val: completedVal === "Yes" ? "Sd/-" : "-", align: "center" }
+          { width: 50, val: signText, align: "center" }
         ];
         if (isHighlight) {
           doc.rect(40, y, 515, 22).fill("#f8fafc");
@@ -1000,11 +1067,14 @@ export async function generateAttendanceCertificate(student, internship, verific
         let currentX = 40;
         columns.forEach((col, index) => {
           doc.font("Helvetica")
-            .fontSize(7.5)
+            .fontSize(index === 5 && col.val !== "-" ? 6.5 : 7.5)
             .fillColor("#0f172a");
 
           if (index === 2) {
             doc.text(col.val, currentX + 5, y + 4, { width: col.width - 10, align: "left", lineGap: 1 });
+          } else if (index === 5) {
+            const hasNewLine = col.val.includes("\n");
+            doc.text(col.val, currentX, y + (hasNewLine ? 3 : 7), { width: col.width, align: "center", lineGap: 0 });
           } else {
             doc.text(col.val, currentX, y + 6, { width: col.width, align: "center" });
           }
@@ -1015,66 +1085,93 @@ export async function generateAttendanceCertificate(student, internship, verific
       };
 
       const modules = internship.content || [];
+      let pageCounter = 8;
+
+      const drawFooter = (pageNum) => {
+        const oldBottomMargin = doc.page.margins.bottom;
+        doc.page.margins.bottom = 0;
+        doc.font("Helvetica").fontSize(8).fillColor("#64748b").text(pageNum.toString(), 520, 790, { align: "right" });
+        doc.page.margins.bottom = oldBottomMargin;
+      };
 
       // ==========================================
-      // PAGE 1: Annexure-2. Attendance Sheet (Part 1, Days 1-7)
+      // Annexure-2. Attendance Sheet (Part 1, Days 1 to count-1)
       // ==========================================
-      drawStudentDetailsBlock(doc, "Annexure-2. ATTENDANCE SHEET", "8");
+      drawStudentDetailsBlock(doc, "ATTENDANCE SHEET", pageCounter);
 
-      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("DAY-WISE ATTENDANCE", 40, 245);
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("DAY-WISE ATTENDANCE", 40, 280);
       
-      let tableY = 265;
+      let tableY = 300;
       drawAttendanceHeader(tableY);
       tableY += 20;
 
-      for (let day = 1; day <= 7; day++) {
+      for (let day = 1; day <= count - 1; day++) {
+        // If drawing row exceeds page limit, break page
+        if (tableY + 18 > 760) {
+          drawFooter(pageCounter++);
+          doc.addPage({ size: "A4", margin: 40 });
+          doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("DAY-WISE ATTENDANCE (Continued)", 40, 45);
+          tableY = 65;
+          drawAttendanceHeader(tableY);
+          tableY += 20;
+        }
+
         const date = weekdays[day - 1];
         const status = statuses[day - 1];
         drawAttendanceRow(tableY, day, formatDate(date), status, day % 2 === 0);
         tableY += 18;
       }
 
-      // ==========================================
-      // PAGE 2: Annexure-2. Attendance Sheet (Part 2, Days 8-20)
-      // ==========================================
-      doc.addPage({ size: "A4", margin: 40 });
-      
-      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("DAY-WISE ATTENDANCE (Continued)", 40, 45);
-      
-      tableY = 65;
-      drawAttendanceHeader(tableY);
-      tableY += 20;
-
-      for (let day = 8; day <= 19; day++) {
-        const date = weekdays[day - 1];
-        const status = statuses[day - 1];
-        drawAttendanceRow(tableY, day, formatDate(date), status, day % 2 === 0);
-        tableY += 18;
+      // Check if Final evaluation and signature fits, else page break
+      if (tableY + 150 > 760) {
+        drawFooter(pageCounter++);
+        doc.addPage({ size: "A4", margin: 40 });
+        tableY = 45;
       }
 
-      // Final evaluation section
       doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("Final evaluation:-", 40, tableY + 20);
       tableY += 40;
 
-      const date20 = weekdays[19];
-      const status20 = statuses[19];
-      drawAttendanceRow(tableY, 20, formatDate(date20), status20, true);
+      const dateLast = weekdays[count - 1];
+      const statusLast = statuses[count - 1];
+      drawAttendanceRow(tableY, count, formatDate(dateLast), statusLast, true);
 
-      doc.font("Helvetica").fontSize(8).fillColor("#64748b").text("9", 520, 800, { align: "right" });
+      // Render Founder & CEO Signature Block
+      tableY += 35;
+      const signaturePath = path.join(process.cwd(), "public", "kpsigns.png");
+      if (fs.existsSync(signaturePath)) {
+        doc.image(signaturePath, 385, tableY, { fit: [120, 35] });
+      }
+      tableY += 32;
+      doc.moveTo(370, tableY).lineTo(520, tableY).lineWidth(1).strokeColor("#1e293b").stroke();
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#1e293b").text("Founder & CEO", 370, tableY + 5, { align: "center", width: 150 });
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#1e293b").text("KpInterns", 370, tableY + 16, { align: "center", width: 150 });
+
+      drawFooter(pageCounter++);
 
       // ==========================================
-      // PAGE 3: Annexure-3. Daily Log Book / Daily Activity (Part 1, Days 1-7)
+      // Annexure-3. Daily Log Book / Daily Activity (Part 2, Days 1 to count-1)
       // ==========================================
       doc.addPage({ size: "A4", margin: 40 });
-      drawStudentDetailsBlock(doc, "Annexure-3- DAILY LOG BOOK / DAILY ACTIVITY", "10");
+      drawStudentDetailsBlock(doc, "DAILY LOG BOOK / DAILY ACTIVITY", pageCounter);
 
-      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("ACTIVITIES", 40, 245);
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("ACTIVITIES", 40, 280);
 
-      tableY = 265;
+      tableY = 300;
       drawActivityHeader(tableY);
       tableY += 20;
 
-      for (let day = 1; day <= 7; day++) {
+      for (let day = 1; day <= count - 1; day++) {
+        // If drawing row exceeds page limit, break page
+        if (tableY + 22 > 760) {
+          drawFooter(pageCounter++);
+          doc.addPage({ size: "A4", margin: 40 });
+          doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("ACTIVITIES (Continued)", 40, 45);
+          tableY = 65;
+          drawActivityHeader(tableY);
+          tableY += 20;
+        }
+
         const date = weekdays[day - 1];
         const status = statuses[day - 1];
         
@@ -1107,89 +1204,60 @@ export async function generateAttendanceCertificate(student, internship, verific
         tableY += 22;
       }
 
-      // ==========================================
-      // PAGE 4: Annexure-3. Daily Log Book / Daily Activity (Part 2, Days 8-20)
-      // ==========================================
-      doc.addPage({ size: "A4", margin: 40 });
-      
-      doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("ACTIVITIES (Continued)", 40, 45);
-
-      tableY = 65;
-      drawActivityHeader(tableY);
-      tableY += 20;
-
-      for (let day = 8; day <= 19; day++) {
-        const date = weekdays[day - 1];
-        const status = statuses[day - 1];
-
-        let taskText = `Study module: ${modules[day - 1]?.title || "Practical Session on " + (internship.domain || "Internship")}`;
-        let completedVal = "Yes";
-        let marksVal = "9/10";
-
-        const modItem = modules[day - 1];
-        if (modItem) {
-          const submittedAssignment = userAssignments.find(a => a.moduleId === modItem._id.toString());
-          if (modItem.assignmentTitle) {
-            taskText = `Assignment: ${modItem.assignmentTitle}`;
-            if (submittedAssignment) {
-              completedVal = "Yes";
-              marksVal = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
-            } else {
-              completedVal = "No";
-              marksVal = "0/10";
-            }
-          }
-        }
-
-        if (status === "Absent") {
-          completedVal = "No";
-          marksVal = "0/10";
-          taskText = `Absent - Revision Work`;
-        }
-
-        drawActivityRow(tableY, day, formatDate(date), taskText, completedVal, marksVal, day % 2 === 0);
-        tableY += 22;
+      // Check if Final Evaluation and Signatures fit, else page break
+      if (tableY + 220 > 760) {
+        drawFooter(pageCounter++);
+        doc.addPage({ size: "A4", margin: 40 });
+        tableY = 45;
       }
 
-      // Final Evaluation
       doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("Final Evaluation", 40, tableY + 20);
       tableY += 40;
 
-      const date20Activity = weekdays[19];
-      const status20Activity = statuses[19];
-      let taskText20 = "Final assessment & evaluation test submission";
-      let completedVal20 = "Yes";
-      let marksVal20 = "9/10";
+      const dateLastActivity = weekdays[count - 1];
+      const statusLastActivity = statuses[count - 1];
+      let taskTextLast = "Final assessment & evaluation test submission";
+      let completedValLast = "Yes";
+      let marksValLast = "9/10";
       
-      const modItem20 = modules[19];
-      if (modItem20) {
-        const submittedAssignment = userAssignments.find(a => a.moduleId === modItem20._id.toString());
-        if (modItem20.assignmentTitle) {
-          taskText20 = `Final Assignment: ${modItem20.assignmentTitle}`;
+      const modItemLast = modules[count - 1];
+      if (modItemLast) {
+        const submittedAssignment = userAssignments.find(a => a.moduleId === modItemLast._id.toString());
+        if (modItemLast.assignmentTitle) {
+          taskTextLast = `Final Assignment: ${modItemLast.assignmentTitle}`;
           if (submittedAssignment) {
-            completedVal20 = "Yes";
-            marksVal20 = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
+            completedValLast = "Yes";
+            marksValLast = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
           } else {
-            completedVal20 = "No";
-            marksVal20 = "0/10";
+            completedValLast = "No";
+            marksValLast = "0/10";
           }
         }
       }
 
-      if (status20Activity === "Absent") {
-        completedVal20 = "No";
-        marksVal20 = "0/10";
-        taskText20 = "Absent - Missed Final Assessment";
+      if (statusLastActivity === "Absent") {
+        completedValLast = "No";
+        marksValLast = "0/10";
+        taskTextLast = "Absent - Missed Final Assessment";
       }
 
-      drawActivityRow(tableY, 20, formatDate(date20Activity), taskText20, completedVal20, marksVal20, true);
+      drawActivityRow(tableY, count, formatDate(dateLastActivity), taskTextLast, completedValLast, marksValLast, true);
 
       // Signature line at bottom
       tableY += 45;
-      doc.font("Helvetica-Bold").fontSize(9).fillColor("#1e293b").text("KpInterns Evaluation Committee", 370, tableY);
-      doc.font("Helvetica").fontSize(8).fillColor("#475569").text("Authorized Digital Sd/- Signature", 370, tableY + 12);
+      if (fs.existsSync(signaturePath)) {
+        doc.image(signaturePath, 385, tableY, { fit: [120, 35] });
+      }
+      tableY += 32;
+      doc.moveTo(370, tableY).lineTo(520, tableY).lineWidth(1).strokeColor("#1e293b").stroke();
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#1e293b").text("Founder & CEO", 370, tableY + 5, { align: "center", width: 150 });
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#1e293b").text("KpInterns", 370, tableY + 16, { align: "center", width: 150 });
 
-      doc.font("Helvetica").fontSize(8).fillColor("#64748b").text("11", 520, 800, { align: "right" });
+      // Draw page number with bottom margin bypass
+      const oldBottomMarginPage4 = doc.page.margins.bottom;
+      doc.page.margins.bottom = 0;
+      doc.font("Helvetica").fontSize(8).fillColor("#64748b").text("11", 520, 790, { align: "right" });
+      doc.page.margins.bottom = oldBottomMarginPage4;
 
       doc.end();
     } catch (err) {

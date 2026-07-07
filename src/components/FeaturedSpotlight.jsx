@@ -292,7 +292,7 @@ const FeaturedSpotlight = () => {
                           <div className="flex flex-col">
                             <span className="text-xs text-text-muted uppercase font-bold tracking-wider">Registration Fee</span>
                             <span className="text-lg font-black text-text-main">
-                              {internship.RegistrationFee?.amount ? `₹${internship.RegistrationFee.amount}` : "Free"}
+                              {internship.RegistrationFee?.amount ? `Free` : "Free"}
                             </span>
                           </div>
 

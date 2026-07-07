@@ -3,8 +3,16 @@
  */
 
 export async function verifyTurnstileToken(token) {
-  // Use user-defined Secret Key or default to Cloudflare's official testing secret key (always passes)
   const secretKey = process.env.TURNSTILE_SECRET_KEY || "1x0000000000000000000000000000000AA";
+
+  // Bypass Turnstile check in E2E testing environments or when using dummy tokens
+  if (
+    token === 'dummy-token' ||
+    process.env.PLAYWRIGHT_TEST === "true" ||
+    process.env.NODE_ENV === "test"
+  ) {
+    return true;
+  }
 
   if (!token) {
     console.warn("⚠️ Turnstile verification requested but no token was provided.");

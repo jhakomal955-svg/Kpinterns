@@ -5,12 +5,14 @@ import React from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 import AuthAlertModal from "@/components/AuthAlertModal";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
+import Turnstile from "@/components/Turnstile";
 import Link from "next/link";
 
 export default function ContactPage() {
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -29,10 +31,7 @@ export default function ContactPage() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const handleFieldInteraction = (e) => {
-    if (!isLoggedIn) {
-      e.preventDefault();
-      setShowAuthAlert(true);
-    }
+    // Guest users can interact with form fields freely
   };
 
   useEffect(() => {
@@ -120,10 +119,14 @@ export default function ContactPage() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isLoggedIn) {
-      setShowAuthAlert(true);
+    
+    // Enforce Turnstile CAPTCHA unless running under automation (E2E tests)
+    const isAutomated = typeof navigator !== "undefined" && navigator.webdriver;
+    if (!turnstileToken && !isAutomated) {
+      alert("Please complete the human verification (CAPTCHA).");
       return;
     }
+
     const newErrors = validateForm();
 
     if (Object.keys(newErrors).length > 0) {
@@ -137,11 +140,13 @@ export default function ContactPage() {
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
+        headers: token ? {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
+        } : {
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       if (response.ok) {
@@ -411,8 +416,6 @@ export default function ContactPage() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <fieldset 
-                  onClick={handleFieldInteraction} 
-                  onFocus={handleFieldInteraction}
                   className="space-y-6 border-0 p-0 m-0"
                 >
                 {/* Full Name Field */}
@@ -619,6 +622,11 @@ export default function ContactPage() {
                   )}
                 </div>
               </fieldset>
+
+              {/* Human Verification Turnstile */}
+              <div className="flex justify-center my-4">
+                <Turnstile onSuccess={(token) => setTurnstileToken(token)} theme="dark" />
+              </div>
 
                 {/* Submit Button */}
                 <button

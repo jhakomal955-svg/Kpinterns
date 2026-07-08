@@ -109,10 +109,18 @@ export async function POST(request) {
         );
       }
     }
+    const cleanedMobile = String(rawData.mobile || "").replace(/\D/g, "");
+    let normalizedMobile = cleanedMobile;
+    if (cleanedMobile.length === 12 && cleanedMobile.startsWith("91")) {
+      normalizedMobile = cleanedMobile.substring(2);
+    } else if (cleanedMobile.length === 11 && cleanedMobile.startsWith("0")) {
+      normalizedMobile = cleanedMobile.substring(1);
+    }
+
     const data = {
       name: rawData.name?.trim(),
       email: rawData.email?.trim().toLowerCase(),
-      mobile: String(rawData.mobile || "").replace(/\D/g, ""),
+      mobile: normalizedMobile,
       password: rawData.password,
       agreeTerms: rawData.agreeTerms,
       verified: isDashboardCreation ? (rawData.verified === true) : false,
@@ -152,9 +160,9 @@ export async function POST(request) {
       }
     }
 
-    if (!data.mobile || data.mobile.length !== 10) {
+    if (!data.mobile || !/^[6-9]\d{9}$/.test(data.mobile)) {
       return Response.json(
-        { error: "Please enter a valid 10-digit mobile number." },
+        { error: "Please enter a valid 10-digit Indian mobile number." },
         { status: 400 },
       );
     }

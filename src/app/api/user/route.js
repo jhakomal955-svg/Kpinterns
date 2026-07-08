@@ -303,6 +303,23 @@ export async function POST(request) {
       }
     }
 
+    // Clean and validate Indian phone number format
+    const cleanedPhone = String(data.phone || "").replace(/\D/g, "");
+    let normalizedPhone = cleanedPhone;
+    if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
+      normalizedPhone = cleanedPhone.substring(2);
+    } else if (cleanedPhone.length === 11 && cleanedPhone.startsWith("0")) {
+      normalizedPhone = cleanedPhone.substring(1);
+    }
+
+    if (!/^[6-9]\d{9}$/.test(normalizedPhone)) {
+      return Response.json(
+        { error: "Please enter a valid 10-digit Indian mobile number." },
+        { status: 400 },
+      );
+    }
+    data.phone = normalizedPhone;
+
     const User = createModel("User", UserModel);
 
     // Check if email already exists

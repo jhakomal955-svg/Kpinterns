@@ -204,8 +204,20 @@ export default function AdminRegisterPage() {
       // Mobile validation
       if (!formData.mobile.trim()) {
         newErrors.mobile = "Mobile number is required";
-      } else if (!/^\d{10}$/.test(formData.mobile.replace(/\D/g, ""))) {
-        newErrors.mobile = "Please enter a valid 10-digit phone number";
+      } else {
+        const cleanedMobile = formData.mobile.replace(/\D/g, "");
+        let normalizedMobile = cleanedMobile;
+        if (cleanedMobile.length === 12 && cleanedMobile.startsWith("91")) {
+          normalizedMobile = cleanedMobile.substring(2);
+        } else if (cleanedMobile.length === 11 && cleanedMobile.startsWith("0")) {
+          normalizedMobile = cleanedMobile.substring(1);
+        }
+
+        if (!/^[6-9]\d{9}$/.test(normalizedMobile)) {
+          newErrors.mobile = "Please enter a valid 10-digit Indian mobile number (should start with 6, 7, 8 or 9)";
+        } else {
+          formData.mobile = normalizedMobile;
+        }
       }
 
       // Password validation

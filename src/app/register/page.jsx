@@ -622,8 +622,20 @@ export default function RegisterPage() {
       }
       if (!formData.phone.trim()) {
         newErrors.phone = "Phone number is required";
-      } else if (!/^\d{10}$/.test(formData.phone.trim())) {
-        newErrors.phone = "Phone number must be exactly 10 digits";
+      } else {
+        const cleanedPhone = formData.phone.replace(/\D/g, "");
+        let normalizedPhone = cleanedPhone;
+        if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
+          normalizedPhone = cleanedPhone.substring(2);
+        } else if (cleanedPhone.length === 11 && cleanedPhone.startsWith("0")) {
+          normalizedPhone = cleanedPhone.substring(1);
+        }
+
+        if (!/^[6-9]\d{9}$/.test(normalizedPhone)) {
+          newErrors.phone = "Please enter a valid 10-digit Indian mobile number (should start with 6, 7, 8 or 9)";
+        } else {
+          formData.phone = normalizedPhone;
+        }
       }
       if (!formData.gender) newErrors.gender = "Please select gender";
       if (!formData.parentName.trim())

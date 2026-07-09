@@ -1,7 +1,13 @@
 import nodemailer from "nodemailer";
 
+let cachedTransporter = global.cachedTransporter;
+
 // Create transporter dynamically based on environment variables
 const getTransporter = () => {
+  if (cachedTransporter) {
+    return cachedTransporter;
+  }
+
   const host = process.env.EMAIL_HOST || "smtp.gmail.com";
   const port = parseInt(process.env.EMAIL_PORT || "587");
   const secure = process.env.EMAIL_SECURE === "true";
@@ -12,12 +18,17 @@ const getTransporter = () => {
     return null;
   }
 
-  return nodemailer.createTransport({
+  cachedTransporter = global.cachedTransporter = nodemailer.createTransport({
     host,
     port,
     secure,
     auth: { user, pass },
+    pool: true, // Enable SMTP connection pool
+    maxConnections: 5,
+    maxMessages: 100,
   });
+
+  return cachedTransporter;
 };
 
 /**

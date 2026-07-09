@@ -12,6 +12,17 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { CourseModel, AdminModel, UserModel } from "@/models";
 import { verifyAuth, getAuthUser } from "@/lib/jwt";
 
+// Global memory cache for courses list to avoid database queries on every page navigation
+let coursesCache = global.coursesCache;
+if (!coursesCache) {
+  coursesCache = global.coursesCache = {
+    allCourses: null,
+    lastFetched: 0,
+  };
+}
+
+const CACHE_TTL_MS = 60 * 1000; // 1 minute cache TTL
+
 export async function GET(request) {
   try {
     await connectDB();
@@ -93,7 +104,15 @@ export async function GET(request) {
     } 
 
     // 3. Fetching all courses
-    const courses = await Course.find().populate("instructor.id", "name role avatar");
+    const now = Date.now();
+    let courses;
+    if (coursesCache.allCourses && (now - coursesCache.lastFetched < CACHE_TTL_MS)) {
+      courses = coursesCache.allCourses;
+    } else {
+      courses = await Course.find().populate("instructor.id", "name role avatar");
+      coursesCache.allCourses = courses;
+      coursesCache.lastFetched = now;
+    }
 
     const decoded = getAuthUser(request);
     const isAdminOrInstructor = decoded && ["Admin", "Instructor"].includes(decoded.role);
@@ -192,6 +211,9 @@ export async function POST(request) {
     }
 
     // Course created
+    if (global.coursesCache) {
+      global.coursesCache.allCourses = null;
+    }
 
     return Response.json(
       {
@@ -283,6 +305,9 @@ export async function PUT(request) {
     }
 
     // Course updated
+    if (global.coursesCache) {
+      global.coursesCache.allCourses = null;
+    }
 
     return Response.json(
       {
@@ -335,6 +360,9 @@ export async function DELETE(request) {
     );
 
     // Course deleted
+    if (global.coursesCache) {
+      global.coursesCache.allCourses = null;
+    }
 
     return Response.json(
       {

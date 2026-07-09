@@ -1,8 +1,29 @@
-/**
- * Live Status API Route
- * Checks if a YouTube video is currently a live broadcast
- * GET - returns { isLive: true | false }
- */
+// In-memory cache for live status to prevent YouTube rate-limiting
+let liveStatusCache = global.liveStatusCache;
+if (!liveStatusCache) {
+  liveStatusCache = global.liveStatusCache = new Map(); // videoId -> { isLive: boolean, lastChecked: timestamp }
+}
+
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes cache
+
+async function scrapeYouTubeLiveStatus(videoId) {
+  try {
+    const res = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+      }
+    });
+
+    if (!res.ok) return false;
+
+    const html = await res.text();
+    return html.includes('"isLive":true') || html.includes('"isLiveBroadcast":true');
+  } catch (err) {
+    console.error("❌ Failed scraping live status:", err);
+    return false;
+  }
+}
 
 export async function GET(request) {
   try {
@@ -13,24 +34,43 @@ export async function GET(request) {
       return Response.json({ success: false, error: "Invalid or missing videoId" }, { status: 400 });
     }
 
-    // Fetch the YouTube watch page
-    const res = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept-Language": "en-US,en;q=0.9",
-      },
-      next: { revalidate: 15 } // Cache check results for 15 seconds to avoid spamming YouTube
-    });
+    const now = Date.now();
+    const cached = liveStatusCache.get(videoId);
 
-    if (!res.ok) {
-      return Response.json({ success: true, isLive: false });
+    // Serve from cache if fresh
+    if (cached && (now - cached.lastChecked < CACHE_TTL_MS)) {
+      return Response.json({ success: true, isLive: cached.isLive, cached: true });
     }
 
-    const html = await res.text();
-    
-    // Check if the video is currently live
-    // YouTube includes `"isLive":true` or `"isLiveBroadcast":true` in its initial player JSON in the HTML
-    const isLive = html.includes('"isLive":true') || html.includes('"isLiveBroadcast":true');
+    let isLive = false;
+    const apiKey = process.env.YOUTUBE_API_KEY;
+
+    if (apiKey) {
+      try {
+        const apiRes = await fetch(
+          `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`
+        );
+        if (apiRes.ok) {
+          const data = await apiRes.json();
+          const item = data.items?.[0];
+          isLive = item?.snippet?.liveBroadcastContent === "live";
+        } else {
+          console.warn("⚠️ YouTube API failed. Falling back to scraping.");
+          isLive = await scrapeYouTubeLiveStatus(videoId);
+        }
+      } catch (apiErr) {
+        console.error("❌ YouTube API error:", apiErr);
+        isLive = await scrapeYouTubeLiveStatus(videoId);
+      }
+    } else {
+      isLive = await scrapeYouTubeLiveStatus(videoId);
+    }
+
+    // Cache the result
+    liveStatusCache.set(videoId, {
+      isLive,
+      lastChecked: now
+    });
 
     return Response.json({ success: true, isLive });
   } catch (error) {

@@ -10,6 +10,14 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { LiveChatMessageModel, UserModel, AdminModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
 
+// Global memory cache for live chat to prevent database query spamming under high-frequency polling
+let chatCache = global.chatCache;
+if (!chatCache) {
+  chatCache = global.chatCache = new Map(); // videoId -> { messages: [], lastFetched: timestamp }
+}
+
+const CACHE_TTL_MS = 2000; // 2 seconds cache TTL
+
 export async function GET(request) {
   try {
     await connectDB();
@@ -24,20 +32,32 @@ export async function GET(request) {
       return Response.json({ error: "Missing videoId parameter" }, { status: 400 });
     }
 
-    const query = { videoId };
+    // Check cache first
+    let cachedData = chatCache.get(videoId);
+    const now = Date.now();
 
-    // If 'since' date is provided, return only messages created after that timestamp
+    if (!cachedData || (now - cachedData.lastFetched > CACHE_TTL_MS)) {
+      // Retrieve last 100 messages in chronological order from DB
+      const dbMessages = await LiveChatMessage.find({ videoId })
+        .sort({ createdAt: 1 })
+        .limit(100);
+
+      cachedData = {
+        messages: dbMessages,
+        lastFetched: now
+      };
+      chatCache.set(videoId, cachedData);
+    }
+
+    let messages = cachedData.messages;
+
+    // If 'since' date is provided, filter in-memory instead of querying DB
     if (since) {
       const sinceDate = new Date(since);
       if (!isNaN(sinceDate.getTime())) {
-        query.createdAt = { $gt: sinceDate };
+        messages = messages.filter(msg => new Date(msg.createdAt) > sinceDate);
       }
     }
-
-    // Retrieve last 100 messages in chronological order
-    const messages = await LiveChatMessage.find(query)
-      .sort({ createdAt: 1 })
-      .limit(100);
 
     return Response.json({ success: true, data: messages }, { status: 200 });
   } catch (error) {
@@ -108,6 +128,21 @@ export async function POST(request) {
       senderRole,
       message: message.trim(),
     });
+
+    // Update the cache immediately to include the new message
+    const cachedData = chatCache.get(videoId);
+    if (cachedData) {
+      const updatedMessages = [...cachedData.messages, chatMsg].slice(-100);
+      chatCache.set(videoId, {
+        messages: updatedMessages,
+        lastFetched: Date.now()
+      });
+    } else {
+      chatCache.set(videoId, {
+        messages: [chatMsg],
+        lastFetched: Date.now()
+      });
+    }
 
     return Response.json({ success: true, data: chatMsg }, { status: 201 });
   } catch (error) {

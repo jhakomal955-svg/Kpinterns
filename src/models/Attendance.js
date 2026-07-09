@@ -10,11 +10,13 @@ const AttendanceModel = {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+    index: true,
   },
   internship: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Internship",
     required: true,
+    index: true,
   },
   records: [
     {

@@ -3,6 +3,7 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { InternshipModel, UserModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
+import { after } from "next/server";
 
 export async function POST(request) {
   try {
@@ -97,12 +98,14 @@ export async function POST(request) {
     student.markModified("ActiveInternship");
     await student.save();
 
-    // Trigger certificate generation automatically
-    try {
-      await checkAndAutomateDocuments(student._id.toString());
-    } catch (docErr) {
-      console.error("Failed to run checkAndAutomateDocuments after test submission:", docErr);
-    }
+    // Defer certificate generation automatically to background
+    after(async () => {
+      try {
+        await checkAndAutomateDocuments(student._id.toString());
+      } catch (docErr) {
+        console.error("Failed to run checkAndAutomateDocuments after test submission in background:", docErr);
+      }
+    });
 
     return Response.json({
       success: true,

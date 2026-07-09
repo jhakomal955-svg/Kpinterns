@@ -5,6 +5,68 @@ const JWT_SECRET = process.env.JWT_SECRET || "kp_interns_jwt_secret_key_2026_sec
 // In-memory store to track contact form POST submissions by IP address
 const rateLimitMap = new Map();
 
+function checkInMemoryRateLimit(ip, limit, windowSeconds) {
+  const now = Date.now();
+  let timestamps = rateLimitMap.get(ip) || [];
+  timestamps = timestamps.filter(t => now - t < windowSeconds * 1000);
+  
+  if (timestamps.length >= limit) {
+    return false;
+  }
+  
+  timestamps.push(now);
+  rateLimitMap.set(ip, timestamps);
+  return true;
+}
+
+async function checkRedisRateLimit(ip, limit = 3, windowSeconds = 3600) {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (!url || !token) {
+    // Fall back to in-memory Map
+    return checkInMemoryRateLimit(ip, limit, windowSeconds);
+  }
+
+  try {
+    const key = `ratelimit:contact:${ip}`;
+    // Perform pipelined INCR and TTL
+    const res = await fetch(`${url}/pipeline`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify([
+        ["INCR", key],
+        ["TTL", key]
+      ]),
+    });
+
+    if (!res.ok) {
+      console.warn("⚠️ Upstash Redis rate limit request failed. Falling back to in-memory limit.");
+      return checkInMemoryRateLimit(ip, limit, windowSeconds);
+    }
+
+    const [incrResult, ttlResult] = await res.json();
+    const currentCount = incrResult.result;
+    const ttl = ttlResult.result;
+
+    // If it's the first request, set the expire time
+    if (currentCount === 1 || ttl === -1) {
+      await fetch(`${url}/EXPIRE/${key}/${windowSeconds}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+    }
+
+    return currentCount <= limit;
+  } catch (err) {
+    console.error("❌ Redis rate limit error:", err);
+    return checkInMemoryRateLimit(ip, limit, windowSeconds);
+  }
+}
+
 // Edge-safe Base64URL decoder
 function base64urlToBytes(base64url) {
   let base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
@@ -84,22 +146,14 @@ export async function proxy(request) {
     const isTest = process.env.PLAYWRIGHT_TEST === "true" || process.env.NODE_ENV === "test";
     if (!isTest) {
       const ip = request.ip || request.headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
-      const now = Date.now();
-      const windowMs = 60 * 60 * 1000; // 1 hour window
-      const maxLimit = 3; // Max 3 submissions per hour
+      const isAllowed = await checkRedisRateLimit(ip, 3, 3600);
       
-      let timestamps = rateLimitMap.get(ip) || [];
-      timestamps = timestamps.filter(t => now - t < windowMs);
-      
-      if (timestamps.length >= maxLimit) {
+      if (!isAllowed) {
         return new NextResponse(
           JSON.stringify({ error: 'You have submitted too many messages. Please try again after some time.' }),
           { status: 429, headers: { 'content-type': 'application/json' } }
         );
       }
-      
-      timestamps.push(now);
-      rateLimitMap.set(ip, timestamps);
     }
   }
 

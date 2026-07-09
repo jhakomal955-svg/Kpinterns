@@ -3,6 +3,7 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
+import { after } from "next/server";
 
 export async function PUT(request) {
   try {
@@ -147,12 +148,14 @@ export async function PUT(request) {
     user.updatedAt = new Date();
     await user.save();
 
-    // Run automated document checks (e.g. check if progress became 100% and a certificate is now due)
-    try {
-      await checkAndAutomateDocuments(userId);
-    } catch (docError) {
-      console.error("❌ Failed to run automated document checks on progress update:", docError);
-    }
+    // Defer automated document checks to background (e.g. check if progress became 100% and a certificate is now due)
+    after(async () => {
+      try {
+        await checkAndAutomateDocuments(userId);
+      } catch (docError) {
+        console.error("❌ Failed to run automated document checks on progress update in background:", docError);
+      }
+    });
 
     // Populate references to match standard login / details APIs
     const populatedUser = await User.findById(userId)

@@ -2,6 +2,7 @@ import PDFDocument from "pdfkit";
 import QRCode from "qrcode";
 import fs from "fs";
 import path from "path";
+import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel } from "@/models";
@@ -18,32 +19,30 @@ export async function getSequentialNumber(subdocumentId) {
     createModel("Internship", InternshipModel);
     const User = createModel("User", UserModel);
 
-    // Retrieve only the ObjectIds of active internships and courses
-    const users = await User.find({}, { "ActiveInternship._id": 1, "ActiveCources._id": 1 });
-
-    const allIds = [];
-    for (const user of users) {
-      if (user.ActiveInternship) {
-        for (const item of user.ActiveInternship) {
-          if (item._id) {
-            allIds.push(item._id.toString());
+    // Use MongoDB aggregation to count subdocument IDs less than or equal to target ID.
+    // This runs completely inside MongoDB without loading any user documents into Node.js server memory.
+    const result = await User.aggregate([
+      {
+        $project: {
+          allIds: {
+            $concatArrays: [
+              { $ifNull: ["$ActiveInternship._id", []] },
+              { $ifNull: ["$ActiveCources._id", []] }
+            ]
           }
         }
-      }
-      if (user.ActiveCources) {
-        for (const item of user.ActiveCources) {
-          if (item._id) {
-            allIds.push(item._id.toString());
-          }
+      },
+      { $unwind: "$allIds" },
+      {
+        $match: {
+          allIds: { $lte: new mongoose.Types.ObjectId(subdocumentId) }
         }
-      }
-    }
+      },
+      { $count: "count" }
+    ]);
 
-    // Sort alphabetically so they are ordered chronologically by creation time
-    allIds.sort();
-
-    const idx = allIds.indexOf(subdocumentId.toString());
-    return idx !== -1 ? idx + 1 : 1;
+    const count = result[0]?.count || 0;
+    return count > 0 ? count : 1;
   } catch (error) {
     console.error("Error getting sequential number:", error);
     return 1;
@@ -62,33 +61,30 @@ export async function getObjectIdFromSequentialNumber(seqNum) {
     createModel("Internship", InternshipModel);
     const User = createModel("User", UserModel);
 
-    const users = await User.find({}, { "ActiveInternship._id": 1, "ActiveCources._id": 1 });
-
-    const allIds = [];
-    for (const user of users) {
-      if (user.ActiveInternship) {
-        for (const item of user.ActiveInternship) {
-          if (item._id) {
-            allIds.push(item._id.toString());
-          }
-        }
-      }
-      if (user.ActiveCources) {
-        for (const item of user.ActiveCources) {
-          if (item._id) {
-            allIds.push(item._id.toString());
-          }
-        }
-      }
-    }
-
-    allIds.sort();
-
     const targetIdx = parseInt(seqNum, 10) - 1;
-    if (targetIdx >= 0 && targetIdx < allIds.length) {
-      return allIds[targetIdx];
-    }
-    return null;
+    if (isNaN(targetIdx) || targetIdx < 0) return null;
+
+    // Use MongoDB aggregation to resolve sequential index back to subdocument ID.
+    // Runs in-database, returning only the single matched ObjectId.
+    const result = await User.aggregate([
+      {
+        $project: {
+          allIds: {
+            $concatArrays: [
+              { $ifNull: ["$ActiveInternship._id", []] },
+              { $ifNull: ["$ActiveCources._id", []] }
+            ]
+          }
+        }
+      },
+      { $unwind: "$allIds" },
+      { $sort: { allIds: 1 } },
+      { $skip: targetIdx },
+      { $limit: 1 },
+      { $project: { _id: 0, id: "$allIds" } }
+    ]);
+
+    return result[0]?.id?.toString() || null;
   } catch (error) {
     console.error("Error getting ObjectId from sequential number:", error);
     return null;

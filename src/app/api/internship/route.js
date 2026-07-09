@@ -12,6 +12,17 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { InternshipModel, AdminModel, UserModel } from "@/models";
 import { verifyAuth, getAuthUser } from "@/lib/jwt";
 
+// Global memory cache for internships list to avoid database queries on every page navigation
+let internshipsCache = global.internshipsCache;
+if (!internshipsCache) {
+  internshipsCache = global.internshipsCache = {
+    allInternships: null,
+    lastFetched: 0,
+  };
+}
+
+const CACHE_TTL_MS = 60 * 1000; // 1 minute cache TTL
+
 function sanitizeInternship(internship, isAdminOrInstructor, hasCompletedInternship = false) {
   if (!internship) return null;
   const obj = typeof internship.toObject === "function" ? internship.toObject() : internship;
@@ -112,9 +123,22 @@ export async function GET(request) {
       if (department) query.department = department;
       if (domain) query.domain = domain;
 
-      // Get internships (filtered or all) and POPULATE instructor/mentor referenced data
-      const internships = await Internship.find(query)
-        .populate("instructor.id", "name role avatar");
+      const isFilteredQuery = degree || department || domain;
+      const now = Date.now();
+      let internships;
+
+      if (!isFilteredQuery && internshipsCache.allInternships && (now - internshipsCache.lastFetched < CACHE_TTL_MS)) {
+        internships = internshipsCache.allInternships;
+      } else {
+        // Get internships (filtered or all) and POPULATE instructor/mentor referenced data
+        internships = await Internship.find(query)
+          .populate("instructor.id", "name role avatar");
+
+        if (!isFilteredQuery) {
+          internshipsCache.allInternships = internships;
+          internshipsCache.lastFetched = now;
+        }
+      }
 
       const sanitizedList = internships.map(item => sanitizeInternship(item, isAdminOrInstructor, false));
 
@@ -239,6 +263,9 @@ export async function POST(request) {
     }
 
     // Internship created
+    if (global.internshipsCache) {
+      global.internshipsCache.allInternships = null;
+    }
 
     return Response.json(
       {
@@ -337,6 +364,9 @@ export async function PUT(request) {
     }
 
     // Internship updated
+    if (global.internshipsCache) {
+      global.internshipsCache.allInternships = null;
+    }
 
     return Response.json(
       {
@@ -392,6 +422,9 @@ export async function DELETE(request) {
     );
 
     // Internship deleted
+    if (global.internshipsCache) {
+      global.internshipsCache.allInternships = null;
+    }
 
     return Response.json(
       {

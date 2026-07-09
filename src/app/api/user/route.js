@@ -131,22 +131,6 @@ export async function GET(request) {
     }
 
     if (userId) {
-      const user = await User.findById(userId);
-      if (!user) {
-        return Response.json({ error: "User not found" }, { status: 404 });
-      }
-
-      // Sync progress & status before checking/generating documents
-      await syncUserProgressAndStatus(user);
-
-      // Trigger automated document checks (heals any missed offer letters or certificates on profile view)
-      try {
-        await checkAndAutomateDocuments(userId);
-      } catch (docError) {
-        console.error("❌ Failed to run automated document checks on GET user profile:", docError);
-      }
-
-      // Refetch the latest user from the DB (with populated fields) to ensure we have any newly generated documents
       const freshUser = await User.findById(userId)
         .populate("ActiveCources.course")
         .populate("ActiveInternship.internship")
@@ -182,6 +166,19 @@ export async function GET(request) {
         freshUser.markModified("ActiveInternship");
         await freshUser.save();
       }
+
+      // Defer slow progress sync & document healing to the background
+      after(async () => {
+        try {
+          const uDoc = await User.findById(userId);
+          if (uDoc) {
+            await syncUserProgressAndStatus(uDoc);
+            await checkAndAutomateDocuments(userId);
+          }
+        } catch (bgError) {
+          console.error("❌ Error running background sync/automation on GET user profile:", bgError);
+        }
+      });
 
       const userObj = freshUser.toObject();
       userObj.internshipDomain = userObj.ActiveInternship?.[0]?.internship?.domain || userObj.ActiveInternship?.[0]?.internship?.category || "";
@@ -655,35 +652,33 @@ export async function PUT(request) {
     const updatedUser = await User.findByIdAndUpdate(userId, data, {
       new: true,
       runValidators: true,
-    });
+    })
+    .populate("ActiveCources.course")
+    .populate("ActiveInternship.internship")
+    .populate("ActiveInternship.attendance");
 
     if (!updatedUser) {
       return Response.json({ error: "User not found" }, { status: 404 });
     }
 
-    // User updated
-
-    // Sync progress & status based on any admin updates
-    await syncUserProgressAndStatus(updatedUser);
-
-    // Run automated document checks (e.g. checking completion status or new enrollments updated by admin)
-    let finalUser = updatedUser;
-    try {
-      await checkAndAutomateDocuments(userId);
-      // Refetch to return populated URLs and updated progress/status
-      finalUser = await User.findById(userId)
-        .populate("ActiveCources.course")
-        .populate("ActiveInternship.internship")
-        .populate("ActiveInternship.attendance");
-    } catch (docError) {
-      console.error("❌ Failed to run automated document checks on update:", docError);
-    }
+    // Defer slow progress sync & document automation checks to background
+    after(async () => {
+      try {
+        const uDoc = await User.findById(userId);
+        if (uDoc) {
+          await syncUserProgressAndStatus(uDoc);
+          await checkAndAutomateDocuments(userId);
+        }
+      } catch (bgError) {
+        console.error("❌ Error running background sync/automation on user update:", bgError);
+      }
+    });
 
     return Response.json(
       {
         success: true,
         message: "User updated successfully",
-        data: finalUser,
+        data: updatedUser,
       },
       { status: 200 },
     );

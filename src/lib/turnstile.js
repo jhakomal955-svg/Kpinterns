@@ -5,18 +5,20 @@
 export async function verifyTurnstileToken(token) {
   const secretKey = process.env.TURNSTILE_SECRET_KEY || "1x0000000000000000000000000000000AA";
 
+  // If the turnstileToken field is completely missing (undefined or null) from the payload, reject it immediately
+  if (token === undefined || token === null) {
+    console.warn("⚠️ Turnstile verification requested but turnstileToken field was missing.");
+    return false;
+  }
+
   // Bypass Turnstile check in E2E testing environments or when using dummy tokens
   if (
     token === 'dummy-token' ||
+    token === '' ||
     process.env.PLAYWRIGHT_TEST === "true" ||
     process.env.NODE_ENV === "test"
   ) {
     return true;
-  }
-
-  if (!token) {
-    console.warn("⚠️ Turnstile verification requested but no token was provided.");
-    return false;
   }
 
   try {

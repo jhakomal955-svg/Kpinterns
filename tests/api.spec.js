@@ -25,7 +25,8 @@ test.describe('Contact API', () => {
         university: 'Test Uni',
         college: 'Test College',
         semester: '5th',
-        message: 'Hello World'
+        message: 'Hello World',
+        turnstileToken: 'dummy-token'
       }
     });
 
@@ -44,7 +45,8 @@ test.describe('Contact API', () => {
         university: 'Test Uni',
         college: 'Test College',
         semester: '5th',
-        message: 'Hello World'
+        message: 'Hello World',
+        turnstileToken: 'dummy-token'
       }
     });
 
@@ -63,7 +65,8 @@ test.describe('Contact API', () => {
         university: 'Test Uni',
         college: 'Test College',
         semester: '5th',
-        message: 'Hello World'
+        message: 'Hello World',
+        turnstileToken: 'dummy-token'
       }
     });
 

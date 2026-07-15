@@ -29,8 +29,8 @@ export default function AdminCreatePage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const totalSteps = 3;
-  const stepTitles = ["Basic Info", "Security & Details", "Bank Account"];
+  const totalSteps = 4;
+  const stepTitles = ["Basic Info", "Security & Details", "Bank Account", "Review"];
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -250,7 +250,7 @@ export default function AdminCreatePage() {
 
       {/* Form Card */}
       <div className="bg-bg-card rounded-3xl shadow-xl p-6 sm:p-10 border border-border-main">
-        <form onSubmit={step < 3 ? handleNext : handleSubmit} className="space-y-5">
+        <form onSubmit={step < 4 ? handleNext : handleSubmit} className="space-y-5">
           {step === 1 && (
             <div className="space-y-5 animate-fade-in">
               <h2 className="text-xl font-bold text-text-main">Basic Details</h2>
@@ -300,6 +300,21 @@ export default function AdminCreatePage() {
                     {errors.email}
                   </p>
                 )}
+              </div>
+              {/* Role Input */}
+              <div>
+                <label className="block text-xs font-bold text-text-main uppercase tracking-wider mb-2.5">
+                  Role *
+                </label>
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border-2 border-border-main bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary"
+                >
+                  <option value="Admin">Admin</option>
+                  <option value="Employee">Employee</option>
+                </select>
               </div>
 
               <button
@@ -550,22 +565,98 @@ export default function AdminCreatePage() {
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="flex-1 py-3 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition-all"
+                  className="flex-1 py-3 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition-all cursor-pointer"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-base hover:shadow-lg hover:shadow-brand-primary/30 transition-all transform hover:scale-[1.02] cursor-pointer font-poppins"
+                >
+                  Next →
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className="space-y-6 animate-fade-in">
+              <h2 className="text-xl sm:text-2xl font-bold text-text-main">
+                Review Admin Details
+              </h2>
+              <p className="text-text-muted text-sm">
+                Please review all administrator account details before final registration.
+              </p>
+
+              <div className="bg-bg-main border border-border-main rounded-2xl p-6 space-y-4 text-sm font-poppins">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
+                  <div>
+                    <span className="text-text-muted text-xs block">Full Name</span>
+                    <span className="text-text-main font-semibold">{formData.name}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Email</span>
+                    <span className="text-text-main font-semibold break-all">{formData.email}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Mobile</span>
+                    <span className="text-text-main font-semibold">{formData.mobile}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Role</span>
+                    <span className="text-brand-primary font-bold">{formData.role}</span>
+                  </div>
+                  {formData.bio && (
+                    <div className="sm:col-span-2">
+                      <span className="text-text-muted text-xs block">Bio</span>
+                      <span className="text-text-main">{formData.bio}</span>
+                    </div>
+                  )}
+                  <div className="sm:col-span-2 border-t border-border-main/50 my-1"></div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Bank Holder Name</span>
+                    <span className="text-text-main font-semibold">{formData.bankDetails.name}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">Account Number</span>
+                    <span className="text-text-main font-semibold">{formData.bankDetails.accountNumber}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted text-xs block">IFSC Code</span>
+                    <span className="text-text-main font-semibold">{formData.bankDetails.ifscCode}</span>
+                  </div>
+                </div>
+              </div>
+
+              {errors.submit && (
+                <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-600 text-sm font-medium">
+                  <p>{errors.submit}</p>
+                  {errors.details && (
+                    <p className="mt-1 text-xs text-red-500">{errors.details}</p>
+                  )}
+                </div>
+              )}
+
+              <div className="flex gap-4 pt-4">
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="flex-1 py-3 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition-all cursor-pointer"
                 >
                   Back
                 </button>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-base hover:shadow-lg hover:shadow-brand-primary/30 transition-all transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-base hover:shadow-lg hover:shadow-brand-primary/30 transition-all transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer font-poppins"
                 >
                   {isLoading ? (
                     <div className="flex items-center justify-center space-x-2">
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Creating...</span>
+                      <span>Registering...</span>
                     </div>
                   ) : (
-                    "Register Admin"
+                    "Confirm & Register"
                   )}
                 </button>
               </div>

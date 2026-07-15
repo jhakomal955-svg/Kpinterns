@@ -456,7 +456,7 @@ export default function InternshipDetailLearnPage() {
                 onClick={handleEnrollMock}
                 className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition"
               >
-                Apply for Internship {internship.RegistrationFee?.amount ? `Free` : ""}
+                Apply for Internship
               </button>
             ) : (
               <span className="bg-brand-success/10 border border-brand-success/30 text-brand-success font-bold py-2 px-4 rounded-xl flex items-center gap-2 text-sm">

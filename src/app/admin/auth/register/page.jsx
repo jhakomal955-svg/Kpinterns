@@ -30,8 +30,8 @@ export default function AdminRegisterPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const totalSteps = 3;
-  const stepTitles = ["Verification", "Admin Details", "Bank Account"];
+  const totalSteps = 4;
+  const stepTitles = ["Verification", "Admin Details", "Bank Account", "Review"];
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -424,7 +424,7 @@ export default function AdminRegisterPage() {
               </div>
             </div>
           ) : (
-            <form onSubmit={step < 3 ? handleNext : handleSubmit} className="space-y-5">
+            <form onSubmit={step < 4 ? handleNext : handleSubmit} className="space-y-5">
               {step === 1 && (
                 <div className="space-y-5 animate-fade-in">
                   {/* Name Input */}
@@ -584,6 +584,7 @@ export default function AdminRegisterPage() {
                       className="w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none"
                     >
                       <option value="Admin">Admin</option>
+                      <option value="Employee">Employee</option>
                       <option value="Instructor">Instructor</option>
                       <option value="College Admin">College Partner</option>
                       <option value="Cybercafe Partner">Cybercafe Partner</option>
@@ -954,22 +955,114 @@ export default function AdminRegisterPage() {
                     <button
                       type="button"
                       onClick={handleBack}
-                      className="flex-1 py-4 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition-all animate-fade-in"
+                      className="flex-1 py-4 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition-all animate-fade-in cursor-pointer"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-lg hover:shadow-2xl hover:shadow-brand-primary/40 transition-all transform hover:scale-105 cursor-pointer font-poppins"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {step === 4 && (
+                <div className="space-y-6 animate-fade-in">
+                  <h2 className="text-xl sm:text-2xl font-bold text-text-main">
+                    Review Details
+                  </h2>
+                  <p className="text-text-muted text-sm">
+                    Please review your registration details carefully before completing signup.
+                  </p>
+
+                  <div className="bg-bg-main border border-border-main rounded-2xl p-6 space-y-4 text-sm font-poppins">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
+                      <div>
+                        <span className="text-text-muted text-xs block">Full Name</span>
+                        <span className="text-text-main font-semibold">{formData.name}</span>
+                      </div>
+                      <div>
+                        <span className="text-text-muted text-xs block">Email</span>
+                        <span className="text-text-main font-semibold break-all">{formData.email}</span>
+                      </div>
+                      <div>
+                        <span className="text-text-muted text-xs block">Mobile</span>
+                        <span className="text-text-main font-semibold">{formData.mobile}</span>
+                      </div>
+                      <div>
+                        <span className="text-text-muted text-xs block">Requested Role</span>
+                        <span className="text-brand-primary font-bold">{formData.role}</span>
+                      </div>
+                      {formData.role === "College Admin" && (
+                        <>
+                          <div>
+                            <span className="text-text-muted text-xs block">University</span>
+                            <span className="text-text-main font-semibold">
+                              {universitiesData[formData.UniversityName]?.name || formData.UniversityName}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-text-muted text-xs block">College</span>
+                            <span className="text-text-main font-semibold">
+                              {universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName}
+                            </span>
+                          </div>
+                        </>
+                      )}
+                      {formData.bio && (
+                        <div className="sm:col-span-2">
+                          <span className="text-text-muted text-xs block">Bio</span>
+                          <span className="text-text-main">{formData.bio}</span>
+                        </div>
+                      )}
+                      <div className="sm:col-span-2 border-t border-border-main/50 my-1"></div>
+                      <div>
+                        <span className="text-text-muted text-xs block">Bank Account Name</span>
+                        <span className="text-text-main font-semibold">{formData.bankDetails.name}</span>
+                      </div>
+                      <div>
+                        <span className="text-text-muted text-xs block">Account Number</span>
+                        <span className="text-text-main font-semibold">{formData.bankDetails.accountNumber}</span>
+                      </div>
+                      <div>
+                        <span className="text-text-muted text-xs block">IFSC Code</span>
+                        <span className="text-text-main font-semibold">{formData.bankDetails.ifscCode}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {errors.submit && (
+                    <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-600 text-sm font-medium">
+                      <p>{errors.submit}</p>
+                      {errors.details && (
+                        <p className="mt-1 text-xs text-red-500">{errors.details}</p>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="flex gap-4">
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      className="flex-1 py-4 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition-all animate-fade-in cursor-pointer"
                     >
                       Back
                     </button>
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="flex-1 py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-lg hover:shadow-2xl hover:shadow-brand-primary/40 transition-all transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
+                      className="flex-1 py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-lg hover:shadow-2xl hover:shadow-brand-primary/40 transition-all transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none cursor-pointer font-poppins"
                     >
                       {isLoading ? (
                         <div className="flex items-center justify-center space-x-2">
                           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          <span>Creating Account...</span>
+                          <span>Submitting...</span>
                         </div>
                       ) : (
-                        "Register"
+                        "Confirm & Signup"
                       )}
                     </button>
                   </div>

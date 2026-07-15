@@ -95,8 +95,8 @@ export async function GET(request) {
   try {
     await connectDB();
 
-    // Authenticate Admin, College Admin, Instructor, or User
-    const auth = verifyAuth(request, ["Admin", "College Admin", "Instructor", "User"]);
+    // Authenticate Admin, Employee, College Admin, Instructor, or User
+    const auth = verifyAuth(request, ["Admin", "Employee", "College Admin", "Instructor", "User"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }
@@ -187,7 +187,12 @@ export async function GET(request) {
       return Response.json({ success: true, data: userObj }, { status: 200 });
     } else {
       // Block non-authorized users from listing all users
-      if (auth.user.role !== "Admin" && auth.user.role !== "College Admin" && auth.user.role !== "Instructor") {
+      if (
+        auth.user.role !== "Admin" &&
+        auth.user.role !== "College Admin" &&
+        auth.user.role !== "Instructor" &&
+        auth.user.role !== "Employee"
+      ) {
         return Response.json({ error: "Access denied: insufficient permissions to list all users." }, { status: 403 });
       }
 
@@ -239,13 +244,17 @@ export async function POST(request) {
     
     // Check if user is being manually registered via Admin Dashboard
     const isDashboardCreation = data.isAdminCreation === true;
+    let dashboardCreatorId = null;
+    let dashboardCreatorRole = null;
 
     if (isDashboardCreation) {
-      // Manually registering a user via dashboard is restricted to Admin
-      const auth = verifyAuth(request, ["Admin"]);
+      // Manually registering a user via dashboard is allowed for Admin and Employee
+      const auth = verifyAuth(request, ["Admin", "Employee"]);
       if (!auth.authenticated) {
         return Response.json({ error: auth.error }, { status: auth.status });
       }
+      dashboardCreatorId = auth.user._id;
+      dashboardCreatorRole = auth.user.role;
     } else {
       const verifiedOtpRecord = await VerificationOtp.findOne({
         email: normalizedEmail,
@@ -490,12 +499,23 @@ export async function POST(request) {
     const newUser = new User(data);
     await newUser.save();
 
-    // Store in cybercafe Usercreated field if created by a Cybercafe Partner
-    if (cybercafePartnerId) {
+    // Store in creator's Usercreated field
+    const finalCreatorId = dashboardCreatorId || cybercafePartnerId;
+    if (finalCreatorId) {
       const Admin = createModel("Admin", AdminModel);
-      await Admin.findByIdAndUpdate(cybercafePartnerId, {
+      const updateObj = {
         $addToSet: { Usercreated: newUser._id }
-      });
+      };
+
+      // If created by an Employee, and the user has an active internship, credit the fee to their totalRevenue
+      if (dashboardCreatorRole === "Employee" && data.ActiveInternship && data.ActiveInternship.length > 0) {
+        const feeAmount = data.ActiveInternship[0].amount || 0;
+        if (feeAmount > 0) {
+          updateObj.$inc = { totalRevenue: feeAmount };
+        }
+      }
+
+      await Admin.findByIdAndUpdate(finalCreatorId, updateObj);
     }
 
     // Defer slow operations to run in the background after response is sent
@@ -615,8 +635,8 @@ export async function PUT(request) {
   try {
     await connectDB();
 
-    // Authenticate Admin or User
-    const auth = verifyAuth(request, ["Admin", "User"]);
+    // Authenticate Admin, Employee, or User
+    const auth = verifyAuth(request, ["Admin", "Employee", "User"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }

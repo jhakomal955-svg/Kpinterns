@@ -24,7 +24,7 @@ export default function AdminAuthPage({ children }) {
       router.push("/admin/auth/college-admin");
     } else if (role === "Cybercafe Partner") {
       router.push("/admin/auth/cybercafe-partner");
-    } else if (role === "Admin") {
+    } else if (role === "Admin" || role === "Employee") {
       router.push("/admin/auth/dashboard");
     } else {
       router.push("/admin/auth/login");
@@ -61,7 +61,7 @@ export default function AdminAuthPage({ children }) {
           redirectCorrectDashboard(role);
         } else if (isCybercafePortal && role !== "Cybercafe Partner") {
           redirectCorrectDashboard(role);
-        } else if (isDashboardPortal && role !== "Admin") {
+        } else if (isDashboardPortal && role !== "Admin" && role !== "Employee") {
           redirectCorrectDashboard(role);
         }
       }

@@ -183,14 +183,14 @@ export default function CoursesAdminPage() {
               {/* Card Footer Actions */}
               <div className="px-5 py-4 bg-bg-main/50 border-t border-border-main flex items-center justify-end gap-3">
                 <Link href={`/admin/auth/dashboard/course/${course._id}`} className="p-2 rounded-xl text-blue-500 bg-bg-card border border-border-main hover:bg-blue-50 text-xs font-semibold">Edit</Link>
-                {adminData?.role !== "Instructor" && (
+                {adminData?.role !== "Instructor" && adminData?.role !== "Employee" && (
                   <button 
                     type="button" 
                     onClick={() => {
                       setTargetIdToDelete(course._id);
                       setShowConfirmModal(true);
                     }} 
-                    className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:bg-red-50 text-xs font-semibold"
+                    className="p-2 rounded-xl text-red-500 bg-bg-card border border-border-main hover:bg-red-550 hover:bg-red-50 dark:hover:bg-red-900/20 text-xs font-semibold"
                   >
                     Delete
                   </button>

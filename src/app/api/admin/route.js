@@ -16,8 +16,8 @@ export async function GET(request) {
   try {
     await connectDB();
 
-    // Authenticate Admin, Instructor, College Admin, or Cybercafe Partner
-    const auth = verifyAuth(request, ["Admin", "Instructor", "College Admin", "Cybercafe Partner"]);
+    // Authenticate Admin, Employee, Instructor, College Admin, or Cybercafe Partner
+    const auth = verifyAuth(request, ["Admin", "Employee", "Instructor", "College Admin", "Cybercafe Partner"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }
@@ -84,9 +84,9 @@ export async function POST(request) {
     // Check if registration originates from the admin dashboard (bypasses OTP verification)
     const isDashboardCreation = rawData.isAdminCreation === true;
 
-    // If it is dashboard creation, only authenticated Admins are allowed to do this
+    // If it is dashboard creation, authenticated Admins and Employees are allowed to do this
     if (isDashboardCreation) {
-      const auth = verifyAuth(request, ["Admin"]);
+      const auth = verifyAuth(request, ["Admin", "Employee"]);
       if (!auth.authenticated) {
         return Response.json({ error: auth.error }, { status: auth.status });
       }
@@ -226,8 +226,8 @@ export async function PUT(request) {
   try {
     await connectDB();
 
-    // Authenticate Admin, Instructor, College Admin, or Cybercafe Partner
-    const auth = verifyAuth(request, ["Admin", "Instructor", "College Admin", "Cybercafe Partner"]);
+    // Authenticate Admin, Employee, Instructor, College Admin, or Cybercafe Partner
+    const auth = verifyAuth(request, ["Admin", "Employee", "Instructor", "College Admin", "Cybercafe Partner"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }
@@ -239,8 +239,8 @@ export async function PUT(request) {
       return Response.json({ error: "Admin ID is required" }, { status: 400 });
     }
 
-    // Role-based validation: Non-Admins can only edit their own profile
-    if (auth.user.role !== "Admin" && auth.user._id !== adminId) {
+    // Role-based validation: Non-Admins and Non-Employees can only edit their own profile
+    if (auth.user.role !== "Admin" && auth.user.role !== "Employee" && auth.user._id !== adminId) {
       return Response.json(
         { error: `Access denied: ${auth.user.role}s can only edit their own profile.` },
         { status: 403 }

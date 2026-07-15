@@ -16,7 +16,7 @@ export async function GET(request) {
     await connectDB();
 
     // Authenticate Admin
-    const auth = verifyAuth(request, ["Admin"]);
+    const auth = verifyAuth(request, ["Admin", "Employee"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }
@@ -41,7 +41,7 @@ export async function PUT(request) {
     await connectDB();
 
     // Authenticate Admin
-    const auth = verifyAuth(request, ["Admin"]);
+    const auth = verifyAuth(request, ["Admin", "Employee"]);
     if (!auth.authenticated) {
       return Response.json({ error: auth.error }, { status: auth.status });
     }

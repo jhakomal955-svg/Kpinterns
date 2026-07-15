@@ -16,6 +16,9 @@ export default function UsersAdminPage() {
   const [message, setMessage] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [targetIdToDelete, setTargetIdToDelete] = useState(null);
+  const [adminData, setAdminData] = useState(null);
+  const [adminsList, setAdminsList] = useState([]);
+  const [selectedCreatorId, setSelectedCreatorId] = useState("");
 
   // Fetch Users
   const fetchUsers = async () => {
@@ -40,6 +43,31 @@ export default function UsersAdminPage() {
 
   useEffect(() => {
     fetchUsers();
+    
+    // Fetch Admin list to map creator associations
+    const fetchAdmins = async () => {
+      try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+        const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+        const res = await fetch("/api/admin", { headers });
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          setAdminsList(data.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch admin creators:", err);
+      }
+    };
+    fetchAdmins();
+
+    try {
+      const stored = localStorage.getItem("adminData");
+      if (stored) {
+        setAdminData(JSON.parse(stored));
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }, []);
 
   const handleDelete = async (id) => {
@@ -75,12 +103,25 @@ export default function UsersAdminPage() {
     setSelectedDegree("");
     setSelectedUniversity("");
     setSelectedCollege("");
+    setSelectedCreatorId("");
     setSearchQuery("");
   };
 
-  const hasActiveFilters = searchQuery || selectedSession || selectedDegree || selectedUniversity || selectedCollege;
+  const hasActiveFilters = searchQuery || selectedSession || selectedDegree || selectedUniversity || selectedCollege || selectedCreatorId;
 
   // Filtered Users
+  const userToCreatorMap = {};
+  adminsList.forEach(admin => {
+    admin.Usercreated?.forEach(userId => {
+      const uId = typeof userId === 'object' ? userId._id?.toString() : userId.toString();
+      userToCreatorMap[uId] = {
+        id: admin._id,
+        name: admin.name,
+        role: admin.role || "Admin"
+      };
+    });
+  });
+
   const filteredUsers = users.filter((user) => {
     const term = searchQuery.toLowerCase();
     const matchesSearch =
@@ -94,8 +135,9 @@ export default function UsersAdminPage() {
     const matchesDegree = !selectedDegree || user.degree === selectedDegree;
     const matchesUniversity = !selectedUniversity || user.university === selectedUniversity;
     const matchesCollege = !selectedCollege || user.college === selectedCollege;
+    const matchesCreator = !selectedCreatorId || userToCreatorMap[user._id]?.id === selectedCreatorId;
 
-    return matchesSearch && matchesSession && matchesDegree && matchesUniversity && matchesCollege;
+    return matchesSearch && matchesSession && matchesDegree && matchesUniversity && matchesCollege && matchesCreator;
   });
 
   const getAdminAttendanceStats = (i) => {
@@ -192,7 +234,7 @@ export default function UsersAdminPage() {
         </div>
 
         {/* Filter selectors grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           <div>
             <label className="block text-xs font-bold text-text-muted mb-1.5 uppercase tracking-wider">Session</label>
             <select
@@ -248,6 +290,32 @@ export default function UsersAdminPage() {
               ))}
             </select>
           </div>
+
+          <div>
+            <label className="block text-xs font-bold text-text-muted mb-1.5 uppercase tracking-wider">Created By</label>
+            <select
+              value={selectedCreatorId}
+              onChange={(e) => setSelectedCreatorId(e.target.value)}
+              className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base appearance-none cursor-pointer"
+            >
+              <option value="">All Creators</option>
+              <optgroup label="Admins">
+                {adminsList.filter(a => a.role === "Admin" || !a.role).map(a => (
+                  <option key={a._id} value={a._id}>{a.name} (Admin)</option>
+                ))}
+              </optgroup>
+              <optgroup label="Employees">
+                {adminsList.filter(a => a.role === "Employee").map(a => (
+                  <option key={a._id} value={a._id}>{a.name} (Employee)</option>
+                ))}
+              </optgroup>
+              <optgroup label="Cybercafe Partners">
+                {adminsList.filter(a => a.role === "Cybercafe Partner").map(a => (
+                  <option key={a._id} value={a._id}>{a.name} (Cybercafe)</option>
+                ))}
+              </optgroup>
+            </select>
+          </div>
         </div>
 
         {hasActiveFilters && (
@@ -286,6 +354,7 @@ export default function UsersAdminPage() {
                   <th className="py-4 px-6">College / Branch</th>
                   <th className="py-4 px-6">Reg No / Sem</th>
                   <th className="py-4 px-6">Enrolled Programs</th>
+                  <th className="py-4 px-6">Created By</th>
                   <th className="py-4 px-6 text-center">Actions</th>
                 </tr>
               </thead>
@@ -315,6 +384,29 @@ export default function UsersAdminPage() {
                         <span className="font-medium">{user.registrationNumber}</span>
                         <span className="text-text-muted text-xs">Sem: {user.semester} | {user.session}</span>
                       </div>
+                    </td>
+
+                    <td className="py-4 px-6">
+                      {(() => {
+                        const creator = userToCreatorMap[user._id];
+                        if (creator) {
+                          return (
+                            <div className="flex flex-col text-xs">
+                              <span className="font-semibold text-text-main">{creator.name}</span>
+                              <span className={`text-[9px] font-extrabold uppercase tracking-wider ${
+                                creator.role === "Employee"
+                                  ? "text-indigo-500"
+                                  : creator.role === "Cybercafe Partner"
+                                    ? "text-cyan-500"
+                                    : "text-brand-primary"
+                              }`}>
+                                {creator.role}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return <span className="text-text-muted italic text-xs">Self Registered</span>;
+                      })()}
                     </td>
 
                     <td className="py-4 px-6">
@@ -434,18 +526,20 @@ export default function UsersAdminPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                           </svg>
                         </Link>
-                        <button
-                          onClick={() => {
-                            setTargetIdToDelete(user._id);
-                            setShowConfirmModal(true);
-                          }}
-                          className="p-2 rounded-lg text-red-500 hover:bg-red-550 dark:hover:bg-red-900/20 transition-colors"
-                          title="Delete User"
-                        >
-                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
+                        {adminData?.role !== "Employee" && (
+                          <button
+                            onClick={() => {
+                              setTargetIdToDelete(user._id);
+                              setShowConfirmModal(true);
+                            }}
+                            className="p-2 rounded-lg text-red-500 hover:bg-red-550 dark:hover:bg-red-900/20 transition-colors"
+                            title="Delete User"
+                          >
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

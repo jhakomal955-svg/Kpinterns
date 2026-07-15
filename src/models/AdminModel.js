@@ -45,7 +45,7 @@ const AdminModel = {
   },
   role: {
     type: String,
-    enum: ["Admin", "Instructor","College Admin","Cybercafe Partner"],
+    enum: ["Admin", "Instructor","College Admin","Cybercafe Partner","Employee"],
     default: "Admin",
   },
   UniversityName: {

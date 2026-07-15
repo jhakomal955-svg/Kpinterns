@@ -16,6 +16,7 @@ export default function ContactsAdminPage() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [targetIdToDelete, setTargetIdToDelete] = useState(null);
+  const [adminData, setAdminData] = useState(null);
 
   const statuses = ["New", "Reviewed", "Responded", "Closed"];
 
@@ -43,6 +44,14 @@ export default function ContactsAdminPage() {
 
   useEffect(() => {
     fetchContacts();
+    try {
+      const stored = localStorage.getItem("adminData");
+      if (stored) {
+        setAdminData(JSON.parse(stored));
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }, []);
 
   const handleStatusChange = async (id, newStatus) => {
@@ -259,18 +268,20 @@ export default function ContactsAdminPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
                         </button>
-                        <button
-                          onClick={() => {
-                            setTargetIdToDelete(contact._id);
-                            setShowConfirmModal(true);
-                          }}
-                          className="p-2 rounded-lg text-red-500 hover:bg-red-550 dark:hover:bg-red-900/20 transition-colors"
-                          title="Delete Submission"
-                        >
-                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
+                        {adminData?.role !== "Employee" && (
+                          <button
+                            onClick={() => {
+                              setTargetIdToDelete(contact._id);
+                              setShowConfirmModal(true);
+                            }}
+                            className="p-2 rounded-lg text-red-500 hover:bg-red-550 dark:hover:bg-red-900/20 transition-colors"
+                            title="Delete Submission"
+                          >
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -391,18 +402,20 @@ export default function ContactsAdminPage() {
                 </div>
 
                 <div className="flex items-center gap-3 self-end sm:self-auto">
-                  <button
-                    onClick={() => {
-                      setTargetIdToDelete(selectedContact._id);
-                      setShowConfirmModal(true);
-                    }}
-                    className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2"
-                  >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                    Delete inquiry
-                  </button>
+                  {adminData?.role !== "Employee" && (
+                    <button
+                      onClick={() => {
+                        setTargetIdToDelete(selectedContact._id);
+                        setShowConfirmModal(true);
+                      }}
+                      className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      Delete inquiry
+                    </button>
+                  )}
                   <button
                     onClick={() => setShowDetailModal(false)}
                     className="px-5 py-2 rounded-xl border-2 border-border-main hover:bg-bg-main text-text-main text-xs sm:text-sm font-semibold transition"

@@ -128,12 +128,12 @@ const Hero = () => {
             {/* CTA Buttons - Enhanced */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
               <Link
-                href="/internship"
+                href={isLoggedIn ? "/internship" : "/register"}
                 className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base font-bold text-white rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 active:scale-95"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-brand-secondary via-brand-primary to-brand-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-shimmer"></span>
                 <span className="relative flex items-center gap-2">
-                  Explore Internships
+                  {isLoggedIn ? "Explore Internships" : "Register for Internship"}
                   <svg
                     className="w-5 h-5 group-hover:translate-x-2 group-hover:scale-110 transition-all"
                     fill="none"

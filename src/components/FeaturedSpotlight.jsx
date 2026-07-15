@@ -288,18 +288,18 @@ const FeaturedSpotlight = () => {
                         </p>
 
                         <div className="flex items-center justify-between pt-4 border-t border-border-main mt-auto">
-                          {/* Fee and Stipend */}
-                          <div className="flex flex-col">
-                            <span className="text-xs text-text-muted uppercase font-bold tracking-wider">Registration Fee</span>
-                            <span className="text-lg font-black text-text-main">
-                              {internship.RegistrationFee?.amount ? `Free` : "Free"}
+                          {/* Fee hidden publicly as per AICTE guidelines */}
+                          <div className="flex flex-col text-left">
+                            <span className="text-xs text-text-muted uppercase font-bold tracking-wider">Stipend</span>
+                            <span className="text-sm font-semibold text-brand-success">
+                              {internship.stipend?.amount ? `₹${internship.stipend.amount}/mo` : "Unpaid"}
                             </span>
                           </div>
 
                           <div className="flex flex-col text-right">
-                            <span className="text-xs text-text-muted uppercase font-bold tracking-wider">Stipend</span>
-                            <span className="text-sm font-semibold text-brand-success">
-                              {internship.stipend?.amount ? `₹${internship.stipend.amount}/mo` : "Unpaid"}
+                            <span className="text-xs text-text-muted uppercase font-bold tracking-wider">Duration</span>
+                            <span className="text-sm font-semibold text-text-main">
+                              {internship.duration || "2 Weeks"}
                             </span>
                           </div>
                         </div>

@@ -10,6 +10,7 @@ export default function DashboardPage() {
     instructors: 0,
     collegePartners: 0,
     cybercafePartners: 0,
+    employees: 0,
     courses: 0,
     internships: 0,
     contactMessages: 0,
@@ -18,6 +19,7 @@ export default function DashboardPage() {
   const [internships, setInternships] = useState([]);
   const [adminData, setAdminData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [adminsList, setAdminsList] = useState([]);
 
   useEffect(() => {
     let currentAdmin = null;
@@ -52,6 +54,15 @@ export default function DashboardPage() {
         setIsLoading(true);
         const headers = token ? { "Authorization": `Bearer ${token}` } : {};
 
+        // If employee, we also want to fetch their fresh admin profile to get current totalRevenue and Usercreated
+        if (currentAdmin && currentAdmin.role === "Employee") {
+          const profileRes = await fetch(`/api/admin?id=${currentAdmin._id}`, { headers }).then(r => r.json());
+          if (profileRes.success && profileRes.data) {
+            setAdminData(profileRes.data);
+            localStorage.setItem("adminData", JSON.stringify(profileRes.data));
+          }
+        }
+
         if (currentAdmin && currentAdmin.role === "Instructor") {
           const [coursesRes, internshipsRes] = await Promise.all([
             fetch('/api/course', { headers }).then(r => r.json()),
@@ -72,7 +83,10 @@ export default function DashboardPage() {
           if (internshipsRes.success) setInternships(internshipsRes.data || []);
 
           const allAdmins = admins.success && Array.isArray(admins.data) ? admins.data : [];
+          setAdminsList(allAdmins);
+          
           const adminCount = allAdmins.filter(a => a.role === "Admin" || !a.role).length;
+          const employeeCount = allAdmins.filter(a => a.role === "Employee").length;
           const instructorCount = allAdmins.filter(a => a.role === "Instructor").length;
           const collegeCount = allAdmins.filter(a => a.role === "College Admin").length;
           const cybercafeCount = allAdmins.filter(a => a.role === "Cybercafe Partner").length;
@@ -80,6 +94,7 @@ export default function DashboardPage() {
           setStats({
             users: users.success && Array.isArray(users.data) ? users.data.length : 0,
             admins: adminCount,
+            employees: employeeCount,
             instructors: instructorCount,
             collegePartners: collegeCount,
             cybercafePartners: cybercafeCount,
@@ -108,7 +123,7 @@ export default function DashboardPage() {
               {label}
             </h3>
             <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-main">
-              {count.toLocaleString()}
+              {count != null ? count.toLocaleString() : 0}
             </p>
           </div>
           <div
@@ -359,10 +374,10 @@ export default function DashboardPage() {
           <div className="flex flex-col gap-4 sm:gap-6">
             <div>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3">
-                Welcome back, Admin! 👋
+                Welcome back, {adminData?.name || "Admin"}! 👋
               </h1>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl opacity-90 leading-relaxed">
-                Here's what's happening with your internship platform today.
+                Here's what's happening with your {adminData?.role === "Employee" ? "registrations" : "internship platform"} today.
               </p>
             </div>
 
@@ -383,29 +398,105 @@ export default function DashboardPage() {
 
       {/* Main Stats Grid - Responsive */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-        {/* Total Users */}
-        <StatCard
-          icon={
-            <svg
-              className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-blue-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.354a4 4 0 110 5.292M15 12H9m4.854-5.354a4 4 0 11-5.292 0M19 20H5a2 2 0 00-2 2v1h18v-1a2 2 0 00-2-2z"
-              />
-            </svg>
-          }
-          label="Total Users"
-          count={stats.users}
-          href="/admin/auth/dashboard/user"
-          color="bg-blue-100 dark:bg-blue-900/30"
-          trend="↑ 12% from last month"
-        />
+        {adminData?.role === "Employee" ? (
+          <>
+            {/* Total Users Registered by Them */}
+            <StatCard
+              icon={
+                <svg
+                  className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-blue-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.354a4 4 0 110 5.292M15 12H9m4.854-5.354a4 4 0 11-5.292 0M19 20H5a2 2 0 00-2 2v1h18v-1a2 2 0 00-2-2z"
+                  />
+                </svg>
+              }
+              label="Users Registered by You"
+              count={adminData?.Usercreated?.length || 0}
+              href="/admin/auth/dashboard/profile"
+              color="bg-blue-100 dark:bg-blue-900/30"
+              trend="View list in profile"
+            />
+
+            {/* Employee Revenue */}
+            <StatCard
+              icon={
+                <svg
+                  className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              }
+              label="Total Revenue Generated"
+              count={`₹${adminData?.totalRevenue || 0}`}
+              href="/admin/auth/dashboard/profile"
+              color="bg-green-100 dark:bg-green-900/30"
+              trend={`Commission: ${adminData?.commissionPercentage || 0}%`}
+            />
+
+            {/* Payments Done */}
+            <StatCard
+              icon={
+                <svg
+                  className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-purple-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
+                </svg>
+              }
+              label="Payments Received"
+              count={`₹${adminData?.paymentsDone || 0}`}
+              href="/admin/auth/dashboard/profile"
+              color="bg-purple-100 dark:bg-purple-900/30"
+              trend="Paid by Admin"
+            />
+          </>
+        ) : (
+          <>
+            {/* Total Users */}
+            <StatCard
+              icon={
+                <svg
+                  className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-blue-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.354a4 4 0 110 5.292M15 12H9m4.854-5.354a4 4 0 11-5.292 0M19 20H5a2 2 0 00-2 2v1h18v-1a2 2 0 00-2-2z"
+                  />
+                </svg>
+              }
+              label="Total Users"
+              count={stats.users}
+              href="/admin/auth/dashboard/user"
+              color="bg-blue-100 dark:bg-blue-900/30"
+              trend="↑ 12% from last month"
+            />
 
         {/* Total Admins */}
         <StatCard
@@ -429,6 +520,30 @@ export default function DashboardPage() {
           href="/admin/auth/dashboard/admin"
           color="bg-purple-100 dark:bg-purple-900/30"
           trend="↑ 2 new this month"
+        />
+
+        {/* Total Employees */}
+        <StatCard
+          icon={
+            <svg
+              className="w-7 sm:w-8 md:w-10 lg:w-10 h-7 sm:h-8 md:h-10 lg:h-10 text-indigo-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+          }
+          label="Total Employees"
+          count={stats.employees}
+          href="/admin/auth/dashboard/admin"
+          color="bg-indigo-100 dark:bg-indigo-900/30"
+          trend="Employee Panel active"
         />
 
         {/* Total Instructors */}
@@ -574,6 +689,8 @@ export default function DashboardPage() {
           color="bg-red-100 dark:bg-red-900/30"
           trend="↑ 15 new today"
         />
+        </>
+        )}
       </div>
 
       {/* Quick Actions Section */}
@@ -901,6 +1018,139 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Creator Statistics Breakdown Section - Visible only to Admin */}
+      {adminData?.role === "Admin" && (
+        <div className="bg-bg-card border-2 border-border-main rounded-2xl p-6 sm:p-8 space-y-6">
+          <div>
+            <h3 className="text-xl font-bold text-text-main font-poppins">
+              User Creation Breakdown
+            </h3>
+            <p className="text-text-muted text-xs sm:text-sm">
+              See the count of student registrations created by each Admin, Employee, and Cybercafe Partner.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Admins Table */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between border-b border-border-main pb-2">
+                <h4 className="font-bold text-xs text-text-main uppercase tracking-wider">
+                  Created by Admins
+                </h4>
+                <span className="bg-brand-primary/10 border border-brand-primary/20 rounded-lg px-2 py-0.5 text-[10px] text-brand-primary font-bold">
+                  {adminsList.filter(a => a.role === "Admin" || !a.role).length} Admins
+                </span>
+              </div>
+              <div className="overflow-x-auto rounded-xl border border-border-main">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-border-main bg-bg-main text-text-muted text-[10px] uppercase font-bold tracking-wider">
+                      <th className="py-2 px-3">Admin Name</th>
+                      <th className="py-2 px-3 text-right">Users</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border-main text-xs">
+                    {adminsList.filter(a => a.role === "Admin" || !a.role).map((admin) => (
+                      <tr key={admin._id} className="hover:bg-bg-main/20">
+                        <td className="py-2 px-3 font-medium text-text-main">
+                          {admin.name} {admin._id === adminData._id && "(You)"}
+                        </td>
+                        <td className="py-2 px-3 text-right text-text-main font-bold">
+                          {admin.Usercreated?.length || 0}
+                        </td>
+                      </tr>
+                    ))}
+                    {adminsList.filter(a => a.role === "Admin" || !a.role).length === 0 && (
+                      <tr>
+                        <td colSpan="2" className="py-4 text-center text-text-muted">No admins found.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Employees Table */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between border-b border-border-main pb-2">
+                <h4 className="font-bold text-xs text-text-main uppercase tracking-wider">
+                  Created by Employees
+                </h4>
+                <span className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg px-2 py-0.5 text-[10px] text-indigo-600 font-bold">
+                  {adminsList.filter(a => a.role === "Employee").length} Employees
+                </span>
+              </div>
+              <div className="overflow-x-auto rounded-xl border border-border-main">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-border-main bg-bg-main text-text-muted text-[10px] uppercase font-bold tracking-wider">
+                      <th className="py-2 px-3">Employee Name</th>
+                      <th className="py-2 px-3 text-right">Users</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border-main text-xs">
+                    {adminsList.filter(a => a.role === "Employee").map((emp) => (
+                      <tr key={emp._id} className="hover:bg-bg-main/20">
+                        <td className="py-2 px-3 font-medium text-text-main">
+                          {emp.name}
+                        </td>
+                        <td className="py-2 px-3 text-right text-text-main font-bold">
+                          {emp.Usercreated?.length || 0}
+                        </td>
+                      </tr>
+                    ))}
+                    {adminsList.filter(a => a.role === "Employee").length === 0 && (
+                      <tr>
+                        <td colSpan="2" className="py-4 text-center text-text-muted">No employees found.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Cybercafe Partners Table */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between border-b border-border-main pb-2">
+                <h4 className="font-bold text-xs text-text-main uppercase tracking-wider">
+                  Created by Cybercafes
+                </h4>
+                <span className="bg-green-500/10 border border-green-500/20 rounded-lg px-2 py-0.5 text-[10px] text-green-600 font-bold">
+                  {adminsList.filter(a => a.role === "Cybercafe Partner").length} Partners
+                </span>
+              </div>
+              <div className="overflow-x-auto rounded-xl border border-border-main">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-border-main bg-bg-main text-text-muted text-[10px] uppercase font-bold tracking-wider">
+                      <th className="py-2 px-3">Partner Name</th>
+                      <th className="py-2 px-3 text-right">Users</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border-main text-xs">
+                    {adminsList.filter(a => a.role === "Cybercafe Partner").map((cc) => (
+                      <tr key={cc._id} className="hover:bg-bg-main/20">
+                        <td className="py-2 px-3 font-medium text-text-main">
+                          {cc.name}
+                        </td>
+                        <td className="py-2.5 px-3 text-right text-text-main font-bold">
+                          {cc.Usercreated?.length || 0}
+                        </td>
+                      </tr>
+                    ))}
+                    {adminsList.filter(a => a.role === "Cybercafe Partner").length === 0 && (
+                      <tr>
+                        <td colSpan="2" className="py-4 text-center text-text-muted">No partners found.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

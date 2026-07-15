@@ -391,7 +391,7 @@ export default function InternshipsAdminPage() {
                   </svg>
                   Edit
                 </Link>
-                {adminData?.role !== "Instructor" && (
+                {adminData?.role !== "Instructor" && adminData?.role !== "Employee" && (
                   <button
                     onClick={() => {
                       setTargetIdToDelete(internship._id);

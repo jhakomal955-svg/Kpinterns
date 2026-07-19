@@ -1,6 +1,6 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, AttendanceModel, AdminModel } from "@/models";
 import crypto from "crypto";
 import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
@@ -137,6 +137,25 @@ export async function POST(request) {
       title = internship.title || internship.position || "Internship Program";
     } else {
       return Response.json({ error: "Invalid enrollment type" }, { status: 400 });
+    }
+
+    // Apply custom rates if the user belongs to a verified College Admin college with rates > 0
+    if (user.college) {
+      const Admin = createModel("Admin", AdminModel);
+      const escapedCollege = user.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      const collegeAdmin = await Admin.findOne({
+        role: "College Admin",
+        verified: true,
+        CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") }
+      });
+
+      if (collegeAdmin) {
+        if (type === "course" && collegeAdmin.courseRate > 0) {
+          price = collegeAdmin.courseRate;
+        } else if (type === "internship" && collegeAdmin.internshipRate > 0) {
+          price = collegeAdmin.internshipRate;
+        }
+      }
     }
 
     // Verify payment signature if price > 0

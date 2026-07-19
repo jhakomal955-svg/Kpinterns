@@ -35,7 +35,9 @@ export default function CollegeAdminEditPage() {
     commissionPercentage: 0,
     paymentsDone: 0,
     totalRevenue: 0,
-    employedate: ""
+    employedate: "",
+    internshipRate: 0,
+    courseRate: 0
   });
 
   const findUniversityKey = (fullName) => {
@@ -81,7 +83,9 @@ export default function CollegeAdminEditPage() {
           commissionPercentage: partner.commissionPercentage || 0,
           paymentsDone: partner.paymentsDone || 0,
           totalRevenue: partner.totalRevenue || 0,
-          employedate: partner.employedate ? new Date(partner.employedate).toISOString().split('T')[0] : ""
+          employedate: partner.employedate ? new Date(partner.employedate).toISOString().split('T')[0] : "",
+          internshipRate: partner.internshipRate || 0,
+          courseRate: partner.courseRate || 0
         });
       } else {
         setError(data.error || "Failed to load College Admin profile");
@@ -502,7 +506,7 @@ export default function CollegeAdminEditPage() {
             <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
               4. Employment & Commission Metrics
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Commission Percentage (%) *</label>
                 <input
@@ -548,6 +552,30 @@ export default function CollegeAdminEditPage() {
                   required
                   value={formData.employedate}
                   onChange={handleInputChange}
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Internship Rate (₹)</label>
+                <input
+                  type="number"
+                  name="internshipRate"
+                  min="0"
+                  value={formData.internshipRate}
+                  onChange={handleInputChange}
+                  placeholder="Leave 0 to use standard rate"
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Course Rate (₹)</label>
+                <input
+                  type="number"
+                  name="courseRate"
+                  min="0"
+                  value={formData.courseRate}
+                  onChange={handleInputChange}
+                  placeholder="Leave 0 to use standard rate"
                   className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
                 />
               </div>

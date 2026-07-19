@@ -75,6 +75,7 @@ export default function InternshipDetailLearnPage() {
   const [submissionFileUrl, setSubmissionFileUrl] = useState("");
   const [uploadingFile, setUploadingFile] = useState(false);
   const [submittingAssignment, setSubmittingAssignment] = useState(false);
+  const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
 
   useEffect(() => {
     setSubmissionText("");
@@ -256,13 +257,38 @@ export default function InternshipDetailLearnPage() {
     }
   }, [internshipId]);
 
+  useEffect(() => {
+    const fetchCollegeRates = async () => {
+      if (!userData?.college) return;
+      try {
+        const res = await fetch(`/api/college-rate?college=${encodeURIComponent(userData.college.trim())}`);
+        const data = await res.json();
+        if (data.success && data.registered) {
+          setCollegeRates({
+            registered: true,
+            internshipRate: data.internshipRate || 0,
+            courseRate: data.courseRate || 0
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching college rates:", err);
+      }
+    };
+    if (userData?.college) {
+      fetchCollegeRates();
+    }
+  }, [userData?.college]);
+
   const handleEnrollMock = async () => {
     if (!userData) {
       router.push(`/register?type=internship&id=${internshipId}`);
       return;
     }
 
-    const price = internship.RegistrationFee?.amount || 500;
+    const originalPrice = internship.RegistrationFee?.amount || 500;
+    const price = (collegeRates.registered && collegeRates.internshipRate > 0)
+      ? collegeRates.internshipRate
+      : originalPrice;
 
     try {
       setIsLoading(true);
@@ -313,7 +339,12 @@ export default function InternshipDetailLearnPage() {
         const resOrder = await fetch("/api/payment/order", {
           method: "POST",
           headers,
-          body: JSON.stringify({ type: "internship", itemId: internshipId }),
+          body: JSON.stringify({ 
+            type: "internship", 
+            itemId: internshipId,
+            university: userData?.university,
+            college: userData?.college
+          }),
         });
 
         const orderData = await resOrder.json();

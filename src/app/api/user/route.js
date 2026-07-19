@@ -376,7 +376,22 @@ export async function POST(request) {
           );
         }
 
-        const price = matchedCourse.price || 0;
+        let price = matchedCourse.price || 0;
+
+        // Apply custom rates if the user belongs to a verified College Admin college with rates > 0
+        if (data.college) {
+          const Admin = createModel("Admin", AdminModel);
+          const escapedCollege = data.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+          const collegeAdmin = await Admin.findOne({
+            role: "College Admin",
+            verified: true,
+            CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") }
+          });
+          if (collegeAdmin && collegeAdmin.courseRate > 0) {
+            price = collegeAdmin.courseRate;
+          }
+        }
+
         resolvedTitle = matchedCourse.title;
         resolvedType = "course";
         resolvedPrice = price;
@@ -445,7 +460,22 @@ export async function POST(request) {
           );
         }
 
-        const price = matchedInternship.RegistrationFee?.amount || 500;
+        let price = matchedInternship.RegistrationFee?.amount || 500;
+
+        // Apply custom rates if the user belongs to a verified College Admin college with rates > 0
+        if (data.college) {
+          const Admin = createModel("Admin", AdminModel);
+          const escapedCollege = data.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+          const collegeAdmin = await Admin.findOne({
+            role: "College Admin",
+            verified: true,
+            CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") }
+          });
+          if (collegeAdmin && collegeAdmin.internshipRate > 0) {
+            price = collegeAdmin.internshipRate;
+          }
+        }
+
         resolvedTitle = matchedInternship.title || matchedInternship.position || data.internshipDomain;
         resolvedType = "internship";
         resolvedPrice = price;

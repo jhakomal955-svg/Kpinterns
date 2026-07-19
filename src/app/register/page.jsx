@@ -77,6 +77,7 @@ export default function RegisterPage() {
   const [otpLoading, setOtpLoading] = useState(false);
   const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
   const [otpCooldown, setOtpCooldown] = useState(0);
+  const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
   const [otpError, setOtpError] = useState("");
   // true when the API tells us this email is already in use — blocks the whole OTP flow
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
@@ -177,24 +178,65 @@ export default function RegisterPage() {
     fetchDbInternships();
   }, []);
 
+  useEffect(() => {
+    const fetchCollegeRates = async () => {
+      if (!formData.college) {
+        setCollegeRates({ registered: false, internshipRate: 0, courseRate: 0 });
+        return;
+      }
+      const universityObj = universitiesData[formData.university];
+      const collegeObj = universityObj?.colleges?.[formData.college];
+      const resolvedCollege = formData.college === "others" ? formData.collegeCustom : (collegeObj ? collegeObj.name : formData.college);
+
+      if (!resolvedCollege || resolvedCollege.trim() === "") {
+        setCollegeRates({ registered: false, internshipRate: 0, courseRate: 0 });
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/college-rate?college=${encodeURIComponent(resolvedCollege.trim())}`);
+        const data = await res.json();
+        if (data.success) {
+          setCollegeRates({
+            registered: data.registered,
+            internshipRate: data.internshipRate || 0,
+            courseRate: data.courseRate || 0
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching college rates:", err);
+      }
+    };
+
+    fetchCollegeRates();
+  }, [formData.college, formData.collegeCustom, formData.university]);
+
   const getPayableAmount = () => {
     if (purchaseType === "course") {
-      return selectedItemDetails?.price || 0;
+      const originalPrice = selectedItemDetails?.price || 0;
+      if (collegeRates.registered && collegeRates.courseRate > 0) {
+        return collegeRates.courseRate;
+      }
+      return originalPrice;
     }
+
+    let originalPrice = 500;
     if (selectedItemDetails) {
-      return selectedItemDetails.RegistrationFee?.amount || 500;
-    }
-    if (formData.internshipId) {
+      originalPrice = selectedItemDetails.RegistrationFee?.amount || 500;
+    } else if (formData.internshipId) {
       const matched = dbInternships.find((item) => item._id === formData.internshipId);
-      return matched?.RegistrationFee?.amount !== undefined ? Number(matched.RegistrationFee.amount) : 500;
-    }
-    if (formData.internshipDomain) {
+      originalPrice = matched?.RegistrationFee?.amount !== undefined ? Number(matched.RegistrationFee.amount) : 500;
+    } else if (formData.internshipDomain) {
       const matched = dbInternships.find(
         (item) => item.domain === formData.internshipDomain || item.category === formData.internshipDomain
       );
-      return matched?.RegistrationFee?.amount !== undefined ? Number(matched.RegistrationFee.amount) : 500;
+      originalPrice = matched?.RegistrationFee?.amount !== undefined ? Number(matched.RegistrationFee.amount) : 500;
     }
-    return 500;
+
+    if (collegeRates.registered && collegeRates.internshipRate > 0) {
+      return collegeRates.internshipRate;
+    }
+    return originalPrice;
   };
 
 
@@ -301,10 +343,21 @@ export default function RegisterPage() {
 
       const payableAmount = getPayableAmount();
 
+      // Resolve university and college names
+      const universityObj = universitiesData[formData.university];
+      const collegeObj = universityObj?.colleges?.[formData.college];
+      const resolvedUniversity = formData.university === "others" ? formData.universityCustom : (universityObj ? universityObj.name : formData.university);
+      const resolvedCollege = formData.college === "others" ? formData.collegeCustom : (collegeObj ? collegeObj.name : formData.college);
+
       const resOrder = await fetch("/api/payment/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: purchaseType, itemId: finalItemId }),
+        body: JSON.stringify({ 
+          type: purchaseType, 
+          itemId: finalItemId,
+          university: resolvedUniversity,
+          college: resolvedCollege
+        }),
       });
 
       const orderData = await resOrder.json();

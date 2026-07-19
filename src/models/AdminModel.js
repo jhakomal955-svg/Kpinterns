@@ -74,6 +74,14 @@ const AdminModel = {
       required:true,
     },
   },
+  internshipRate:{
+    type:Number,
+    default:0  
+  },
+  courseRate:{
+    type:Number,
+    default:0
+  },
   commissionPercentage:{
     type:Number,
     default:0,

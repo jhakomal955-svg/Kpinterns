@@ -1,13 +1,14 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { CourseModel, InternshipModel } from "@/models";
+import { CourseModel, InternshipModel, AdminModel, UserModel } from "@/models";
 import Razorpay from "razorpay";
+import { getAuthUser } from "@/lib/jwt";
 
 export async function POST(request) {
   try {
     await connectDB();
 
-    const { type, itemId } = await request.json();
+    const { type, itemId, university, college } = await request.json();
 
     if (!type || !itemId) {
       return Response.json({ error: "Type and Item ID are required" }, { status: 400 });
@@ -34,6 +35,38 @@ export async function POST(request) {
       title = internship.title;
     } else {
       return Response.json({ error: "Invalid purchase type" }, { status: 400 });
+    }
+
+    // Resolve college name if not directly supplied (e.g. from user profile)
+    let lookupCollege = college;
+    if (!lookupCollege) {
+      const decoded = getAuthUser(request);
+      if (decoded && decoded._id) {
+        const User = createModel("User", UserModel);
+        const user = await User.findById(decoded._id);
+        if (user) {
+          lookupCollege = user.college;
+        }
+      }
+    }
+
+    // Apply custom rates if the college has a verified College Admin setup with rates > 0
+    if (lookupCollege) {
+      const Admin = createModel("Admin", AdminModel);
+      const escapedCollege = lookupCollege.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      const collegeAdmin = await Admin.findOne({
+        role: "College Admin",
+        verified: true,
+        CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") }
+      });
+
+      if (collegeAdmin) {
+        if (type === "course" && collegeAdmin.courseRate > 0) {
+          price = collegeAdmin.courseRate;
+        } else if (type === "internship" && collegeAdmin.internshipRate > 0) {
+          price = collegeAdmin.internshipRate;
+        }
+      }
     }
 
     // If item is free, return early indicating no Razorpay order is needed

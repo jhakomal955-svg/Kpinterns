@@ -134,17 +134,17 @@ export async function generateOfferLetter(student, internship, verificationId) {
       );
 
       const seqNum = await getSequentialNumber(verificationId);
-      const startYear = enrollment?.startDate 
-        ? new Date(enrollment.startDate).getFullYear() 
+      const startYear = enrollment?.startDate
+        ? new Date(enrollment.startDate).getFullYear()
         : new Date().getFullYear();
       const formattedVerificationId = `kpinterns/${startYear}/${seqNum}`;
 
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kpinterns.com";
       const verifyUrl = `${siteUrl}/verify?id=${formattedVerificationId}`;
-      
+
       // Generate secure verification QR Code Data URL
-      const qrCodeDataUrl = await QRCode.toDataURL(verifyUrl, { 
-        margin: 1, 
+      const qrCodeDataUrl = await QRCode.toDataURL(verifyUrl, {
+        margin: 1,
         width: 120,
         color: { dark: "#0f172a", light: "#ffffff" }
       });
@@ -164,9 +164,9 @@ export async function generateOfferLetter(student, internship, verificationId) {
       // Draw Logo Text
       doc.font("Helvetica-Bold").fontSize(22).fillColor(primaryColor)
         .text("Interns", logoX + 38, logoY + 7);
-      
+
       doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
-        .text("www.kpinterns.com", logoX + 39, logoY + 29);
+        .text("ACPSK TECHNOLOGY PVT LTD", logoX + 39, logoY + 29);
 
       // Draw Top Right Accreditation Badges (MSME & ISO) if available
       const drawTopBadge = (fileName, fallbackName, x, y, width, height) => {
@@ -185,7 +185,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
       const contactWidth = 255.28;
       // We can output a unified, beautiful multi-line right-aligned block:
       const contactText = "Mob: +91 9204312848   |   Email: info@kpinterns.com\nAddress: Saraswati Nagar, Matsyagandha Road,\nPolice Line, Saharsa, Bihar - 852201";
-      
+
       doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
         .text(contactText, contactX, contactY, { align: "right", width: contactWidth, lineGap: 3 });
 
@@ -239,7 +239,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
 
       // --- 7. Styled Information Well (Dashboard Grid) ---
       const boxY = 315;
-      
+
       // Details Columns
       const col1X = 60;
       const col2X = 310;
@@ -277,7 +277,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
 
       gridRows.forEach((row) => {
         doc.font("Helvetica-Bold").fontSize(9.5);
-        
+
         // Col 1 measurement
         const l1Width = doc.widthOfString(`${row.col1.label}: `);
         const v1Width = row.col1.width - l1Width;
@@ -292,7 +292,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
         // If text wraps, rowHeight will be larger than a single line (~11pt)
         // Space next row by at least 25pt, or rowHeight + padding
         const spacing = Math.max(targetRowSpacing, rowHeight + 13);
-        
+
         rowMetrics.push({
           rowHeight,
           spacing,
@@ -352,14 +352,14 @@ export async function generateOfferLetter(student, internship, verificationId) {
 
       // --- 9. Signatures & Secure Verification Footer ---
       const footerY = footerDividerY + 15;
-      
+
       // Signature Section
       doc.font("Helvetica-Bold").fontSize(10).fillColor(darkColor)
         .text("Sincerely,", 40, footerY);
-      
+
       doc.font("Helvetica-Bold").fontSize(10).fillColor(primaryColor)
         .text("Prabhash Kumar", 40, footerY + 45);
-      
+
       doc.font("Helvetica").fontSize(9).fillColor(mutedColor)
         .text("Founder & Ceo\nKpinterns", 40, footerY + 58, { lineGap: 2 });
 
@@ -378,7 +378,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
       // Verification Text
       doc.font("Helvetica-Bold").fontSize(8).fillColor(darkColor)
         .text("SECURE VERIFICATION", vBoxX + 80, vBoxY + 12);
-      
+
       doc.font("Helvetica").fontSize(7).fillColor(mutedColor)
         .text(
           `This document carries an authentic record with KpInterns.\n\nScan QR or verify Ref ID at:\n${siteUrl.replace('https://', '')}/verify`,
@@ -388,28 +388,46 @@ export async function generateOfferLetter(student, internship, verificationId) {
         );
 
       // --- 10. Footer Accreditation Badges Row ---
-      const accreditationDividerY = footerY + 85 + 25;
-      const badgeY = accreditationDividerY + 15;
-      
+      const accreditationDividerY = 735;
+      const badgeY = 750;
+
       // Horizontal Line above footer accreditations
       doc.moveTo(40, accreditationDividerY).lineTo(555.28, accreditationDividerY).lineWidth(0.5).strokeColor(borderColor).stroke();
 
-      const drawAccreditationBadge = (fileName, fallbackName, x, y, width, height) => {
-        let badgePath = path.join(process.cwd(), "public", "format", fileName);
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", fallbackName);
-        }
-        if (fs.existsSync(badgePath)) {
-          doc.image(badgePath, x, y, { fit: [width, height] });
-        }
-      };
+      const badges = [
+        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 40, height: 40 },
+        { fileName: "mca.png", fallbackName: "mca.png", width: 65, height: 32 },
+        { fileName: "Iso.png", fallbackName: "Iso.png", width: 40, height: 40 },
+        { fileName: "Msme.png", fallbackName: "Msme.png", width: 40, height: 40 },
+        { fileName: "nip.png", fallbackName: "nip.png", width: 55, height: 47 }
+      ];
 
-      //drawAccreditationBadge("aicte.png", "aicte.png", 90, badgeY, 40, 40);
-      drawAccreditationBadge("aicte.png", "aicte.png", 185, badgeY + 4, 65, 32);
-      // drawAccreditationBadge("Mca.png", "Mca.png", 185, badgeY + 4, 65, 32);
-      // drawAccreditationBadge("iso.png", "iso.png", 305, badgeY, 40, 40);
-      drawAccreditationBadge("msme.png", "msme.png", 305, badgeY, 40, 40);
-      //drawAccreditationBadge("msme.png", "msme.png", 410, badgeY, 55, 47);
+      const existingBadges = badges.filter(b => {
+        let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
+        if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fallbackName);
+        }
+        if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
+        }
+        b.resolvedPath = badgePath;
+        return fs.existsSync(badgePath);
+      });
+
+      const spacing = 30;
+      const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
+      const totalSpacingWidth = (existingBadges.length - 1) * spacing;
+      const totalRowWidth = totalBadgesWidth + totalSpacingWidth;
+
+      const pageWidth = 595.28;
+      let startX = (pageWidth - totalRowWidth) / 2;
+      const midY = 770;
+
+      existingBadges.forEach(b => {
+        const yCoord = midY - (b.height / 2);
+        doc.image(b.resolvedPath, startX, yCoord, { fit: [b.width, b.height] });
+        startX += b.width + spacing;
+      });
 
       // --- 11. Bottom Decorative Contact Banner ---
       doc.rect(0, 806, 595.28, 4).fill(accentColor);
@@ -455,24 +473,24 @@ export async function generateCertificate(student, program, type, verificationId
       // Look up student's enrollment details for the program
       const enrollment = type === "internship"
         ? student.ActiveInternship?.find(
-            (i) => (i.internship?._id || i.internship)?.toString() === (program._id || program)?.toString()
-          )
+          (i) => (i.internship?._id || i.internship)?.toString() === (program._id || program)?.toString()
+        )
         : student.ActiveCources?.find(
-            (c) => (c.course?._id || c.course)?.toString() === (program._id || program)?.toString()
-          );
+          (c) => (c.course?._id || c.course)?.toString() === (program._id || program)?.toString()
+        );
 
       const seqNum = await getSequentialNumber(verificationId);
-      const startYear = enrollment?.startDate 
-        ? new Date(enrollment.startDate).getFullYear() 
+      const startYear = enrollment?.startDate
+        ? new Date(enrollment.startDate).getFullYear()
         : new Date().getFullYear();
       const formattedVerificationId = `kpinterns/${startYear}/${seqNum}`;
 
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kpinterns.com";
       const verifyUrl = `${siteUrl}/verify?id=${formattedVerificationId}`;
-      
+
       // Generate QR Code Data URL
-      const qrCodeDataUrl = await QRCode.toDataURL(verifyUrl, { 
-        margin: 1, 
+      const qrCodeDataUrl = await QRCode.toDataURL(verifyUrl, {
+        margin: 1,
         width: 120,
         color: { dark: "#0f172a", light: "#ffffff" }
       });
@@ -484,7 +502,7 @@ export async function generateCertificate(student, program, type, verificationId
       const institutionName = student.college || student.university || "N/A";
       const programTitle = program.title || program.position || "Specialized Training";
       const durationRange = enrollment?.duration || program.duration || "4 weeks";
-      
+
       const attendanceMetric = enrollment?.attendanceRate || student.attendanceRate || "100%";
       const gradingScore = (enrollment?.testScore !== undefined && enrollment?.testScore !== null)
         ? enrollment.testScore
@@ -506,7 +524,7 @@ export async function generateCertificate(student, program, type, verificationId
       const drawCornerBracket = (x, y, xDir, yDir) => {
         const len = 25;
         const offset = 8;
-        
+
         // Draw decorative corner shapes
         doc.moveTo(x, y + (yDir * offset)).lineTo(x, y + (yDir * len)).lineWidth(3).strokeColor(accentColor).stroke();
         doc.moveTo(x + (xDir * offset), y).lineTo(x + (xDir * len), y).lineWidth(3).strokeColor(accentColor).stroke();
@@ -520,22 +538,23 @@ export async function generateCertificate(student, program, type, verificationId
 
       // --- 2. Header Branding Section ---
       // Company Logo (Top-Left)
-      const logoLeftX = 60;
-      const logoLeftY = 45;
-      doc.circle(logoLeftX + 15, logoLeftY + 15, 15).fill(darkColor);
-      doc.font("Helvetica-Bold").fontSize(12).fillColor("#ffffff")
-        .text("Kp", logoLeftX + 5, logoLeftY + 9, { width: 20, align: "center" });
+      const logoX = 40;
+      const logoY = 45;
+      doc.circle(logoX + 18, logoY + 18, 18).fill(darkColor);
+      doc.font("Helvetica-Bold").fontSize(14).fillColor("#ffffff")
+        .text("Kp", logoX + 6, logoY + 11, { width: 24, align: "center" });
 
-      doc.font("Helvetica-Bold").fontSize(20).fillColor(primaryColor)
-        .text("Interns", logoLeftX + 32, logoLeftY + 4);
-      
-      doc.font("Helvetica").fontSize(8).fillColor(mutedColor)
-        .text("www.kpinterns.com", logoLeftX + 33, logoLeftY + 24);
+      // Draw Logo Text
+      doc.font("Helvetica-Bold").fontSize(22).fillColor(primaryColor)
+        .text("Interns", logoX + 38, logoY + 7);
+
+      doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
+        .text("ACPSK TECHNOLOGY PVT LTD", logoX + 39, logoY + 29);
 
       // MSME Accreditation Logo (Top-Right)
       const msmeRightX = 725;
       const msmeRightY = 40;
-      let msmePath = path.join(process.cwd(), "public", "msme.png");
+      let msmePath = path.join(process.cwd(), "public", "nip.png");
       if (fs.existsSync(msmePath)) {
         doc.image(msmePath, msmeRightX, msmeRightY, { fit: [55, 47] });
       }
@@ -548,7 +567,7 @@ export async function generateCertificate(student, program, type, verificationId
       const dividerY = 150;
       doc.moveTo(270, dividerY).lineTo(395, dividerY).lineWidth(0.75).strokeColor(accentColor).stroke();
       doc.moveTo(445, dividerY).lineTo(570, dividerY).lineWidth(0.75).strokeColor(accentColor).stroke();
-      
+
       // Draw center diamond polygon
       doc.polygon([415, dividerY], [420, dividerY - 4], [425, dividerY], [420, dividerY + 4]).fill(accentColor);
 
@@ -604,7 +623,7 @@ export async function generateCertificate(student, program, type, verificationId
       // Authorized Signatory Signature Line (Bottom-Right)
       const sigX = 550;
       const sigY = footerY + 25;
-      
+
       // Paste signature image
       const signaturePath = path.join(process.cwd(), "public", "kpsigns.png");
       if (fs.existsSync(signaturePath)) {
@@ -613,30 +632,50 @@ export async function generateCertificate(student, program, type, verificationId
       }
 
       doc.moveTo(sigX, sigY).lineTo(750, sigY).lineWidth(1.25).strokeColor(darkColor).stroke();
-      
+
       const signatoryName = "Founder & CEO\nKpInterns";
       doc.font("Helvetica-Bold").fontSize(10.5).fillColor(darkColor)
         .text(signatoryName, sigX, sigY + 8, { align: "center", width: 200 });
 
       // --- 6. Footer Accreditations Row ---
       const bottomBadgeY = 518;
-      
+
       doc.moveTo(60, bottomBadgeY - 12).lineTo(781.89, bottomBadgeY - 12).lineWidth(0.5).strokeColor(borderColor).stroke();
 
-      const drawBottomBadge = (fileName, fallbackName, x, y, width, height) => {
-        let badgePath = path.join(process.cwd(), "public", "format", fileName);
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", fallbackName);
-        }
-        if (fs.existsSync(badgePath)) {
-          doc.image(badgePath, x, y, { fit: [width, height] });
-        }
-      };
+      const badges = [
+        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 40, height: 40 },
+        { fileName: "mca.png", fallbackName: "mca.png", width: 65, height: 32 },
+        { fileName: "Iso.png", fallbackName: "Iso.png", width: 40, height: 40 },
+        { fileName: "Msme.png", fallbackName: "Msme.png", width: 40, height: 40 },
+        // { fileName: "nip.png", fallbackName: "nip.png", width: 55, height: 47 }
+      ];
 
-      // drawBottomBadge("aicte.png", "aicte.png", 280, bottomBadgeY, 32, 32);
-      drawBottomBadge("aicte.png", "aicte.png", 345, bottomBadgeY + 4, 48, 24);
-      drawBottomBadge("msme.png", "msme.png", 425, bottomBadgeY, 32, 32);
-      // drawBottomBadge("msme.png", "msme.png", 485, bottomBadgeY, 40, 34);
+      const existingBadges = badges.filter(b => {
+        let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
+        if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fallbackName);
+        }
+        if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
+        }
+        b.resolvedPath = badgePath;
+        return fs.existsSync(badgePath);
+      });
+
+      const spacing = 50;
+      const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
+      const totalSpacingWidth = (existingBadges.length - 1) * spacing;
+      const totalRowWidth = totalBadgesWidth + totalSpacingWidth;
+
+      const pageWidth = 841.89;
+      let startX = (pageWidth - totalRowWidth) / 2;
+      const midY = bottomBadgeY + 20;
+
+      existingBadges.forEach(b => {
+        const yCoord = midY - (b.height / 2);
+        doc.image(b.resolvedPath, startX, yCoord, { fit: [b.width, b.height] });
+        startX += b.width + spacing;
+      });
 
       doc.end();
     } catch (error) {
@@ -671,13 +710,13 @@ export async function generatePaymentReceipt(student, details) {
       doc.on("error", (err) => reject(err));
 
       // ── Brand palette ──────────────────────────────────────────────────────────
-      const primaryColor  = "#4f46e5";
-      const accentColor   = "#d97706";
-      const darkColor     = "#0f172a";
-      const mutedColor    = "#475569";
-      const lightBg       = "#f8fafc";
-      const borderColor   = "#e2e8f0";
-      const successGreen  = "#16a34a";
+      const primaryColor = "#4f46e5";
+      const accentColor = "#d97706";
+      const darkColor = "#0f172a";
+      const mutedColor = "#475569";
+      const lightBg = "#f8fafc";
+      const borderColor = "#e2e8f0";
+      const successGreen = "#16a34a";
 
       const receiptNo = receiptNumber || `KPI-${Date.now().toString().slice(-8)}`;
       const issueDate = formatDate(date);
@@ -694,7 +733,7 @@ export async function generatePaymentReceipt(student, details) {
       doc.font("Helvetica-Bold").fontSize(22).fillColor(primaryColor)
         .text("Interns", 78, 46);
       doc.font("Helvetica").fontSize(8).fillColor(mutedColor)
-        .text("www.kpinterns.com", 79, 68);
+        .text("ACPSK TECHNOLOGY PVT LTD", 79, 68);
 
       doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
         .text(
@@ -722,9 +761,9 @@ export async function generatePaymentReceipt(student, details) {
 
       // ── 5. Two-column: Student Info / Purchase Info ───────────────────────────
       const boxTop = 215;
-      const colW   = 245;
-      const col1X  = 40;
-      const col2X  = 310;
+      const colW = 245;
+      const col1X = 40;
+      const col2X = 310;
 
       const drawSectionBox = (x, y, w, h, title) => {
         doc.rect(x, y, w, h).fill(lightBg);
@@ -743,21 +782,21 @@ export async function generatePaymentReceipt(student, details) {
 
       const leftBoxH = 165;
       drawSectionBox(col1X, boxTop, colW, leftBoxH, "  STUDENT DETAILS");
-      drawRow("Name",      student.fullName || "N/A",            col1X, boxTop + 34);
-      drawRow("Email",     student.email    || "N/A",            col1X, boxTop + 56);
-      drawRow("Phone",     student.phone    || "N/A",            col1X, boxTop + 78);
-      drawRow("Reg. No.",  student.registrationNumber || "N/A",  col1X, boxTop + 100);
-      drawRow("College",   student.college  || "N/A",            col1X, boxTop + 122);
-      drawRow("Degree",    `${student.degree || ""}`,            col1X, boxTop + 144);
+      drawRow("Name", student.fullName || "N/A", col1X, boxTop + 34);
+      drawRow("Email", student.email || "N/A", col1X, boxTop + 56);
+      drawRow("Phone", student.phone || "N/A", col1X, boxTop + 78);
+      drawRow("Reg. No.", student.registrationNumber || "N/A", col1X, boxTop + 100);
+      drawRow("College", student.college || "N/A", col1X, boxTop + 122);
+      drawRow("Degree", `${student.degree || ""}`, col1X, boxTop + 144);
 
       const rightBoxH = 165;
       drawSectionBox(col2X, boxTop, colW, rightBoxH, "  PURCHASE DETAILS");
-      drawRow("Program",   title,                                                      col2X, boxTop + 34);
-      drawRow("Type",      purchaseType === "course" ? "Online Course" : "Internship", col2X, boxTop + 56);
-      drawRow("Pay. ID",   paymentId,                                                  col2X, boxTop + 78);
-      drawRow("Order ID",  orderId,                                                    col2X, boxTop + 100);
-      drawRow("Date",      issueDate,                                                  col2X, boxTop + 122);
-      drawRow("Status",    "Confirmed & Paid",                                         col2X, boxTop + 144);
+      drawRow("Program", title, col2X, boxTop + 34);
+      drawRow("Type", purchaseType === "course" ? "Online Course" : "Internship", col2X, boxTop + 56);
+      drawRow("Pay. ID", paymentId, col2X, boxTop + 78);
+      drawRow("Order ID", orderId, col2X, boxTop + 100);
+      drawRow("Date", issueDate, col2X, boxTop + 122);
+      drawRow("Status", "Confirmed & Paid", col2X, boxTop + 144);
 
       // ── 6. Amount summary strip ───────────────────────────────────────────────
       const amountY = boxTop + leftBoxH + 18;
@@ -785,15 +824,15 @@ export async function generatePaymentReceipt(student, details) {
 
       const steps = purchaseType === "course"
         ? [
-            "Your course enrollment is now active in the Student Dashboard.",
-            "Access all modules and learning materials immediately.",
-            "A Completion Certificate is issued after finishing all modules.",
-          ]
+          "Your course enrollment is now active in the Student Dashboard.",
+          "Access all modules and learning materials immediately.",
+          "A Completion Certificate is issued after finishing all modules.",
+        ]
         : [
-            "Your internship registration is confirmed and active.",
-            "Your Internship Offer Letter will be emailed within 24 hours.",
-            "Log in to your dashboard to track attendance and progress.",
-          ];
+          "Your internship registration is confirmed and active.",
+          "Your Internship Offer Letter will be emailed within 24 hours.",
+          "Log in to your dashboard to track attendance and progress.",
+        ];
 
       steps.forEach((step, i) => {
         doc.circle(62, nextY + 36 + (i * 20), 4).fill(primaryColor);
@@ -813,15 +852,40 @@ export async function generatePaymentReceipt(student, details) {
 
       // ── 9. Accreditation badges ───────────────────────────────────────────────
       const badgesY = footerY + 48;
-      const drawBadge = (fn, x, y, w, h) => {
-        let p = path.join(process.cwd(), "public", "format", fn);
-        if (!fs.existsSync(p)) p = path.join(process.cwd(), "public", fn);
-        if (fs.existsSync(p)) doc.image(p, x, y, { fit: [w, h] });
-      };
-      drawBadge("aicte.png",  90,  badgesY, 40, 40);
-      drawBadge("Mca.png",   185,  badgesY + 4, 65, 32);
-      drawBadge("iso.png",   305,  badgesY, 40, 40);
-      drawBadge("msme.png",  410,  badgesY, 55, 47);
+      const badges = [
+        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 40, height: 40 },
+        { fileName: "mca.png", fallbackName: "mca.png", width: 65, height: 32 },
+        { fileName: "Iso.png", fallbackName: "Iso.png", width: 40, height: 40 },
+        { fileName: "Msme.png", fallbackName: "Msme.png", width: 40, height: 40 },
+        { fileName: "nip.png", fallbackName: "nip.png", width: 55, height: 47 }
+      ];
+
+      const existingBadges = badges.filter(b => {
+        let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
+        if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fallbackName);
+        }
+        if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
+        }
+        b.resolvedPath = badgePath;
+        return fs.existsSync(badgePath);
+      });
+
+      const spacing = 30;
+      const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
+      const totalSpacingWidth = (existingBadges.length - 1) * spacing;
+      const totalRowWidth = totalBadgesWidth + totalSpacingWidth;
+
+      const pageWidth = 595.28;
+      let startX = (pageWidth - totalRowWidth) / 2;
+      const midY = badgesY + 20;
+
+      existingBadges.forEach(b => {
+        const yCoord = midY - (b.height / 2);
+        doc.image(b.resolvedPath, startX, yCoord, { fit: [b.width, b.height] });
+        startX += b.width + spacing;
+      });
 
       // ── 10. Bottom accent bar ─────────────────────────────────────────────────
       doc.rect(0, 806, 595.28, 4).fill(accentColor);
@@ -864,6 +928,13 @@ export async function generateAttendanceCertificate(student, internship, verific
       // Create A4 Portrait Document (595.28 x 841.89 points)
       const doc = new PDFDocument({ size: "A4", margin: 40 });
       const chunks = [];
+
+      // Brand Palette Colors
+      const primaryColor = "#4f46e5";   // Modern Indigo/Violet
+      const accentColor = "#d97706";    // Gold Accent
+      const darkColor = "#0f172a";      // Deep Slate
+      const mutedColor = "#475569";     // Muted Slate Gray
+      const borderColor = "#e2e8f0";    // Border line color
       doc.on("data", (chunk) => chunks.push(chunk));
       doc.on("end", () => resolve(Buffer.concat(chunks)));
       doc.on("error", (err) => reject(err));
@@ -903,50 +974,49 @@ export async function generateAttendanceCertificate(student, internship, verific
         }
       }
 
-      // Draw helper function for student details
-      const drawStudentDetailsBlock = (doc, titleText, pageNumStr) => {
-        const primaryColor = "#4f46e5";   // Modern Indigo/Violet
-        const accentColor = "#d97706";    // Gold Accent
-        const darkColor = "#0f172a";      // Deep Slate
-        const mutedColor = "#475569";     // Muted Slate Gray
-        const borderColor = "#e2e8f0";    // Border line color
-
+      const drawHeader = (titleText) => {
         // --- 1. Top Decorative Brand Accent Bars ---
         doc.rect(0, 0, 595.28, 15).fill(primaryColor);
         doc.rect(0, 15, 595.28, 4).fill(accentColor);
 
         // --- 2. Corporate Header / Logo Block ---
-        // Draw Stylized Kp Circle Logo
         const logoX = 40;
-        const logoY = 32;
-        doc.circle(logoX + 15, logoY + 15, 15).fill(darkColor);
-        doc.font("Helvetica-Bold").fontSize(12).fillColor("#ffffff")
-          .text("Kp", logoX + 5, logoY + 9, { width: 20, align: "center" });
+        const logoY = 45;
+        doc.circle(logoX + 18, logoY + 18, 18).fill(darkColor);
+        doc.font("Helvetica-Bold").fontSize(14).fillColor("#ffffff")
+          .text("Kp", logoX + 6, logoY + 11, { width: 24, align: "center" });
 
         // Draw Logo Text
-        doc.font("Helvetica-Bold").fontSize(20).fillColor(primaryColor)
-          .text("Interns", logoX + 32, logoY + 4);
-        
-        doc.font("Helvetica").fontSize(8).fillColor(mutedColor)
-          .text("www.kpinterns.com", logoX + 33, logoY + 24);
+        doc.font("Helvetica-Bold").fontSize(22).fillColor(primaryColor)
+          .text("Interns", logoX + 38, logoY + 7);
+
+        doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
+          .text("ACPSK TECHNOLOGY PVT LTD", logoX + 39, logoY + 29);
 
         // Top Right Section: Corporate Contact Details
         const contactX = 300;
-        const contactY = 28;
+        const contactY = 40;
         const contactWidth = 255.28;
         const contactText = "Mob: +91 9204312848   |   Email: info@kpinterns.com\nAddress: Saraswati Nagar, Matsyagandha Road,\nPolice Line, Saharsa, Bihar - 852201";
-        
+
         doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
-          .text(contactText, contactX, contactY, { align: "right", width: contactWidth, lineGap: 2.5 });
+          .text(contactText, contactX, contactY, { align: "right", width: contactWidth, lineGap: 3 });
 
         // Elegant Separator Line
-        doc.moveTo(40, 80).lineTo(555.28, 80).lineWidth(1).strokeColor(borderColor).stroke();
+        doc.moveTo(40, 95).lineTo(555.28, 95).lineWidth(1).strokeColor(borderColor).stroke();
 
-        // Title and Student Details Block
-        doc.font("Helvetica-Bold").fontSize(11).fillColor("#1e3a8a").text(titleText, 40, 90, { align: "center", width: 515 });
-        doc.moveTo(40, 105).lineTo(555, 105).lineWidth(1.25).strokeColor("#3b82f6").stroke();
+        if (titleText) {
+          doc.font("Helvetica-Bold").fontSize(11).fillColor("#1e3a8a").text(titleText, 40, 110, { align: "center", width: 515 });
+        }
+      };
 
-        doc.font("Helvetica-Bold").fontSize(9).fillColor("#1e293b").text("STUDENT DETAILS:-", 40, 115);
+      // Draw helper function for student details
+      const drawStudentDetailsBlock = (doc, titleText, pageNumStr) => {
+        drawHeader(titleText);
+
+        doc.moveTo(40, 125).lineTo(555, 125).lineWidth(1.25).strokeColor("#3b82f6").stroke();
+
+        doc.font("Helvetica-Bold").fontSize(9).fillColor("#1e293b").text("STUDENT DETAILS:-", 40, 135);
 
         const details = [
           { label: "NAME:", value: student.fullName || "N/A" },
@@ -961,7 +1031,7 @@ export async function generateAttendanceCertificate(student, internship, verific
           { label: "END DATE:", value: formatDate(enrollment?.endDate) }
         ];
 
-        let currentY = 130;
+        let currentY = 150;
         details.forEach((field) => {
           doc.font("Helvetica-Bold").fontSize(8).fillColor("#475569").text(field.label, 45, currentY, { width: 160 });
           doc.font("Helvetica").fontSize(8).fillColor("#0f172a").text(field.value, 210, currentY, { width: 330 });
@@ -969,11 +1039,6 @@ export async function generateAttendanceCertificate(student, internship, verific
           currentY += 13;
         });
 
-        // Page number (save Y cursor and temporarily reset bottom margin to avoid premature page-breaks)
-        const oldBottomMargin = doc.page.margins.bottom;
-        doc.page.margins.bottom = 0;
-        doc.font("Helvetica").fontSize(8).fillColor("#64748b").text(pageNumStr.toString(), 520, 790, { align: "right" });
-        doc.page.margins.bottom = oldBottomMargin;
         doc.y = currentY;
       };
 
@@ -1086,7 +1151,55 @@ export async function generateAttendanceCertificate(student, internship, verific
       const drawFooter = (pageNum) => {
         const oldBottomMargin = doc.page.margins.bottom;
         doc.page.margins.bottom = 0;
-        doc.font("Helvetica").fontSize(8).fillColor("#64748b").text(pageNum.toString(), 520, 790, { align: "right" });
+
+        // 1. Accent separator line
+        doc.moveTo(40, 735).lineTo(555.28, 735).lineWidth(0.5).strokeColor(borderColor).stroke();
+
+        // 2. Page number (just above the line)
+        doc.font("Helvetica").fontSize(8).fillColor("#64748b").text(pageNum.toString(), 520, 720, { align: "right" });
+
+        // 3. Accreditation Badges row (Aicte, Mca, Iso, Msme, Nip) centered
+        const badges = [
+          { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 40, height: 40 },
+          { fileName: "mca.png", fallbackName: "mca.png", width: 65, height: 32 },
+          { fileName: "Iso.png", fallbackName: "Iso.png", width: 40, height: 40 },
+          { fileName: "Msme.png", fallbackName: "Msme.png", width: 40, height: 40 },
+          { fileName: "nip.png", fallbackName: "nip.png", width: 55, height: 47 }
+        ];
+
+        const existingBadges = badges.filter(b => {
+          let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
+          if (!fs.existsSync(badgePath)) {
+            badgePath = path.join(process.cwd(), "public", b.fallbackName);
+          }
+          if (!fs.existsSync(badgePath)) {
+            badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
+          }
+          b.resolvedPath = badgePath;
+          return fs.existsSync(badgePath);
+        });
+
+        const spacing = 30;
+        const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
+        const totalSpacingWidth = (existingBadges.length - 1) * spacing;
+        const totalRowWidth = totalBadgesWidth + totalSpacingWidth;
+        
+        const pageWidth = 595.28;
+        let startX = (pageWidth - totalRowWidth) / 2;
+        const midY = 770; // Y center for badges
+
+        existingBadges.forEach(b => {
+          const yCoord = midY - (b.height / 2);
+          doc.image(b.resolvedPath, startX, yCoord, { fit: [b.width, b.height] });
+          startX += b.width + spacing;
+        });
+
+        // 4. Bottom contact/accent banner
+        doc.rect(0, 806, 595.28, 4).fill(accentColor);
+        doc.rect(0, 810, 595.28, 31.89).fill(darkColor);
+        doc.font("Helvetica").fontSize(8.5).fillColor("#ffffff")
+          .text("KpInterns | India's leading Internship and Course Platform | info@kpinterns.com", 0, 821, { align: "center", width: 595.28 });
+
         doc.page.margins.bottom = oldBottomMargin;
       };
 
@@ -1096,18 +1209,18 @@ export async function generateAttendanceCertificate(student, internship, verific
       drawStudentDetailsBlock(doc, "ATTENDANCE SHEET", pageCounter);
 
       doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("DAY-WISE ATTENDANCE", 40, 280);
-      
+
       let tableY = 300;
       drawAttendanceHeader(tableY);
       tableY += 20;
 
       for (let day = 1; day <= count - 1; day++) {
         // If drawing row exceeds page limit, break page
-        if (tableY + 18 > 760) {
+        if (tableY + 18 > 710) {
           drawFooter(pageCounter++);
           doc.addPage({ size: "A4", margin: 40 });
-          doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("DAY-WISE ATTENDANCE (Continued)", 40, 45);
-          tableY = 65;
+          drawHeader("DAY-WISE ATTENDANCE (Continued)");
+          tableY = 120;
           drawAttendanceHeader(tableY);
           tableY += 20;
         }
@@ -1119,10 +1232,11 @@ export async function generateAttendanceCertificate(student, internship, verific
       }
 
       // Check if Final evaluation and signature fits, else page break
-      if (tableY + 150 > 760) {
+      if (tableY + 150 > 710) {
         drawFooter(pageCounter++);
         doc.addPage({ size: "A4", margin: 40 });
-        tableY = 45;
+        drawHeader("DAY-WISE ATTENDANCE (Continued)");
+        tableY = 120;
       }
 
       doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("Final evaluation:-", 40, tableY + 20);
@@ -1159,18 +1273,18 @@ export async function generateAttendanceCertificate(student, internship, verific
 
       for (let day = 1; day <= count - 1; day++) {
         // If drawing row exceeds page limit, break page
-        if (tableY + 22 > 760) {
+        if (tableY + 22 > 710) {
           drawFooter(pageCounter++);
           doc.addPage({ size: "A4", margin: 40 });
-          doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("ACTIVITIES (Continued)", 40, 45);
-          tableY = 65;
+          drawHeader("ACTIVITIES (Continued)");
+          tableY = 120;
           drawActivityHeader(tableY);
           tableY += 20;
         }
 
         const date = weekdays[day - 1];
         const status = statuses[day - 1];
-        
+
         let taskText = `Study module: ${modules[day - 1]?.title || "Practical Session on " + (internship.domain || "Internship")}`;
         let completedVal = "Yes";
         let marksVal = "9/10";
@@ -1201,10 +1315,11 @@ export async function generateAttendanceCertificate(student, internship, verific
       }
 
       // Check if Final Evaluation and Signatures fit, else page break
-      if (tableY + 220 > 760) {
+      if (tableY + 220 > 710) {
         drawFooter(pageCounter++);
         doc.addPage({ size: "A4", margin: 40 });
-        tableY = 45;
+        drawHeader("ACTIVITIES (Continued)");
+        tableY = 120;
       }
 
       doc.font("Helvetica-Bold").fontSize(10).fillColor("#1e293b").text("Final Evaluation", 40, tableY + 20);
@@ -1215,7 +1330,7 @@ export async function generateAttendanceCertificate(student, internship, verific
       let taskTextLast = "Final assessment & evaluation test submission";
       let completedValLast = "Yes";
       let marksValLast = "9/10";
-      
+
       const modItemLast = modules[count - 1];
       if (modItemLast) {
         const submittedAssignment = userAssignments.find(a => a.moduleId === modItemLast._id.toString());
@@ -1249,11 +1364,7 @@ export async function generateAttendanceCertificate(student, internship, verific
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#1e293b").text("Founder & CEO", 370, tableY + 5, { align: "center", width: 150 });
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#1e293b").text("KpInterns", 370, tableY + 16, { align: "center", width: 150 });
 
-      // Draw page number with bottom margin bypass
-      const oldBottomMarginPage4 = doc.page.margins.bottom;
-      doc.page.margins.bottom = 0;
-      doc.font("Helvetica").fontSize(8).fillColor("#64748b").text("11", 520, 790, { align: "right" });
-      doc.page.margins.bottom = oldBottomMarginPage4;
+      drawFooter(pageCounter++);
 
       doc.end();
     } catch (err) {

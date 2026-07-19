@@ -25,6 +25,8 @@ export default function CollegeAdminCreatePage() {
       accountNumber: "",
       ifscCode: "",
     },
+    internshipRate: 0,
+    courseRate: 0,
   });
 
   const [errors, setErrors] = useState({});
@@ -191,6 +193,8 @@ export default function CollegeAdminCreatePage() {
             accountNumber: formData.bankDetails.accountNumber.trim(),
             ifscCode: formData.bankDetails.ifscCode.trim().toUpperCase(),
           },
+          internshipRate: Number(formData.internshipRate || 0),
+          courseRate: Number(formData.courseRate || 0),
         }),
       });
 
@@ -507,6 +511,36 @@ export default function CollegeAdminCreatePage() {
                     {errors.confirmPassword}
                   </p>
                 )}
+              </div>
+
+              {/* Custom College Rates (Optional) */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-text-main uppercase tracking-wider mb-2.5">
+                    Internship Rate (₹)
+                  </label>
+                  <input
+                    type="number"
+                    name="internshipRate"
+                    value={formData.internshipRate}
+                    onChange={handleInputChange}
+                    placeholder="e.g. 399"
+                    className="w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-text-main uppercase tracking-wider mb-2.5">
+                    Course Rate (₹)
+                  </label>
+                  <input
+                    type="number"
+                    name="courseRate"
+                    value={formData.courseRate}
+                    onChange={handleInputChange}
+                    placeholder="e.g. 899"
+                    className="w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary"
+                  />
+                </div>
               </div>
 
               <div className="flex gap-4 pt-4">

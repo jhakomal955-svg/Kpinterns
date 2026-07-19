@@ -1,2839 +1,26748 @@
 export const universitiesData = {
   "sbte-polytechnic": {
-    name: "STATE BOARD OF TEACHNICAL EDUCATION PATNA (SBTE PATNA)",
-    colleges: {
+    "name": "STATE BOARD OF TEACHNICAL EDUCATION PATNA (SBTE PATNA)",
+    "colleges": {
       "gpt-patna": {
-        name: "Government Polytechnic, Patna-13 (Gulzarbagh)",
-        departments: {
+        "name": "Government Polytechnic, Patna-13 (Gulzarbagh)",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      ngp: {
-        name: "New Government Polytechnic (NGP), Patna",
-        departments: {
+      "ngp": {
+        "name": "New Government Polytechnic (NGP), Patna",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-muzaffarpur": {
-        name: "Government Polytechnic, Muzaffarpur",
-        departments: {
+        "name": "Government Polytechnic, Muzaffarpur",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-bhagalpur": {
-        name: "Government Polytechnic, Bhagalpur",
-        departments: {
+        "name": "Government Polytechnic, Bhagalpur",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-gaya": {
-        name: "Government Polytechnic, Gaya",
-        departments: {
+        "name": "Government Polytechnic, Gaya",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-chapra": {
-        name: "Government Polytechnic, Chapra",
-        departments: {
+        "name": "Government Polytechnic, Chapra",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-darbhanga": {
-        name: "Government Polytechnic, Darbhanga",
-        departments: {
+        "name": "Government Polytechnic, Darbhanga",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-purnia": {
-        name: "Government Polytechnic, Purnia",
-        departments: {
+        "name": "Government Polytechnic, Purnia",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-saharsa": {
-        name: "Government Polytechnic, Saharsa",
-        departments: {
+        "name": "Government Polytechnic, Saharsa",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-katihar": {
-        name: "Government Polytechnic, Katihar",
-        departments: {
+        "name": "Government Polytechnic, Katihar",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-madhubani": {
-        name: "Government Polytechnic, Madhubani",
-        departments: {
+        "name": "Government Polytechnic, Madhubani",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-munger": {
-        name: "Government Polytechnic, Munger",
-        departments: {
+        "name": "Government Polytechnic, Munger",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-sitamarhi": {
-        name: "Government Polytechnic, Sitamarhi",
-        departments: {
+        "name": "Government Polytechnic, Sitamarhi",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-jamui": {
-        name: "Government Polytechnic, Jamui",
-        departments: {
+        "name": "Government Polytechnic, Jamui",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-kishanganj": {
-        name: "Government Polytechnic, Kishanganj",
-        departments: {
+        "name": "Government Polytechnic, Kishanganj",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-lakhisarai": {
-        name: "Government Polytechnic, Lakhisarai",
-        departments: {
+        "name": "Government Polytechnic, Lakhisarai",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-aurangabad": {
-        name: "Government Polytechnic, Aurangabad",
-        departments: {
+        "name": "Government Polytechnic, Aurangabad",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-gopalganj": {
-        name: "Government Polytechnic, Gopalganj",
-        departments: {
+        "name": "Government Polytechnic, Gopalganj",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-buxar": {
-        name: "Government Polytechnic, Buxar",
-        departments: {
+        "name": "Government Polytechnic, Buxar",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-jehanabad": {
-        name: "Government Polytechnic, Jehanabad",
-        departments: {
+        "name": "Government Polytechnic, Jehanabad",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-khagaria": {
-        name: "Government Polytechnic, Khagaria",
-        departments: {
+        "name": "Government Polytechnic, Khagaria",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-sheohar": {
-        name: "Government Polytechnic, Sheohar",
-        departments: {
+        "name": "Government Polytechnic, Sheohar",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-araria": {
-        name: "Government Polytechnic, Araria",
-        departments: {
+        "name": "Government Polytechnic, Araria",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-banka": {
-        name: "Government Polytechnic, Banka",
-        departments: {
+        "name": "Government Polytechnic, Banka",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-begusarai": {
-        name: "Government Polytechnic, Begusarai",
-        departments: {
+        "name": "Government Polytechnic, Begusarai",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-kaimur": {
-        name: "Kaimur Government Polytechnic",
-        departments: {
+        "name": "Kaimur Government Polytechnic",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-motihari": {
-        name: "Motihari (Champaran) Government Polytechnic",
-        departments: {
+        "name": "Motihari (Champaran) Government Polytechnic",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-vaishali": {
-        name: "Vaishali Government Polytechnic",
-        departments: {
+        "name": "Vaishali Government Polytechnic",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gpt-siwan": {
-        name: "Siwan Government Polytechnic",
-        departments: {
+        "name": "Siwan Government Polytechnic",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "lnjpit-chapra": {
-        name: "Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra",
-        departments: {
+        "name": "Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gwp-patna": {
-        name: "Government Women's Polytechnic, Patna",
-        departments: {
+        "name": "Government Women's Polytechnic, Patna",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gwp-muzaffarpur": {
-        name: "Government Women's Polytechnic, Muzaffarpur",
-        departments: {
+        "name": "Government Women's Polytechnic, Muzaffarpur",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gwp-gaya": {
-        name: "Government Women's Polytechnic, Gaya",
-        departments: {
+        "name": "Government Women's Polytechnic, Gaya",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gwp-darbhanga": {
-        name: "Government Women's Polytechnic, Darbhanga",
-        departments: {
+        "name": "Government Women's Polytechnic, Darbhanga",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "mp-purnia": {
-        name: "Millia Polytechnic, Purnia",
-        departments: {
+        "name": "Millia Polytechnic, Purnia",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "bit-gaya": {
-        name: "Buddha Institute of Technology (BIT), Gaya",
-        departments: {
+        "name": "Buddha Institute of Technology (BIT), Gaya",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "sit-aurangabad": {
-        name: "Sityog Institute of Technology, Aurangabad",
-        departments: {
+        "name": "Sityog Institute of Technology, Aurangabad",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "crk-hajipur": {
-        name: "C.R.K. Polytechnic, Hajipur",
-        departments: {
+        "name": "C.R.K. Polytechnic, Hajipur",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "nsit-patna": {
-        name: "Netaji Subhas Institute of Technology (NSIT), Patna",
-        departments: {
+        "name": "Netaji Subhas Institute of Technology (NSIT), Patna",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "hit-patna": {
-        name: "Himalaya Institute of Technology (HIT), Patna",
-        departments: {
+        "name": "Himalaya Institute of Technology (HIT), Patna",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gmcp-nalanda": {
-        name: "Ganga Memorial College of Polytechnic, Nalanda",
-        departments: {
+        "name": "Ganga Memorial College of Polytechnic, Nalanda",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "fsrp-madhubani": {
-        name: "SF Sri Ram Polytechnic, Madhubani",
-        departments: {
+        "name": "SF Sri Ram Polytechnic, Madhubani",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "acet-kishanganj": {
-        name: "Azmet College of Engineering and Technology, Kishanganj",
-        departments: {
+        "name": "Azmet College of Engineering and Technology, Kishanganj",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "nsip-bihta": {
-        name: "Netaji Subhash Institute of Polytechnic (NSIP) Bihta Patna",
-        departments: {
+        "name": "Netaji Subhash Institute of Polytechnic (NSIP) Bihta Patna",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "bpi-gaya": {
-        name: "Buddha Polytechnic Institute – Gaya",
-        departments: {
+        "name": "Buddha Polytechnic Institute – Gaya",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "kkp-nalanda": {
-        name: "K. K. Polytechnic – Nalanda",
-        departments: {
+        "name": "K. K. Polytechnic – Nalanda",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "pstc-vaishali": {
-        name: "Patna Sahib Technical Campus – Vaishali",
-        departments: {
+        "name": "Patna Sahib Technical Campus – Vaishali",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "bit-gaya-2nd": {
-        name: "Buddha Institute of Technology (2nd Shift) – Gaya",
-        departments: {
+        "name": "Buddha Institute of Technology (2nd Shift) – Gaya",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "bpi-gaya-2nd": {
-        name: "Buddha Polytechnic Institute (2nd Shift) – Gaya",
-        departments: {
+        "name": "Buddha Polytechnic Institute (2nd Shift) – Gaya",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "kkp-nalanda-2nd": {
-        name: "K. K. Polytechnic (2nd Shift) – Nalanda",
-        departments: {
+        "name": "K. K. Polytechnic (2nd Shift) – Nalanda",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "pstc-vaishali-2nd": {
-        name: "Patna Sahib Technical Campus (2nd Shift) – Vaishali",
-        departments: {
+        "name": "Patna Sahib Technical Campus (2nd Shift) – Vaishali",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      "kns-samastipur":{
-        name:"KAMESHWAR NARAYAN SINGH GOVERNMENT POLYTECHNIC, SAMASTIPUR",
-         departments: {
+      "kns-samastipur": {
+        "name": "KAMESHWAR NARAYAN SINGH GOVERNMENT POLYTECHNIC, SAMASTIPUR",
+        "departments": {
           "Diploma": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       }
-    },
+    }
   },
   "bihar-engineering": {
-    name: "Bihar Engineering University",
-    colleges: {
-      mit: {
-        name: "MIT - Muzaffarpur Institute of Technology",
-        departments: {
+    "name": "Bihar Engineering University",
+    "colleges": {
+      "mit": {
+        "name": "MIT - Muzaffarpur Institute of Technology",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      bce: {
-        name: "BCE - Bhagalpur College of Engineering",
-        departments: {
+      "bce": {
+        "name": "BCE - Bhagalpur College of Engineering",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      dce: {
-        name: "DCE - Darbhanga College of Engineering",
-        departments: {
+      "dce": {
+        "name": "DCE - Darbhanga College of Engineering",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      gce: {
-        name: "Gaya College of Engineering",
-        departments: {
+      "gce": {
+        "name": "Gaya College of Engineering",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      nce: {
-        name: "Nalanda College of Engineering",
-        departments: {
+      "nce": {
+        "name": "Nalanda College of Engineering",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      mce: {
-        name: "MCE - Motihari College of Engineering",
-        departments: {
+      "mce": {
+        "name": "MCE - Motihari College of Engineering",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      lnjpit: {
-        name: "LNJPIT - Loknayak Jai Prakash Institute of Technology",
-        departments: {
+      "lnjpit": {
+        "name": "LNJPIT - Loknayak Jai Prakash Institute of Technology",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      rrsdce: {
-        name: "RRSDCE - Rashtrakavi Ramdhari Singh Dinkar College of Engineering, Begusarai",
-        departments: {
+      "rrsdce": {
+        "name": "RRSDCE - Rashtrakavi Ramdhari Singh Dinkar College of Engineering, Begusarai",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      kec: {
-        name: "Katihar Engineering College",
-        departments: {
+      "kec": {
+        "name": "Katihar Engineering College",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      pce: {
-        name: "PCE - Purnea College of Engineering",
-        departments: {
+      "pce": {
+        "name": "PCE - Purnea College of Engineering",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "sce-supaul": {
-        name: "SCE - Supaul College of Engineering",
-        departments: {
+        "name": "SCE - Supaul College of Engineering",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      sit: {
-        name: "Sitamarhi Institute of Technology",
-        departments: {
+      "sit": {
+        "name": "Sitamarhi Institute of Technology",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "bce-bakhtiyarpur": {
-        name: "Bakhtiyarpur College of Engineering",
-        departments: {
+        "name": "Bakhtiyarpur College of Engineering",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      bpmce: {
-        name: "B.P. Mandal College of Engineering, Madhepura",
-        departments: {
+      "bpmce": {
+        "name": "B.P. Mandal College of Engineering, Madhepura",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "sec-sasaram": {
-        name: "SEC - Shershah Engineering College, Sasaram",
-        departments: {
+        "name": "SEC - Shershah Engineering College, Sasaram",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "sec-saharsa": {
-        name: "SEC - Saharsa Engineering College, Saharsa",
-        departments: {
+        "name": "SEC - Saharsa Engineering College, Saharsa",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-vaishali": {
-        name: "GEC - Government Engineering College, Vaishali",
-        departments: {
+        "name": "GEC - Government Engineering College, Vaishali",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-jamui": {
-        name: "GEC - Government Engineering College, Jamui",
-        departments: {
+        "name": "GEC - Government Engineering College, Jamui",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-banka": {
-        name: "GEC - Government Engineering College, Banka",
-        departments: {
+        "name": "GEC - Government Engineering College, Banka",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-nawada": {
-        name: "GEC - Government Engineering College, Nawada",
-        departments: {
+        "name": "GEC - Government Engineering College, Nawada",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-kishanganj": {
-        name: "GEC - Government Engineering College, Kishanganj",
-        departments: {
+        "name": "GEC - Government Engineering College, Kishanganj",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      spnrec: {
-        name: "Shri Phanishwar Nath Renu Engineering College, Araria",
-        departments: {
+      "spnrec": {
+        "name": "Shri Phanishwar Nath Renu Engineering College, Araria",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-munger": {
-        name: "GEC - Government Engineering College, Munger",
-        departments: {
+        "name": "GEC - Government Engineering College, Munger",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-sheohar": {
-        name: "GEC - Government Engineering College, Sheohar",
-        departments: {
+        "name": "GEC - Government Engineering College, Sheohar",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-champaran": {
-        name: "GEC - Government Engineering College, West Champaran",
-        departments: {
+        "name": "GEC - Government Engineering College, West Champaran",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-aurangabad": {
-        name: "GEC - Government Engineering College, Aurangabad",
-        departments: {
+        "name": "GEC - Government Engineering College, Aurangabad",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-kaimur": {
-        name: "GEC - Government Engineering College, Kaimur",
-        departments: {
+        "name": "GEC - Government Engineering College, Kaimur",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-gopalganj": {
-        name: "GEC - Government Engineering College, Gopalganj",
-        departments: {
+        "name": "GEC - Government Engineering College, Gopalganj",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-madhubani": {
-        name: "GEC - Government Engineering College, Madhubani",
-        departments: {
+        "name": "GEC - Government Engineering College, Madhubani",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-siwan": {
-        name: "GEC - Government Engineering College, Siwan",
-        departments: {
+        "name": "GEC - Government Engineering College, Siwan",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-jehanabad": {
-        name: "GEC - Government Engineering College, Jehanabad",
-        departments: {
+        "name": "GEC - Government Engineering College, Jehanabad",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-arwal": {
-        name: "GEC - Government Engineering College, Arwal",
-        departments: {
+        "name": "GEC - Government Engineering College, Arwal",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-khagaria": {
-        name: "GEC - Government Engineering College, Khagaria",
-        departments: {
+        "name": "GEC - Government Engineering College, Khagaria",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-buxar": {
-        name: "GEC - Government Engineering College, Buxar",
-        departments: {
+        "name": "GEC - Government Engineering College, Buxar",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-bhojpur": {
-        name: "GEC - Government Engineering College, Bhojpur",
-        departments: {
+        "name": "GEC - Government Engineering College, Bhojpur",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-sheikhpura": {
-        name: "GEC - Government Engineering College, Sheikhpura",
-        departments: {
+        "name": "GEC - Government Engineering College, Sheikhpura",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
       "gec-samastipur": {
-        name: "GEC - Government Engineering College, Samastipur",
-        departments: {
+        "name": "GEC - Government Engineering College, Samastipur",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
+        }
       },
-      bitp: {
-        name: "Birla Institute of Technology, Patna",
-        departments: {
+      "bitp": {
+        "name": "Birla Institute of Technology, Patna",
+        "departments": {
           "B.Tech": [
             "Civil Engineering",
             "Mechanical Engineering",
             "Electrical Engineering",
             "Electronics & Communication",
             "Computer Science & Engineering",
-            "Chemical Engineering",
+            "Chemical Engineering"
           ]
-        },
-      },
-    },
+        }
+      }
+    }
   },
   "bhupendra-narayan": {
-    name: "Bhupendra Narayan Mandal University, Madhepura",
-    colleges: {
-      adarsh: {
-        name: "Adarsh College, Ghairh Jiwachpur Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+    "name": "Bhupendra Narayan Mandal University, Madhepura",
+    "colleges": {
+      "adarsh": {
+        "name": "Adarsh College, Ghairh Jiwachpur Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "bss-chandrakanta": {
-        name: "B S S Chandrakanta College, Ranjanapuri, Uda Kishunganj Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "B S S Chandrakanta College, Ranjanapuri, Uda Kishunganj Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "bsrk": {
-        name: "B.S.R.K. College, Singheshwar Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "B.S.R.K. College, Singheshwar Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "bnm-vaijya": {
-        name: "Bhupendra Narayan Mandal Vanijya Mahavidyalaya, Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Bhupendra Narayan Mandal Vanijya Mahavidyalaya, Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "cm-science": {
-        name: "C. M. Science Degree College, Ward No.-01 Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "C. M. Science Degree College, Ward No.-01 Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "deo-nandini": {
-        name: "Deo Nandini Degree College, Bakhri Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Deo Nandini Degree College, Bakhri Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "evening-college": {
-        name: "Evening College, Ward No-02, Kaushalya Gram Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Evening College, Ward No-02, Kaushalya Gram Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "harihar-saha": {
-        name: "Harihar Saha College, NH-106, Udakishungunj Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Harihar Saha College, NH-106, Udakishungunj Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "kb-womens": {
-        name: "K.B. Womens College Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "K.B. Womens College Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "kamla-rana": {
-        name: "Kamla Rana Science College, Prashant Nagar, Puraini Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Kamla Rana Science College, Prashant Nagar, Puraini Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
-      kamleshwari: {
-        name: "Kamleshwari Prasad College, NH-107, Murliganj Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+      "kamleshwari": {
+        "name": "Kamleshwari Prasad College, NH-107, Murliganj Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "madhepura-college": {
-        name: "Madhepura College, Kaushalya Gram Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Madhepura College, Kaushalya Gram Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "mohan-shakuntala": {
-        name: "Mohan Shakuntala Teacher's Training College, University Chowk Madhepura",
-        departments: {
-          "Education": ["General Teacher Training"]
-        },
+        "name": "Mohan Shakuntala Teacher's Training College, University Chowk Madhepura",
+        "departments": {
+          "Education": [
+            "General Teacher Training"
+          ]
+        }
       },
       "parwati-science": {
-        name: "Parwati Science College, Kiritinagar, Ward No.-04 Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Parwati Science College, Kiritinagar, Ward No.-04 Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
-      rpm: {
-        name: "Rpm College, Tuniyahi Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+      "rpm": {
+        "name": "Rpm College, Tuniyahi Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "sant-awadh": {
-        name: "Sant Awadh Kiriti Nagar Degree College, Kiriti Nagar, Ward No-04 Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Sant Awadh Kiriti Nagar Degree College, Kiriti Nagar, Ward No-04 Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "shivnandan-prasad": {
-        name: "Shivnandan Prasad Mandal Law College, Ward No-20 Madhepura",
-        departments: {
-          "Law": ["Civil Law", "Criminal Law", "Corporate Law"]
-        },
+        "name": "Shivnandan Prasad Mandal Law College, Ward No-20 Madhepura",
+        "departments": {
+          "Law": [
+            "Civil Law",
+            "Criminal Law",
+            "Corporate Law"
+          ]
+        }
       },
       "scb-education": {
-        name: "Subhash Chandra Bose College Of Education, Israin Khurd, Kumarkhand Madhepura",
-        departments: {
-          "Education": ["General Teacher Training"]
-        },
+        "name": "Subhash Chandra Bose College Of Education, Israin Khurd, Kumarkhand Madhepura",
+        "departments": {
+          "Education": [
+            "General Teacher Training"
+          ]
+        }
       },
       "thakur-prasad": {
-        name: "Thakur Prasad College, College Chowk Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Thakur Prasad College, College Chowk Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
-      uvk: {
-        name: "U V K College, Karama, PO-Bhagipur, Puraini Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+      "uvk": {
+        "name": "U V K College, Karama, PO-Bhagipur, Puraini Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "womens-college": {
-        name: "Women's College, Ward No-02, Kaushalya Gram Madhepura",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Women's College, Ward No-02, Kaushalya Gram Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "banwari-shankar": {
-        name: "Banwari Shankar College, Simraha Saharsa",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Banwari Shankar College, Simraha Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "east-west-ttc": {
-        name: "East N West Teachers Training College, Sahmoura Colony, Patuaha Saharsa",
-        departments: {
-          "Education": ["General Teacher Training"]
-        },
+        "name": "East N West Teachers Training College, Sahmoura Colony, Patuaha Saharsa",
+        "departments": {
+          "Education": [
+            "General Teacher Training"
+          ]
+        }
       },
       "evening-saharsa": {
-        name: "Evening College Saharsa, By Pass Road, Tiwari Tola Saharsa",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Evening College Saharsa, By Pass Road, Tiwari Tola Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "lahtan-choudhary": {
-        name: "Lahtan Choudhary College Pastwar, Baluaha, Mahishi Saharsa",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Lahtan Choudhary College Pastwar, Baluaha, Mahishi Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "laxmi-nath": {
-        name: "Laxmi Nath College, PO-Bangaon Saharsa",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Laxmi Nath College, PO-Bangaon Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "maharaja-hariballav": {
-        name: "Maharaja Hariballav Memorial College, SH-59, Soha Sonbarsa Raj Saharsa",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Maharaja Hariballav Memorial College, SH-59, Soha Sonbarsa Raj Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "manohar-lal": {
-        name: "Manohar Lal Tekriwal College, Purab Bazaar Saharsa",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
+        "name": "Manohar Lal Tekriwal College, Purab Bazaar Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
       "rmm-law": {
-        name: "R.M.M. Law College, Purab Bazar Saharsa",
-        departments: {
-          "Law": ["Civil Law", "Criminal Law", "Corporate Law"]
-        },
+        "name": "R.M.M. Law College, Purab Bazar Saharsa",
+        "departments": {
+          "Law": [
+            "Civil Law",
+            "Criminal Law",
+            "Corporate Law"
+          ]
+        }
       },
       "rajendra-mishra": {
-        name: "Rajendra Mishra College, By Pass Road, Tiwari Tola Saharsa",
-        departments: {
-          "BA": ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          "BSc": ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          "BCom": ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
-        },
-      },
-    },
+        "name": "Rajendra Mishra College, By Pass Road, Tiwari Tola Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
   },
   "lnmu-darbhanga": {
-      name: "LALIT NARAYAN MITHILA UNIVERSITY DARBHANGA (LNMU DARBHANGA)",
-      colleges: {
-        "chandradhari-mithila-cm-college-darbhanga": {
-          name: "Chandradhari Mithila (C.M) College, Darbhanga",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "chandradhari-mithila-cm-science-college-darbhanga": {
-          name: "Chandradhari Mithila (C.M) Science College, Darbhanga",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "chandradhari-mithila-law-college-darbhanga": {
-          name: "Chandradhari Mithila Law College, Darbhanga",
-          departments: {
-            Law: ["Civil Law", "Criminal Law", "Corporate Law"],
-          },
-        },
-        "marwari-college-darbhanga": {
-          name: "Marwari College, Darbhanga",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "mrm-college-darbhanga": {
-          name: "M.R.M. College, Darbhanga",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "ks-college-laheriasarai": {
-          name: "K.S. College, Laheriasarai",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "maharani-kalyani-college-laheriasarai": {
-          name: "Maharani Kalyani College, Laheriasarai",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "millat-college-laheriasarai": {
-          name: "Millat College, Laheriasarai",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "mlsm-college-darbhanga": {
-          name: "M.L.S.M. College, Darbhanga",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "bma-college-baheri": {
-          name: "B.M.A. College, Baheri",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "mks-college-trimuhan": {
-          name: "M.K.S. College, Trimuhan",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "janta-koshi-college-biraul": {
-          name: "Janta Koshi College, Biraul",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "jn-college-nehra": {
-          name: "J.N. College, Nehra",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "sub-divisional-govt-degree-college-benipur": {
-          name: "Sub-Divisional Govt. Degree College, Benipur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-singhwara": {
-          name: "Govt. Degree College, Singhwara",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-tardih": {
-          name: "Govt. Degree College, Tardih",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-hanumannagar": {
-          name: "Govt. Degree College, Hanumannagar",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-alinagar": {
-          name: "Govt. Degree College, Alinagar",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-kusheshwarsthan": {
-          name: "Govt. Degree College, Kusheshwarsthan",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-kusheshwarsthan-east": {
-          name: "Govt. Degree College, Kusheshwarsthan East",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-kiratpur": {
-          name: "Govt. Degree College, Kiratpur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-gora-bauram": {
-          name: "Govt. Degree College, Gora Bauram",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "ram-krishna-college-madhubani": {
-          name: "Ram Krishna College, Madhubani",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "jagdish-nandan-college-madhubani": {
-          name: "Jagdish Nandan College, Madhubani",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "rash-narayan-college-pandaul": {
-          name: "Rash Narayan College, Pandaul",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "bm-college-rahika": {
-          name: "B.M. College, Rahika",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "kv-science-college-uchchaith": {
-          name: "K.V. Science College, Uchchaith",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "jmdpl-mahila-college-madhubani": {
-          name: "J.M.D.P.L. Mahila College, Madhubani",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "ln-janta-college-jhanjharpur": {
-          name: "L.N. Janta College, Jhanjharpur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "mls-college-sarisabpahi": {
-          name: "M.L.S. College, Sarisabpahi",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "hps-college-madhepur": {
-          name: "H.P.S. College, Madhepur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "cmj-college-donwarihat": {
-          name: "C.M.J. College, Donwarihat",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "chandramukhi-bhola-college-deorh-ghoghardiha": {
-          name: "Chandramukhi Bhola College, Deorh (Ghoghardiha)",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "db-college-jainagar": {
-          name: "D.B. College, Jainagar",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "vsj-college-rajnagar": {
-          name: "V.S.J. College, Rajnagar",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-khajauli": {
-          name: "Govt. Degree College, Khajauli",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-basopatti": {
-          name: "Govt. Degree College, Basopatti",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-bisfi": {
-          name: "Govt. Degree College, Bisfi",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-harlakhi": {
-          name: "Govt. Degree College, Harlakhi",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-phulparas": {
-          name: "Govt. Degree College, Phulparas",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-khutauna": {
-          name: "Govt. Degree College, Khutauna",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-laukahi": {
-          name: "Govt. Degree College, Laukahi",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "samastipur-college-samastipur": {
-          name: "Samastipur College, Samastipur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "brb-college-samastipur": {
-          name: "B.R.B. College, Samastipur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "rnar-college-samastipur": {
-          name: "R.N.A.R. College, Samastipur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "womens-college-samastipur": {
-          name: "Women's College, Samastipur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "acharya-narendra-dev-college-shahpur-patori": {
-          name: "Acharya Narendra Dev College, Shahpur Patori",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "rbs-college-andaur": {
-          name: "R.B.S. College, Andaur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "rb-college-dalsinghsarai": {
-          name: "R.B. College, Dalsinghsarai",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "uma-pandey-college-pusa": {
-          name: "Uma Pandey College, Pusa",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "ur-college-rosera": {
-          name: "U.R. College, Rosera",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "dbkn-college-narhan": {
-          name: "D.B.K.N. College, Narhan",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "dr-lohia-karpoori-visheshwar-das-college-tajpur": {
-          name: "Dr. Lohia Karpoori Visheshwar Das College, Tajpur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "gmrd-college-mohanpur": {
-          name: "G.M.R.D. College, Mohanpur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-khanpur": {
-          name: "Govt. Degree College, Khanpur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-kalyanpur": {
-          name: "Govt. Degree College, Kalyanpur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-bithan": {
-          name: "Govt. Degree College, Bithan",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-singhia": {
-          name: "Govt. Degree College, Singhia",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-vidyapatinagar": {
-          name: "Govt. Degree College, Vidyapatinagar",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "gd-college-begusarai": {
-          name: "G.D. College, Begusarai",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "sk-mahila-college-begusarai": {
-          name: "S.K. Mahila College, Begusarai",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "co-operative-college-begusarai": {
-          name: "Co-operative College, Begusarai",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "apsm-college-barauni": {
-          name: "A.P.S.M. College, Barauni",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "rcs-college-manjhaul": {
-          name: "R.C.S. College, Manjhaul",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-matihani": {
-          name: "Govt. Degree College, Matihani",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-veerpur": {
-          name: "Govt. Degree College, Veerpur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-dandari": {
-          name: "Govt. Degree College, Dandari",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-sahebpur-kamal": {
-          name: "Govt. Degree College, Sahebpur Kamal",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-bachhwara": {
-          name: "Govt. Degree College, Bachhwara",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-mansurchak": {
-          name: "Govt. Degree College, Mansurchak",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-chhorahi": {
-          name: "Govt. Degree College, Chhorahi",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-khodabandpur": {
-          name: "Govt. Degree College, Khodabandpur",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-garhpura": {
-          name: "Govt. Degree College, Garhpura",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
-        "govt-degree-college-navkothi": {
-          name: "Govt. Degree College, Navkothi",
-          departments: {
-            BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-            BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-            BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"],
-          },
-        },
+    "name": "LALIT NARAYAN MITHILA UNIVERSITY DARBHANGA (LNMU DARBHANGA)",
+    "colleges": {
+      "chandradhari-mithila-cm-college-darbhanga": {
+        "name": "Chandradhari Mithila (C.M) College, Darbhanga",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
       },
+      "chandradhari-mithila-cm-science-college-darbhanga": {
+        "name": "Chandradhari Mithila (C.M) Science College, Darbhanga",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "chandradhari-mithila-law-college-darbhanga": {
+        "name": "Chandradhari Mithila Law College, Darbhanga",
+        "departments": {
+          "Law": [
+            "Civil Law",
+            "Criminal Law",
+            "Corporate Law"
+          ]
+        }
+      },
+      "marwari-college-darbhanga": {
+        "name": "Marwari College, Darbhanga",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mrm-college-darbhanga": {
+        "name": "M.R.M. College, Darbhanga",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ks-college-laheriasarai": {
+        "name": "K.S. College, Laheriasarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "maharani-kalyani-college-laheriasarai": {
+        "name": "Maharani Kalyani College, Laheriasarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "millat-college-laheriasarai": {
+        "name": "Millat College, Laheriasarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mlsm-college-darbhanga": {
+        "name": "M.L.S.M. College, Darbhanga",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "bma-college-baheri": {
+        "name": "B.M.A. College, Baheri",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mks-college-trimuhan": {
+        "name": "M.K.S. College, Trimuhan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "janta-koshi-college-biraul": {
+        "name": "Janta Koshi College, Biraul",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jn-college-nehra": {
+        "name": "J.N. College, Nehra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sub-divisional-govt-degree-college-benipur": {
+        "name": "Sub-Divisional Govt. Degree College, Benipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-singhwara": {
+        "name": "Govt. Degree College, Singhwara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-tardih": {
+        "name": "Govt. Degree College, Tardih",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-hanumannagar": {
+        "name": "Govt. Degree College, Hanumannagar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-alinagar": {
+        "name": "Govt. Degree College, Alinagar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-kusheshwarsthan": {
+        "name": "Govt. Degree College, Kusheshwarsthan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-kusheshwarsthan-east": {
+        "name": "Govt. Degree College, Kusheshwarsthan East",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-kiratpur": {
+        "name": "Govt. Degree College, Kiratpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-gora-bauram": {
+        "name": "Govt. Degree College, Gora Bauram",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ram-krishna-college-madhubani": {
+        "name": "Ram Krishna College, Madhubani",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jagdish-nandan-college-madhubani": {
+        "name": "Jagdish Nandan College, Madhubani",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rash-narayan-college-pandaul": {
+        "name": "Rash Narayan College, Pandaul",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "bm-college-rahika": {
+        "name": "B.M. College, Rahika",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "kv-science-college-uchchaith": {
+        "name": "K.V. Science College, Uchchaith",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jmdpl-mahila-college-madhubani": {
+        "name": "J.M.D.P.L. Mahila College, Madhubani",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ln-janta-college-jhanjharpur": {
+        "name": "L.N. Janta College, Jhanjharpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mls-college-sarisabpahi": {
+        "name": "M.L.S. College, Sarisabpahi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "hps-college-madhepur": {
+        "name": "H.P.S. College, Madhepur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "cmj-college-donwarihat": {
+        "name": "C.M.J. College, Donwarihat",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "chandramukhi-bhola-college-deorh-ghoghardiha": {
+        "name": "Chandramukhi Bhola College, Deorh (Ghoghardiha)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "db-college-jainagar": {
+        "name": "D.B. College, Jainagar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "vsj-college-rajnagar": {
+        "name": "V.S.J. College, Rajnagar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-khajauli": {
+        "name": "Govt. Degree College, Khajauli",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-basopatti": {
+        "name": "Govt. Degree College, Basopatti",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-bisfi": {
+        "name": "Govt. Degree College, Bisfi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-harlakhi": {
+        "name": "Govt. Degree College, Harlakhi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-phulparas": {
+        "name": "Govt. Degree College, Phulparas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-khutauna": {
+        "name": "Govt. Degree College, Khutauna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-laukahi": {
+        "name": "Govt. Degree College, Laukahi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "samastipur-college-samastipur": {
+        "name": "Samastipur College, Samastipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "brb-college-samastipur": {
+        "name": "B.R.B. College, Samastipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rnar-college-samastipur": {
+        "name": "R.N.A.R. College, Samastipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "womens-college-samastipur": {
+        "name": "Women's College, Samastipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "acharya-narendra-dev-college-shahpur-patori": {
+        "name": "Acharya Narendra Dev College, Shahpur Patori",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rbs-college-andaur": {
+        "name": "R.B.S. College, Andaur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rb-college-dalsinghsarai": {
+        "name": "R.B. College, Dalsinghsarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "uma-pandey-college-pusa": {
+        "name": "Uma Pandey College, Pusa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ur-college-rosera": {
+        "name": "U.R. College, Rosera",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dbkn-college-narhan": {
+        "name": "D.B.K.N. College, Narhan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-lohia-karpoori-visheshwar-das-college-tajpur": {
+        "name": "Dr. Lohia Karpoori Visheshwar Das College, Tajpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "gmrd-college-mohanpur": {
+        "name": "G.M.R.D. College, Mohanpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-khanpur": {
+        "name": "Govt. Degree College, Khanpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-kalyanpur": {
+        "name": "Govt. Degree College, Kalyanpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-bithan": {
+        "name": "Govt. Degree College, Bithan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-singhia": {
+        "name": "Govt. Degree College, Singhia",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-vidyapatinagar": {
+        "name": "Govt. Degree College, Vidyapatinagar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "gd-college-begusarai": {
+        "name": "G.D. College, Begusarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sk-mahila-college-begusarai": {
+        "name": "S.K. Mahila College, Begusarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "co-operative-college-begusarai": {
+        "name": "Co-operative College, Begusarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "apsm-college-barauni": {
+        "name": "A.P.S.M. College, Barauni",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rcs-college-manjhaul": {
+        "name": "R.C.S. College, Manjhaul",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-matihani": {
+        "name": "Govt. Degree College, Matihani",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-veerpur": {
+        "name": "Govt. Degree College, Veerpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-dandari": {
+        "name": "Govt. Degree College, Dandari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-sahebpur-kamal": {
+        "name": "Govt. Degree College, Sahebpur Kamal",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-bachhwara": {
+        "name": "Govt. Degree College, Bachhwara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-mansurchak": {
+        "name": "Govt. Degree College, Mansurchak",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-chhorahi": {
+        "name": "Govt. Degree College, Chhorahi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-khodabandpur": {
+        "name": "Govt. Degree College, Khodabandpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-garhpura": {
+        "name": "Govt. Degree College, Garhpura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-navkothi": {
+        "name": "Govt. Degree College, Navkothi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
   },
   "tilka-manjhi": {
-    name: "Tilka Manjhi Bhagalpur University (TMBU) Bhagalpur",
-    colleges: {
+    "name": "Tilka Manjhi Bhagalpur University (TMBU) Bhagalpur",
+    "colleges": {
       "tnb-bhagalpur": {
-        name: "T. N. B. College, Bhagalpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "T. N. B. College, Bhagalpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "bnc-bhagalpur": {
-        name: "Bhagalpur National College, Bhagalpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Bhagalpur National College, Bhagalpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "gbc-naugachia": {
-        name: "G. B. College, Naugachia (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "G. B. College, Naugachia (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "jpc-narayanpur": {
-        name: "Jay Prakash College, Narayanpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Jay Prakash College, Narayanpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "mamc-naugachia": {
-        name: "Madan Ahilya Mahila College, Naugachia (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Madan Ahilya Mahila College, Naugachia (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "marwari-bhagalpur": {
-        name: "Marwari College, Bhagalpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Marwari College, Bhagalpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "murarka-sultanganj": {
-        name: "Murarka College, Sultanganj (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Murarka College, Sultanganj (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "pbsc-banka": {
-        name: "P. B. S. College, Banka (Banka)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "P. B. S. College, Banka (Banka)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "ssvc-kahalgaon": {
-        name: "S. S. V. College, Kahalgaon (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "S. S. V. College, Kahalgaon (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sabour-sabour": {
-        name: "Sabour College, Sabour (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Sabour College, Sabour (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "smc-bhagalpur": {
-        name: "Sunderwati Mahila College, Bhagalpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Sunderwati Mahila College, Bhagalpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "tnb-law-bhagalpur": {
-        name: "T. N. B. Law College, Bhagalpur (Bhagalpur)",
-        departments: {
-          Law: ["Civil Law", "Criminal Law", "Corporate Law"]
+        "name": "T. N. B. Law College, Bhagalpur (Bhagalpur)",
+        "departments": {
+          "Law": [
+            "Civil Law",
+            "Criminal Law",
+            "Corporate Law"
+          ]
         }
       },
       "akgc-sultanganj": {
-        name: "A. K. Gopalan College, Sultanganj (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "A. K. Gopalan College, Sultanganj (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "blscc-naugachia": {
-        name: "B. L. Sarraf Commerce College, Naugachia (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "B. L. Sarraf Commerce College, Naugachia (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "cmc-bounsi": {
-        name: "C. M. College, Bounsi (Banka)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "C. M. College, Bounsi (Banka)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "dnsc-bhusia": {
-        name: "D. N. Singh College, Bhusia (Rajaun) (Banka)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "D. N. Singh College, Bhusia (Rajaun) (Banka)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "lnbjmc-bhramarpur": {
-        name: "L. N. B. J. Mahila College, Bhramarpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "L. N. B. J. Mahila College, Bhramarpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "msc-bhagalpur": {
-        name: "Mahadeo Singh College, Bhagalpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Mahadeo Singh College, Bhagalpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "mmc-bhagalpur": {
-        name: "Muslim Minority College, Bhagalpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Muslim Minority College, Bhagalpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sdmyc-dhoraiya": {
-        name: "S. D. M. Y. College, Dhoraiya (Banka)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "S. D. M. Y. College, Dhoraiya (Banka)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sspsc-shambhuganj": {
-        name: "Shaheed Shashi Prasad Singh College, Shambhuganj (Banka)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Shaheed Shashi Prasad Singh College, Shambhuganj (Banka)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sjmc-bhagalpur": {
-        name: "Sharda Jhunjhunwala Mahila College, Bhagalpur (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Sharda Jhunjhunwala Mahila College, Bhagalpur (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sc-banka": {
-        name: "Sarvajanik College, Banka (Banka)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Sarvajanik College, Banka (Banka)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "tc-ghogha": {
-        name: "Tarar College, Ghogha (Bhagalpur)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Tarar College, Ghogha (Bhagalpur)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       }
     }
   },
   "purnea-university": {
-    name: "Purnea University",
-    colleges: {
+    "name": "Purnea University",
+    "colleges": {
       "purnea-college": {
-        name: "Purnea College, Purnea (Purnea)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Purnea College, Purnea (Purnea)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "purnea-mahila": {
-        name: "Purnea Mahila Mahavidyalaya, Purnea (Purnea)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Purnea Mahila Mahavidyalaya, Purnea (Purnea)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "bnmuc-purnea": {
-        name: "B. N. Mandal University College, Purnea (Purnea)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "B. N. Mandal University College, Purnea (Purnea)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "degree-dhamdaha": {
-        name: "Degree College, Dhamdaha (Purnea)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Degree College, Dhamdaha (Purnea)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "govt-baisi": {
-        name: "Govt. Degree College, Baisi (Purnea)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Govt. Degree College, Baisi (Purnea)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "araria-college": {
-        name: "Araria College, Araria (Araria)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Araria College, Araria (Araria)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "forbesganj-college": {
-        name: "Forbesganj College, Forbesganj (Araria)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Forbesganj College, Forbesganj (Araria)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "mldpky-araria": {
-        name: "M. L. D. P. K. Yadav College, Araria (Araria)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "M. L. D. P. K. Yadav College, Araria (Araria)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "govt-jokihat": {
-        name: "Govt. Degree College, Jokihat (Araria)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Govt. Degree College, Jokihat (Araria)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "marwari-kishanganj": {
-        name: "Marwari College, Kishanganj (Kishanganj)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Marwari College, Kishanganj (Kishanganj)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "nehru-bahadurganj": {
-        name: "Nehru College, Bahadurganj (Kishanganj)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Nehru College, Bahadurganj (Kishanganj)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "govt-thakurganj": {
-        name: "Govt. Degree College, Thakurganj (Kishanganj)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Govt. Degree College, Thakurganj (Kishanganj)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "ds-katihar": {
-        name: "D. S. College, Katihar (Katihar)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "D. S. College, Katihar (Katihar)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "kbjha-katihar": {
-        name: "K. B. Jha College, Katihar (Katihar)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "K. B. Jha College, Katihar (Katihar)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rk-barari": {
-        name: "R. K. College, Barari (Katihar)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R. K. College, Barari (Katihar)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "govt-manihari": {
-        name: "Govt. Degree College, Manihari (Katihar)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Govt. Degree College, Manihari (Katihar)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "katihar-medical": {
-        name: "Katihar Medical College, Katihar (Katihar)",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Katihar Medical College, Katihar (Katihar)",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       }
     }
   },
   "babasaheb-bhimrao-ambedkar-bihar-university": {
-    name: "Babasaheb Bhimrao Ambedkar Bihar University",
-    colleges: {
+    "name": "Babasaheb Bhimrao Ambedkar Bihar University",
+    "colleges": {
       "ls-college-muzaffarpur": {
-        name: "L.S. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "L.S. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "mddm-college-muzaffarpur": {
-        name: "M.D.D.M. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "M.D.D.M. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rds-college-muzaffarpur": {
-        name: "R.D.S. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.D.S. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rbbm-college-muzaffarpur": {
-        name: "R.B.B.M. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.B.B.M. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "mpssc-college-muzaffarpur": {
-        name: "M.P.S.Sc. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "M.P.S.Sc. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "nitishwar-mahavidyalaya-muzaffarpur": {
-        name: "Nitishwar Mahavidyalaya, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Nitishwar Mahavidyalaya, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "dr-rmls-college-muzaffarpur": {
-        name: "Dr. R.M.L.S. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Dr. R.M.L.S. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "mskb-college-muzaffarpur": {
-        name: "M.S.K.B. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "M.S.K.B. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "lnt-college-muzaffarpur": {
-        name: "L.N.T. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "L.N.T. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rs-college-muzaffarpur": {
-        name: "R.S. College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.S. College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "srps-college-jaintpur-muzaffarpur": {
-        name: "S.R.P.S. College, Jaintpur, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "S.R.P.S. College, Jaintpur, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "cn-college-sahebganj-muzaffarpur": {
-        name: "C.N. College, Sahebganj, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "C.N. College, Sahebganj, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rc-college-sakra-muzaffarpur": {
-        name: "R.C. College, Sakra, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.C. College, Sakra, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "jeewach-college-motipur": {
-        name: "Jeewach College, Motipur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Jeewach College, Motipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "jbsd-college-bakuchi-muzaffarpur": {
-        name: "J.B.S.D. College, Bakuchi, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "J.B.S.D. College, Bakuchi, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "srkg-college-sitamarhi": {
-        name: "S.R.K.G. College, Sitamarhi",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "S.R.K.G. College, Sitamarhi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "slk-college-sitamarhi": {
-        name: "S.L.K. College, Sitamarhi",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "S.L.K. College, Sitamarhi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rss-sc-college-sitamarhi": {
-        name: "R.S.S. Sc. College, Sitamarhi",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.S.S. Sc. College, Sitamarhi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rss-mahila-college-sitamarhi": {
-        name: "R.S.S. Mahila College, Sitamarhi",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.S.S. Mahila College, Sitamarhi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "js-college-chandauli-sitamarhi": {
-        name: "J.S. College, Chandauli, Sitamarhi",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "J.S. College, Chandauli, Sitamarhi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "ms-college-motihari": {
-        name: "M.S. College, Motihari",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "M.S. College, Motihari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "lnd-college-motihari": {
-        name: "L.N.D. College, Motihari",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "L.N.D. College, Motihari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sns-college-motihari": {
-        name: "S.N.S. College, Motihari",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "S.N.S. College, Motihari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "dr-sks-womens-college-motihari": {
-        name: "Dr. S.K.S. Women's College, Motihari",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Dr. S.K.S. Women's College, Motihari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "jlnm-college-ghorasahan": {
-        name: "J.L.N.M. College, Ghorasahan",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "J.L.N.M. College, Ghorasahan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "kctc-college-raxaul": {
-        name: "K.C.T.C. College, Raxaul",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "K.C.T.C. College, Raxaul",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "srap-college-barachakia": {
-        name: "S.R.A.P. College, Barachakia",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "S.R.A.P. College, Barachakia",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "mssg-college-areraj": {
-        name: "M.S.S.G. College, Areraj",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "M.S.S.G. College, Areraj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rlsy-college-bettiah": {
-        name: "R.L.S.Y. College, Bettiah",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.L.S.Y. College, Bettiah",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "mjk-college-bettiah": {
-        name: "M.J.K. College, Bettiah",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "M.J.K. College, Bettiah",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "tp-verma-college-narkatiaganj": {
-        name: "T.P. Verma College, Narkatiaganj",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "T.P. Verma College, Narkatiaganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rn-college-hajipur": {
-        name: "R.N. College, Hajipur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.N. College, Hajipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "ln-college-bhagwanpur": {
-        name: "L.N. College, Bhagwanpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "L.N. College, Bhagwanpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "bmd-college-dayalpur": {
-        name: "B.M.D. College, Dayalpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "B.M.D. College, Dayalpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "jamuni-lal-college-hajipur": {
-        name: "Jamuni Lal College, Hajipur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Jamuni Lal College, Hajipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "deo-chand-college-hajipur": {
-        name: "Deo Chand College, Hajipur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Deo Chand College, Hajipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "rps-college-chakeyaj": {
-        name: "R.P.S. College, Chakeyaj",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "R.P.S. College, Chakeyaj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "samta-college-jandaha": {
-        name: "Samta College, Jandaha",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Samta College, Jandaha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "vaishali-mahila-college-hajipur": {
-        name: "Vaishali Mahila College, Hajipur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Vaishali Mahila College, Hajipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sub-divisional-govt-degree-college-sheohar": {
-        name: "Sub Divisional Govt. Degree College, Sheohar",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Sub Divisional Govt. Degree College, Sheohar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sub-divisional-govt-degree-college-pakridayal": {
-        name: "Sub Divisional Govt. Degree College, Pakridayal",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Sub Divisional Govt. Degree College, Pakridayal",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sub-divisional-govt-degree-college-bagaha": {
-        name: "Sub Divisional Govt. Degree College, Bagaha",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Sub Divisional Govt. Degree College, Bagaha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "dr-jagarnath-mishra-college-muzaffarpur": {
-        name: "Dr. Jagarnath Mishra College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Dr. Jagarnath Mishra College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "syamnandan-sahay-college-muzaffarpur": {
-        name: "Syamnandan Sahay College, Muzaffarpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Syamnandan Sahay College, Muzaffarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "pt-yamuna-karji-college-bagahi-kharauna-dholi": {
-        name: "Pt. Yamuna Karji College, Bagahi Kharauna Dholi",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Pt. Yamuna Karji College, Bagahi Kharauna Dholi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "ramshresta-singh-college-chochhan-belsar": {
-        name: "Ramshresta Singh College, Chochhan Belsar",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Ramshresta Singh College, Chochhan Belsar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "jawahar-lal-nehru-memorial-college-nawahi-sursand": {
-        name: "Jawahar Lal Nehru Memorial College, Nawahi Sursand",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Jawahar Lal Nehru Memorial College, Nawahi Sursand",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "awadh-bihari-singh-college-lalganj": {
-        name: "Awadh Bihari Singh College, Lalganj",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Awadh Bihari Singh College, Lalganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "virchand-patel-smarak-college-desri": {
-        name: "Virchand Patel Smarak College, Desri",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Virchand Patel Smarak College, Desri",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "nirsu-narayan-college-singhara": {
-        name: "Nirsu Narayan College, Singhara",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Nirsu Narayan College, Singhara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "akshaywat-college-mahua": {
-        name: "Akshaywat College, Mahua",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Akshaywat College, Mahua",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "sns-college-hajipur": {
-        name: "S.N.S. College, Hajipur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "S.N.S. College, Hajipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "pt-ugam-pandey-college-motihari": {
-        name: "Pt. Ugam Pandey College, Motihari",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Pt. Ugam Pandey College, Motihari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "pt-uma-shankar-tiwari-mahila-college-bagaha": {
-        name: "Pt. Uma Shankar Tiwari Mahila College, Bagaha",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Pt. Uma Shankar Tiwari Mahila College, Bagaha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "giridharan-mishra-hari-shankar-pathak-college-bagaha": {
-        name: "Giridharan Mishra Hari Shankar Pathak College, Bagaha",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Giridharan Mishra Hari Shankar Pathak College, Bagaha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "maheshwarnath-mahamaya-mahila-college-bettiah": {
-        name: "Maheshwarnath Mahamaya Mahila College, Bettiah",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Maheshwarnath Mahamaya Mahila College, Bettiah",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "dr-ram-balak-rai-college-hajipur": {
-        name: "Dr. Ram Balak Rai College, Hajipur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Dr. Ram Balak Rai College, Hajipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "ram-sharan-rai-college-panapur-makkanpur": {
-        name: "Ram Sharan Rai College, Panapur Makkanpur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Ram Sharan Rai College, Panapur Makkanpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "chaurasia-raj-kishore-degree-college-hajipur": {
-        name: "Chaurasia Raj Kishore Degree College, Hajipur",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Chaurasia Raj Kishore Degree College, Hajipur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "baba-bhootnath-mahavidyalay-bagaha": {
-        name: "Baba Bhootnath Mahavidyalay, Bagaha",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Baba Bhootnath Mahavidyalay, Bagaha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       },
       "priya-rani-rai-degree-college-bairgania": {
-        name: "Priya Rani Rai Degree College, Bairgania",
-        departments: {
-          BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi", "Sanskrit","Music","Rural Economics"],
-          BSc: ["Physics", "Chemistry", "Mathematics", "Statistics", "Botany", "Zoology", "Microbiology", "Biotechnology", "Biochemistry", "Computer Science", "Data Science", "Agriculture", "Nursing", "Forensic Science"],
-          BCom: ["Commerce", "Accounting & Finance", "Business Administration", "Banking & Insurance", "Taxation", "Economics", "Sales & Marketing", "Computer Applications"]
+        "name": "Priya Rani Rai Degree College, Bairgania",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
+  },
+  "vksu": {
+    "name": "Veer Kunwar Singh University (VKSU)",
+    "colleges": {
+      "al-hafeez-college": {
+        "name": "Al Hafeez College",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "amarnath-mishra-degree-mahavidyalaya-dayalpur-dhansoi-buxar": {
+        "name": "Amarnath Mishra Degree Mahavidyalaya, Dayalpur, Dhansoi, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "anjabit-singh-college-bikramganj-rohtas": {
+        "name": "Anjabit Singh College, Bikramganj, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "awadhoot-bhagwan-ram-college-sasaram": {
+        "name": "Awadhoot Bhagwan Ram College, Sasaram",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-g-college-dehari-on-sone-jamuhar-rohtas": {
+        "name": "B.G. College, Dehari on Sone, Jamuhar, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-g-college-ramlal-nagar-bhabhua-kaimur": {
+        "name": "B.G. College, Ramlal Nagar, Bhabhua, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-k-s-college-kuddi-chand-kaimur": {
+        "name": "B.K.S. College, Kuddi, Chand, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-n-bhagat-lalan-singh-degree-college-itarhi-buxar": {
+        "name": "B.N. Bhagat Lalan Singh Degree College, Itarhi, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-n-college-indour-sasaram-rohtas": {
+        "name": "B.N. College, Indour, Sasaram, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-s-college-hata-chenari-rohtas": {
+        "name": "B.S. College, Hata, Chenari, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-s-s-college-bachari-piro-ara": {
+        "name": "B.S.S. College Bachari, Piro, Ara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "bindeshwari-dubey-mahavidyalaya-bihiya-kataiya-bhojpur": {
+        "name": "Bindeshwari Dubey Mahavidyalaya, Bihiya Kataiya, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "chanakya-academy-mahila-mahavidyalaya-sarenja-rajpur-buxar": {
+        "name": "Chanakya Academy Mahila Mahavidyalaya, Sarenja, Rajpur, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "chaudhary-charan-singh-college-rajpur-rohtas": {
+        "name": "Chaudhary Charan Singh College, Rajpur, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "chaudhary-charan-singh-evening-college-bhagirtha-narwar-kochas-rohtas": {
+        "name": "Chaudhary Charan Singh Evening College, Bhagirtha-Narwar, Kochas, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "d-d-college-dhanupra-ara": {
+        "name": "D.D. College (Dhanupra), Ara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "d-k-college-dumraon": {
+        "name": "D.K. College, Dumraon",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "d-k-m-college-dumari-buxar": {
+        "name": "D.K.M. College, Dumari, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "d-s-s-v-college-simri-buxar": {
+        "name": "D.S.S.V. College, Simri, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dharikshan-shanti-meera-sidhnath-degree-mahavidyalaya-kulhariya-bhojpur": {
+        "name": "Dharikshan Shanti Meera Sidhnath Degree Mahavidyalaya, Kulhariya, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-k-k-mandal-college-jagdishpur-bhojpur": {
+        "name": "Dr. K.K. Mandal College, Jagdishpur, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-k-k-mandal-mahila-college-buxar": {
+        "name": "Dr. K.K. Mandal Mahila College, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "durgawati-mahavidyalaya-bichhiya-dumari-kaimur": {
+        "name": "Durgawati Mahavidyalaya, Bichhiya, Dumari, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "g-b-college-ramgarh": {
+        "name": "G.B. College, Ramgarh",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "geeta-pradeep-college-of-higher-education-asani-bhojpur": {
+        "name": "Geeta Pradeep College of Higher Education, Asani, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "girish-narayan-mishra-college-parsathua-rohtas": {
+        "name": "Girish Narayan Mishra College, Parsathua, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "gram-bharti-balika-vidyapeeth-ramgarh-kaimur": {
+        "name": "Gram Bharti Balika Vidyapeeth, Ramgarh, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "guriya-singh-sanjay-college-nahar-road-jagdishpur-bhojpur": {
+        "name": "Guriya Singh Sanjay College, Nahar Road, Jagdishpur, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "guru-prakash-college-kekadha-kilani-kaimur": {
+        "name": "Guru Prakash College, Kekadha, Kilani, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "h-n-s-b-janta-college-dhansoi-buxar": {
+        "name": "H.N.S.B. Janta College, Dhansoi, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "harprasad-das-jain-college-ara": {
+        "name": "Harprasad Das Jain College, Ara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "i-d-b-p-singh-college-garh-nokha": {
+        "name": "I.D.B.P. Singh College, Garh Nokha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "indra-parashuram-singh-mahavidyalaya-maidan-kala-belaon-kaimur": {
+        "name": "Indra Parashuram Singh Mahavidyalaya, Maidan Kala, Belaon, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "indra-parashuram-singh-mahila-mahavidyalaya-chilbili-kudra-kaimur": {
+        "name": "Indra Parashuram Singh Mahila Mahavidyalaya, Chilbili Kudra, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "indu-tapeshwar-singh-mahila-college-bikramganj-rohtas": {
+        "name": "Indu Tapeshwar Singh Mahila College, Bikramganj, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "j-d-s-degree-college-diliyan-tarari-bhojpur": {
+        "name": "J.D.S. Degree College, Diliyan, Tarari, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jagdeo-memorial-college-sakari-kudra-kaimur": {
+        "name": "Jagdeo Memorial College, Sakari Kudra, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jagjiwan-college-arrah-bhojpur": {
+        "name": "Jagjiwan College, Arrah, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jagjiwan-college-dehri-on-sone-rohtas": {
+        "name": "Jagjiwan College, Dehri-on-Sone, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jan-sahakari-d-c-barap-garahni-bhojpur": {
+        "name": "Jan Sahakari D.C. Barap, Garahni, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jawahar-lal-nehru-college-rohtas": {
+        "name": "Jawahar Lal Nehru College, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-n-s-college-itarhi-road-buxar": {
+        "name": "K.N.S. College, Itarhi Road, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "keshari-devi-mahavidyalay-khakhan-tola-khawaspur-bhojpur": {
+        "name": "Keshari Devi Mahavidyalay, Khakhan Tola, Khawaspur, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "l-b-g-t-college-buxar": {
+        "name": "L.B.G.T. College, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "lalu-prasad-yadav-college-akodhi-gola": {
+        "name": "Lalu Prasad Yadav College, Akodhi, Gola",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-c-college-chausa-buxar": {
+        "name": "M.C. College, Chausa, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-d-saif-degree-college-ghosia-kalan-bikramganj-rohtas": {
+        "name": "M.D. Saif Degree College, Ghosia Kalan, Bikramganj, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-d-r-p-d-m-college-bhabhua-kaimur": {
+        "name": "M.D.R.P.D.M. College, Bhabhua, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-p-college-mohania": {
+        "name": "M.P. College, Mohania",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-v-college-buxar": {
+        "name": "M.V. College, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahanth-mahadevanand-mahila-mahavidyalaya-ara": {
+        "name": "Mahanth Mahadevanand Mahila Mahavidyalaya, Ara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "maharaja-college-ara": {
+        "name": "Maharaja College, Ara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahatma-gandhi-college-lahrabad-peero-bhojpur": {
+        "name": "Mahatma Gandhi College, Lahrabad Peero, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ram-kishor-singh-college-dalmianagar-rohtas": {
+        "name": "Ram Kishor Singh College, Dalmianagar, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ram-nagina-singh-college-ararua-akodhi-karhagar-rohtas": {
+        "name": "Ram Nagina Singh College, Ararua, Akodhi, Karhagar, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ram-narayan-sah-sarvoday-college-ganj-bhadasra-sasaram-rohtas": {
+        "name": "Ram Narayan Sah Sarvoday College, Ganj Bhadasra, Sasaram, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ramawtar-singh-adarsh-mahavidyalaya-bijhaura-buxar": {
+        "name": "Ramawtar Singh Adarsh Mahavidyalaya, Bijhaura, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rohtas-mahila-college-sasaram-rohtas": {
+        "name": "Rohtas Mahila College, Sasaram, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-b-college-ara": {
+        "name": "S.B. College, Ara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-m-college-dumraon": {
+        "name": "S.M. College, Dumraon",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-n-college-shahmal-khaira-deo-rohtas": {
+        "name": "S.N. College, Shahmal Khaira-Deo, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-s-s-college-dinara-rohtas": {
+        "name": "S.S.S. College, Dinara, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-s-s-mahila-college-bhabhua": {
+        "name": "S.S.S. Mahila College, Bhabhua",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-t-s-m-college-panwari-bhojpur": {
+        "name": "S.T.S.M. College, Panwari, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-v-p-college-bhabhua-kaimur": {
+        "name": "S.V.P. College, Bhabhua, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sant-shri-brahma-mahila-college-jagdishpur": {
+        "name": "Sant Shri Brahma Mahila College, Jagdishpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "seema-kumari-college-itarhi-road-turkpurwa-buxar": {
+        "name": "Seema Kumari College, Itarhi Road, Turkpurwa, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "shanti-prasad-jain-college-sasaram-rohtas": {
+        "name": "Shanti Prasad Jain College, Sasaram, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sher-shah-college-sasaram-rohtas": {
+        "name": "Sher Shah College, Sasaram, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "shivgovind-nandlal-singh-degree-mahavidyalay-sikraul-lock-dafadihari-buxar": {
+        "name": "Shivgovind Nandlal Singh Degree Mahavidyalay, Sikraul Lock, Dafadihari, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "shri-shankar-college-sasaram-rohtas": {
+        "name": "Shri Shankar College, Sasaram, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "shrimati-prabhawati-vidyabhusan-college-bhabhua": {
+        "name": "Shrimati Prabhawati Vidyabhusan College, Bhabhua",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sidhnath-sah-college-baghelwa-tiyara-rajpur-buxar": {
+        "name": "Sidhnath Sah College, Baghelwa (Tiyara), Rajpur, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sri-tridandi-dev-govt-degree-college-gautam-nagar-shahpur-bhojpur": {
+        "name": "Sri Tridandi Dev Govt. Degree College, Gautam Nagar, Shahpur, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sub-divisional-government-college-nauhatta-rohtas": {
+        "name": "Sub Divisional Government College, Nauhatta, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sunil-singh-yadav-degree-college-indrahiyan-sasaram-rohtas": {
+        "name": "Sunil Singh Yadav Degree College, Indrahiyan, Sasaram, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "swami-shivanand-jee-tirth-college-sasaram-rohtas": {
+        "name": "Swami Shivanand Jee Tirth College, Sasaram, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "tapeshwar-singh-indu-mahila-mahavidyalaya-arrah-bhojpur": {
+        "name": "Tapeshwar Singh Indu Mahila Mahavidyalaya, Arrah, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "tara-shivshankar-degree-college-tiyara-buxar": {
+        "name": "Tara Shivshankar Degree College, Tiyara, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "v-p-j-p-s-mahila-college-rajpur-rohtas": {
+        "name": "V.P.J.P.S. Mahila College, Rajpur, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "veer-kunwar-singh-college-jagdishpur-bhojpur": {
+        "name": "Veer Kunwar Singh College, Jagdishpur, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "veer-kunwar-singh-mahavidhyalya-dharupur-bikramganj-rohtas": {
+        "name": "Veer Kunwar Singh Mahavidhyalya, Dharupur, Bikramganj, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "veer-kunwar-singh-mahila-college-kashi-medinipur-nasriganj-rohtas": {
+        "name": "Veer Kunwar Singh Mahila College, Kashi Medinipur, Nasriganj, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahila-college-dalmianagar-rohtas": {
+        "name": "Mahila College, Dalmianagar, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mata-manjharo-ajab-dayal-singh-college-jagdishpur-bhojpur": {
+        "name": "Mata Manjharo Ajab Dayal Singh College, Jagdishpur, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mauni-baba-yamuna-das-lakhrajo-devi-mahila-college-bikramganj": {
+        "name": "Mauni Baba Yamuna Das Lakhrajo Devi Mahila College, Bikramganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "p-c-college-buxar": {
+        "name": "P.C. College, Buxar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "patel-college-ghushiya-khurd": {
+        "name": "Patel College, Ghushiya Khurd",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "payhari-maharaj-ji-college-ara-bhojpur": {
+        "name": "Payhari Maharaj Ji College, Ara, Bhojpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "pr-b-p-singh-college-semari-rohtas": {
+        "name": "Pr. B.P. Singh College, Semari, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-m-devi-c-d-rai-college-nawan-kochas": {
+        "name": "R.M. Devi C.D. Rai College, Nawan Kochas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-s-d-college-bhagwanpur-kaimur": {
+        "name": "R.S.D. College, Bhagwanpur, Kaimur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-s-m-degree-college-santpur-dhanupra-ara": {
+        "name": "R.S.M. Degree College, Santpur, Dhanupra, Ara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "radha-shanta-college-tilauthoo-rohtas": {
+        "name": "Radha Shanta College, Tilauthoo, Rohtas",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
+  },
+  "patna-university": {
+    "name": "Patna University, Patna",
+    "colleges": {
+      "b-n-college-patna": {
+        "name": "B.N. College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "college-of-arts-crafts-patna": {
+        "name": "College of Arts & Crafts, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "magadh-mahila-college-patna": {
+        "name": "Magadh Mahila College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "patna-college-patna": {
+        "name": "Patna College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "patna-science-college-patna": {
+        "name": "Patna Science College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "patna-women-s-college-patna": {
+        "name": "Patna Women's College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
+  },
+  "munger-university": {
+    "name": "Munger University, Munger",
+    "colleges": {
+      "b-n-m-college-barhiya": {
+        "name": "B.N.M. College, Barhiya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-r-m-college-munger": {
+        "name": "B.R.M. College, Munger",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "bishwanath-singh-institute-of-legal-studies-munger": {
+        "name": "Bishwanath Singh Institute of Legal Studies, Munger",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "c-n-b-college-hathiyama-sheikhpura": {
+        "name": "C.N.B. College, Hathiyama, Sheikhpura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "d-s-m-college-jhajha": {
+        "name": "D.S.M. College, Jhajha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dhanraj-singh-college-sikandra-jamui": {
+        "name": "Dhanraj Singh College, Sikandra, Jamui",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-arvind-kumar-college-bishanpur-jamui": {
+        "name": "Dr. Arvind Kumar College, Bishanpur, Jamui",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "h-s-college-haveli-kharagpur": {
+        "name": "H.S. College, Haveli Kharagpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "international-college-ghosaith-lakhisarai": {
+        "name": "International College, Ghosaith, Lakhisarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "j-m-s-college-munger": {
+        "name": "J.M.S. College, Munger",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "j-r-s-college-jamalpur": {
+        "name": "J.R.S. College, Jamalpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jamalpur-college-jamalpur": {
+        "name": "Jamalpur College, Jamalpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-d-s-college-gogri": {
+        "name": "K.D.S. College, Gogri",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-k-m-college-jamui": {
+        "name": "K.K.M. College, Jamui",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-m-d-college-parbatta": {
+        "name": "K.M.D. College, Parbatta",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-s-s-college-lakhisarai": {
+        "name": "K.S.S. College, Lakhisarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "koshi-college-khagaria": {
+        "name": "Koshi College, Khagaria",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-s-college-alouli-sonihar-khagaria": {
+        "name": "M.S. College Alouli, Sonihar, Khagaria",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahila-college-khagaria": {
+        "name": "Mahila College, Khagaria",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahila-mahavidyalaya-barhiya-lakhisarai": {
+        "name": "Mahila Mahavidyalaya, Barhiya, Lakhisarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "p-p-yadav-college-chakai-jamui": {
+        "name": "P.P. Yadav College, Chakai, Jamui",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-lal-college-lakhisarai": {
+        "name": "R Lal College, Lakhisarai",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-d-d-j-college-munger": {
+        "name": "R.D. & D.J. College, Munger",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-d-college-sheikhpura": {
+        "name": "R.D. College, Sheikhpura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-s-college-tarapur": {
+        "name": "R.S. College, Tarapur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ramdhani-bhagat-degree-college": {
+        "name": "Ramdhani Bhagat Degree College",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-a-eklavya-degree-college-jamui": {
+        "name": "S.A. Eklavya Degree College, Jamui",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-b-n-college-garhi-rampur-munger": {
+        "name": "S.B.N. College, Garhi Rampur, Munger",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-k-college-lohanda-jamui": {
+        "name": "S.K. College, Lohanda, Jamui",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-k-r-college-barbigha": {
+        "name": "S.K.R. College, Barbigha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-s-college-mehus-sheikhpura": {
+        "name": "S.S. College, Mehus, Sheikhpura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sanjay-gandhi-mahila-college-sheikhpura": {
+        "name": "Sanjay Gandhi Mahila College, Sheikhpura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "shyama-prasad-mahila-college-jamui": {
+        "name": "Shyama Prasad Mahila College, Jamui",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "smt-ganga-devi-memorial-college": {
+        "name": "Smt. Ganga Devi Memorial College",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
+  },
+  "jharkhand-university-of-technology": {
+    "name": "Jharkhand University of Technology (JUT)",
+    "colleges": {
+      "al-kabir-polytechnic-jamshedpur": {
+        "name": "Al-Kabir Polytechnic, Jamshedpur",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "b-a-college-of-engineering-technology-jamshedpur": {
+        "name": "B.A. College of Engineering & Technology, Jamshedpur",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "beharagora-polytechnic-east-singhbhum": {
+        "name": "Beharagora Polytechnic, East Singhbhum",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "birsa-institute-of-technology-bit-sindri": {
+        "name": "Birsa Institute of Technology (BIT), Sindri",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "bitt-polytechnic-ranchi": {
+        "name": "BITT Polytechnic, Ranchi",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "cambridge-institute-of-polytechnic-ranchi": {
+        "name": "Cambridge Institute of Polytechnic, Ranchi",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "cambridge-institute-of-technology-tatisilwai": {
+        "name": "Cambridge Institute of Technology, Tatisilwai",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "centre-for-bioinformatics-ranchi": {
+        "name": "Centre for Bioinformatics, Ranchi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "chaibasa-engineering-college": {
+        "name": "Chaibasa Engineering College",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "chandil-polytechnic": {
+        "name": "Chandil Polytechnic",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "d-a-v-institute-of-engineering-technology-palamu": {
+        "name": "D.A.V. Institute of Engineering & Technology, Palamu",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "dhanbad-institute-of-technology": {
+        "name": "Dhanbad Institute of Technology",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "dumka-engineering-college": {
+        "name": "Dumka Engineering College",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "garhwa-polytechnic": {
+        "name": "Garhwa Polytechnic",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "girija-institute-of-polytechnic-ramgarh": {
+        "name": "Girija Institute of Polytechnic, Ramgarh",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "gola-polytechnic": {
+        "name": "Gola Polytechnic",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-engineering-college-palamu": {
+        "name": "Government Engineering College, Palamu",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-adityapur": {
+        "name": "Government Polytechnic, Adityapur",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-bhaga": {
+        "name": "Government Polytechnic, Bhaga",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-dhanbad": {
+        "name": "Government Polytechnic, Dhanbad",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-dumka": {
+        "name": "Government Polytechnic, Dumka",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-jagannathpur": {
+        "name": "Government Polytechnic, Jagannathpur",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-kharsawan": {
+        "name": "Government Polytechnic, Kharsawan",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-khutri-bokaro": {
+        "name": "Government Polytechnic, Khutri, Bokaro",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-koderma": {
+        "name": "Government Polytechnic, Koderma",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-latehar": {
+        "name": "Government Polytechnic, Latehar",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-nirsa": {
+        "name": "Government Polytechnic, Nirsa",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-ranchi": {
+        "name": "Government Polytechnic, Ranchi",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-sahibganj": {
+        "name": "Government Polytechnic, Sahibganj",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-polytechnic-simdega": {
+        "name": "Government Polytechnic, Simdega",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-women-s-polytechnic-bokaro": {
+        "name": "Government Women's Polytechnic, Bokaro",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-women-s-polytechnic-dumka": {
+        "name": "Government Women's Polytechnic, Dumka",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-women-s-polytechnic-jamshedpur": {
+        "name": "Government Women's Polytechnic, Jamshedpur",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "government-women-s-polytechnic-ranchi": {
+        "name": "Government Women's Polytechnic, Ranchi",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "gumla-polytechnic": {
+        "name": "Gumla Polytechnic",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "guru-govind-singh-educational-society-technical-campus": {
+        "name": "Guru Govind Singh Educational Society Technical Campus",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "institute-of-science-management-pundag": {
+        "name": "Institute of Science & Management, Pundag",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-k-college-of-engineering-management-dhanbad": {
+        "name": "K.K. College of Engineering & Management, Dhanbad",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "k-k-polytechnic-dhanbad": {
+        "name": "K.K. Polytechnic, Dhanbad",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "khandoli-institute-of-technology-giridih": {
+        "name": "Khandoli Institute of Technology, Giridih",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "madhupur-polytechnic-deoghar": {
+        "name": "Madhupur Polytechnic, Deoghar",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "maryland-institute-of-technology-management-jamshedpur": {
+        "name": "Maryland Institute of Technology & Management, Jamshedpur",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "national-institute-of-foundry-and-forge-technology-hatia": {
+        "name": "National Institute of Foundry and Forge Technology, Hatia",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "nilai-education-trust-s-group-of-institutions-ranchi": {
+        "name": "Nilai Education Trust's Group of Institutions, Ranchi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "pakur-polytechnic-pakur": {
+        "name": "Pakur Polytechnic, Pakur",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "pemiya-rishikesh-institute-of-technology-dhanbad": {
+        "name": "Pemiya Rishikesh Institute of Technology, Dhanbad",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "r-t-c-institute-of-technology-ranchi": {
+        "name": "R.T.C. Institute of Technology, Ranchi",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "r-v-s-college-of-engineering-technology-jamshedpur": {
+        "name": "R.V.S. College of Engineering & Technology, Jamshedpur",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "ramgarh-engineering-college-ramgarh": {
+        "name": "Ramgarh Engineering College, Ramgarh",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "ramgovind-institute-of-technology-koderma": {
+        "name": "Ramgovind Institute of Technology, Koderma",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "ramgovind-polytechnic-institute-koderma": {
+        "name": "Ramgovind Polytechnic Institute, Koderma",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "sarojini-institute-of-technology-bundu": {
+        "name": "Sarojini Institute of Technology, Bundu",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "silli-polytechnic-ranchi": {
+        "name": "Silli Polytechnic, Ranchi",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "subhash-institute-of-technology-giridih": {
+        "name": "Subhash Institute of Technology, Giridih",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "vidya-memorial-institute-of-technology-ranchi": {
+        "name": "Vidya Memorial Institute of Technology, Ranchi",
+        "departments": {
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      },
+      "xavier-institute-of-polytechnic-and-technology-ranchi": {
+        "name": "Xavier Institute of Polytechnic and Technology, Ranchi",
+        "departments": {
+          "Diploma": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ],
+          "B.Tech": [
+            "Civil Engineering",
+            "Mechanical Engineering",
+            "Electrical Engineering",
+            "Electronics & Communication",
+            "Computer Science & Engineering",
+            "Chemical Engineering"
+          ]
+        }
+      }
+    }
+  },
+  "jai-prakash-university": {
+    "name": "Jai Prakash University, Chapra",
+    "colleges": {
+      "prof-vijay-shankar-rai-mahila-college-sherghati": {
+        "name": "Prof. Vijay Shankar Rai Mahila College, Sherghati",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-d-s-m-m-college-chapra": {
+        "name": "B.D.S.M.M. College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-s-b-r-a-degree-college-barhariya-siwan": {
+        "name": "B.S.B.R.A. Degree College, Barhariya, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "balmiki-singh-degree-college-thawe-gopalganj": {
+        "name": "Balmiki Singh Degree College, Thawe, Gopalganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "bhola-prasad-singh-college-bhore": {
+        "name": "Bhola Prasad Singh College, Bhore",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "d-b-s-d-degree-college-kadna-saran": {
+        "name": "D.B.S.D. Degree College, Kadna, Saran",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "damodar-rai-degree-college-nagra-chapra": {
+        "name": "Damodar Rai Degree College, Nagra, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "daroga-prasad-rai-degree-college-siwan": {
+        "name": "Daroga Prasad Rai Degree College, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "deshratna-rajendra-degree-college-ziradei": {
+        "name": "Deshratna Rajendra Degree College, Ziradei",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-b-p-y-degree-college-garkha-saran": {
+        "name": "Dr. B.P.Y. Degree College, Garkha, Saran",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-b-y-degree-college-kachnar-chapra": {
+        "name": "Dr. B.Y. Degree College, Kachnar, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-mahachandra-prasad-singh-college-siwan": {
+        "name": "Dr. Mahachandra Prasad Singh College, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-p-n-singh-degree-college-chapra": {
+        "name": "Dr. P.N. Singh Degree College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ganga-singh-college-chapra": {
+        "name": "Ganga Singh College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "gaura-kunwar-degree-college-aadampur-siwan": {
+        "name": "Gaura Kunwar Degree College, Aadampur, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "gopeshwar-college-hathwa": {
+        "name": "Gopeshwar College, Hathwa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "hari-ram-college-mairwa": {
+        "name": "Hari Ram College, Mairwa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "hotilal-ramnath-college-amnour": {
+        "name": "Hotilal Ramnath College, Amnour",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "j-s-bhardwaj-degree-college-jalalpur-chapra": {
+        "name": "J.S. Bhardwaj Degree College, Jalalpur, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jagdam-college-chapra": {
+        "name": "Jagdam College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jai-prakash-mahila-college-chapra": {
+        "name": "Jai Prakash Mahila College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jalgal-chaudhary-college-chapra": {
+        "name": "Jalgal Chaudhary College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "kamla-rai-college-gopalganj": {
+        "name": "Kamla Rai College, Gopalganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "lok-mahavidyalaya-hafizpur-saran": {
+        "name": "Lok Mahavidyalaya, Hafizpur, Saran",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-r-d-c-r-degree-college-mairwa-siwan": {
+        "name": "M.R.D.C.R. Degree College, Mairwa, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-s-p-degree-college-thawe-gopalganj": {
+        "name": "M.S.P. Degree College, Thawe, Gopalganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahindra-mahila-college-gopalganj": {
+        "name": "Mahindra Mahila College, Gopalganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mazharul-haq-degree-college-tarwara-siwan": {
+        "name": "Mazharul Haq Degree College, Tarwara, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "nand-lal-singh-college-daudpur": {
+        "name": "Nand Lal Singh College, Daudpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "narayan-college-goriakothi": {
+        "name": "Narayan College, Goriakothi",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "p-c-vigyan-college-chapra": {
+        "name": "P.C. Vigyan College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "pd-devraj-mahavidyalaya-kateya-gopalganj": {
+        "name": "Pd. Devraj Mahavidyalaya, Kateya, Gopalganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "prabha-prakash-degree-college-siwan": {
+        "name": "Prabha Prakash Degree College, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "prabhu-nath-college-chapra": {
+        "name": "Prabhu Nath College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "purvottar-railway-college-sonpur": {
+        "name": "Purvottar Railway College, Sonpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-b-g-r-college-maharajganj": {
+        "name": "R.B.G.R. College, Maharajganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-m-d-degree-college-newaji-tola-chapra": {
+        "name": "R.M.D. Degree College, Newaji Tola, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "raja-singh-college-siwan": {
+        "name": "Raja Singh College, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rajendra-college-chapra": {
+        "name": "Rajendra College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ram-jaipal-college-chapra": {
+        "name": "Ram Jaipal College, Chapra",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-m-d-degree-college-jalalpur": {
+        "name": "S.M.D. Degree College, Jalalpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sri-kant-babu-degree-college-gopalganj": {
+        "name": "Sri Kant Babu Degree College, Gopalganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "vidya-bhawan-mahila-college-siwan": {
+        "name": "Vidya Bhawan Mahila College, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "yadu-nandan-college-dighwara": {
+        "name": "Yadu Nandan College, Dighwara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "z-a-islamia-college-siwan": {
+        "name": "Z.A. Islamia College, Siwan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
+  },
+  "magadh-university": {
+    "name": "Magadh University, Bodh Gaya",
+    "colleges": {
+      "prof-vijay-shankar-rai-mahila-college-sherghati": {
+        "name": "Prof. Vijay Shankar Rai Mahila College, Sherghati",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "a-m-college-gaya": {
+        "name": "A.M. College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "a-n-s-college-nabinagar": {
+        "name": "A.N.S. College, Nabinagar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "adhikari-college-silar-aurangabad": {
+        "name": "Adhikari College, Silar, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "anugrah-smarak-college-jehanabad": {
+        "name": "Anugrah Smarak College, Jehanabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "anugraha-narayan-sinha-memorial-college-aurangabad": {
+        "name": "Anugraha Narayan Sinha Memorial College, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-b-m-college-okri-jehanabad": {
+        "name": "B.B.M. College, Okri, Jehanabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-n-s-college-sobh-barachatti-gaya": {
+        "name": "B.N.S. College, Sobh, Barachatti, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "bhuneshwar-prasad-yadav-college-gaya": {
+        "name": "Bhuneshwar Prasad Yadav College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "c-s-janta-college-chakand-gaya": {
+        "name": "C.S. Janta College, Chakand, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "daudnagar-college-daudnagar": {
+        "name": "Daudnagar College, Daudnagar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-ram-narayan-prasad-college-arwal": {
+        "name": "Dr. Ram Narayan Prasad College, Arwal",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-vijay-kumar-singh-college-rafiganj": {
+        "name": "Dr. Vijay Kumar Singh College, Rafiganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "dr-zakir-hussain-evening-college-sherghati": {
+        "name": "Dr. Zakir Hussain Evening College, Sherghati",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "fatehpur-sanda-college-arwal": {
+        "name": "Fatehpur Sanda College, Arwal",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "g-b-m-college-gaya": {
+        "name": "G.B.M. College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "gautam-buddha-college-belaganj-gaya": {
+        "name": "Gautam Buddha College, Belaganj, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "gaya-college-gaya": {
+        "name": "Gaya College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "guro-binda-college-nawada": {
+        "name": "Guro Binda College, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "j-j-college-gaya": {
+        "name": "J.J. College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jang-bahadur-singh-memorial-college": {
+        "name": "Jang Bahadur Singh Memorial College",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "janta-college-labhari-aurangabad": {
+        "name": "Janta College, Labhari, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jehanabad-college-jehanabad": {
+        "name": "Jehanabad College, Jehanabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-l-s-college-nawada": {
+        "name": "K.L.S. College, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-s-m-college-aurangabad": {
+        "name": "K.S.M. College, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "k-s-y-college-barun-aurangabad": {
+        "name": "K.S.Y. College, Barun, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "kamta-prasad-sharma-college-hulasganj": {
+        "name": "Kamta Prasad Sharma College, Hulasganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "kamta-prasad-sinha-college-gaya": {
+        "name": "Kamta Prasad Sinha College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "kamta-prasad-sinha-college-kinjar": {
+        "name": "Kamta Prasad Sinha College, Kinjar",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "kesho-mahto-memorial-college-imamganj-gaya": {
+        "name": "Kesho Mahto Memorial College, Imamganj, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "kishori-sinha-mahila-college-aurangabad": {
+        "name": "Kishori Sinha Mahila College, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "krishak-college-dewdha-pakribarawan": {
+        "name": "Krishak College, Dewdha, Pakribarawan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "lalan-prasad-yadav-college": {
+        "name": "Lalan Prasad Yadav College",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "laldhari-memorial-college-gaya": {
+        "name": "Laldhari Memorial College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "laloo-mandal-college-gaya": {
+        "name": "Laloo Mandal College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "laxmi-narayan-college-tankuppa-gaya": {
+        "name": "Laxmi Narayan College, Tankuppa, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "lila-mandal-college-of-a-h-education-tankuppa-gaya": {
+        "name": "Lila Mandal College of A.H. Education, Tankuppa, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-s-y-college-gaya": {
+        "name": "M.S.Y. College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "maa-bageshwari-college-gaya": {
+        "name": "Maa Bageshwari College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "maa-kamla-chandrika-babu-mahila-mahavidyalaya-jehanabad": {
+        "name": "Maa Kamla Chandrika Babu Mahila Mahavidyalaya, Jehanabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "maa-kamla-chandrika-jee-vidyapeeth-hulasganj": {
+        "name": "Maa Kamla Chandrika Jee Vidyapeeth, Hulasganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahabodhi-college-belaganj-gaya": {
+        "name": "Mahabodhi College, Belaganj, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "maharana-pratap-college-dev-aurangabad": {
+        "name": "Maharana Pratap College, Dev, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahavir-college-gaya": {
+        "name": "Mahavir College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahila-college-daudnagar-aurangabad": {
+        "name": "Mahila College, Daudnagar, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahila-college-tekari": {
+        "name": "Mahila College, Tekari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahila-college-warisaliganj-nawada": {
+        "name": "Mahila College, Warisaliganj, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "nadariganj-college-nadariganj": {
+        "name": "Nadariganj College, Nadariganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-c-s-college-kurtha-arwal": {
+        "name": "R.C.S. College, Kurtha, Arwal",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-l-s-y-college-aurangabad": {
+        "name": "R.L.S.Y. College, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-l-s-y-college-gaya": {
+        "name": "R.L.S.Y. College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-m-w-college-nawada": {
+        "name": "R.M.W. College, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-p-college-matuk-bigha-hisua-nawada": {
+        "name": "R.P. College, Matuk Bigha, Hisua, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rajdeo-ramchandra-college-fhesar-aurangabad": {
+        "name": "Rajdeo Ramchandra College, Fhesar, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ram-lakhan-singh-yadav-college-jehanabad": {
+        "name": "Ram Lakhan Singh Yadav College, Jehanabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ramrati-sundarshila-college-aurangabad": {
+        "name": "Ramrati Sundarshila College, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ramsharan-yadav-college-deokund-aurangabad": {
+        "name": "Ramsharan Yadav College, Deokund, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-sinha-college-aurangabad": {
+        "name": "S. Sinha College, Aurangabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-a-college-nawada": {
+        "name": "S.A. College, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-b-a-n-college-darheta-lari": {
+        "name": "S.B.A.N. College, Darheta Lari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-d-college-kaler": {
+        "name": "S.D. College, Kaler",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-d-college-paraiya-gaya": {
+        "name": "S.D. College, Paraiya, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-k-m-college-nawada": {
+        "name": "S.K.M. College, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-m-college-bodhgaya": {
+        "name": "S.M. College, Bodhgaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-m-p-college-fatehpur-gaya": {
+        "name": "S.M.P. College, Fatehpur, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-m-s-g-college-sherghati": {
+        "name": "S.M.S.G. College, Sherghati",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-n-sinha-college-jehanabad": {
+        "name": "S.N. Sinha College, Jehanabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-n-sinha-college-warsaliganj": {
+        "name": "S.N. Sinha College, Warsaliganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-n-s-college-tekari": {
+        "name": "S.N.S. College, Tekari",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-p-y-college-gaya": {
+        "name": "S.P.Y. College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-r-s-college-nawada": {
+        "name": "S.R.S. College, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-s-college-jehanabad": {
+        "name": "S.S. College, Jehanabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sanjay-gandhi-mahila-college-gaya": {
+        "name": "Sanjay Gandhi Mahila College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sanjay-singh-yadav-college-gaya": {
+        "name": "Sanjay Singh Yadav College, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sanjay-singh-yadav-college-rafiganj": {
+        "name": "Sanjay Singh Yadav College, Rafiganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "saptrishi-college-nawada": {
+        "name": "Saptrishi College, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "shaheed-jagdev-smarak-college-kurtha": {
+        "name": "Shaheed Jagdev Smarak College, Kurtha",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sri-krishna-mahila-college-jehanabad": {
+        "name": "Sri Krishna Mahila College, Jehanabad",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "suresh-radhika-college-nawada": {
+        "name": "Suresh Radhika College, Nawada",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "t-s-college-hisua": {
+        "name": "T.S. College, Hisua",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "thakur-b-d-sinha-janta-college-goh": {
+        "name": "Thakur B.D. Sinha Janta College, Goh",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "wazirganj-college-wazirganj-gaya": {
+        "name": "Wazirganj College, Wazirganj, Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
+  },
+  "patliputra-university": {
+    "name": "Patliputra University, Patna",
+    "colleges": {
+      "ans-college-barh": {
+        "name": "ANS College, Barh",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-d-college-patna": {
+        "name": "B D College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "b-s-college-patna": {
+        "name": "B.S. College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "college-of-commerce-arts-science-patna": {
+        "name": "College Of Commerce, Arts & Science, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "g-j-college-rambagh-bihta": {
+        "name": "G J College, Rambagh, Bihta",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ganga-devi-mahila-mahavidyalaya-patna": {
+        "name": "Ganga Devi Mahila Mahavidyalaya, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-degree-college-rajgir": {
+        "name": "Govt. Degree College, Rajgir",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "govt-women-s-college-gardanibagh-patna": {
+        "name": "Govt. Women's College, Gardanibagh, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "j-d-women-s-college-patna": {
+        "name": "J.D. Women's College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "jagat-narayan-lal-college-patna": {
+        "name": "Jagat Narayan Lal College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "kisan-college-nalanda": {
+        "name": "Kisan College, Nalanda",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "m-m-college-bikram": {
+        "name": "M M College, Bikram",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "mahila-college-khagaul": {
+        "name": "Mahila College, Khagaul",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "malti-dhari-college-naubatpur": {
+        "name": "Malti Dhari College, Naubatpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "nalanda-college-biharsharif": {
+        "name": "Nalanda College, Biharsharif",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "nalanda-mahila-college-biharsharif": {
+        "name": "Nalanda Mahila College, Biharsharif",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "oriental-college-patna-city": {
+        "name": "Oriental College, Patna City",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-l-s-y-college-bakhtiarpur": {
+        "name": "R L S Y College, Bakhtiarpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "r-p-m-college-patna-city": {
+        "name": "R P M College, Patna City",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "rajkiya-mahila-mahavidyalaya-gulzarbagh-patna": {
+        "name": "Rajkiya Mahila Mahavidyalaya, Gulzarbagh, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ram-krishna-dwarika-college-patna": {
+        "name": "Ram Krishna Dwarika College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "ram-ratan-singh-college-mokama-patna": {
+        "name": "Ram Ratan Singh College, Mokama, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-m-d-college-punpun-patna": {
+        "name": "S M D College, Punpun, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-p-m-college-udantpuri-nalanda": {
+        "name": "S P M College, Udantpuri, Nalanda",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "s-u-college-hilsa": {
+        "name": "S U College, Hilsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sogara-college-biharsharif": {
+        "name": "Sogara College, Biharsharif",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sri-arvind-mahila-college-patna": {
+        "name": "Sri Arvind Mahila College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "sri-guru-gobind-singh-college-patna-saheb": {
+        "name": "Sri Guru Gobind Singh College, Patna Saheb",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
+      "t-p-s-college-patna": {
+        "name": "T P S College, Patna",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
+  },
+  "nalanda-open-university": {
+    "name": "Nalanda Open University",
+    "colleges": {
+      "nalanda-open-university": {
+        "name": "Nalanda Open University",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      }
+    }
+  },
+  "dr-cv-raman-university": {
+    "name": "Dr. C.V. Raman University",
+    "colleges": {
+      "dr-cv-raman-university": {
+        "name": "Dr. C.V. Raman University",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
         }
       }
     }

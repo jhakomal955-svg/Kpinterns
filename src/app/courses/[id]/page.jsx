@@ -70,6 +70,7 @@ export default function CourseDetailLearnPage() {
     title: "",
     message: "",
   });
+  const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
 
   const userCourseData = userData?.ActiveCources?.find(
     (c) => (c.course?._id || c.course) === courseId
@@ -177,13 +178,38 @@ export default function CourseDetailLearnPage() {
     }
   }, [courseId]);
 
+  useEffect(() => {
+    const fetchCollegeRates = async () => {
+      if (!userData?.college) return;
+      try {
+        const res = await fetch(`/api/college-rate?college=${encodeURIComponent(userData.college.trim())}`);
+        const data = await res.json();
+        if (data.success && data.registered) {
+          setCollegeRates({
+            registered: true,
+            internshipRate: data.internshipRate || 0,
+            courseRate: data.courseRate || 0
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching college rates:", err);
+      }
+    };
+    if (userData?.college) {
+      fetchCollegeRates();
+    }
+  }, [userData?.college]);
+
   const handleEnrollMock = async () => {
     if (!userData) {
       router.push(`/register?type=course&id=${courseId}`);
       return;
     }
 
-    const price = course.price || 0;
+    const originalPrice = course.price || 0;
+    const price = (collegeRates.registered && collegeRates.courseRate > 0)
+      ? collegeRates.courseRate
+      : originalPrice;
 
     try {
       setIsLoading(true);
@@ -234,7 +260,12 @@ export default function CourseDetailLearnPage() {
         const resOrder = await fetch("/api/payment/order", {
           method: "POST",
           headers,
-          body: JSON.stringify({ type: "course", itemId: courseId }),
+          body: JSON.stringify({ 
+            type: "course", 
+            itemId: courseId,
+            university: userData?.university,
+            college: userData?.college
+          }),
         });
 
         const orderData = await resOrder.json();
@@ -371,7 +402,7 @@ export default function CourseDetailLearnPage() {
                 onClick={handleEnrollMock}
                 className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition"
               >
-                Enroll Now {course.isFree ? "(Free)" : `- ₹${course.price}`}
+                Enroll Now {course.isFree ? "(Free)" : `- ₹${(collegeRates.registered && collegeRates.courseRate > 0) ? collegeRates.courseRate : course.price}`}
               </button>
             ) : (
               <span className="bg-brand-success/10 border border-brand-success/30 text-brand-success font-bold py-2 px-4 rounded-xl flex items-center gap-2 text-sm">

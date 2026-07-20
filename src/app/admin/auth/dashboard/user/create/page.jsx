@@ -1086,7 +1086,7 @@ export default function UserCreatePage() {
                         </option>
                         {getFilteredInternshipsForBranchDept().map((item) => (
                           <option key={item._id} value={item._id}>
-                            {item.title} ({item.position}) - Fee: ₹{item.RegistrationFee?.amount || 0}
+                            {item.title} ({item.position})
                           </option>
                         ))}
                       </select>

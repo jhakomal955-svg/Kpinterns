@@ -95,7 +95,9 @@ const UserModel = {
       startDate: { type: Date,default:Date.now },
       endDate: { type: Date },
       offerLetterUrl: { type: String },
+      offerLetterId: { type: String },
       certificationUrl: { type: String },
+      certificateId: { type: String },
       attendanceCertificateUrl: { type: String },
       attendanceRate: { type: String },
       assignments: [
@@ -130,6 +132,7 @@ const UserModel = {
       startDate: { type: Date,default:Date.now },
       endDate: { type: Date },
       certificateUrl: { type: String },
+      certificateId: { type: String },
       completedModules: { type: [String], default: [] },
     },
   ],

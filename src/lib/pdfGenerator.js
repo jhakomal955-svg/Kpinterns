@@ -19,8 +19,13 @@ export async function getSequentialNumber(subdocumentId) {
     createModel("Internship", InternshipModel);
     const User = createModel("User", UserModel);
 
+    if (!mongoose.Types.ObjectId.isValid(subdocumentId)) {
+      return 1;
+    }
+
+    const targetObjectId = new mongoose.Types.ObjectId(subdocumentId);
+
     // Use MongoDB aggregation to count subdocument IDs less than or equal to target ID.
-    // This runs completely inside MongoDB without loading any user documents into Node.js server memory.
     const result = await User.aggregate([
       {
         $project: {
@@ -35,7 +40,7 @@ export async function getSequentialNumber(subdocumentId) {
       { $unwind: "$allIds" },
       {
         $match: {
-          allIds: { $lte: new mongoose.Types.ObjectId(subdocumentId) }
+          allIds: { $type: "objectId", $lte: targetObjectId }
         }
       },
       { $count: "count" }
@@ -65,7 +70,6 @@ export async function getObjectIdFromSequentialNumber(seqNum) {
     if (isNaN(targetIdx) || targetIdx < 0) return null;
 
     // Use MongoDB aggregation to resolve sequential index back to subdocument ID.
-    // Runs in-database, returning only the single matched ObjectId.
     const result = await User.aggregate([
       {
         $project: {
@@ -78,6 +82,11 @@ export async function getObjectIdFromSequentialNumber(seqNum) {
         }
       },
       { $unwind: "$allIds" },
+      {
+        $match: {
+          allIds: { $type: "objectId" }
+        }
+      },
       { $sort: { allIds: 1 } },
       { $skip: targetIdx },
       { $limit: 1 },
@@ -133,11 +142,14 @@ export async function generateOfferLetter(student, internship, verificationId) {
         (i) => (i.internship?._id || i.internship)?.toString() === (internship._id || internship)?.toString()
       );
 
-      const seqNum = await getSequentialNumber(verificationId);
-      const startYear = enrollment?.startDate
-        ? new Date(enrollment.startDate).getFullYear()
-        : new Date().getFullYear();
-      const formattedVerificationId = `kpinterns/${startYear}/${seqNum}`;
+      let formattedVerificationId = enrollment?.offerLetterId;
+      if (!formattedVerificationId) {
+        const seqNum = await getSequentialNumber(verificationId);
+        const startYear = enrollment?.startDate
+          ? new Date(enrollment.startDate).getFullYear()
+          : new Date().getFullYear();
+        formattedVerificationId = `kpinterns/${startYear}/${seqNum}`;
+      }
 
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kpinterns.com";
       const verifyUrl = `${siteUrl}/verify?id=${formattedVerificationId}`;
@@ -479,11 +491,14 @@ export async function generateCertificate(student, program, type, verificationId
           (c) => (c.course?._id || c.course)?.toString() === (program._id || program)?.toString()
         );
 
-      const seqNum = await getSequentialNumber(verificationId);
-      const startYear = enrollment?.startDate
-        ? new Date(enrollment.startDate).getFullYear()
-        : new Date().getFullYear();
-      const formattedVerificationId = `kpinterns/${startYear}/${seqNum}`;
+      let formattedVerificationId = enrollment?.certificateId;
+      if (!formattedVerificationId) {
+        const seqNum = await getSequentialNumber(verificationId);
+        const startYear = enrollment?.startDate
+          ? new Date(enrollment.startDate).getFullYear()
+          : new Date().getFullYear();
+        formattedVerificationId = `kpinterns/${startYear}/${seqNum}`;
+      }
 
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://kpinterns.com";
       const verifyUrl = `${siteUrl}/verify?id=${formattedVerificationId}`;

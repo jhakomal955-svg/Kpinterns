@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
-import { generateOfferLetter, generateCertificate, generateAttendanceCertificate } from "@/lib/pdfGenerator";
+import { generateOfferLetter, generateCertificate, generateAttendanceCertificate, getSequentialNumber } from "@/lib/pdfGenerator";
 import { sendOfferLetterEmail, sendCertificateEmail } from "@/lib/nodemailer";
 
 /**
@@ -62,6 +62,14 @@ export async function checkAndAutomateDocuments(userId) {
               console.log(`[Document Automation] Generating offer letter for user: ${user.fullName}, program: ${programTitle}`);
             }
             
+            if (!item.offerLetterId) {
+              const seqNum = await getSequentialNumber(verificationId);
+              const startYear = item.startDate
+                ? new Date(item.startDate).getFullYear()
+                : new Date().getFullYear();
+              item.offerLetterId = `kpinterns/${startYear}/${seqNum}`;
+            }
+
             // Generate PDF Buffer
             const pdfBuffer = await generateOfferLetter(user, internship, verificationId);
 
@@ -177,6 +185,14 @@ export async function checkAndAutomateDocuments(userId) {
               if (process.env.NODE_ENV === "development") {
                 console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);
               }
+              if (!item.certificateId) {
+                const seqNum = await getSequentialNumber(verificationId);
+                const startYear = item.startDate
+                  ? new Date(item.startDate).getFullYear()
+                  : new Date().getFullYear();
+                item.certificateId = `kpinterns/${startYear}/${seqNum}`;
+              }
+
               const pdfBuffer = await generateCertificate(user, internship, "internship", verificationId);
 
               // Upload Buffer to Cloudinary
@@ -221,6 +237,14 @@ export async function checkAndAutomateDocuments(userId) {
           try {
             if (process.env.NODE_ENV === "development") {
               console.log(`[Document Automation] Generating course completion certificate for user: ${user.fullName}, course: ${programTitle}`);
+            }
+
+            if (!item.certificateId) {
+              const seqNum = await getSequentialNumber(verificationId);
+              const startYear = item.startDate
+                ? new Date(item.startDate).getFullYear()
+                : new Date().getFullYear();
+              item.certificateId = `kpinterns/${startYear}/${seqNum}`;
             }
 
             // Generate Landscape PDF Buffer

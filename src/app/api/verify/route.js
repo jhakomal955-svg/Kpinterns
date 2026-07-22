@@ -6,6 +6,10 @@ import { getObjectIdFromSequentialNumber, getSequentialNumber } from "@/lib/pdfG
 
 export const maxDuration = 60; // 1 minute execution limit
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 export async function GET(request) {
   try {
     await connectDB();
@@ -25,26 +29,60 @@ export async function GET(request) {
     createModel("Internship", InternshipModel);
     const User = createModel("User", UserModel);
 
-    let users = [];
     const trimmedQuery = query.trim();
-    let lookupId = trimmedQuery;
+    const queryRegex = new RegExp("^" + escapeRegExp(trimmedQuery) + "$", "i");
+    let users = [];
+    let isSpecificIdSearch = false;
+    let targetSubdocId = null;
 
-    // Check if query is in format: kpinterns/year/number (case-insensitive)
-    const match = trimmedQuery.match(/^kpinterns\/\d{4}\/(\d+)$/i);
-    if (match) {
-      const seqNo = match[1];
-      const objectId = await getObjectIdFromSequentialNumber(seqNo);
-      if (objectId) {
-        lookupId = objectId;
+    // 1. First, search by explicit stored certificateId or offerLetterId
+    const usersWithStoredId = await User.find({
+      $or: [
+        { "ActiveInternship.certificateId": queryRegex },
+        { "ActiveInternship.offerLetterId": queryRegex },
+        { "ActiveCources.certificateId": queryRegex }
+      ]
+    })
+    .populate("ActiveCources.course")
+    .populate("ActiveInternship.internship");
+
+    if (usersWithStoredId && usersWithStoredId.length > 0) {
+      users = usersWithStoredId;
+      isSpecificIdSearch = true;
+    }
+
+    // 2. If no stored ID matched, check if query is in format: kpinterns/year/number (or numeric seqNo)
+    if (users.length === 0) {
+      const match = trimmedQuery.match(/^kpinterns\/\d{4}\/(\d+)$/i);
+      if (match) {
+        const seqNo = match[1];
+        const objectId = await getObjectIdFromSequentialNumber(seqNo);
+        if (objectId) {
+          targetSubdocId = objectId;
+          const user = await User.findOne({
+            $or: [
+              { "ActiveCources._id": objectId },
+              { "ActiveInternship._id": objectId }
+            ]
+          })
+          .populate("ActiveCources.course")
+          .populate("ActiveInternship.internship");
+
+          if (user) {
+            users = [user];
+            isSpecificIdSearch = true;
+          }
+        }
       }
     }
 
-    // 1. Check if the query is a valid MongoDB ObjectId (to look up specific certificate ID)
-    if (mongoose.Types.ObjectId.isValid(lookupId)) {
+    // 3. Check if query is a valid MongoDB ObjectId directly
+    if (users.length === 0 && mongoose.Types.ObjectId.isValid(trimmedQuery)) {
+      targetSubdocId = trimmedQuery;
       const user = await User.findOne({
         $or: [
-          { "ActiveCources._id": lookupId },
-          { "ActiveInternship._id": lookupId }
+          { "ActiveCources._id": trimmedQuery },
+          { "ActiveInternship._id": trimmedQuery }
         ]
       })
       .populate("ActiveCources.course")
@@ -52,17 +90,17 @@ export async function GET(request) {
 
       if (user) {
         users = [user];
+        isSpecificIdSearch = true;
       }
     }
 
-    // 2. If no user matched by direct ID, look up by email, phone, or registration number
+    // 4. Fallback lookup by email, phone, or registration number
     if (users.length === 0) {
-      const searchRegex = new RegExp(`^${trimmedQuery}$`, "i");
       users = await User.find({
         $or: [
-          { email: searchRegex },
+          { email: queryRegex },
           { phone: trimmedQuery },
-          { registrationNumber: searchRegex }
+          { registrationNumber: queryRegex }
         ]
       })
       .populate("ActiveCources.course")
@@ -82,68 +120,30 @@ export async function GET(request) {
       // Extract from courses
       if (user.ActiveCources && user.ActiveCources.length > 0) {
         for (const c of user.ActiveCources) {
-          // Verify both that certificate URL exists
           if (c.certificateUrl) {
-            // If query is a valid ObjectId/parsed ID, only include the certificate that matches it
-            if (mongoose.Types.ObjectId.isValid(lookupId) && c._id.toString() !== lookupId) {
-              continue;
+            let formattedId = c.certificateId;
+            if (!formattedId) {
+              const seqNum = await getSequentialNumber(c._id);
+              const courseYear = c.startDate 
+                ? new Date(c.startDate).getFullYear() 
+                : c.paymentDate 
+                  ? new Date(c.paymentDate).getFullYear() 
+                  : new Date(user.createdAt).getFullYear();
+              formattedId = `kpinterns/${courseYear}/${seqNum}`;
             }
 
-            const seqNum = await getSequentialNumber(c._id);
-            const courseYear = c.startDate 
-              ? new Date(c.startDate).getFullYear() 
-              : c.paymentDate 
-                ? new Date(c.paymentDate).getFullYear() 
-                : new Date(user.createdAt).getFullYear();
-            const formattedId = `kpinterns/${courseYear}/${seqNum}`;
+            // Filter logic
+            const matchesQueryId = formattedId.toLowerCase() === trimmedQuery.toLowerCase();
+            const matchesSubdocId = targetSubdocId && c._id.toString() === targetSubdocId;
 
-            certificates.push({
-              certificateId: formattedId,
-              holder: user.fullName,
-              course: c.course?.title || "Specialized Course",
-              type: "Course Completion Certificate",
-              issuedDate: c.paymentDate
-                ? new Date(c.paymentDate).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
-                : new Date(user.createdAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }),
-              expiryDate: "Lifetime Validity",
-              certificateUrl: c.certificateUrl,
-            });
-          }
-        }
-      }
-
-      // Extract from internships
-      if (user.ActiveInternship && user.ActiveInternship.length > 0) {
-        for (const i of user.ActiveInternship) {
-          const isDirectMatch = mongoose.Types.ObjectId.isValid(lookupId) && i._id.toString() === lookupId;
-          const isGenericMatch = !mongoose.Types.ObjectId.isValid(lookupId);
-
-          if ((i.certificationUrl || i.offerLetterUrl) && (isDirectMatch || isGenericMatch)) {
-            const seqNum = await getSequentialNumber(i._id);
-            const internshipYear = i.startDate 
-              ? new Date(i.startDate).getFullYear() 
-              : i.paymentDate 
-                ? new Date(i.paymentDate).getFullYear() 
-                : new Date(user.createdAt).getFullYear();
-            const formattedId = `kpinterns/${internshipYear}/${seqNum}`;
-
-            // 1. Internship Certificate
-            if (i.certificationUrl && (isDirectMatch || isGenericMatch)) {
+            if (!isSpecificIdSearch || matchesQueryId || matchesSubdocId) {
               certificates.push({
                 certificateId: formattedId,
                 holder: user.fullName,
-                course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
-                type: "Internship Completion Certificate",
-                issuedDate: i.paymentDate
-                  ? new Date(i.paymentDate).toLocaleDateString("en-US", {
+                course: c.course?.title || "Specialized Course",
+                type: "Course Completion Certificate",
+                issuedDate: c.paymentDate
+                  ? new Date(c.paymentDate).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
@@ -154,31 +154,80 @@ export async function GET(request) {
                       day: "numeric",
                     }),
                 expiryDate: "Lifetime Validity",
-                certificateUrl: i.certificationUrl,
+                certificateUrl: c.certificateUrl,
               });
+            }
+          }
+        }
+      }
+
+      // Extract from internships
+      if (user.ActiveInternship && user.ActiveInternship.length > 0) {
+        for (const i of user.ActiveInternship) {
+          if (i.certificationUrl || i.offerLetterUrl) {
+            const seqNum = await getSequentialNumber(i._id);
+            const internshipYear = i.startDate 
+              ? new Date(i.startDate).getFullYear() 
+              : i.paymentDate 
+                ? new Date(i.paymentDate).getFullYear() 
+                : new Date(user.createdAt).getFullYear();
+            const fallbackId = `kpinterns/${internshipYear}/${seqNum}`;
+
+            const certFormattedId = i.certificateId || fallbackId;
+            const offerFormattedId = i.offerLetterId || fallbackId;
+
+            const matchesSubdocId = targetSubdocId && i._id.toString() === targetSubdocId;
+
+            // 1. Internship Completion Certificate
+            if (i.certificationUrl) {
+              const matchesCertId = certFormattedId.toLowerCase() === trimmedQuery.toLowerCase();
+              if (!isSpecificIdSearch || matchesCertId || matchesSubdocId) {
+                certificates.push({
+                  certificateId: certFormattedId,
+                  holder: user.fullName,
+                  course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
+                  type: "Internship Completion Certificate",
+                  issuedDate: i.paymentDate
+                    ? new Date(i.paymentDate).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : new Date(user.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      }),
+                  expiryDate: "Lifetime Validity",
+                  certificateUrl: i.certificationUrl,
+                });
+              }
             }
 
             // 2. Internship Offer Letter
-            if (i.offerLetterUrl && (isDirectMatch || isGenericMatch)) {
-              certificates.push({
-                certificateId: formattedId,
-                holder: user.fullName,
-                course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
-                type: "Internship Offer Letter",
-                issuedDate: i.paymentDate
-                  ? new Date(i.paymentDate).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
-                  : new Date(user.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }),
-                expiryDate: "Active during internship",
-                certificateUrl: i.offerLetterUrl,
-              });
+            if (i.offerLetterUrl) {
+              const matchesOfferId = offerFormattedId.toLowerCase() === trimmedQuery.toLowerCase();
+              if (!isSpecificIdSearch || matchesOfferId || matchesSubdocId) {
+                certificates.push({
+                  certificateId: offerFormattedId,
+                  holder: user.fullName,
+                  course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
+                  type: "Internship Offer Letter",
+                  issuedDate: i.paymentDate
+                    ? new Date(i.paymentDate).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : new Date(user.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      }),
+                  expiryDate: "Active during internship",
+                  certificateUrl: i.offerLetterUrl,
+                });
+              }
             }
           }
         }
@@ -187,7 +236,7 @@ export async function GET(request) {
 
     if (certificates.length === 0) {
       return Response.json(
-        { success: false, error: "No certificates have been issued for this record yet." },
+        { success: false, error: "No matching certificates or offer letters found for this query." },
         { status: 404 }
       );
     }

@@ -53,30 +53,54 @@ export async function uploadToCloudinary(fileUri, options = {}) {
  * @param {object} options - Upload options
  * @returns {Promise<object>} - Cloudinary response with secure_url
  */
-export async function uploadBufferToCloudinary(buffer, options = {}) {
-  return new Promise((resolve, reject) => {
-    const defaultOptions = {
-      resource_type: "auto",
-      folder: "kpinterns",
-      timeout: 600000, // 10 minutes timeout
-      ...options,
-    };
+export async function uploadBufferToCloudinary(buffer, options = {}, retries = 3) {
+  let lastError = null;
 
-    const uploadStream = cloudinary.uploader.upload_stream(
-      defaultOptions,
-      (error, result) => {
-        if (error) {
-          console.error("❌ Cloudinary upload stream error:", error);
-          reject(error);
-        } else {
-          console.log("✅ File uploaded successfully via stream:", result.secure_url);
-          resolve(result);
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const result = await new Promise((resolve, reject) => {
+        const currentOptions = {
+          resource_type: "auto",
+          folder: "kpinterns",
+          timeout: 600000, // 10 minutes timeout
+          ...options,
+        };
+
+        // If a previous attempt failed due to network/502/ECONNRESET with "auto", fallback resource_type
+        if (attempt === 2 && currentOptions.resource_type === "auto") {
+          currentOptions.resource_type = "raw";
+        } else if (attempt === 3 && (currentOptions.resource_type === "auto" || currentOptions.resource_type === "raw")) {
+          currentOptions.resource_type = "image";
         }
-      }
-    );
 
-    Readable.from(buffer).pipe(uploadStream);
-  });
+        const uploadStream = cloudinary.uploader.upload_stream(
+          currentOptions,
+          (error, res) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(res);
+            }
+          }
+        );
+
+        Readable.from(buffer).pipe(uploadStream);
+      });
+
+      console.log(`✅ File uploaded successfully via stream (attempt ${attempt}):`, result.secure_url);
+      return result;
+    } catch (error) {
+      lastError = error;
+      console.warn(`⚠️ Cloudinary stream upload attempt ${attempt}/${retries} failed: ${error.message || error.code || error}`);
+      if (attempt < retries) {
+        // Exponential delay before retry (1s, 2s)
+        await new Promise((r) => setTimeout(r, attempt * 1000));
+      }
+    }
+  }
+
+  console.error("❌ Cloudinary upload stream error after retries:", lastError);
+  throw lastError;
 }
 
 /**

@@ -147,7 +147,7 @@ const DEPARTMENTS_BY_DEGREE = {
     "Nursing",
     "Forensic Science",
   ],
-  BA: ["Arts","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"],
+  BA: ["Arts","Home Science","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"],
   BCom: ["Commerce","Accounting & Finance","Business Administration","Banking & Insurance","Taxation","Economics","Sales & Marketing","Computer Applications"],
 };
 
@@ -227,6 +227,7 @@ const ALL_DEPARTMENTS = [
   "Nursing",
   "Forensic Science",
   "Arts",
+  "Home Science",
   "Ancient indian history",
   "Anthropology",
   "Bojpuri",

@@ -108,6 +108,7 @@ export default function InternshipsAdminPage() {
   "Nursing",
   "Forensic Science",
   "Arts",
+  "Home Science",
   "Ancient indian history",
   "Anthropology",
   "Bojpuri",

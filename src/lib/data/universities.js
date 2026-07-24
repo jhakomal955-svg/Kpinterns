@@ -5957,6 +5957,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6007,6 +6008,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6057,6 +6059,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6107,6 +6110,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6157,6 +6161,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6207,6 +6212,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6257,6 +6263,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6307,6 +6314,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6357,6 +6365,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6407,6 +6416,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6457,6 +6467,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6507,6 +6518,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6565,6 +6577,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6615,6 +6628,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6665,6 +6679,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6733,6 +6748,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6783,6 +6799,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6833,6 +6850,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6883,6 +6901,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6941,6 +6960,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6991,6 +7011,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7041,6 +7062,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7091,6 +7113,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7141,6 +7164,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7201,6 +7225,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7256,6 +7281,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7306,6 +7332,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7366,6 +7393,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7416,6 +7444,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7466,6 +7495,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7516,6 +7546,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7566,6 +7597,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7616,6 +7648,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7666,6 +7699,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7716,6 +7750,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7766,6 +7801,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7816,6 +7852,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7866,6 +7903,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7916,6 +7954,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7966,6 +8005,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8016,6 +8056,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8066,6 +8107,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8116,6 +8158,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8166,6 +8209,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8216,6 +8260,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8266,6 +8311,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8316,6 +8362,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8366,6 +8413,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8416,6 +8464,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8466,6 +8515,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8516,6 +8566,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8566,6 +8617,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8616,6 +8668,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8666,6 +8719,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8716,6 +8770,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8766,6 +8821,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8816,6 +8872,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8866,6 +8923,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8916,6 +8974,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8966,6 +9025,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9016,6 +9076,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9066,6 +9127,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9116,6 +9178,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9166,6 +9229,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9216,6 +9280,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9266,6 +9331,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9316,6 +9382,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9366,6 +9433,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9416,6 +9484,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9466,6 +9535,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9516,6 +9586,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9566,6 +9637,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9616,6 +9688,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9666,6 +9739,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9716,6 +9790,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9766,6 +9841,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9816,6 +9892,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9866,6 +9943,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9916,6 +9994,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9966,6 +10045,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10016,6 +10096,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10066,6 +10147,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10116,6 +10198,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10166,6 +10249,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10216,6 +10300,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10266,6 +10351,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10316,6 +10402,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10366,6 +10453,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10416,6 +10504,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10466,6 +10555,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10516,6 +10606,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10566,6 +10657,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10616,6 +10708,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10666,6 +10759,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10716,6 +10810,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10766,6 +10861,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10816,6 +10912,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10866,6 +10963,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10921,6 +11019,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10971,6 +11070,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11021,6 +11121,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11071,6 +11172,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11121,6 +11223,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11171,6 +11274,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11221,6 +11325,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11271,6 +11376,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11321,6 +11427,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11371,6 +11478,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11421,6 +11529,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11481,6 +11590,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11531,6 +11641,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11581,6 +11692,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11631,6 +11743,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11681,6 +11794,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11731,6 +11845,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11781,6 +11896,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11831,6 +11947,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11881,6 +11998,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11931,6 +12049,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11981,6 +12100,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12031,6 +12151,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12086,6 +12207,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12136,6 +12258,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12186,6 +12309,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12236,6 +12360,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12286,6 +12411,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12336,6 +12462,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12386,6 +12513,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12436,6 +12564,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12486,6 +12615,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12536,6 +12666,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12586,6 +12717,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12636,6 +12768,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12686,6 +12819,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12736,6 +12870,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12786,6 +12921,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12836,6 +12972,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12886,6 +13023,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12941,6 +13079,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12991,6 +13130,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13041,6 +13181,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13091,6 +13232,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13141,6 +13283,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13191,6 +13334,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13241,6 +13385,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13291,6 +13436,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13341,6 +13487,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13391,6 +13538,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13441,6 +13589,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13491,6 +13640,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13541,6 +13691,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13591,6 +13742,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13641,6 +13793,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13691,6 +13844,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13741,6 +13895,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13791,6 +13946,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13841,6 +13997,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13891,6 +14048,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13941,6 +14099,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13991,6 +14150,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14041,6 +14201,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14091,6 +14252,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14141,6 +14303,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14191,6 +14354,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14241,6 +14405,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14291,6 +14456,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14341,6 +14507,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14391,6 +14558,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14441,6 +14609,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14491,6 +14660,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14541,6 +14711,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14591,6 +14762,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14641,6 +14813,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14691,6 +14864,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14741,6 +14915,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14791,6 +14966,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14841,6 +15017,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14891,6 +15068,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14941,6 +15119,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14991,6 +15170,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15041,6 +15221,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15091,6 +15272,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15141,6 +15323,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15191,6 +15374,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15241,6 +15425,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15291,6 +15476,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15341,6 +15527,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15391,6 +15578,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15441,6 +15629,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15491,6 +15680,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15541,6 +15731,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15591,6 +15782,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15641,6 +15833,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15691,6 +15884,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15741,6 +15935,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15791,6 +15986,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15841,6 +16037,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15891,6 +16088,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15941,6 +16139,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15996,6 +16195,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16046,6 +16246,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16096,6 +16297,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16146,6 +16348,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16196,6 +16399,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16246,6 +16450,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16296,6 +16501,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16346,6 +16552,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16396,6 +16603,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16446,6 +16654,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16496,6 +16705,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16546,6 +16756,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16596,6 +16807,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16646,6 +16858,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16696,6 +16909,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16746,6 +16960,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16796,6 +17011,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16846,6 +17062,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16896,6 +17113,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16946,6 +17164,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16996,6 +17215,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17046,6 +17266,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17096,6 +17317,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17146,6 +17368,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17196,6 +17419,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17246,6 +17470,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17296,6 +17521,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17346,6 +17572,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17396,6 +17623,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17446,6 +17674,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17496,6 +17725,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17546,6 +17776,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17596,6 +17827,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17646,6 +17878,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17696,6 +17929,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17746,6 +17980,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17796,6 +18031,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17846,6 +18082,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17896,6 +18133,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17946,6 +18184,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17996,6 +18235,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18046,6 +18286,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18096,6 +18337,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18146,6 +18388,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18196,6 +18439,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18246,6 +18490,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18296,6 +18541,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18346,6 +18592,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18396,6 +18643,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18446,6 +18694,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18496,6 +18745,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18546,6 +18796,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18596,6 +18847,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18646,6 +18898,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18696,6 +18949,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18746,6 +19000,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18796,6 +19051,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18846,6 +19102,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18896,6 +19153,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18946,6 +19204,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18996,6 +19255,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19046,6 +19306,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19096,6 +19357,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19146,6 +19408,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19196,6 +19459,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19246,6 +19510,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19296,6 +19561,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19346,6 +19612,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19396,6 +19663,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19446,6 +19714,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19496,6 +19765,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19546,6 +19816,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19596,6 +19867,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19646,6 +19918,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19696,6 +19969,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19746,6 +20020,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19796,6 +20071,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19846,6 +20122,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19896,6 +20173,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19946,6 +20224,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19996,6 +20275,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20046,6 +20326,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20096,6 +20377,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20146,6 +20428,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20196,6 +20479,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20246,6 +20530,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20296,6 +20581,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20346,6 +20632,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20396,6 +20683,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20446,6 +20734,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20496,6 +20785,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20546,6 +20836,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20596,6 +20887,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20646,6 +20938,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20701,6 +20994,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20751,6 +21045,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20801,6 +21096,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20851,6 +21147,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20901,6 +21198,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20951,6 +21249,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21006,6 +21305,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21056,6 +21356,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21106,6 +21407,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21156,6 +21458,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21206,6 +21509,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21256,6 +21560,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21306,6 +21611,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21356,6 +21662,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21406,6 +21713,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21456,6 +21764,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21506,6 +21815,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21556,6 +21866,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21606,6 +21917,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21656,6 +21968,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21706,6 +22019,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21756,6 +22070,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21806,6 +22121,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21856,6 +22172,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21906,6 +22223,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21956,6 +22274,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22006,6 +22325,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22056,6 +22376,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22106,6 +22427,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22156,6 +22478,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22206,6 +22529,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22256,6 +22580,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22306,6 +22631,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22356,6 +22682,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22406,6 +22733,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22456,6 +22784,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22506,6 +22835,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22556,6 +22886,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22606,6 +22937,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22656,6 +22988,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -23173,6 +23506,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -25005,6 +25339,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -25055,6 +25390,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -25501,6 +25837,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26409,6 +26746,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26459,6 +26797,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26509,6 +26848,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26559,6 +26899,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26609,6 +26950,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26659,6 +27001,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26709,6 +27052,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26759,6 +27103,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26809,6 +27154,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26859,6 +27205,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26909,6 +27256,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26959,6 +27307,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27009,6 +27358,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27059,6 +27409,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27109,6 +27460,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27159,6 +27511,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27209,6 +27562,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27259,6 +27613,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27309,6 +27664,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27359,6 +27715,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27409,6 +27766,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27459,6 +27817,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27509,6 +27868,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27559,6 +27919,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27609,6 +27970,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27659,6 +28021,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27709,6 +28072,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27759,6 +28123,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27809,6 +28174,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27859,6 +28225,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27909,6 +28276,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27959,6 +28327,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28009,6 +28378,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28059,6 +28429,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28109,6 +28480,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28159,6 +28531,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28209,6 +28582,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28259,6 +28633,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28309,6 +28684,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28359,6 +28735,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28409,6 +28786,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28459,6 +28837,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28509,6 +28888,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28559,6 +28939,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28609,6 +28990,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28664,6 +29046,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28714,6 +29097,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28764,6 +29148,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28814,6 +29199,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28864,6 +29250,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28914,6 +29301,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28964,6 +29352,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29014,6 +29403,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29064,6 +29454,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29114,6 +29505,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29164,6 +29556,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29214,6 +29607,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29264,6 +29658,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29314,6 +29709,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29364,6 +29760,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29414,6 +29811,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29464,6 +29862,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29514,6 +29913,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29564,6 +29964,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29614,6 +30015,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29664,6 +30066,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29714,6 +30117,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29764,6 +30168,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29814,6 +30219,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29864,6 +30270,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29914,6 +30321,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29964,6 +30372,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30014,6 +30423,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30064,6 +30474,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30114,6 +30525,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30164,6 +30576,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30214,6 +30627,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30264,6 +30678,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30314,6 +30729,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30364,6 +30780,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30414,6 +30831,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30464,6 +30882,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30514,6 +30933,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30564,6 +30984,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30614,6 +31035,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30664,6 +31086,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30714,6 +31137,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30764,6 +31188,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30814,6 +31239,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30864,6 +31290,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30914,6 +31341,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30964,6 +31392,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31014,6 +31443,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31064,6 +31494,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31114,6 +31545,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31164,6 +31596,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31214,6 +31647,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31264,6 +31698,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31314,6 +31749,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31364,6 +31800,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31414,6 +31851,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31464,6 +31902,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31514,6 +31953,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31564,6 +32004,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31614,6 +32055,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31664,6 +32106,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31714,6 +32157,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31764,6 +32208,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31814,6 +32259,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31864,6 +32310,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31914,6 +32361,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31964,6 +32412,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32014,6 +32463,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32064,6 +32514,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32114,6 +32565,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32164,6 +32616,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32214,6 +32667,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32264,6 +32718,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32314,6 +32769,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32364,6 +32820,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32414,6 +32871,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32464,6 +32922,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32514,6 +32973,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32564,6 +33024,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32614,6 +33075,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32664,6 +33126,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32714,6 +33177,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32769,6 +33233,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32819,6 +33284,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32869,6 +33335,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32919,6 +33386,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32969,6 +33437,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33019,6 +33488,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33069,6 +33539,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33119,6 +33590,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33169,6 +33641,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33219,6 +33692,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33269,6 +33743,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33319,6 +33794,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33369,6 +33845,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33419,6 +33896,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33469,6 +33947,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33519,6 +33998,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33569,6 +34049,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33619,6 +34100,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33669,6 +34151,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33719,6 +34202,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33769,6 +34253,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33819,6 +34304,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33869,6 +34355,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33919,6 +34406,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33969,6 +34457,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34019,6 +34508,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34069,6 +34559,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34119,6 +34610,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34169,6 +34661,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34224,6 +34717,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34279,6 +34773,7 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
+            "Home Science",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",

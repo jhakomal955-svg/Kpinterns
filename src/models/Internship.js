@@ -140,6 +140,7 @@ const InternshipModel = {
       "Nursing",
       "Forensic Science",
       "Arts",
+      "Home Science",
       "Ancient indian history",
       "Anthropology",
       "Bojpuri",

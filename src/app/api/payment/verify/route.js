@@ -211,7 +211,19 @@ export async function POST(request) {
       );
 
       if (!isAlreadyEnrolled) {
-        const startDate = new Date();
+        let startDate = new Date();
+        if (user.college) {
+          const Admin = createModel("Admin", AdminModel);
+          const escapedCollege = user.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+          const collegeAdmin = await Admin.findOne({
+            role: "College Admin",
+            verified: true,
+            CollegeName: { $exists: true, $ne: "", $regex: new RegExp("^" + escapedCollege + "$", "i") }
+          });
+          if (collegeAdmin && collegeAdmin.internshipStartDate) {
+            startDate = new Date(collegeAdmin.internshipStartDate);
+          }
+        }
         const duration = internship.duration || "2 Weeks";
         const endDate = calculateEndDate(startDate, duration);
 

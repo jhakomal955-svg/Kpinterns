@@ -11,6 +11,53 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { AdminModel, VerificationOtpModel, UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
+import { after } from "next/server";
+
+function calculateEndDate(startDate, durationStr) {
+  const date = new Date(startDate);
+  switch (durationStr) {
+    case "1-week":
+    case "1 Week":
+      date.setDate(date.getDate() + 7);
+      break;
+    case "2-weeks":
+    case "2 Weeks":
+      date.setDate(date.getDate() + 14);
+      break;
+    case "4-week":
+    case "4-weeks":
+    case "4 Weeks":
+      date.setDate(date.getDate() + 28);
+      break;
+    case "6-weeks":
+    case "6 Weeks":
+      date.setDate(date.getDate() + 42);
+      break;
+    case "8-weeks":
+    case "8 Weeks":
+      date.setDate(date.getDate() + 56);
+      break;
+    case "12-weeks":
+    case "12 Weeks":
+      date.setDate(date.getDate() + 84);
+      break;
+    case "1-month":
+      date.setMonth(date.getMonth() + 1);
+      break;
+    case "3-months":
+      date.setMonth(date.getMonth() + 3);
+      break;
+    case "6-months":
+      date.setMonth(date.getMonth() + 6);
+      break;
+    case "1-year":
+      date.setFullYear(date.getFullYear() + 1);
+      break;
+    default:
+      date.setDate(date.getDate() + 14);
+  }
+  return date;
+}
 
 export async function GET(request) {
   try {
@@ -128,6 +175,7 @@ export async function POST(request) {
       bio: rawData.bio?.trim() || "",
       UniversityName: rawData.role === "College Admin" ? (rawData.UniversityName || "") : "",
       CollegeName: rawData.role === "College Admin" ? (rawData.CollegeName || "") : "",
+      internshipStartDate: rawData.internshipStartDate ? new Date(rawData.internshipStartDate) : null,
       bankDetails: {
         name: rawData.bankDetails?.name?.trim(),
         accountNumber: rawData.bankDetails?.accountNumber?.trim(),
@@ -284,7 +332,38 @@ export async function PUT(request) {
       return Response.json({ error: "Admin not found" }, { status: 404 });
     }
 
-    // Admin updated
+    // Sync student internship start and end dates if College Admin's internshipStartDate is set
+    if (updatedAdmin.role === "College Admin" && updatedAdmin.CollegeName?.trim() && updatedAdmin.internshipStartDate) {
+      after(async () => {
+        try {
+          const User = createModel("User", UserModel);
+          createModel("Internship", InternshipModel);
+          const escapedCollege = updatedAdmin.CollegeName.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+          const students = await User.find({
+            college: { $exists: true, $ne: "", $regex: new RegExp("^" + escapedCollege + "$", "i") }
+          }).populate("ActiveInternship.internship");
+
+          const newStartDate = new Date(updatedAdmin.internshipStartDate);
+          for (const student of students) {
+            if (student.ActiveInternship && student.ActiveInternship.length > 0) {
+              let updated = false;
+              for (const item of student.ActiveInternship) {
+                item.startDate = newStartDate;
+                const duration = item.internship?.duration || "2 Weeks";
+                item.endDate = calculateEndDate(newStartDate, duration);
+                updated = true;
+              }
+              if (updated) {
+                student.markModified("ActiveInternship");
+                await student.save();
+              }
+            }
+          }
+        } catch (syncErr) {
+          console.error("❌ Error syncing student internship dates after college admin update:", syncErr);
+        }
+      });
+    }
 
     return Response.json(
       {

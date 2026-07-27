@@ -37,7 +37,8 @@ export default function CollegeAdminEditPage() {
     totalRevenue: 0,
     employedate: "",
     internshipRate: 0,
-    courseRate: 0
+    courseRate: 0,
+    internshipStartDate: ""
   });
 
   const findUniversityKey = (fullName) => {
@@ -85,7 +86,8 @@ export default function CollegeAdminEditPage() {
           totalRevenue: partner.totalRevenue || 0,
           employedate: partner.employedate ? new Date(partner.employedate).toISOString().split('T')[0] : "",
           internshipRate: partner.internshipRate || 0,
-          courseRate: partner.courseRate || 0
+          courseRate: partner.courseRate || 0,
+          internshipStartDate: partner.internshipStartDate ? new Date(partner.internshipStartDate).toISOString().split('T')[0] : ""
         });
       } else {
         setError(data.error || "Failed to load College Admin profile");
@@ -448,6 +450,19 @@ export default function CollegeAdminEditPage() {
                       </option>
                     ))}
                 </select>
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Internship Starting Date</label>
+                <input
+                  type="date"
+                  name="internshipStartDate"
+                  value={formData.internshipStartDate}
+                  onChange={handleInputChange}
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                />
+                <p className="text-xs text-text-muted mt-1">
+                  📅 If set, all students registered under this college will have their internship starting date set to this date. Leave blank for standard registration date.
+                </p>
               </div>
             </div>
           </div>

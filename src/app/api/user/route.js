@@ -525,6 +525,30 @@ export async function POST(request) {
       }
     }
 
+    // Enforce partner college internship starting date if set for this college
+    if (data.college && data.ActiveInternship && data.ActiveInternship.length > 0) {
+      const Admin = createModel("Admin", AdminModel);
+      const escapedCollege = data.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      const collegeAdmin = await Admin.findOne({
+        role: "College Admin",
+        verified: true,
+        CollegeName: { $exists: true, $ne: "", $regex: new RegExp("^" + escapedCollege + "$", "i") }
+      });
+      if (collegeAdmin && collegeAdmin.internshipStartDate) {
+        const customStart = new Date(collegeAdmin.internshipStartDate);
+        const Internship = createModel("Internship", InternshipModel);
+        for (const item of data.ActiveInternship) {
+          item.startDate = customStart;
+          let duration = "2 Weeks";
+          if (item.internship) {
+            const intDoc = await Internship.findById(item.internship);
+            if (intDoc?.duration) duration = intDoc.duration;
+          }
+          item.endDate = calculateEndDate(customStart, duration);
+        }
+      }
+    }
+
     // Create new user
     const newUser = new User(data);
     await newUser.save();

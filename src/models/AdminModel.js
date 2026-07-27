@@ -82,6 +82,10 @@ const AdminModel = {
     type:Number,
     default:0
   },
+  internshipStartDate:{
+    type:Date,
+    default:null
+  },
   commissionPercentage:{
     type:Number,
     default:0,

@@ -407,11 +407,11 @@ export async function generateOfferLetter(student, internship, verificationId) {
       doc.moveTo(40, accreditationDividerY).lineTo(555.28, accreditationDividerY).lineWidth(0.5).strokeColor(borderColor).stroke();
 
       const badges = [
-        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 40, height: 40 },
-        { fileName: "mca.png", fallbackName: "mca.png", width: 65, height: 32 },
-        { fileName: "Iso.png", fallbackName: "Iso.png", width: 40, height: 40 },
-        { fileName: "Msme.png", fallbackName: "Msme.png", width: 40, height: 40 },
-        { fileName: "nip.png", fallbackName: "nip.png", width: 55, height: 47 }
+        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 44, height: 44 },
+        { fileName: "mca.png", fallbackName: "mca.png", width: 85, height: 34 },
+        { fileName: "Iso.png", fallbackName: "Iso.png", width: 44, height: 44 },
+        { fileName: "Msme.png", fallbackName: "Msme.png", width: 44, height: 44 },
+        { fileName: "nip.png", fallbackName: "nip.png", width: 70, height: 38 }
       ];
 
       const existingBadges = badges.filter(b => {
@@ -420,19 +420,21 @@ export async function generateOfferLetter(student, internship, verificationId) {
           badgePath = path.join(process.cwd(), "public", b.fallbackName);
         }
         if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
+        }
+        if (!fs.existsSync(badgePath)) {
           badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
         }
         b.resolvedPath = badgePath;
         return fs.existsSync(badgePath);
       });
 
-      const spacing = 30;
+      const minX = 40;
+      const maxX = 555.28;
       const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
-      const totalSpacingWidth = (existingBadges.length - 1) * spacing;
-      const totalRowWidth = totalBadgesWidth + totalSpacingWidth;
+      const spacing = existingBadges.length > 1 ? (maxX - minX - totalBadgesWidth) / (existingBadges.length - 1) : 0;
 
-      const pageWidth = 595.28;
-      let startX = (pageWidth - totalRowWidth) / 2;
+      let startX = minX;
       const midY = 770;
 
       existingBadges.forEach(b => {
@@ -566,14 +568,6 @@ export async function generateCertificate(student, program, type, verificationId
       doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
         .text("ACPSK TECHNOLOGY PVT LTD", logoX + 39, logoY + 29);
 
-      // MSME Accreditation Logo (Top-Right)
-      const msmeRightX = 725;
-      const msmeRightY = 40;
-      let msmePath = path.join(process.cwd(), "public", "nip.png");
-      if (fs.existsSync(msmePath)) {
-        doc.image(msmePath, msmeRightX, msmeRightY, { fit: [55, 47] });
-      }
-
       // --- 3. Certificate Title Block ---
       doc.font("Times-Bold").fontSize(26).fillColor(accentColor)
         .text("CERTIFICATE OF COMPLETION", 80, 115, { align: "center", width: 681.89 });
@@ -658,11 +652,11 @@ export async function generateCertificate(student, program, type, verificationId
       doc.moveTo(60, bottomBadgeY - 12).lineTo(781.89, bottomBadgeY - 12).lineWidth(0.5).strokeColor(borderColor).stroke();
 
       const badges = [
-        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 40, height: 40 },
-        { fileName: "mca.png", fallbackName: "mca.png", width: 65, height: 32 },
-        { fileName: "Iso.png", fallbackName: "Iso.png", width: 40, height: 40 },
-        { fileName: "Msme.png", fallbackName: "Msme.png", width: 40, height: 40 },
-        // { fileName: "nip.png", fallbackName: "nip.png", width: 55, height: 47 }
+        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 44, height: 44 },
+        { fileName: "mca.png", fallbackName: "mca.png", width: 85, height: 34 },
+        { fileName: "Iso.png", fallbackName: "Iso.png", width: 44, height: 44 },
+        { fileName: "Msme.png", fallbackName: "Msme.png", width: 44, height: 44 },
+        { fileName: "nip.png", fallbackName: "nip.png", width: 70, height: 38 }
       ];
 
       const existingBadges = badges.filter(b => {
@@ -671,19 +665,21 @@ export async function generateCertificate(student, program, type, verificationId
           badgePath = path.join(process.cwd(), "public", b.fallbackName);
         }
         if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
+        }
+        if (!fs.existsSync(badgePath)) {
           badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
         }
         b.resolvedPath = badgePath;
         return fs.existsSync(badgePath);
       });
 
-      const spacing = 50;
+      const minX = 60;
+      const maxX = 781.89;
       const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
-      const totalSpacingWidth = (existingBadges.length - 1) * spacing;
-      const totalRowWidth = totalBadgesWidth + totalSpacingWidth;
+      const spacing = existingBadges.length > 1 ? (maxX - minX - totalBadgesWidth) / (existingBadges.length - 1) : 0;
 
-      const pageWidth = 841.89;
-      let startX = (pageWidth - totalRowWidth) / 2;
+      let startX = minX;
       const midY = bottomBadgeY + 20;
 
       existingBadges.forEach(b => {
@@ -868,11 +864,11 @@ export async function generatePaymentReceipt(student, details) {
       // ── 9. Accreditation badges ───────────────────────────────────────────────
       const badgesY = footerY + 48;
       const badges = [
-        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 40, height: 40 },
-        { fileName: "mca.png", fallbackName: "mca.png", width: 65, height: 32 },
-        { fileName: "Iso.png", fallbackName: "Iso.png", width: 40, height: 40 },
-        { fileName: "Msme.png", fallbackName: "Msme.png", width: 40, height: 40 },
-        { fileName: "nip.png", fallbackName: "nip.png", width: 55, height: 47 }
+        { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 44, height: 44 },
+        { fileName: "mca.png", fallbackName: "mca.png", width: 85, height: 34 },
+        { fileName: "Iso.png", fallbackName: "Iso.png", width: 44, height: 44 },
+        { fileName: "Msme.png", fallbackName: "Msme.png", width: 44, height: 44 },
+        { fileName: "nip.png", fallbackName: "nip.png", width: 70, height: 38 }
       ];
 
       const existingBadges = badges.filter(b => {
@@ -881,19 +877,21 @@ export async function generatePaymentReceipt(student, details) {
           badgePath = path.join(process.cwd(), "public", b.fallbackName);
         }
         if (!fs.existsSync(badgePath)) {
+          badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
+        }
+        if (!fs.existsSync(badgePath)) {
           badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
         }
         b.resolvedPath = badgePath;
         return fs.existsSync(badgePath);
       });
 
-      const spacing = 30;
+      const minX = 40;
+      const maxX = 555.28;
       const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
-      const totalSpacingWidth = (existingBadges.length - 1) * spacing;
-      const totalRowWidth = totalBadgesWidth + totalSpacingWidth;
+      const spacing = existingBadges.length > 1 ? (maxX - minX - totalBadgesWidth) / (existingBadges.length - 1) : 0;
 
-      const pageWidth = 595.28;
-      let startX = (pageWidth - totalRowWidth) / 2;
+      let startX = minX;
       const midY = badgesY + 20;
 
       existingBadges.forEach(b => {
@@ -1175,11 +1173,11 @@ export async function generateAttendanceCertificate(student, internship, verific
 
         // 3. Accreditation Badges row (Aicte, Mca, Iso, Msme, Nip) centered
         const badges = [
-          { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 40, height: 40 },
-          { fileName: "mca.png", fallbackName: "mca.png", width: 65, height: 32 },
-          { fileName: "Iso.png", fallbackName: "Iso.png", width: 40, height: 40 },
-          { fileName: "Msme.png", fallbackName: "Msme.png", width: 40, height: 40 },
-          { fileName: "nip.png", fallbackName: "nip.png", width: 55, height: 47 }
+          { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 44, height: 44 },
+          { fileName: "mca.png", fallbackName: "mca.png", width: 85, height: 34 },
+          { fileName: "Iso.png", fallbackName: "Iso.png", width: 44, height: 44 },
+          { fileName: "Msme.png", fallbackName: "Msme.png", width: 44, height: 44 },
+          { fileName: "nip.png", fallbackName: "nip.png", width: 70, height: 38 }
         ];
 
         const existingBadges = badges.filter(b => {
@@ -1188,20 +1186,22 @@ export async function generateAttendanceCertificate(student, internship, verific
             badgePath = path.join(process.cwd(), "public", b.fallbackName);
           }
           if (!fs.existsSync(badgePath)) {
+            badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
+          }
+          if (!fs.existsSync(badgePath)) {
             badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
           }
           b.resolvedPath = badgePath;
           return fs.existsSync(badgePath);
         });
 
-        const spacing = 30;
+        const minX = 40;
+        const maxX = 555.28;
         const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
-        const totalSpacingWidth = (existingBadges.length - 1) * spacing;
-        const totalRowWidth = totalBadgesWidth + totalSpacingWidth;
-        
-        const pageWidth = 595.28;
-        let startX = (pageWidth - totalRowWidth) / 2;
-        const midY = 770; // Y center for badges
+        const spacing = existingBadges.length > 1 ? (maxX - minX - totalBadgesWidth) / (existingBadges.length - 1) : 0;
+
+        let startX = minX;
+        const midY = 770;
 
         existingBadges.forEach(b => {
           const yCoord = midY - (b.height / 2);

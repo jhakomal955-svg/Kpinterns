@@ -14,6 +14,7 @@ export default function CollegeAdminProfilePage() {
     email: "",
     mobile: "",
     bio: "",
+    internshipStartDate: "",
     bankDetails: {
       name: "",
       accountNumber: "",
@@ -33,6 +34,7 @@ export default function CollegeAdminProfilePage() {
           email: adminInfo.email || "",
           mobile: adminInfo.mobile || "",
           bio: adminInfo.bio || "",
+          internshipStartDate: adminInfo.internshipStartDate ? new Date(adminInfo.internshipStartDate).toISOString().split('T')[0] : "",
           bankDetails: {
             name: adminInfo.bankDetails?.name || "",
             accountNumber: adminInfo.bankDetails?.accountNumber || "",
@@ -106,6 +108,7 @@ export default function CollegeAdminProfilePage() {
         headers,
         body: JSON.stringify({
           ...formData,
+          internshipStartDate: formData.internshipStartDate || null,
           bankDetails: {
             name: formData.bankDetails.name.trim(),
             accountNumber: formData.bankDetails.accountNumber.trim(),
@@ -268,6 +271,17 @@ export default function CollegeAdminProfilePage() {
                   </span>
                   <span className="text-lg font-semibold text-text-main">
                     {adminData.UniversityName || "Not set by administrator"}
+                  </span>
+                </div>
+
+                <div className="bg-bg-main rounded-xl p-5 border border-border-main md:col-span-2">
+                  <span className="text-xs font-bold text-text-muted uppercase block mb-2">
+                    📅 Configured Internship Starting Date
+                  </span>
+                  <span className="text-lg font-semibold text-brand-primary">
+                    {adminData.internshipStartDate
+                      ? new Date(adminData.internshipStartDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+                      : "Default (Individual Student Registration Date)"}
                   </span>
                 </div>
               </div>
@@ -445,6 +459,22 @@ export default function CollegeAdminProfilePage() {
                     {adminData.UniversityName || "N/A"}
                   </div>
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-text-main mb-3">
+                  College Internship Starting Date
+                </label>
+                <input
+                  type="date"
+                  name="internshipStartDate"
+                  value={formData.internshipStartDate}
+                  onChange={handleInputChange}
+                  className="w-full p-4 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition"
+                />
+                <p className="text-xs text-text-muted mt-2">
+                  📅 Setting this date will ensure all students registering under your college share this same starting date, with completion date calculated based on program duration.
+                </p>
               </div>
 
               <div>

@@ -27,6 +27,7 @@ export default function CollegeAdminCreatePage() {
     },
     internshipRate: 0,
     courseRate: 0,
+    internshipStartDate: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -85,36 +86,26 @@ export default function CollegeAdminCreatePage() {
     }
   };
 
-
-  const validateStep = () => {
+  const validateStep = (currentStep) => {
     const newErrors = {};
 
-    if (step === 1) {
-      if (!formData.name.trim()) {
-        newErrors.name = "Name is required";
-      } else if (formData.name.trim().length < 3) {
-        newErrors.name = "Name must be at least 3 characters";
-      }
-
+    if (currentStep === 1) {
+      if (!formData.name.trim()) newErrors.name = "Name is required";
       if (!formData.email.trim()) {
         newErrors.email = "Email is required";
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        newErrors.email = "Please enter a valid email address";
+        newErrors.email = "Invalid email address";
       }
-    } else if (step === 2) {
+    } else if (currentStep === 2) {
+      const cleanedPhone = formData.mobile.replace(/\D/g, "");
       if (!formData.mobile.trim()) {
         newErrors.mobile = "Mobile number is required";
-      } else if (!/^\d{10}$/.test(formData.mobile.replace(/\D/g, ""))) {
-        newErrors.mobile = "Please enter a valid 10-digit phone number";
+      } else if (cleanedPhone.length !== 10) {
+        newErrors.mobile = "Mobile number must be exactly 10 digits";
       }
 
-      if (!formData.UniversityName) {
-        newErrors.UniversityName = "University selection is required";
-      }
-
-      if (!formData.CollegeName) {
-        newErrors.CollegeName = "College selection is required";
-      }
+      if (!formData.UniversityName) newErrors.UniversityName = "University is required";
+      if (!formData.CollegeName) newErrors.CollegeName = "College is required";
 
       if (!formData.password) {
         newErrors.password = "Password is required";
@@ -122,24 +113,22 @@ export default function CollegeAdminCreatePage() {
         newErrors.password = "Password must be at least 6 characters";
       }
 
-      if (!formData.confirmPassword) {
-        newErrors.confirmPassword = "Please confirm your password";
-      } else if (formData.password !== formData.confirmPassword) {
+      if (formData.password !== formData.confirmPassword) {
         newErrors.confirmPassword = "Passwords do not match";
       }
-    } else if (step === 3) {
-      if (!formData.bankDetails.name || formData.bankDetails.name.trim().length < 3) {
-        newErrors.bank_name = "Account holder name is required (minimum 3 characters)";
+    } else if (currentStep === 3) {
+      if (!formData.bankDetails.name.trim()) {
+        newErrors.bank_name = "Account holder name is required";
       }
-      if (!formData.bankDetails.accountNumber || !/^\d{9,18}$/.test(formData.bankDetails.accountNumber.trim())) {
-        newErrors.bank_accountNumber = "A valid account number is required (9-18 digits)";
+      if (!formData.bankDetails.accountNumber.trim()) {
+        newErrors.bank_accountNumber = "Account number is required";
+      } else if (!/^\d{9,18}$/.test(formData.bankDetails.accountNumber.trim())) {
+        newErrors.bank_accountNumber = "Account number must be between 9 and 18 digits";
       }
-      if (!formData.bankDetails.ifscCode || !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(formData.bankDetails.ifscCode.trim().toUpperCase())) {
-        newErrors.bank_ifscCode = "A valid IFSC code is required (e.g. SBIN0001234)";
-      }
-
-      if (!formData.agreeTerms) {
-        newErrors.agreeTerms = "You must agree to the terms and conditions";
+      if (!formData.bankDetails.ifscCode.trim()) {
+        newErrors.bank_ifscCode = "IFSC code is required";
+      } else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(formData.bankDetails.ifscCode.trim().toUpperCase())) {
+        newErrors.bank_ifscCode = "Invalid IFSC code format (e.g. SBIN0001234)";
       }
     }
 
@@ -149,7 +138,7 @@ export default function CollegeAdminCreatePage() {
 
   const handleNext = (e) => {
     e.preventDefault();
-    if (validateStep()) {
+    if (validateStep(step)) {
       setStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -162,7 +151,7 @@ export default function CollegeAdminCreatePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateStep()) return;
+    if (!validateStep(3)) return;
 
     const resolvedUniversityName = universitiesData[formData.UniversityName]?.name || formData.UniversityName;
     const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
@@ -195,6 +184,7 @@ export default function CollegeAdminCreatePage() {
           },
           internshipRate: Number(formData.internshipRate || 0),
           courseRate: Number(formData.courseRate || 0),
+          internshipStartDate: formData.internshipStartDate || null,
         }),
       });
 
@@ -445,6 +435,23 @@ export default function CollegeAdminCreatePage() {
                   rows={2}
                   className="w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:border-brand-primary border-border-main resize-none"
                 />
+              </div>
+
+              {/* Internship Starting Date */}
+              <div>
+                <label className="block text-xs font-bold text-text-main uppercase tracking-wider mb-2.5">
+                  Internship Starting Date <span className="text-text-muted font-normal normal-case">(optional)</span>
+                </label>
+                <input
+                  type="date"
+                  name="internshipStartDate"
+                  value={formData.internshipStartDate}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:border-brand-primary border-border-main"
+                />
+                <p className="text-xs text-text-muted mt-1">
+                  📅 Set standard internship start date for all students registering under this college.
+                </p>
               </div>
 
               {/* Password Input */}

@@ -29093,7 +29093,7 @@ export const universitiesData = {
         }
       },
          "r-s-college-of-higher-education": {
-        "name": "R. S. College of Higher Education ,Bodh Gaya",
+        "name": "R. S. College of Higher Education , Gaya",
         "departments": {
           "BA": [
             "Arts",

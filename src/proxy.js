@@ -160,13 +160,6 @@ export async function proxy(request) {
     }
   }
 
-  // Sanitize incoming headers to prevent header spoofing / bypasses
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.delete('x-user-id');
-  requestHeaders.delete('x-user-email');
-  requestHeaders.delete('x-user-role');
-  requestHeaders.delete('x-playwright-test');
-
   // 1. Identify public routes that NEVER need auth
   const isPublicRoute = 
     (pathname.startsWith('/api/auth/') && pathname !== '/api/auth/verify') ||
@@ -191,6 +184,7 @@ export async function proxy(request) {
     const token = authHeader.split(' ')[1];
     const decoded = await verifyJWT(token, JWT_SECRET);
     if (decoded) {
+      const requestHeaders = new Headers(request.headers);
       requestHeaders.set('x-user-id', decoded._id || '');
       requestHeaders.set('x-user-email', decoded.email || '');
       requestHeaders.set('x-user-role', decoded.role || '');
@@ -218,11 +212,7 @@ export async function proxy(request) {
     );
   }
 
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  return NextResponse.next();
 }
 
 // Config to specify matching routes

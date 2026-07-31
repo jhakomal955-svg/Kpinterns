@@ -29092,6 +29092,57 @@ export const universitiesData = {
           ]
         }
       },
+         "r-s-college-of-higher-education": {
+        "name": "R. S. College of Higher Education ,Bodh Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
       "a-m-college-gaya": {
         "name": "A.M. College, Gaya",
         "departments": {

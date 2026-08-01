@@ -567,7 +567,7 @@ export default function RegisterPage() {
         "Telecommunication Engineering"
       ];
     } else if (deg === "BA") {
-      return ["Arts","Home Science","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"];
+      return ["Arts","Home Science","HUMANITIES","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"];
     } else if (deg === "Bsc" || deg === "BSc") {
       return ["Physics","Chemistry","Mathematics","Statistics","Botany","Zoology","Microbiology","Biotechnology","Biochemistry","Computer Science","Data Science","Agriculture","Nursing","Forensic Science"];
     } else if (deg === "Bcom" || deg === "BCom") {

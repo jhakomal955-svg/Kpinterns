@@ -384,6 +384,54 @@ const ALL_DOMAINS = Array.from(
   new Set(Object.values(DOMAINS_BY_DEPARTMENT).flat())
 ).sort();
 
+function EligibleDepartmentsText({ department }) {
+  const [expanded, setExpanded] = useState(false);
+  const depts = Array.isArray(department) ? department : [department].filter(Boolean);
+  if (depts.length === 0) return null;
+
+  if (depts.length <= 2) {
+    return (
+      <span className="text-xs font-semibold text-text-muted mb-4 block truncate" title={depts.join(", ")}>
+        📚 {depts.join(", ")}
+      </span>
+    );
+  }
+
+  const visibleDepts = expanded ? depts : depts.slice(0, 2);
+  const remainingCount = depts.length - 2;
+
+  return (
+    <div className="text-xs font-semibold text-text-muted mb-4">
+      <span>📚 {visibleDepts.join(", ")}</span>
+      {!expanded ? (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setExpanded(true);
+          }}
+          className="ml-1.5 text-brand-primary font-bold hover:underline cursor-pointer inline-flex items-center text-[11px] bg-brand-primary/10 border border-brand-primary/20 px-2 py-0.5 rounded-full shadow-sm"
+        >
+          +{remainingCount} more...
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setExpanded(false);
+          }}
+          className="ml-1.5 text-brand-primary font-bold hover:underline cursor-pointer inline-flex items-center text-[11px] bg-brand-primary/10 border border-brand-primary/20 px-2 py-0.5 rounded-full shadow-sm"
+        >
+          Show less
+        </button>
+      )}
+    </div>
+  );
+}
+
 export default function InternshipsPage() {
   const [internships, setInternships] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -438,14 +486,14 @@ export default function InternshipsPage() {
 
   // Cascade: available departments based on selected degree
   const availableDepartments = useMemo(() => {
-    if (!selectedDegree) return ALL_DEPARTMENTS;
-    return DEPARTMENTS_BY_DEGREE[selectedDegree] || ALL_DEPARTMENTS;
+    const rawDepts = !selectedDegree ? ALL_DEPARTMENTS : (DEPARTMENTS_BY_DEGREE[selectedDegree] || ALL_DEPARTMENTS);
+    return Array.from(new Set(rawDepts));
   }, [selectedDegree]);
 
   // Cascade: available domains based on selected department
   const availableDomains = useMemo(() => {
-    if (!selectedDept) return ALL_DOMAINS;
-    return DOMAINS_BY_DEPARTMENT[selectedDept] || ALL_DOMAINS;
+    const rawDomains = !selectedDept ? ALL_DOMAINS : (DOMAINS_BY_DEPARTMENT[selectedDept] || ALL_DOMAINS);
+    return Array.from(new Set(rawDomains));
   }, [selectedDept]);
 
   // When degree changes, reset department & domain if they're no longer valid
@@ -624,8 +672,8 @@ export default function InternshipsPage() {
                     className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
                   >
                     <option value="">All Departments</option>
-                    {availableDepartments.map((dept) => (
-                      <option key={dept} value={dept}>{dept}</option>
+                    {availableDepartments.map((dept, index) => (
+                      <option key={`dept-${dept}-${index}`} value={dept}>{dept}</option>
                     ))}
                   </select>
                 </div>
@@ -642,8 +690,8 @@ export default function InternshipsPage() {
                     className="w-full px-3 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-semibold text-sm focus:outline-none focus:border-brand-primary transition-all cursor-pointer"
                   >
                     <option value="">All Domains</option>
-                    {availableDomains.map((domain) => (
-                      <option key={domain} value={domain}>{domain}</option>
+                    {availableDomains.map((domain, index) => (
+                      <option key={`domain-${domain}-${index}`} value={domain}>{domain}</option>
                     ))}
                   </select>
                 </div>
@@ -834,9 +882,7 @@ export default function InternshipsPage() {
                           🏢 {internship.company || "KpInterns"}
                         </span>
 
-                        <span className="text-xs font-semibold text-text-muted mb-4 block line-clamp-1" title={Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}>
-                          📚 {Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}
-                        </span>
+                        <EligibleDepartmentsText department={internship.department} />
 
                         <p className="text-text-muted text-sm line-clamp-3 mb-6 flex-1">
                           {internship.shortDescription || internship.description}

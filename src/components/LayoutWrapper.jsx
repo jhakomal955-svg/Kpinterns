@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
+import SocialBannerModal from "./SocialBannerModal.jsx";
 
 // Client-safe JWT expiration validation check
 function isTokenExpired(token) {
@@ -224,6 +225,7 @@ export default function LayoutWrapper({ children }) {
   return (
     <>
       {!isAdminAuthRoute && <Navbar />}
+      {!isAdminAuthRoute && <SocialBannerModal />}
       {children}
       {!isAdminAuthRoute && <Footer />}
     </>

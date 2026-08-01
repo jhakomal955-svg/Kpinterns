@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import VideoPlayer from "@/components/VideoPlayer";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
+import CouponAlertModal from "@/components/CouponAlertModal";
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -52,6 +53,48 @@ const getYouTubeEmbedUrl = (url) => {
   return null;
 };
 
+function EligibleDepartmentsHeaderBadge({ department }) {
+  const [expanded, setExpanded] = useState(false);
+  const depts = Array.isArray(department) ? department : [department].filter(Boolean);
+  if (depts.length === 0) return null;
+
+  if (depts.length <= 2) {
+    return (
+      <span className="bg-brand-secondary/10 text-brand-secondary text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">
+        {depts.join(", ")}
+      </span>
+    );
+  }
+
+  const visibleDepts = expanded ? depts : depts.slice(0, 2);
+  const remainingCount = depts.length - 2;
+
+  return (
+    <div className="inline-flex flex-wrap items-center gap-1.5">
+      <span className="bg-brand-secondary/10 text-brand-secondary text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">
+        {visibleDepts.join(", ")}
+      </span>
+      {!expanded ? (
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          className="bg-brand-primary/10 hover:bg-brand-primary/20 text-brand-primary text-xs font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md border border-brand-primary/30 transition cursor-pointer"
+        >
+          +{remainingCount} MORE
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setExpanded(false)}
+          className="bg-brand-primary/10 hover:bg-brand-primary/20 text-brand-primary text-xs font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md border border-brand-primary/30 transition cursor-pointer"
+        >
+          SHOW LESS
+        </button>
+      )}
+    </div>
+  );
+}
+
 export default function InternshipDetailLearnPage() {
   const params = useParams();
   const router = useRouter();
@@ -76,6 +119,58 @@ export default function InternshipDetailLearnPage() {
   const [uploadingFile, setUploadingFile] = useState(false);
   const [submittingAssignment, setSubmittingAssignment] = useState(false);
   const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponAlertModal, setCouponAlertModal] = useState({
+    isOpen: false,
+    message: "",
+  });
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
+
+  const getOriginalPayableAmount = () => {
+    let originalPrice = internship?.RegistrationFee?.amount !== undefined ? Number(internship.RegistrationFee.amount) : 500;
+    if (collegeRates.registered && collegeRates.internshipRate > 0) {
+      return collegeRates.internshipRate;
+    }
+    return originalPrice;
+  };
+
+  const handleApplyCoupon = async () => {
+    if (!couponInput.trim()) return;
+    setIsValidatingCoupon(true);
+    try {
+      const basePrice = getOriginalPayableAmount();
+      const res = await fetch("/api/coupon/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: couponInput.trim(),
+          type: "internship",
+          originalPrice: basePrice,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.valid) {
+        setAppliedCoupon(data);
+      } else {
+        setAppliedCoupon(null);
+        setCouponAlertModal({
+          isOpen: true,
+          message: data.message || "coupon code is expired try another coupen code",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      setAppliedCoupon(null);
+      setCouponAlertModal({
+        isOpen: true,
+        message: "coupon code is expired try another coupen code",
+      });
+    } finally {
+      setIsValidatingCoupon(false);
+    }
+  };
 
   useEffect(() => {
     setSubmissionText("");
@@ -265,7 +360,7 @@ export default function InternshipDetailLearnPage() {
         const data = await res.json();
         if (data.success && data.registered) {
           setCollegeRates({
-            registered: true,
+            registered: data.registered,
             internshipRate: data.internshipRate || 0,
             courseRate: data.courseRate || 0
           });
@@ -274,9 +369,8 @@ export default function InternshipDetailLearnPage() {
         console.error("Error fetching college rates:", err);
       }
     };
-    if (userData?.college) {
-      fetchCollegeRates();
-    }
+
+    fetchCollegeRates();
   }, [userData?.college]);
 
   const handleEnrollMock = async () => {
@@ -286,9 +380,11 @@ export default function InternshipDetailLearnPage() {
     }
 
     const originalPrice = internship.RegistrationFee?.amount || 500;
-    const price = (collegeRates.registered && collegeRates.internshipRate > 0)
+    const basePrice = (collegeRates.registered && collegeRates.internshipRate > 0)
       ? collegeRates.internshipRate
       : originalPrice;
+
+    const price = appliedCoupon ? appliedCoupon.finalPrice : basePrice;
 
     try {
       setIsLoading(true);
@@ -343,12 +439,22 @@ export default function InternshipDetailLearnPage() {
             type: "internship", 
             itemId: internshipId,
             university: userData?.university,
-            college: userData?.college
+            college: userData?.college,
+            couponCode: appliedCoupon ? appliedCoupon.coupon?.code : undefined,
           }),
         });
 
         const orderData = await resOrder.json();
         if (!resOrder.ok) {
+          if (orderData.error && orderData.error.toLowerCase().includes("coupen")) {
+            setAppliedCoupon(null);
+            setCouponAlertModal({
+              isOpen: true,
+              message: orderData.error,
+            });
+            setIsLoading(false);
+            return;
+          }
           throw new Error(orderData.error || "Failed to initiate payment");
         }
 
@@ -465,9 +571,7 @@ export default function InternshipDetailLearnPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="bg-brand-secondary/10 text-brand-secondary text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">
-                {Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}
-              </span>
+              <EligibleDepartmentsHeaderBadge department={internship.department} />
               <span className="bg-bg-main text-text-muted text-xs font-semibold px-2.5 py-1 rounded-md border border-border-main">
                 {internship.domain}
               </span>
@@ -483,12 +587,50 @@ export default function InternshipDetailLearnPage() {
 
           <div>
             {!isEnrolled ? (
-              <button
-                onClick={handleEnrollMock}
-                className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition"
-              >
-                Apply for Internship
-              </button>
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                {/* Coupon Input */}
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    placeholder="Coupon Code"
+                    value={couponInput}
+                    onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                    className="px-3 py-2 rounded-xl border border-border-main bg-bg-main text-text-main text-sm font-mono font-bold uppercase w-36 focus:outline-none focus:border-brand-primary"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleApplyCoupon}
+                    disabled={isValidatingCoupon || !couponInput.trim()}
+                    className="px-3.5 py-2 bg-bg-main hover:bg-border-main border border-border-main text-text-main font-bold rounded-xl text-xs transition cursor-pointer disabled:opacity-50"
+                  >
+                    {isValidatingCoupon ? "..." : "Apply"}
+                  </button>
+                </div>
+
+                {appliedCoupon && (
+                  <span className="text-xs font-bold text-green-500 bg-green-500/10 border border-green-500/20 px-2.5 py-1.5 rounded-lg flex items-center gap-2">
+                    <span>✓ Code '{appliedCoupon.coupon?.code}' Applied (-₹{appliedCoupon.discountAmount})</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAppliedCoupon(null);
+                        setCouponInput("");
+                      }}
+                      className="text-red-400 hover:text-red-500 hover:bg-red-500/10 rounded px-1.5 py-0.5 font-extrabold cursor-pointer transition"
+                      title="Remove Coupon"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                )}
+
+                <button
+                  onClick={handleEnrollMock}
+                  className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition cursor-pointer"
+                >
+                  Apply for Internship
+                </button>
+              </div>
             ) : (
               <span className="bg-brand-success/10 border border-brand-success/30 text-brand-success font-bold py-2 px-4 rounded-xl flex items-center gap-2 text-sm">
                 <span className="w-2 h-2 bg-brand-success rounded-full animate-pulse"></span>
@@ -1020,6 +1162,11 @@ export default function InternshipDetailLearnPage() {
         onClose={() => setSuccessModal((prev) => ({ ...prev, isOpen: false }))}
         title={successModal.title}
         message={successModal.message}
+      />
+      <CouponAlertModal
+        isOpen={couponAlertModal.isOpen}
+        onClose={() => setCouponAlertModal({ isOpen: false, message: "" })}
+        message={couponAlertModal.message}
       />
     </div>
   );

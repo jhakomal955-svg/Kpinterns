@@ -1,6 +1,6 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { CourseModel, InternshipModel, AdminModel, UserModel } from "@/models";
+import { CourseModel, InternshipModel, AdminModel, UserModel, CouponModel } from "@/models";
 import Razorpay from "razorpay";
 import { getAuthUser } from "@/lib/jwt";
 
@@ -8,7 +8,7 @@ export async function POST(request) {
   try {
     await connectDB();
 
-    const { type, itemId, university, college } = await request.json();
+    const { type, itemId, university, college, couponCode } = await request.json();
 
     if (!type || !itemId) {
       return Response.json({ error: "Type and Item ID are required" }, { status: 400 });
@@ -68,6 +68,44 @@ export async function POST(request) {
         }
       }
     }
+
+    // Apply Coupon Code discount if provided
+    if (couponCode && typeof couponCode === "string" && couponCode.trim()) {
+      const sanitizedCode = couponCode.trim().toUpperCase();
+      const Coupon = createModel("Coupon", CouponModel);
+      const coupon = await Coupon.findOne({
+        code: { $regex: new RegExp(`^${sanitizedCode}$`, "i") },
+      });
+
+      const now = new Date();
+      if (!coupon || !coupon.isActive || new Date(coupon.expiryDate) <= now) {
+        return Response.json(
+          { error: "coupon code is expired try another coupen code" },
+          { status: 400 }
+        );
+      }
+
+      if (coupon.category !== "all" && coupon.category !== type) {
+        return Response.json(
+          { error: `This coupon code is only valid for ${coupon.category}s.` },
+          { status: 400 }
+        );
+      }
+
+      let discountAmount = 0;
+      if (coupon.discountType === "percentage") {
+        discountAmount = (price * coupon.discountValue) / 100;
+      } else if (coupon.discountType === "fixed") {
+        discountAmount = coupon.discountValue;
+      }
+
+      price = Math.max(0, price - discountAmount);
+
+      // Increment coupon used count
+      coupon.usedCount = (coupon.usedCount || 0) + 1;
+      await coupon.save();
+    }
+
 
     // If item is free, return early indicating no Razorpay order is needed
     if (price === 0) {

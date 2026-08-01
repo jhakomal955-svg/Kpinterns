@@ -12,6 +12,7 @@ import VerificationOtpModel from "./VerificationOtpModel.js";
 import AttendanceModel from "./Attendance.js";
 import TestimonialModel from "./Testimonial.js";
 import LiveChatMessageModel from "./LiveChatMessage.js";
+import CouponModel from "./CouponModel.js";
 
 export {
   UserModel,
@@ -23,4 +24,6 @@ export {
   AttendanceModel,
   TestimonialModel,
   LiveChatMessageModel,
+  CouponModel,
 };
+

@@ -391,21 +391,28 @@ export default function UserCreatePage() {
   const getAvailableDepartments = () => {
     if (!formData.university || !formData.college || !formData.degree) return [];
 
+    let depts = [];
     if (formData.university === "others" || formData.college === "others") {
-      return getDepartmentsForDegreeFallback(formData.degree);
+      depts = getDepartmentsForDegreeFallback(formData.degree);
+    } else {
+      const universityData = universitiesData[formData.university];
+      if (!universityData) {
+        depts = getDepartmentsForDegreeFallback(formData.degree);
+      } else {
+        const collegeData = universityData.colleges?.[formData.college];
+        if (!collegeData) {
+          depts = getDepartmentsForDegreeFallback(formData.degree);
+        } else {
+          let degreeKey = formData.degree;
+          if (degreeKey === "Bcom") degreeKey = "BCom";
+          if (degreeKey === "Bsc") degreeKey = "BSc";
+          
+          const rawDepts = collegeData.departments?.[degreeKey];
+          depts = Array.isArray(rawDepts) && rawDepts.length > 0 ? rawDepts : getDepartmentsForDegreeFallback(formData.degree);
+        }
+      }
     }
-
-    const universityData = universitiesData[formData.university];
-    if (!universityData) return getDepartmentsForDegreeFallback(formData.degree);
-    const collegeData = universityData.colleges[formData.college];
-    if (!collegeData) return getDepartmentsForDegreeFallback(formData.degree);
-    
-    let degreeKey = formData.degree;
-    if (degreeKey === "Bcom") degreeKey = "BCom";
-    if (degreeKey === "Bsc") degreeKey = "BSc";
-    
-    const depts = collegeData.departments?.[degreeKey];
-    return Array.isArray(depts) && depts.length > 0 ? depts : getDepartmentsForDegreeFallback(formData.degree);
+    return Array.from(new Set(depts));
   };
 
   const getAvailableSemestersCount = () => {
@@ -974,7 +981,7 @@ export default function UserCreatePage() {
                       {formData.college ? "Select Department" : "Select College first"}
                     </option>
                     {getAvailableDepartments().map((dept, index) => (
-                      <option key={index} value={dept}>
+                      <option key={`dept-${dept}-${index}`} value={dept}>
                         {dept}
                       </option>
                     ))}

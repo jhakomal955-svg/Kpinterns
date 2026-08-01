@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import VideoPlayer from "@/components/VideoPlayer";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
+import CouponAlertModal from "@/components/CouponAlertModal";
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -71,10 +72,58 @@ export default function CourseDetailLearnPage() {
     message: "",
   });
   const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponAlertModal, setCouponAlertModal] = useState({
+    isOpen: false,
+    message: "",
+  });
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
 
   const userCourseData = userData?.ActiveCources?.find(
     (c) => (c.course?._id || c.course) === courseId
   );
+
+  const handleApplyCoupon = async () => {
+    if (!couponInput.trim()) return;
+    setIsValidatingCoupon(true);
+    try {
+      const originalPrice = course?.price || 0;
+      const basePrice = (collegeRates.registered && collegeRates.courseRate > 0)
+        ? collegeRates.courseRate
+        : originalPrice;
+
+      const res = await fetch("/api/coupon/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: couponInput.trim(),
+          type: "course",
+          originalPrice: basePrice,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.valid) {
+        setAppliedCoupon(data);
+      } else {
+        setAppliedCoupon(null);
+        setCouponAlertModal({
+          isOpen: true,
+          message: data.message || "coupon code is expired try another coupen code",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      setAppliedCoupon(null);
+      setCouponAlertModal({
+        isOpen: true,
+        message: "coupon code is expired try another coupen code",
+      });
+    } finally {
+      setIsValidatingCoupon(false);
+    }
+  };
 
   const handleToggleModuleComplete = async (moduleId) => {
     if (!userData || !courseId || !moduleId) return;
@@ -89,62 +138,54 @@ export default function CourseDetailLearnPage() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({
-          userId: userData._id,
-          itemId: courseId,
-          type: "course",
-          moduleId: moduleId,
-          completed: !isCompleted,
-        }),
+        body: JSON.stringify({ courseId, moduleId, completed: !isCompleted }),
       });
 
-      const result = await res.json();
-      if (res.ok && result.success && result.data) {
-        setUserData(result.data);
-        localStorage.setItem("userData", JSON.stringify(result.data));
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem("userData", JSON.stringify(data.data));
+        setUserData(data.data);
       } else {
-        alert(result.error || "Failed to update module progress");
+        alert(data.error || "Failed to update progress");
       }
     } catch (err) {
-      console.error("Error toggling module progress:", err);
-      alert("An error occurred while updating your progress.");
+      console.error("Error updating progress:", err);
     } finally {
       setIsUpdatingProgress(false);
     }
   };
 
   useEffect(() => {
-    // Check if user is logged in and enrolled
-    const token = localStorage.getItem("userToken");
-    const userJson = localStorage.getItem("userData");
-
-    if (userJson) {
+    if (typeof window !== "undefined") {
       try {
-        const parsedUser = JSON.parse(userJson);
-        setTimeout(() => {
-          setUserData(parsedUser);
-
-          // Check if this course id is in their ActiveCources
-          const enrolled = (parsedUser.ActiveCources || []).some(
-            c => (c.course?._id || c.course) === courseId
+        const stored = localStorage.getItem("userData");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          setUserData(parsed);
+          const hasCourse = parsed.ActiveCources?.some(
+            (c) => (c.course?._id || c.course) === courseId
           );
-          setIsEnrolled(enrolled);
-        }, 0);
+          setIsEnrolled(!!hasCourse);
+        }
 
-        // Fetch fresh profile details from DB to sync
-        fetch(`/api/user?id=${parsedUser._id}`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
+        const token = localStorage.getItem("userToken");
+        if (!token) return;
+        fetch("/api/user", {
+          headers: { Authorization: `Bearer ${token}` }
         })
           .then(res => res.json())
-          .then(result => {
-            if (result.success && result.data) {
+          .then(data => {
+            if (data.success && data.data) {
+              setUserData(data.data);
+              localStorage.setItem("userData", JSON.stringify(data.data));
+              const hasCourse = data.data.ActiveCources?.some(
+                (c) => (c.course?._id || c.course) === courseId
+              );
+              setIsEnrolled(!!hasCourse);
+
               setTimeout(() => {
-                setUserData(result.data);
-                localStorage.setItem("userData", JSON.stringify(result.data));
-                const freshEnrolled = (result.data.ActiveCources || []).some(
-                  c => (c.course?._id || c.course) === courseId
+                const storedCourse = data.data.ActiveCources?.find(
+                  (c) => (c.course?._id || c.course) === courseId
                 );
                 setIsEnrolled(freshEnrolled);
               }, 0);
@@ -398,12 +439,52 @@ export default function CourseDetailLearnPage() {
 
           <div>
             {!isEnrolled ? (
-              <button
-                onClick={handleEnrollMock}
-                className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition"
-              >
-                Enroll Now {course.isFree ? "(Free)" : `- ₹${(collegeRates.registered && collegeRates.courseRate > 0) ? collegeRates.courseRate : course.price}`}
-              </button>
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                {/* Coupon Input */}
+                {!course.isFree && (
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      placeholder="Coupon Code"
+                      value={couponInput}
+                      onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                      className="px-3 py-2 rounded-xl border border-border-main bg-bg-main text-text-main text-sm font-mono font-bold uppercase w-36 focus:outline-none focus:border-brand-primary"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleApplyCoupon}
+                      disabled={isValidatingCoupon || !couponInput.trim()}
+                      className="px-3.5 py-2 bg-bg-main hover:bg-border-main border border-border-main text-text-main font-bold rounded-xl text-xs transition cursor-pointer disabled:opacity-50"
+                    >
+                      {isValidatingCoupon ? "..." : "Apply"}
+                    </button>
+                  </div>
+                )}
+
+                {appliedCoupon && (
+                  <span className="text-xs font-bold text-green-500 bg-green-500/10 border border-green-500/20 px-2.5 py-1.5 rounded-lg flex items-center gap-2">
+                    <span>✓ Code '{appliedCoupon.coupon?.code}' Applied (-₹{appliedCoupon.discountAmount})</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAppliedCoupon(null);
+                        setCouponInput("");
+                      }}
+                      className="text-red-400 hover:text-red-500 hover:bg-red-500/10 rounded px-1.5 py-0.5 font-extrabold cursor-pointer transition"
+                      title="Remove Coupon"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                )}
+
+                <button
+                  onClick={handleEnrollMock}
+                  className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition"
+                >
+                  Enroll Now {course.isFree ? "(Free)" : `- ₹${appliedCoupon ? appliedCoupon.finalPrice : ((collegeRates.registered && collegeRates.courseRate > 0) ? collegeRates.courseRate : course.price)}`}
+                </button>
+              </div>
             ) : (
               <span className="bg-brand-success/10 border border-brand-success/30 text-brand-success font-bold py-2 px-4 rounded-xl flex items-center gap-2 text-sm">
                 <span className="w-2 h-2 bg-brand-success rounded-full animate-pulse"></span>
@@ -716,6 +797,11 @@ export default function CourseDetailLearnPage() {
         onClose={() => setSuccessModal((prev) => ({ ...prev, isOpen: false }))}
         title={successModal.title}
         message={successModal.message}
+      />
+      <CouponAlertModal
+        isOpen={couponAlertModal.isOpen}
+        onClose={() => setCouponAlertModal({ isOpen: false, message: "" })}
+        message={couponAlertModal.message}
       />
     </div>
   );

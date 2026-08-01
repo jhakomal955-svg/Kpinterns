@@ -235,6 +235,30 @@ export default function DashboardLayout({ children }) {
       href: "/admin/auth/dashboard/contact",
     },
     {
+      label: "Coupons",
+      icon: (
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="2"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.659A2.25 2.25 0 009.568 3z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 6h.008v.008H6V6z"
+          />
+        </svg>
+      ),
+      href: "/admin/auth/dashboard/coupon",
+    },
+    {
       label: "Profile",
       icon: (
         <svg
@@ -311,6 +335,9 @@ export default function DashboardLayout({ children }) {
             }
             if (adminData?.role === "College Admin" || adminData?.role === "Cybercafe Partner") {
               return navItems.filter(item => ["Profile"].includes(item.label));
+            }
+            if (adminData?.role === "Employee") {
+              return navItems.filter(item => ["Dashboard", "Courses", "Internships", "Coupons", "Profile"].includes(item.label));
             }
             return navItems;
           })().map((item, index) => {
@@ -429,6 +456,9 @@ export default function DashboardLayout({ children }) {
             }
             if (adminData?.role === "College Admin" || adminData?.role === "Cybercafe Partner") {
               return navItems.filter(item => ["Profile"].includes(item.label));
+            }
+            if (adminData?.role === "Employee") {
+              return navItems.filter(item => ["Dashboard", "Courses", "Internships", "Coupons", "Profile"].includes(item.label));
             }
             return navItems;
           })().map((item, index) => {

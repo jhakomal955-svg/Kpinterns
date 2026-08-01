@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
+import CouponAlertModal from "@/components/CouponAlertModal";
+
 
 import { universitiesData } from "@/lib/data/universities";
 
@@ -78,11 +80,19 @@ export default function RegisterPage() {
   const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
   const [otpCooldown, setOtpCooldown] = useState(0);
   const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponAlertModal, setCouponAlertModal] = useState({
+    isOpen: false,
+    message: "",
+  });
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
   const [otpError, setOtpError] = useState("");
   // true when the API tells us this email is already in use — blocks the whole OTP flow
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
 
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
+
 
   const handleConsentLetterUpload = async (e) => {
     const file = e.target.files[0];
@@ -211,7 +221,7 @@ export default function RegisterPage() {
     fetchCollegeRates();
   }, [formData.college, formData.collegeCustom, formData.university]);
 
-  const getPayableAmount = () => {
+  const getRawPayableAmount = () => {
     if (purchaseType === "course") {
       const originalPrice = selectedItemDetails?.price || 0;
       if (collegeRates.registered && collegeRates.courseRate > 0) {
@@ -239,6 +249,50 @@ export default function RegisterPage() {
     return originalPrice;
   };
 
+  const getPayableAmount = () => {
+    const basePrice = getRawPayableAmount();
+    if (appliedCoupon) {
+      return appliedCoupon.finalPrice;
+    }
+    return basePrice;
+  };
+
+  const handleApplyCoupon = async () => {
+    if (!couponInput.trim()) return;
+    setIsValidatingCoupon(true);
+    try {
+      const basePrice = getRawPayableAmount();
+      const res = await fetch("/api/coupon/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: couponInput.trim(),
+          type: purchaseType,
+          originalPrice: basePrice,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.valid) {
+        setAppliedCoupon(data);
+      } else {
+        setAppliedCoupon(null);
+        setCouponAlertModal({
+          isOpen: true,
+          message: data.message || "coupon code is expired try another coupen code",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      setAppliedCoupon(null);
+      setCouponAlertModal({
+        isOpen: true,
+        message: "coupon code is expired try another coupen code",
+      });
+    } finally {
+      setIsValidatingCoupon(false);
+    }
+  };
 
 
   useEffect(() => {
@@ -356,12 +410,22 @@ export default function RegisterPage() {
           type: purchaseType, 
           itemId: finalItemId,
           university: resolvedUniversity,
-          college: resolvedCollege
+          college: resolvedCollege,
+          couponCode: appliedCoupon ? appliedCoupon.coupon?.code : undefined,
         }),
       });
 
       const orderData = await resOrder.json();
       if (!resOrder.ok) {
+        if (orderData.error && orderData.error.toLowerCase().includes("coupen")) {
+          setAppliedCoupon(null);
+          setCouponAlertModal({
+            isOpen: true,
+            message: orderData.error,
+          });
+          setIsLoading(false);
+          return;
+        }
         throw new Error(orderData.error || "Failed to initiate payment");
       }
 
@@ -618,21 +682,28 @@ export default function RegisterPage() {
   const getAvailableDepartments = () => {
     if (!formData.university || !formData.college || !formData.degree) return [];
 
+    let depts = [];
     if (formData.university === "others" || formData.college === "others") {
-      return getDepartmentsForDegreeFallback(formData.degree);
+      depts = getDepartmentsForDegreeFallback(formData.degree);
+    } else {
+      const universityData = universitiesData[formData.university];
+      if (!universityData) {
+        depts = getDepartmentsForDegreeFallback(formData.degree);
+      } else {
+        const collegeData = universityData.colleges?.[formData.college];
+        if (!collegeData) {
+          depts = getDepartmentsForDegreeFallback(formData.degree);
+        } else {
+          let degreeKey = formData.degree;
+          if (degreeKey === "Bcom") degreeKey = "BCom";
+          if (degreeKey === "Bsc") degreeKey = "BSc";
+          
+          const rawDepts = collegeData.departments?.[degreeKey];
+          depts = Array.isArray(rawDepts) && rawDepts.length > 0 ? rawDepts : getDepartmentsForDegreeFallback(formData.degree);
+        }
+      }
     }
-
-    const universityData = universitiesData[formData.university];
-    if (!universityData) return getDepartmentsForDegreeFallback(formData.degree);
-    const collegeData = universityData.colleges[formData.college];
-    if (!collegeData) return getDepartmentsForDegreeFallback(formData.degree);
-    
-    let degreeKey = formData.degree;
-    if (degreeKey === "Bcom") degreeKey = "BCom";
-    if (degreeKey === "Bsc") degreeKey = "BSc";
-    
-    const depts = collegeData.departments?.[degreeKey];
-    return Array.isArray(depts) && depts.length > 0 ? depts : getDepartmentsForDegreeFallback(formData.degree);
+    return Array.from(new Set(depts));
   };
 
   // Get available semesters count based on degree
@@ -1334,7 +1405,7 @@ export default function RegisterPage() {
                           : "Select College first"}
                       </option>
                       {getAvailableDepartments().map((dept, index) => (
-                        <option key={index} value={dept}>
+                        <option key={`dept-${dept}-${index}`} value={dept}>
                           {dept}
                         </option>
                       ))}
@@ -1701,6 +1772,43 @@ export default function RegisterPage() {
                     Registration Fee Payment
                   </h3>
 
+                  {/* Coupon Code Section */}
+                  {!completedPaymentDetails && (
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-bg-main border border-border-main p-4 rounded-xl">
+                      <input
+                        type="text"
+                        placeholder="Have a coupon code?"
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                        className="flex-1 px-4 py-2.5 rounded-xl border border-border-main bg-bg-card text-text-main text-sm font-mono font-bold uppercase focus:outline-none focus:border-brand-primary"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleApplyCoupon}
+                        disabled={isValidatingCoupon || !couponInput.trim()}
+                        className="px-5 py-2.5 bg-brand-primary text-white font-bold rounded-xl text-sm hover:bg-brand-primary/90 transition shadow-sm cursor-pointer disabled:opacity-50"
+                      >
+                        {isValidatingCoupon ? "Validating..." : "Apply Coupon"}
+                      </button>
+                    </div>
+                  )}
+
+                  {appliedCoupon && (
+                    <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-500 rounded-xl text-xs font-bold flex items-center justify-between">
+                      <span>✓ Coupon '{appliedCoupon.coupon?.code}' Applied! (-₹{appliedCoupon.discountAmount})</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAppliedCoupon(null);
+                          setCouponInput("");
+                        }}
+                        className="text-red-400 hover:text-red-500 underline ml-2 cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  )}
+
                   {getPayableAmount() > 0 ? (
                     <div className="bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 border border-border-main rounded-2xl p-6">
                       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -1897,6 +2005,11 @@ export default function RegisterPage() {
         title={successModal.title}
         message={successModal.message}
         onAction={successModal.onAction}
+      />
+      <CouponAlertModal
+        isOpen={couponAlertModal.isOpen}
+        onClose={() => setCouponAlertModal({ isOpen: false, message: "" })}
+        message={couponAlertModal.message}
       />
     </div>
   );

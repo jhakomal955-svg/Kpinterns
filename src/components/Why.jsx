@@ -110,7 +110,7 @@ const Why = () => {
       ),
       title: "Affordable Fee",
       description:
-        "Transparent pricing (₹400-₹500) with special subsidies for state university students.",
+        "Transparent pricing with special subsidies for state university students.",
       color: "from-purple-500 to-indigo-600",
       lightColor: "from-purple-50 to-indigo-100/50",
     },

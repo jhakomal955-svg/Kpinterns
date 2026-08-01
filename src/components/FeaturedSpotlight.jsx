@@ -4,6 +4,54 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import ScrollReveal from "./ScrollReveal.jsx";
 
+function EligibleDepartmentsText({ department }) {
+  const [expanded, setExpanded] = useState(false);
+  const depts = Array.isArray(department) ? department : [department].filter(Boolean);
+  if (depts.length === 0) return null;
+
+  if (depts.length <= 2) {
+    return (
+      <span className="text-xs font-semibold text-text-muted mb-4 block truncate" title={depts.join(", ")}>
+        📚 {depts.join(", ")}
+      </span>
+    );
+  }
+
+  const visibleDepts = expanded ? depts : depts.slice(0, 2);
+  const remainingCount = depts.length - 2;
+
+  return (
+    <div className="text-xs font-semibold text-text-muted mb-4">
+      <span>📚 {visibleDepts.join(", ")}</span>
+      {!expanded ? (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setExpanded(true);
+          }}
+          className="ml-1.5 text-brand-primary font-bold hover:underline cursor-pointer inline-flex items-center text-[11px] bg-brand-primary/10 border border-brand-primary/20 px-2 py-0.5 rounded-full shadow-sm"
+        >
+          +{remainingCount} more...
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setExpanded(false);
+          }}
+          className="ml-1.5 text-brand-primary font-bold hover:underline cursor-pointer inline-flex items-center text-[11px] bg-brand-primary/10 border border-brand-primary/20 px-2 py-0.5 rounded-full shadow-sm"
+        >
+          Show less
+        </button>
+      )}
+    </div>
+  );
+}
+
 const FeaturedSpotlight = () => {
   const [activeTab, setActiveTab] = useState("internships");
   const [courses, setCourses] = useState([]);
@@ -279,9 +327,7 @@ const FeaturedSpotlight = () => {
                           🏢 {internship.company || "KpInterns"}
                         </span>
 
-                        <span className="text-xs font-semibold text-text-muted mb-4 block line-clamp-1" title={Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}>
-                          📚 {Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}
-                        </span>
+                        <EligibleDepartmentsText department={internship.department} />
 
                         <p className="text-text-muted text-sm line-clamp-3 mb-6 flex-1 font-semibold leading-relaxed">
                           {internship.shortDescription || internship.description}

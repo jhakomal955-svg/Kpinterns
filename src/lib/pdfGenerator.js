@@ -369,6 +369,19 @@ export async function generateOfferLetter(student, internship, verificationId) {
       doc.font("Helvetica-Bold").fontSize(10).fillColor(darkColor)
         .text("Sincerely,", 40, footerY);
 
+      const signaturePath = path.join(process.cwd(), "public", "kpsigns.png");
+      if (fs.existsSync(signaturePath)) {
+        doc.image(signaturePath, 35, footerY + 14, { fit: [120, 35] });
+      }
+
+      let moharPath = path.join(process.cwd(), "public", "kpmohar.png");
+      if (!fs.existsSync(moharPath)) {
+        moharPath = path.join(process.cwd(), "public", "format", "kpmohar.png");
+      }
+      if (fs.existsSync(moharPath)) {
+        doc.image(moharPath, 110, footerY + 12, { fit: [65, 65] });
+      }
+
       doc.font("Helvetica-Bold").fontSize(10).fillColor(primaryColor)
         .text("Prabhash Kumar", 40, footerY + 45);
 
@@ -638,6 +651,15 @@ export async function generateCertificate(student, program, type, verificationId
       if (fs.existsSync(signaturePath)) {
         // Center it above the line
         doc.image(signaturePath, sigX + 40, sigY - 28, { fit: [150, 50] });
+      }
+
+      // Paste Mohar (Stamp) image overlapping signature & line
+      let moharPath = path.join(process.cwd(), "public", "kpmohar.png");
+      if (!fs.existsSync(moharPath)) {
+        moharPath = path.join(process.cwd(), "public", "format", "kpmohar.png");
+      }
+      if (fs.existsSync(moharPath)) {
+        doc.image(moharPath, sigX + 110, sigY - 38, { fit: [80, 80] });
       }
 
       doc.moveTo(sigX, sigY).lineTo(750, sigY).lineWidth(1.25).strokeColor(darkColor).stroke();
@@ -1267,6 +1289,13 @@ export async function generateAttendanceCertificate(student, internship, verific
       if (fs.existsSync(signaturePath)) {
         doc.image(signaturePath, 385, tableY, { fit: [120, 35] });
       }
+      let moharPath = path.join(process.cwd(), "public", "kpmohar.png");
+      if (!fs.existsSync(moharPath)) {
+        moharPath = path.join(process.cwd(), "public", "format", "kpmohar.png");
+      }
+      if (fs.existsSync(moharPath)) {
+        doc.image(moharPath, 445, tableY - 12, { fit: [65, 65] });
+      }
       tableY += 32;
       doc.moveTo(370, tableY).lineTo(520, tableY).lineWidth(1).strokeColor("#1e293b").stroke();
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#1e293b").text("Founder & CEO", 370, tableY + 5, { align: "center", width: 150 });
@@ -1373,6 +1402,13 @@ export async function generateAttendanceCertificate(student, internship, verific
       tableY += 45;
       if (fs.existsSync(signaturePath)) {
         doc.image(signaturePath, 385, tableY, { fit: [120, 35] });
+      }
+      moharPath = path.join(process.cwd(), "public", "kpmohar.png");
+      if (!fs.existsSync(moharPath)) {
+        moharPath = path.join(process.cwd(), "public", "format", "kpmohar.png");
+      }
+      if (fs.existsSync(moharPath)) {
+        doc.image(moharPath, 445, tableY - 12, { fit: [65, 65] });
       }
       tableY += 32;
       doc.moveTo(370, tableY).lineTo(520, tableY).lineWidth(1).strokeColor("#1e293b").stroke();

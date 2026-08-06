@@ -1423,3 +1423,250 @@ export async function generateAttendanceCertificate(student, internship, verific
     }
   });
 }
+
+/**
+ * Generates a multi-page PDF document containing filtered student details sequentially
+ * with Offer Letter matching top header and bottom footer (accreditations & corporate branding).
+ * @param {Array} users - Filtered array of user objects
+ * @param {Object} activeFilters - Summary object of applied filters
+ * @returns {Promise<Buffer>}
+ */
+export async function generateFilteredUsersPDF(users = [], activeFilters = {}) {
+  return new Promise((resolve, reject) => {
+    try {
+      const doc = new PDFDocument({ size: "A4", margin: 0, bufferPages: true });
+      const chunks = [];
+      doc.on("data", (chunk) => chunks.push(chunk));
+      doc.on("end", () => resolve(Buffer.concat(chunks)));
+      doc.on("error", (err) => reject(err));
+
+      // Brand Palette Colors (Matches Offer Letter)
+      const primaryColor = "#4f46e5";   // Indigo/Violet
+      const accentColor = "#d97706";    // Gold Accent
+      const darkColor = "#0f172a";      // Deep Slate
+      const mutedColor = "#475569";     // Muted Slate Gray
+      const wellColor = "#f8fafc";      // Very Light Gray
+      const borderColor = "#cbd5e1";    // Border line color
+
+      // Helper function to draw Offer Letter Header on any page
+      const drawHeader = () => {
+        // 1. Top Decorative Brand Accent Bars
+        doc.rect(0, 0, 595.28, 12).fill(primaryColor);
+        doc.rect(0, 12, 595.28, 3).fill(accentColor);
+
+        // 2. Corporate Header / Logo Block
+        const logoX = 35;
+        const logoY = 25;
+        doc.circle(logoX + 15, logoY + 15, 15).fill(darkColor);
+        doc.font("Helvetica-Bold").fontSize(12).fillColor("#ffffff")
+          .text("Kp", logoX + 5, logoY + 9, { width: 20, align: "center" });
+
+        doc.font("Helvetica-Bold").fontSize(18).fillColor(primaryColor)
+          .text("Interns", logoX + 32, logoY + 4);
+
+        doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
+          .text("ACPSK TECHNOLOGY PVT LTD", logoX + 33, logoY + 23);
+
+        // Top Right Contact Info
+        const contactX = 300;
+        const contactY = 22;
+        const contactWidth = 260.28;
+        const contactText = "Mob: +91 9204312848   |   Email: info@kpinterns.com\nAddress: Saraswati Nagar, Matsyagandha Road,\nPolice Line, Saharsa, Bihar - 852201";
+
+        doc.font("Helvetica").fontSize(7).fillColor(mutedColor)
+          .text(contactText, contactX, contactY, { align: "right", width: contactWidth, lineGap: 2 });
+
+        // Header Line Separator
+        doc.moveTo(35, 68).lineTo(560.28, 68).lineWidth(0.75).strokeColor(borderColor).stroke();
+      };
+
+      // Helper function to draw Offer Letter Footer on any page
+      const drawFooter = (pageNum, totalPages) => {
+        const accreditationDividerY = 785;
+        const badgeY = 794;
+
+        doc.moveTo(35, accreditationDividerY).lineTo(560.28, accreditationDividerY).lineWidth(0.5).strokeColor(borderColor).stroke();
+
+        const badges = [
+          { fileName: "Aicte.png", fallbackName: "Aicte.png", width: 38, height: 38 },
+          { fileName: "mca.png", fallbackName: "mca.png", width: 75, height: 30 },
+          { fileName: "Iso.png", fallbackName: "Iso.png", width: 38, height: 38 },
+          { fileName: "Msme.png", fallbackName: "Msme.png", width: 38, height: 38 },
+          { fileName: "nip.png", fallbackName: "nip.png", width: 60, height: 32 }
+        ];
+
+        let curBadgeX = 40;
+        badges.forEach((b) => {
+          let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
+          if (!fs.existsSync(badgePath)) {
+            badgePath = path.join(process.cwd(), "public", b.fallbackName);
+          }
+          if (!fs.existsSync(badgePath)) {
+            badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
+          }
+          if (fs.existsSync(badgePath)) {
+            doc.image(badgePath, curBadgeX, badgeY, { fit: [b.width, b.height] });
+          }
+          curBadgeX += b.width + 35;
+        });
+
+        // Page Number
+        doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
+          .text(`Page ${pageNum} of ${totalPages}`, 35, 830, { align: "right", width: 525.28 });
+      };
+
+      // Initial page header
+      drawHeader();
+
+      let currentY = 78;
+
+      // Report Header Section
+      doc.font("Helvetica-Bold").fontSize(14).fillColor(darkColor)
+        .text("STUDENT DIRECTORY REPORT", 35, currentY, { align: "center", width: 525.28 });
+
+      currentY += 18;
+
+      // Date & Filter Summary Box
+      const reportDate = new Date().toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+
+      // Format Filter Summary
+      const activeFilterPairs = [];
+      if (activeFilters.university) activeFilterPairs.push(`University: ${activeFilters.university}`);
+      if (activeFilters.college) activeFilterPairs.push(`College: ${activeFilters.college}`);
+      if (activeFilters.department) activeFilterPairs.push(`Dept: ${activeFilters.department}`);
+      if (activeFilters.degree) activeFilterPairs.push(`Degree: ${activeFilters.degree}`);
+      if (activeFilters.session) activeFilterPairs.push(`Session: ${activeFilters.session}`);
+      if (activeFilters.searchQuery) activeFilterPairs.push(`Search: "${activeFilters.searchQuery}"`);
+      if (activeFilters.creator) activeFilterPairs.push(`Created By: ${activeFilters.creator}`);
+
+      const filterSummaryStr = activeFilterPairs.length > 0
+        ? activeFilterPairs.join("  |  ")
+        : "All Registered Students";
+
+      doc.rect(35, currentY, 525.28, 30).fill(wellColor);
+      doc.rect(35, currentY, 525.28, 30).lineWidth(0.5).strokeColor(borderColor).stroke();
+
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor(primaryColor)
+        .text(`Total Filtered Students: ${users.length}`, 45, currentY + 5);
+
+      doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
+        .text(`Generated On: ${reportDate}`, 300, currentY + 5, { align: "right", width: 250 });
+
+      doc.font("Helvetica-Oblique").fontSize(7.5).fillColor(darkColor)
+        .text(`Active Filters: ${filterSummaryStr}`, 45, currentY + 17, { width: 505.28, lineBreak: false, ellipsis: true });
+
+      currentY += 38;
+
+      if (users.length === 0) {
+        doc.font("Helvetica").fontSize(11).fillColor(mutedColor)
+          .text("No student profiles found matching the current filter criteria.", 35, currentY + 30, { align: "center", width: 525.28 });
+      }
+
+      // Render Each Student Card sequentially
+      users.forEach((user, idx) => {
+        const cardHeight = 115;
+        const pageMaxY = 770;
+
+        // Page Break Check
+        if (currentY + cardHeight > pageMaxY) {
+          doc.addPage();
+          drawHeader();
+          currentY = 78;
+        }
+
+        const cardY = currentY;
+
+        // Card Container Box
+        doc.rect(35, cardY, 525.28, cardHeight).fill("#ffffff");
+        doc.rect(35, cardY, 525.28, cardHeight).lineWidth(0.75).strokeColor(borderColor).stroke();
+
+        // Card Header Bar inside box
+        doc.rect(35, cardY, 525.28, 20).fill(wellColor);
+        doc.moveTo(35, cardY + 20).lineTo(560.28, cardY + 20).lineWidth(0.5).strokeColor(borderColor).stroke();
+
+        // Sequence badge & Student Name
+        doc.font("Helvetica-Bold").fontSize(9.5).fillColor(primaryColor)
+          .text(`#${idx + 1}.  ${user.fullName || "N/A"}`, 42, cardY + 5);
+
+        // Gender / Reg No tag on top right
+        const topTag = user.gender ? `${user.gender}` : "";
+        doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
+          .text(topTag, 400, cardY + 5, { align: "right", width: 152 });
+
+        // Data Rows inside Card
+        let rowY = cardY + 26;
+
+        // Row 1: University & College
+        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("University: ", 45, rowY);
+        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(user.university || "N/A", 95, rowY, { width: 175, lineBreak: false, ellipsis: true });
+
+        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("College / Inst: ", 275, rowY);
+        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(user.college || "N/A", 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
+
+        rowY += 15;
+
+        // Row 2: Reg No / Roll No & Department / Degree
+        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Reg No / Roll: ", 45, rowY);
+        const regRoll = `${user.registrationNumber || "N/A"} ${user.rollNumber ? `(${user.rollNumber})` : ""}`;
+        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(regRoll, 110, rowY, { width: 160, lineBreak: false, ellipsis: true });
+
+        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Dept & Degree: ", 275, rowY);
+        const deptDeg = `${user.department || "N/A"} - ${user.degree || "N/A"}`;
+        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(deptDeg, 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
+
+        rowY += 15;
+
+        // Row 3: Session / Semester & Contact (Email & Phone)
+        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Session / Sem: ", 45, rowY);
+        const sessSem = `${user.session || "N/A"} ${user.semester ? `(Sem: ${user.semester})` : ""}`;
+        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(sessSem, 115, rowY, { width: 155, lineBreak: false, ellipsis: true });
+
+        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Email & Phone: ", 275, rowY);
+        const contact = `${user.email || "N/A"} | ${user.phone || "N/A"}`;
+        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(contact, 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
+
+        rowY += 15;
+
+        // Row 4: Enrolled Internships / Courses
+        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Enrolments: ", 45, rowY);
+        const internshipsList = (user.ActiveInternship || [])
+          .map((i) => i.internship?.title || i.title || "Internship")
+          .join(", ");
+        const coursesList = (user.ActiveCources || [])
+          .map((c) => c.course?.title || c.title || "Course")
+          .join(", ");
+        const enrollments = [internshipsList, coursesList].filter(Boolean).join(" | ") || "Self Registered / None";
+
+        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(enrollments, 105, rowY, { width: 445, lineBreak: false, ellipsis: true });
+
+        rowY += 15;
+
+        // Row 5: Created By / Account Creator
+        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Created By: ", 45, rowY);
+        const creatorName = user.creatorInfo?.name
+          ? `${user.creatorInfo.name} (${user.creatorInfo.role || "Admin"})`
+          : (user.createdBy || "Self Registered");
+        doc.font("Helvetica").fontSize(8).fillColor(primaryColor).text(creatorName, 100, rowY, { width: 450, lineBreak: false, ellipsis: true });
+
+        currentY += cardHeight + 10;
+      });
+
+      // Draw footer on all buffered pages
+      const range = doc.bufferedPageRange();
+      for (let i = range.start; i < range.start + range.count; i++) {
+        doc.switchToPage(i);
+        drawFooter(i + 1, range.count);
+      }
+
+      doc.end();
+    } catch (err) {
+      reject(err);
+    }
+  });
+}

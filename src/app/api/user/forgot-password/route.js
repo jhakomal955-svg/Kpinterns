@@ -8,6 +8,17 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel } from "@/models";
 import { sendForgotPasswordOtpEmail } from "@/lib/nodemailer";
 
+import dns from "dns";
+
+const checkMxRecord = (domain) => {
+  return new Promise((resolve) => {
+    dns.promises
+      .resolveMx(domain)
+      .then((records) => resolve(records && records.length > 0))
+      .catch(() => resolve(false));
+  });
+};
+
 // POST: Request Reset OTP
 export async function POST(request) {
   try {
@@ -15,9 +26,28 @@ export async function POST(request) {
 
     const { email } = await request.json();
 
-    if (!email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || typeof email !== "string" || !emailRegex.test(email.trim())) {
       return Response.json(
-        { error: "Email address is required" },
+        { error: "Invalid email format. Correct email format example: user@gmail.com" },
+        { status: 400 }
+      );
+    }
+
+    const domain = email.trim().split("@")[1];
+    const tld = domain.split(".").pop().toLowerCase();
+    const invalidTlds = ["con", "cmo", "gmal", "gmai", "yaho", "hotmial", "outlok", "cm", "coom", "comm"];
+    if (invalidTlds.includes(tld)) {
+      return Response.json(
+        { error: `Invalid email domain extension (.${tld}). Please use a valid email address (e.g. user@gmail.com).` },
+        { status: 400 }
+      );
+    }
+
+    const hasMx = await checkMxRecord(domain);
+    if (!hasMx) {
+      return Response.json(
+        { error: `The email domain "${domain}" does not exist or cannot receive emails.` },
         { status: 400 }
       );
     }

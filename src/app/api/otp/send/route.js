@@ -2,6 +2,16 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, AdminModel, VerificationOtpModel } from "@/models";
 import { sendOtpEmail } from "@/lib/nodemailer";
+import dns from "dns";
+
+const checkMxRecord = (domain) => {
+  return new Promise((resolve) => {
+    dns.promises
+      .resolveMx(domain)
+      .then((records) => resolve(records && records.length > 0))
+      .catch(() => resolve(false));
+  });
+};
 
 export async function POST(request) {
   try {
@@ -9,14 +19,33 @@ export async function POST(request) {
 
     const { email } = await request.json();
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || typeof email !== "string" || !emailRegex.test(email.trim())) {
       return Response.json(
-        { success: false, error: "Please provide a valid email address." },
+        { success: false, error: "Invalid email format. Correct email format example: user@gmail.com or student@university.edu" },
         { status: 400 }
       );
     }
 
     const normalizedEmail = email.trim().toLowerCase();
+    const domain = normalizedEmail.split("@")[1];
+    const tld = domain.split(".").pop();
+
+    const invalidTlds = ["con", "cmo", "gmal", "gmai", "yaho", "hotmial", "outlok", "cm", "coom", "comm"];
+    if (invalidTlds.includes(tld)) {
+      return Response.json(
+        { success: false, error: `Invalid email domain extension (.${tld}). Please enter a valid email address (e.g. user@gmail.com).` },
+        { status: 400 }
+      );
+    }
+
+    const hasMx = await checkMxRecord(domain);
+    if (!hasMx) {
+      return Response.json(
+        { success: false, error: `The email domain "${domain}" does not exist or cannot receive emails. Please check your email address.` },
+        { status: 400 }
+      );
+    }
 
     // Compile models to make queries
     const User = createModel("User", UserModel);

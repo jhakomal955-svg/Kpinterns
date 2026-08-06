@@ -11,6 +11,7 @@ export default function UsersAdminPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSession, setSelectedSession] = useState("");
   const [selectedDegree, setSelectedDegree] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedUniversity, setSelectedUniversity] = useState("");
   const [selectedCollege, setSelectedCollege] = useState("");
   const [message, setMessage] = useState(null);
@@ -92,22 +93,85 @@ export default function UsersAdminPage() {
     }
   };
 
-  // Get unique values for filters
+  const normalizeCollegeName = (college) => {
+    if (!college || typeof college !== "string") return college;
+    const trimmed = college.trim();
+    if (
+      trimmed.includes("Bodh Gaya") ||
+      trimmed.includes("BodhGaya") ||
+      trimmed.includes("BODH GAYA") ||
+      trimmed === "R S COLLEGE OF HIGH EDUCATION GAYA" ||
+      trimmed === "R. S. College of Higher Education ,Bodh Gaya" ||
+      trimmed === "R. S. College of Higher Education , Bodh Gaya"
+    ) {
+      return "R. S. College of Higher Education , Gaya";
+    }
+    return trimmed;
+  };
+
+  // Dynamic cascading filter values
+  const availableUsersForDepartments = users.filter((u) => {
+    if (selectedDegree && u.degree !== selectedDegree) return false;
+    if (selectedUniversity && u.university !== selectedUniversity) return false;
+    if (selectedCollege && normalizeCollegeName(u.college) !== selectedCollege) return false;
+    return true;
+  });
+
+  const availableUsersForColleges = users.filter((u) => {
+    if (selectedUniversity && u.university !== selectedUniversity) return false;
+    if (selectedDegree && u.degree !== selectedDegree) return false;
+    if (selectedDepartment && u.department !== selectedDepartment) return false;
+    return true;
+  });
+
+  // Get unique values for filters (cascading based on selection)
   const uniqueSessions = [...new Set(users.map((u) => u.session).filter(Boolean))].sort();
-  const uniqueDegrees = [...new Set(users.map((u) => u.degree).filter(Boolean))].sort();
-  const uniqueUniversities = [...new Set(users.map((u) => u.university).filter(Boolean))].sort();
-  const uniqueColleges = [...new Set(users.map((u) => u.college).filter(Boolean))].sort();
+  
+  const uniqueDegrees = [...new Set(
+    (selectedDepartment ? users.filter((u) => u.department === selectedDepartment) : users)
+      .map((u) => u.degree)
+      .filter(Boolean)
+  )].sort();
+
+  const uniqueDepartments = [...new Set(
+    availableUsersForDepartments.map((u) => u.department).filter(Boolean)
+  )].sort();
+
+  const uniqueUniversities = [...new Set(
+    (selectedCollege ? users.filter((u) => normalizeCollegeName(u.college) === selectedCollege) : users)
+      .map((u) => u.university)
+      .filter(Boolean)
+  )].sort();
+
+  const uniqueColleges = [...new Set(
+    availableUsersForColleges.map((u) => normalizeCollegeName(u.college)).filter(Boolean)
+  )].sort();
+
+  // Reset department if no longer valid for selected degree/context
+  useEffect(() => {
+    if (selectedDepartment && !uniqueDepartments.includes(selectedDepartment)) {
+      setSelectedDepartment("");
+    }
+  }, [selectedDegree, selectedUniversity, selectedCollege]);
+
+  // Reset college if no longer valid for selected university/context
+  useEffect(() => {
+    if (selectedCollege && !uniqueColleges.includes(selectedCollege)) {
+      setSelectedCollege("");
+    }
+  }, [selectedUniversity, selectedDegree, selectedDepartment]);
 
   const handleResetFilters = () => {
     setSelectedSession("");
     setSelectedDegree("");
+    setSelectedDepartment("");
     setSelectedUniversity("");
     setSelectedCollege("");
     setSelectedCreatorId("");
     setSearchQuery("");
   };
 
-  const hasActiveFilters = searchQuery || selectedSession || selectedDegree || selectedUniversity || selectedCollege || selectedCreatorId;
+  const hasActiveFilters = searchQuery || selectedSession || selectedDegree || selectedDepartment || selectedUniversity || selectedCollege || selectedCreatorId;
 
   // Filtered Users
   const userToCreatorMap = {};
@@ -133,11 +197,12 @@ export default function UsersAdminPage() {
 
     const matchesSession = !selectedSession || user.session === selectedSession;
     const matchesDegree = !selectedDegree || user.degree === selectedDegree;
+    const matchesDepartment = !selectedDepartment || user.department === selectedDepartment;
     const matchesUniversity = !selectedUniversity || user.university === selectedUniversity;
-    const matchesCollege = !selectedCollege || user.college === selectedCollege;
+    const matchesCollege = !selectedCollege || normalizeCollegeName(user.college) === selectedCollege;
     const matchesCreator = !selectedCreatorId || userToCreatorMap[user._id]?.id === selectedCreatorId;
 
-    return matchesSearch && matchesSession && matchesDegree && matchesUniversity && matchesCollege && matchesCreator;
+    return matchesSearch && matchesSession && matchesDegree && matchesDepartment && matchesUniversity && matchesCollege && matchesCreator;
   });
 
   const getAdminAttendanceStats = (i) => {
@@ -180,6 +245,66 @@ export default function UsersAdminPage() {
     };
   };
 
+  const [isDownloadingPDF, setIsDownloadingPDF] = useState(false);
+
+  const handleDownloadPDF = async () => {
+    try {
+      setIsDownloadingPDF(true);
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const headers = {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      };
+
+      const selectedCreatorAdmin = adminsList.find((a) => a._id === selectedCreatorId);
+
+      // Enhance filtered users with mapped creator info
+      const usersToExport = filteredUsers.map((u) => ({
+        ...u,
+        creatorInfo: userToCreatorMap[u._id] || null,
+      }));
+
+      const activeFiltersSummary = {
+        university: selectedUniversity,
+        college: selectedCollege,
+        department: selectedDepartment,
+        degree: selectedDegree,
+        session: selectedSession,
+        searchQuery: searchQuery,
+        creator: selectedCreatorAdmin?.name || "",
+      };
+
+      const res = await fetch("/api/user/download-pdf", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          users: usersToExport,
+          activeFilters: activeFiltersSummary,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to download PDF");
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Filtered_Students_Report_${new Date().toISOString().slice(0, 10)}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("PDF Download error:", err);
+      setError(err.message || "Failed to download PDF");
+    } finally {
+      setIsDownloadingPDF(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header Section */}
@@ -190,15 +315,28 @@ export default function UsersAdminPage() {
             Create, view, update, and delete registered student profiles.
           </p>
         </div>
-        <Link
-          href="/admin/auth/dashboard/user/create"
-          className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 self-start sm:self-auto text-sm sm:text-base"
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
-          Add New User
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={handleDownloadPDF}
+            disabled={isDownloadingPDF || filteredUsers.length === 0}
+            className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer"
+            title="Download PDF report of current filtered students"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            {isDownloadingPDF ? "Generating PDF..." : `Download PDF (${filteredUsers.length})`}
+          </button>
+          <Link
+            href="/admin/auth/dashboard/user/create"
+            className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Add New User
+          </Link>
+        </div>
       </div>
 
       {/* Notifications */}
@@ -234,7 +372,7 @@ export default function UsersAdminPage() {
         </div>
 
         {/* Filter selectors grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
           <div>
             <label className="block text-xs font-bold text-text-muted mb-1.5 uppercase tracking-wider">Session</label>
             <select
@@ -259,6 +397,20 @@ export default function UsersAdminPage() {
               <option value="">All Degrees</option>
               {uniqueDegrees.map((d) => (
                 <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-text-muted mb-1.5 uppercase tracking-wider">Department</label>
+            <select
+              value={selectedDepartment}
+              onChange={(e) => setSelectedDepartment(e.target.value)}
+              className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm sm:text-base appearance-none cursor-pointer"
+            >
+              <option value="">All Departments</option>
+              {uniqueDepartments.map((dept) => (
+                <option key={dept} value={dept}>{dept}</option>
               ))}
             </select>
           </div>
@@ -375,7 +527,7 @@ export default function UsersAdminPage() {
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex flex-col text-sm">
-                        <span className="font-medium">{user.college}</span>
+                        <span className="font-medium">{normalizeCollegeName(user.college)}</span>
                         <span className="text-text-muted text-xs">{user.degree} ({user.department})</span>
                       </div>
                     </td>

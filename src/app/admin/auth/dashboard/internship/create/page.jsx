@@ -481,6 +481,38 @@ export default function InternshipCreatePage() {
     });
   };
 
+  const handleSelectAllDepartments = () => {
+    const allDepts = Object.values(departmentGroups).flat();
+    setFormData((prev) => ({
+      ...prev,
+      department: [...new Set(allDepts)],
+    }));
+  };
+
+  const handleClearAllDepartments = () => {
+    setFormData((prev) => ({
+      ...prev,
+      department: [],
+    }));
+  };
+
+  const handleToggleGroupDepartments = (groupList) => {
+    setFormData((prev) => {
+      const currentDepts = Array.isArray(prev.department) ? prev.department : [];
+      const allGroupSelected = groupList.every((d) => currentDepts.includes(d));
+      let updated;
+      if (allGroupSelected) {
+        updated = currentDepts.filter((d) => !groupList.includes(d));
+      } else {
+        updated = [...new Set([...currentDepts, ...groupList])];
+      }
+      return {
+        ...prev,
+        department: updated,
+      };
+    });
+  };
+
   const handleThumbnailPickerSelect = async (file) => {
     setUploadingThumbnail(true);
     setError(null);
@@ -947,31 +979,63 @@ export default function InternshipCreatePage() {
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-xs font-bold text-text-muted mb-3 uppercase tracking-wider">Target Departments *</label>
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <label className="block text-xs font-bold text-text-muted uppercase tracking-wider">
+                    Target Departments / Branches * ({formData.department?.length || 0} selected)
+                  </label>
+                  <div className="flex items-center gap-2 text-xs">
+                    <button
+                      type="button"
+                      onClick={handleSelectAllDepartments}
+                      className="px-2.5 py-1 font-bold text-brand-primary bg-brand-primary/10 hover:bg-brand-primary/20 border border-brand-primary/30 rounded-lg transition"
+                    >
+                      Select All Branches
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleClearAllDepartments}
+                      className="px-2.5 py-1 font-bold text-text-muted hover:text-red-500 bg-bg-main hover:bg-red-500/10 border border-border-main rounded-lg transition"
+                    >
+                      Clear All
+                    </button>
+                  </div>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-bg-main border-2 border-border-main rounded-2xl p-5 max-h-96 overflow-y-auto">
-                  {Object.entries(departmentGroups).map(([group, list]) => (
-                    <div key={group} className="space-y-2">
-                      <h4 className="text-xs font-extrabold text-brand-secondary uppercase tracking-wider border-b border-border-main pb-1">
-                        {group}
-                      </h4>
-                      <div className="flex flex-col gap-1.5">
-                        {list.map((dept) => {
-                          const isChecked = Array.isArray(formData.department) && formData.department.includes(dept);
-                          return (
-                            <label key={dept} className="flex items-start gap-2.5 text-sm font-semibold text-text-main cursor-pointer select-none">
-                              <input
-                                type="checkbox"
-                                checked={isChecked}
-                                onChange={() => handleCheckboxChange("department", dept)}
-                                className="mt-1 h-4 w-4 rounded border-border-main text-brand-primary focus:ring-brand-primary cursor-pointer"
-                              />
-                              <span>{dept}</span>
-                            </label>
-                          );
-                        })}
+                  {Object.entries(departmentGroups).map(([group, list]) => {
+                    const isAllGroupSelected = list.every((d) => formData.department?.includes(d));
+                    return (
+                      <div key={group} className="space-y-2">
+                        <div className="flex items-center justify-between border-b border-border-main pb-1">
+                          <h4 className="text-xs font-extrabold text-brand-secondary uppercase tracking-wider">
+                            {group}
+                          </h4>
+                          <button
+                            type="button"
+                            onClick={() => handleToggleGroupDepartments(list)}
+                            className="text-[10px] font-bold text-brand-primary hover:underline cursor-pointer"
+                          >
+                            {isAllGroupSelected ? "Deselect Group" : "Select Group"}
+                          </button>
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          {list.map((dept) => {
+                            const isChecked = Array.isArray(formData.department) && formData.department.includes(dept);
+                            return (
+                              <label key={dept} className="flex items-start gap-2.5 text-sm font-semibold text-text-main cursor-pointer select-none">
+                                <input
+                                  type="checkbox"
+                                  checked={isChecked}
+                                  onChange={() => handleCheckboxChange("department", dept)}
+                                  className="mt-1 h-4 w-4 rounded border-border-main text-brand-primary focus:ring-brand-primary cursor-pointer"
+                                />
+                                <span>{dept}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 

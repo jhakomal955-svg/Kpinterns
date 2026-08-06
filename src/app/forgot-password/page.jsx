@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 export default function UserForgotPasswordPage() {
   const router = useRouter();
@@ -10,6 +11,7 @@ export default function UserForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [showInvalidEmailModal, setShowInvalidEmailModal] = useState(false);
   
   const [formData, setFormData] = useState({
     email: "",
@@ -42,8 +44,9 @@ export default function UserForgotPasswordPage() {
 
     if (!formData.email.trim()) {
       newErrors.email = "Email address is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!validateEmailFormat(formData.email)) {
       newErrors.email = "Please enter a valid email address";
+      setShowInvalidEmailModal(true);
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -319,6 +322,11 @@ export default function UserForgotPasswordPage() {
           </div>
         </div>
       </div>
+      <InvalidEmailModal
+        isOpen={showInvalidEmailModal}
+        onClose={() => setShowInvalidEmailModal(false)}
+        emailEntered={formData.email}
+      />
     </div>
   );
 }

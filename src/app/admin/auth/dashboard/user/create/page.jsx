@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { universitiesData } from "@/lib/data/universities";
+import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 function calculateEndDate(startDate, durationStr) {
   const date = new Date(startDate);
@@ -114,6 +115,7 @@ export default function UserCreatePage() {
   });
 
   const [errors, setErrors] = useState({});
+  const [showInvalidEmailModal, setShowInvalidEmailModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
@@ -482,10 +484,9 @@ export default function UserCreatePage() {
 
     if (step === 1) {
       if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
-      if (!formData.email.trim()) {
-        newErrors.email = "Email is required";
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      if (!formData.email.trim() || !validateEmailFormat(formData.email)) {
         newErrors.email = "Invalid email format";
+        setShowInvalidEmailModal(true);
       }
       if (!formData.phone.trim()) {
         newErrors.phone = "Phone number is required";
@@ -1419,6 +1420,11 @@ export default function UserCreatePage() {
           </div>
         </form>
       </div>
+      <InvalidEmailModal
+        isOpen={showInvalidEmailModal}
+        onClose={() => setShowInvalidEmailModal(false)}
+        emailEntered={formData.email}
+      />
     </div>
   );
 }

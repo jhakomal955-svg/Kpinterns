@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Turnstile from "@/components/Turnstile";
+import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 export default function AdminLoginPage() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function AdminLoginPage() {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showInvalidEmailModal, setShowInvalidEmailModal] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -42,8 +44,9 @@ export default function AdminLoginPage() {
     if (!emailOrPhone) {
       newErrors.emailOrPhone = "Email or phone number is required";
     } else if (emailOrPhone.includes("@")) {
-      if (!emailRegex.test(emailOrPhone)) {
+      if (!validateEmailFormat(emailOrPhone)) {
         newErrors.emailOrPhone = "Please enter a valid email address";
+        setShowInvalidEmailModal(true);
       }
     } else {
       if (!phoneRegex.test(phoneDigits)) {
@@ -316,6 +319,11 @@ export default function AdminLoginPage() {
           </Link>
         </div>
       </div>
+      <InvalidEmailModal
+        isOpen={showInvalidEmailModal}
+        onClose={() => setShowInvalidEmailModal(false)}
+        emailEntered={formData.emailOrPhone}
+      />
     </div>
   );
 }

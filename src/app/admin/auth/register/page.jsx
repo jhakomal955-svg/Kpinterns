@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { universitiesData } from "@/lib/data/universities";
+import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 export default function AdminRegisterPage() {
   const [step, setStep] = useState(1);
@@ -29,6 +30,7 @@ export default function AdminRegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showInvalidEmailModal, setShowInvalidEmailModal] = useState(false);
 
   const totalSteps = 4;
   const stepTitles = ["Verification", "Admin Details", "Bank Account", "Review"];
@@ -112,11 +114,8 @@ export default function AdminRegisterPage() {
 
   const handleSendOtp = async () => {
     setOtpError("");
-    if (!formData.email.trim()) {
-      setErrors((prev) => ({ ...prev, email: "Email is required to send OTP" }));
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!formData.email.trim() || !validateEmailFormat(formData.email)) {
+      setShowInvalidEmailModal(true);
       setErrors((prev) => ({ ...prev, email: "Please enter a valid email address" }));
       return;
     }
@@ -1107,6 +1106,11 @@ export default function AdminRegisterPage() {
           </Link>
         </div>
       </div>
+      <InvalidEmailModal
+        isOpen={showInvalidEmailModal}
+        onClose={() => setShowInvalidEmailModal(false)}
+        emailEntered={formData.email}
+      />
     </div>
   );
 }

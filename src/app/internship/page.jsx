@@ -222,7 +222,6 @@ const ALL_DEPARTMENTS = [
   "Biotechnology",
   "Biochemistry",
   "Computer Science",
-  "Data Science",
   "Agriculture",
   "Nursing",
   "Forensic Science",

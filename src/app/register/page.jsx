@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
 import CouponAlertModal from "@/components/CouponAlertModal";
+import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 
 import { universitiesData } from "@/lib/data/universities";
@@ -63,6 +64,7 @@ export default function RegisterPage() {
   });
 
   const [errors, setErrors] = useState({});
+  const [showInvalidEmailModal, setShowInvalidEmailModal] = useState(false);
   const [completedPaymentDetails, setCompletedPaymentDetails] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [successModal, setSuccessModal] = useState({
@@ -306,11 +308,8 @@ export default function RegisterPage() {
   const handleSendOtp = async () => {
     setOtpError("");
     setEmailAlreadyRegistered(false);
-    if (!formData.email.trim()) {
-      setErrors((prev) => ({ ...prev, email: "Email is required to send OTP" }));
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!formData.email.trim() || !validateEmailFormat(formData.email)) {
+      setShowInvalidEmailModal(true);
       setErrors((prev) => ({ ...prev, email: "Invalid email format" }));
       return;
     }
@@ -790,10 +789,9 @@ export default function RegisterPage() {
     if (step === 1) {
       if (!formData.fullName.trim())
         newErrors.fullName = "Full name is required";
-      if (!formData.email.trim()) {
-        newErrors.email = "Email is required";
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      if (!formData.email.trim() || !validateEmailFormat(formData.email)) {
         newErrors.email = "Invalid email format";
+        setShowInvalidEmailModal(true);
       } else if (!isEmailVerified) {
         newErrors.email = "Please verify your email address using OTP.";
       }
@@ -2010,6 +2008,11 @@ export default function RegisterPage() {
         isOpen={couponAlertModal.isOpen}
         onClose={() => setCouponAlertModal({ isOpen: false, message: "" })}
         message={couponAlertModal.message}
+      />
+      <InvalidEmailModal
+        isOpen={showInvalidEmailModal}
+        onClose={() => setShowInvalidEmailModal(false)}
+        emailEntered={formData.email}
       />
     </div>
   );

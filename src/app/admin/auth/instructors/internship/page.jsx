@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import BranchBadges from "@/components/BranchBadges";
 
 export default function InstructorInternshipsPage() {
   const [internships, setInternships] = useState([]);
@@ -99,7 +100,6 @@ export default function InstructorInternshipsPage() {
   "Biotechnology",
   "Biochemistry",
   "Computer Science",
-  "Data Science",
   "Agriculture",
   "Nursing",
   "Forensic Science",
@@ -282,8 +282,8 @@ export default function InstructorInternshipsPage() {
             className="p-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm"
           >
             <option value="All">All Departments</option>
-            {internshipDepartments.map((dept) => (
-              <option key={dept} value={dept}>{dept}</option>
+            {[...new Set(internshipDepartments)].map((dept, index) => (
+              <option key={`dept-${dept}-${index}`} value={dept}>{dept}</option>
             ))}
           </select>
         </div>
@@ -332,9 +332,7 @@ export default function InstructorInternshipsPage() {
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div className="space-y-3">
                   <div>
-                    <span className="text-xs uppercase font-extrabold text-brand-secondary tracking-wider">
-                      {Array.isArray(internship.department) ? internship.department.join(", ") : internship.department}
-                    </span>
+                    <BranchBadges department={internship.department} maxVisible={2} />
                     <h3 className="font-bold text-lg text-text-main line-clamp-1">
                       {internship.position || "N/A"}
                     </h3>

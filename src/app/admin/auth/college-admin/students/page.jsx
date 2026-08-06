@@ -105,6 +105,53 @@ export default function StudentsDirectoryPage() {
     return matchesSession && matchesSearch;
   });
 
+  const [isDownloadingPDF, setIsDownloadingPDF] = useState(false);
+
+  const handleDownloadPDF = async () => {
+    try {
+      setIsDownloadingPDF(true);
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const headers = {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      };
+
+      const activeFiltersSummary = {
+        session: selectedSession !== "All" ? selectedSession : "",
+        searchQuery: searchQuery,
+      };
+
+      const res = await fetch("/api/user/download-pdf", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          users: filteredStudents,
+          activeFilters: activeFiltersSummary,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to download PDF");
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `College_Students_Report_${new Date().toISOString().slice(0, 10)}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("PDF Download error:", err);
+      alert(err.message || "Failed to download PDF");
+    } finally {
+      setIsDownloadingPDF(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-20 space-y-4">
@@ -145,13 +192,26 @@ export default function StudentsDirectoryPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-text-main">
-          Student Directory
-        </h1>
-        <p className="text-text-muted text-sm sm:text-base">
-          Search, filter, and view enrollment details for all students at your college.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-text-main">
+            Student Directory
+          </h1>
+          <p className="text-text-muted text-sm sm:text-base">
+            Search, filter, and view enrollment details for all students at your college.
+          </p>
+        </div>
+        <button
+          onClick={handleDownloadPDF}
+          disabled={isDownloadingPDF || filteredStudents.length === 0}
+          className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer self-start sm:self-auto"
+          title="Download PDF report of current filtered students"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          {isDownloadingPDF ? "Generating PDF..." : `Download PDF (${filteredStudents.length})`}
+        </button>
       </div>
 
       {/* Filters & Search Bar */}

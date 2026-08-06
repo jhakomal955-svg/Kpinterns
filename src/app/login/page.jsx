@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Turnstile from "@/components/Turnstile";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
+import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showInvalidEmailModal, setShowInvalidEmailModal] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -47,9 +49,9 @@ export default function LoginPage() {
       const isEmail = input.includes("@");
       
       if (isEmail) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(input)) {
+        if (!validateEmailFormat(input)) {
           newErrors.emailOrPhone = "Please enter a valid email address";
+          setShowInvalidEmailModal(true);
         }
       } else {
         // Strip non-digits ONLY for phone number evaluation
@@ -340,6 +342,11 @@ export default function LoginPage() {
         onAction={() => router.push("/profile")}
         title="Login Successful!"
         message="Welcome back! Redirecting you to your profile..."
+      />
+      <InvalidEmailModal
+        isOpen={showInvalidEmailModal}
+        onClose={() => setShowInvalidEmailModal(false)}
+        emailEntered={formData.emailOrPhone}
       />
     </div>
   );

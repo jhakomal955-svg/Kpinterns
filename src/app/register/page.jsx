@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
@@ -94,6 +94,93 @@ export default function RegisterPage() {
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
 
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
+
+  // Background Lead Capture Helper
+  const captureLeadData = useCallback(
+    async (customPayload = {}) => {
+      try {
+        const payload = {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          gender: formData.gender,
+          parentName: formData.parentName,
+          university: formData.university,
+          college: formData.college,
+          degree: formData.degree,
+          department: formData.department,
+          rollNumber: formData.rollNumber,
+          semester: formData.semester,
+          session: formData.session,
+          registrationNumber: formData.registrationNumber,
+          purchaseType,
+          internshipId: formData.internshipId,
+          internshipDomain: formData.internshipDomain,
+          mode: formData.mode,
+          step,
+          ...customPayload,
+        };
+
+        if (!payload.email?.trim() && !payload.phone?.trim()) return;
+
+        if (typeof window !== "undefined" && navigator.sendBeacon && customPayload.beacon) {
+          const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+          navigator.sendBeacon("/api/leads/capture", blob);
+          return;
+        }
+
+        fetch("/api/leads/capture", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch((err) => console.error("Lead capture error:", err));
+      } catch (err) {
+        console.error("Error in lead capture:", err);
+      }
+    },
+    [formData, purchaseType, step]
+  );
+
+  // Debounced auto-save effect whenever contact/personal inputs change
+  useEffect(() => {
+    if (!formData.email?.trim() && !formData.phone?.trim()) return;
+    const timer = setTimeout(() => {
+      captureLeadData();
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [
+    formData.fullName,
+    formData.email,
+    formData.phone,
+    formData.university,
+    formData.college,
+    formData.internshipDomain,
+    step,
+    captureLeadData,
+  ]);
+
+  // Page hide / tab close beacon listener
+  useEffect(() => {
+    const handleUnload = () => {
+      if (formData.email?.trim() || formData.phone?.trim()) {
+        captureLeadData({ beacon: true });
+      }
+    };
+
+    window.addEventListener("pagehide", handleUnload);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        handleUnload();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener("pagehide", handleUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [formData.email, formData.phone, captureLeadData]);
 
 
   const handleConsentLetterUpload = async (e) => {
@@ -313,6 +400,9 @@ export default function RegisterPage() {
       setErrors((prev) => ({ ...prev, email: "Invalid email format" }));
       return;
     }
+
+    // Auto-capture lead details when requesting OTP
+    captureLeadData({ step: 1 });
 
     setOtpLoading(true);
     try {
@@ -859,6 +949,7 @@ export default function RegisterPage() {
 
   const handleNext = () => {
     if (validateStep()) {
+      captureLeadData({ step: step + 1 });
       setStep(step + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -921,6 +1012,7 @@ export default function RegisterPage() {
         const data = await response.json();
 
         if (response.ok) {
+          captureLeadData({ status: "Converted" });
           setSuccessModal({
             isOpen: true,
             title: "Registration Successful!",
@@ -1020,6 +1112,7 @@ export default function RegisterPage() {
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* 1. Full Name */}
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Full Name *
@@ -1043,30 +1136,29 @@ export default function RegisterPage() {
                     )}
                   </div>
 
+                  {/* 2. Mobile Phone Number (Placed right at the top for instant lead capture) */}
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
-                      Gender *
+                      Mobile Phone Number *
                     </label>
-                    <select
-                      name="gender"
-                      value={formData.gender}
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
                       onChange={handleInputChange}
+                      placeholder="e.g. 9876543210"
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.gender ? "border-red-500" : "border-border-main"
+                        errors.phone ? "border-red-500" : "border-border-main"
                       }`}
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                    {errors.gender && (
+                    />
+                    {errors.phone && (
                       <p className="text-red-500 text-xs mt-1">
-                        {errors.gender}
+                        {errors.phone}
                       </p>
                     )}
                   </div>
 
+                  {/* 3. Email Address & OTP */}
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Email Address *
@@ -1077,7 +1169,6 @@ export default function RegisterPage() {
                         name="email"
                         value={formData.email}
                         onChange={(e) => {
-                          // Clear the registered-email block when the user types a new address
                           if (emailAlreadyRegistered) {
                             setEmailAlreadyRegistered(false);
                             setOtpError("");
@@ -1116,7 +1207,6 @@ export default function RegisterPage() {
                       )}
                     </div>
 
-                    {/* Inline OTP error shown immediately (before OTP input appears) */}
                     {otpError && !otpSent && (
                       <div className="mt-3 flex items-start gap-2.5 p-3.5 bg-red-500/8 border border-red-500/25 rounded-xl animate-fade-in">
                         <span className="text-red-500 text-base mt-0.5 shrink-0">⚠️</span>
@@ -1185,28 +1275,33 @@ export default function RegisterPage() {
                     </div>
                   )}
 
+                  {/* 4. Gender */}
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
-                      Phone Number *
+                      Gender *
                     </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
+                    <select
+                      name="gender"
+                      value={formData.gender}
                       onChange={handleInputChange}
-                      placeholder="+91 98765 43210"
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.phone ? "border-red-500" : "border-border-main"
+                        errors.gender ? "border-red-500" : "border-border-main"
                       }`}
-                    />
-                    {errors.phone && (
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                    {errors.gender && (
                       <p className="text-red-500 text-xs mt-1">
-                        {errors.phone}
+                        {errors.gender}
                       </p>
                     )}
                   </div>
 
-                  <div className="sm:col-span-2">
+                  {/* 5. Parent Name */}
+                  <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Parent/Guardian Name *
                     </label>

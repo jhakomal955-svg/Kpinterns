@@ -1,8 +1,40 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { getDepartmentsForDegree, DEGREE_LIST } from "@/lib/data/degreeDepartments";
+
+const DEGREE_OPTIONS = DEGREE_LIST;
+
+const DEPARTMENT_OPTIONS = [
+  "Computer Science & Engineering",
+  "Information Technology (IT)",
+  "Artificial Intelligence & ML (AI & ML)",
+  "Data Science",
+  "Cyber Security",
+  "Electronics & Communication (ECE)",
+  "Electrical & Electronics (EEE)",
+  "Mechanical Engineering",
+  "Civil Engineering",
+  "Robotics & Automation",
+  "Software Engineering",
+  "Other",
+];
+
+const SEMESTER_OPTIONS = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
+const SESSION_OPTIONS = [
+  "2023-2027",
+  "2024-2028",
+  "2022-2026",
+  "2025-2029",
+  "2021-2025",
+  "2024-2027",
+  "2025-2028",
+];
 
 export default function StudentsDirectoryPage() {
+  const [activeTab, setActiveTab] = useState("registered");
+
+  // Registered students state
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -10,55 +42,84 @@ export default function StudentsDirectoryPage() {
   const [selectedSession, setSelectedSession] = useState("All");
   const [selectedStudent, setSelectedStudent] = useState(null);
 
-  // Load students on mount
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        setIsLoading(true);
-        const token = localStorage.getItem("adminToken");
-        if (!token) {
-          setError("Session expired. Please log in again.");
-          return;
-        }
+  // Partner student roster state
+  const [rosterStudents, setRosterStudents] = useState([]);
+  const [isRosterLoading, setIsRosterLoading] = useState(false);
+  const [rosterSearch, setRosterSearch] = useState("");
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showCsvModal, setShowCsvModal] = useState(false);
+  const [csvText, setCsvText] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [rosterMessage, setRosterMessage] = useState("");
+  const [copySuccess, setCopySuccess] = useState(false);
 
-        const res = await fetch("/api/user", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
+  // New Student Form State
+  const [newStudent, setNewStudent] = useState({
+    fullName: "",
+    registrationNumber: "",
+    rollNumber: "",
+    email: "",
+    phone: "",
+    degree: "B.Tech",
+    department: "Computer Science & Engineering",
+    semester: "6th",
+    session: "2023-2027",
+    gender: "Male",
+  });
 
-        if (data.success) {
-          setStudents(data.data || []);
-        } else {
-          setError(data.error || "Failed to fetch student directory.");
-        }
-      } catch (err) {
-        console.error("Error fetching students:", err);
-        setError("An error occurred while connecting to the server.");
-      } finally {
-        setIsLoading(false);
+  const fetchStudents = async () => {
+    try {
+      setIsLoading(true);
+      const token = localStorage.getItem("adminToken");
+      if (!token) {
+        setError("Session expired. Please log in again.");
+        return;
       }
-    };
 
+      const res = await fetch("/api/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setStudents(data.data || []);
+      } else {
+        setError(data.error || "Failed to fetch student directory.");
+      }
+    } catch (err) {
+      console.error("Error fetching students:", err);
+      setError("An error occurred while connecting to the server.");
+    } fontally: {
+      setIsLoading(false);
+    }
+  };
+
+  const fetchRoster = async () => {
+    try {
+      setIsRosterLoading(true);
+      const token = localStorage.getItem("adminToken");
+      if (!token) return;
+
+      const res = await fetch("/api/partner-students", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setRosterStudents(data.students || []);
+      }
+    } catch (err) {
+      console.error("Error fetching roster:", err);
+    } finally {
+      setIsRosterLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchStudents();
+    fetchRoster();
   }, []);
 
-  // Sync modal student with URL query param `studentId`
-  useEffect(() => {
-    if (typeof window !== "undefined" && students.length > 0) {
-      const params = new URLSearchParams(window.location.search);
-      const studentId = params.get("studentId");
-      if (studentId) {
-        const student = students.find((s) => s._id === studentId);
-        if (student) {
-          setSelectedStudent(student);
-        }
-      }
-    }
-  }, [students]);
-
-  // Clean URL when closing modal
   const handleCloseModal = () => {
     setSelectedStudent(null);
     if (typeof window !== "undefined") {
@@ -68,7 +129,6 @@ export default function StudentsDirectoryPage() {
     }
   };
 
-  // Select student and update URL (for sharing/deep-linking)
   const handleSelectStudent = (student) => {
     setSelectedStudent(student);
     if (typeof window !== "undefined") {
@@ -78,22 +138,143 @@ export default function StudentsDirectoryPage() {
     }
   };
 
-  // Get unique sessions for filter dropdown
+  const handleAddStudentSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setIsSubmitting(true);
+      setRosterMessage("");
+      const token = localStorage.getItem("adminToken");
+
+      const res = await fetch("/api/partner-students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newStudent),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setRosterMessage(data.message || "Student added to roster successfully!");
+        setShowAddModal(false);
+        setNewStudent({
+          fullName: "",
+          registrationNumber: "",
+          rollNumber: "",
+          email: "",
+          phone: "",
+          degree: "B.Tech",
+          department: "Computer Science & Engineering",
+          semester: "6th",
+          session: "2023-2027",
+          gender: "Male",
+        });
+        fetchRoster();
+      } else {
+        alert(data.error || "Failed to add student to roster");
+      }
+    } catch (err) {
+      alert("Error adding student: " + err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCsvUpload = async (e) => {
+    e.preventDefault();
+    if (!csvText.trim()) return;
+
+    try {
+      setIsSubmitting(true);
+      setRosterMessage("");
+      const token = localStorage.getItem("adminToken");
+
+      const lines = csvText.trim().split("\n");
+      const parsedRecords = [];
+
+      for (let line of lines) {
+        const parts = line.split(",").map((p) => p.trim());
+        if (parts.length < 3) continue;
+        if (parts[0].toLowerCase().includes("reg") || parts[0].toLowerCase().includes("roll")) continue;
+
+        parsedRecords.push({
+          registrationNumber: parts[0] || "",
+          rollNumber: parts[1] || "",
+          fullName: parts[2] || "",
+          department: parts[3] || "Computer Science & Engineering",
+          email: parts[4] || "",
+          phone: parts[5] || "",
+          degree: parts[6] || "B.Tech",
+          semester: parts[7] || "6th",
+          session: parts[8] || "2023-2027",
+        });
+      }
+
+      if (parsedRecords.length === 0) {
+        alert("No valid rows found in CSV data.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const res = await fetch("/api/partner-students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(parsedRecords),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setRosterMessage(data.message || `Uploaded ${data.added} new and updated ${data.updated} students.`);
+        setShowCsvModal(false);
+        setCsvText("");
+        fetchRoster();
+      } else {
+        alert(data.error || "Failed to upload CSV roster");
+      }
+    } catch (err) {
+      alert("CSV error: " + err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteRosterStudent = async (id) => {
+    if (!confirm("Are you sure you want to remove this student from the roster?")) return;
+    try {
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`/api/partner-students?id=${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success) {
+        fetchRoster();
+      } else {
+        alert(data.error || "Failed to delete student");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
+  };
+
+  const handleCopyHeader = () => {
+    const header = "RegistrationNumber, RollNumber, FullName, Department, Email, Phone, Degree, Semester, Session";
+    navigator.clipboard.writeText(header);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000);
+  };
+
   const uniqueSessions = [
     "All",
-    ...new Set(
-      students
-        .map((s) => s.session)
-        .filter(Boolean)
-        .sort()
-    ),
+    ...new Set(students.map((s) => s.session).filter(Boolean).sort()),
   ];
 
-  // Filtering logic
   const filteredStudents = students.filter((student) => {
-    const matchesSession =
-      selectedSession === "All" || student.session === selectedSession;
-
+    const matchesSession = selectedSession === "All" || student.session === selectedSession;
     const query = searchQuery.toLowerCase().trim();
     const matchesSearch =
       !query ||
@@ -101,56 +282,19 @@ export default function StudentsDirectoryPage() {
       student.email?.toLowerCase().includes(query) ||
       student.rollNumber?.toLowerCase().includes(query) ||
       student.registrationNumber?.toLowerCase().includes(query);
-
     return matchesSession && matchesSearch;
   });
 
-  const [isDownloadingPDF, setIsDownloadingPDF] = useState(false);
-
-  const handleDownloadPDF = async () => {
-    try {
-      setIsDownloadingPDF(true);
-      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
-      const headers = {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      };
-
-      const activeFiltersSummary = {
-        session: selectedSession !== "All" ? selectedSession : "",
-        searchQuery: searchQuery,
-      };
-
-      const res = await fetch("/api/user/download-pdf", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          users: filteredStudents,
-          activeFilters: activeFiltersSummary,
-        }),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.error || "Failed to download PDF");
-      }
-
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `College_Students_Report_${new Date().toISOString().slice(0, 10)}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error("PDF Download error:", err);
-      alert(err.message || "Failed to download PDF");
-    } finally {
-      setIsDownloadingPDF(false);
-    }
-  };
+  const filteredRoster = rosterStudents.filter((st) => {
+    const q = rosterSearch.toLowerCase().trim();
+    return (
+      !q ||
+      st.fullName?.toLowerCase().includes(q) ||
+      st.registrationNumber?.toLowerCase().includes(q) ||
+      st.rollNumber?.toLowerCase().includes(q) ||
+      st.department?.toLowerCase().includes(q)
+    );
+  });
 
   if (isLoading) {
     return (
@@ -161,576 +305,386 @@ export default function StudentsDirectoryPage() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="p-6 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl max-w-lg mx-auto text-center space-y-4 shadow-md">
-        <svg
-          className="w-12 h-12 mx-auto"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-          />
-        </svg>
-        <h2 className="text-xl font-bold">Error</h2>
-        <p className="text-sm leading-relaxed">{error}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg text-sm font-semibold hover:bg-red-600 transition"
-        >
-          Retry
-        </button>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-text-main">
-            Student Directory
+            College Students & Roster Management
           </h1>
           <p className="text-text-muted text-sm sm:text-base">
-            Search, filter, and view enrollment details for all students at your college.
+            Upload pre-approved student rosters and view enrolled students for your college.
           </p>
         </div>
-        <button
-          onClick={handleDownloadPDF}
-          disabled={isDownloadingPDF || filteredStudents.length === 0}
-          className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer self-start sm:self-auto"
-          title="Download PDF report of current filtered students"
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-          {isDownloadingPDF ? "Generating PDF..." : `Download PDF (${filteredStudents.length})`}
-        </button>
+
+        <div className="flex bg-bg-main p-1.5 rounded-xl border border-border-main self-start sm:self-auto">
+          <button
+            onClick={() => setActiveTab("registered")}
+            className={`px-4 py-2 text-sm font-semibold rounded-lg transition ${
+              activeTab === "registered"
+                ? "bg-brand-primary text-white shadow"
+                : "text-text-muted hover:text-text-main"
+            }`}
+          >
+            Enrolled Students ({students.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("roster")}
+            className={`px-4 py-2 text-sm font-semibold rounded-lg transition ${
+              activeTab === "roster"
+                ? "bg-brand-primary text-white shadow"
+                : "text-text-muted hover:text-text-main"
+            }`}
+          >
+            Pre-Approved Roster ({rosterStudents.length})
+          </button>
+        </div>
       </div>
 
-      {/* Filters & Search Bar */}
-      <div className="bg-bg-card border-2 border-border-main rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col md:flex-row gap-4 md:items-center justify-between">
-        {/* Search Input */}
-        <div className="relative flex-1 w-full">
-          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-text-muted ml-2">
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+      {rosterMessage && (
+        <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-sm font-semibold">
+          {rosterMessage}
+        </div>
+      )}
+
+      {/* TAB 1: REGISTERED ENROLLED STUDENTS */}
+      {activeTab === "registered" && (
+        <div className="space-y-6">
+          <div className="bg-bg-card border-2 border-border-main rounded-2xl p-5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center justify-between">
+            <div className="relative flex-1 w-full">
+              <input
+                type="text"
+                placeholder="Search by name, email, roll number, registration number..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-3 bg-bg-main border-2 border-border-main rounded-xl text-text-main outline-none text-sm"
               />
-            </svg>
-          </div>
-          <input
-            type="text"
-            placeholder="Search by name, email, roll number, registration number..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pr-4 py-3.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/10 outline-none transition text-sm"
-            style={{ paddingLeft: "3.5rem" }}
-          />
-        </div>
-
-        {/* Session Filter */}
-        <div className="flex items-center gap-3 w-full md:w-auto md:min-w-[240px]">
-          <span className="text-xs font-bold uppercase tracking-wider text-text-muted whitespace-nowrap">
-            Session:
-          </span>
-          <select
-            value={selectedSession}
-            onChange={(e) => setSelectedSession(e.target.value)}
-            className="w-full px-4 py-3.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main focus:border-brand-primary outline-none transition text-sm cursor-pointer"
-          >
-            {uniqueSessions.map((session) => (
-              <option key={session} value={session}>
-                {session}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {/* Directory Grid / Table */}
-      {filteredStudents.length === 0 ? (
-        <div className="bg-bg-card border-2 border-border-main rounded-2xl p-16 sm:p-24 text-center text-text-muted space-y-4 shadow-sm">
-          <svg
-            className="w-16 h-16 mx-auto opacity-40 text-text-muted"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0110.089 21c-2.243 0-4.32-.647-6.089-1.763v-.108a6 6 0 0111.977-.825M15 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0-3.75a2.906 2.906 0 012.625 2.93c0 .952-.46 1.8-1.17 2.322"
-            />
-          </svg>
-          <h3 className="font-bold text-xl text-text-main">No Students Found</h3>
-          <p className="text-sm sm:text-base text-text-muted max-w-md mx-auto leading-relaxed">
-            Try modifying your search query or choosing a different session filter.
-          </p>
-        </div>
-      ) : (
-        <div className="bg-bg-card border-2 border-border-main rounded-2xl shadow-sm overflow-hidden mt-10">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-bg-main/60 border-b border-border-main text-text-muted text-xs font-bold uppercase">
-                  <th className="p-4 sm:p-5">Student Details</th>
-                  <th className="p-4 sm:p-5">University / Roll No.</th>
-                  <th className="p-4 sm:p-5">Degree & Dept.</th>
-                  <th className="p-4 sm:p-5">Session</th>
-                  <th className="p-4 sm:p-5 text-center">Enrollments</th>
-                  <th className="p-4 sm:p-5 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border-main/50 text-sm">
-                {filteredStudents.map((student) => (
-                  <tr
-                    key={student._id}
-                    className="hover:bg-bg-main/40 transition cursor-pointer"
-                    onClick={() => handleSelectStudent(student)}
-                  >
-                    <td className="p-4 sm:p-5">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center font-bold flex-shrink-0">
-                          {student.fullName?.charAt(0).toUpperCase()}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="font-semibold text-text-main truncate max-w-[180px]">
-                            {student.fullName}
-                          </div>
-                          <div className="text-xs text-text-muted truncate max-w-[180px]">
-                            {student.email}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4 sm:p-5">
-                      <div className="text-text-main font-medium">
-                        {student.rollNumber}
-                      </div>
-                      <div className="text-xs text-text-muted truncate max-w-[150px]">
-                        {student.registrationNumber}
-                      </div>
-                    </td>
-                    <td className="p-4 sm:p-5">
-                      <div className="text-text-main font-medium">{student.degree}</div>
-                      <div className="text-xs text-text-muted">{student.department}</div>
-                    </td>
-                    <td className="p-4 sm:p-5 text-text-main font-medium">
-                      {student.session}
-                    </td>
-                    <td className="p-4 sm:p-5 text-center">
-                      <div className="flex justify-center gap-2">
-                        <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 text-xs font-semibold" title="Courses Enrolled">
-                          C: {student.ActiveCources?.length || 0}
-                        </span>
-                        <span className="px-2.5 py-0.5 rounded-full bg-orange-500/10 text-orange-500 border border-orange-500/20 text-xs font-semibold" title="Internships Enrolled">
-                          I: {student.ActiveInternship?.length || 0}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="p-4 sm:p-5 text-right" onClick={(e) => e.stopPropagation()}>
-                      <button
-                        onClick={() => handleSelectStudent(student)}
-                        className="px-4 py-2 bg-brand-primary hover:bg-brand-primary/95 text-white text-xs font-bold rounded-lg transition shadow-sm"
-                      >
-                        View Details
-                      </button>
-                    </td>
-                  </tr>
+            </div>
+            <div className="flex items-center gap-3 w-full md:w-auto min-w-[200px]">
+              <span className="text-xs font-bold uppercase text-text-muted">Session:</span>
+              <select
+                value={selectedSession}
+                onChange={(e) => setSelectedSession(e.target.value)}
+                className="w-full px-4 py-3 bg-bg-main border-2 border-border-main rounded-xl text-text-main outline-none text-sm"
+              >
+                {uniqueSessions.map((s) => (
+                  <option key={s} value={s}>{s}</option>
                 ))}
-              </tbody>
-            </table>
+              </select>
+            </div>
+          </div>
+
+          <div className="bg-bg-card border-2 border-border-main rounded-2xl shadow-sm overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-bg-main/60 border-b border-border-main text-text-muted text-xs font-bold uppercase">
+                    <th className="p-4">Student Details</th>
+                    <th className="p-4">Roll No. / Reg No.</th>
+                    <th className="p-4">Degree & Dept</th>
+                    <th className="p-4">Session</th>
+                    <th className="p-4 text-center">Enrollments</th>
+                    <th className="p-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border-main/50 text-sm">
+                  {filteredStudents.map((student) => (
+                    <tr key={student._id} className="hover:bg-bg-main/40 transition">
+                      <td className="p-4 font-semibold text-text-main">
+                        <div>{student.fullName}</div>
+                        <div className="text-xs font-normal text-text-muted">{student.email}</div>
+                      </td>
+                      <td className="p-4">
+                        <div>{student.rollNumber}</div>
+                        <div className="text-xs text-text-muted">{student.registrationNumber}</div>
+                      </td>
+                      <td className="p-4">
+                        <div>{student.degree}</div>
+                        <div className="text-xs text-text-muted">{student.department}</div>
+                      </td>
+                      <td className="p-4">{student.session}</td>
+                      <td className="p-4 text-center">
+                        <span className="px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-500 border border-orange-500/20 text-xs font-semibold">
+                          Internships: {student.ActiveInternship?.length || 0}
+                        </span>
+                      </td>
+                      <td className="p-4 text-right">
+                        <button
+                          onClick={() => handleSelectStudent(student)}
+                          className="px-3 py-1.5 bg-brand-primary text-white text-xs font-bold rounded-lg hover:bg-brand-primary/90 transition"
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Student Details Modal */}
-      {selectedStudent && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
-          {/* Modal Backdrop click handler */}
-          <div className="absolute inset-0" onClick={handleCloseModal} />
+      {/* TAB 2: PRE-APPROVED ROSTER */}
+      {activeTab === "roster" && (
+        <div className="space-y-6">
+          <div className="bg-bg-card border-2 border-border-main rounded-2xl p-5 shadow-sm flex flex-col md:flex-row gap-4 md:items-center justify-between">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Search roster by name, roll no, reg no, department..."
+                value={rosterSearch}
+                onChange={(e) => setRosterSearch(e.target.value)}
+                className="w-full px-4 py-3 bg-bg-main border-2 border-border-main rounded-xl text-text-main outline-none text-sm"
+              />
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => setShowAddModal(true)}
+                className="px-4 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold text-sm rounded-xl transition flex items-center gap-2"
+              >
+                + Add Single Student
+              </button>
+              <button
+                onClick={() => setShowCsvModal(true)}
+                className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition flex items-center gap-2"
+              >
+                📁 Bulk CSV Upload
+              </button>
+            </div>
+          </div>
 
-          {/* Modal Content container */}
-          <div className="bg-bg-card border-2 border-border-main w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl relative z-10 my-8 md:my-16 flex flex-col max-h-[90vh]">
-            {/* Modal Header */}
-            <div className="p-5 border-b border-border-main flex justify-between items-center bg-bg-main/40">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-sm">
-                  {selectedStudent.fullName?.charAt(0).toUpperCase()}
+          <div className="bg-bg-card border-2 border-border-main rounded-2xl shadow-sm overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-bg-main/60 border-b border-border-main text-text-muted text-xs font-bold uppercase">
+                    <th className="p-4">Reg No & Roll No</th>
+                    <th className="p-4">Student Name</th>
+                    <th className="p-4">Department & Degree</th>
+                    <th className="p-4">Semester & Session</th>
+                    <th className="p-4 text-center">Status</th>
+                    <th className="p-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border-main/50 text-sm">
+                  {filteredRoster.map((st) => (
+                    <tr key={st._id} className="hover:bg-bg-main/40 transition">
+                      <td className="p-4 font-mono font-medium text-text-main">
+                        <div>Reg: {st.registrationNumber}</div>
+                        <div className="text-xs text-text-muted">Roll: {st.rollNumber}</div>
+                      </td>
+                      <td className="p-4 font-semibold text-text-main">{st.fullName}</td>
+                      <td className="p-4 text-text-main">
+                        <div>{st.department}</div>
+                        <div className="text-xs font-semibold text-brand-primary">{st.degree}</div>
+                      </td>
+                      <td className="p-4 text-text-muted text-xs">
+                        <div>Sem: {st.semester}</div>
+                        <div>{st.session}</div>
+                      </td>
+                      <td className="p-4 text-center">
+                        {st.enrolledUserId ? (
+                          <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-xs font-bold">✓ Enrolled</span>
+                        ) : (
+                          <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20 text-xs font-bold">⏳ Pending</span>
+                        )}
+                      </td>
+                      <td className="p-4 text-right">
+                        <button
+                          onClick={() => handleDeleteRosterStudent(st._id)}
+                          className="px-3 py-1 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg text-xs font-semibold transition"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Single Modal with Selectors */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-bg-card border-2 border-border-main w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-4 my-8">
+            <div className="flex justify-between items-center border-b border-border-main pb-3">
+              <h3 className="font-bold text-lg text-text-main">Add Pre-Approved Student</h3>
+              <button onClick={() => setShowAddModal(false)} className="text-text-muted hover:text-text-main font-bold">✕</button>
+            </div>
+
+            <form onSubmit={handleAddStudentSubmit} className="space-y-3 text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Registration No *</label>
+                  <input
+                    type="text"
+                    required
+                    value={newStudent.registrationNumber}
+                    onChange={(e) => setNewStudent({ ...newStudent, registrationNumber: e.target.value })}
+                    placeholder="REG2026100"
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-text-main flex items-center gap-2">
-                    {selectedStudent.fullName}
-                  </h3>
-                  <p className="text-xs text-text-muted">{selectedStudent.email}</p>
+                  <label className="block font-bold text-text-muted mb-1">Roll Number *</label>
+                  <input
+                    type="text"
+                    required
+                    value={newStudent.rollNumber}
+                    onChange={(e) => setNewStudent({ ...newStudent, rollNumber: e.target.value })}
+                    placeholder="ROLL101"
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
                 </div>
               </div>
-              <button
-                onClick={handleCloseModal}
-                className="w-9 h-9 flex items-center justify-center bg-bg-main border border-border-main hover:bg-red-500 hover:text-white rounded-lg text-text-muted text-xl font-bold transition flex-shrink-0"
-              >
-                ×
-              </button>
+
+              <div>
+                <label className="block font-bold text-text-muted mb-1">Full Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={newStudent.fullName}
+                  onChange={(e) => setNewStudent({ ...newStudent, fullName: e.target.value })}
+                  placeholder="Student Full Name"
+                  className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Degree *</label>
+                  <select
+                    value={newStudent.degree}
+                    onChange={(e) => {
+                      const newDeg = e.target.value;
+                      const availableDepts = getDepartmentsForDegree(newDeg);
+                      setNewStudent({
+                        ...newStudent,
+                        degree: newDeg,
+                        department: availableDepts[0] || "Computer Science",
+                      });
+                    }}
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    {DEGREE_OPTIONS.map((deg) => (
+                      <option key={deg} value={deg}>{deg}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Department / Domain *</label>
+                  <select
+                    value={newStudent.department}
+                    onChange={(e) => setNewStudent({ ...newStudent, department: e.target.value })}
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    {getDepartmentsForDegree(newStudent.degree).map((dept) => (
+                      <option key={dept} value={dept}>{dept}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Semester *</label>
+                  <select
+                    value={newStudent.semester}
+                    onChange={(e) => setNewStudent({ ...newStudent, semester: e.target.value })}
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    {SEMESTER_OPTIONS.map((sem) => (
+                      <option key={sem} value={sem}>{sem} Semester</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Session *</label>
+                  <select
+                    value={newStudent.session}
+                    onChange={(e) => setNewStudent({ ...newStudent, session: e.target.value })}
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    {SESSION_OPTIONS.map((ses) => (
+                      <option key={ses} value={ses}>{ses}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-3 pt-3 border-t border-border-main">
+                <button type="button" onClick={() => setShowAddModal(false)} className="px-4 py-2 border rounded-xl">Cancel</button>
+                <button type="submit" disabled={isSubmitting} className="px-5 py-2 bg-brand-primary text-white font-bold rounded-xl">
+                  {isSubmitting ? "Saving..." : "Save Record"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* CSV Bulk Upload Modal with Guide */}
+      {showCsvModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-bg-card border-2 border-border-main w-full max-w-xl rounded-2xl p-6 shadow-2xl space-y-4 my-8">
+            <div className="flex justify-between items-center border-b border-border-main pb-3">
+              <h3 className="font-bold text-lg text-text-main">Bulk CSV Roster Upload Guide</h3>
+              <button onClick={() => setShowCsvModal(false)} className="text-text-muted hover:text-text-main font-bold">✕</button>
             </div>
 
-            {/* Modal Scrollable Content */}
-            <div className="p-6 overflow-y-auto space-y-6 flex-1 text-sm">
-              {/* Academic & Personal Overview Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Academic Profile */}
-                <div className="bg-bg-main/50 rounded-xl p-5 border border-border-main/70 space-y-3">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted mb-2 border-b border-border-main pb-1">
-                    Academic profile
-                  </h4>
-                  <div className="grid grid-cols-2 gap-y-2.5 text-xs sm:text-sm">
-                    <span className="text-text-muted">University:</span>
-                    <span className="font-semibold text-text-main truncate">
-                      {selectedStudent.university}
-                    </span>
-
-                    <span className="text-text-muted">College Name:</span>
-                    <span className="font-semibold text-text-main truncate">
-                      {selectedStudent.college}
-                    </span>
-
-                    <span className="text-text-muted">Degree / Dept:</span>
-                    <span className="font-semibold text-text-main truncate">
-                      {selectedStudent.degree} - {selectedStudent.department}
-                    </span>
-
-                    <span className="text-text-muted">Semester:</span>
-                    <span className="font-semibold text-text-main">
-                      Sem {selectedStudent.semester}
-                    </span>
-
-                    <span className="text-text-muted">Roll Number:</span>
-                    <span className="font-mono font-semibold text-text-main">
-                      {selectedStudent.rollNumber}
-                    </span>
-
-                    <span className="text-text-muted">Registration No:</span>
-                    <span className="font-mono font-semibold text-text-main">
-                      {selectedStudent.registrationNumber}
-                    </span>
-
-                    <span className="text-text-muted">Session Year:</span>
-                    <span className="font-semibold text-text-main">
-                      {selectedStudent.session}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Personal Profile */}
-                <div className="bg-bg-main/50 rounded-xl p-5 border border-border-main/70 space-y-3">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-text-muted mb-2 border-b border-border-main pb-1">
-                    Personal Details
-                  </h4>
-                  <div className="grid grid-cols-2 gap-y-2.5 text-xs sm:text-sm">
-                    <span className="text-text-muted">Full Name:</span>
-                    <span className="font-semibold text-text-main">
-                      {selectedStudent.fullName}
-                    </span>
-
-                    <span className="text-text-muted">Email Address:</span>
-                    <span className="font-semibold text-brand-primary truncate">
-                      {selectedStudent.email}
-                    </span>
-
-                    <span className="text-text-muted">Phone Number:</span>
-                    <span className="font-semibold text-text-main">
-                      {selectedStudent.phone}
-                    </span>
-
-                    <span className="text-text-muted">Gender:</span>
-                    <span className="font-semibold text-text-main">
-                      {selectedStudent.gender}
-                    </span>
-
-                    <span className="text-text-muted">Guardian Name:</span>
-                    <span className="font-semibold text-text-main">
-                      {selectedStudent.parentName}
-                    </span>
-
-                    <span className="text-text-muted">Registered On:</span>
-                    <span className="font-semibold text-text-main">
-                      {selectedStudent.createdAt
-                        ? new Date(selectedStudent.createdAt).toLocaleDateString()
-                        : "N/A"}
-                    </span>
-                  </div>
-                </div>
+            <div className="bg-bg-main p-4 rounded-xl border border-border-main text-xs space-y-2">
+              <div className="font-bold text-brand-primary uppercase tracking-wider flex justify-between items-center">
+                <span>📋 CSV Format Guide & Field Requirements</span>
+                <button
+                  type="button"
+                  onClick={handleCopyHeader}
+                  className="px-2.5 py-1 bg-brand-primary/10 border border-brand-primary/20 text-brand-primary rounded-lg text-[10px] font-bold"
+                >
+                  {copySuccess ? "✓ Header Copied!" : "📋 Copy Header String"}
+                </button>
               </div>
-
-              {/* Coursework Status */}
-              <div className="space-y-4">
-                <h4 className="font-bold text-base text-text-main border-b border-border-main pb-2">
-                  Enrolled Coursework Progress
-                </h4>
-
-                {/* Courses */}
-                <div className="space-y-3">
-                  <h5 className="font-bold text-xs uppercase tracking-wider text-text-muted">
-                    Courses ({selectedStudent.ActiveCources?.length || 0})
-                  </h5>
-                  {(!selectedStudent.ActiveCources || selectedStudent.ActiveCources.length === 0) ? (
-                    <p className="text-xs text-text-muted italic pl-2">
-                      No enrolled courses found.
-                    </p>
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {selectedStudent.ActiveCources.map((item) => {
-                        const title = item.course?.title || "Course Program";
-                        const progress = item.progress || 0;
-                        const status = item.courseStatus || "Active";
-
-                        return (
-                          <div
-                            key={item._id}
-                            className="p-4 bg-bg-main border border-border-main rounded-xl space-y-3"
-                          >
-                            <div className="flex justify-between items-start">
-                              <div className="min-w-0">
-                                <h6 className="font-semibold text-text-main truncate text-sm">
-                                  {title}
-                                </h6>
-                                <p className="text-xs text-text-muted uppercase">
-                                  {item.course?.department || "General"}
-                                </p>
-                              </div>
-                              <span
-                                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${
-                                  status === "Completed"
-                                    ? "bg-green-500/10 text-green-500 border-green-500/20"
-                                    : "bg-blue-500/10 text-blue-500 border-blue-500/20"
-                                }`}
-                              >
-                                {status}
-                              </span>
-                            </div>
-
-                            {/* Progress bar */}
-                            <div className="space-y-1">
-                              <div className="flex justify-between text-xs font-semibold text-text-muted">
-                                <span>Progress</span>
-                                <span>{progress}%</span>
-                              </div>
-                              <div className="w-full bg-border-main rounded-full h-2">
-                                <div
-                                  className={`h-2 rounded-full transition-all duration-300 ${
-                                    progress === 100
-                                      ? "bg-green-500"
-                                      : "bg-brand-primary"
-                                  }`}
-                                  style={{ width: `${progress}%` }}
-                                ></div>
-                              </div>
-                            </div>
-
-                            {/* Certificates action */}
-                            {item.certificateUrl && (
-                              <div className="pt-2 flex justify-end">
-                                <a
-                                  href={item.certificateUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 border border-green-500/20 text-green-500 rounded-lg text-xs font-bold hover:bg-green-500 hover:text-white transition"
-                                >
-                                  <svg
-                                    className="w-3.5 h-3.5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth="2.5"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                    />
-                                  </svg>
-                                  View Certificate
-                                </a>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="font-bold text-red-500">🔴 Required Fields:</span>
+                  <ul className="list-disc pl-4 text-text-muted">
+                    <li>1. RegistrationNumber</li>
+                    <li>2. RollNumber</li>
+                    <li>3. FullName</li>
+                  </ul>
                 </div>
-
-                {/* Internships */}
-                <div className="space-y-3 pt-3">
-                  <h5 className="font-bold text-xs uppercase tracking-wider text-text-muted">
-                    Internships ({selectedStudent.ActiveInternship?.length || 0})
-                  </h5>
-                  {(!selectedStudent.ActiveInternship || selectedStudent.ActiveInternship.length === 0) ? (
-                    <p className="text-xs text-text-muted italic pl-2">
-                      No enrolled internships found.
-                    </p>
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {selectedStudent.ActiveInternship.map((item) => {
-                        const title =
-                          item.internship?.title ||
-                          item.internship?.position ||
-                          "Internship Program";
-                        const progress = item.progress || 0;
-                        const status = item.internshipStatus || "Active";
-
-                        return (
-                          <div
-                            key={item._id}
-                            className="p-4 bg-bg-main border border-border-main rounded-xl space-y-3"
-                          >
-                            <div className="flex justify-between items-start">
-                              <div className="min-w-0">
-                                <h6 className="font-semibold text-text-main truncate text-sm">
-                                  {title}
-                                </h6>
-                                <p className="text-xs text-text-muted uppercase">
-                                  {item.internship?.domain ||
-                                    item.internship?.category ||
-                                    "General"}
-                                </p>
-                              </div>
-                              <span
-                                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${
-                                  status === "Completed"
-                                    ? "bg-green-500/10 text-green-500 border-green-500/20"
-                                    : "bg-blue-500/10 text-blue-500 border-blue-500/20"
-                                }`}
-                              >
-                                {status}
-                              </span>
-                            </div>
-
-                            {/* Progress bar */}
-                            <div className="space-y-1">
-                              <div className="flex justify-between text-xs font-semibold text-text-muted">
-                                <span>Progress</span>
-                                <span>{progress}%</span>
-                              </div>
-                              <div className="w-full bg-border-main rounded-full h-2">
-                                <div
-                                  className={`h-2 rounded-full transition-all duration-300 ${
-                                    progress === 100
-                                      ? "bg-green-500"
-                                      : "bg-brand-primary"
-                                  }`}
-                                  style={{ width: `${progress}%` }}
-                                ></div>
-                              </div>
-                            </div>
-
-                            {/* Documents actions */}
-                            {(item.offerLetterUrl || item.attendanceCertificateUrl || item.certificationUrl) && (
-                              <div className="pt-2 flex flex-wrap gap-2 justify-end">
-                                {item.offerLetterUrl && (
-                                  <a
-                                    href={item.offerLetterUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-500 rounded-lg text-xs font-bold hover:bg-blue-500 hover:text-white transition"
-                                  >
-                                    <svg
-                                      className="w-3.5 h-3.5"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                      strokeWidth="2.5"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                      />
-                                    </svg>
-                                    Offer Letter
-                                  </a>
-                                )}
-                                {item.attendanceCertificateUrl && (
-                                   <a
-                                     href={item.attendanceCertificateUrl}
-                                     target="_blank"
-                                     rel="noopener noreferrer"
-                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 text-purple-500 rounded-lg text-xs font-bold hover:bg-purple-500 hover:text-white transition"
-                                   >
-                                     <svg
-                                       className="w-3.5 h-3.5"
-                                       fill="none"
-                                       viewBox="0 0 24 24"
-                                       stroke="currentColor"
-                                       strokeWidth="2.5"
-                                     >
-                                       <path
-                                         strokeLinecap="round"
-                                         strokeLinejoin="round"
-                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                       />
-                                     </svg>
-                                     Attendance Sheet
-                                   </a>
-                                 )}
-                                {item.certificationUrl && (
-                                  <a
-                                    href={item.certificationUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 border border-green-500/20 text-green-500 rounded-lg text-xs font-bold hover:bg-green-500 hover:text-white transition"
-                                  >
-                                    <svg
-                                      className="w-3.5 h-3.5"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                      strokeWidth="2.5"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                      />
-                                    </svg>
-                                    Certificate
-                                  </a>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
+                <div>
+                  <span className="font-bold text-blue-500">🔵 Optional Fields:</span>
+                  <ul className="list-disc pl-4 text-text-muted">
+                    <li>4. Department, 5. Email</li>
+                    <li>6. Phone, 7. Degree</li>
+                    <li>8. Semester, 9. Session</li>
+                  </ul>
                 </div>
               </div>
             </div>
 
-            {/* Modal Footer */}
-            <div className="p-4 border-t border-border-main bg-bg-main/20 flex justify-end">
-              <button
-                onClick={handleCloseModal}
-                className="px-6 py-2.5 bg-border-main hover:bg-border-main/80 text-text-main font-semibold rounded-xl text-sm transition"
-              >
-                Close View
-              </button>
-            </div>
+            <form onSubmit={handleCsvUpload} className="space-y-4 text-sm">
+              <textarea
+                rows={7}
+                required
+                value={csvText}
+                onChange={(e) => setCsvText(e.target.value)}
+                placeholder={`REG2026001, ROLL101, Rahul Sharma, Computer Science, rahul@gmail.com, 9876543210, B.Tech, 6th, 2023-2027\nREG2026002, ROLL102, Priya Singh, Electrical Eng, priya@gmail.com, 9876543211, B.Tech, 6th, 2023-2027`}
+                className="w-full p-3 font-mono text-xs bg-bg-main border border-border-main rounded-xl outline-none"
+              />
+
+              <div className="flex justify-end gap-3 pt-3 border-t border-border-main">
+                <button type="button" onClick={() => setShowCsvModal(false)} className="px-4 py-2 border rounded-xl">Cancel</button>
+                <button type="submit" disabled={isSubmitting} className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl">
+                  {isSubmitting ? "Processing..." : "Upload & Save Roster"}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

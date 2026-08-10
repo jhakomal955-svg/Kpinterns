@@ -2,6 +2,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, AdminModel, VerificationOtpModel } from "@/models";
 import { sendOtpEmail } from "@/lib/nodemailer";
+import { generateSecureOtp, hashOtp, getClientIp, checkOtpRateLimit } from "@/lib/utils/otpHelper";
 import dns from "dns";
 
 const checkMxRecord = (domain) => {
@@ -17,7 +18,7 @@ export async function POST(request) {
   try {
     await connectDB();
 
-    const { email } = await request.json();
+    const { email, purpose } = await request.json();
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || typeof email !== "string" || !emailRegex.test(email.trim())) {
@@ -39,6 +40,31 @@ export async function POST(request) {
       );
     }
 
+    // Server-Side Rate Limiting (Provider Protection): Max 3 requests per 10 minutes per IP & Email
+    const clientIp = getClientIp(request);
+    
+    const emailRateLimit = await checkOtpRateLimit(`ratelimit:otp:email:${normalizedEmail}`, 3, 600);
+    if (!emailRateLimit.allowed) {
+      return Response.json(
+        {
+          success: false,
+          error: `Too many OTP requests for this email address. Please wait ${emailRateLimit.retryAfterSeconds} seconds before requesting a new code.`,
+        },
+        { status: 429 }
+      );
+    }
+
+    const ipRateLimit = await checkOtpRateLimit(`ratelimit:otp:ip:${clientIp}`, 3, 600);
+    if (!ipRateLimit.allowed) {
+      return Response.json(
+        {
+          success: false,
+          error: `Too many OTP requests from your connection. Please try again after ${ipRateLimit.retryAfterSeconds} seconds.`,
+        },
+        { status: 429 }
+      );
+    }
+
     const hasMx = await checkMxRecord(domain);
     if (!hasMx) {
       return Response.json(
@@ -52,33 +78,39 @@ export async function POST(request) {
     const Admin = createModel("Admin", AdminModel);
     const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
 
-    // 1. Check if email is already registered as a student user
-    const existingUser = await User.findOne({ email: normalizedEmail });
-    if (existingUser) {
-      return Response.json(
-        { success: false, error: "This email is already registered as a user." },
-        { status: 400 }
-      );
+    // 1. Check if email is already registered as a student user (skip if partner-student verification)
+    if (purpose !== "partner-student" && purpose !== "login" && purpose !== "forgot-password") {
+      const existingUser = await User.findOne({ email: normalizedEmail });
+      if (existingUser) {
+        return Response.json(
+          { success: false, error: "This email is already registered as a user." },
+          { status: 400 }
+        );
+      }
     }
 
     // 2. Check if email is already registered as an admin
-    const existingAdmin = await Admin.findOne({ email: normalizedEmail });
-    if (existingAdmin) {
-      return Response.json(
-        { success: false, error: "This email is already registered as an admin." },
-        { status: 400 }
-      );
+    if (purpose !== "partner-student") {
+      const existingAdmin = await Admin.findOne({ email: normalizedEmail });
+      if (existingAdmin) {
+        return Response.json(
+          { success: false, error: "This email is already registered as an admin." },
+          { status: 400 }
+        );
+      }
     }
 
-    // 3. Generate a secure 6-digit OTP code
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // 3. Generate a cryptographically secure 6-digit OTP code and SHA-256 hash
+    const rawOtp = generateSecureOtp();
+    const hashedOtp = hashOtp(rawOtp);
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
 
-    // 4. Save/Update OTP record in DB
+    // 4. Save/Update HASHED OTP record in DB with reset attempts counter
     await VerificationOtp.findOneAndUpdate(
       { email: normalizedEmail },
       {
-        otp,
+        otp: hashedOtp,
+        attempts: 0,
         verified: false,
         expiresAt,
         verifiedAt: null,
@@ -86,17 +118,17 @@ export async function POST(request) {
       { upsert: true, new: true }
     );
 
-    // 5. Send OTP Email
-    const emailRes = await sendOtpEmail(normalizedEmail, otp);
+    // 5. Send raw OTP via Email
+    await sendOtpEmail(normalizedEmail, rawOtp);
 
     const responsePayload = {
       success: true,
       message: "A verification OTP has been sent to your email address.",
     };
 
-    // For developer convenience, leak OTP in JSON response only during local development
-    if (process.env.NODE_ENV === "development" || emailRes.mocked) {
-      responsePayload.otp = otp;
+    // For developer convenience, leak OTP in JSON response strictly during local development
+    if (process.env.NODE_ENV === "development") {
+      responsePayload.otp = rawOtp;
     }
 
     return Response.json(responsePayload, { status: 200 });

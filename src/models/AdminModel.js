@@ -36,6 +36,10 @@ const AdminModel = {
     type: Date,
     default: null,
   },
+  resetOtpAttempts: {
+    type: Number,
+    default: 0,
+  },
 
   // Terms & Conditions
   agreeTerms: {

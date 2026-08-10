@@ -2,8 +2,36 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { universitiesData } from "@/lib/data/universities";
 import DeleteConfirmModal from "@/components/DeleteConfirmModal";
+import { getDepartmentsForDegree, DEGREE_LIST } from "@/lib/data/degreeDepartments";
+
+const DEGREE_OPTIONS = DEGREE_LIST;
+
+const DEPARTMENT_OPTIONS = [
+  "Computer Science & Engineering",
+  "Information Technology (IT)",
+  "Artificial Intelligence & ML (AI & ML)",
+  "Data Science",
+  "Cyber Security",
+  "Electronics & Communication (ECE)",
+  "Electrical & Electronics (EEE)",
+  "Mechanical Engineering",
+  "Civil Engineering",
+  "Robotics & Automation",
+  "Software Engineering",
+  "Other",
+];
+
+const SEMESTER_OPTIONS = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
+const SESSION_OPTIONS = [
+  "2023-2027",
+  "2024-2028",
+  "2022-2026",
+  "2025-2029",
+  "2021-2025",
+  "2024-2027",
+  "2025-2028",
+];
 
 export default function CollegeAdminPage() {
   const [partners, setPartners] = useState([]);
@@ -15,9 +43,28 @@ export default function CollegeAdminPage() {
   const [targetIdToDelete, setTargetIdToDelete] = useState(null);
   const [adminData, setAdminData] = useState(null);
 
+  // Roster Modal State
+  const [activePartnerForRoster, setActivePartnerForRoster] = useState(null);
+  const [rosterStudents, setRosterStudents] = useState([]);
+  const [isRosterLoading, setIsRosterLoading] = useState(false);
+  const [rosterSearch, setRosterSearch] = useState("");
+  const [showAddSingleModal, setShowAddSingleModal] = useState(false);
+  const [showCsvModal, setShowCsvModal] = useState(false);
+  const [csvText, setCsvText] = useState("");
+  const [isSubmittingRoster, setIsSubmittingRoster] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
 
-
-
+  const [newStudent, setNewStudent] = useState({
+    fullName: "",
+    registrationNumber: "",
+    rollNumber: "",
+    email: "",
+    phone: "",
+    degree: "B.Tech",
+    department: "Computer Science & Engineering",
+    semester: "6th",
+    session: "2023-2027",
+  });
 
   // Fetch College Partners
   const fetchPartners = async () => {
@@ -25,7 +72,7 @@ export default function CollegeAdminPage() {
       setIsLoading(true);
       const token = localStorage.getItem("adminToken");
       const res = await fetch("/api/admin", {
-        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       const data = await res.json();
       if (data.success) {
@@ -45,24 +92,41 @@ export default function CollegeAdminPage() {
   useEffect(() => {
     fetchPartners();
     try {
-      const stored = localStorage.getItem("adminData");
-      if (stored) {
-        setAdminData(JSON.parse(stored));
+      const storedData = localStorage.getItem("adminData");
+      if (storedData) {
+        setAdminData(JSON.parse(storedData));
       }
     } catch (err) {
       console.error(err);
     }
   }, []);
 
-  
-
+  // Fetch Roster for selected Partner
+  const fetchRosterForPartner = async (partner) => {
+    try {
+      setActivePartnerForRoster(partner);
+      setIsRosterLoading(true);
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`/api/partner-students?college=${encodeURIComponent(partner.CollegeName || "")}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      const data = await res.json();
+      if (data.success) {
+        setRosterStudents(data.students || []);
+      }
+    } catch (err) {
+      console.error("Error loading roster:", err);
+    } finally {
+      setIsRosterLoading(false);
+    }
+  };
 
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/admin?id=${id}`, {
         method: "DELETE",
-        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       const data = await res.json();
       if (data.success) {
@@ -81,9 +145,9 @@ export default function CollegeAdminPage() {
       const token = localStorage.getItem("adminToken");
       const res = await fetch(`/api/admin?id=${partner._id}`, {
         method: "PUT",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         body: JSON.stringify({ verified: !partner.verified }),
       });
@@ -99,6 +163,144 @@ export default function CollegeAdminPage() {
     }
   };
 
+  // Add single student
+  const handleAddSingleStudent = async (e) => {
+    e.preventDefault();
+    if (!activePartnerForRoster) return;
+    try {
+      setIsSubmittingRoster(true);
+      const token = localStorage.getItem("adminToken");
+
+      const payload = {
+        ...newStudent,
+        collegeName: activePartnerForRoster.CollegeName,
+        university: activePartnerForRoster.UniversityName,
+        collegeAdminId: activePartnerForRoster._id,
+      };
+
+      const res = await fetch("/api/partner-students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setShowAddSingleModal(false);
+        setNewStudent({
+          fullName: "",
+          registrationNumber: "",
+          rollNumber: "",
+          email: "",
+          phone: "",
+          degree: "B.Tech",
+          department: "Computer Science & Engineering",
+          semester: "6th",
+          session: "2023-2027",
+        });
+        fetchRosterForPartner(activePartnerForRoster);
+      } else {
+        alert(data.error || "Failed to add student to roster");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+    } finally {
+      setIsSubmittingRoster(false);
+    }
+  };
+
+  // CSV Bulk Upload
+  const handleCsvUploadForPartner = async (e) => {
+    e.preventDefault();
+    if (!csvText.trim() || !activePartnerForRoster) return;
+
+    try {
+      setIsSubmittingRoster(true);
+      const token = localStorage.getItem("adminToken");
+
+      const lines = csvText.trim().split("\n");
+      const parsedRecords = [];
+
+      for (let line of lines) {
+        const parts = line.split(",").map((p) => p.trim());
+        if (parts.length < 3) continue;
+        if (parts[0].toLowerCase().includes("reg") || parts[0].toLowerCase().includes("roll")) continue;
+
+        parsedRecords.push({
+          collegeName: activePartnerForRoster.CollegeName,
+          university: activePartnerForRoster.UniversityName,
+          collegeAdminId: activePartnerForRoster._id,
+          registrationNumber: parts[0] || "",
+          rollNumber: parts[1] || "",
+          fullName: parts[2] || "",
+          department: parts[3] || "Computer Science & Engineering",
+          email: parts[4] || "",
+          phone: parts[5] || "",
+          degree: parts[6] || "B.Tech",
+          semester: parts[7] || "6th",
+          session: parts[8] || "2023-2027",
+        });
+      }
+
+      if (parsedRecords.length === 0) {
+        alert("No valid lines found in CSV data. Format: RegNo, RollNo, Name, Department, Email, Phone, Degree, Semester, Session");
+        setIsSubmittingRoster(false);
+        return;
+      }
+
+      const res = await fetch("/api/partner-students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(parsedRecords),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setShowCsvModal(false);
+        setCsvText("");
+        fetchRosterForPartner(activePartnerForRoster);
+      } else {
+        alert(data.error || "Failed to upload CSV roster");
+      }
+    } catch (err) {
+      alert("CSV Error: " + err.message);
+    } finally {
+      setIsSubmittingRoster(false);
+    }
+  };
+
+  const handleDeleteRosterStudent = async (id) => {
+    if (!confirm("Are you sure you want to remove this student record?")) return;
+    try {
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`/api/partner-students?id=${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success) {
+        fetchRosterForPartner(activePartnerForRoster);
+      } else {
+        alert(data.error || "Failed to delete student record");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
+  };
+
+  const handleCopyHeader = () => {
+    const header = "RegistrationNumber, RollNumber, FullName, Department, Email, Phone, Degree, Semester, Session";
+    navigator.clipboard.writeText(header);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000);
+  };
+
   const filteredPartners = partners.filter((partner) => {
     const term = searchQuery.toLowerCase();
     return (
@@ -110,6 +312,16 @@ export default function CollegeAdminPage() {
     );
   });
 
+  const filteredRoster = rosterStudents.filter((st) => {
+    const term = rosterSearch.toLowerCase();
+    return (
+      st.fullName?.toLowerCase().includes(term) ||
+      st.registrationNumber?.toLowerCase().includes(term) ||
+      st.rollNumber?.toLowerCase().includes(term) ||
+      st.department?.toLowerCase().includes(term)
+    );
+  });
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header Section */}
@@ -117,7 +329,7 @@ export default function CollegeAdminPage() {
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-text-main">Manage College Partners</h1>
           <p className="text-text-muted text-sm sm:text-base">
-            Verify, edit, and manage registered College Partner (College Admin) accounts.
+            Verify, edit, manage pre-approved student rosters, and view metrics for College Partner accounts.
           </p>
         </div>
         <Link
@@ -148,22 +360,17 @@ export default function CollegeAdminPage() {
       {/* Filters & Search */}
       <div className="bg-bg-card border-2 border-border-main rounded-2xl p-4 flex flex-col md:flex-row gap-4">
         <div className="relative flex-1">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-text-muted">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </span>
           <input
             type="text"
             placeholder="Search by name, email, college, or university..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main placeholder-text-muted focus:border-brand-primary outline-none transition text-sm sm:text-base"
+            className="w-full pl-4 pr-4 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main placeholder-text-muted focus:border-brand-primary outline-none transition text-sm sm:text-base"
           />
         </div>
       </div>
 
-      {/* Main Table / Grid */}
+      {/* Main Table */}
       <div className="bg-bg-card border-2 border-border-main rounded-2xl overflow-hidden shadow-sm">
         {isLoading ? (
           <div className="py-20 text-center text-text-muted">
@@ -176,12 +383,12 @@ export default function CollegeAdminPage() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[900px]">
+            <table className="w-full text-left border-collapse min-w-[950px]">
               <thead>
                 <tr className="border-b border-border-main bg-bg-main text-text-muted text-xs uppercase tracking-wider font-semibold">
                   <th className="py-4 px-6">Partner Info</th>
                   <th className="py-4 px-6">University & College</th>
-                  <th className="py-4 px-6">Contact details</th>
+                  <th className="py-4 px-6">Student Roster</th>
                   <th className="py-4 px-6 text-center">Status</th>
                   <th className="py-4 px-6 text-center">Actions</th>
                 </tr>
@@ -192,30 +399,32 @@ export default function CollegeAdminPage() {
                     <td className="py-4 px-6 font-semibold text-text-main">
                       <div>
                         <div>{partner.name}</div>
-                        {partner.bio && <div className="text-xs text-text-muted mt-0.5 max-w-[200px] truncate">{partner.bio}</div>}
+                        <div className="text-xs text-text-muted">{partner.email} • {partner.mobile}</div>
                       </div>
                     </td>
                     <td className="py-4 px-6">
                       <div className="space-y-0.5">
-                        <div className="font-semibold text-xs text-brand-primary uppercase tracking-wide truncate max-w-[280px]" title={partner.UniversityName}>
+                        <div className="font-semibold text-xs text-brand-primary uppercase tracking-wide truncate max-w-[250px]" title={partner.UniversityName}>
                           {partner.UniversityName}
                         </div>
-                        <div className="text-sm text-text-main truncate max-w-[280px]" title={partner.CollegeName}>
+                        <div className="text-sm text-text-main truncate max-w-[250px]" title={partner.CollegeName}>
                           {partner.CollegeName}
                         </div>
                       </div>
                     </td>
-                    <td className="py-4 px-6 text-sm">
-                      <div>
-                        <div>{partner.email}</div>
-                        <div className="text-xs text-text-muted mt-0.5">{partner.mobile}</div>
-                      </div>
+                    <td className="py-4 px-6">
+                      <button
+                        onClick={() => fetchRosterForPartner(partner)}
+                        className="px-3 py-1.5 bg-blue-500/10 hover:bg-blue-500 hover:text-white text-blue-500 border border-blue-500/30 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                      >
+                        📁 Roster & Bulk CSV
+                      </button>
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center justify-center">
                         <button
                           onClick={() => toggleVerification(partner)}
-                          className={`px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 border flex items-center gap-1.5 ${
+                          className={`px-3 py-1 rounded-full text-xs font-bold transition border flex items-center gap-1.5 ${
                             partner.verified
                               ? "bg-emerald-500/10 border-emerald-500/30 text-brand-success hover:bg-emerald-500/20"
                               : "bg-orange-500/10 border-orange-500/30 text-orange-500 hover:bg-orange-500/20"
@@ -260,6 +469,329 @@ export default function CollegeAdminPage() {
           </div>
         )}
       </div>
+
+      {/* Roster Management Drawer / Modal */}
+      {activePartnerForRoster && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-bg-card border-2 border-border-main w-full max-w-4xl rounded-3xl p-6 shadow-2xl space-y-6 relative my-8">
+            <div className="flex justify-between items-center border-b border-border-main pb-4">
+              <div>
+                <h3 className="font-bold text-xl text-text-main flex items-center gap-2">
+                  🎓 Pre-Approved Student Roster: <span className="text-brand-primary">{activePartnerForRoster.CollegeName}</span>
+                </h3>
+                <p className="text-xs text-text-muted">
+                  University: {activePartnerForRoster.UniversityName} • Coordinator: {activePartnerForRoster.name}
+                </p>
+              </div>
+              <button onClick={() => setActivePartnerForRoster(null)} className="w-8 h-8 rounded-lg bg-bg-main font-bold hover:bg-red-500 hover:text-white transition">✕</button>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
+              <input
+                type="text"
+                placeholder="Search roster by name, reg no, roll no..."
+                value={rosterSearch}
+                onChange={(e) => setRosterSearch(e.target.value)}
+                className="w-full sm:w-auto flex-1 px-4 py-2.5 bg-bg-main border border-border-main rounded-xl text-sm"
+              />
+              <div className="flex gap-2 w-full sm:w-auto justify-end">
+                <button
+                  onClick={() => setShowAddSingleModal(true)}
+                  className="px-4 py-2 bg-brand-primary text-white text-xs font-bold rounded-xl hover:bg-brand-primary/90"
+                >
+                  + Add Single Student
+                </button>
+                <button
+                  onClick={() => setShowCsvModal(true)}
+                  className="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700"
+                >
+                  📁 Bulk CSV Upload
+                </button>
+              </div>
+            </div>
+
+            {/* Roster Table */}
+            {isRosterLoading ? (
+              <div className="py-12 text-center text-text-muted">Loading roster records...</div>
+            ) : filteredRoster.length === 0 ? (
+              <div className="p-8 text-center bg-bg-main rounded-2xl border border-border-main text-text-muted text-sm">
+                No pre-approved student records uploaded yet for {activePartnerForRoster.CollegeName}.
+              </div>
+            ) : (
+              <div className="max-h-[350px] overflow-y-auto border border-border-main rounded-2xl">
+                <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                  <thead className="sticky top-0 bg-bg-main border-b border-border-main text-text-muted uppercase font-bold">
+                    <tr>
+                      <th className="p-3">Reg No / Roll No</th>
+                      <th className="p-3">Student Name</th>
+                      <th className="p-3">Department & Degree</th>
+                      <th className="p-3">Semester & Session</th>
+                      <th className="p-3 text-center">Status</th>
+                      <th className="p-3 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border-main">
+                    {filteredRoster.map((st) => (
+                      <tr key={st._id} className="hover:bg-bg-main/50">
+                        <td className="p-3 font-mono">
+                          <div className="font-bold text-text-main">{st.registrationNumber}</div>
+                          <div className="text-text-muted text-[11px]">{st.rollNumber}</div>
+                        </td>
+                        <td className="p-3 font-semibold text-text-main">{st.fullName}</td>
+                        <td className="p-3 text-text-muted">
+                          <div>{st.department}</div>
+                          <div className="text-xs font-semibold text-brand-primary">{st.degree}</div>
+                        </td>
+                        <td className="p-3 text-text-muted">
+                          <div>Sem: {st.semester}</div>
+                          <div className="text-xs">{st.session}</div>
+                        </td>
+                        <td className="p-3 text-center">
+                          {st.enrolledUserId ? (
+                            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 font-bold text-[10px]">✓ Enrolled</span>
+                          ) : (
+                            <span className="px-2.5 py-0.5 rounded-full bg-amber500/10 text-amber-600 font-bold text-[10px]">⏳ Pending</span>
+                          )}
+                        </td>
+                        <td className="p-3 text-right">
+                          <button
+                            onClick={() => handleDeleteRosterStudent(st._id)}
+                            className="px-2.5 py-1 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg text-xs font-semibold"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            <div className="flex justify-end pt-2 border-t border-border-main">
+              <button onClick={() => setActivePartnerForRoster(null)} className="px-5 py-2 bg-border-main text-text-main rounded-xl font-semibold text-xs">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Single Student Modal with Degree, Department, Semester, Session selectors */}
+      {showAddSingleModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-bg-card border-2 border-border-main w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-4 my-8">
+            <div className="flex justify-between items-center border-b border-border-main pb-2">
+              <h4 className="font-bold text-base text-text-main">
+                Add Student to {activePartnerForRoster?.CollegeName}
+              </h4>
+              <button onClick={() => setShowAddSingleModal(false)} className="font-bold text-text-muted hover:text-text-main">✕</button>
+            </div>
+
+            <form onSubmit={handleAddSingleStudent} className="space-y-3 text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Registration No *</label>
+                  <input
+                    type="text"
+                    required
+                    value={newStudent.registrationNumber}
+                    onChange={(e) => setNewStudent({ ...newStudent, registrationNumber: e.target.value })}
+                    placeholder="REG2026100"
+                    className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Roll Number *</label>
+                  <input
+                    type="text"
+                    required
+                    value={newStudent.rollNumber}
+                    onChange={(e) => setNewStudent({ ...newStudent, rollNumber: e.target.value })}
+                    placeholder="ROLL101"
+                    className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-text-muted block mb-1">Full Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={newStudent.fullName}
+                  onChange={(e) => setNewStudent({ ...newStudent, fullName: e.target.value })}
+                  placeholder="Student Full Name"
+                  className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                />
+              </div>
+
+              {/* Degree & Department Selectors */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Degree *</label>
+                  <select
+                    value={newStudent.degree}
+                    onChange={(e) => {
+                      const newDeg = e.target.value;
+                      const availableDepts = getDepartmentsForDegree(newDeg);
+                      setNewStudent({
+                        ...newStudent,
+                        degree: newDeg,
+                        department: availableDepts[0] || "Computer Science",
+                      });
+                    }}
+                    className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    {DEGREE_OPTIONS.map((deg) => (
+                      <option key={deg} value={deg}>{deg}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Department / Domain *</label>
+                  <select
+                    value={newStudent.department}
+                    onChange={(e) => setNewStudent({ ...newStudent, department: e.target.value })}
+                    className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    {getDepartmentsForDegree(newStudent.degree).map((dept) => (
+                      <option key={dept} value={dept}>{dept}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Semester & Session Selectors */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Semester *</label>
+                  <select
+                    value={newStudent.semester}
+                    onChange={(e) => setNewStudent({ ...newStudent, semester: e.target.value })}
+                    className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    {SEMESTER_OPTIONS.map((sem) => (
+                      <option key={sem} value={sem}>{sem} Semester</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Academic Session *</label>
+                  <select
+                    value={newStudent.session}
+                    onChange={(e) => setNewStudent({ ...newStudent, session: e.target.value })}
+                    className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    {SESSION_OPTIONS.map((ses) => (
+                      <option key={ses} value={ses}>{ses}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Email (Optional)</label>
+                  <input
+                    type="email"
+                    value={newStudent.email}
+                    onChange={(e) => setNewStudent({ ...newStudent, email: e.target.value })}
+                    placeholder="email@example.com"
+                    className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Mobile (Optional)</label>
+                  <input
+                    type="text"
+                    value={newStudent.phone}
+                    onChange={(e) => setNewStudent({ ...newStudent, phone: e.target.value })}
+                    placeholder="10 digit mobile"
+                    className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-border-main">
+                <button type="button" onClick={() => setShowAddSingleModal(false)} className="px-4 py-2 border rounded-xl">Cancel</button>
+                <button type="submit" disabled={isSubmittingRoster} className="px-5 py-2 bg-brand-primary text-white font-bold rounded-xl">
+                  {isSubmittingRoster ? "Saving..." : "Save Record"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* CSV Bulk Upload Modal with Admin Guide & Required Fields Explanation */}
+      {showCsvModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-bg-card border-2 border-border-main w-full max-w-xl rounded-2xl p-6 shadow-2xl space-y-4 my-8">
+            <div className="flex justify-between items-center border-b border-border-main pb-2">
+              <h4 className="font-bold text-base text-text-main">
+                Bulk CSV Upload Guide & Data Entry for {activePartnerForRoster?.CollegeName}
+              </h4>
+              <button onClick={() => setShowCsvModal(false)} className="font-bold text-text-muted hover:text-text-main">✕</button>
+            </div>
+
+            {/* Admin Guide Box */}
+            <div className="bg-bg-main p-4 rounded-xl border border-border-main text-xs space-y-2">
+              <div className="font-bold text-brand-primary uppercase tracking-wider flex justify-between items-center">
+                <span>📋 CSV Format Guide & Field Requirements</span>
+                <button
+                  type="button"
+                  onClick={handleCopyHeader}
+                  className="px-2.5 py-1 bg-brand-primary/10 border border-brand-primary/20 text-brand-primary rounded-lg text-[10px] font-bold hover:bg-brand-primary hover:text-white transition"
+                >
+                  {copySuccess ? "✓ Header Copied!" : "📋 Copy Header String"}
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="font-bold text-red-500">🔴 Required Fields:</span>
+                  <ul className="list-disc pl-4 text-text-muted">
+                    <li>1. RegistrationNumber</li>
+                    <li>2. RollNumber</li>
+                    <li>3. FullName</li>
+                  </ul>
+                </div>
+                <div>
+                  <span className="font-bold text-blue-500">🔵 Optional Fields:</span>
+                  <ul className="list-disc pl-4 text-text-muted">
+                    <li>4. Department</li>
+                    <li>5. Email, 6. Phone</li>
+                    <li>7. Degree, 8. Semester, 9. Session</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="p-2 bg-bg-card rounded-lg font-mono text-[10px] text-text-main overflow-x-auto">
+                RegNo, RollNo, Name, Department, Email, Phone, Degree, Semester, Session
+              </div>
+            </div>
+
+            <form onSubmit={handleCsvUploadForPartner} className="space-y-3 text-xs">
+              <textarea
+                rows={7}
+                required
+                value={csvText}
+                onChange={(e) => setCsvText(e.target.value)}
+                placeholder={`REG2026001, ROLL101, Rahul Sharma, Computer Science, rahul@gmail.com, 9876543210, B.Tech, 6th, 2023-2027\nREG2026002, ROLL102, Priya Singh, Electrical Eng, priya@gmail.com, 9876543211, B.Tech, 6th, 2023-2027`}
+                className="w-full p-3 font-mono text-xs bg-bg-main border border-border-main rounded-xl outline-none"
+              />
+
+              <div className="flex justify-end gap-2 pt-2 border-t border-border-main">
+                <button type="button" onClick={() => setShowCsvModal(false)} className="px-4 py-2 border rounded-xl">Cancel</button>
+                <button type="submit" disabled={isSubmittingRoster} className="px-5 py-2 bg-blue-600 text-white font-bold rounded-xl">
+                  {isSubmittingRoster ? "Uploading..." : "Upload & Save Roster"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <DeleteConfirmModal
         isOpen={showConfirmModal}
         onClose={() => {

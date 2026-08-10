@@ -58,11 +58,11 @@ export default function Navbar() {
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Explore Internships", href: "/internship" },
+    { label: "Partner Students", href: "/partner-students" },
     { label: "Courses", href: "/courses" },
     { label: "Verify", href: "/verify" },
     { label: "About us", href: "/about" },
     { label: "Contact", href: "/contact" },
-    
   ];
 
   return (

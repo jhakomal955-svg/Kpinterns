@@ -1,6 +1,6 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, AttendanceModel, AdminModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, AttendanceModel, AdminModel, PartnerStudentModel } from "@/models";
 import crypto from "crypto";
 import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
@@ -83,12 +83,7 @@ export async function POST(request) {
   try {
     await connectDB();
 
-    // Authenticate user
-    const auth = verifyAuth(request, ["User", "Admin"]);
-    if (!auth.authenticated) {
-      return Response.json({ error: auth.error }, { status: auth.status });
-    }
-
+    const body = await request.json();
     const {
       razorpay_payment_id,
       razorpay_order_id,
@@ -96,14 +91,16 @@ export async function POST(request) {
       userId,
       type,
       itemId,
-    } = await request.json();
+      studentPayload,
+    } = body;
 
-    if (!userId || !type || !itemId) {
+    if ((!userId && !studentPayload) || !type || !itemId) {
       return Response.json({ error: "Missing required enrollment fields" }, { status: 400 });
     }
 
-    // A User role can only verify payments and enroll for their own userId
-    if (auth.user.role === "User" && auth.user._id !== userId) {
+    // Optional auth check if logged in
+    const decoded = getAuthUser(request);
+    if (decoded && decoded.role === "User" && userId && decoded._id !== userId) {
       return Response.json({ error: "Access denied: unauthorized operation." }, { status: 403 });
     }
 
@@ -114,9 +111,20 @@ export async function POST(request) {
 
     // Resolve models
     const User = createModel("User", UserModel);
-    const user = await User.findById(userId);
-    if (!user) {
-      return Response.json({ error: "User not found" }, { status: 404 });
+    let user = null;
+
+    if (userId) {
+      user = await User.findById(userId);
+    }
+
+    if (!user && studentPayload) {
+      user = await User.findOne({
+        $or: [
+          { registrationNumber: studentPayload.registrationNumber },
+          { email: studentPayload.email },
+          { phone: studentPayload.phone },
+        ],
+      });
     }
 
     if (type === "course") {
@@ -139,10 +147,11 @@ export async function POST(request) {
       return Response.json({ error: "Invalid enrollment type" }, { status: 400 });
     }
 
-    // Apply custom rates if the user belongs to a verified College Admin college with rates > 0
-    if (user.college) {
+    // Apply custom rates if college has a verified College Admin with rate > 0
+    const targetCollege = user?.college || studentPayload?.college;
+    if (targetCollege) {
       const Admin = createModel("Admin", AdminModel);
-      const escapedCollege = user.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      const escapedCollege = targetCollege.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
       const collegeAdmin = await Admin.findOne({
         role: "College Admin",
         verified: true,
@@ -177,6 +186,34 @@ export async function POST(request) {
       if (generatedSignature !== razorpay_signature) {
         return Response.json({ error: "Invalid payment signature verification failed" }, { status: 400 });
       }
+    }
+
+    // Strict Mode: Create user account now that payment signature is verified
+    if (!user && studentPayload) {
+      const bcrypt = (await import("bcryptjs")).default;
+      const hashedPassword = await bcrypt.hash(studentPayload.password || "KpStudent@2026", 10);
+      user = new User({
+        fullName: studentPayload.fullName,
+        email: studentPayload.email,
+        phone: studentPayload.phone,
+        gender: studentPayload.gender || "Other",
+        parentName: studentPayload.parentName || "N/A",
+        university: studentPayload.university || "Partner University",
+        college: studentPayload.college,
+        degree: studentPayload.degree || "B.Tech",
+        department: studentPayload.department || "Computer Science",
+        rollNumber: studentPayload.rollNumber,
+        semester: studentPayload.semester || "6th",
+        session: studentPayload.session || "2023-2027",
+        registrationNumber: studentPayload.registrationNumber,
+        password: hashedPassword,
+        verified: true,
+      });
+      await user.save();
+    }
+
+    if (!user) {
+      return Response.json({ error: "User account could not be found or created." }, { status: 404 });
     }
 
     // Enroll user in the course or internship
@@ -249,10 +286,41 @@ export async function POST(request) {
           attendance: newAtt._id,
         });
       }
+
+      // Link PartnerStudent record upon successful payment verification
+      const cleanReg = (user.registrationNumber || "").trim();
+      const cleanRoll = (user.rollNumber || "").trim();
+      const cleanEmail = (user.email || "").trim().toLowerCase();
+
+      if (cleanReg || cleanRoll || cleanEmail) {
+        const PartnerStudent = createModel("PartnerStudent", PartnerStudentModel);
+        const orConditions = [];
+        if (cleanReg) orConditions.push({ registrationNumber: cleanReg });
+        if (cleanRoll) orConditions.push({ rollNumber: cleanRoll });
+        if (cleanEmail) orConditions.push({ email: cleanEmail });
+
+        await PartnerStudent.findOneAndUpdate(
+          { $or: orConditions },
+          {
+            enrolledUserId: user._id,
+            enrolledInternshipId: itemId,
+          }
+        );
+      }
     }
 
     user.updatedAt = new Date();
     await user.save();
+
+    const targetUserId = user._id;
+
+    // Generate JWT token for session
+    const token = signToken({
+      _id: targetUserId.toString(),
+      email: user.email,
+      role: "student",
+      name: user.fullName,
+    });
 
     // Defer slow operations to run in the background after response is sent
     after(async () => {
@@ -276,7 +344,7 @@ export async function POST(request) {
         // Step 2: Upload to Cloudinary and save URL directly on user document
         if (receiptPdfBuffer) {
           try {
-            const filename = `payment_receipt_${userId}_${Date.now()}`;
+            const filename = `payment_receipt_${targetUserId}_${Date.now()}`;
             const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
               public_id: filename,
               folder: "kpinterns/receipts",
@@ -287,12 +355,12 @@ export async function POST(request) {
             // Save URL directly on the user record in database to avoid concurrent state overwriting
             if (type === "internship" && user.ActiveInternship?.length > 0) {
               await User.updateOne(
-                { _id: userId, "ActiveInternship.internship": itemId },
+                { _id: targetUserId, "ActiveInternship.internship": itemId },
                 { $set: { "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl } }
               );
             } else if (type === "course" && user.ActiveCources?.length > 0) {
               await User.updateOne(
-                { _id: userId, "ActiveCources.course": itemId },
+                { _id: targetUserId, "ActiveCources.course": itemId },
                 { $set: { "ActiveCources.$.paymentreceipt": receiptCloudinaryUrl } }
               );
             }
@@ -319,7 +387,7 @@ export async function POST(request) {
 
         // Run automated document generation (e.g. generate and email offer letter for new internship enrollment)
         try {
-          await checkAndAutomateDocuments(userId);
+          await checkAndAutomateDocuments(targetUserId.toString());
         } catch (docError) {
           console.error("❌ Failed to run automated document checks on payment verify:", docError);
         }
@@ -332,16 +400,17 @@ export async function POST(request) {
     createModel("Course", CourseModel);
     createModel("Internship", InternshipModel);
     createModel("Attendance", AttendanceModel);
-    const populatedUser = await User.findById(userId)
+    const populatedUser = await User.findById(targetUserId)
       .populate("ActiveCources.course")
       .populate("ActiveInternship.internship")
       .populate("ActiveInternship.attendance");
 
-    const userObj = populatedUser.toObject();
+    const userObj = populatedUser ? populatedUser.toObject() : user.toObject();
     delete userObj.password;
 
     return Response.json({
       success: true,
+      token,
       message: "Successfully enrolled",
       data: userObj,
     }, { status: 200 });

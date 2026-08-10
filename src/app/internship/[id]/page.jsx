@@ -390,32 +390,27 @@ export default function InternshipDetailLearnPage() {
       setIsLoading(true);
 
       if (price === 0) {
-        // Free internship enrollment - direct PUT update
-        const updatedActiveInternships = [
-          ...(userData.ActiveInternship || []),
-          {
-            internship: internshipId,
-            internshipStatus: "Active",
-            progress: 0,
-            paymentStatus: true,
-            paymentDate: new Date(),
-            amount: 0,
-          },
-        ];
-
+        // Free internship enrollment via payment verify endpoint
         const token = localStorage.getItem("userToken");
-        const res = await fetch(`/api/user?id=${userData._id}`, {
-          method: "PUT",
+        const res = await fetch("/api/payment/verify", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
           },
-          body: JSON.stringify({ ActiveInternship: updatedActiveInternships }),
+          body: JSON.stringify({
+            userId: userData._id,
+            type: "internship",
+            itemId: internshipId,
+            amount: 0,
+          }),
         });
 
         const data = await res.json();
-        if (data.success) {
-          localStorage.setItem("userData", JSON.stringify(data.data));
+        if (res.ok && data.success) {
+          if (data.data) {
+            localStorage.setItem("userData", JSON.stringify(data.data));
+          }
           setIsEnrolled(true);
           setSuccessModal({
             isOpen: true,

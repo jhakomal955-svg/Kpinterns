@@ -13,6 +13,8 @@ import AttendanceModel from "./Attendance.js";
 import TestimonialModel from "./Testimonial.js";
 import LiveChatMessageModel from "./LiveChatMessage.js";
 import CouponModel from "./CouponModel.js";
+import LeadModel from "./LeadModel.js";
+import PartnerStudentModel from "./PartnerStudentModel.js";
 
 export {
   UserModel,
@@ -25,5 +27,7 @@ export {
   TestimonialModel,
   LiveChatMessageModel,
   CouponModel,
+  LeadModel,
+  PartnerStudentModel,
 };
 

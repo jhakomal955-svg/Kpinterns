@@ -158,6 +158,7 @@ export default function InternshipEditPage() {
     "Arts & Humanities (BA)": [
       "Arts",
       "Home Science",
+      "HUMANITIES",
       "Ancient indian history",
       "Anthropology",
       "Bojpuri",

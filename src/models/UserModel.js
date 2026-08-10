@@ -150,6 +150,10 @@ const UserModel = {
     type: Date,
     default: null,
   },
+  resetOtpAttempts: {
+    type: Number,
+    default: 0,
+  },
 
   verified: {
     type: Boolean,

@@ -4,6 +4,35 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { universitiesData } from "@/lib/data/universities";
+import { getDepartmentsForDegree, DEGREE_LIST } from "@/lib/data/degreeDepartments";
+
+const DEGREE_OPTIONS = DEGREE_LIST;
+
+const DEPARTMENT_OPTIONS = [
+  "Computer Science & Engineering",
+  "Information Technology (IT)",
+  "Artificial Intelligence & ML (AI & ML)",
+  "Data Science",
+  "Cyber Security",
+  "Electronics & Communication (ECE)",
+  "Electrical & Electronics (EEE)",
+  "Mechanical Engineering",
+  "Civil Engineering",
+  "Robotics & Automation",
+  "Software Engineering",
+  "Other",
+];
+
+const SEMESTER_OPTIONS = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
+const SESSION_OPTIONS = [
+  "2023-2027",
+  "2024-2028",
+  "2022-2026",
+  "2025-2029",
+  "2021-2025",
+  "2024-2027",
+  "2025-2028",
+];
 
 export default function CollegeAdminEditPage() {
   const router = useRouter();
@@ -16,6 +45,28 @@ export default function CollegeAdminEditPage() {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+
+  // Roster Tab state
+  const [rosterStudents, setRosterStudents] = useState([]);
+  const [isRosterLoading, setIsRosterLoading] = useState(false);
+  const [rosterSearch, setRosterSearch] = useState("");
+  const [showAddSingleModal, setShowAddSingleModal] = useState(false);
+  const [showCsvModal, setShowCsvModal] = useState(false);
+  const [csvText, setCsvText] = useState("");
+  const [isSubmittingRoster, setIsSubmittingRoster] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  const [newStudent, setNewStudent] = useState({
+    fullName: "",
+    registrationNumber: "",
+    rollNumber: "",
+    email: "",
+    phone: "",
+    degree: "B.Tech",
+    department: "Computer Science & Engineering",
+    semester: "6th",
+    session: "2023-2027",
+  });
 
   const [formData, setFormData] = useState({
     name: "",
@@ -30,7 +81,7 @@ export default function CollegeAdminEditPage() {
     bankDetails: {
       name: "",
       accountNumber: "",
-      ifscCode: ""
+      ifscCode: "",
     },
     commissionPercentage: 0,
     paymentsDone: 0,
@@ -38,7 +89,7 @@ export default function CollegeAdminEditPage() {
     employedate: "",
     internshipRate: 0,
     courseRate: 0,
-    internshipStartDate: ""
+    internshipStartDate: "",
   });
 
   const findUniversityKey = (fullName) => {
@@ -58,7 +109,7 @@ export default function CollegeAdminEditPage() {
     try {
       setIsLoading(true);
       const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
-      const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const res = await fetch(`/api/admin?id=${partnerId}`, { headers });
       const data = await res.json();
       if (data.success && data.data) {
@@ -73,22 +124,26 @@ export default function CollegeAdminEditPage() {
           role: "College Admin",
           bio: partner.bio || "",
           verified: partner.verified !== undefined ? partner.verified : false,
-          password: "", // hide password
+          password: "",
           UniversityName: univKey,
           CollegeName: collegeKey,
           bankDetails: {
             name: partner.bankDetails?.name || "",
             accountNumber: partner.bankDetails?.accountNumber || "",
-            ifscCode: partner.bankDetails?.ifscCode || ""
+            ifscCode: partner.bankDetails?.ifscCode || "",
           },
           commissionPercentage: partner.commissionPercentage || 0,
           paymentsDone: partner.paymentsDone || 0,
           totalRevenue: partner.totalRevenue || 0,
-          employedate: partner.employedate ? new Date(partner.employedate).toISOString().split('T')[0] : "",
+          employedate: partner.employedate ? new Date(partner.employedate).toISOString().split("T")[0] : "",
           internshipRate: partner.internshipRate || 0,
           courseRate: partner.courseRate || 0,
-          internshipStartDate: partner.internshipStartDate ? new Date(partner.internshipStartDate).toISOString().split('T')[0] : ""
+          internshipStartDate: partner.internshipStartDate ? new Date(partner.internshipStartDate).toISOString().split("T")[0] : "",
         });
+
+        if (partner.CollegeName) {
+          fetchRoster(partner.CollegeName);
+        }
       } else {
         setError(data.error || "Failed to load College Admin profile");
       }
@@ -96,6 +151,24 @@ export default function CollegeAdminEditPage() {
       setError("Error loading College Admin: " + err.message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const fetchRoster = async (collegeName) => {
+    try {
+      setIsRosterLoading(true);
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`/api/partner-students?college=${encodeURIComponent(collegeName)}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      const data = await res.json();
+      if (data.success) {
+        setRosterStudents(data.students || []);
+      }
+    } catch (err) {
+      console.error("Error loading roster:", err);
+    } finally {
+      setIsRosterLoading(false);
     }
   };
 
@@ -110,7 +183,7 @@ export default function CollegeAdminEditPage() {
     setFormData((prev) => {
       const updated = {
         ...prev,
-        [name]: type === "checkbox" ? checked : value
+        [name]: type === "checkbox" ? checked : value,
       };
       if (name === "UniversityName") {
         updated.CollegeName = "";
@@ -125,8 +198,8 @@ export default function CollegeAdminEditPage() {
       ...prev,
       bankDetails: {
         ...prev.bankDetails,
-        [name]: value
-      }
+        [name]: value,
+      },
     }));
   };
 
@@ -143,36 +216,6 @@ export default function CollegeAdminEditPage() {
         return;
       }
 
-      if (!formData.UniversityName) {
-        setError("University selection is required");
-        setIsSubmitting(false);
-        return;
-      }
-
-      if (!formData.CollegeName) {
-        setError("College selection is required");
-        setIsSubmitting(false);
-        return;
-      }
-
-      if (!formData.bankDetails?.name || formData.bankDetails.name.trim().length < 3) {
-        setError("Bank Account Holder Name must be at least 3 characters");
-        setIsSubmitting(false);
-        return;
-      }
-
-      if (!formData.bankDetails?.accountNumber || !/^\d{9,18}$/.test(formData.bankDetails.accountNumber.trim())) {
-        setError("Bank Account Number must be between 9 and 18 digits");
-        setIsSubmitting(false);
-        return;
-      }
-
-      if (!formData.bankDetails?.ifscCode || !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(formData.bankDetails.ifscCode.trim().toUpperCase())) {
-        setError("Invalid IFSC Code format (e.g. SBIN0001234)");
-        setIsSubmitting(false);
-        return;
-      }
-
       const resolvedUniversityName = universitiesData[formData.UniversityName]?.name || formData.UniversityName;
       const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
 
@@ -183,12 +226,12 @@ export default function CollegeAdminEditPage() {
         bankDetails: {
           name: formData.bankDetails.name.trim(),
           accountNumber: formData.bankDetails.accountNumber.trim(),
-          ifscCode: formData.bankDetails.ifscCode.trim().toUpperCase()
-        }
+          ifscCode: formData.bankDetails.ifscCode.trim().toUpperCase(),
+        },
       };
 
       if (!payload.password) {
-        delete payload.password; // Do not send empty password
+        delete payload.password;
       }
 
       const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
@@ -196,9 +239,9 @@ export default function CollegeAdminEditPage() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -217,6 +260,158 @@ export default function CollegeAdminEditPage() {
     }
   };
 
+  // Roster Management Handlers
+  const handleAddSingleStudent = async (e) => {
+    e.preventDefault();
+    const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
+
+    try {
+      setIsSubmittingRoster(true);
+      const token = localStorage.getItem("adminToken");
+
+      const payload = {
+        ...newStudent,
+        collegeName: resolvedCollegeName,
+        university: universitiesData[formData.UniversityName]?.name || formData.UniversityName,
+        collegeAdminId: partnerId,
+      };
+
+      const res = await fetch("/api/partner-students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setShowAddSingleModal(false);
+        setNewStudent({
+          fullName: "",
+          registrationNumber: "",
+          rollNumber: "",
+          email: "",
+          phone: "",
+          degree: "B.Tech",
+          department: "Computer Science & Engineering",
+          semester: "6th",
+          session: "2023-2027",
+        });
+        fetchRoster(resolvedCollegeName);
+      } else {
+        alert(data.error || "Failed to add student to roster");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+    } finally {
+      setIsSubmittingRoster(false);
+    }
+  };
+
+  const handleCsvUpload = async (e) => {
+    e.preventDefault();
+    if (!csvText.trim()) return;
+
+    const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
+
+    try {
+      setIsSubmittingRoster(true);
+      const token = localStorage.getItem("adminToken");
+
+      const lines = csvText.trim().split("\n");
+      const parsedRecords = [];
+
+      for (let line of lines) {
+        const parts = line.split(",").map((p) => p.trim());
+        if (parts.length < 3) continue;
+        if (parts[0].toLowerCase().includes("reg") || parts[0].toLowerCase().includes("roll")) continue;
+
+        parsedRecords.push({
+          collegeName: resolvedCollegeName,
+          university: universitiesData[formData.UniversityName]?.name || formData.UniversityName,
+          collegeAdminId: partnerId,
+          registrationNumber: parts[0] || "",
+          rollNumber: parts[1] || "",
+          fullName: parts[2] || "",
+          department: parts[3] || "Computer Science & Engineering",
+          email: parts[4] || "",
+          phone: parts[5] || "",
+          degree: parts[6] || "B.Tech",
+          semester: parts[7] || "6th",
+          session: parts[8] || "2023-2027",
+        });
+      }
+
+      if (parsedRecords.length === 0) {
+        alert("No valid CSV lines found.");
+        setIsSubmittingRoster(false);
+        return;
+      }
+
+      const res = await fetch("/api/partner-students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(parsedRecords),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setShowCsvModal(false);
+        setCsvText("");
+        fetchRoster(resolvedCollegeName);
+      } else {
+        alert(data.error || "Failed to upload CSV roster");
+      }
+    } catch (err) {
+      alert("CSV Error: " + err.message);
+    } finally {
+      setIsSubmittingRoster(false);
+    }
+  };
+
+  const handleDeleteRosterStudent = async (id) => {
+    if (!confirm("Are you sure you want to remove this student record?")) return;
+    const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
+
+    try {
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`/api/partner-students?id=${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (data.success) {
+        fetchRoster(resolvedCollegeName);
+      } else {
+        alert(data.error || "Failed to delete student");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
+  };
+
+  const handleCopyHeader = () => {
+    const header = "RegistrationNumber, RollNumber, FullName, Department, Email, Phone, Degree, Semester, Session";
+    navigator.clipboard.writeText(header);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000);
+  };
+
+  const filteredRoster = rosterStudents.filter((st) => {
+    const term = rosterSearch.toLowerCase();
+    return (
+      st.fullName?.toLowerCase().includes(term) ||
+      st.registrationNumber?.toLowerCase().includes(term) ||
+      st.rollNumber?.toLowerCase().includes(term) ||
+      st.department?.toLowerCase().includes(term)
+    );
+  });
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -234,10 +429,10 @@ export default function CollegeAdminEditPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-text-main">
-            Edit College Admin Profile
+            Edit College Partner Profile & Roster
           </h1>
           <p className="text-text-muted text-sm sm:text-base">
-            Modify credentials, institution details, bank accounts and metrics for this partner college admin.
+            Modify credentials, institution details, bank accounts, rates, and pre-approved student rosters.
           </p>
         </div>
         <Link
@@ -263,367 +458,453 @@ export default function CollegeAdminEditPage() {
       )}
 
       {/* Tabs Menu */}
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="flex gap-2 border-b-2 border-border-main mb-4 bg-bg-card rounded-t-2xl p-4">
-          <button
-            type="button"
-            onClick={() => setActiveTab("personal")}
-            className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
-              activeTab === "personal"
-                ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
-                : "border-transparent text-text-muted hover:text-text-main"
-            }`}
-          >
-            Personal Info
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("institution")}
-            className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
-              activeTab === "institution"
-                ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
-                : "border-transparent text-text-muted hover:text-text-main"
-            }`}
-          >
-            Institution Info
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("bank")}
-            className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
-              activeTab === "bank"
-                ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
-                : "border-transparent text-text-muted hover:text-text-main"
-            }`}
-          >
-            Bank Details
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("financials")}
-            className={`px-5 py-3 font-semibold transition-all cursor-pointer ${
-              activeTab === "financials"
-                ? "border-b-2 border-brand-primary text-brand-primary -mb-4 font-bold"
-                : "border-transparent text-text-muted hover:text-text-main"
-            }`}
-          >
-            Financials & Metrics
-          </button>
-        </div>
+      <div className="flex flex-wrap gap-2 border-b-2 border-border-main mb-4 bg-bg-card rounded-t-2xl p-4">
+        <button
+          type="button"
+          onClick={() => setActiveTab("personal")}
+          className={`px-4 py-2.5 font-semibold transition-all cursor-pointer text-sm ${
+            activeTab === "personal"
+              ? "border-b-2 border-brand-primary text-brand-primary font-bold"
+              : "border-transparent text-text-muted hover:text-text-main"
+          }`}
+        >
+          Personal Info
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab("institution")}
+          className={`px-4 py-2.5 font-semibold transition-all cursor-pointer text-sm ${
+            activeTab === "institution"
+              ? "border-b-2 border-brand-primary text-brand-primary font-bold"
+              : "border-transparent text-text-muted hover:text-text-main"
+          }`}
+        >
+          Institution Info
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab("bank")}
+          className={`px-4 py-2.5 font-semibold transition-all cursor-pointer text-sm ${
+            activeTab === "bank"
+              ? "border-b-2 border-brand-primary text-brand-primary font-bold"
+              : "border-transparent text-text-muted hover:text-text-main"
+          }`}
+        >
+          Bank Details
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab("financials")}
+          className={`px-4 py-2.5 font-semibold transition-all cursor-pointer text-sm ${
+            activeTab === "financials"
+              ? "border-b-2 border-brand-primary text-brand-primary font-bold"
+              : "border-transparent text-text-muted hover:text-text-main"
+          }`}
+        >
+          Financials & Rates
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab("roster")}
+          className={`px-4 py-2.5 font-semibold transition-all cursor-pointer text-sm flex items-center gap-1.5 ${
+            activeTab === "roster"
+              ? "border-b-2 border-brand-primary text-brand-primary font-bold"
+              : "border-transparent text-text-muted hover:text-text-main"
+          }`}
+        >
+          🎓 Student Roster ({rosterStudents.length})
+        </button>
+      </div>
 
-        {/* Tab Content: Personal Info */}
-        {activeTab === "personal" && (
-          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-              1. Personal Credentials
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Full Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="e.g. Dr. John Doe"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="partner@college.edu"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Mobile Number *</label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  required
-                  value={formData.mobile}
-                  onChange={handleInputChange}
-                  placeholder="10-digit mobile number"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Password (leave blank to keep)</label>
-                <div className="relative">
+      {/* Tab 5: Student Roster Management */}
+      {activeTab === "roster" ? (
+        <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border-main pb-4">
+            <div>
+              <h3 className="text-lg font-bold text-text-main">
+                Pre-Approved Student Roster Management
+              </h3>
+              <p className="text-xs text-text-muted">
+                Upload student Reg No & Roll No lists for this college partner so students can self-verify on the website.
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setShowAddSingleModal(true)}
+                className="px-4 py-2 bg-brand-primary text-white text-xs font-bold rounded-xl"
+              >
+                + Add Single Student
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowCsvModal(true)}
+                className="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl"
+              >
+                📁 Bulk CSV Upload
+              </button>
+            </div>
+          </div>
+
+          <input
+            type="text"
+            placeholder="Filter roster by name, reg no, roll no..."
+            value={rosterSearch}
+            onChange={(e) => setRosterSearch(e.target.value)}
+            className="w-full px-4 py-2.5 bg-bg-main border border-border-main rounded-xl text-sm"
+          />
+
+          {isRosterLoading ? (
+            <div className="py-8 text-center text-text-muted">Loading roster records...</div>
+          ) : filteredRoster.length === 0 ? (
+            <div className="p-8 text-center bg-bg-main rounded-2xl border border-border-main text-text-muted text-sm">
+              No pre-approved student records uploaded for this partner college yet.
+            </div>
+          ) : (
+            <div className="overflow-x-auto border border-border-main rounded-2xl">
+              <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                <thead>
+                  <tr className="bg-bg-main border-b border-border-main text-text-muted uppercase font-bold">
+                    <th className="p-3">Reg No & Roll No</th>
+                    <th className="p-3">Student Name</th>
+                    <th className="p-3">Department & Degree</th>
+                    <th className="p-3">Semester & Session</th>
+                    <th className="p-3 text-center">Status</th>
+                    <th className="p-3 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border-main">
+                  {filteredRoster.map((st) => (
+                    <tr key={st._id} className="hover:bg-bg-main/50">
+                      <td className="p-3 font-mono font-medium">
+                        <div>Reg: {st.registrationNumber}</div>
+                        <div className="text-text-muted text-xs">Roll: {st.rollNumber}</div>
+                      </td>
+                      <td className="p-3 font-semibold text-text-main">{st.fullName}</td>
+                      <td className="p-3 text-text-muted">
+                        <div>{st.department}</div>
+                        <div className="text-xs font-semibold text-brand-primary">{st.degree}</div>
+                      </td>
+                      <td className="p-3 text-text-muted">
+                        <div>Sem: {st.semester}</div>
+                        <div className="text-xs">{st.session}</div>
+                      </td>
+                      <td className="p-3 text-center">
+                        {st.enrolledUserId ? (
+                          <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-bold text-xs">✓ Enrolled</span>
+                        ) : (
+                          <span className="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 font-bold text-xs">⏳ Pending</span>
+                        )}
+                      </td>
+                      <td className="p-3 text-right">
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteRosterStudent(st._id)}
+                          className="px-3 py-1 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg text-xs font-semibold"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      ) : (
+        /* Form for other tabs */
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {activeTab === "personal" && (
+            <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+                1. Personal Credentials
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Full Name *</label>
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Email Address *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Mobile Number *</label>
+                  <input
+                    type="tel"
+                    name="mobile"
+                    required
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Password (leave blank to keep)</label>
+                  <input
+                    type="password"
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    placeholder="Minimum 6 characters"
-                    className="w-full p-2.5 pr-10 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors text-sm"
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "institution" && (
+            <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+                2. Institution Mapping
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">University *</label>
+                  <select
+                    name="UniversityName"
+                    value={formData.UniversityName}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none"
                   >
-                    {showPassword ? "👁️" : "🙈"}
-                  </button>
+                    <option value="">Select University</option>
+                    {Object.entries(universitiesData).map(([key, u]) => (
+                      <option key={key} value={key}>{u.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College *</label>
+                  <select
+                    name="CollegeName"
+                    value={formData.CollegeName}
+                    onChange={handleInputChange}
+                    disabled={!formData.UniversityName}
+                    required
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none"
+                  >
+                    <option value="">{formData.UniversityName ? "Select College" : "Select University first"}</option>
+                    {formData.UniversityName &&
+                      Object.entries(universitiesData[formData.UniversityName]?.colleges || {}).map(([key, c]) => (
+                        <option key={key} value={key}>{c.name}</option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "bank" && (
+            <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+                3. Bank Account Details
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Holder Name</label>
+                  <input type="text" name="name" value={formData.bankDetails.name} onChange={handleBankInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Account Number</label>
+                  <input type="text" name="accountNumber" value={formData.bankDetails.accountNumber} onChange={handleBankInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">IFSC Code</label>
+                  <input type="text" name="ifscCode" value={formData.bankDetails.ifscCode} onChange={handleBankInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "financials" && (
+            <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+                4. Rates & Metrics
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Special Internship Rate (₹)</label>
+                  <input type="number" name="internshipRate" value={formData.internshipRate} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Special Course Rate (₹)</label>
+                  <input type="number" name="courseRate" value={formData.courseRate} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="flex gap-4 items-center justify-end">
+            <button type="submit" disabled={isSubmitting} className="px-8 py-3 bg-brand-primary text-white font-bold rounded-xl shadow-md">
+              {isSubmitting ? "Saving..." : "Save Profile Changes"}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Add Single Modal */}
+      {showAddSingleModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-bg-card border-2 border-border-main w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-4 my-8">
+            <div className="flex justify-between items-center border-b border-border-main pb-2">
+              <h4 className="font-bold text-base text-text-main">Add Student</h4>
+              <button onClick={() => setShowAddSingleModal(false)}>✕</button>
+            </div>
+            <form onSubmit={handleAddSingleStudent} className="space-y-3 text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Registration No *</label>
+                  <input type="text" required value={newStudent.registrationNumber} onChange={(e) => setNewStudent({ ...newStudent, registrationNumber: e.target.value })} className="w-full p-2.5 bg-bg-main border rounded-xl" />
+                </div>
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Roll Number *</label>
+                  <input type="text" required value={newStudent.rollNumber} onChange={(e) => setNewStudent({ ...newStudent, rollNumber: e.target.value })} className="w-full p-2.5 bg-bg-main border rounded-xl" />
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-text-muted block mb-1">Full Name *</label>
+                <input type="text" required value={newStudent.fullName} onChange={(e) => setNewStudent({ ...newStudent, fullName: e.target.value })} className="w-full p-2.5 bg-bg-main border rounded-xl" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Degree *</label>
+                  <select
+                    value={newStudent.degree}
+                    onChange={(e) => {
+                      const newDeg = e.target.value;
+                      const availableDepts = getDepartmentsForDegree(newDeg);
+                      setNewStudent({
+                        ...newStudent,
+                        degree: newDeg,
+                        department: availableDepts[0] || "Computer Science",
+                      });
+                    }}
+                    className="w-full p-2.5 bg-bg-main border rounded-xl"
+                  >
+                    {DEGREE_OPTIONS.map((deg) => (
+                      <option key={deg} value={deg}>{deg}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Department / Domain *</label>
+                  <select
+                    value={newStudent.department}
+                    onChange={(e) => setNewStudent({ ...newStudent, department: e.target.value })}
+                    className="w-full p-2.5 bg-bg-main border rounded-xl"
+                  >
+                    {getDepartmentsForDegree(newStudent.degree).map((dept) => (
+                      <option key={dept} value={dept}>{dept}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Semester *</label>
+                  <select
+                    value={newStudent.semester}
+                    onChange={(e) => setNewStudent({ ...newStudent, semester: e.target.value })}
+                    className="w-full p-2.5 bg-bg-main border rounded-xl"
+                  >
+                    {SEMESTER_OPTIONS.map((sem) => (
+                      <option key={sem} value={sem}>{sem} Semester</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="font-bold text-text-muted block mb-1">Academic Session *</label>
+                  <select
+                    value={newStudent.session}
+                    onChange={(e) => setNewStudent({ ...newStudent, session: e.target.value })}
+                    className="w-full p-2.5 bg-bg-main border rounded-xl"
+                  >
+                    {SESSION_OPTIONS.map((ses) => (
+                      <option key={ses} value={ses}>{ses}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2 border-t">
+                <button type="button" onClick={() => setShowAddSingleModal(false)} className="px-3 py-1.5 border rounded-lg">Cancel</button>
+                <button type="submit" disabled={isSubmittingRoster} className="px-4 py-1.5 bg-brand-primary text-white font-bold rounded-lg">{isSubmittingRoster ? "Saving..." : "Save Record"}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* CSV Modal with Admin Guide */}
+      {showCsvModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-bg-card border-2 border-border-main w-full max-w-xl rounded-2xl p-6 shadow-2xl space-y-4 my-8">
+            <div className="flex justify-between items-center border-b border-border-main pb-2">
+              <h4 className="font-bold text-base text-text-main">Bulk CSV Roster Upload Guide</h4>
+              <button onClick={() => setShowCsvModal(false)}>✕</button>
+            </div>
+
+            <div className="bg-bg-main p-4 rounded-xl border border-border-main text-xs space-y-2">
+              <div className="font-bold text-brand-primary uppercase tracking-wider flex justify-between items-center">
+                <span>📋 CSV Format Guide & Required Fields</span>
+                <button
+                  type="button"
+                  onClick={handleCopyHeader}
+                  className="px-2.5 py-1 bg-brand-primary/10 border border-brand-primary/20 text-brand-primary rounded-lg text-[10px] font-bold"
+                >
+                  {copySuccess ? "✓ Header Copied!" : "📋 Copy Header String"}
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <span className="font-bold text-red-500">🔴 Required Fields:</span>
+                  <ul className="list-disc pl-4 text-text-muted">
+                    <li>1. RegistrationNumber</li>
+                    <li>2. RollNumber</li>
+                    <li>3. FullName</li>
+                  </ul>
+                </div>
+                <div>
+                  <span className="font-bold text-blue-500">🔵 Optional Fields:</span>
+                  <ul className="list-disc pl-4 text-text-muted">
+                    <li>4. Department, 5. Email</li>
+                    <li>6. Phone, 7. Degree</li>
+                    <li>8. Semester, 9. Session</li>
+                  </ul>
                 </div>
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Bio / Note</label>
-              <textarea
-                name="bio"
-                value={formData.bio}
-                onChange={handleInputChange}
-                placeholder="Details or notes about this college coordinator..."
-                rows={3}
-                className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition resize-none"
-              />
-            </div>
-
-            <div className="flex items-center">
-              <input
-                id="verified"
-                name="verified"
-                type="checkbox"
-                checked={formData.verified}
-                onChange={handleInputChange}
-                className="w-4.5 h-4.5 text-brand-primary border-border-main rounded focus:ring-brand-primary"
-              />
-              <label htmlFor="verified" className="ml-2 block text-sm font-semibold text-text-main select-none cursor-pointer">
-                Verified Account (Allows partner to login)
-              </label>
-            </div>
+            <form onSubmit={handleCsvUpload} className="space-y-3 text-xs">
+              <textarea rows={6} required value={csvText} onChange={(e) => setCsvText(e.target.value)} placeholder={`REG2026001, ROLL101, Rahul Sharma, Computer Science, rahul@gmail.com, 9876543210, B.Tech, 6th, 2023-2027\nREG2026002, ROLL102, Priya Singh, Electrical Eng, priya@gmail.com, 9876543211, B.Tech, 6th, 2023-2027`} className="w-full p-3 font-mono bg-bg-main border rounded-xl outline-none" />
+              <div className="flex justify-end gap-2 pt-2 border-t">
+                <button type="button" onClick={() => setShowCsvModal(false)} className="px-3 py-1.5 border rounded-lg">Cancel</button>
+                <button type="submit" disabled={isSubmittingRoster} className="px-4 py-1.5 bg-blue-600 text-white font-bold rounded-lg">{isSubmittingRoster ? "Uploading..." : "Upload CSV"}</button>
+              </div>
+            </form>
           </div>
-        )}
-
-        {/* Tab Content: Institution Info */}
-        {activeTab === "institution" && (
-          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-              2. Institution Mapping
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">University *</label>
-                <select
-                  name="UniversityName"
-                  value={formData.UniversityName}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition appearance-none"
-                >
-                  <option value="">Select University</option>
-                  {Object.entries(universitiesData).map(([key, u]) => (
-                    <option key={key} value={key}>
-                      {u.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College *</label>
-                <select
-                  name="CollegeName"
-                  value={formData.CollegeName}
-                  onChange={handleInputChange}
-                  disabled={!formData.UniversityName}
-                  required
-                  className={`w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition appearance-none ${
-                    !formData.UniversityName ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                >
-                  <option value="">
-                    {formData.UniversityName ? "Select College" : "Select University first"}
-                  </option>
-                  {formData.UniversityName &&
-                    Object.entries(universitiesData[formData.UniversityName]?.colleges || {}).map(([key, c]) => (
-                      <option key={key} value={key}>
-                        {c.name}
-                      </option>
-                    ))}
-                </select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Internship Starting Date</label>
-                <input
-                  type="date"
-                  name="internshipStartDate"
-                  value={formData.internshipStartDate}
-                  onChange={handleInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-                <p className="text-xs text-text-muted mt-1">
-                  📅 If set, all students registered under this college will have their internship starting date set to this date. Leave blank for standard registration date.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tab Content: Bank Account */}
-        {activeTab === "bank" && (
-          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-              3. Bank Account Details
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Account Holder Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.bankDetails.name}
-                  onChange={handleBankInputChange}
-                  placeholder="e.g. Dr. John Doe"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Account Number *</label>
-                <input
-                  type="text"
-                  name="accountNumber"
-                  required
-                  value={formData.bankDetails.accountNumber}
-                  onChange={handleBankInputChange}
-                  placeholder="e.g. 1234567890"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">IFSC Code *</label>
-                <input
-                  type="text"
-                  name="ifscCode"
-                  required
-                  value={formData.bankDetails.ifscCode}
-                  onChange={handleBankInputChange}
-                  placeholder="e.g. SBIN0001234"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tab Content: Financials & Metrics */}
-        {activeTab === "financials" && (
-          <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-              4. Employment & Commission Metrics
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Commission Percentage (%) *</label>
-                <input
-                  type="number"
-                  name="commissionPercentage"
-                  required
-                  min="0"
-                  max="100"
-                  value={formData.commissionPercentage}
-                  onChange={handleInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Payments Done (₹) *</label>
-                <input
-                  type="number"
-                  name="paymentsDone"
-                  required
-                  min="0"
-                  value={formData.paymentsDone}
-                  onChange={handleInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Total Revenue Earned (₹) *</label>
-                <input
-                  type="number"
-                  name="totalRevenue"
-                  required
-                  min="0"
-                  value={formData.totalRevenue}
-                  onChange={handleInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Date of Joining *</label>
-                <input
-                  type="date"
-                  name="employedate"
-                  required
-                  value={formData.employedate}
-                  onChange={handleInputChange}
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Internship Rate (₹)</label>
-                <input
-                  type="number"
-                  name="internshipRate"
-                  min="0"
-                  value={formData.internshipRate}
-                  onChange={handleInputChange}
-                  placeholder="Leave 0 to use standard rate"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Course Rate (₹)</label>
-                <input
-                  type="number"
-                  name="courseRate"
-                  min="0"
-                  value={formData.courseRate}
-                  onChange={handleInputChange}
-                  placeholder="Leave 0 to use standard rate"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Submit Actions */}
-        <div className="flex gap-4 items-center justify-end">
-          <Link
-            href="/admin/auth/dashboard/college-admin"
-            className="px-6 py-3 rounded-xl border-2 border-border-main text-text-main font-semibold hover:bg-bg-main transition"
-          >
-            Cancel
-          </Link>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className={`px-8 py-3 rounded-xl bg-brand-primary hover:bg-brand-primary/90 text-white font-bold transition shadow-md flex items-center gap-2 ${
-              isSubmitting ? "opacity-75 cursor-not-allowed" : ""
-            }`}
-          >
-            {isSubmitting ? (
-              <>
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                Saving...
-              </>
-            ) : (
-              "Save Changes"
-            )}
-          </button>
         </div>
-      </form>
+      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel } from "@/models";
 import { sendForgotPasswordOtpEmail } from "@/lib/nodemailer";
-
+import { generateSecureOtp, hashOtp, verifyOtpHash, getClientIp, checkOtpRateLimit } from "@/lib/utils/otpHelper";
 import dns from "dns";
 
 const checkMxRecord = (domain) => {
@@ -34,13 +34,32 @@ export async function POST(request) {
       );
     }
 
-    const domain = email.trim().split("@")[1];
+    const normalizedEmail = email.trim().toLowerCase();
+    const domain = normalizedEmail.split("@")[1];
     const tld = domain.split(".").pop().toLowerCase();
     const invalidTlds = ["con", "cmo", "gmal", "gmai", "yaho", "hotmial", "outlok", "cm", "coom", "comm"];
     if (invalidTlds.includes(tld)) {
       return Response.json(
         { error: `Invalid email domain extension (.${tld}). Please use a valid email address (e.g. user@gmail.com).` },
         { status: 400 }
+      );
+    }
+
+    // Rate Limiting Protection (Max 3 send requests per 10 minutes per IP & Email)
+    const clientIp = getClientIp(request);
+    const emailRateLimit = await checkOtpRateLimit(`ratelimit:forgot:email:${normalizedEmail}`, 3, 600);
+    if (!emailRateLimit.allowed) {
+      return Response.json(
+        { error: `Too many password reset requests. Please wait ${emailRateLimit.retryAfterSeconds} seconds before trying again.` },
+        { status: 429 }
+      );
+    }
+
+    const ipRateLimit = await checkOtpRateLimit(`ratelimit:forgot:ip:${clientIp}`, 3, 600);
+    if (!ipRateLimit.allowed) {
+      return Response.json(
+        { error: `Too many requests from your connection. Please wait ${ipRateLimit.retryAfterSeconds} seconds before trying again.` },
+        { status: 429 }
       );
     }
 
@@ -53,36 +72,39 @@ export async function POST(request) {
     }
 
     const User = createModel("User", UserModel);
+    const user = await User.findOne({ email: normalizedEmail });
 
-    // Find user by email directly
-    const user = await User.findOne({ email: email.trim().toLowerCase() });
-
+    // Anti-Account Enumeration: If user is not found, return generic success message without leaking account absence
     if (!user) {
       return Response.json(
-        { error: "User with this email address was not found." },
-        { status: 404 }
+        {
+          success: true,
+          message: "If an account with that email address exists, a password reset OTP has been sent.",
+        },
+        { status: 200 }
       );
     }
 
-    // Generate 6-digit OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // Generate secure 6-digit OTP and SHA-256 hash
+    const rawOtp = generateSecureOtp();
+    const hashedOtp = hashOtp(rawOtp);
 
-    // Set OTP and 10 minute expiry
-    user.resetOtp = otp;
+    // Set hashed OTP, 10 minute expiry, and reset attempts counter
+    user.resetOtp = hashedOtp;
     user.resetOtpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+    user.resetOtpAttempts = 0;
     await user.save();
 
-    // Dispatch real email (or fallback to console print)
-    const emailRes = await sendForgotPasswordOtpEmail(user.email, user.fullName, otp, "User");
+    // Dispatch real email
+    await sendForgotPasswordOtpEmail(user.email, user.fullName, rawOtp, "User");
 
     const responsePayload = {
       success: true,
-      message: "A password reset OTP has been sent to your registered email address.",
+      message: "If an account with that email address exists, a password reset OTP has been sent.",
     };
 
-    // Keep otp in response payload only during local mock development
-    if (process.env.NODE_ENV === "development" || emailRes.mocked) {
-      responsePayload.otp = otp;
+    if (process.env.NODE_ENV === "development") {
+      responsePayload.otp = rawOtp;
     }
 
     return Response.json(responsePayload, { status: 200 });
@@ -116,37 +138,74 @@ export async function PUT(request) {
       );
     }
 
+    const normalizedEmail = email.trim().toLowerCase();
     const User = createModel("User", UserModel);
-
-    // Find user by email directly
-    const user = await User.findOne({ email: email.trim().toLowerCase() });
+    const user = await User.findOne({ email: normalizedEmail });
 
     if (!user) {
       return Response.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
-    }
-
-    // Verify OTP matches and has not expired
-    if (!user.resetOtp || user.resetOtp !== otp.trim()) {
-      return Response.json(
-        { error: "Invalid OTP code. Please try again." },
+        { error: "Invalid request or user not found." },
         { status: 400 }
       );
     }
 
-    if (!user.resetOtpExpiry || new Date(user.resetOtpExpiry) < new Date()) {
+    // Check if OTP exists or has expired
+    if (!user.resetOtp || !user.resetOtpExpiry || new Date(user.resetOtpExpiry) < new Date()) {
+      user.resetOtp = null;
+      user.resetOtpExpiry = null;
+      user.resetOtpAttempts = 0;
+      await user.save();
       return Response.json(
-        { error: "The OTP code has expired. Please request a new code." },
+        { error: "The OTP code has expired or is invalid. Please request a new code." },
         { status: 400 }
       );
     }
 
-    // Update password (using plain-text to keep consistency with the current codebase)
+    // Check brute force failed attempt limits (max 3)
+    const currentAttempts = user.resetOtpAttempts || 0;
+    if (currentAttempts >= 3) {
+      user.resetOtp = null;
+      user.resetOtpExpiry = null;
+      user.resetOtpAttempts = 0;
+      await user.save();
+      return Response.json(
+        { error: "Maximum OTP reset attempts (3) exceeded. Please request a new code." },
+        { status: 400 }
+      );
+    }
+
+    // Verify OTP using timing-safe SHA-256 hash comparison
+    const isMatch = verifyOtpHash(otp.trim(), user.resetOtp);
+
+    if (!isMatch) {
+      const updatedAttempts = currentAttempts + 1;
+      
+      if (updatedAttempts >= 3) {
+        user.resetOtp = null;
+        user.resetOtpExpiry = null;
+        user.resetOtpAttempts = 0;
+        await user.save();
+        return Response.json(
+          { error: "Invalid OTP code. Maximum verification attempts (3) reached. Please request a new code." },
+          { status: 400 }
+        );
+      }
+
+      user.resetOtpAttempts = updatedAttempts;
+      await user.save();
+
+      const remainingAttempts = 3 - updatedAttempts;
+      return Response.json(
+        { error: `Invalid OTP code. ${remainingAttempts} attempt${remainingAttempts === 1 ? '' : 's'} remaining.` },
+        { status: 400 }
+      );
+    }
+
+    // Update password
     user.password = newPassword;
     user.resetOtp = null;
     user.resetOtpExpiry = null;
+    user.resetOtpAttempts = 0;
     await user.save();
 
     return Response.json(

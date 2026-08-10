@@ -10,7 +10,7 @@
 import connectDB from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, AdminModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, AdminModel, PartnerStudentModel } from "@/models";
 import crypto from "crypto";
 import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
@@ -571,6 +571,32 @@ export async function POST(request) {
     const newUser = new User(data);
     await newUser.save();
 
+    // Consume & invalidate verified OTP record after successful account creation
+    if (!isDashboardCreation) {
+      await VerificationOtp.deleteOne({ email: normalizedEmail });
+    }
+
+    // Link PartnerStudent record if student exists in roster
+    const cleanReg = (newUser.registrationNumber || "").trim();
+    const cleanRoll = (newUser.rollNumber || "").trim();
+    const cleanEmail = (newUser.email || "").trim().toLowerCase();
+
+    if (cleanReg || cleanRoll || cleanEmail) {
+      const PartnerStudent = createModel("PartnerStudent", PartnerStudentModel);
+      const orConditions = [];
+      if (cleanReg) orConditions.push({ registrationNumber: cleanReg });
+      if (cleanRoll) orConditions.push({ rollNumber: cleanRoll });
+      if (cleanEmail) orConditions.push({ email: cleanEmail });
+
+      await PartnerStudent.findOneAndUpdate(
+        { $or: orConditions },
+        {
+          enrolledUserId: newUser._id,
+          enrolledInternshipId: data.ActiveInternship?.[0]?.internship,
+        }
+      );
+    }
+
     // Store in creator's Usercreated field
     const finalCreatorId = dashboardCreatorId || cybercafePartnerId;
     if (finalCreatorId) {
@@ -720,12 +746,20 @@ export async function PUT(request) {
       return Response.json({ error: "User ID is required" }, { status: 400 });
     }
 
-    // Regular users can only update their own profile
-    if (auth.user.role === "User" && userId !== auth.user._id) {
-      return Response.json({ error: "Access denied: cannot edit another user's profile." }, { status: 403 });
+    // Regular users can only update their own profile and cannot modify enrollment status
+    if (auth.user.role === "User") {
+      if (userId !== auth.user._id) {
+        return Response.json({ error: "Access denied: cannot edit another user's profile." }, { status: 403 });
+      }
     }
 
     const data = await request.json();
+
+    // Prevent non-admin users from self-enrolling by mutating ActiveInternship/ActiveCources directly
+    if (auth.user.role === "User") {
+      delete data.ActiveInternship;
+      delete data.ActiveCources;
+    }
 
     // Hash password if updated by admin
     if (data.password) {

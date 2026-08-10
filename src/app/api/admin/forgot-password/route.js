@@ -7,7 +7,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { AdminModel } from "@/models";
 import { sendForgotPasswordOtpEmail } from "@/lib/nodemailer";
-
+import { generateSecureOtp, hashOtp, verifyOtpHash, getClientIp, checkOtpRateLimit } from "@/lib/utils/otpHelper";
 import dns from "dns";
 
 const checkMxRecord = (domain) => {
@@ -29,18 +29,37 @@ export async function POST(request) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || typeof email !== "string" || !emailRegex.test(email.trim())) {
       return Response.json(
-        { error: "Invalid email format. Correct email format example: user@gmail.com" },
+        { error: "Invalid email format. Correct email format example: admin@gmail.com" },
         { status: 400 }
       );
     }
 
-    const domain = email.trim().split("@")[1];
+    const normalizedEmail = email.trim().toLowerCase();
+    const domain = normalizedEmail.split("@")[1];
     const tld = domain.split(".").pop().toLowerCase();
     const invalidTlds = ["con", "cmo", "gmal", "gmai", "yaho", "hotmial", "outlok", "cm", "coom", "comm"];
     if (invalidTlds.includes(tld)) {
       return Response.json(
-        { error: `Invalid email domain extension (.${tld}). Please use a valid email address (e.g. user@gmail.com).` },
+        { error: `Invalid email domain extension (.${tld}). Please use a valid email address.` },
         { status: 400 }
+      );
+    }
+
+    // Rate Limiting Protection (Max 3 send requests per 10 minutes per IP & Email)
+    const clientIp = getClientIp(request);
+    const emailRateLimit = await checkOtpRateLimit(`ratelimit:admin-forgot:email:${normalizedEmail}`, 3, 600);
+    if (!emailRateLimit.allowed) {
+      return Response.json(
+        { error: `Too many password reset requests. Please wait ${emailRateLimit.retryAfterSeconds} seconds before trying again.` },
+        { status: 429 }
+      );
+    }
+
+    const ipRateLimit = await checkOtpRateLimit(`ratelimit:admin-forgot:ip:${clientIp}`, 3, 600);
+    if (!ipRateLimit.allowed) {
+      return Response.json(
+        { error: `Too many requests from your connection. Please wait ${ipRateLimit.retryAfterSeconds} seconds before trying again.` },
+        { status: 429 }
       );
     }
 
@@ -53,38 +72,39 @@ export async function POST(request) {
     }
 
     const Admin = createModel("Admin", AdminModel);
+    const admin = await Admin.findOne({ email: normalizedEmail });
 
-    // Find admin by email directly
-    const admin = await Admin.findOne({
-      email: email.trim().toLowerCase()
-    });
-
+    // Anti-Account Enumeration: If admin is not found, return generic success message without leaking account absence
     if (!admin) {
       return Response.json(
-        { error: "Admin with this email was not found." },
-        { status: 404 }
+        {
+          success: true,
+          message: "If an admin account with that email address exists, a password reset OTP has been sent.",
+        },
+        { status: 200 }
       );
     }
 
-    // Generate 6-digit OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // Generate secure 6-digit OTP and SHA-256 hash
+    const rawOtp = generateSecureOtp();
+    const hashedOtp = hashOtp(rawOtp);
 
-    // Set OTP and 10 minute expiry
-    admin.resetOtp = otp;
+    // Set hashed OTP, 10 minute expiry, and reset attempts counter
+    admin.resetOtp = hashedOtp;
     admin.resetOtpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+    admin.resetOtpAttempts = 0;
     await admin.save();
 
-    // Dispatch real email (or fallback to console print)
-    const emailRes = await sendForgotPasswordOtpEmail(admin.email, admin.name, otp, "Admin");
+    // Dispatch real email
+    await sendForgotPasswordOtpEmail(admin.email, admin.name, rawOtp, "Admin");
 
     const responsePayload = {
       success: true,
-      message: "A password reset OTP has been sent to your registered email address.",
+      message: "If an admin account with that email address exists, a password reset OTP has been sent.",
     };
 
-    // Keep otp in response payload only during local mock development
-    if (process.env.NODE_ENV === "development" || emailRes.mocked) {
-      responsePayload.otp = otp;
+    if (process.env.NODE_ENV === "development") {
+      responsePayload.otp = rawOtp;
     }
 
     return Response.json(responsePayload, { status: 200 });
@@ -118,42 +138,80 @@ export async function PUT(request) {
       );
     }
 
+    const normalizedEmail = email.trim().toLowerCase();
     const Admin = createModel("Admin", AdminModel);
-
-    const admin = await Admin.findOne({ email: email.trim().toLowerCase() });
+    const admin = await Admin.findOne({ email: normalizedEmail });
 
     if (!admin) {
       return Response.json(
-        { error: "Admin not found" },
-        { status: 404 }
-      );
-    }
-
-    // Verify OTP matches and has not expired
-    if (!admin.resetOtp || admin.resetOtp !== otp.trim()) {
-      return Response.json(
-        { error: "Invalid OTP code. Please try again." },
+        { error: "Invalid request or admin account not found." },
         { status: 400 }
       );
     }
 
-    if (!admin.resetOtpExpiry || new Date(admin.resetOtpExpiry) < new Date()) {
+    // Check if OTP exists or has expired
+    if (!admin.resetOtp || !admin.resetOtpExpiry || new Date(admin.resetOtpExpiry) < new Date()) {
+      admin.resetOtp = null;
+      admin.resetOtpExpiry = null;
+      admin.resetOtpAttempts = 0;
+      await admin.save();
       return Response.json(
-        { error: "The OTP code has expired. Please request a new code." },
+        { error: "The OTP code has expired or is invalid. Please request a new code." },
         { status: 400 }
       );
     }
 
-    // Update password (using plain-text to keep consistency with the current codebase)
+    // Check brute force failed attempt limits (max 3)
+    const currentAttempts = admin.resetOtpAttempts || 0;
+    if (currentAttempts >= 3) {
+      admin.resetOtp = null;
+      admin.resetOtpExpiry = null;
+      admin.resetOtpAttempts = 0;
+      await admin.save();
+      return Response.json(
+        { error: "Maximum OTP reset attempts (3) exceeded. Please request a new code." },
+        { status: 400 }
+      );
+    }
+
+    // Verify OTP using timing-safe SHA-256 hash comparison
+    const isMatch = verifyOtpHash(otp.trim(), admin.resetOtp);
+
+    if (!isMatch) {
+      const updatedAttempts = currentAttempts + 1;
+      
+      if (updatedAttempts >= 3) {
+        admin.resetOtp = null;
+        admin.resetOtpExpiry = null;
+        admin.resetOtpAttempts = 0;
+        await admin.save();
+        return Response.json(
+          { error: "Invalid OTP code. Maximum verification attempts (3) reached. Please request a new code." },
+          { status: 400 }
+        );
+      }
+
+      admin.resetOtpAttempts = updatedAttempts;
+      await admin.save();
+
+      const remainingAttempts = 3 - updatedAttempts;
+      return Response.json(
+        { error: `Invalid OTP code. ${remainingAttempts} attempt${remainingAttempts === 1 ? '' : 's'} remaining.` },
+        { status: 400 }
+      );
+    }
+
+    // Update password
     admin.password = newPassword;
     admin.resetOtp = null;
     admin.resetOtpExpiry = null;
+    admin.resetOtpAttempts = 0;
     await admin.save();
 
     return Response.json(
       {
         success: true,
-        message: "Your password has been reset successfully. You can now login with your new credentials.",
+        message: "Your admin password has been reset successfully. You can now login with your new credentials.",
       },
       { status: 200 }
     );

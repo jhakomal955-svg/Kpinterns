@@ -147,7 +147,7 @@ const DEPARTMENTS_BY_DEGREE = {
     "Nursing",
     "Forensic Science",
   ],
-  BA: ["Arts","Home Science","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"],
+  BA: ["Arts","Home Science","HUMANITIES","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"],
   BCom: ["Commerce","Accounting & Finance","Business Administration","Banking & Insurance","Taxation","Economics","Sales & Marketing","Computer Applications"],
 };
 
@@ -227,6 +227,7 @@ const ALL_DEPARTMENTS = [
   "Forensic Science",
   "Arts",
   "Home Science",
+  "HUMANITIES",
   "Ancient indian history",
   "Anthropology",
   "Bojpuri",
@@ -375,6 +376,17 @@ const DOMAINS_BY_DEPARTMENT = {
   "Computer Applications": [
     "Full Stack Development", "Frontend Development", "Backend Development",
     "Mobile App Development", "UI/UX Design", "Other Tech",
+  ],
+  "HUMANITIES": [
+    "Content Writing", "Journalism & Media", "Public Relations",
+    "Event Management", "Social Work & NGO", "Other Humanities",
+    "Public Policy Research", "Community Development", "Other Social Sciences",
+    "Translation & Interpretation", "Teaching & Tutoring", "Graphic Design",
+  ],
+  "Arts": [
+    "Content Writing", "Journalism & Media", "Public Relations",
+    "Event Management", "Social Work & NGO", "Other Humanities",
+    "Graphic Design", "Photography & Videography", "Teaching & Tutoring",
   ],
 };
 

@@ -14,6 +14,10 @@ const VerificationOtpModel = {
     type: String,
     required: true,
   },
+  attempts: {
+    type: Number,
+    default: 0,
+  },
   verified: {
     type: Boolean,
     default: false,
@@ -21,6 +25,7 @@ const VerificationOtpModel = {
   expiresAt: {
     type: Date,
     required: true,
+    expires: 0, // MongoDB TTL index: automatically deletes document when expired
   },
   verifiedAt: {
     type: Date,

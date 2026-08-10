@@ -99,7 +99,9 @@ export default function RegisterPage() {
   // Restore sessionLeadId and local draft on mount if returning user
   useEffect(() => {
     try {
-      const storedLeadId = sessionStorage.getItem("kp_registration_lead_id");
+      const storedLeadId =
+        sessionStorage.getItem("kp_registration_lead_id") ||
+        localStorage.getItem("kp_registration_lead_id");
       if (storedLeadId) setSessionLeadId(storedLeadId);
 
       const savedDraft = localStorage.getItem("kp_registration_draft");
@@ -117,7 +119,13 @@ export default function RegisterPage() {
   // Save draft to local storage on input change
   useEffect(() => {
     try {
-      if (formData.email?.trim() || formData.phone?.trim() || formData.fullName?.trim()) {
+      if (
+        formData.email?.trim() ||
+        formData.phone?.trim() ||
+        formData.fullName?.trim() ||
+        formData.university ||
+        formData.college
+      ) {
         localStorage.setItem("kp_registration_draft", JSON.stringify(formData));
       }
     } catch (err) {
@@ -132,7 +140,7 @@ export default function RegisterPage() {
     if (cleaned.length >= 10) {
       return cleaned.slice(-10);
     }
-    return "";
+    return cleaned;
   };
 
   // Background Lead Capture Helper (Ensures strictly 1 lead document per user session)
@@ -140,24 +148,40 @@ export default function RegisterPage() {
     async (customPayload = {}) => {
       try {
         const cleanPhone = normalizePhoneNumber(formData.phone);
-        const rawClean = String(formData.phone || "").replace(/\D/g, "");
-        const hasValidPhone = rawClean.length >= 10;
-        const hasValidEmail = formData.email?.trim().includes("@");
+        const hasInput =
+          formData.fullName?.trim() ||
+          formData.email?.trim() ||
+          formData.phone?.trim() ||
+          formData.university ||
+          formData.college ||
+          formData.degree ||
+          formData.department ||
+          sessionLeadId ||
+          customPayload.force;
 
-        // Do not attempt capture unless complete 10-digit phone or valid email is provided, OR step > 1
-        if (!hasValidPhone && !hasValidEmail && step === 1 && !customPayload.force && !sessionLeadId) {
+        // Do not attempt capture if form is completely pristine & empty
+        if (!hasInput) {
           return;
         }
 
+        const activeLeadId =
+          sessionLeadId ||
+          customPayload.leadId ||
+          (typeof window !== "undefined"
+            ? sessionStorage.getItem("kp_registration_lead_id") ||
+              localStorage.getItem("kp_registration_lead_id")
+            : "") ||
+          "";
+
         const payload = {
-          leadId: sessionLeadId || customPayload.leadId || "",
+          leadId: activeLeadId,
           fullName: formData.fullName,
           email: formData.email,
           phone: cleanPhone || formData.phone,
           gender: formData.gender,
           parentName: formData.parentName,
-          university: formData.university,
-          college: formData.college,
+          university: formData.university === "others" ? formData.universityCustom : formData.university,
+          college: formData.college === "others" ? formData.collegeCustom : formData.college,
           degree: formData.degree,
           department: formData.department,
           rollNumber: formData.rollNumber,
@@ -169,12 +193,13 @@ export default function RegisterPage() {
           internshipDomain: formData.internshipDomain,
           mode: formData.mode,
           step,
+          source: "Registration Form",
           ...customPayload,
         };
 
         const bodyStr = JSON.stringify(payload);
 
-        // Send keepalive fetch request
+        // Send keepalive fetch request (works reliably on mobile pagehide & tab switch)
         const res = await fetch("/api/leads/capture", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -188,6 +213,7 @@ export default function RegisterPage() {
             setSessionLeadId(data.leadId);
             try {
               sessionStorage.setItem("kp_registration_lead_id", data.leadId);
+              localStorage.setItem("kp_registration_lead_id", data.leadId);
             } catch (e) {}
           }
         }
@@ -203,27 +229,27 @@ export default function RegisterPage() {
     [formData, purchaseType, step, sessionLeadId]
   );
 
-  // 1000ms debounced auto-save effect whenever contact/personal inputs change
+  // Debounced auto-save effect whenever inputs or steps change
   useEffect(() => {
-    const rawClean = String(formData.phone || "").replace(/\D/g, "");
-    const hasValidPhone = rawClean.length >= 10;
-    const hasValidEmail = formData.email?.trim().includes("@");
+    const hasInput =
+      formData.fullName?.trim() ||
+      formData.email?.trim() ||
+      formData.phone?.trim() ||
+      formData.university ||
+      formData.college ||
+      formData.degree ||
+      formData.department ||
+      sessionLeadId;
 
-    if (!hasValidPhone && !hasValidEmail && step === 1 && !sessionLeadId) return;
+    if (!hasInput) return;
 
     const timer = setTimeout(() => {
       captureLeadData();
     }, 1000);
     return () => clearTimeout(timer);
   }, [
-    formData.fullName,
-    formData.email,
-    formData.phone,
-    formData.gender,
-    formData.parentName,
-    formData.university,
-    formData.college,
-    formData.internshipDomain,
+    formData,
+    purchaseType,
     step,
     sessionLeadId,
     captureLeadData,
@@ -232,10 +258,13 @@ export default function RegisterPage() {
   // Page hide / tab close / mobile background beacon listener
   useEffect(() => {
     const handleUnload = () => {
-      const rawClean = String(formData.phone || "").replace(/\D/g, "");
-      const hasValidPhone = rawClean.length >= 10;
-      const hasValidEmail = formData.email?.trim().includes("@");
-      if (hasValidPhone || hasValidEmail || sessionLeadId) {
+      const hasInput =
+        formData.fullName?.trim() ||
+        formData.email?.trim() ||
+        formData.phone?.trim() ||
+        formData.university ||
+        sessionLeadId;
+      if (hasInput) {
         captureLeadData({ beacon: true });
       }
     };
@@ -254,7 +283,7 @@ export default function RegisterPage() {
       window.removeEventListener("blur", handleUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [formData.email, formData.phone, sessionLeadId, captureLeadData]);
+  }, [formData, sessionLeadId, captureLeadData]);
 
 
   const handleConsentLetterUpload = async (e) => {

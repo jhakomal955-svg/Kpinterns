@@ -34,6 +34,8 @@ export default function ContactPage() {
     // Guest users can interact with form fields freely
   };
 
+  const [contactLeadId, setContactLeadId] = useState("");
+
   useEffect(() => {
     setMounted(true);
 
@@ -95,6 +97,41 @@ export default function ContactPage() {
     window.addEventListener("user-login-change", checkLoginState);
     return () => window.removeEventListener("user-login-change", checkLoginState);
   }, []);
+
+  // Background Lead Capture for unregistered visitors filling contact form
+  useEffect(() => {
+    if (isLoggedIn) return; // logged-in users are not unregistered leads
+    const hasInput = formData.fullName?.trim() || formData.email?.trim() || formData.phone?.trim();
+    if (!hasInput) return;
+
+    const timer = setTimeout(() => {
+      fetch("/api/leads/capture", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          leadId: contactLeadId,
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          university: formData.university,
+          college: formData.college,
+          degree: formData.course,
+          semester: formData.semester,
+          source: "Contact Form",
+        }),
+        keepalive: true,
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data?.leadId && data.leadId !== contactLeadId) {
+            setContactLeadId(data.leadId);
+          }
+        })
+        .catch(() => {});
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [formData, contactLeadId, isLoggedIn]);
 
   // Form validation
   const validateForm = () => {

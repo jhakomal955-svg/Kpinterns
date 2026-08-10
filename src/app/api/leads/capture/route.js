@@ -7,16 +7,15 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { LeadModel } from "@/models";
 
+import mongoose from "mongoose";
+
 function normalizePhone(phoneStr) {
   if (!phoneStr) return "";
   const cleaned = String(phoneStr).replace(/\D/g, "");
-  if (cleaned.length === 12 && cleaned.startsWith("91")) {
-    return cleaned.slice(2);
+  if (cleaned.length >= 10) {
+    return cleaned.slice(-10);
   }
-  if (cleaned.length === 11 && cleaned.startsWith("0")) {
-    return cleaned.slice(1);
-  }
-  return cleaned;
+  return "";
 }
 
 export async function POST(request) {
@@ -39,6 +38,7 @@ export async function POST(request) {
     }
 
     const {
+      leadId = "",
       fullName = "",
       email = "",
       phone = "",
@@ -61,30 +61,33 @@ export async function POST(request) {
     } = body;
 
     const trimmedEmail = (email || "").trim().toLowerCase();
-    const normalizedPhone = normalizePhone(phone);
-    const rawPhone = (phone || "").trim();
-    const targetPhone = normalizedPhone || rawPhone;
+    const validPhone = normalizePhone(phone);
     const trimmedName = (fullName || "").trim();
-
-    // We need at least an email or phone number to create/track a lead
-    if (!trimmedEmail && !targetPhone) {
-      return Response.json(
-        { error: "At least email or phone is required to capture lead" },
-        { status: 400 }
-      );
-    }
 
     const Lead = createModel("Lead", LeadModel);
 
-    // Build matching query with email or normalized/raw phone
-    const query = [];
-    if (trimmedEmail) query.push({ email: trimmedEmail });
-    if (targetPhone) query.push({ phone: targetPhone });
-    if (normalizedPhone && normalizedPhone !== rawPhone) query.push({ phone: rawPhone });
-
+    // Find existing lead by leadId, email, or 10-digit phone
     let existingLead = null;
-    if (query.length > 0) {
-      existingLead = await Lead.findOne({ $or: query });
+    if (leadId && mongoose.Types.ObjectId.isValid(leadId)) {
+      existingLead = await Lead.findById(leadId);
+    }
+
+    if (!existingLead) {
+      const query = [];
+      if (trimmedEmail && trimmedEmail.includes("@")) query.push({ email: trimmedEmail });
+      if (validPhone && validPhone.length === 10) query.push({ phone: validPhone });
+
+      if (query.length > 0) {
+        existingLead = await Lead.findOne({ $or: query });
+      }
+    }
+
+    // Require valid 10-digit phone or email to create a new lead
+    if (!existingLead && (!validPhone || validPhone.length !== 10) && (!trimmedEmail || !trimmedEmail.includes("@"))) {
+      return Response.json(
+        { error: "Complete 10-digit mobile number or valid email is required to capture lead" },
+        { status: 400 }
+      );
     }
 
     const updateFields = {
@@ -93,8 +96,13 @@ export async function POST(request) {
 
     if (trimmedName) updateFields.fullName = trimmedName;
     if (trimmedEmail) updateFields.email = trimmedEmail;
-    if (targetPhone) updateFields.phone = targetPhone;
-    if (gender) updateFields.gender = gender;
+    if (validPhone && validPhone.length === 10) updateFields.phone = validPhone;
+    if (gender) {
+      const formattedGender = gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase();
+      if (["Male", "Female", "Other"].includes(formattedGender)) {
+        updateFields.gender = formattedGender;
+      }
+    }
     if (parentName) updateFields.parentName = parentName;
     if (university) updateFields.university = university;
     if (college) updateFields.college = college;
@@ -121,7 +129,6 @@ export async function POST(request) {
 
     let savedLead;
     if (existingLead) {
-      // Don't downgrade status if already converted
       if (existingLead.status === "Converted" && status !== "Converted") {
         delete updateFields.status;
       }
@@ -133,6 +140,17 @@ export async function POST(request) {
         updateFields.status = status;
       }
       savedLead = await Lead.create(updateFields);
+    }
+
+    // Auto-clean orphan incomplete keystroke entries matching the same phone prefix
+    if (validPhone && validPhone.length === 10) {
+      const prefix = validPhone.slice(0, 4);
+      await Lead.deleteMany({
+        _id: { $ne: savedLead._id },
+        email: "",
+        phone: { $regex: new RegExp("^" + prefix) },
+        $expr: { $lt: [{ $strLenCP: "$phone" }, 10] },
+      }).catch(() => {});
     }
 
     return Response.json(

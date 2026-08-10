@@ -94,29 +94,66 @@ export default function RegisterPage() {
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
 
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
+  const [sessionLeadId, setSessionLeadId] = useState("");
+
+  // Restore sessionLeadId and local draft on mount if returning user
+  useEffect(() => {
+    try {
+      const storedLeadId = sessionStorage.getItem("kp_registration_lead_id");
+      if (storedLeadId) setSessionLeadId(storedLeadId);
+
+      const savedDraft = localStorage.getItem("kp_registration_draft");
+      if (savedDraft) {
+        const parsed = JSON.parse(savedDraft);
+        if (parsed && typeof parsed === "object") {
+          setFormData((prev) => ({ ...prev, ...parsed }));
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load registration draft:", err);
+    }
+  }, []);
+
+  // Save draft to local storage on input change
+  useEffect(() => {
+    try {
+      if (formData.email?.trim() || formData.phone?.trim() || formData.fullName?.trim()) {
+        localStorage.setItem("kp_registration_draft", JSON.stringify(formData));
+      }
+    } catch (err) {
+      // ignore storage quota errors
+    }
+  }, [formData]);
 
   // Helper to normalize phone numbers for matching mobile autofill with DB records
   const normalizePhoneNumber = (phone) => {
     if (!phone) return "";
     const cleaned = String(phone).replace(/\D/g, "");
-    if (cleaned.length === 12 && cleaned.startsWith("91")) {
-      return cleaned.slice(2);
+    if (cleaned.length >= 10) {
+      return cleaned.slice(-10);
     }
-    if (cleaned.length === 11 && cleaned.startsWith("0")) {
-      return cleaned.slice(1);
-    }
-    return cleaned;
+    return "";
   };
 
-  // Background Lead Capture Helper
+  // Background Lead Capture Helper (Ensures strictly 1 lead document per user session)
   const captureLeadData = useCallback(
     async (customPayload = {}) => {
       try {
-        const cleanPhone = normalizePhoneNumber(formData.phone) || formData.phone;
+        const cleanPhone = normalizePhoneNumber(formData.phone);
+        const rawClean = String(formData.phone || "").replace(/\D/g, "");
+        const hasValidPhone = rawClean.length >= 10;
+        const hasValidEmail = formData.email?.trim().includes("@");
+
+        // Do not attempt capture unless complete 10-digit phone or valid email is provided, OR step > 1
+        if (!hasValidPhone && !hasValidEmail && step === 1 && !customPayload.force && !sessionLeadId) {
+          return;
+        }
+
         const payload = {
+          leadId: sessionLeadId || customPayload.leadId || "",
           fullName: formData.fullName,
           email: formData.email,
-          phone: cleanPhone,
+          phone: cleanPhone || formData.phone,
           gender: formData.gender,
           parentName: formData.parentName,
           university: formData.university,
@@ -135,35 +172,48 @@ export default function RegisterPage() {
           ...customPayload,
         };
 
-        if (!payload.email?.trim() && !payload.phone?.trim()) return;
-
         const bodyStr = JSON.stringify(payload);
 
-        if (typeof window !== "undefined" && navigator.sendBeacon && customPayload.beacon) {
-          const blob = new Blob([bodyStr], { type: "text/plain;charset=UTF-8" });
-          navigator.sendBeacon("/api/leads/capture", blob);
-          return;
-        }
-
-        fetch("/api/leads/capture", {
+        // Send keepalive fetch request
+        const res = await fetch("/api/leads/capture", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: bodyStr,
           keepalive: true,
         }).catch((err) => console.error("Lead capture error:", err));
+
+        if (res && res.ok) {
+          const data = await res.json();
+          if (data.leadId && data.leadId !== sessionLeadId) {
+            setSessionLeadId(data.leadId);
+            try {
+              sessionStorage.setItem("kp_registration_lead_id", data.leadId);
+            } catch (e) {}
+          }
+        }
+
+        if (typeof window !== "undefined" && navigator.sendBeacon && customPayload.beacon) {
+          const blob = new Blob([bodyStr], { type: "text/plain;charset=UTF-8" });
+          navigator.sendBeacon("/api/leads/capture", blob);
+        }
       } catch (err) {
         console.error("Error in lead capture:", err);
       }
     },
-    [formData, purchaseType, step]
+    [formData, purchaseType, step, sessionLeadId]
   );
 
-  // Debounced auto-save effect whenever contact/personal inputs change (600ms for mobile responsiveness)
+  // 1000ms debounced auto-save effect whenever contact/personal inputs change
   useEffect(() => {
-    if (!formData.email?.trim() && !formData.phone?.trim()) return;
+    const rawClean = String(formData.phone || "").replace(/\D/g, "");
+    const hasValidPhone = rawClean.length >= 10;
+    const hasValidEmail = formData.email?.trim().includes("@");
+
+    if (!hasValidPhone && !hasValidEmail && step === 1 && !sessionLeadId) return;
+
     const timer = setTimeout(() => {
       captureLeadData();
-    }, 600);
+    }, 1000);
     return () => clearTimeout(timer);
   }, [
     formData.fullName,
@@ -175,13 +225,17 @@ export default function RegisterPage() {
     formData.college,
     formData.internshipDomain,
     step,
+    sessionLeadId,
     captureLeadData,
   ]);
 
   // Page hide / tab close / mobile background beacon listener
   useEffect(() => {
     const handleUnload = () => {
-      if (formData.email?.trim() || formData.phone?.trim()) {
+      const rawClean = String(formData.phone || "").replace(/\D/g, "");
+      const hasValidPhone = rawClean.length >= 10;
+      const hasValidEmail = formData.email?.trim().includes("@");
+      if (hasValidPhone || hasValidEmail || sessionLeadId) {
         captureLeadData({ beacon: true });
       }
     };
@@ -200,7 +254,7 @@ export default function RegisterPage() {
       window.removeEventListener("blur", handleUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [formData.email, formData.phone, captureLeadData]);
+  }, [formData.email, formData.phone, sessionLeadId, captureLeadData]);
 
 
   const handleConsentLetterUpload = async (e) => {
@@ -1033,6 +1087,10 @@ export default function RegisterPage() {
 
         if (response.ok) {
           captureLeadData({ status: "Converted" });
+          try {
+            localStorage.removeItem("kp_registration_draft");
+            sessionStorage.removeItem("kp_registration_lead_id");
+          } catch (e) {}
           setSuccessModal({
             isOpen: true,
             title: "Registration Successful!",
@@ -1123,7 +1181,7 @@ export default function RegisterPage() {
 
         {/* Form Card */}
         <div className="bg-bg-card rounded-3xl shadow-xl p-5 sm:p-12 border border-border-main backdrop-blur-sm">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} onChange={() => captureLeadData()} onInput={() => captureLeadData()}>
             {/* Step 1: Personal Information */}
             {step === 1 && (
               <div className="space-y-6 animate-fade-in">
@@ -1313,9 +1371,9 @@ export default function RegisterPage() {
                       }`}
                     >
                       <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
                     </select>
                     {errors.gender && (
                       <p className="text-red-500 text-xs mt-1">

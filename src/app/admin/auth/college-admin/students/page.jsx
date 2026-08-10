@@ -194,20 +194,22 @@ export default function StudentsDirectoryPage() {
       const parsedRecords = [];
 
       for (let line of lines) {
+        if (!line.trim()) continue;
         const parts = line.split(",").map((p) => p.trim());
-        if (parts.length < 3) continue;
-        if (parts[0].toLowerCase().includes("reg") || parts[0].toLowerCase().includes("roll")) continue;
+        if (parts[0].toLowerCase().includes("registrationnumber") || parts[0].toLowerCase().includes("regno") || parts[0].toLowerCase().includes("rollno")) continue;
 
         parsedRecords.push({
           registrationNumber: parts[0] || "",
           rollNumber: parts[1] || "",
           fullName: parts[2] || "",
-          department: parts[3] || "Computer Science & Engineering",
+          department: parts[3] || "",
           email: parts[4] || "",
           phone: parts[5] || "",
-          degree: parts[6] || "B.Tech",
-          semester: parts[7] || "6th",
-          session: parts[8] || "2023-2027",
+          degree: parts[6] || "",
+          semester: parts[7] || "",
+          session: parts[8] || "",
+          gender: parts[9] || "",
+          parentName: parts[10] || "",
         });
       }
 
@@ -441,7 +443,22 @@ export default function StudentsDirectoryPage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <button
-                onClick={() => setShowAddModal(true)}
+                onClick={() => {
+                  setNewStudent({
+                    fullName: "",
+                    registrationNumber: "",
+                    rollNumber: "",
+                    email: "",
+                    phone: "",
+                    gender: "",
+                    parentName: "",
+                    degree: "B.Tech",
+                    department: "Computer Science & Engineering",
+                    semester: "6th",
+                    session: "2023-2027",
+                  });
+                  setShowAddModal(true);
+                }}
                 className="px-4 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold text-sm rounded-xl transition flex items-center gap-2"
               >
                 + Add Single Student
@@ -491,7 +508,29 @@ export default function StudentsDirectoryPage() {
                           <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20 text-xs font-bold">⏳ Pending</span>
                         )}
                       </td>
-                      <td className="p-4 text-right">
+                      <td className="p-4 text-right whitespace-nowrap">
+                        <button
+                          onClick={() => {
+                            setNewStudent({
+                              _id: st._id,
+                              fullName: st.fullName || "",
+                              registrationNumber: st.registrationNumber || "",
+                              rollNumber: st.rollNumber || "",
+                              email: st.email || "",
+                              phone: st.phone || "",
+                              gender: st.gender || "",
+                              parentName: st.parentName || "",
+                              degree: st.degree || "",
+                              department: st.department || "",
+                              semester: st.semester || "",
+                              session: st.session || "",
+                            });
+                            setShowAddModal(true);
+                          }}
+                          className="px-3 py-1 bg-brand-primary/10 text-brand-primary hover:bg-brand-primary hover:text-white rounded-lg text-xs font-semibold mr-1.5 transition"
+                        >
+                          Edit
+                        </button>
                         <button
                           onClick={() => handleDeleteRosterStudent(st._id)}
                           className="px-3 py-1 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg text-xs font-semibold transition"
@@ -513,17 +552,21 @@ export default function StudentsDirectoryPage() {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-bg-card border-2 border-border-main w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-4 my-8">
             <div className="flex justify-between items-center border-b border-border-main pb-3">
-              <h3 className="font-bold text-lg text-text-main">Add Pre-Approved Student</h3>
+              <div>
+                <h3 className="font-bold text-lg text-text-main">
+                  {newStudent._id ? "Edit Pre-Approved Student Record" : "Add Pre-Approved Student"}
+                </h3>
+                <p className="text-xs text-text-muted">All fields are optional for Admin/Employee pre-registration.</p>
+              </div>
               <button onClick={() => setShowAddModal(false)} className="text-text-muted hover:text-text-main font-bold">✕</button>
             </div>
 
             <form onSubmit={handleAddStudentSubmit} className="space-y-3 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-text-muted mb-1">Registration No *</label>
+                  <label className="block font-bold text-text-muted mb-1">Registration No (Optional)</label>
                   <input
                     type="text"
-                    required
                     value={newStudent.registrationNumber}
                     onChange={(e) => setNewStudent({ ...newStudent, registrationNumber: e.target.value })}
                     placeholder="REG2026100"
@@ -531,10 +574,9 @@ export default function StudentsDirectoryPage() {
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-text-muted mb-1">Roll Number *</label>
+                  <label className="block font-bold text-text-muted mb-1">Roll Number (Optional)</label>
                   <input
                     type="text"
-                    required
                     value={newStudent.rollNumber}
                     onChange={(e) => setNewStudent({ ...newStudent, rollNumber: e.target.value })}
                     placeholder="ROLL101"
@@ -544,10 +586,9 @@ export default function StudentsDirectoryPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-text-muted mb-1">Full Name *</label>
+                <label className="block font-bold text-text-muted mb-1">Full Name (Optional)</label>
                 <input
                   type="text"
-                  required
                   value={newStudent.fullName}
                   onChange={(e) => setNewStudent({ ...newStudent, fullName: e.target.value })}
                   placeholder="Student Full Name"
@@ -557,7 +598,56 @@ export default function StudentsDirectoryPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-text-muted mb-1">Degree *</label>
+                  <label className="block font-bold text-text-muted mb-1">Email Address (Optional)</label>
+                  <input
+                    type="email"
+                    value={newStudent.email || ""}
+                    onChange={(e) => setNewStudent({ ...newStudent, email: e.target.value })}
+                    placeholder="email@example.com"
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Mobile / Phone (Optional)</label>
+                  <input
+                    type="text"
+                    value={newStudent.phone || ""}
+                    onChange={(e) => setNewStudent({ ...newStudent, phone: e.target.value })}
+                    placeholder="10 digit mobile"
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Gender (Optional)</label>
+                  <select
+                    value={newStudent.gender || ""}
+                    onChange={(e) => setNewStudent({ ...newStudent, gender: e.target.value })}
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Parent Name (Optional)</label>
+                  <input
+                    type="text"
+                    value={newStudent.parentName || ""}
+                    onChange={(e) => setNewStudent({ ...newStudent, parentName: e.target.value })}
+                    placeholder="Parent Name"
+                    className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-text-muted mb-1">Degree (Optional)</label>
                   <select
                     value={newStudent.degree}
                     onChange={(e) => {
@@ -566,23 +656,25 @@ export default function StudentsDirectoryPage() {
                       setNewStudent({
                         ...newStudent,
                         degree: newDeg,
-                        department: availableDepts[0] || "Computer Science",
+                        department: availableDepts[0] || "",
                       });
                     }}
                     className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
                   >
+                    <option value="">Select Degree</option>
                     {DEGREE_OPTIONS.map((deg) => (
                       <option key={deg} value={deg}>{deg}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-text-muted mb-1">Department / Domain *</label>
+                  <label className="block font-bold text-text-muted mb-1">Department / Domain (Optional)</label>
                   <select
                     value={newStudent.department}
                     onChange={(e) => setNewStudent({ ...newStudent, department: e.target.value })}
                     className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
                   >
+                    <option value="">Select Department</option>
                     {getDepartmentsForDegree(newStudent.degree).map((dept) => (
                       <option key={dept} value={dept}>{dept}</option>
                     ))}
@@ -592,24 +684,26 @@ export default function StudentsDirectoryPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-text-muted mb-1">Semester *</label>
+                  <label className="block font-bold text-text-muted mb-1">Semester (Optional)</label>
                   <select
                     value={newStudent.semester}
                     onChange={(e) => setNewStudent({ ...newStudent, semester: e.target.value })}
                     className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
                   >
+                    <option value="">Select Semester</option>
                     {SEMESTER_OPTIONS.map((sem) => (
                       <option key={sem} value={sem}>{sem} Semester</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-text-muted mb-1">Session *</label>
+                  <label className="block font-bold text-text-muted mb-1">Session (Optional)</label>
                   <select
                     value={newStudent.session}
                     onChange={(e) => setNewStudent({ ...newStudent, session: e.target.value })}
                     className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
                   >
+                    <option value="">Select Session</option>
                     {SESSION_OPTIONS.map((ses) => (
                       <option key={ses} value={ses}>{ses}</option>
                     ))}
@@ -620,7 +714,7 @@ export default function StudentsDirectoryPage() {
               <div className="flex justify-end gap-3 pt-3 border-t border-border-main">
                 <button type="button" onClick={() => setShowAddModal(false)} className="px-4 py-2 border rounded-xl">Cancel</button>
                 <button type="submit" disabled={isSubmitting} className="px-5 py-2 bg-brand-primary text-white font-bold rounded-xl">
-                  {isSubmitting ? "Saving..." : "Save Record"}
+                  {isSubmitting ? "Saving..." : newStudent._id ? "Update Record" : "Save Record"}
                 </button>
               </div>
             </form>
@@ -639,7 +733,7 @@ export default function StudentsDirectoryPage() {
 
             <div className="bg-bg-main p-4 rounded-xl border border-border-main text-xs space-y-2">
               <div className="font-bold text-brand-primary uppercase tracking-wider flex justify-between items-center">
-                <span>📋 CSV Format Guide & Field Requirements</span>
+                <span>📋 CSV Format Guide (All Fields Optional)</span>
                 <button
                   type="button"
                   onClick={handleCopyHeader}
@@ -648,33 +742,20 @@ export default function StudentsDirectoryPage() {
                   {copySuccess ? "✓ Header Copied!" : "📋 Copy Header String"}
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-2 text-[11px]">
-                <div>
-                  <span className="font-bold text-red-500">🔴 Required Fields:</span>
-                  <ul className="list-disc pl-4 text-text-muted">
-                    <li>1. RegistrationNumber</li>
-                    <li>2. RollNumber</li>
-                    <li>3. FullName</li>
-                  </ul>
-                </div>
-                <div>
-                  <span className="font-bold text-blue-500">🔵 Optional Fields:</span>
-                  <ul className="list-disc pl-4 text-text-muted">
-                    <li>4. Department, 5. Email</li>
-                    <li>6. Phone, 7. Degree</li>
-                    <li>8. Semester, 9. Session</li>
-                  </ul>
-                </div>
+              <p className="text-[11px] text-text-muted">
+                Admin / Employee can paste single or bulk student data. All columns are optional. Leave missing columns empty.
+              </p>
+              <div className="p-2 bg-bg-card rounded-lg font-mono text-[10px] text-text-main overflow-x-auto">
+                RegistrationNumber, RollNumber, FullName, Department, Email, Phone, Degree, Semester, Session, Gender, ParentName
               </div>
             </div>
 
             <form onSubmit={handleCsvUpload} className="space-y-4 text-sm">
               <textarea
                 rows={7}
-                required
                 value={csvText}
                 onChange={(e) => setCsvText(e.target.value)}
-                placeholder={`REG2026001, ROLL101, Rahul Sharma, Computer Science, rahul@gmail.com, 9876543210, B.Tech, 6th, 2023-2027\nREG2026002, ROLL102, Priya Singh, Electrical Eng, priya@gmail.com, 9876543211, B.Tech, 6th, 2023-2027`}
+                placeholder={`REG2026001, ROLL101, Rahul Sharma, Computer Science, rahul@gmail.com, 9876543210, B.Tech, 6th, 2023-2027, Male, S Sharma\nREG2026002, ROLL102, Priya Singh, Electrical Eng, priya@gmail.com, 9876543211, B.Tech, 6th, 2023-2027, Female, R Singh`}
                 className="w-full p-3 font-mono text-xs bg-bg-main border border-border-main rounded-xl outline-none"
               />
 

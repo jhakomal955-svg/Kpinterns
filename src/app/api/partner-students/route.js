@@ -123,20 +123,8 @@ export async function POST(request) {
       const registrationNumber = (record.registrationNumber || record.regNo || "").toString().trim();
       const fullName = (record.fullName || record.name || "").toString().trim();
       const collegeName = (record.collegeName || record.college || defaultCollegeName).toString().trim();
-
-      if (!rollNumber || !registrationNumber || !fullName || !collegeName) {
-        results.errors.push({
-          index: i,
-          record,
-          error: "Missing required fields: rollNumber, registrationNumber, fullName, or collegeName",
-        });
-        continue;
-      }
-
-      const filter = {
-        collegeName: { $regex: new RegExp("^" + collegeName.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$", "i") },
-        $or: [{ registrationNumber }, { rollNumber }],
-      };
+      const email = (record.email || "").toString().trim().toLowerCase();
+      const phone = (record.phone || record.mobile || "").toString().trim();
 
       const updateData = {
         collegeAdminId: collegeAdminId,
@@ -146,17 +134,36 @@ export async function POST(request) {
         registrationNumber,
         rollNumber,
         fullName,
-        email: (record.email || "").trim().toLowerCase(),
-        phone: (record.phone || record.mobile || "").trim(),
+        email,
+        phone,
         gender: record.gender || "",
         parentName: (record.parentName || "").trim(),
-        degree: (record.degree || "B.Tech").trim(),
-        department: (record.department || "Computer Science").trim(),
-        semester: (record.semester || "6th").trim(),
-        session: (record.session || "2023-2027").trim(),
+        degree: (record.degree || "").trim(),
+        department: (record.department || "").trim(),
+        semester: (record.semester || "").trim(),
+        session: (record.session || "").trim(),
       };
 
-      const existing = await PartnerStudent.findOne(filter);
+      // Find existing by _id, or by registrationNumber, rollNumber, or email if provided
+      let existing = null;
+      if (record._id) {
+        existing = await PartnerStudent.findById(record._id);
+      }
+      if (!existing && (registrationNumber || rollNumber || email || phone)) {
+        const orConditions = [];
+        if (registrationNumber) orConditions.push({ registrationNumber });
+        if (rollNumber) orConditions.push({ rollNumber });
+        if (email) orConditions.push({ email });
+        if (phone) orConditions.push({ phone });
+
+        const filter = {
+          $or: orConditions,
+        };
+        if (collegeName) {
+          filter.collegeName = { $regex: new RegExp("^" + collegeName.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$", "i") };
+        }
+        existing = await PartnerStudent.findOne(filter);
+      }
 
       if (existing) {
         await PartnerStudent.updateOne({ _id: existing._id }, { $set: updateData });
@@ -182,6 +189,10 @@ export async function POST(request) {
       { status: 500 }
     );
   }
+}
+
+export async function PUT(request) {
+  return POST(request);
 }
 
 export async function DELETE(request) {

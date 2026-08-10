@@ -19,13 +19,15 @@ export async function GET(request) {
     const PartnerStudent = createModel("PartnerStudent", PartnerStudentModel);
     const Admin = createModel("Admin", AdminModel);
 
-    // Search by exact match (case-insensitive) on registrationNumber or rollNumber
+    // Search by exact match (case-insensitive) on registrationNumber, rollNumber, email, or phone
     const searchRegex = new RegExp("^" + queryStr.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$", "i");
 
     const studentRecord = await PartnerStudent.findOne({
       $or: [
         { registrationNumber: searchRegex },
         { rollNumber: searchRegex },
+        { email: searchRegex },
+        { phone: searchRegex },
       ],
     }).lean();
 
@@ -34,7 +36,7 @@ export async function GET(request) {
         {
           success: true,
           found: false,
-          message: "No registered college student record found matching this Roll Number or Registration Number.",
+          message: "No registered college student record found matching this Roll Number, Registration Number, Email, or Mobile Number.",
         },
         { status: 200 }
       );

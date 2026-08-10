@@ -3,7 +3,19 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { normalizeDegree } from "@/lib/data/degreeDepartments";
+import { normalizeDegree, getDepartmentsForDegree, DEGREE_LIST } from "@/lib/data/degreeDepartments";
+
+const DEGREE_OPTIONS = DEGREE_LIST;
+const SEMESTER_OPTIONS = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
+const SESSION_OPTIONS = [
+  "2023-2027",
+  "2024-2028",
+  "2022-2026",
+  "2025-2029",
+  "2021-2025",
+  "2024-2027",
+  "2025-2028",
+];
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -37,7 +49,7 @@ export default function PartnerStudentPortalPage() {
   const [isLoadingInternships, setIsLoadingInternships] = useState(true);
   const [showAllInternships, setShowAllInternships] = useState(false);
 
-  // Enrollment Form State
+  // Enrollment Form State containing all user registration fields
   const [selectedInternship, setSelectedInternship] = useState("");
   const [studentForm, setStudentForm] = useState({
     fullName: "",
@@ -45,7 +57,15 @@ export default function PartnerStudentPortalPage() {
     phone: "",
     password: "",
     gender: "Male",
-    parentName: "N/A",
+    parentName: "",
+    university: "",
+    collegeName: "",
+    degree: "B.Tech",
+    department: "Computer Science & Engineering",
+    rollNumber: "",
+    registrationNumber: "",
+    semester: "6th",
+    session: "2023-2027",
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -109,14 +129,22 @@ export default function PartnerStudentPortalPage() {
       if (data.success && data.found) {
         setPartnerStudent(data.student);
         setCollegeRates(data.collegeRates);
-        setStudentForm((prev) => ({
-          ...prev,
+        setStudentForm({
           fullName: data.student.fullName || "",
           email: data.student.email || "",
           phone: data.student.phone || "",
+          password: "",
           gender: data.student.gender || "Male",
-          parentName: data.student.parentName || "N/A",
-        }));
+          parentName: data.student.parentName || "",
+          university: data.student.university || "",
+          collegeName: data.student.collegeName || "",
+          degree: data.student.degree || "B.Tech",
+          department: data.student.department || "Computer Science & Engineering",
+          rollNumber: data.student.rollNumber || "",
+          registrationNumber: data.student.registrationNumber || "",
+          semester: data.student.semester || "6th",
+          session: data.student.session || "2023-2027",
+        });
         setIsEmailVerified(false);
         setOtpSent(false);
         setOtpError("");
@@ -124,7 +152,7 @@ export default function PartnerStudentPortalPage() {
         setSearchSuccess(true);
       } else {
         setPartnerStudent(null);
-        setSearchError(data.message || "No registered student record found for this Registration / Roll Number.");
+        setSearchError(data.message || "No registered student record found for this Registration / Roll Number / Email / Phone.");
       }
     } catch (err) {
       console.error("Search error:", err);
@@ -211,8 +239,11 @@ export default function PartnerStudentPortalPage() {
       return internships;
     }
 
-    const studentDegNorm = normalizeDegree(partnerStudent.degree);
-    const studentDeptNorm = (partnerStudent.department || "").toLowerCase().trim();
+    const currentDegree = studentForm.degree || partnerStudent.degree || "";
+    const currentDept = studentForm.department || partnerStudent.department || "";
+
+    const studentDegNorm = normalizeDegree(currentDegree);
+    const studentDeptNorm = currentDept.toLowerCase().trim();
 
     const matches = internships.filter((intern) => {
       // Check degree match
@@ -292,13 +323,18 @@ export default function PartnerStudentPortalPage() {
       return;
     }
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!studentForm.email || !emailRegex.test(studentForm.email.trim())) {
-      alert("Please enter a valid email address.");
+    if (!studentForm.fullName?.trim()) {
+      alert("Full Name is required. Please fill in your Full Name.");
       return;
     }
 
-    const cleanedPhone = studentForm.phone.replace(/\D/g, "");
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!studentForm.email || !emailRegex.test(studentForm.email.trim())) {
+      alert("Please enter a valid Email Address (e.g. user@gmail.com).");
+      return;
+    }
+
+    const cleanedPhone = (studentForm.phone || "").replace(/\D/g, "");
     let normalizedPhone = cleanedPhone;
     if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
       normalizedPhone = cleanedPhone.substring(2);
@@ -316,8 +352,58 @@ export default function PartnerStudentPortalPage() {
       return;
     }
 
-    if (studentForm.password && studentForm.password.length < 6) {
-      alert("Password must be at least 6 characters long.");
+    if (!studentForm.password || studentForm.password.trim().length < 6) {
+      alert("Password is required and must be at least 6 characters long.");
+      return;
+    }
+
+    if (!studentForm.gender?.trim()) {
+      alert("Gender is required. Please select your gender.");
+      return;
+    }
+
+    if (!studentForm.parentName?.trim()) {
+      alert("Parent / Guardian Name is required. Please fill in your parent name.");
+      return;
+    }
+
+    if (!studentForm.university?.trim()) {
+      alert("University Name is required. Please fill in your university.");
+      return;
+    }
+
+    if (!studentForm.collegeName?.trim()) {
+      alert("College Name is required. Please fill in your college name.");
+      return;
+    }
+
+    if (!studentForm.degree?.trim()) {
+      alert("Degree is required. Please select or fill in your degree.");
+      return;
+    }
+
+    if (!studentForm.department?.trim()) {
+      alert("Department / Domain is required. Please select or fill in your department.");
+      return;
+    }
+
+    if (!studentForm.rollNumber?.trim()) {
+      alert("Roll Number is required. Please fill in your roll number.");
+      return;
+    }
+
+    if (!studentForm.registrationNumber?.trim()) {
+      alert("Registration Number is required. Please fill in your registration number.");
+      return;
+    }
+
+    if (!studentForm.semester?.trim()) {
+      alert("Semester is required. Please select your semester.");
+      return;
+    }
+
+    if (!studentForm.session?.trim()) {
+      alert("Academic Session is required. Please select your session.");
       return;
     }
 
@@ -326,20 +412,20 @@ export default function PartnerStudentPortalPage() {
 
       const payload = {
         partnerStudentId: partnerStudent._id,
-        fullName: studentForm.fullName || partnerStudent.fullName,
-        email: studentForm.email,
-        phone: studentForm.phone,
-        password: studentForm.password || "KpStudent@2026",
-        gender: studentForm.gender || partnerStudent.gender || "Male",
-        parentName: studentForm.parentName || partnerStudent.parentName || "N/A",
-        university: partnerStudent.university || "Partner University",
-        college: partnerStudent.collegeName,
-        degree: partnerStudent.degree || "B.Tech",
-        department: partnerStudent.department || "Computer Science",
-        rollNumber: partnerStudent.rollNumber,
-        semester: partnerStudent.semester || "6th",
-        session: partnerStudent.session || "2023-2027",
-        registrationNumber: partnerStudent.registrationNumber,
+        fullName: studentForm.fullName.trim(),
+        email: studentForm.email.trim(),
+        phone: normalizedPhone,
+        password: studentForm.password.trim(),
+        gender: studentForm.gender.trim(),
+        parentName: studentForm.parentName.trim(),
+        university: studentForm.university.trim(),
+        college: studentForm.collegeName.trim(),
+        degree: studentForm.degree.trim(),
+        department: studentForm.department.trim(),
+        rollNumber: studentForm.rollNumber.trim(),
+        semester: studentForm.semester.trim(),
+        session: studentForm.session.trim(),
+        registrationNumber: studentForm.registrationNumber.trim(),
         internshipId: selectedInternship,
       };
 
@@ -504,7 +590,7 @@ export default function PartnerStudentPortalPage() {
       {/* Step 2 & 3: Details & Internship Selection */}
       {searchSuccess && partnerStudent && (
         <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
-          {/* Verified Student Details Card */}
+          {/* Verified Student Details & Editable Registration Profile Form */}
           <div className="bg-bg-card border-2 border-emerald-500/40 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-emerald-500 text-white font-bold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
               ✓ Pre-Approved Partner Student
@@ -512,107 +598,209 @@ export default function PartnerStudentPortalPage() {
 
             <div className="border-b border-border-main pb-4">
               <h3 className="text-2xl font-bold text-text-main flex items-center gap-3">
-                Welcome, {partnerStudent.fullName}! 👋
+                Welcome, {studentForm.fullName || partnerStudent.fullName || "Student"}! 👋
               </h3>
               <p className="text-text-muted text-sm mt-1">
-                College: <span className="font-semibold text-brand-primary">{partnerStudent.collegeName}</span>
-                {partnerStudent.university && ` (${partnerStudent.university})`}
+                Please review, complete, and edit all your personal & academic details below. <span className="text-red-500 font-bold">* Every field is required</span> for final internship registration.
               </p>
             </div>
 
-            {/* Academic Info Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-bg-main p-4 rounded-2xl border border-border-main text-xs sm:text-sm">
-              <div>
-                <span className="text-text-muted block font-semibold uppercase text-[10px]">Registration No</span>
-                <span className="font-mono font-bold text-text-main">{partnerStudent.registrationNumber}</span>
-              </div>
-              <div>
-                <span className="text-text-muted block font-semibold uppercase text-[10px]">Roll Number</span>
-                <span className="font-mono font-bold text-text-main">{partnerStudent.rollNumber}</span>
-              </div>
-              <div>
-                <span className="text-text-muted block font-semibold uppercase text-[10px]">Degree & Dept</span>
-                <span className="font-bold text-brand-primary">{partnerStudent.degree} - {partnerStudent.department}</span>
-              </div>
-              <div>
-                <span className="text-text-muted block font-semibold uppercase text-[10px]">Semester / Session</span>
-                <span className="font-bold text-text-main">Sem {partnerStudent.semester} ({partnerStudent.session})</span>
-              </div>
-            </div>
+            {/* Profile Fields Section */}
+            <div className="space-y-6">
+              {/* Section 1: Personal Information */}
+              <div className="space-y-4 bg-bg-main p-5 rounded-2xl border border-border-main">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+                  1. Personal Profile Details (Required *)
+                </h4>
 
-            {/* Contact Details & Account Password Form */}
-            <div className="space-y-5 pt-2">
-              <h4 className="text-sm font-bold uppercase tracking-wider text-text-muted">
-                Confirm Contact Information & Account Password
-              </h4>
-
-              {/* Email Address & Prominent Send OTP Button */}
-              <div className="p-5 bg-bg-main border-2 border-border-main rounded-2xl space-y-3 shadow-inner">
-                <label className="block text-xs font-extrabold text-text-main uppercase tracking-wider flex items-center justify-between">
-                  <span>1. Email Address Verification *</span>
-                  {isEmailVerified && (
-                    <span className="text-xs font-extrabold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full flex items-center gap-1">
-                      ✓ Verified
-                    </span>
-                  )}
-                </label>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <div className="relative flex-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Full Name */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Full Name *</label>
                     <input
-                      type="email"
+                      type="text"
                       required
-                      disabled={isEmailVerified}
-                      value={studentForm.email}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, email: e.target.value });
-                        setIsEmailVerified(false);
-                        setOtpSent(false);
-                        setOtpError("");
-                        setOtpSuccessMsg("");
-                      }}
-                      placeholder="student@example.com"
-                      className={`w-full px-5 py-3.5 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-base ${
-                        isEmailVerified ? "border-emerald-500 bg-emerald-500/5" : "border-border-main focus:border-brand-primary"
-                      }`}
+                      value={studentForm.fullName}
+                      onChange={(e) => setStudentForm({ ...studentForm, fullName: e.target.value })}
+                      placeholder="Student Full Name"
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm"
                     />
                   </div>
 
-                  {!isEmailVerified ? (
-                    <button
-                      type="button"
-                      onClick={handleSendOtp}
-                      disabled={isSendingOtp || otpCooldown > 0}
-                      className="px-8 py-3.5 bg-brand-primary hover:bg-brand-primary/95 active:scale-[0.98] disabled:opacity-50 text-white font-extrabold text-base rounded-xl shadow-lg hover:shadow-brand-primary/25 transition flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                  {/* Gender */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Gender *</label>
+                    <select
+                      value={studentForm.gender}
+                      onChange={(e) => setStudentForm({ ...studentForm, gender: e.target.value })}
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm cursor-pointer"
                     >
-                      {isSendingOtp ? (
-                        <>
-                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          Sending OTP...
-                        </>
-                      ) : otpCooldown > 0 ? (
-                        `Resend OTP (${otpCooldown}s)`
-                      ) : (
-                        <>📩 Send OTP Code</>
-                      )}
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setIsEmailVerified(false)}
-                      className="px-5 py-3.5 bg-bg-card border-2 border-border-main text-text-muted hover:text-brand-primary font-bold text-xs rounded-xl transition cursor-pointer"
-                    >
-                      Change Email
-                    </button>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  {/* Parent / Guardian Name */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Parent / Guardian Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={studentForm.parentName}
+                      onChange={(e) => setStudentForm({ ...studentForm, parentName: e.target.value })}
+                      placeholder="Father's / Mother's Name"
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm"
+                    />
+                  </div>
+
+                  {/* Account Password */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">
+                      Account Password * <span className="text-[10px] text-text-muted font-normal">(Min 6 chars)</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        required
+                        value={studentForm.password}
+                        onChange={(e) => setStudentForm({ ...studentForm, password: e.target.value })}
+                        placeholder="Set login password"
+                        className="w-full px-4 py-3 pr-12 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main text-xs font-semibold focus:outline-none"
+                      >
+                        {showPassword ? "Hide" : "Show"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Email Address & Prominent Send OTP Button */}
+                <div className="pt-2">
+                  <label className="block text-xs font-bold text-text-muted mb-1 uppercase flex items-center justify-between">
+                    <span>Email Address Verification *</span>
+                    {isEmailVerified && (
+                      <span className="text-xs font-extrabold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full flex items-center gap-1">
+                        ✓ Verified
+                      </span>
+                    )}
+                  </label>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="relative flex-1">
+                      <input
+                        type="email"
+                        required
+                        disabled={isEmailVerified}
+                        value={studentForm.email}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, email: e.target.value });
+                          setIsEmailVerified(false);
+                          setOtpSent(false);
+                          setOtpError("");
+                          setOtpSuccessMsg("");
+                        }}
+                        placeholder="student@example.com"
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
+                          isEmailVerified ? "border-emerald-500 bg-emerald-500/5" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      />
+                    </div>
+
+                    {!isEmailVerified ? (
+                      <button
+                        type="button"
+                        onClick={handleSendOtp}
+                        disabled={isSendingOtp || otpCooldown > 0}
+                        className="px-6 py-3 bg-brand-primary hover:bg-brand-primary/95 active:scale-[0.98] disabled:opacity-50 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                      >
+                        {isSendingOtp ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            Sending OTP...
+                          </>
+                        ) : otpCooldown > 0 ? (
+                          `Resend OTP (${otpCooldown}s)`
+                        ) : (
+                          <>📩 Send OTP Code</>
+                        )}
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setIsEmailVerified(false)}
+                        className="px-4 py-3 bg-bg-card border-2 border-border-main text-text-muted hover:text-brand-primary font-bold text-xs rounded-xl transition cursor-pointer"
+                      >
+                        Change Email
+                      </button>
+                    )}
+                  </div>
+
+                  {/* OTP Input Form Block */}
+                  {otpSent && !isEmailVerified && (
+                    <div className="mt-3 p-4 bg-brand-primary/5 border-2 border-brand-primary/20 rounded-2xl space-y-3 animate-fadeIn">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <label className="text-xs font-bold text-text-main">
+                          Enter 6-Digit OTP sent to <span className="text-brand-primary">{studentForm.email}</span>
+                        </label>
+                        <button
+                          type="button"
+                          onClick={handleSendOtp}
+                          disabled={isSendingOtp || otpCooldown > 0}
+                          className="text-xs text-brand-primary font-bold hover:underline self-start sm:self-auto"
+                        >
+                          {otpCooldown > 0 ? `Resend Code in ${otpCooldown}s` : "Resend OTP Code"}
+                        </button>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          maxLength={6}
+                          value={otpCode}
+                          onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                          placeholder="Enter 6-digit OTP"
+                          className="flex-1 px-4 py-2.5 bg-bg-main border-2 border-brand-primary/40 rounded-xl text-text-main font-mono text-center font-bold tracking-widest text-base outline-none"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleVerifyOtp}
+                          disabled={isVerifyingOtp || otpCode.length !== 6}
+                          className="px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/95 disabled:opacity-50 text-white font-bold rounded-xl transition text-xs flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                          {isVerifyingOtp ? (
+                            <>
+                              <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                              Verifying...
+                            </>
+                          ) : (
+                            "Verify OTP"
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {otpSuccessMsg && (
+                    <div className="mt-2 p-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-xs font-semibold text-center animate-fadeIn">
+                      {otpSuccessMsg}
+                    </div>
+                  )}
+
+                  {otpError && (
+                    <div className="mt-2 p-2.5 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs font-semibold text-center animate-fadeIn">
+                      {otpError}
+                    </div>
                   )}
                 </div>
-              </div>
 
-              {/* Mobile Number & Password 2-Column Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Mobile Number */}
                 <div>
-                  <label className="block text-xs font-bold text-text-muted mb-1">2. Mobile Number (10 digits) *</label>
+                  <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Mobile Number (10 digits) *</label>
                   <input
                     type="text"
                     required
@@ -620,90 +808,135 @@ export default function PartnerStudentPortalPage() {
                     value={studentForm.phone}
                     onChange={(e) => setStudentForm({ ...studentForm, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
                     placeholder="e.g. 9876543210"
-                    className="w-full px-4 py-3.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition font-mono"
+                    className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm font-mono"
                   />
-                </div>
-
-                {/* Account Password */}
-                <div>
-                  <label className="block text-xs font-bold text-text-muted mb-1">
-                    3. Account Password <span className="text-[10px] font-normal text-text-muted">(Default: KpStudent@2026)</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={studentForm.password}
-                      onChange={(e) => setStudentForm({ ...studentForm, password: e.target.value })}
-                      placeholder="Set login password"
-                      className="w-full px-4 py-3.5 pr-12 bg-bg-main border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main text-xs font-semibold focus:outline-none"
-                    >
-                      {showPassword ? "Hide" : "Show"}
-                    </button>
-                  </div>
                 </div>
               </div>
 
-              {/* OTP Input Form Block */}
-              {otpSent && !isEmailVerified && (
-                <div className="p-4 bg-brand-primary/5 border-2 border-brand-primary/20 rounded-2xl space-y-3 animate-fadeIn">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <label className="text-xs font-bold text-text-main">
-                      Enter 6-Digit OTP sent to <span className="text-brand-primary">{studentForm.email}</span>
-                    </label>
-                    <button
-                      type="button"
-                      onClick={handleSendOtp}
-                      disabled={isSendingOtp || otpCooldown > 0}
-                      className="text-xs text-brand-primary font-bold hover:underline self-start sm:self-auto"
-                    >
-                      {otpCooldown > 0 ? `Resend Code in ${otpCooldown}s` : "Resend OTP Code"}
-                    </button>
-                  </div>
+              {/* Section 2: Academic Information */}
+              <div className="space-y-4 bg-bg-main p-5 rounded-2xl border border-border-main">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
+                  2. Academic & College Details (Required *)
+                </h4>
 
-                  <div className="flex gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* University Name */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">University *</label>
                     <input
                       type="text"
-                      maxLength={6}
-                      value={otpCode}
-                      onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                      placeholder="Enter 6-digit OTP"
-                      className="flex-1 px-4 py-2.5 bg-bg-main border-2 border-brand-primary/40 rounded-xl text-text-main font-mono text-center font-bold tracking-widest text-lg outline-none"
+                      required
+                      value={studentForm.university}
+                      onChange={(e) => setStudentForm({ ...studentForm, university: e.target.value })}
+                      placeholder="University Name"
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm"
                     />
-                    <button
-                      type="button"
-                      onClick={handleVerifyOtp}
-                      disabled={isVerifyingOtp || otpCode.length !== 6}
-                      className="px-6 py-2.5 bg-brand-primary hover:bg-brand-primary/95 disabled:opacity-50 text-white font-bold rounded-xl transition text-sm flex items-center justify-center gap-2 cursor-pointer"
+                  </div>
+
+                  {/* College Name */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">College Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={studentForm.collegeName}
+                      onChange={(e) => setStudentForm({ ...studentForm, collegeName: e.target.value })}
+                      placeholder="College Name"
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm"
+                    />
+                  </div>
+
+                  {/* Registration Number */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Registration Number *</label>
+                    <input
+                      type="text"
+                      required
+                      value={studentForm.registrationNumber}
+                      onChange={(e) => setStudentForm({ ...studentForm, registrationNumber: e.target.value })}
+                      placeholder="Registration No."
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-mono font-medium focus:border-brand-primary outline-none transition text-sm"
+                    />
+                  </div>
+
+                  {/* Roll Number */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Roll Number *</label>
+                    <input
+                      type="text"
+                      required
+                      value={studentForm.rollNumber}
+                      onChange={(e) => setStudentForm({ ...studentForm, rollNumber: e.target.value })}
+                      placeholder="Roll Number"
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-mono font-medium focus:border-brand-primary outline-none transition text-sm"
+                    />
+                  </div>
+
+                  {/* Degree Select */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Degree *</label>
+                    <select
+                      value={studentForm.degree}
+                      onChange={(e) => {
+                        const newDeg = e.target.value;
+                        const availableDepts = getDepartmentsForDegree(newDeg);
+                        setStudentForm({
+                          ...studentForm,
+                          degree: newDeg,
+                          department: availableDepts[0] || "",
+                        });
+                      }}
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm cursor-pointer"
                     >
-                      {isVerifyingOtp ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          Verifying...
-                        </>
-                      ) : (
-                        "Verify OTP"
-                      )}
-                    </button>
+                      {DEGREE_OPTIONS.map((deg) => (
+                        <option key={deg} value={deg}>{deg}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Department Select */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Department / Domain *</label>
+                    <select
+                      value={studentForm.department}
+                      onChange={(e) => setStudentForm({ ...studentForm, department: e.target.value })}
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm cursor-pointer"
+                    >
+                      {getDepartmentsForDegree(studentForm.degree).map((dept) => (
+                        <option key={dept} value={dept}>{dept}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Semester Select */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Semester *</label>
+                    <select
+                      value={studentForm.semester}
+                      onChange={(e) => setStudentForm({ ...studentForm, semester: e.target.value })}
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm cursor-pointer"
+                    >
+                      {SEMESTER_OPTIONS.map((sem) => (
+                        <option key={sem} value={sem}>{sem} Semester</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Session Select */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Academic Session *</label>
+                    <select
+                      value={studentForm.session}
+                      onChange={(e) => setStudentForm({ ...studentForm, session: e.target.value })}
+                      className="w-full px-4 py-3 bg-bg-card border-2 border-border-main rounded-xl text-text-main font-medium focus:border-brand-primary outline-none transition text-sm cursor-pointer"
+                    >
+                      {SESSION_OPTIONS.map((ses) => (
+                        <option key={ses} value={ses}>{ses}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
-              )}
-
-              {otpSuccessMsg && (
-                <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-xs font-semibold text-center animate-fadeIn">
-                  {otpSuccessMsg}
-                </div>
-              )}
-
-              {otpError && (
-                <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs font-semibold text-center animate-fadeIn">
-                  {otpError}
-                </div>
-              )}
+              </div>
             </div>
           </div>
 

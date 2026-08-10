@@ -30,9 +30,28 @@ export async function POST(request) {
       couponCode,
     } = body;
 
-    if (!fullName || !email || !phone || !registrationNumber || !rollNumber || !college || !internshipId) {
+    if (
+      !fullName?.trim() ||
+      !email?.trim() ||
+      !phone?.trim() ||
+      !gender?.trim() ||
+      !parentName?.trim() ||
+      !university?.trim() ||
+      !college?.trim() ||
+      !degree?.trim() ||
+      !department?.trim() ||
+      !rollNumber?.trim() ||
+      !registrationNumber?.trim() ||
+      !semester?.trim() ||
+      !session?.trim() ||
+      !internshipId ||
+      !password?.trim()
+    ) {
       return Response.json(
-        { success: false, error: "Please fill in all required academic and personal details." },
+        {
+          success: false,
+          error: "All user fields (Full Name, Email, Phone, Password, Gender, Parent Name, University, College, Degree, Department, Roll Number, Registration Number, Semester, and Academic Session) are required to complete final registration.",
+        },
         { status: 400 }
       );
     }

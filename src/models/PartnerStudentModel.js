@@ -18,8 +18,8 @@ const PartnerStudentModel = {
   },
   collegeName: {
     type: String,
-    required: true,
     trim: true,
+    default: "",
   },
   university: {
     type: String,
@@ -30,20 +30,20 @@ const PartnerStudentModel = {
   // Student Academic Credentials
   registrationNumber: {
     type: String,
-    required: true,
     trim: true,
+    default: "",
   },
   rollNumber: {
     type: String,
-    required: true,
     trim: true,
+    default: "",
   },
 
   // Student Profile
   fullName: {
     type: String,
-    required: true,
     trim: true,
+    default: "",
   },
   email: {
     type: String,

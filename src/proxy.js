@@ -170,6 +170,7 @@ export async function proxy(request) {
     pathname.startsWith('/api/otp/') ||
     pathname === '/api/verify' ||
     pathname === '/api/payment/order' ||
+    pathname === '/api/leads/capture' ||
     (pathname === '/api/user' && request.method === 'POST') ||
     (pathname === '/api/admin' && request.method === 'POST') ||
     (pathname === '/api/contact' && request.method === 'POST') ||

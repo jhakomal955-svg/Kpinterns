@@ -95,14 +95,28 @@ export default function RegisterPage() {
 
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
 
+  // Helper to normalize phone numbers for matching mobile autofill with DB records
+  const normalizePhoneNumber = (phone) => {
+    if (!phone) return "";
+    const cleaned = String(phone).replace(/\D/g, "");
+    if (cleaned.length === 12 && cleaned.startsWith("91")) {
+      return cleaned.slice(2);
+    }
+    if (cleaned.length === 11 && cleaned.startsWith("0")) {
+      return cleaned.slice(1);
+    }
+    return cleaned;
+  };
+
   // Background Lead Capture Helper
   const captureLeadData = useCallback(
     async (customPayload = {}) => {
       try {
+        const cleanPhone = normalizePhoneNumber(formData.phone) || formData.phone;
         const payload = {
           fullName: formData.fullName,
           email: formData.email,
-          phone: formData.phone,
+          phone: cleanPhone,
           gender: formData.gender,
           parentName: formData.parentName,
           university: formData.university,
@@ -123,8 +137,10 @@ export default function RegisterPage() {
 
         if (!payload.email?.trim() && !payload.phone?.trim()) return;
 
+        const bodyStr = JSON.stringify(payload);
+
         if (typeof window !== "undefined" && navigator.sendBeacon && customPayload.beacon) {
-          const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+          const blob = new Blob([bodyStr], { type: "text/plain;charset=UTF-8" });
           navigator.sendBeacon("/api/leads/capture", blob);
           return;
         }
@@ -132,7 +148,7 @@ export default function RegisterPage() {
         fetch("/api/leads/capture", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: bodyStr,
           keepalive: true,
         }).catch((err) => console.error("Lead capture error:", err));
       } catch (err) {
@@ -142,17 +158,19 @@ export default function RegisterPage() {
     [formData, purchaseType, step]
   );
 
-  // Debounced auto-save effect whenever contact/personal inputs change
+  // Debounced auto-save effect whenever contact/personal inputs change (600ms for mobile responsiveness)
   useEffect(() => {
     if (!formData.email?.trim() && !formData.phone?.trim()) return;
     const timer = setTimeout(() => {
       captureLeadData();
-    }, 1500);
+    }, 600);
     return () => clearTimeout(timer);
   }, [
     formData.fullName,
     formData.email,
     formData.phone,
+    formData.gender,
+    formData.parentName,
     formData.university,
     formData.college,
     formData.internshipDomain,
@@ -160,7 +178,7 @@ export default function RegisterPage() {
     captureLeadData,
   ]);
 
-  // Page hide / tab close beacon listener
+  // Page hide / tab close / mobile background beacon listener
   useEffect(() => {
     const handleUnload = () => {
       if (formData.email?.trim() || formData.phone?.trim()) {
@@ -169,6 +187,7 @@ export default function RegisterPage() {
     };
 
     window.addEventListener("pagehide", handleUnload);
+    window.addEventListener("blur", handleUnload);
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden") {
         handleUnload();
@@ -178,6 +197,7 @@ export default function RegisterPage() {
 
     return () => {
       window.removeEventListener("pagehide", handleUnload);
+      window.removeEventListener("blur", handleUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [formData.email, formData.phone, captureLeadData]);
@@ -1122,6 +1142,7 @@ export default function RegisterPage() {
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleInputChange}
+                      onBlur={() => captureLeadData()}
                       placeholder="Enter your full name"
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.fullName
@@ -1146,6 +1167,7 @@ export default function RegisterPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
+                      onBlur={() => captureLeadData()}
                       placeholder="e.g. 9876543210"
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.phone ? "border-red-500" : "border-border-main"
@@ -1175,6 +1197,7 @@ export default function RegisterPage() {
                           }
                           handleInputChange(e);
                         }}
+                        onBlur={() => captureLeadData()}
                         disabled={isEmailVerified}
                         placeholder="you@example.com"
                         className={`w-full sm:flex-1 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
@@ -1284,6 +1307,7 @@ export default function RegisterPage() {
                       name="gender"
                       value={formData.gender}
                       onChange={handleInputChange}
+                      onBlur={() => captureLeadData()}
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.gender ? "border-red-500" : "border-border-main"
                       }`}
@@ -1310,6 +1334,7 @@ export default function RegisterPage() {
                       name="parentName"
                       value={formData.parentName}
                       onChange={handleInputChange}
+                      onBlur={() => captureLeadData()}
                       placeholder="Enter parent/guardian name"
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.parentName
@@ -1374,6 +1399,7 @@ export default function RegisterPage() {
                           name="universityCustom"
                           value={formData.universityCustom || ""}
                           onChange={handleInputChange}
+                          onBlur={() => captureLeadData()}
                           placeholder="Enter your university name"
                           className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                             errors.universityCustom ? "border-red-500" : "border-border-main"
@@ -1430,6 +1456,7 @@ export default function RegisterPage() {
                           name="collegeCustom"
                           value={formData.collegeCustom || ""}
                           onChange={handleInputChange}
+                          onBlur={() => captureLeadData()}
                           placeholder="Enter your college name"
                           className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                             errors.collegeCustom ? "border-red-500" : "border-border-main"
@@ -1598,6 +1625,7 @@ export default function RegisterPage() {
                       name="rollNumber"
                       value={formData.rollNumber}
                       onChange={handleInputChange}
+                      onBlur={() => captureLeadData()}
                       placeholder="Enter roll number"
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.rollNumber ? "border-red-500" : "border-border-main"
@@ -1619,6 +1647,7 @@ export default function RegisterPage() {
                       name="registrationNumber"
                       value={formData.registrationNumber}
                       onChange={handleInputChange}
+                      onBlur={() => captureLeadData()}
                       placeholder="Enter registration number"
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.registrationNumber

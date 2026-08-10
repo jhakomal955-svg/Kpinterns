@@ -7,6 +7,18 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { LeadModel } from "@/models";
 
+function normalizePhone(phoneStr) {
+  if (!phoneStr) return "";
+  const cleaned = String(phoneStr).replace(/\D/g, "");
+  if (cleaned.length === 12 && cleaned.startsWith("91")) {
+    return cleaned.slice(2);
+  }
+  if (cleaned.length === 11 && cleaned.startsWith("0")) {
+    return cleaned.slice(1);
+  }
+  return cleaned;
+}
+
 export async function POST(request) {
   try {
     await connectDB();
@@ -17,7 +29,7 @@ export async function POST(request) {
     if (contentType.includes("application/json")) {
       body = await request.json();
     } else {
-      // Handles navigator.sendBeacon text/plain payload
+      // Handles navigator.sendBeacon text/plain or urlencoded payload
       const text = await request.text();
       try {
         body = JSON.parse(text);
@@ -49,11 +61,13 @@ export async function POST(request) {
     } = body;
 
     const trimmedEmail = (email || "").trim().toLowerCase();
-    const trimmedPhone = (phone || "").trim();
+    const normalizedPhone = normalizePhone(phone);
+    const rawPhone = (phone || "").trim();
+    const targetPhone = normalizedPhone || rawPhone;
     const trimmedName = (fullName || "").trim();
 
     // We need at least an email or phone number to create/track a lead
-    if (!trimmedEmail && !trimmedPhone) {
+    if (!trimmedEmail && !targetPhone) {
       return Response.json(
         { error: "At least email or phone is required to capture lead" },
         { status: 400 }
@@ -62,10 +76,11 @@ export async function POST(request) {
 
     const Lead = createModel("Lead", LeadModel);
 
-    // Build matching query
+    // Build matching query with email or normalized/raw phone
     const query = [];
     if (trimmedEmail) query.push({ email: trimmedEmail });
-    if (trimmedPhone) query.push({ phone: trimmedPhone });
+    if (targetPhone) query.push({ phone: targetPhone });
+    if (normalizedPhone && normalizedPhone !== rawPhone) query.push({ phone: rawPhone });
 
     let existingLead = null;
     if (query.length > 0) {
@@ -78,7 +93,7 @@ export async function POST(request) {
 
     if (trimmedName) updateFields.fullName = trimmedName;
     if (trimmedEmail) updateFields.email = trimmedEmail;
-    if (trimmedPhone) updateFields.phone = trimmedPhone;
+    if (targetPhone) updateFields.phone = targetPhone;
     if (gender) updateFields.gender = gender;
     if (parentName) updateFields.parentName = parentName;
     if (university) updateFields.university = university;

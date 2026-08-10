@@ -10,7 +10,7 @@
 import connectDB from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, AdminModel, PartnerStudentModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, AdminModel, PartnerStudentModel, LeadModel } from "@/models";
 import crypto from "crypto";
 import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
@@ -570,6 +570,22 @@ export async function POST(request) {
     // Create new user
     const newUser = new User(data);
     await newUser.save();
+
+    // Automatically mark corresponding lead as Converted in database
+    try {
+      const Lead = createModel("Lead", LeadModel);
+      const leadQuery = [];
+      if (newUser.email) leadQuery.push({ email: newUser.email.trim().toLowerCase() });
+      if (newUser.phone) leadQuery.push({ phone: newUser.phone.trim() });
+      if (leadQuery.length > 0) {
+        await Lead.updateMany(
+          { $or: leadQuery, status: { $ne: "Converted" } },
+          { $set: { status: "Converted", lastActivityAt: new Date() } }
+        );
+      }
+    } catch (leadErr) {
+      console.error("Error auto-converting lead on user creation:", leadErr);
+    }
 
     // Consume & invalidate verified OTP record after successful account creation
     if (!isDashboardCreation) {

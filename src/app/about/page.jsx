@@ -104,7 +104,7 @@ export default function AboutPage() {
                 Our mission is to democratize professional training. We provide structured online programs aligned with the NEP-2020 Choice Based Credit System (CBCS) / CCFUP guidelines, offering a 120-hour academic coursework structure that fits perfectly with your college calendar.
               </p>
               <p className="text-lg text-text-muted leading-relaxed">
-                Whether you are pursuing a Technical degree (B.Tech, Diploma, BCA, BSc) or a Non-Technical stream (BA, BCom, BBA), our project-based curriculum, interactive live sessions on Google Meet, and dedicated WhatsApp mentoring will guide you to academic excellence and placement readiness.
+                Whether you are pursuing a Technical degree (B.Tech, Diploma) or a Non-Technical stream (BA, BSc, BCom, Education, Law), our project-based curriculum, interactive live sessions on Google Meet, and dedicated WhatsApp mentoring will guide you to academic excellence and placement readiness.
               </p>
             </div>
             <div className="relative">

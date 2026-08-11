@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { normalizeDegree, getDepartmentsForDegree, DEGREE_LIST } from "@/lib/data/degreeDepartments";
 
 const DEGREE_OPTIONS = DEGREE_LIST;

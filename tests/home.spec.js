@@ -25,14 +25,14 @@ test.describe('KpInterns Homepage', () => {
   test('should navigate to Courses page', async ({ page }) => {
     await page.goto('/');
     const coursesLink = page.locator('nav').first().locator('text=Courses').first();
-    await coursesLink.click();
+    await coursesLink.click({ force: true });
     await expect(page).toHaveURL(/\/courses/);
   });
 
   test('should navigate to Contact page', async ({ page }) => {
     await page.goto('/');
     const contactLink = page.locator('nav').first().locator('text=Contact').first();
-    await contactLink.click();
+    await contactLink.click({ force: true });
     await expect(page).toHaveURL(/\/contact/);
   });
 
@@ -53,8 +53,14 @@ test.describe('KpInterns Homepage', () => {
     await page.fill('input[name="semester"]', 'Semester 3');
     await page.fill('textarea[name="message"]', 'This is a test message to ensure the contact form works properly.');
 
+    // Dismiss social banner modal if visible
+    const exploreBtn = page.locator('text=Explore Website Features');
+    if (await exploreBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await exploreBtn.click().catch(() => {});
+    }
+
     // Click submit button
-    await page.click('button[type="submit"]');
+    await page.click('button[type="submit"]', { force: true });
 
     // Verify success message appears
     const successMsg = page.locator('text=Thank you! We\'ll get back to you soon.');

@@ -11,6 +11,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { InternshipModel, AdminModel, UserModel } from "@/models";
 import { verifyAuth, getAuthUser } from "@/lib/jwt";
+import { normalizeDegree } from "@/lib/data/degreeDepartments";
 
 // Global memory cache for internships list to avoid database queries on every page navigation
 let internshipsCache = global.internshipsCache;
@@ -26,6 +27,12 @@ const CACHE_TTL_MS = 60 * 1000; // 1 minute cache TTL
 function sanitizeInternship(internship, isAdminOrInstructor, hasCompletedInternship = false) {
   if (!internship) return null;
   const obj = typeof internship.toObject === "function" ? internship.toObject() : internship;
+
+  if (obj.degree) {
+    obj.degree = Array.isArray(obj.degree)
+      ? obj.degree.map(normalizeDegree)
+      : [normalizeDegree(obj.degree)];
+  }
 
   if (!isAdminOrInstructor) {
     if (!hasCompletedInternship) {
@@ -206,9 +213,10 @@ export async function POST(request) {
       );
     }
 
-    // Validate degree enum
+    // Normalize degree input
+    const degreeArray = Array.isArray(data.degree) ? data.degree.map(normalizeDegree) : (data.degree ? [normalizeDegree(data.degree)] : []);
+    data.degree = degreeArray;
     const validDegrees = InternshipModel.degree.enum;
-    const degreeArray = Array.isArray(data.degree) ? data.degree : (data.degree ? [data.degree] : []);
     if (degreeArray.length === 0 || !degreeArray.every((d) => validDegrees.includes(d))) {
       return Response.json(
         { error: "Invalid degree selected" },
@@ -305,6 +313,11 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
+    if (data.degree) {
+      data.degree = Array.isArray(data.degree)
+        ? data.degree.map(normalizeDegree)
+        : [normalizeDegree(data.degree)];
+    }
 
     const Internship = createModel("Internship", InternshipModel);
     const Admin = createModel("Admin", AdminModel);

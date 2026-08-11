@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { universitiesData } from "@/lib/data/universities";
+import { DEGREE_LIST, getDepartmentsForCollegeAndDegree, normalizeDegree } from "@/lib/data/degreeDepartments";
 import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 function calculateEndDate(startDate, durationStr) {
@@ -390,55 +391,35 @@ export default function UserCreatePage() {
     }));
   };
 
+  // Get available departments for selected college and degree
   const getAvailableDepartments = () => {
-    if (!formData.university || !formData.college || !formData.degree) return [];
-
-    let depts = [];
-    if (formData.university === "others" || formData.college === "others") {
-      depts = getDepartmentsForDegreeFallback(formData.degree);
-    } else {
-      const universityData = universitiesData[formData.university];
-      if (!universityData) {
-        depts = getDepartmentsForDegreeFallback(formData.degree);
-      } else {
-        const collegeData = universityData.colleges?.[formData.college];
-        if (!collegeData) {
-          depts = getDepartmentsForDegreeFallback(formData.degree);
-        } else {
-          let degreeKey = formData.degree;
-          if (degreeKey === "Bcom") degreeKey = "BCom";
-          if (degreeKey === "Bsc") degreeKey = "BSc";
-          
-          const rawDepts = collegeData.departments?.[degreeKey];
-          depts = Array.isArray(rawDepts) && rawDepts.length > 0 ? rawDepts : getDepartmentsForDegreeFallback(formData.degree);
-        }
-      }
-    }
-    return Array.from(new Set(depts));
+    if (!formData.degree) return [];
+    return getDepartmentsForCollegeAndDegree(
+      formData.university,
+      formData.college,
+      formData.degree
+    );
   };
 
   const getAvailableSemestersCount = () => {
     if (!formData.degree) return 0;
-    if (formData.degree === "Diploma") return 6; // 3-year program (6 semesters)
-    if (["B.Tech", "BA", "Bcom", "Bsc"].includes(formData.degree)) return 8; // 4-year programs (8 semesters)
-    if (formData.degree === "Master") return 4;
-    return 0;
+    const norm = normalizeDegree(formData.degree);
+    if (norm === "Diploma") return 6;
+    if (["B.Tech", "BA", "BSc", "BCom", "Education", "Law"].includes(norm)) return 8;
+    return 6;
   };
 
   const getAvailableSessions = (degree) => {
     if (!degree) return [];
-    if (["B.Tech", "BA", "Bcom", "Bsc"].includes(degree)) {
-      return ["2023-27", "2024-28", "2025-29"];
-    } else if (degree === "Diploma") {
+    const norm = normalizeDegree(degree);
+    if (norm === "Diploma") {
       return ["2023-26", "2024-27", "2025-28"];
     }
-    return ["2024-25", "2025-26"]; // fallback
+    return ["2023-27", "2024-28", "2025-29", "2026-30"];
   };
 
   const normaliseDegree = (deg) => {
-    if (!deg) return "";
-    const map = { "B.Tech": "BTech", "Bcom": "BCom", "Bsc": "BSc" };
-    return map[deg] ?? deg;
+    return normalizeDegree(deg);
   };
 
   const getFilteredInternshipsForBranchDept = () => {
@@ -946,7 +927,7 @@ export default function UserCreatePage() {
                     Degree *
                   </label>
                   <div className="flex flex-wrap gap-4 pt-1">
-                    {["Diploma", "B.Tech", "BA", "Bcom", "Bsc"].map((degree) => (
+                    {DEGREE_LIST.map((degree) => (
                       <label key={degree} className="flex items-center cursor-pointer">
                         <input
                           type="radio"

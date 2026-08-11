@@ -4,24 +4,10 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { universitiesData } from "@/lib/data/universities";
-import { getDepartmentsForDegree, DEGREE_LIST } from "@/lib/data/degreeDepartments";
+import { getDepartmentsForDegree, DEGREE_LIST, ALL_DEPARTMENTS } from "@/lib/data/degreeDepartments";
 
 const DEGREE_OPTIONS = DEGREE_LIST;
-
-const DEPARTMENT_OPTIONS = [
-  "Computer Science & Engineering",
-  "Information Technology (IT)",
-  "Artificial Intelligence & ML (AI & ML)",
-  "Data Science",
-  "Cyber Security",
-  "Electronics & Communication (ECE)",
-  "Electrical & Electronics (EEE)",
-  "Mechanical Engineering",
-  "Civil Engineering",
-  "Robotics & Automation",
-  "Software Engineering",
-  "Other",
-];
+const DEPARTMENT_OPTIONS = ALL_DEPARTMENTS;
 
 const SEMESTER_OPTIONS = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
 const SESSION_OPTIONS = [

@@ -1,6 +1,13 @@
 const { test, expect } = require('@playwright/test');
 
 test.describe('Admin Authentication UI', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+    });
+  });
+
   test('should load the Admin Login page and verify form elements', async ({ page }) => {
     await page.goto('/admin/auth/login');
 

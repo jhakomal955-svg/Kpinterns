@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { universitiesData } from "@/lib/data/universities";
+import { DEGREE_LIST, getDepartmentsForCollegeAndDegree, normalizeDegree } from "@/lib/data/degreeDepartments";
 import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 const loadRazorpayScript = () => {
@@ -501,143 +501,51 @@ export default function RegisterPage() {
     }
   };
 
-  const getDepartmentsForDegreeFallback = (deg) => {
-    if (!deg) return [];
-    if (deg === "Diploma" || deg === "B.Tech") {
-      return [
-        "Civil Engineering",
-        "Mechanical Engineering",
-        "Electrical Engineering",
-        "Electronics & Communication",
-        "Computer Science & Engineering",
-        "Chemical Engineering",
-        "Aeronautical Engineering",
-        "Aerospace Engineering",
-        "Agricultural Engineering",
-        "Architecture Engineering",
-        "Artificial Intelligence (AI)",
-        "Artificial Intelligence & Machine Learning (AI & ML)",
-        "Artificial Intelligence & Data Science",
-        "Automobile Engineering",
-        "Biomedical Engineering",
-        "Bioinformatics Engineering",
-        "Biotechnology Engineering",
-        "Biochemical Engineering",
-        "Ceramic Engineering",
-        "Cyber Security",
-        "Data Science",
-        "Dairy Technology",
-        "Electrical & Electronics Engineering (EEE)",
-        "Environmental Engineering",
-        "Fire Engineering",
-        "Food Engineering",
-        "Food Processing & Preservation (FPP)",
-        "Food Processing Technology",
-        "Food Technology",
-        "Genetic Engineering",
-        "Industrial Engineering",
-        "Industrial & Production Engineering",
-        "Information Technology (IT)",
-        "Instrumentation Engineering",
-        "Internet of Things (IoT)",
-        "Leather Technology",
-        "Marine Engineering",
-        "Materials Engineering",
-        "Mechatronics Engineering",
-        "Metallurgical Engineering",
-        "Mining Engineering",
-        "Nanotechnology Engineering",
-        "Naval Architecture",
-        "Petroleum Engineering",
-        "Plastic Engineering",
-        "Polymer Engineering",
-        "Printing Technology",
-        "Production Engineering",
-        "Robotics Engineering",
-        "Robotics & Automation",
-        "Safety Engineering",
-        "Software Engineering",
-        "Structural Engineering",
-        "Textile Engineering",
-        "Transportation Engineering",
-        "VLSI Design",
-        "Renewable Energy Engineering",
-        "Power Engineering",
-        "Telecommunication Engineering"
-      ];
-    } else if (deg === "BA") {
-      return ["Arts","Home Science","HUMANITIES","Ancient indian history","Anthropology","Bojpuri","Economics","English","Geography","History","Political Science","Psychology","Sociology","Urdu","Maithili","Hindi","Sanskrit","Music","Rural Economics"];
-    } else if (deg === "Bsc" || deg === "BSc") {
-      return ["Physics","Chemistry","Mathematics","Statistics","Botany","Zoology","Microbiology","Biotechnology","Biochemistry","Computer Science","Data Science","Agriculture","Nursing","Forensic Science"];
-    } else if (deg === "Bcom" || deg === "BCom") {
-      return ["Commerce","Accounting & Finance","Business Administration","Banking & Insurance","Taxation","Economics","Sales & Marketing","Computer Applications"];
-    }
-    return [];
-  };
-
+  // Get available colleges for selected university
   const getAvailableColleges = () => {
     if (!formData.university || formData.university === "others") return [];
     const universityData = universitiesData[formData.university];
-    if (!universityData) return [];
+    if (!universityData || !universityData.colleges) return [];
     return Object.entries(universityData.colleges).map(([key, college]) => ({
       id: key,
       name: college.name,
     }));
   };
 
+  // Get available departments for selected college and degree
   const getAvailableDepartments = () => {
-    if (!formData.university || !formData.college || !formData.degree) return [];
-
-    let depts = [];
-    if (formData.university === "others" || formData.college === "others") {
-      depts = getDepartmentsForDegreeFallback(formData.degree);
-    } else {
-      const universityData = universitiesData[formData.university];
-      if (!universityData) {
-        depts = getDepartmentsForDegreeFallback(formData.degree);
-      } else {
-        const collegeData = universityData.colleges?.[formData.college];
-        if (!collegeData) {
-          depts = getDepartmentsForDegreeFallback(formData.degree);
-        } else {
-          let degreeKey = formData.degree;
-          if (degreeKey === "Bcom") degreeKey = "BCom";
-          if (degreeKey === "Bsc") degreeKey = "BSc";
-          
-          const rawDepts = collegeData.departments?.[degreeKey];
-          depts = Array.isArray(rawDepts) && rawDepts.length > 0 ? rawDepts : getDepartmentsForDegreeFallback(formData.degree);
-        }
-      }
-    }
-    return Array.from(new Set(depts));
+    if (!formData.degree) return [];
+    return getDepartmentsForCollegeAndDegree(
+      formData.university,
+      formData.college,
+      formData.degree
+    );
   };
 
+  // Get available semesters count based on degree
   const getAvailableSemestersCount = () => {
     if (!formData.degree) return 0;
-    if (formData.degree === "Diploma") {
-      return 6; // 3-year program (6 semesters)
-    } else if (["B.Tech", "BA", "Bcom", "Bsc"].includes(formData.degree)) {
-      return 8; // 4-year programs (8 semesters)
-    } else if (formData.degree === "Master") {
-      return 4;
+    const norm = normalizeDegree(formData.degree);
+    if (norm === "Diploma") {
+      return 6;
+    } else if (["B.Tech", "BA", "BSc", "BCom", "Education", "Law"].includes(norm)) {
+      return 8;
     }
-    return 0;
+    return 6;
   };
 
   const getAvailableSessions = (degree) => {
     if (!degree) return [];
-    if (["B.Tech", "BA", "Bcom", "Bsc"].includes(degree)) {
-      return ["2023-27", "2024-28", "2025-29"];
-    } else if (degree === "Diploma") {
+    const norm = normalizeDegree(degree);
+    if (norm === "Diploma") {
       return ["2023-26", "2024-27", "2025-28"];
     }
-    return ["2024-25", "2025-26"]; // fallback
+    return ["2023-27", "2024-28", "2025-29", "2026-30"];
   };
 
+  // ── Degree normaliser: maps degree → canonical degree string ────────
   const normaliseDegree = (deg) => {
-    if (!deg) return "";
-    const map = { "B.Tech": "BTech", "Bcom": "BCom", "Bsc": "BSc" };
-    return map[deg] ?? deg;
+    return normalizeDegree(deg);
   };
 
   const getFilteredInternshipsForBranchDept = () => {
@@ -1171,7 +1079,7 @@ export default function RegisterPage() {
                     Degree *
                   </label>
                   <div className="flex flex-wrap gap-4">
-                    {["Diploma", "B.Tech", "BA", "Bcom", "Bsc"].map((degree) => (
+                    {DEGREE_LIST.map((degree) => (
                       <label key={degree} className="flex items-center cursor-pointer">
                         <input
                           type="radio"

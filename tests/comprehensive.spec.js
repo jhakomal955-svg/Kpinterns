@@ -1,6 +1,13 @@
 const { test, expect } = require('@playwright/test');
 
 test.describe('Website Core Pages UI', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+    });
+  });
+
   test('should load the home page and verify layout', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('h1')).toContainText("India's Leading");

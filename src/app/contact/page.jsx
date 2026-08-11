@@ -550,7 +550,7 @@ export default function ContactPage() {
                     name="course"
                     value={formData.course}
                     onChange={handleInputChange}
-                    placeholder="B.A. / B.Sc. / BCA"
+                    placeholder="B.Tech / Diploma / B.A. / B.Sc. / B.Com"
                     className={`w-full px-4 py-3 rounded-lg border bg-bg-main text-text-main placeholder:text-text-muted transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary ${
                       errors.course ? "border-red-500" : "border-border-main"
                     }`}

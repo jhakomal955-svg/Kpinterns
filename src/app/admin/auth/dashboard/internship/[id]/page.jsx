@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import MediaPicker from "@/components/MediaPicker";
+import { DEGREE_LIST as degrees, DEPARTMENT_GROUPS as departmentGroups, normalizeDegree } from "@/lib/data/degreeDepartments";
 
 export default function InternshipEditPage() {
   const router = useRouter();
@@ -74,120 +75,7 @@ export default function InternshipEditPage() {
   const [editingContentIndex, setEditingContentIndex] = useState(null);
   const [editingUpdateIndex, setEditingUpdateIndex] = useState(null);
 
-  const degrees = ["BTech", "Diploma", "BSc", "BA", "BCom"];
 
-  // Grouped departments according to Internship model enums
-  const departmentGroups = {
-    "Engineering (B.Tech / Diploma)": [
-      "Computer Science & Engineering",
-      "Mechanical Engineering",
-      "Civil Engineering",
-      "Electrical Engineering",
-      "Electronics & Communication",
-      "Chemical Engineering",
-      "Aeronautical Engineering",
-      "Aerospace Engineering",
-      "Agricultural Engineering",
-      "Architecture Engineering",
-      "Artificial Intelligence (AI)",
-      "Artificial Intelligence & Machine Learning (AI & ML)",
-      "Artificial Intelligence & Data Science",
-      "Automobile Engineering",
-      "Biomedical Engineering",
-      "Bioinformatics Engineering",
-      "Biotechnology Engineering",
-      "Biochemical Engineering",
-      "Ceramic Engineering",
-      "Cyber Security",
-      "Data Science",
-      "Dairy Technology",
-      "Electrical & Electronics Engineering (EEE)",
-      "Environmental Engineering",
-      "Fire Engineering",
-      "Food Engineering",
-      "Food Processing & Preservation (FPP)",
-      "Food Processing Technology",
-      "Food Technology",
-      "Genetic Engineering",
-      "Industrial Engineering",
-      "Industrial & Production Engineering",
-      "Information Technology (IT)",
-      "Instrumentation Engineering",
-      "Internet of Things (IoT)",
-      "Leather Technology",
-      "Marine Engineering",
-      "Materials Engineering",
-      "Mechatronics Engineering",
-      "Metallurgical Engineering",
-      "Mining Engineering",
-      "Nanotechnology Engineering",
-      "Naval Architecture",
-      "Petroleum Engineering",
-      "Plastic Engineering",
-      "Polymer Engineering",
-      "Printing Technology",
-      "Production Engineering",
-      "Robotics Engineering",
-      "Robotics & Automation",
-      "Safety Engineering",
-      "Software Engineering",
-      "Structural Engineering",
-      "Textile Engineering",
-      "Transportation Engineering",
-      "VLSI Design",
-      "Renewable Energy Engineering",
-      "Power Engineering",
-      "Telecommunication Engineering"
-    ],
-    "Pure & Applied Sciences (BSc)": [
-      "Physics",
-      "Chemistry",
-      "Mathematics",
-      "Statistics",
-      "Botany",
-      "Zoology",
-      "Microbiology",
-      "Biotechnology",
-      "Biochemistry",
-      "Computer Science",
-      "Data Science",
-      "Agriculture",
-      "Nursing",
-      "Forensic Science",
-    ],
-    "Arts & Humanities (BA)": [
-      "Arts",
-      "Home Science",
-      "HUMANITIES",
-      "Ancient indian history",
-      "Anthropology",
-      "Bojpuri",
-      "Economics",
-      "English",
-      "Geography",
-      "History",
-      "Political Science",
-      "Psychology",
-      "Sociology",
-      "Urdu",
-      "Maithili",
-      "Hindi",
-      "Sanskrit",
-      "Music",
-      "Rural Economics",
-    ],
-    "Commerce & Business (BCom / BBA)": [
-      "Accounting & Finance",
-      "Business Administration",
-      "Banking & Insurance",
-      "Taxation",
-      "Economics",
-      "Sales & Marketing",
-      "Computer Applications",
-    ],
-    "Education": ["General Teacher Training"],
-    "Law": ["Civil Law", "Criminal Law", "Corporate Law"],
-  };
 
   // Grouped domains according to Internship model enums
   const domainGroups = {
@@ -486,7 +374,11 @@ export default function InternshipEditPage() {
           shortDescription: internship.shortDescription || "",
           thumbnail: internship.thumbnail || "",
           position: internship.position || "",
-          degree: Array.isArray(internship.degree) ? internship.degree : (internship.degree ? [internship.degree] : []),
+          degree: Array.isArray(internship.degree)
+            ? internship.degree.map(normalizeDegree)
+            : internship.degree
+            ? [normalizeDegree(internship.degree)]
+            : [],
           department: Array.isArray(internship.department) ? internship.department : (internship.department ? [internship.department] : []),
           domain: internship.domain || "Full Stack Development",
           internshipType: internship.internshipType || "Full-Time",

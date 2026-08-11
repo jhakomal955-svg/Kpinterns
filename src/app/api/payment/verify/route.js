@@ -6,8 +6,6 @@ import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
 import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
 import { generatePaymentReceipt } from "@/lib/pdfGenerator";
-import { uploadBufferToCloudinary } from "@/lib/cloudinary";
-import { verifyAuth } from "@/lib/jwt";
 
 function calculateEndDate(startDate, durationStr) {
   const date = new Date(startDate);

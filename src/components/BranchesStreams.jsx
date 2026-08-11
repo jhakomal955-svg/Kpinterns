@@ -17,9 +17,8 @@ const BranchesStreams = () => {
     { name: "BA — Bachelor of Arts", icon: "📚" },
     { name: "BSc — Bachelor of Science", icon: "🔬" },
     { name: "BCom — Bachelor of Commerce", icon: "💼" },
-    { name: "BBA — Bachelor of Business Administration", icon: "📊" },
-    { name: "BCA — Bachelor of Computer Applications", icon: "💾" },
-    { name: "BA in Hospitality & Tourism", icon: "✈️" },
+    { name: "Education — Teacher Training", icon: "🎓" },
+    { name: "Law — Legal Studies", icon: "⚖️" },
   ];
 
   return (

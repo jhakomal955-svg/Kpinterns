@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 
 const Question = () => {
   // State to track which FAQ item is open
@@ -26,7 +25,7 @@ const Question = () => {
     {
       question: "What courses and streams are available on Kp Interns?",
       answer:
-        "We support a wide range of streams. For Technical tracks (BTech/Diploma), we offer Full Stack Development, IoT, ECE, Civil, Electrical, and Mechanical projects. For Non-Technical tracks, we offer customized programs in Arts (BA), Science (BSc), Commerce (BCom), BBA, and BCA domains tailored to fits your academic curriculum.",
+        "We support a wide range of streams. For Technical tracks (B.Tech/Diploma), we offer Full Stack Development, IoT, ECE, Civil, Electrical, and Mechanical projects. For Non-Technical tracks, we offer customized programs in Arts (BA), Science (BSc), Commerce (BCom), Education, and Law domains tailored to fit your academic curriculum.",
     },
     {
       question: "Do you provide verifiable certificates?",

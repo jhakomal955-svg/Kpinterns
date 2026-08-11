@@ -55,11 +55,14 @@ const InternshipModel = {
     type: [String],
     required: true,
     enum: [
+      "B.Tech",
       "BTech",
       "Diploma",
       "BSc",
       "BA",
       "BCom",
+      "Education",
+      "Law",
     ],
   },
 

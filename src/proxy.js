@@ -180,7 +180,7 @@ export async function proxy(request) {
 
   const authHeader = request.headers.get('authorization');
   
-  // 2. If authorization header is present, verify it and forward user details
+  // 2. Process authorization header if present
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
     const decoded = await verifyJWT(token, JWT_SECRET);
@@ -195,18 +195,19 @@ export async function proxy(request) {
         },
       });
     } else {
-      // Token is present but expired or invalid. Reject request.
-      return new NextResponse(
-        JSON.stringify({ error: 'Authentication token is invalid or expired. Please login again.' }),
-        { status: 401, headers: { 'content-type': 'application/json' } }
-      );
+      // Token is present but expired or invalid.
+      // ONLY reject if the route is NOT public.
+      if (!isPublicRoute) {
+        return new NextResponse(
+          JSON.stringify({ error: 'Authentication token is invalid or expired. Please login again.' }),
+          { status: 401, headers: { 'content-type': 'application/json' } }
+        );
+      }
     }
   }
 
-  // 3. If no auth header, check if route requires auth
-  const requiresAuth = !isPublicRoute;
-
-  if (requiresAuth) {
+  // 3. If no auth header (or invalid token on a public route), enforce auth only on private routes
+  if (!isPublicRoute) {
     return new NextResponse(
       JSON.stringify({ error: 'Authentication token missing. Please login again.' }),
       { status: 401, headers: { 'content-type': 'application/json' } }

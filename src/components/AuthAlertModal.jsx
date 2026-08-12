@@ -57,7 +57,7 @@ export default function AuthAlertModal({ isOpen, onClose }) {
             Log In
           </Link>
           <Link
-            href="/register"
+            href="/register-process"
             className="px-4 py-2.5 text-sm font-bold rounded-xl bg-brand-primary text-white hover:bg-brand-primary/95 shadow-md hover:shadow-lg transition duration-200 w-full sm:w-auto text-center"
           >
             Register

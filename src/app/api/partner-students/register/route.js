@@ -65,6 +65,35 @@ export async function POST(request) {
       );
     }
 
+    const cleanEmailStr = email.trim().toLowerCase();
+    const emailDomainParts = cleanEmailStr.split("@")[1]?.split(".") || [];
+    const emailDomainMain = emailDomainParts[0] || "";
+    const emailDomainFull = cleanEmailStr.split("@")[1] || "";
+
+    const invalidTlds = ["con", "cmo", "gmal", "gmai", "yaho", "hotmial", "outlok", "cm", "coom", "comm"];
+    const tld = emailDomainParts[emailDomainParts.length - 1] || "";
+    if (invalidTlds.includes(tld)) {
+      return Response.json(
+        { success: false, error: `Invalid email domain extension (.${tld}). Please enter a valid email address (e.g. user@gmail.com).` },
+        { status: 400 }
+      );
+    }
+
+    if (
+      (emailDomainMain.startsWith("gmai") ||
+        emailDomainMain.startsWith("gami") ||
+        emailDomainMain.startsWith("gmia") ||
+        emailDomainMain.startsWith("gmal")) &&
+      emailDomainFull !== "gmail.com" &&
+      emailDomainFull !== "gmail.in" &&
+      emailDomainFull !== "gmail.co.in"
+    ) {
+      return Response.json(
+        { success: false, error: `"${cleanEmailStr}" has a typo in domain "${emailDomainFull}". Did you mean "${cleanEmailStr.split("@")[0]}@gmail.com"?` },
+        { status: 400 }
+      );
+    }
+
     // Indian Mobile Number validation (10 digits starting with 6, 7, 8, or 9)
     const cleanedPhone = String(phone || "").replace(/\D/g, "");
     let normalizedPhone = cleanedPhone;
@@ -81,20 +110,22 @@ export async function POST(request) {
       );
     }
 
-    // Verify Email OTP verification status
-    const cleanEmailForOtp = email.trim().toLowerCase();
-    const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
-    const verifiedOtpRecord = await VerificationOtp.findOne({
-      email: cleanEmailForOtp,
-      verified: true,
-      verifiedAt: { $gte: new Date(Date.now() - 30 * 60 * 1000) },
-    });
+    // Verify Email OTP verification status (Only required for new student registrations where partnerStudentId is not pre-filled in backend)
+    if (!partnerStudentId) {
+      const cleanEmailForOtp = email.trim().toLowerCase();
+      const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
+      const verifiedOtpRecord = await VerificationOtp.findOne({
+        email: cleanEmailForOtp,
+        verified: true,
+        verifiedAt: { $gte: new Date(Date.now() - 30 * 60 * 1000) },
+      });
 
-    if (!verifiedOtpRecord) {
-      return Response.json(
-        { success: false, error: "Email address not verified. Please verify your email with the 6-digit OTP code before proceeding." },
-        { status: 400 }
-      );
+      if (!verifiedOtpRecord) {
+        return Response.json(
+          { success: false, error: "Email address not verified. Please verify your email with the 6-digit OTP code before proceeding." },
+          { status: 400 }
+        );
+      }
     }
 
     const User = createModel("User", UserModel);
@@ -125,8 +156,8 @@ export async function POST(request) {
       price = collegeAdmin.internshipRate;
     }
 
-    // Apply Coupon Code discount if provided
-    if (couponCode && typeof couponCode === "string" && couponCode.trim()) {
+    // Apply Coupon Code discount if provided (Only for non-pre-approved / fresh student registrations)
+    if (!partnerStudentId && couponCode && typeof couponCode === "string" && couponCode.trim()) {
       const Coupon = createModel("Coupon", CouponModel);
       const coupon = await Coupon.findOne({
         code: { $regex: new RegExp(`^${couponCode.trim()}$`, "i") },

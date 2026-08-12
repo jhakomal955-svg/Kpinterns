@@ -5,7 +5,6 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import VideoPlayer from "@/components/VideoPlayer";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
-import CouponAlertModal from "@/components/CouponAlertModal";
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -119,58 +118,6 @@ export default function InternshipDetailLearnPage() {
   const [uploadingFile, setUploadingFile] = useState(false);
   const [submittingAssignment, setSubmittingAssignment] = useState(false);
   const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
-  const [couponInput, setCouponInput] = useState("");
-  const [appliedCoupon, setAppliedCoupon] = useState(null);
-  const [couponAlertModal, setCouponAlertModal] = useState({
-    isOpen: false,
-    message: "",
-  });
-  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
-
-  const getOriginalPayableAmount = () => {
-    let originalPrice = internship?.RegistrationFee?.amount !== undefined ? Number(internship.RegistrationFee.amount) : 500;
-    if (collegeRates.registered && collegeRates.internshipRate > 0) {
-      return collegeRates.internshipRate;
-    }
-    return originalPrice;
-  };
-
-  const handleApplyCoupon = async () => {
-    if (!couponInput.trim()) return;
-    setIsValidatingCoupon(true);
-    try {
-      const basePrice = getOriginalPayableAmount();
-      const res = await fetch("/api/coupon/validate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          code: couponInput.trim(),
-          type: "internship",
-          originalPrice: basePrice,
-        }),
-      });
-
-      const data = await res.json();
-      if (data.valid) {
-        setAppliedCoupon(data);
-      } else {
-        setAppliedCoupon(null);
-        setCouponAlertModal({
-          isOpen: true,
-          message: data.message || "coupon code is expired try another coupen code",
-        });
-      }
-    } catch (err) {
-      console.error(err);
-      setAppliedCoupon(null);
-      setCouponAlertModal({
-        isOpen: true,
-        message: "coupon code is expired try another coupen code",
-      });
-    } finally {
-      setIsValidatingCoupon(false);
-    }
-  };
 
   useEffect(() => {
     setSubmissionText("");
@@ -375,16 +322,18 @@ export default function InternshipDetailLearnPage() {
 
   const handleEnrollMock = async () => {
     if (!userData) {
-      router.push(`/register?type=internship&id=${internshipId}`);
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("kp_selected_internship_id", internshipId);
+        localStorage.setItem("kp_selected_internship_id", internshipId);
+      }
+      router.push(`/register-process?internshipId=${internshipId}&id=${internshipId}`);
       return;
     }
 
     const originalPrice = internship.RegistrationFee?.amount || 500;
-    const basePrice = (collegeRates.registered && collegeRates.internshipRate > 0)
+    const price = (collegeRates.registered && collegeRates.internshipRate > 0)
       ? collegeRates.internshipRate
       : originalPrice;
-
-    const price = appliedCoupon ? appliedCoupon.finalPrice : basePrice;
 
     try {
       setIsLoading(true);
@@ -435,21 +384,11 @@ export default function InternshipDetailLearnPage() {
             itemId: internshipId,
             university: userData?.university,
             college: userData?.college,
-            couponCode: appliedCoupon ? appliedCoupon.coupon?.code : undefined,
           }),
         });
 
         const orderData = await resOrder.json();
         if (!resOrder.ok) {
-          if (orderData.error && orderData.error.toLowerCase().includes("coupen")) {
-            setAppliedCoupon(null);
-            setCouponAlertModal({
-              isOpen: true,
-              message: orderData.error,
-            });
-            setIsLoading(false);
-            return;
-          }
           throw new Error(orderData.error || "Failed to initiate payment");
         }
 
@@ -582,50 +521,12 @@ export default function InternshipDetailLearnPage() {
 
           <div>
             {!isEnrolled ? (
-              <div className="flex flex-col sm:flex-row items-center gap-3">
-                {/* Coupon Input */}
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    placeholder="Coupon Code"
-                    value={couponInput}
-                    onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                    className="px-3 py-2 rounded-xl border border-border-main bg-bg-main text-text-main text-sm font-mono font-bold uppercase w-36 focus:outline-none focus:border-brand-primary"
-                  />
-                  <button
-                    type="button"
-                    onClick={handleApplyCoupon}
-                    disabled={isValidatingCoupon || !couponInput.trim()}
-                    className="px-3.5 py-2 bg-bg-main hover:bg-border-main border border-border-main text-text-main font-bold rounded-xl text-xs transition cursor-pointer disabled:opacity-50"
-                  >
-                    {isValidatingCoupon ? "..." : "Apply"}
-                  </button>
-                </div>
-
-                {appliedCoupon && (
-                  <span className="text-xs font-bold text-green-500 bg-green-500/10 border border-green-500/20 px-2.5 py-1.5 rounded-lg flex items-center gap-2">
-                    <span>✓ Code '{appliedCoupon.coupon?.code}' Applied (-₹{appliedCoupon.discountAmount})</span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAppliedCoupon(null);
-                        setCouponInput("");
-                      }}
-                      className="text-red-400 hover:text-red-500 hover:bg-red-500/10 rounded px-1.5 py-0.5 font-extrabold cursor-pointer transition"
-                      title="Remove Coupon"
-                    >
-                      ✕
-                    </button>
-                  </span>
-                )}
-
-                <button
-                  onClick={handleEnrollMock}
-                  className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition cursor-pointer"
-                >
-                  Apply for Internship
-                </button>
-              </div>
+              <button
+                onClick={handleEnrollMock}
+                className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition cursor-pointer"
+              >
+                Apply for Internship
+              </button>
             ) : (
               <span className="bg-brand-success/10 border border-brand-success/30 text-brand-success font-bold py-2 px-4 rounded-xl flex items-center gap-2 text-sm">
                 <span className="w-2 h-2 bg-brand-success rounded-full animate-pulse"></span>
@@ -1157,11 +1058,6 @@ export default function InternshipDetailLearnPage() {
         onClose={() => setSuccessModal((prev) => ({ ...prev, isOpen: false }))}
         title={successModal.title}
         message={successModal.message}
-      />
-      <CouponAlertModal
-        isOpen={couponAlertModal.isOpen}
-        onClose={() => setCouponAlertModal({ isOpen: false, message: "" })}
-        message={couponAlertModal.message}
       />
     </div>
   );

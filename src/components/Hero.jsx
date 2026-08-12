@@ -128,7 +128,7 @@ const Hero = () => {
             {/* CTA Buttons - Enhanced */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
               <Link
-                href={isLoggedIn ? "/internship" : "/register"}
+                href={isLoggedIn ? "/internship" : "/register-process"}
                 className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base font-bold text-white rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 active:scale-95"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-brand-secondary via-brand-primary to-brand-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-shimmer"></span>
@@ -154,7 +154,7 @@ const Hero = () => {
                 className="group relative inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base font-bold text-brand-primary rounded-xl border-2 border-brand-primary bg-white dark:bg-bg-card hover:bg-brand-primary/10 dark:hover:bg-brand-primary/10 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
               >
                 <span className="flex items-center gap-2">
-                  Explore Courses
+                  Explore courses
                   <svg
                     className="w-5 h-5 group-hover:translate-x-2 group-hover:scale-110 transition-all"
                     fill="none"

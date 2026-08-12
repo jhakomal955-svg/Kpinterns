@@ -243,7 +243,7 @@ export default function CourseDetailLearnPage() {
 
   const handleEnrollMock = async () => {
     if (!userData) {
-      router.push(`/register?type=course&id=${courseId}`);
+      router.push(`/register-process`);
       return;
     }
 

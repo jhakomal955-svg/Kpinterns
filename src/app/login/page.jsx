@@ -272,7 +272,7 @@ export default function LoginPage() {
               <p className="text-text-muted font-poppins">
                 New user?{" "}
                 <Link
-                  href="/register"
+                  href="/register-process"
                   className="text-brand-primary font-bold hover:text-brand-secondary transition-colors"
                 >
                   Register here

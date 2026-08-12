@@ -28,21 +28,55 @@ export const getEmailValidationError = (email) => {
     return `"${cleanEmail}" has an invalid domain extension (.${tld}). Did you mean "${local}@${suggestedDomain}"?`;
   }
 
+  const domainLower = domain.toLowerCase();
+  const domainMainName = domainParts[0] || "";
+
   // Common domain typos
   const commonDomainTypos = {
     "gmail.con": "gmail.com",
     "gmai.com": "gmail.com",
     "gmaill.com": "gmail.com",
+    "gmaiul.com": "gmail.com",
+    "gamil.com": "gmail.com",
+    "gmial.com": "gmail.com",
+    "gmal.com": "gmail.com",
+    "gmaii.com": "gmail.com",
     "gmail.co": "gmail.com",
     "yahoo.con": "yahoo.com",
     "yaho.com": "yahoo.com",
+    "yahou.com": "yahoo.com",
     "hotmail.con": "hotmail.com",
+    "hotmial.com": "hotmail.com",
     "outlook.con": "outlook.com",
+    "outlok.com": "outlook.com",
   };
 
-  if (commonDomainTypos[domain.toLowerCase()]) {
-    const correctDomain = commonDomainTypos[domain.toLowerCase()];
+  if (commonDomainTypos[domainLower]) {
+    const correctDomain = commonDomainTypos[domainLower];
     return `"${cleanEmail}" has a typo in domain "${domain}". Did you mean "${local}@${correctDomain}"?`;
+  }
+
+  // Generic prefix check for Gmail domain typos (e.g. gmaiul, gamil, gmial, gmal)
+  if (
+    (domainMainName.startsWith("gmai") ||
+      domainMainName.startsWith("gami") ||
+      domainMainName.startsWith("gmia") ||
+      domainMainName.startsWith("gmal")) &&
+    domainLower !== "gmail.com" &&
+    domainLower !== "gmail.in" &&
+    domainLower !== "gmail.co.in"
+  ) {
+    return `"${cleanEmail}" has a typo in domain "${domain}". Did you mean "${local}@gmail.com"?`;
+  }
+
+  // Generic prefix check for Yahoo domain typos
+  if (
+    domainMainName.startsWith("yaho") &&
+    domainLower !== "yahoo.com" &&
+    domainLower !== "yahoo.co.in" &&
+    domainLower !== "yahoo.in"
+  ) {
+    return `"${cleanEmail}" has a typo in domain "${domain}". Did you mean "${local}@yahoo.com"?`;
   }
 
   return null; // Valid format

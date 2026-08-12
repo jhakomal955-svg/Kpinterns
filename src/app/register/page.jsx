@@ -336,10 +336,16 @@ export default function RegisterPage() {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const type = searchParams.get("type") || "internship";
-    const id = searchParams.get("id");
-    
+    const id =
+      searchParams.get("id") ||
+      searchParams.get("internshipId") ||
+      (typeof window !== "undefined"
+        ? sessionStorage.getItem("kp_selected_internship_id") ||
+          localStorage.getItem("kp_selected_internship_id")
+        : null);
+
     setPurchaseType(type);
-    setItemId(id);
+    if (id) setItemId(id);
     
     if (type === "course" && id) {
       fetch(`/api/course?id=${id}`)

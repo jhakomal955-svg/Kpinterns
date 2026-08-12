@@ -5,7 +5,7 @@
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { LeadModel } from "@/models";
+import { LeadModel, UserModel } from "@/models";
 
 import mongoose from "mongoose";
 
@@ -77,11 +77,38 @@ export async function POST(request) {
     const trimmedName = (fullName || "").trim();
 
     const Lead = createModel("Lead", LeadModel);
+    const User = createModel("User", UserModel);
+
+    // Check if the candidate has ALREADY fully registered and enrolled as a user
+    const existingUserQuery = [];
+    if (trimmedEmail && trimmedEmail.includes("@")) existingUserQuery.push({ email: trimmedEmail });
+    if (validPhone && validPhone.length === 10) existingUserQuery.push({ phone: validPhone });
+
+    if (existingUserQuery.length > 0) {
+      const registeredUser = await User.findOne({ $or: existingUserQuery }).select("_id");
+      if (registeredUser) {
+        // Student is already fully registered! Mark any lead as Converted and do NOT capture as an abandoned lead
+        if (leadId && mongoose.Types.ObjectId.isValid(leadId)) {
+          await Lead.findByIdAndUpdate(leadId, { status: "Converted", lastActivityAt: new Date() });
+        } else {
+          await Lead.updateMany({ $or: existingUserQuery, status: { $ne: "Converted" } }, { status: "Converted", lastActivityAt: new Date() });
+        }
+        return Response.json(
+          {
+            success: true,
+            message: "Candidate is already fully registered and enrolled",
+            leadId: null,
+            isAlreadyRegistered: true,
+          },
+          { status: 200 }
+        );
+      }
+    }
 
     // Find existing lead by leadId, email, or phone
     let existingLead = null;
     if (leadId && mongoose.Types.ObjectId.isValid(leadId)) {
-      existingLead = await Lead.findById(leadId);
+      existingLead = await Lead.findById(leadId).select("_id status lastStepCompleted");
     }
 
     if (!existingLead) {
@@ -90,26 +117,17 @@ export async function POST(request) {
       if (validPhone && validPhone.length === 10) query.push({ phone: validPhone });
 
       if (query.length > 0) {
-        existingLead = await Lead.findOne({ $or: query });
+        existingLead = await Lead.findOne({ $or: query }).select("_id status lastStepCompleted");
       }
     }
 
-    // Require at least any non-empty user data or existing lead ID to proceed
-    const hasAnyData =
-      trimmedName ||
-      trimmedEmail ||
-      validPhone ||
-      university ||
-      college ||
-      degree ||
-      department ||
-      parentName ||
-      internshipDomain ||
-      leadId;
+    // Require full name (at least 3 characters) AND at least one valid contact method (10-digit phone OR email)
+    const hasValidContact = (validPhone && validPhone.length === 10) || (trimmedEmail && trimmedEmail.includes("@"));
+    const hasValidName = trimmedName && trimmedName.length >= 3;
 
-    if (!existingLead && !hasAnyData) {
+    if (!existingLead && (!hasValidName || !hasValidContact)) {
       return Response.json(
-        { error: "At least one input field (name, phone, email, university, etc.) is required to capture lead" },
+        { error: "To capture a lead, both a full name (minimum 3 characters) and a valid mobile number or email address are required." },
         { status: 400 }
       );
     }
@@ -164,7 +182,21 @@ export async function POST(request) {
       if (status) {
         updateFields.status = status;
       }
-      savedLead = await Lead.create(updateFields);
+
+      const orQuery = [];
+      if (trimmedEmail && trimmedEmail.includes("@")) orQuery.push({ email: trimmedEmail });
+      if (validPhone && validPhone.length === 10) orQuery.push({ phone: validPhone });
+
+      if (orQuery.length > 0) {
+        // Atomic upsert: matches existing lead by email/phone or creates exactly 1 new lead
+        savedLead = await Lead.findOneAndUpdate(
+          { $or: orQuery },
+          { $set: updateFields },
+          { new: true, upsert: true, setDefaultsOnInsert: true }
+        );
+      } else {
+        savedLead = await Lead.create(updateFields);
+      }
     }
 
     return Response.json(

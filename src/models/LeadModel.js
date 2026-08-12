@@ -17,11 +17,13 @@ const LeadModel = {
     lowercase: true,
     trim: true,
     default: "",
+    index: true,
   },
   phone: {
     type: String,
     trim: true,
     default: "",
+    index: true,
   },
   gender: {
     type: String,
@@ -98,6 +100,7 @@ const LeadModel = {
     type: String,
     enum: ["New", "Contacted", "Follow-up", "Converted", "Lost"],
     default: "New",
+    index: true,
   },
   source: {
     type: String,
@@ -125,6 +128,7 @@ const LeadModel = {
   lastActivityAt: {
     type: Date,
     default: Date.now,
+    index: true,
   },
 };
 

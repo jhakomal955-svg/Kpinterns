@@ -246,6 +246,38 @@ export default function AdminLeadsPage() {
     return cleaned;
   };
 
+  const [cleaningJunk, setCleaningJunk] = useState(false);
+
+  const handleCleanJunkLeads = async () => {
+    if (!window.confirm("Are you sure you want to delete all incomplete/junk leads (records with no valid email, no phone, or short 1-2 character names)? This action cannot be undone.")) {
+      return;
+    }
+
+    setCleaningJunk(true);
+    try {
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch("/api/admin/leads?action=cleanup-junk", {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        alert(data.message || `Deleted ${data.deletedCount || 0} junk leads successfully!`);
+        fetchLeads();
+      } else {
+        alert(data.error || "Failed to clean up junk leads");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to perform cleanup");
+    } finally {
+      setCleaningJunk(false);
+    }
+  };
+
   return (
     <div className="p-4 sm:p-6 space-y-6 max-w-[1600px] mx-auto">
       {/* Top Header */}
@@ -258,7 +290,17 @@ export default function AdminLeadsPage() {
             Track visitors who started registering and reach out to convert them into students.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
+          <button
+            onClick={handleCleanJunkLeads}
+            disabled={cleaningJunk}
+            className="px-4 py-2 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-all flex items-center gap-2 text-sm font-medium disabled:opacity-50"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            {cleaningJunk ? "Cleaning..." : "Clean Junk Leads"}
+          </button>
           <button
             onClick={fetchLeads}
             className="px-4 py-2 rounded-xl border border-border-main text-text-main hover:bg-bg-card transition-all flex items-center gap-2 text-sm font-medium"

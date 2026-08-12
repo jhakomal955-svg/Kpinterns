@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 import AuthAlertModal from "@/components/AuthAlertModal";
@@ -35,6 +35,7 @@ export default function ContactPage() {
   };
 
   const [contactLeadId, setContactLeadId] = useState("");
+  const isCapturingRef = useRef(false);
 
   useEffect(() => {
     setMounted(true);
@@ -100,11 +101,15 @@ export default function ContactPage() {
 
   // Background Lead Capture for unregistered visitors filling contact form
   useEffect(() => {
-    if (isLoggedIn) return; // logged-in users are not unregistered leads
-    const hasInput = formData.fullName?.trim() || formData.email?.trim() || formData.phone?.trim();
+    const hasValidName = (formData.fullName?.trim() || "").length >= 3;
+    const hasValidContact = (formData.email?.trim() && formData.email.includes("@")) || (formData.phone?.trim() && formData.phone.trim().length >= 10);
+    const hasInput = (hasValidName && hasValidContact) || contactLeadId;
     if (!hasInput) return;
 
     const timer = setTimeout(() => {
+      if (isCapturingRef.current) return;
+      isCapturingRef.current = true;
+
       fetch("/api/leads/capture", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -127,7 +132,10 @@ export default function ContactPage() {
             setContactLeadId(data.leadId);
           }
         })
-        .catch(() => {});
+        .catch(() => {})
+        .finally(() => {
+          isCapturingRef.current = false;
+        });
     }, 1000);
 
     return () => clearTimeout(timer);

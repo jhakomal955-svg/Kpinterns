@@ -138,3 +138,72 @@ export async function POST(request) {
     );
   }
 }
+
+export async function DELETE(request) {
+  try {
+    await connectDB();
+
+    const auth = verifyAuth(request, ["Admin", "Employee"]);
+    if (!auth.authenticated) {
+      return Response.json({ error: auth.error }, { status: auth.status });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const action = searchParams.get("action");
+
+    if (action === "cleanup-junk") {
+      const Lead = createModel("Lead", LeadModel);
+
+      // Junk lead criteria:
+      // 1. Both email AND phone are missing/empty
+      // OR
+      // 2. Name is shorter than 3 characters AND both contact methods (email/phone) are missing/empty
+      const junkFilter = {
+        $or: [
+          {
+            $and: [
+              { $or: [{ email: { $exists: false } }, { email: null }, { email: "" }] },
+              { $or: [{ phone: { $exists: false } }, { phone: null }, { phone: "" }] },
+            ],
+          },
+          {
+            $and: [
+              {
+                $or: [
+                  { fullName: { $exists: false } },
+                  { fullName: null },
+                  { fullName: "" },
+                  { $expr: { $lt: [{ $strLenCP: { $ifNull: ["$fullName", ""] } }, 3] } },
+                ],
+              },
+              { $or: [{ email: { $exists: false } }, { email: null }, { email: "" }] },
+              { $or: [{ phone: { $exists: false } }, { phone: null }, { phone: "" }] },
+            ],
+          },
+        ],
+      };
+
+      const result = await Lead.deleteMany(junkFilter);
+
+      return Response.json(
+        {
+          success: true,
+          message: `Successfully cleaned up ${result.deletedCount} junk leads`,
+          deletedCount: result.deletedCount,
+        },
+        { status: 200 }
+      );
+    }
+
+    return Response.json(
+      { error: "Invalid delete action provided" },
+      { status: 400 }
+    );
+  } catch (error) {
+    console.error("Error during junk lead cleanup:", error);
+    return Response.json(
+      { error: "Failed to delete junk leads", details: error.message },
+      { status: 500 }
+    );
+  }
+}

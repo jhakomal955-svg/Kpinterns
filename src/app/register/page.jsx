@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import SuccessAlertModal from "@/components/SuccessAlertModal";
@@ -96,6 +96,8 @@ export default function RegisterPage() {
 
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
   const [sessionLeadId, setSessionLeadId] = useState("");
+  const isCapturingRef = useRef(false);
+  const lastPayloadHashRef = useRef("");
 
   // Restore sessionLeadId and local draft on mount if returning user
   useEffect(() => {
@@ -117,23 +119,6 @@ export default function RegisterPage() {
     }
   }, []);
 
-  // Save draft to local storage on input change
-  useEffect(() => {
-    try {
-      if (
-        formData.email?.trim() ||
-        formData.phone?.trim() ||
-        formData.fullName?.trim() ||
-        formData.university ||
-        formData.college
-      ) {
-        localStorage.setItem("kp_registration_draft", JSON.stringify(formData));
-      }
-    } catch (err) {
-      // ignore storage quota errors
-    }
-  }, [formData]);
-
   // Helper to normalize phone numbers for matching mobile autofill with DB records
   const normalizePhoneNumber = (phone) => {
     if (!phone) return "";
@@ -144,23 +129,31 @@ export default function RegisterPage() {
     return cleaned;
   };
 
-  // Background Lead Capture Helper (Ensures strictly 1 lead document per user session)
+  // Background Lead Capture Helper (Ensures strictly 1 lead document per user session with in-flight locking and payload hash deduplication)
   const captureLeadData = useCallback(
     async (customPayload = {}) => {
+      // 1. Skip lead capture if user is already logged in or completed registration
+      if (typeof window !== "undefined") {
+        if (
+          sessionStorage.getItem("kp_registration_completed") === "true" ||
+          localStorage.getItem("userToken")
+        ) {
+          return;
+        }
+      }
+
+      // 2. Prevent overlapping parallel network requests if an API call is already in-flight
+      if (isCapturingRef.current && !customPayload.beacon && !customPayload.force) {
+        return;
+      }
+
       try {
         const cleanPhone = normalizePhoneNumber(formData.phone);
-        const hasInput =
-          formData.fullName?.trim() ||
-          formData.email?.trim() ||
-          formData.phone?.trim() ||
-          formData.university ||
-          formData.college ||
-          formData.degree ||
-          formData.department ||
-          sessionLeadId ||
-          customPayload.force;
+        const hasValidName = (formData.fullName?.trim() || "").length >= 3;
+        const hasValidContact = (formData.email?.trim() && formData.email.includes("@")) || (cleanPhone && cleanPhone.length === 10);
+        const hasInput = (hasValidName && hasValidContact) || sessionLeadId || customPayload.force;
 
-        // Do not attempt capture if form is completely pristine & empty
+        // Do not attempt capture if minimum required fields (Name + Phone/Email) are not provided
         if (!hasInput) {
           return;
         }
@@ -200,7 +193,21 @@ export default function RegisterPage() {
 
         const bodyStr = JSON.stringify(payload);
 
-        // Send keepalive fetch request (works reliably on mobile pagehide & tab switch)
+        // 3. Skip redundant API calls if payload has not changed since last request
+        if (bodyStr === lastPayloadHashRef.current && !customPayload.force && !customPayload.beacon) {
+          return;
+        }
+
+        isCapturingRef.current = true;
+
+        if (typeof window !== "undefined" && navigator.sendBeacon && customPayload.beacon) {
+          const blob = new Blob([bodyStr], { type: "text/plain;charset=UTF-8" });
+          navigator.sendBeacon("/api/leads/capture", blob);
+          lastPayloadHashRef.current = bodyStr;
+          return;
+        }
+
+        // Send keepalive fetch request (works reliably on page navigation & tab switch)
         const res = await fetch("/api/leads/capture", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -209,6 +216,7 @@ export default function RegisterPage() {
         }).catch((err) => console.error("Lead capture error:", err));
 
         if (res && res.ok) {
+          lastPayloadHashRef.current = bodyStr;
           const data = await res.json();
           if (data.leadId && data.leadId !== sessionLeadId) {
             setSessionLeadId(data.leadId);
@@ -218,19 +226,16 @@ export default function RegisterPage() {
             } catch (e) {}
           }
         }
-
-        if (typeof window !== "undefined" && navigator.sendBeacon && customPayload.beacon) {
-          const blob = new Blob([bodyStr], { type: "text/plain;charset=UTF-8" });
-          navigator.sendBeacon("/api/leads/capture", blob);
-        }
       } catch (err) {
         console.error("Error in lead capture:", err);
+      } finally {
+        isCapturingRef.current = false;
       }
     },
     [formData, purchaseType, step, sessionLeadId]
   );
 
-  // Debounced auto-save effect whenever inputs or steps change
+  // Debounced auto-save effect whenever inputs or steps change (also saves local draft without spamming disk I/O)
   useEffect(() => {
     const hasInput =
       formData.fullName?.trim() ||
@@ -245,8 +250,14 @@ export default function RegisterPage() {
     if (!hasInput) return;
 
     const timer = setTimeout(() => {
+      // Save local storage draft on 1s debounce instead of every single keypress
+      try {
+        localStorage.setItem("kp_registration_draft", JSON.stringify(formData));
+      } catch (err) {}
+
       captureLeadData();
     }, 1000);
+
     return () => clearTimeout(timer);
   }, [
     formData,
@@ -256,7 +267,7 @@ export default function RegisterPage() {
     captureLeadData,
   ]);
 
-  // Page hide / tab close / mobile background beacon listener
+  // Page hide / tab close / mobile background beacon listener (Removed window.blur to prevent input focus spam)
   useEffect(() => {
     const handleUnload = () => {
       const hasInput =
@@ -271,7 +282,6 @@ export default function RegisterPage() {
     };
 
     window.addEventListener("pagehide", handleUnload);
-    window.addEventListener("blur", handleUnload);
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden") {
         handleUnload();
@@ -281,7 +291,6 @@ export default function RegisterPage() {
 
     return () => {
       window.removeEventListener("pagehide", handleUnload);
-      window.removeEventListener("blur", handleUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [formData, sessionLeadId, captureLeadData]);
@@ -1019,10 +1028,12 @@ export default function RegisterPage() {
         const data = await response.json();
 
         if (response.ok) {
-          captureLeadData({ status: "Converted" });
+          captureLeadData({ status: "Converted", force: true });
           try {
             localStorage.removeItem("kp_registration_draft");
+            localStorage.removeItem("kp_registration_lead_id");
             sessionStorage.removeItem("kp_registration_lead_id");
+            sessionStorage.setItem("kp_registration_completed", "true");
           } catch (e) {}
           setSuccessModal({
             isOpen: true,

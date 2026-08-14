@@ -87,12 +87,11 @@ export async function POST(request) {
     if (existingUserQuery.length > 0) {
       const registeredUser = await User.findOne({ $or: existingUserQuery }).select("_id");
       if (registeredUser) {
-        // Student is already fully registered! Mark any lead as Converted and do NOT capture as an abandoned lead
+        // Student is already fully registered! Delete any lead and do NOT capture as an abandoned lead
         if (leadId && mongoose.Types.ObjectId.isValid(leadId)) {
-          await Lead.findByIdAndUpdate(leadId, { status: "Converted", lastActivityAt: new Date() });
-        } else {
-          await Lead.updateMany({ $or: existingUserQuery, status: { $ne: "Converted" } }, { status: "Converted", lastActivityAt: new Date() });
+          await Lead.findByIdAndDelete(leadId);
         }
+        await Lead.deleteMany({ $or: existingUserQuery });
         return Response.json(
           {
             success: true,
@@ -103,6 +102,27 @@ export async function POST(request) {
           { status: 200 }
         );
       }
+    }
+
+    // If status is Converted, delete lead record completely
+    if (status === "Converted" || body.status === "Converted") {
+      const deleteQuery = [];
+      if (leadId && mongoose.Types.ObjectId.isValid(leadId)) deleteQuery.push({ _id: leadId });
+      if (trimmedEmail) deleteQuery.push({ email: trimmedEmail });
+      if (validPhone) deleteQuery.push({ phone: validPhone });
+
+      if (deleteQuery.length > 0) {
+        await Lead.deleteMany({ $or: deleteQuery });
+      }
+
+      return Response.json(
+        {
+          success: true,
+          message: "Candidate completed registration. Lead deleted.",
+          leadId: null,
+        },
+        { status: 200 }
+      );
     }
 
     // Find existing lead by leadId, email, or phone

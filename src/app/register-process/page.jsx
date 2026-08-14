@@ -2411,15 +2411,19 @@ export default function PartnerStudentPortalPage() {
                 Congratulations, {enrollmentSuccess.studentName}!
               </h3>
               <p className="text-sm text-text-muted">
-                Your enrollment in <span className="font-bold text-brand-primary">{enrollmentSuccess.internshipTitle}</span> was completed successfully!
+                Your enrollment in <span className="font-bold text-brand-primary">{enrollmentSuccess.internshipTitle}</span> was completed successfully! Please log in to access your student portal.
               </p>
             </div>
 
             <button
-              onClick={() => router.push("/profile")}
-              className="w-full py-4 bg-brand-primary hover:bg-brand-primary/90 text-white font-extrabold rounded-2xl shadow-lg transition text-base"
+              onClick={() => {
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("userData");
+                router.push("/login");
+              }}
+              className="w-full py-4 bg-brand-primary hover:bg-brand-primary/90 text-white font-extrabold rounded-2xl shadow-lg transition text-base cursor-pointer"
             >
-              Go to Student Dashboard
+              Proceed to Login
             </button>
           </div>
         </div>

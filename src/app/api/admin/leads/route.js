@@ -6,7 +6,7 @@
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { LeadModel } from "@/models";
+import { LeadModel, UserModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
 
 export async function GET(request) {
@@ -27,6 +27,18 @@ export async function GET(request) {
     const skip = (page - 1) * limit;
 
     const Lead = createModel("Lead", LeadModel);
+    const User = createModel("User", UserModel);
+
+    // Auto-purge any converted leads or leads belonging to already registered users
+    const registeredUsers = await User.find({}).select("email phone").lean();
+    const registeredEmails = registeredUsers.map((u) => u.email?.trim().toLowerCase()).filter(Boolean);
+    const registeredPhones = registeredUsers.map((u) => u.phone?.trim()).filter(Boolean);
+
+    const purgeConditions = [{ status: "Converted" }];
+    if (registeredEmails.length > 0) purgeConditions.push({ email: { $in: registeredEmails } });
+    if (registeredPhones.length > 0) purgeConditions.push({ phone: { $in: registeredPhones } });
+
+    await Lead.deleteMany({ $or: purgeConditions });
 
     // Build filter query
     const filter = {};

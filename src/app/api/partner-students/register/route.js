@@ -1,6 +1,6 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, PartnerStudentModel, InternshipModel, AdminModel, CouponModel, VerificationOtpModel } from "@/models";
+import { UserModel, PartnerStudentModel, InternshipModel, AdminModel, CouponModel, VerificationOtpModel, LeadModel } from "@/models";
 import { signToken } from "@/lib/jwt";
 import Razorpay from "razorpay";
 import bcrypt from "bcryptjs";
@@ -255,6 +255,19 @@ export async function POST(request) {
           amount: 0,
         });
         await userDoc.save();
+      }
+
+      // Delete corresponding lead upon completed registration
+      try {
+        const Lead = createModel("Lead", LeadModel);
+        const leadQuery = [];
+        if (cleanEmail) leadQuery.push({ email: cleanEmail });
+        if (cleanPhone) leadQuery.push({ phone: cleanPhone });
+        if (leadQuery.length > 0) {
+          await Lead.deleteMany({ $or: leadQuery });
+        }
+      } catch (leadErr) {
+        console.error("Error deleting lead on partner registration:", leadErr);
       }
 
       return Response.json(

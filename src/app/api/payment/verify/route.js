@@ -1,6 +1,6 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, AttendanceModel, AdminModel, PartnerStudentModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, AttendanceModel, AdminModel, PartnerStudentModel, LeadModel } from "@/models";
 import crypto from "crypto";
 import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
@@ -311,6 +311,19 @@ export async function POST(request) {
 
     user.updatedAt = new Date();
     await user.save();
+
+    // Delete corresponding lead upon user enrollment/payment verification
+    try {
+      const Lead = createModel("Lead", LeadModel);
+      const leadQuery = [];
+      if (user.email) leadQuery.push({ email: user.email.trim().toLowerCase() });
+      if (user.phone) leadQuery.push({ phone: user.phone.trim() });
+      if (leadQuery.length > 0) {
+        await Lead.deleteMany({ $or: leadQuery });
+      }
+    } catch (leadErr) {
+      console.error("Error deleting lead on payment verification:", leadErr);
+    }
 
     const targetUserId = user._id;
 

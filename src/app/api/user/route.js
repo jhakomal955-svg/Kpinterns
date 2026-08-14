@@ -571,20 +571,17 @@ export async function POST(request) {
     const newUser = new User(data);
     await newUser.save();
 
-    // Automatically mark corresponding lead as Converted in database
+    // Delete corresponding lead upon completed user registration
     try {
       const Lead = createModel("Lead", LeadModel);
       const leadQuery = [];
       if (newUser.email) leadQuery.push({ email: newUser.email.trim().toLowerCase() });
       if (newUser.phone) leadQuery.push({ phone: newUser.phone.trim() });
       if (leadQuery.length > 0) {
-        await Lead.updateMany(
-          { $or: leadQuery, status: { $ne: "Converted" } },
-          { $set: { status: "Converted", lastActivityAt: new Date() } }
-        );
+        await Lead.deleteMany({ $or: leadQuery });
       }
     } catch (leadErr) {
-      console.error("Error auto-converting lead on user creation:", leadErr);
+      console.error("Error deleting lead on user creation:", leadErr);
     }
 
     // Consume & invalidate verified OTP record after successful account creation

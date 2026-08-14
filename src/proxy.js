@@ -170,7 +170,12 @@ export async function proxy(request) {
     pathname.startsWith('/api/otp/') ||
     pathname === '/api/verify' ||
     pathname === '/api/payment/order' ||
+    pathname === '/api/payment/verify' ||
+    pathname === '/api/partner-students/register' ||
+    pathname === '/api/partner-students/search' ||
+    pathname === '/api/coupon/validate' ||
     pathname === '/api/leads/capture' ||
+    (pathname === '/api/cloudinary' && request.nextUrl.searchParams.get('public') === 'true') ||
     (pathname === '/api/user' && request.method === 'POST') ||
     (pathname === '/api/admin' && request.method === 'POST') ||
     (pathname === '/api/contact' && request.method === 'POST') ||

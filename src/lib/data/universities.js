@@ -29194,6 +29194,57 @@ export const universitiesData = {
           ]
         }
       },
+      "576-s": {
+        "name": "576-S S College of Higher Education AMAS , Gaya",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science", "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications"
+          ]
+        }
+      },
       "a-n-s-college-nabinagar": {
         "name": "A.N.S. College, Nabinagar",
         "departments": {

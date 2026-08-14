@@ -98,8 +98,152 @@ export default function PartnerStudentPortalPage() {
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  // Coupon state
-  const [couponInput, setCouponInput] = useState("");
+  // Step Stepper state (1: Personal, 2: Academic, 3: Internship, 4: Review & Pay)
+  const [currentStep, setCurrentStep] = useState(1);
+
+  // Helper to validate Step 1 fields
+  const validateStep1 = () => {
+    const newErrors = {};
+
+    if (!studentForm.fullName?.trim()) {
+      newErrors.fullName = "Full Name is required.";
+    }
+
+    if (!studentForm.gender?.trim()) {
+      newErrors.gender = "Gender is required.";
+    }
+
+    if (!studentForm.parentName?.trim()) {
+      newErrors.parentName = "Parent / Guardian Name is required.";
+    }
+
+    if (!studentForm.password) {
+      newErrors.password = "Password is required.";
+    } else if (studentForm.password.trim().length < 6) {
+      newErrors.password = "Password must be at least 6 characters long.";
+    }
+
+    const cleanEmail = studentForm.email ? studentForm.email.trim() : "";
+    if (!cleanEmail) {
+      newErrors.email = "Email Address is required.";
+    } else if (!validateEmailFormat(cleanEmail)) {
+      newErrors.email = getEmailValidationError(cleanEmail) || "Invalid email format.";
+      setShowInvalidEmailModal(true);
+    }
+
+    if (!partnerStudent && !isEmailVerified) {
+      newErrors.email = "Please verify your email address using the 6-digit OTP code before proceeding.";
+    }
+
+    const cleanedPhone = (studentForm.phone || "").replace(/\D/g, "");
+    let normalizedPhone = cleanedPhone;
+    if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
+      normalizedPhone = cleanedPhone.substring(2);
+    } else if (cleanedPhone.length === 11 && cleanedPhone.startsWith("0")) {
+      normalizedPhone = cleanedPhone.substring(1);
+    }
+
+    if (!normalizedPhone) {
+      newErrors.phone = "Mobile Number is required.";
+    } else if (!/^[6-9]\d{9}$/.test(normalizedPhone)) {
+      newErrors.phone = "Please enter a valid 10-digit Indian mobile number starting with 6-9.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      window.scrollTo({ top: 300, behavior: "smooth" });
+      return false;
+    }
+
+    setErrors({});
+    return true;
+  };
+
+  // Helper to validate Step 2 fields
+  const validateStep2 = () => {
+    const newErrors = {};
+
+    const finalUniversity = studentForm.universityKey === "others"
+      ? (studentForm.universityCustom || "").trim()
+      : ((studentForm.university || "").trim() || (studentForm.universityCustom || "").trim());
+
+    const finalCollegeName = studentForm.collegeKey === "others"
+      ? (studentForm.collegeCustom || "").trim()
+      : ((studentForm.collegeName || "").trim() || (studentForm.collegeCustom || "").trim());
+
+    if (!finalUniversity) {
+      newErrors.university = "University Name is required.";
+    }
+
+    if (!finalCollegeName) {
+      newErrors.collegeName = "College Name is required.";
+    }
+
+    if (!studentForm.registrationNumber?.trim()) {
+      newErrors.registrationNumber = "Registration Number is required.";
+    }
+
+    if (!studentForm.rollNumber?.trim()) {
+      newErrors.rollNumber = "Roll Number is required.";
+    }
+
+    if (!studentForm.degree?.trim()) {
+      newErrors.degree = "Degree is required.";
+    }
+
+    if (!studentForm.department?.trim()) {
+      newErrors.department = "Department / Domain is required.";
+    }
+
+    if (!studentForm.semester?.trim()) {
+      newErrors.semester = "Semester is required.";
+    }
+
+    if (!studentForm.session?.trim()) {
+      newErrors.session = "Academic Session is required.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      window.scrollTo({ top: 300, behavior: "smooth" });
+      return false;
+    }
+
+    setErrors({});
+    return true;
+  };
+
+  // Helper to validate Step 3 fields
+  const validateStep3 = () => {
+    if (!selectedInternship) {
+      setErrors({ selectedInternship: "Please select an internship program to continue." });
+      window.scrollTo({ top: 300, behavior: "smooth" });
+      return false;
+    }
+    setErrors({});
+    return true;
+  };
+
+  const handleNextStep1 = () => {
+    if (validateStep1()) {
+      setCurrentStep(2);
+      window.scrollTo({ top: 300, behavior: "smooth" });
+    }
+  };
+
+  const handleNextStep2 = () => {
+    if (validateStep2()) {
+      setCurrentStep(3);
+      window.scrollTo({ top: 300, behavior: "smooth" });
+    }
+  };
+
+  const handleNextStep3 = () => {
+    if (validateStep3()) {
+      setCurrentStep(4);
+      window.scrollTo({ top: 300, behavior: "smooth" });
+    }
+  };
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [couponAlertModal, setCouponAlertModal] = useState({ isOpen: false, message: "" });
   const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
@@ -1046,49 +1190,19 @@ export default function PartnerStudentPortalPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            {/* Option 1: Direct Registration on Portal */}
+            {/* Option 1: Go to Full Multi-Step Registration */}
             <div
-              onClick={handleStartNewRegistration}
+              onClick={() => router.push("/register")}
               className="p-5 bg-bg-card border-2 border-border-main hover:border-brand-primary rounded-2xl transition cursor-pointer group hover:shadow-xl flex flex-col justify-between"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl">📝</span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-full">
-                    Instant Form
-                  </span>
-                </div>
-                <h4 className="font-bold text-base text-text-main group-hover:text-brand-primary transition">
-                  Register as New Student
-                </h4>
-                <p className="text-xs text-text-muted leading-relaxed">
-                  Fill your personal & academic details, select your university & degree, choose an internship and enroll directly.
-                </p>
-              </div>
-              <button
-                type="button"
-                className="mt-4 w-full py-2.5 bg-brand-primary text-white font-bold text-xs rounded-xl shadow-md group-hover:bg-brand-primary/90 transition flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                Start New Registration
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Option 2: Go to Full Multi-Step Registration */}
-            <div
-              onClick={() => router.push("/register")}
-              className="p-5 bg-bg-card border-2 border-border-main hover:border-brand-secondary rounded-2xl transition cursor-pointer group hover:shadow-xl flex flex-col justify-between"
-            >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
                   <span className="text-2xl">🌐</span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand-secondary bg-brand-secondary/10 px-2.5 py-1 rounded-full">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-full">
                     Full Wizard
                   </span>
                 </div>
-                <h4 className="font-bold text-base text-text-main group-hover:text-brand-secondary transition">
+                <h4 className="font-bold text-base text-text-main group-hover:text-brand-primary transition">
                   Follow Normal Registration Page
                 </h4>
                 <p className="text-xs text-text-muted leading-relaxed">
@@ -1097,9 +1211,39 @@ export default function PartnerStudentPortalPage() {
               </div>
               <button
                 type="button"
-                className="mt-4 w-full py-2.5 bg-bg-main border-2 border-brand-secondary/40 text-brand-secondary font-bold text-xs rounded-xl group-hover:bg-brand-secondary/10 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                className="mt-4 w-full py-2.5 bg-brand-primary text-white font-bold text-xs rounded-xl shadow-md group-hover:bg-brand-primary/90 transition flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 Go to Registration Page
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Option 2: Direct Registration on Portal */}
+            <div
+              onClick={handleStartNewRegistration}
+              className="p-5 bg-bg-card border-2 border-border-main hover:border-brand-secondary rounded-2xl transition cursor-pointer group hover:shadow-xl flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl">📝</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand-secondary bg-brand-secondary/10 px-2.5 py-1 rounded-full">
+                    Instant Form
+                  </span>
+                </div>
+                <h4 className="font-bold text-base text-text-main group-hover:text-brand-secondary transition">
+                  Register as New Student
+                </h4>
+                <p className="text-xs text-text-muted leading-relaxed">
+                  Fill your personal & academic details, select your university & degree, choose an internship and enroll directly.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="mt-4 w-full py-2.5 bg-bg-main border-2 border-brand-secondary/40 text-brand-secondary font-bold text-xs rounded-xl group-hover:bg-brand-secondary/10 transition flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                Start New Registration
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -1109,10 +1253,10 @@ export default function PartnerStudentPortalPage() {
         </div>
       )}
 
-      {/* Step 2 & 3: Details & Internship Selection */}
+      {/* Step Stepper Form for Partner / New Students */}
       {searchSuccess && (partnerStudent || isNewStudent) && (
-        <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
-          {/* Verified Student Details & Editable Registration Profile Form */}
+        <div className="max-w-4xl mx-auto space-y-6 animate-fadeIn">
+          {/* Header Badge & Search Again Button */}
           <div className="bg-bg-card border-2 border-brand-primary/30 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 relative overflow-hidden">
             <div className={`absolute top-0 right-0 font-bold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider ${
               isNewStudent ? "bg-brand-primary text-white" : "bg-emerald-500 text-white"
@@ -1129,8 +1273,8 @@ export default function PartnerStudentPortalPage() {
                 </h3>
                 <p className="text-text-muted text-sm mt-1">
                   {isNewStudent
-                    ? "Please enter your personal & academic details below to complete normal registration."
-                    : "Please review, complete, and edit all your personal & academic details below."}{" "}
+                    ? "Complete your step-by-step registration below to enroll directly."
+                    : "Please review and complete your step-by-step registration below."}{" "}
                   <span className="text-red-500 font-bold">* Every field is required</span> for final internship registration.
                 </p>
               </div>
@@ -1140,6 +1284,7 @@ export default function PartnerStudentPortalPage() {
                   setSearchSuccess(false);
                   setIsNewStudent(false);
                   setPartnerStudent(null);
+                  setCurrentStep(1);
                 }}
                 className="px-3 py-1.5 bg-bg-main border border-border-main text-text-muted hover:text-brand-primary text-xs font-semibold rounded-xl transition cursor-pointer self-start sm:self-auto"
               >
@@ -1147,693 +1292,951 @@ export default function PartnerStudentPortalPage() {
               </button>
             </div>
 
-            {/* Profile Fields Section */}
-            <div className="space-y-6">
-              {/* Section 1: Personal Information */}
-              <div className="space-y-4 bg-bg-main p-5 rounded-2xl border border-border-main">
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-                  1. Personal Profile Details (Required *)
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Full Name */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Full Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={studentForm.fullName}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, fullName: e.target.value });
-                        if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: null }));
-                      }}
-                      placeholder="Student Full Name"
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                        errors.fullName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    />
-                    {errors.fullName && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.fullName}</p>
-                    )}
-                  </div>
-
-                  {/* Gender */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Gender *</label>
-                    <select
-                      value={studentForm.gender}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, gender: e.target.value });
-                        if (errors.gender) setErrors((prev) => ({ ...prev, gender: null }));
-                      }}
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                        errors.gender ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    >
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {errors.gender && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.gender}</p>
-                    )}
-                  </div>
-
-                  {/* Parent / Guardian Name */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Parent / Guardian Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={studentForm.parentName}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, parentName: e.target.value });
-                        if (errors.parentName) setErrors((prev) => ({ ...prev, parentName: null }));
-                      }}
-                      placeholder="Father's / Mother's Name"
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                        errors.parentName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    />
-                    {errors.parentName && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.parentName}</p>
-                    )}
-                  </div>
-
-                  {/* Account Password */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">
-                      Account Password * <span className="text-[10px] text-text-muted font-normal">(Min 6 chars)</span>
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        required
-                        value={studentForm.password}
-                        onChange={(e) => {
-                          setStudentForm({ ...studentForm, password: e.target.value });
-                          if (errors.password) setErrors((prev) => ({ ...prev, password: null }));
-                        }}
-                        placeholder="Set login password"
-                        className={`w-full px-4 py-3 pr-12 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                          errors.password ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                        }`}
-                      />
+            {/* Stepper Progress Bar */}
+            <div className="pt-2">
+              <div className="flex items-center justify-between max-w-2xl mx-auto">
+                {[
+                  { id: 1, label: "Personal Details", icon: "👤" },
+                  { id: 2, label: "Academic Info", icon: "🎓" },
+                  { id: 3, label: "Select Internship", icon: "💼" },
+                  { id: 4, label: "Review & Pay", icon: "💳" },
+                ].map((s, idx) => (
+                  <div key={s.id} className="flex items-center flex-1 last:flex-none">
+                    <div className="flex flex-col items-center">
                       <button
                         type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main text-xs font-semibold focus:outline-none"
-                      >
-                        {showPassword ? "Hide" : "Show"}
-                      </button>
-                    </div>
-                    {errors.password && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.password}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Email Address & Prominent Send OTP Button */}
-                <div className="pt-2">
-                  <label className="block text-xs font-bold text-text-muted mb-1 uppercase flex items-center justify-between">
-                    <span>Email Address *</span>
-                    {partnerStudent ? (
-                      <span className="text-xs font-extrabold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full flex items-center gap-1">
-                        ✓ Pre-Approved Partner Student
-                      </span>
-                    ) : isEmailVerified ? (
-                      <span className="text-xs font-extrabold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full flex items-center gap-1">
-                        ✓ Verified
-                      </span>
-                    ) : null}
-                  </label>
-
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <div className="relative flex-1">
-                      <input
-                        type="email"
-                        required
-                        disabled={partnerStudent ? false : isEmailVerified}
-                        value={studentForm.email}
-                        onChange={(e) => {
-                          setStudentForm((prev) => ({ ...prev, email: e.target.value }));
-                          if (errors.email) setErrors((prev) => ({ ...prev, email: null }));
-                          if (!partnerStudent) {
-                            setIsEmailVerified(false);
-                            setOtpSent(false);
-                            setOtpError("");
-                            setOtpSuccessMsg("");
-                          }
+                        onClick={() => {
+                          if (s.id < currentStep) setCurrentStep(s.id);
                         }}
-                        placeholder="Enter your valid personal email (e.g. name@gmail.com)"
-                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                          errors.email
-                            ? "border-red-500 bg-red-500/5 focus:border-red-500"
-                            : partnerStudent || isEmailVerified
-                            ? "border-emerald-500 bg-emerald-500/10"
-                            : "border-border-main focus:border-brand-primary"
+                        className={`w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-sm transition-all duration-200 ${
+                          currentStep === s.id
+                            ? "bg-brand-primary text-white shadow-lg scale-110 ring-4 ring-brand-primary/20"
+                            : currentStep > s.id
+                            ? "bg-emerald-500 text-white cursor-pointer"
+                            : "bg-bg-main border-2 border-border-main text-text-muted cursor-not-allowed"
+                        }`}
+                      >
+                        {currentStep > s.id ? "✓" : s.id}
+                      </button>
+                      <span
+                        className={`text-[11px] font-extrabold mt-1.5 whitespace-nowrap text-center hidden sm:block ${
+                          currentStep === s.id
+                            ? "text-brand-primary font-bold"
+                            : currentStep > s.id
+                            ? "text-emerald-500 font-bold"
+                            : "text-text-muted font-medium"
+                        }`}
+                      >
+                        {s.label}
+                      </span>
+                    </div>
+                    {idx < 3 && (
+                      <div
+                        className={`h-1 flex-1 mx-2 rounded-full transition-all duration-300 ${
+                          currentStep > s.id ? "bg-emerald-500" : "bg-border-main"
                         }`}
                       />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* STEP 1: Personal Profile Details */}
+            {currentStep === 1 && (
+              <div className="space-y-6 pt-4 animate-fadeIn">
+                <div className="space-y-4 bg-bg-main p-5 rounded-2xl border border-border-main">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2 flex items-center justify-between">
+                    <span>1. Personal Profile Details (Step 1 of 4)</span>
+                    <span className="text-[10px] text-text-muted font-normal">Fields marked * are mandatory</span>
+                  </h4>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Full Name */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={studentForm.fullName}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, fullName: e.target.value });
+                          if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: null }));
+                        }}
+                        placeholder="Student Full Name"
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
+                          errors.fullName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      />
+                      {errors.fullName && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.fullName}</p>
+                      )}
                     </div>
 
-                    {!partnerStudent && (
-                      <>
-                        {!isEmailVerified ? (
+                    {/* Gender */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Gender *</label>
+                      <select
+                        value={studentForm.gender}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, gender: e.target.value });
+                          if (errors.gender) setErrors((prev) => ({ ...prev, gender: null }));
+                        }}
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
+                          errors.gender ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      >
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      {errors.gender && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.gender}</p>
+                      )}
+                    </div>
+
+                    {/* Parent / Guardian Name */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Parent / Guardian Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={studentForm.parentName}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, parentName: e.target.value });
+                          if (errors.parentName) setErrors((prev) => ({ ...prev, parentName: null }));
+                        }}
+                        placeholder="Father's / Mother's Name"
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
+                          errors.parentName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      />
+                      {errors.parentName && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.parentName}</p>
+                      )}
+                    </div>
+
+                    {/* Account Password */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">
+                        Account Password * <span className="text-[10px] text-text-muted font-normal">(Min 6 chars)</span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          required
+                          value={studentForm.password}
+                          onChange={(e) => {
+                            setStudentForm({ ...studentForm, password: e.target.value });
+                            if (errors.password) setErrors((prev) => ({ ...prev, password: null }));
+                          }}
+                          placeholder="Set login password"
+                          className={`w-full px-4 py-3 pr-12 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
+                            errors.password ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          }`}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main text-xs font-semibold focus:outline-none"
+                        >
+                          {showPassword ? "Hide" : "Show"}
+                        </button>
+                      </div>
+                      {errors.password && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.password}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Email Address & OTP Button */}
+                  <div className="pt-2">
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase flex items-center justify-between">
+                      <span>Email Address *</span>
+                      {partnerStudent ? (
+                        <span className="text-xs font-extrabold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full flex items-center gap-1">
+                          ✓ Pre-Approved Partner Student
+                        </span>
+                      ) : isEmailVerified ? (
+                        <span className="text-xs font-extrabold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full flex items-center gap-1">
+                          ✓ Verified
+                        </span>
+                      ) : null}
+                    </label>
+
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <div className="relative flex-1">
+                        <input
+                          type="email"
+                          required
+                          disabled={partnerStudent ? false : isEmailVerified}
+                          value={studentForm.email}
+                          onChange={(e) => {
+                            setStudentForm((prev) => ({ ...prev, email: e.target.value }));
+                            if (errors.email) setErrors((prev) => ({ ...prev, email: null }));
+                            if (!partnerStudent) {
+                              setIsEmailVerified(false);
+                              setOtpSent(false);
+                              setOtpError("");
+                              setOtpSuccessMsg("");
+                            }
+                          }}
+                          placeholder="Enter your valid personal email (e.g. name@gmail.com)"
+                          className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
+                            errors.email
+                              ? "border-red-500 bg-red-500/5 focus:border-red-500"
+                              : partnerStudent || isEmailVerified
+                              ? "border-emerald-500 bg-emerald-500/10"
+                              : "border-border-main focus:border-brand-primary"
+                          }`}
+                        />
+                      </div>
+
+                      {!partnerStudent && (
+                        <>
+                          {!isEmailVerified ? (
+                            <button
+                              type="button"
+                              onClick={handleSendOtp}
+                              disabled={isSendingOtp || otpCooldown > 0}
+                              className="px-6 py-3 bg-brand-primary hover:bg-brand-primary/95 active:scale-[0.98] disabled:opacity-50 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                            >
+                              {isSendingOtp ? (
+                                <>
+                                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                  Sending OTP...
+                                </>
+                              ) : otpCooldown > 0 ? (
+                                `Resend OTP (${otpCooldown}s)`
+                              ) : (
+                                <>📩 Send OTP Code</>
+                              )}
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => setIsEmailVerified(false)}
+                              className="px-4 py-3 bg-bg-card border-2 border-border-main text-text-muted hover:text-brand-primary font-bold text-xs rounded-xl transition cursor-pointer"
+                            >
+                              Change Email
+                            </button>
+                          )}
+                        </>
+                      )}
+                    </div>
+
+                    {errors.email && (
+                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.email}</p>
+                    )}
+
+                    {partnerStudent && (
+                      <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1">
+                        💡 As a pre-approved college partner student, email OTP verification is not required. Please enter your valid personal email address.
+                      </p>
+                    )}
+
+                    {/* OTP Input Form Block (Only for New Fresh Students) */}
+                    {!partnerStudent && otpSent && !isEmailVerified && (
+                      <div className="mt-3 p-4 bg-brand-primary/5 border-2 border-brand-primary/20 rounded-2xl space-y-3 animate-fadeIn">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <label className="text-xs font-bold text-text-main">
+                            Enter 6-Digit OTP sent to <span className="text-brand-primary">{studentForm.email}</span>
+                          </label>
                           <button
                             type="button"
                             onClick={handleSendOtp}
                             disabled={isSendingOtp || otpCooldown > 0}
-                            className="px-6 py-3 bg-brand-primary hover:bg-brand-primary/95 active:scale-[0.98] disabled:opacity-50 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                            className="text-xs text-brand-primary font-bold hover:underline self-start sm:self-auto"
                           >
-                            {isSendingOtp ? (
-                              <>
-                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                Sending OTP...
-                              </>
-                            ) : otpCooldown > 0 ? (
-                              `Resend OTP (${otpCooldown}s)`
-                            ) : (
-                              <>📩 Send OTP Code</>
-                            )}
+                            {otpCooldown > 0 ? `Resend Code in ${otpCooldown}s` : "Resend OTP Code"}
                           </button>
-                        ) : (
+                        </div>
+
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            maxLength={6}
+                            value={otpCode}
+                            onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                            placeholder="Enter 6-digit OTP"
+                            className="flex-1 px-4 py-2.5 bg-bg-main border-2 border-brand-primary/40 rounded-xl text-text-main font-mono text-center font-bold tracking-widest text-base outline-none"
+                          />
                           <button
                             type="button"
-                            onClick={() => setIsEmailVerified(false)}
-                            className="px-4 py-3 bg-bg-card border-2 border-border-main text-text-muted hover:text-brand-primary font-bold text-xs rounded-xl transition cursor-pointer"
+                            onClick={handleVerifyOtp}
+                            disabled={isVerifyingOtp || otpCode.length !== 6}
+                            className="px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/95 disabled:opacity-50 text-white font-bold rounded-xl transition text-xs flex items-center justify-center gap-2 cursor-pointer"
                           >
-                            Change Email
+                            {isVerifyingOtp ? (
+                              <>
+                                <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                Verifying...
+                              </>
+                            ) : (
+                              "Verify OTP"
+                            )}
                           </button>
-                        )}
-                      </>
-                    )}
-                  </div>
-
-                  {errors.email && (
-                    <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.email}</p>
-                  )}
-
-                  {partnerStudent && (
-                    <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1">
-                      💡 As a pre-approved college partner student, email OTP verification is not required. Please enter your valid personal email address.
-                    </p>
-                  )}
-
-                  {/* OTP Input Form Block (Only for New Fresh Students) */}
-                  {!partnerStudent && otpSent && !isEmailVerified && (
-                    <div className="mt-3 p-4 bg-brand-primary/5 border-2 border-brand-primary/20 rounded-2xl space-y-3 animate-fadeIn">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <label className="text-xs font-bold text-text-main">
-                          Enter 6-Digit OTP sent to <span className="text-brand-primary">{studentForm.email}</span>
-                        </label>
-                        <button
-                          type="button"
-                          onClick={handleSendOtp}
-                          disabled={isSendingOtp || otpCooldown > 0}
-                          className="text-xs text-brand-primary font-bold hover:underline self-start sm:self-auto"
-                        >
-                          {otpCooldown > 0 ? `Resend Code in ${otpCooldown}s` : "Resend OTP Code"}
-                        </button>
-                      </div>
-
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          maxLength={6}
-                          value={otpCode}
-                          onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                          placeholder="Enter 6-digit OTP"
-                          className="flex-1 px-4 py-2.5 bg-bg-main border-2 border-brand-primary/40 rounded-xl text-text-main font-mono text-center font-bold tracking-widest text-base outline-none"
-                        />
-                        <button
-                          type="button"
-                          onClick={handleVerifyOtp}
-                          disabled={isVerifyingOtp || otpCode.length !== 6}
-                          className="px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/95 disabled:opacity-50 text-white font-bold rounded-xl transition text-xs flex items-center justify-center gap-2 cursor-pointer"
-                        >
-                          {isVerifyingOtp ? (
-                            <>
-                              <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                              Verifying...
-                            </>
-                          ) : (
-                            "Verify OTP"
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  {otpSuccessMsg && (
-                    <div className="mt-2 p-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-xs font-semibold text-center animate-fadeIn">
-                      {otpSuccessMsg}
-                    </div>
-                  )}
-
-                  {otpError && (
-                    <div className="mt-2 p-2.5 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs font-semibold text-center animate-fadeIn">
-                      {otpError}
-                    </div>
-                  )}
-                </div>
-
-                {/* Mobile Number */}
-                <div>
-                  <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Mobile Number (10 digits) *</label>
-                  <input
-                    type="text"
-                    required
-                    maxLength={10}
-                    value={studentForm.phone}
-                    onChange={(e) => {
-                      setStudentForm({ ...studentForm, phone: e.target.value.replace(/\D/g, "").slice(0, 10) });
-                      if (errors.phone) setErrors((prev) => ({ ...prev, phone: null }));
-                    }}
-                    placeholder="e.g. 9876543210"
-                    className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm font-mono ${
-                      errors.phone ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                    }`}
-                  />
-                  {errors.phone && (
-                    <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.phone}</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Section 2: Academic Information */}
-              <div className="space-y-4 bg-bg-main p-5 rounded-2xl border border-border-main">
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-                  2. Academic & College Details (Required *)
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* University Select */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">University *</label>
-                    <select
-                      value={studentForm.universityKey}
-                      onChange={(e) => {
-                        handleUniversityChange(e);
-                        if (errors.university) setErrors((prev) => ({ ...prev, university: null }));
-                      }}
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                        errors.university ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    >
-                      <option value="">Select University</option>
-                      {Object.entries(universitiesData).map(([key, univ]) => (
-                        <option key={key} value={key}>
-                          {univ.name}
-                        </option>
-                      ))}
-                      <option value="others">Others</option>
-                    </select>
-                    {errors.university && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.university}</p>
-                    )}
-                    {studentForm.universityKey === "others" && (
-                      <div className="mt-2">
-                        <input
-                          type="text"
-                          required
-                          value={studentForm.universityCustom}
-                          onChange={(e) => {
-                            setStudentForm((prev) => ({
-                              ...prev,
-                              universityCustom: e.target.value,
-                              university: e.target.value,
-                            }));
-                            if (errors.university) setErrors((prev) => ({ ...prev, university: null }));
-                          }}
-                          placeholder="Enter your university name"
-                          className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                            errors.university ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                          }`}
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Affiliated College Select */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">College Name *</label>
-                    <select
-                      value={studentForm.collegeKey}
-                      onChange={(e) => {
-                        handleCollegeChange(e);
-                        if (errors.collegeName) setErrors((prev) => ({ ...prev, collegeName: null }));
-                      }}
-                      disabled={!studentForm.universityKey}
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                        errors.collegeName
-                          ? "border-red-500 bg-red-500/5 focus:border-red-500"
-                          : "border-border-main focus:border-brand-primary"
-                      } ${!studentForm.universityKey ? "opacity-50 cursor-not-allowed" : ""}`}
-                    >
-                      <option value="">
-                        {studentForm.universityKey ? "Select College" : "Select University first"}
-                      </option>
-                      {getAvailableColleges().map((college) => (
-                        <option key={college.id} value={college.id}>
-                          {college.name}
-                        </option>
-                      ))}
-                      {studentForm.universityKey && <option value="others">Others</option>}
-                    </select>
-                    {errors.collegeName && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.collegeName}</p>
-                    )}
-                    {studentForm.collegeKey === "others" && (
-                      <div className="mt-2">
-                        <input
-                          type="text"
-                          required
-                          value={studentForm.collegeCustom}
-                          onChange={(e) => {
-                            setStudentForm((prev) => ({
-                              ...prev,
-                              collegeCustom: e.target.value,
-                              collegeName: e.target.value,
-                            }));
-                            if (errors.collegeName) setErrors((prev) => ({ ...prev, collegeName: null }));
-                          }}
-                          placeholder="Enter your college name"
-                          className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                            errors.collegeName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                          }`}
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Registration Number */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Registration Number *</label>
-                    <input
-                      type="text"
-                      required
-                      value={studentForm.registrationNumber}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, registrationNumber: e.target.value });
-                        if (errors.registrationNumber) setErrors((prev) => ({ ...prev, registrationNumber: null }));
-                      }}
-                      placeholder="Registration No."
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-mono font-medium outline-none transition text-sm ${
-                        errors.registrationNumber ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    />
-                    {errors.registrationNumber && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.registrationNumber}</p>
-                    )}
-                  </div>
-
-                  {/* Roll Number */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Roll Number *</label>
-                    <input
-                      type="text"
-                      required
-                      value={studentForm.rollNumber}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, rollNumber: e.target.value });
-                        if (errors.rollNumber) setErrors((prev) => ({ ...prev, rollNumber: null }));
-                      }}
-                      placeholder="Roll Number"
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-mono font-medium outline-none transition text-sm ${
-                        errors.rollNumber ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    />
-                    {errors.rollNumber && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.rollNumber}</p>
-                    )}
-                  </div>
-
-                  {/* Degree Select */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Degree *</label>
-                    <select
-                      value={studentForm.degree}
-                      onChange={(e) => {
-                        const newDeg = e.target.value;
-                        const availableDepts = getDepartmentsForDegree(newDeg);
-                        setStudentForm({
-                          ...studentForm,
-                          degree: newDeg,
-                          department: availableDepts[0] || "",
-                        });
-                        if (errors.degree) setErrors((prev) => ({ ...prev, degree: null }));
-                      }}
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                        errors.degree ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    >
-                      {DEGREE_OPTIONS.map((deg) => (
-                        <option key={deg} value={deg}>{deg}</option>
-                      ))}
-                    </select>
-                    {errors.degree && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.degree}</p>
-                    )}
-                  </div>
-
-                  {/* Department Select */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Department / Domain *</label>
-                    <select
-                      value={studentForm.department}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, department: e.target.value });
-                        if (errors.department) setErrors((prev) => ({ ...prev, department: null }));
-                      }}
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                        errors.department ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    >
-                      {getDepartmentsForDegree(studentForm.degree).map((dept) => (
-                        <option key={dept} value={dept}>{dept}</option>
-                      ))}
-                    </select>
-                    {errors.department && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.department}</p>
-                    )}
-                  </div>
-
-                  {/* Semester Select */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Semester *</label>
-                    <select
-                      value={studentForm.semester}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, semester: e.target.value });
-                        if (errors.semester) setErrors((prev) => ({ ...prev, semester: null }));
-                      }}
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                        errors.semester ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    >
-                      {SEMESTER_OPTIONS.map((sem) => (
-                        <option key={sem} value={sem}>{sem} Semester</option>
-                      ))}
-                    </select>
-                    {errors.semester && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.semester}</p>
-                    )}
-                  </div>
-
-                  {/* Session Select */}
-                  <div>
-                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Academic Session *</label>
-                    <select
-                      value={studentForm.session}
-                      onChange={(e) => {
-                        setStudentForm({ ...studentForm, session: e.target.value });
-                        if (errors.session) setErrors((prev) => ({ ...prev, session: null }));
-                      }}
-                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                        errors.session ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                      }`}
-                    >
-                      {SESSION_OPTIONS.map((ses) => (
-                        <option key={ses} value={ses}>{ses}</option>
-                      ))}
-                    </select>
-                    {errors.session && (
-                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.session}</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Filtered Internship Program Selection */}
-          <div className="bg-bg-card border-2 border-border-main rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-border-main pb-4">
-              <div>
-                <h2 className="text-xl font-bold text-text-main flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center text-sm font-bold">2</span>
-                  Internships Filtered For Your Degree & Department
-                </h2>
-                <p className="text-xs text-text-muted mt-1">
-                  Showing tailored internships matching{" "}
-                  <span className="font-bold text-brand-primary">
-                    {studentForm.degree || partnerStudent?.degree} ({studentForm.department || partnerStudent?.department})
-                  </span>
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setShowAllInternships(!showAllInternships)}
-                className="px-3.5 py-1.5 bg-bg-main border border-border-main rounded-xl text-xs font-bold text-brand-primary hover:border-brand-primary transition self-start sm:self-auto"
-              >
-                {showAllInternships ? "🎯 Show Recommended Only" : `🌐 Browse All (${internships.length})`}
-              </button>
-            </div>
-
-            {isLoadingInternships ? (
-              <div className="py-8 text-center text-text-muted">Loading internships...</div>
-            ) : displayedInternships.length === 0 ? (
-              <div className="p-6 text-center text-text-muted bg-bg-main rounded-2xl space-y-2">
-                <p className="font-semibold">
-                  No specific internships found matching {studentForm.department || partnerStudent?.department}.
-                </p>
-                <button
-                  onClick={() => setShowAllInternships(true)}
-                  className="px-4 py-2 bg-brand-primary text-white font-bold text-xs rounded-xl"
-                >
-                  Browse All Available Internships
-                </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {displayedInternships.map((intern) => {
-                  const isSelected = selectedInternship === intern._id;
-                  const fee = collegeRates && collegeRates.internshipRate > 0
-                    ? collegeRates.internshipRate
-                    : intern.RegistrationFee?.amount || 500;
-
-                  return (
-                    <div
-                      key={intern._id}
-                      onClick={() => setSelectedInternship(intern._id)}
-                      className={`p-5 rounded-2xl border-2 cursor-pointer transition flex justify-between items-start ${
-                        isSelected
-                          ? "border-brand-primary bg-brand-primary/5 shadow-md scale-[1.01]"
-                          : "border-border-main bg-bg-main hover:border-brand-primary/50"
-                      }`}
-                    >
-                      <div className="space-y-1 min-w-0 pr-4">
-                        <div className="flex items-center gap-2">
-                          <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${isSelected ? "border-brand-primary bg-brand-primary" : "border-text-muted"}`}>
-                            {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
-                          </span>
-                          <h3 className="font-bold text-base text-text-main truncate">
-                            {intern.title || intern.position}
-                          </h3>
                         </div>
-                        <p className="text-xs text-text-muted pl-6">
-                          Domain: {intern.domain || intern.category || "Technology"} • Duration: {intern.duration || "4 Weeks"}
-                        </p>
                       </div>
+                    )}
 
-                      <div className="text-right flex-shrink-0">
-                        <span className="text-lg font-black text-brand-primary">₹{fee}</span>
-                        {collegeRates && collegeRates.internshipRate > 0 && (
-                          <span className="block text-[10px] text-emerald-600 font-bold uppercase">
-                            Partner Rate
-                          </span>
-                        )}
+                    {otpSuccessMsg && (
+                      <div className="mt-2 p-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-xs font-semibold text-center animate-fadeIn">
+                        {otpSuccessMsg}
                       </div>
-                    </div>
-                  );
-                })}
+                    )}
+
+                    {otpError && (
+                      <div className="mt-2 p-2.5 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs font-semibold text-center animate-fadeIn">
+                        {otpError}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Mobile Number */}
+                  <div>
+                    <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Mobile Number (10 digits) *</label>
+                    <input
+                      type="text"
+                      required
+                      maxLength={10}
+                      value={studentForm.phone}
+                      onChange={(e) => {
+                        setStudentForm({ ...studentForm, phone: e.target.value.replace(/\D/g, "").slice(0, 10) });
+                        if (errors.phone) setErrors((prev) => ({ ...prev, phone: null }));
+                      }}
+                      placeholder="e.g. 9876543210"
+                      className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm font-mono ${
+                        errors.phone ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                      }`}
+                    />
+                    {errors.phone && (
+                      <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.phone}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Step 1 Next Button */}
+                <div className="flex justify-end pt-2">
+                  <button
+                    type="button"
+                    onClick={handleNextStep1}
+                    className="px-8 py-3.5 bg-brand-primary hover:bg-brand-primary/95 text-white font-extrabold text-sm rounded-2xl shadow-lg transition flex items-center gap-2 cursor-pointer"
+                  >
+                    Next: Academic Details →
+                  </button>
+                </div>
               </div>
             )}
 
-            {/* Coupon Code Applying Section */}
-            <div className="bg-bg-main border border-border-main p-5 rounded-2xl space-y-3">
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-text-muted uppercase tracking-wider">
-                  Discount Coupon Code
-                </label>
-                {partnerStudent && (
-                  <span className="text-[11px] font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-md">
-                    ⚠️ Pre-Approved Partner Student Discount Active
-                  </span>
-                )}
-              </div>
+            {/* STEP 2: Academic & College Details */}
+            {currentStep === 2 && (
+              <div className="space-y-6 pt-4 animate-fadeIn">
+                <div className="space-y-4 bg-bg-main p-5 rounded-2xl border border-border-main">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2 flex items-center justify-between">
+                    <span>2. Academic & College Details (Step 2 of 4)</span>
+                    <span className="text-[10px] text-text-muted font-normal">Fields marked * are mandatory</span>
+                  </h4>
 
-              {partnerStudent ? (
-                <div className="text-xs text-text-muted bg-bg-card p-3 rounded-xl border border-border-main flex items-center gap-2 font-medium">
-                  <span>💡</span>
-                  <span>
-                    As a pre-approved college partner student, your special partner rate is automatically applied. Coupons are not applicable for pre-approved partner records.
-                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* University Select */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">University *</label>
+                      <select
+                        value={studentForm.universityKey}
+                        onChange={(e) => {
+                          handleUniversityChange(e);
+                          if (errors.university) setErrors((prev) => ({ ...prev, university: null }));
+                        }}
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
+                          errors.university ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      >
+                        <option value="">Select University</option>
+                        {Object.entries(universitiesData).map(([key, univ]) => (
+                          <option key={key} value={key}>
+                            {univ.name}
+                          </option>
+                        ))}
+                        <option value="others">Others</option>
+                      </select>
+                      {errors.university && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.university}</p>
+                      )}
+                      {studentForm.universityKey === "others" && (
+                        <div className="mt-2">
+                          <input
+                            type="text"
+                            required
+                            value={studentForm.universityCustom}
+                            onChange={(e) => {
+                              setStudentForm((prev) => ({
+                                ...prev,
+                                universityCustom: e.target.value,
+                                university: e.target.value,
+                              }));
+                              if (errors.university) setErrors((prev) => ({ ...prev, university: null }));
+                            }}
+                            placeholder="Enter your university name"
+                            className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
+                              errors.university ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                            }`}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Affiliated College Select */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">College Name *</label>
+                      <select
+                        value={studentForm.collegeKey}
+                        onChange={(e) => {
+                          handleCollegeChange(e);
+                          if (errors.collegeName) setErrors((prev) => ({ ...prev, collegeName: null }));
+                        }}
+                        disabled={!studentForm.universityKey}
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
+                          errors.collegeName
+                            ? "border-red-500 bg-red-500/5 focus:border-red-500"
+                            : "border-border-main focus:border-brand-primary"
+                        } ${!studentForm.universityKey ? "opacity-50 cursor-not-allowed" : ""}`}
+                      >
+                        <option value="">
+                          {studentForm.universityKey ? "Select College" : "Select University first"}
+                        </option>
+                        {getAvailableColleges().map((college) => (
+                          <option key={college.id} value={college.id}>
+                            {college.name}
+                          </option>
+                        ))}
+                        {studentForm.universityKey && <option value="others">Others</option>}
+                      </select>
+                      {errors.collegeName && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.collegeName}</p>
+                      )}
+                      {studentForm.collegeKey === "others" && (
+                        <div className="mt-2">
+                          <input
+                            type="text"
+                            required
+                            value={studentForm.collegeCustom}
+                            onChange={(e) => {
+                              setStudentForm((prev) => ({
+                                ...prev,
+                                collegeCustom: e.target.value,
+                                collegeName: e.target.value,
+                              }));
+                              if (errors.collegeName) setErrors((prev) => ({ ...prev, collegeName: null }));
+                            }}
+                            placeholder="Enter your college name"
+                            className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
+                              errors.collegeName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                            }`}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Registration Number */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Registration Number *</label>
+                      <input
+                        type="text"
+                        required
+                        value={studentForm.registrationNumber}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, registrationNumber: e.target.value });
+                          if (errors.registrationNumber) setErrors((prev) => ({ ...prev, registrationNumber: null }));
+                        }}
+                        placeholder="Registration No."
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-mono font-medium outline-none transition text-sm ${
+                          errors.registrationNumber ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      />
+                      {errors.registrationNumber && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.registrationNumber}</p>
+                      )}
+                    </div>
+
+                    {/* Roll Number */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Roll Number *</label>
+                      <input
+                        type="text"
+                        required
+                        value={studentForm.rollNumber}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, rollNumber: e.target.value });
+                          if (errors.rollNumber) setErrors((prev) => ({ ...prev, rollNumber: null }));
+                        }}
+                        placeholder="Roll Number"
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-mono font-medium outline-none transition text-sm ${
+                          errors.rollNumber ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      />
+                      {errors.rollNumber && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.rollNumber}</p>
+                      )}
+                    </div>
+
+                    {/* Degree Select */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Degree *</label>
+                      <select
+                        value={studentForm.degree}
+                        onChange={(e) => {
+                          const newDeg = e.target.value;
+                          const availableDepts = getDepartmentsForDegree(newDeg);
+                          setStudentForm({
+                            ...studentForm,
+                            degree: newDeg,
+                            department: availableDepts[0] || "",
+                          });
+                          if (errors.degree) setErrors((prev) => ({ ...prev, degree: null }));
+                        }}
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
+                          errors.degree ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      >
+                        {DEGREE_OPTIONS.map((deg) => (
+                          <option key={deg} value={deg}>{deg}</option>
+                        ))}
+                      </select>
+                      {errors.degree && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.degree}</p>
+                      )}
+                    </div>
+
+                    {/* Department Select */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Department / Domain *</label>
+                      <select
+                        value={studentForm.department}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, department: e.target.value });
+                          if (errors.department) setErrors((prev) => ({ ...prev, department: null }));
+                        }}
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
+                          errors.department ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      >
+                        {getDepartmentsForDegree(studentForm.degree).map((dept) => (
+                          <option key={dept} value={dept}>{dept}</option>
+                        ))}
+                      </select>
+                      {errors.department && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.department}</p>
+                      )}
+                    </div>
+
+                    {/* Semester Select */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Semester *</label>
+                      <select
+                        value={studentForm.semester}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, semester: e.target.value });
+                          if (errors.semester) setErrors((prev) => ({ ...prev, semester: null }));
+                        }}
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
+                          errors.semester ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      >
+                        {SEMESTER_OPTIONS.map((sem) => (
+                          <option key={sem} value={sem}>{sem} Semester</option>
+                        ))}
+                      </select>
+                      {errors.semester && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.semester}</p>
+                      )}
+                    </div>
+
+                    {/* Session Select */}
+                    <div>
+                      <label className="block text-xs font-bold text-text-muted mb-1 uppercase">Academic Session *</label>
+                      <select
+                        value={studentForm.session}
+                        onChange={(e) => {
+                          setStudentForm({ ...studentForm, session: e.target.value });
+                          if (errors.session) setErrors((prev) => ({ ...prev, session: null }));
+                        }}
+                        className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
+                          errors.session ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        }`}
+                      >
+                        {SESSION_OPTIONS.map((ses) => (
+                          <option key={ses} value={ses}>{ses}</option>
+                        ))}
+                      </select>
+                      {errors.session && (
+                        <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.session}</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              ) : (
-                <div className="space-y-2">
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                    <input
-                      type="text"
-                      placeholder="Have a coupon code? (e.g. SAVE10)"
-                      value={couponInput}
-                      onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                      className="flex-1 px-4 py-2.5 rounded-xl border border-border-main bg-bg-card text-text-main text-sm font-mono font-bold uppercase focus:outline-none focus:border-brand-primary"
-                    />
+
+                {/* Step 2 Back & Next Buttons */}
+                <div className="flex justify-between items-center pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(1)}
+                    className="px-6 py-3 bg-bg-main border border-border-main text-text-muted hover:text-text-main font-bold text-xs rounded-xl transition cursor-pointer"
+                  >
+                    ← Back to Personal Details
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNextStep2}
+                    className="px-8 py-3.5 bg-brand-primary hover:bg-brand-primary/95 text-white font-extrabold text-sm rounded-2xl shadow-lg transition flex items-center gap-2 cursor-pointer"
+                  >
+                    Next: Select Internship →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 3: Internship Selection & Coupon */}
+            {currentStep === 3 && (
+              <div className="space-y-6 pt-4 animate-fadeIn">
+                <div className="space-y-6 bg-bg-main p-5 rounded-2xl border border-border-main">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-border-main pb-4">
+                    <div>
+                      <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-primary">
+                        3. Select Internship Program (Step 3 of 4)
+                      </h4>
+                      <p className="text-xs text-text-muted mt-1">
+                        Tailored internships matching{" "}
+                        <span className="font-bold text-brand-primary">
+                          {studentForm.degree || partnerStudent?.degree} ({studentForm.department || partnerStudent?.department})
+                        </span>
+                      </p>
+                    </div>
+
                     <button
                       type="button"
-                      onClick={handleApplyCoupon}
-                      disabled={isValidatingCoupon || !couponInput.trim()}
-                      className="px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-white font-bold rounded-xl text-xs transition cursor-pointer disabled:opacity-50"
+                      onClick={() => setShowAllInternships(!showAllInternships)}
+                      className="px-3.5 py-1.5 bg-bg-card border border-border-main rounded-xl text-xs font-bold text-brand-primary hover:border-brand-primary transition self-start sm:self-auto"
                     >
-                      {isValidatingCoupon ? "Validating..." : "Apply Coupon"}
+                      {showAllInternships ? "🎯 Show Recommended Only" : `🌐 Browse All (${internships.length})`}
                     </button>
                   </div>
 
-                  {appliedCoupon && (
-                    <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-xl text-xs font-bold flex items-center justify-between">
-                      <span>✓ Coupon '{appliedCoupon.coupon?.code}' Applied! (-₹{appliedCoupon.discountAmount})</span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setAppliedCoupon(null);
-                          setCouponInput("");
-                        }}
-                        className="text-red-400 hover:text-red-500 underline ml-2 cursor-pointer font-bold"
-                      >
-                        Remove
-                      </button>
+                  {errors.selectedInternship && (
+                    <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-500 rounded-xl text-xs font-bold">
+                      ⚠️ {errors.selectedInternship}
                     </div>
                   )}
-                </div>
-              )}
-            </div>
 
-            {/* Action Checkout Button */}
-            <div className="pt-4 border-t border-border-main flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                <span className="text-xs text-text-muted block font-semibold">Total Payable Registration Fee</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl font-black text-brand-primary">₹{getSelectedInternshipFee()}</span>
-                  {appliedCoupon && !partnerStudent && (
-                    <span className="text-xs text-text-muted line-through font-bold">₹{getSelectedInternshipBaseFee()}</span>
+                  {isLoadingInternships ? (
+                    <div className="py-8 text-center text-text-muted">Loading internships...</div>
+                  ) : displayedInternships.length === 0 ? (
+                    <div className="p-6 text-center text-text-muted bg-bg-card rounded-2xl space-y-2">
+                      <p className="font-semibold">
+                        No specific internships found matching {studentForm.department || partnerStudent?.department}.
+                      </p>
+                      <button
+                        onClick={() => setShowAllInternships(true)}
+                        className="px-4 py-2 bg-brand-primary text-white font-bold text-xs rounded-xl"
+                      >
+                        Browse All Available Internships
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {displayedInternships.map((intern) => {
+                        const isSelected = selectedInternship === intern._id;
+                        const fee = collegeRates && collegeRates.internshipRate > 0
+                          ? collegeRates.internshipRate
+                          : intern.RegistrationFee?.amount || 500;
+
+                        return (
+                          <div
+                            key={intern._id}
+                            onClick={() => {
+                              setSelectedInternship(intern._id);
+                              if (errors.selectedInternship) setErrors((prev) => ({ ...prev, selectedInternship: null }));
+                            }}
+                            className={`p-5 rounded-2xl border-2 cursor-pointer transition flex justify-between items-start ${
+                              isSelected
+                                ? "border-brand-primary bg-brand-primary/5 shadow-md scale-[1.01]"
+                                : "border-border-main bg-bg-card hover:border-brand-primary/50"
+                            }`}
+                          >
+                            <div className="space-y-1 min-w-0 pr-4">
+                              <div className="flex items-center gap-2">
+                                <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${isSelected ? "border-brand-primary bg-brand-primary" : "border-text-muted"}`}>
+                                  {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
+                                </span>
+                                <h3 className="font-bold text-base text-text-main truncate">
+                                  {intern.title || intern.position}
+                                </h3>
+                              </div>
+                              <p className="text-xs text-text-muted pl-6">
+                                Domain: {intern.domain || intern.category || "Technology"} • Duration: {intern.duration || "4 Weeks"}
+                              </p>
+                            </div>
+
+                            <div className="text-right flex-shrink-0">
+                              <span className="text-lg font-black text-brand-primary">₹{fee}</span>
+                              {collegeRates && collegeRates.internshipRate > 0 && (
+                                <span className="block text-[10px] text-emerald-600 font-bold uppercase">
+                                  Partner Rate
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   )}
+
+                  {/* Coupon Code Applying Section */}
+                  <div className="bg-bg-card border border-border-main p-5 rounded-2xl space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-bold text-text-muted uppercase tracking-wider">
+                        Discount Coupon Code
+                      </label>
+                      {partnerStudent && (
+                        <span className="text-[11px] font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-md">
+                          ⚠️ Pre-Approved Partner Discount Active
+                        </span>
+                      )}
+                    </div>
+
+                    {partnerStudent ? (
+                      <div className="text-xs text-text-muted bg-bg-main p-3 rounded-xl border border-border-main flex items-center gap-2 font-medium">
+                        <span>💡</span>
+                        <span>
+                          As a pre-approved college partner student, your special partner rate is automatically applied.
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                          <input
+                            type="text"
+                            placeholder="Have a coupon code? (e.g. SAVE10)"
+                            value={couponInput}
+                            onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                            className="flex-1 px-4 py-2.5 rounded-xl border border-border-main bg-bg-main text-text-main text-sm font-mono font-bold uppercase focus:outline-none focus:border-brand-primary"
+                          />
+                          <button
+                            type="button"
+                            onClick={handleApplyCoupon}
+                            disabled={isValidatingCoupon || !couponInput.trim()}
+                            className="px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-white font-bold rounded-xl text-xs transition cursor-pointer disabled:opacity-50"
+                          >
+                            {isValidatingCoupon ? "Validating..." : "Apply Coupon"}
+                          </button>
+                        </div>
+
+                        {appliedCoupon && (
+                          <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-xl text-xs font-bold flex items-center justify-between">
+                            <span>✓ Coupon '{appliedCoupon.coupon?.code}' Applied! (-₹{appliedCoupon.discountAmount})</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setAppliedCoupon(null);
+                                setCouponInput("");
+                              }}
+                              className="text-red-400 hover:text-red-500 underline ml-2 cursor-pointer font-bold"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Step 3 Back & Next Buttons */}
+                <div className="flex justify-between items-center pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(2)}
+                    className="px-6 py-3 bg-bg-main border border-border-main text-text-muted hover:text-text-main font-bold text-xs rounded-xl transition cursor-pointer"
+                  >
+                    ← Back to Academic Info
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNextStep3}
+                    className="px-8 py-3.5 bg-brand-primary hover:bg-brand-primary/95 text-white font-extrabold text-sm rounded-2xl shadow-lg transition flex items-center gap-2 cursor-pointer"
+                  >
+                    Proceed to Review & Pay →
+                  </button>
                 </div>
               </div>
+            )}
 
-              <button
-                type="button"
-                onClick={handleOpenReviewModal}
-                disabled={isSubmitting || !selectedInternship}
-                className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-extrabold text-base rounded-2xl shadow-xl transition flex items-center justify-center gap-3 cursor-pointer"
-              >
-                📋 Review Details & Final Registration
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-            </div>
+            {/* STEP 4: Review Details & Final Payment Confirmation */}
+            {currentStep === 4 && (
+              <div className="space-y-6 pt-4 animate-fadeIn">
+                <div className="bg-bg-main p-5 sm:p-6 rounded-2xl border border-border-main space-y-6">
+                  <div className="border-b border-border-main pb-3 flex items-center justify-between">
+                    <div>
+                      <span className="text-xs font-extrabold uppercase tracking-wider text-brand-primary">
+                        4. Final Review & Payment (Step 4 of 4)
+                      </span>
+                      <h4 className="text-lg font-black text-text-main mt-1">
+                        📋 Please Verify All Details Before Enrollment
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-poppins">
+                    {/* Personal Details Card */}
+                    <div className="bg-bg-card p-4 rounded-2xl border border-border-main space-y-2">
+                      <div className="flex items-center justify-between border-b border-border-main/50 pb-1.5">
+                        <span className="font-extrabold text-brand-primary uppercase tracking-wider text-[11px]">
+                          👤 Personal Profile
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(1)}
+                          className="text-[11px] text-brand-primary font-bold hover:underline cursor-pointer"
+                        >
+                          Edit ✏
+                        </button>
+                      </div>
+                      <div className="space-y-1.5">
+                        <div>
+                          <span className="text-text-muted block">Full Name:</span>
+                          <span className="font-bold text-text-main">{studentForm.fullName}</span>
+                        </div>
+                        <div>
+                          <span className="text-text-muted block">Email:</span>
+                          <span className="font-bold text-text-main break-all">{studentForm.email}</span>
+                        </div>
+                        <div>
+                          <span className="text-text-muted block">Mobile Number:</span>
+                          <span className="font-bold text-text-main">{studentForm.phone}</span>
+                        </div>
+                        <div>
+                          <span className="text-text-muted block">Gender & Guardian:</span>
+                          <span className="font-bold text-text-main">{studentForm.gender} • {studentForm.parentName}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Academic Details Card */}
+                    <div className="bg-bg-card p-4 rounded-2xl border border-border-main space-y-2">
+                      <div className="flex items-center justify-between border-b border-border-main/50 pb-1.5">
+                        <span className="font-extrabold text-brand-primary uppercase tracking-wider text-[11px]">
+                          🎓 Academic Info
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(2)}
+                          className="text-[11px] text-brand-primary font-bold hover:underline cursor-pointer"
+                        >
+                          Edit ✏
+                        </button>
+                      </div>
+                      <div className="space-y-1.5">
+                        <div>
+                          <span className="text-text-muted block">University:</span>
+                          <span className="font-bold text-text-main">{studentForm.universityKey === "others" ? studentForm.universityCustom : studentForm.university}</span>
+                        </div>
+                        <div>
+                          <span className="text-text-muted block">College:</span>
+                          <span className="font-bold text-text-main">{studentForm.collegeKey === "others" ? studentForm.collegeCustom : studentForm.collegeName}</span>
+                        </div>
+                        <div>
+                          <span className="text-text-muted block">Degree & Dept:</span>
+                          <span className="font-bold text-text-main">{studentForm.degree} ({studentForm.department})</span>
+                        </div>
+                        <div>
+                          <span className="text-text-muted block">Roll / Reg Number:</span>
+                          <span className="font-bold text-text-main">{studentForm.rollNumber} / {studentForm.registrationNumber}</span>
+                        </div>
+                        <div>
+                          <span className="text-text-muted block">Sem & Session:</span>
+                          <span className="font-bold text-text-main">{studentForm.semester} Sem ({studentForm.session})</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Selected Program Card */}
+                  <div className="bg-bg-card p-4 rounded-2xl border border-border-main space-y-3">
+                    <div className="flex items-center justify-between border-b border-border-main/50 pb-1.5">
+                      <span className="font-extrabold text-brand-primary uppercase tracking-wider text-[11px]">
+                        💻 Selected Internship Program
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setCurrentStep(3)}
+                        className="text-[11px] text-brand-primary font-bold hover:underline cursor-pointer"
+                      >
+                        Change Internship ✏
+                      </button>
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                      <div>
+                        <span className="font-extrabold text-base text-text-main block">
+                          {internships.find((i) => i._id === selectedInternship)?.title || "Selected Internship Program"}
+                        </span>
+                        <span className="text-text-muted">
+                          Domain: {internships.find((i) => i._id === selectedInternship)?.domain || "Technology"}
+                        </span>
+                      </div>
+                      <div className="text-left sm:text-right">
+                        <span className="text-2xl font-black text-emerald-500">₹{getSelectedInternshipFee()}</span>
+                        {appliedCoupon && !partnerStudent && (
+                          <span className="block text-xs text-text-muted line-through">₹{getSelectedInternshipBaseFee()}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    {appliedCoupon && !partnerStudent && (
+                      <div className="text-xs font-bold text-emerald-500 bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-500/20">
+                        ✓ Coupon '{appliedCoupon.coupon?.code}' Applied! (-₹{appliedCoupon.discountAmount} Discount)
+                      </div>
+                    )}
+                    {partnerStudent && (
+                      <div className="text-xs font-bold text-amber-500 bg-amber-500/10 p-2.5 rounded-xl border border-amber-500/20">
+                        💡 Pre-Approved Partner Student Discount Rate Active
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Step 4 Back & Final Action Button */}
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(3)}
+                    className="w-full sm:w-auto px-6 py-3.5 bg-bg-main border border-border-main text-text-muted hover:text-text-main font-bold text-xs rounded-xl transition cursor-pointer"
+                  >
+                    ← Back to Internship Selection
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleProceedToPayment}
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-extrabold text-base rounded-2xl shadow-xl transition flex items-center justify-center gap-3 cursor-pointer"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Processing Enrollment...
+                      </>
+                    ) : (
+                      <>
+                        ✓ Pay ₹{getSelectedInternshipFee()} & Complete Registration
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

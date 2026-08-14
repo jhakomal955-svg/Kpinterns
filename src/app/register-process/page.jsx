@@ -244,6 +244,7 @@ export default function PartnerStudentPortalPage() {
       window.scrollTo({ top: 300, behavior: "smooth" });
     }
   };
+  const [couponInput, setCouponInput] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [couponAlertModal, setCouponAlertModal] = useState({ isOpen: false, message: "" });
   const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
@@ -733,9 +734,12 @@ export default function PartnerStudentPortalPage() {
 
   const displayedInternships = getFilteredInternships();
 
+  // Flag to ensure initial pre-selection from URL/storage only runs once on load
+  const hasPreselectedRef = useRef(false);
+
   // Pre-select internship if user applied for a specific internship from an internship detail/card page
   useEffect(() => {
-    if (typeof window === "undefined" || internships.length === 0) return;
+    if (typeof window === "undefined" || internships.length === 0 || hasPreselectedRef.current) return;
 
     const urlParams = new URLSearchParams(window.location.search);
     const targetId =
@@ -747,9 +751,8 @@ export default function PartnerStudentPortalPage() {
     if (targetId) {
       const match = internships.find((i) => i._id === targetId);
       if (match) {
-        if (selectedInternship !== targetId) {
-          setSelectedInternship(targetId);
-        }
+        setSelectedInternship(targetId);
+        hasPreselectedRef.current = true;
         // If chosen internship isn't in department-filtered list, automatically enable 'Show All Internships' so user sees it!
         const isDisplayed = displayedInternships.some((i) => i._id === targetId);
         if (!isDisplayed && !showAllInternships) {
@@ -761,8 +764,9 @@ export default function PartnerStudentPortalPage() {
 
     if (displayedInternships.length > 0 && !selectedInternship) {
       setSelectedInternship(displayedInternships[0]._id);
+      hasPreselectedRef.current = true;
     }
-  }, [internships, displayedInternships, selectedInternship, showAllInternships]);
+  }, [internships, displayedInternships]);
 
   // Calculate base & final fee for selected internship
   const getSelectedInternshipBaseFee = () => {
@@ -1955,6 +1959,10 @@ export default function PartnerStudentPortalPage() {
                             key={intern._id}
                             onClick={() => {
                               setSelectedInternship(intern._id);
+                              try {
+                                sessionStorage.setItem("kp_selected_internship_id", intern._id);
+                                localStorage.setItem("kp_selected_internship_id", intern._id);
+                              } catch (e) {}
                               if (errors.selectedInternship) setErrors((prev) => ({ ...prev, selectedInternship: null }));
                             }}
                             className={`p-5 rounded-2xl border-2 cursor-pointer transition flex justify-between items-start ${

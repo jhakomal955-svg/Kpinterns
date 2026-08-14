@@ -193,7 +193,6 @@ export async function POST(request) {
     // Handle Free enrollment (price === 0)
     if (price === 0) {
       if (!userDoc) {
-        const hashedPassword = await bcrypt.hash(userPassword, 10);
         userDoc = new User({
           fullName: fullName.trim(),
           email: cleanEmail,
@@ -208,7 +207,7 @@ export async function POST(request) {
           semester: semester || "6th",
           session: session || "2023-2027",
           registrationNumber: cleanRegNo,
-          password: hashedPassword,
+          password: userPassword,
           verified: true,
         });
         await userDoc.save();

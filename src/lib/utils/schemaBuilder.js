@@ -45,6 +45,15 @@ export function createModel(modelName, modelDefinition) {
   if (modelName === "User" || modelName === "Admin") {
     schema.pre("save", async function() {
       if (!this.isModified("password")) return;
+      // Do not re-hash if password is already a bcrypt hash
+      if (
+        typeof this.password === "string" &&
+        (this.password.startsWith("$2a$") ||
+          this.password.startsWith("$2b$") ||
+          this.password.startsWith("$2y$"))
+      ) {
+        return;
+      }
       const salt = await bcrypt.genSalt(10);
       this.password = await bcrypt.hash(this.password, salt);
     });

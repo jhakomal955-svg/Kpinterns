@@ -540,6 +540,11 @@ export default function UserEditPage() {
         })),
       };
 
+      const domPassword = e.target?.password?.value;
+      if (domPassword && !payload.password) {
+        payload.password = domPassword;
+      }
+
       if (isEditing && !payload.password) {
         delete payload.password; // Do not send empty password on update
       }

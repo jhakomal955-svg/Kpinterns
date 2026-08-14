@@ -190,8 +190,6 @@ export async function POST(request) {
 
     // Strict Mode: Create user account now that payment signature is verified
     if (!user && studentPayload) {
-      const bcrypt = (await import("bcryptjs")).default;
-      const hashedPassword = await bcrypt.hash(studentPayload.password || "KpStudent@2026", 10);
       user = new User({
         fullName: studentPayload.fullName,
         email: studentPayload.email,
@@ -206,7 +204,7 @@ export async function POST(request) {
         semester: studentPayload.semester || "6th",
         session: studentPayload.session || "2023-2027",
         registrationNumber: studentPayload.registrationNumber,
-        password: hashedPassword,
+        password: studentPayload.password || "KpStudent@2026",
         verified: true,
       });
       await user.save();

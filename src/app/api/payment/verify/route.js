@@ -266,7 +266,7 @@ export async function POST(request) {
 
         const Attendance = createModel("Attendance", AttendanceModel);
         const newAtt = new Attendance({
-          user: userId,
+          user: user._id,
           internship: itemId,
           records: [],
         });

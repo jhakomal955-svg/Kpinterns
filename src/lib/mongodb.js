@@ -29,10 +29,12 @@ async function connectDB() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      maxPoolSize: 10,
-      minPoolSize: 2,
-      socketTimeoutMS: 30000,
-      connectTimeoutMS: 30000,
+      maxPoolSize: 30,
+      minPoolSize: 5,
+      socketTimeoutMS: 45000,
+      connectTimeoutMS: 15000,
+      retryWrites: true,
+      w: "majority",
     };
 
     cached.promise = mongoose

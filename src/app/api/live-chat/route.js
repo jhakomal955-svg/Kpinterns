@@ -1,29 +1,18 @@
 /**
  * Live Chat API Routes
- * Handles custom live class chat functionality
- * GET - Retrieve chat history for a videoId (since a given timestamp)
- * POST - Post a new message in live chat (Requires authentication)
+ * Handles custom live class chat functionality with Redis distributed caching for 5000 concurrent user scale
  */
 
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { LiveChatMessageModel, UserModel, AdminModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
+import { redisGet, redisSet } from "@/lib/redis";
 
-// Global memory cache for live chat to prevent database query spamming under high-frequency polling
-let chatCache = global.chatCache;
-if (!chatCache) {
-  chatCache = global.chatCache = new Map(); // videoId -> { messages: [], lastFetched: timestamp }
-}
-
-const CACHE_TTL_MS = 2000; // 2 seconds cache TTL
+const CACHE_TTL_SECONDS = 3; // 3 seconds Redis TTL
 
 export async function GET(request) {
   try {
-    await connectDB();
-
-    const LiveChatMessage = createModel("LiveChatMessage", LiveChatMessageModel);
-
     const url = new URL(request.url);
     const videoId = url.searchParams.get("videoId");
     const since = url.searchParams.get("since");
@@ -32,34 +21,42 @@ export async function GET(request) {
       return Response.json({ error: "Missing videoId parameter" }, { status: 400 });
     }
 
-    // Check cache first
-    let cachedData = chatCache.get(videoId);
-    const now = Date.now();
+    const cacheKey = `livechat:${videoId}`;
+    let cachedMessages = await redisGet(cacheKey);
 
-    if (!cachedData || (now - cachedData.lastFetched > CACHE_TTL_MS)) {
-      // Retrieve last 100 messages in chronological order from DB
-      const dbMessages = await LiveChatMessage.find({ videoId })
+    if (!cachedMessages) {
+      await connectDB();
+      const LiveChatMessage = createModel("LiveChatMessage", LiveChatMessageModel);
+
+      // Retrieve last 100 messages using lean query to save memory
+      cachedMessages = await LiveChatMessage.find({ videoId })
         .sort({ createdAt: 1 })
-        .limit(100);
+        .limit(100)
+        .lean();
 
-      cachedData = {
-        messages: dbMessages,
-        lastFetched: now
-      };
-      chatCache.set(videoId, cachedData);
+      // Cache in Redis asynchronously
+      await redisSet(cacheKey, cachedMessages, CACHE_TTL_SECONDS);
     }
 
-    let messages = cachedData.messages;
+    let messages = cachedMessages || [];
 
-    // If 'since' date is provided, filter in-memory instead of querying DB
+    // Filter in-memory by 'since' timestamp if provided
     if (since) {
       const sinceDate = new Date(since);
       if (!isNaN(sinceDate.getTime())) {
-        messages = messages.filter(msg => new Date(msg.createdAt) > sinceDate);
+        messages = messages.filter((msg) => new Date(msg.createdAt) > sinceDate);
       }
     }
 
-    return Response.json({ success: true, data: messages }, { status: 200 });
+    return Response.json(
+      { success: true, data: messages },
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "public, s-maxage=2, stale-while-revalidate=5",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching live chat messages:", error);
     return Response.json(
@@ -102,16 +99,16 @@ export async function POST(request) {
     let senderRole = auth.user.role;
     let senderModel = "User";
 
-    // Query sender details based on their authentication role
+    // Query sender details
     if (auth.user.role === "User") {
-      const user = await User.findById(auth.user._id);
+      const user = await User.findById(auth.user._id).select("fullName").lean();
       if (user) {
         senderName = user.fullName || "Student";
       }
       senderModel = "User";
       senderRole = "User";
     } else {
-      const admin = await Admin.findById(auth.user._id);
+      const admin = await Admin.findById(auth.user._id).select("name role").lean();
       if (admin) {
         senderName = admin.name || "Instructor";
         senderRole = admin.role || "Instructor";
@@ -129,22 +126,15 @@ export async function POST(request) {
       message: message.trim(),
     });
 
-    // Update the cache immediately to include the new message
-    const cachedData = chatCache.get(videoId);
-    if (cachedData) {
-      const updatedMessages = [...cachedData.messages, chatMsg].slice(-100);
-      chatCache.set(videoId, {
-        messages: updatedMessages,
-        lastFetched: Date.now()
-      });
-    } else {
-      chatCache.set(videoId, {
-        messages: [chatMsg],
-        lastFetched: Date.now()
-      });
-    }
+    const msgObj = chatMsg.toObject();
 
-    return Response.json({ success: true, data: chatMsg }, { status: 201 });
+    // Invalidate/Update Redis cache immediately
+    const cacheKey = `livechat:${videoId}`;
+    const existing = (await redisGet(cacheKey)) || [];
+    const updatedMessages = [...existing, msgObj].slice(-100);
+    await redisSet(cacheKey, updatedMessages, CACHE_TTL_SECONDS);
+
+    return Response.json({ success: true, data: msgObj }, { status: 201 });
   } catch (error) {
     console.error("Error sending live chat message:", error);
     return Response.json(

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import DeleteConfirmModal from "@/components/DeleteConfirmModal";
 import { getDepartmentsForDegree, DEGREE_LIST, ALL_DEPARTMENTS } from "@/lib/data/degreeDepartments";
+import * as XLSX from "xlsx";
 
 const DEGREE_OPTIONS = DEGREE_LIST;
 const DEPARTMENT_OPTIONS = ALL_DEPARTMENTS;
@@ -196,6 +197,90 @@ export default function CollegeAdminPage() {
     } finally {
       setIsSubmittingRoster(false);
     }
+  };
+
+  // Excel & CSV File Upload Handler
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+
+        if (!rows || rows.length === 0) {
+          alert("The selected file is empty.");
+          return;
+        }
+
+        const headerRow = rows[0] || [];
+        const headerMap = {};
+        let hasHeader = false;
+
+        headerRow.forEach((col, idx) => {
+          if (typeof col === "string") {
+            const clean = col.toLowerCase().replace(/[^a-z0-9]/g, "");
+            if (clean.includes("reg") || clean.includes("registration")) { headerMap.regNo = idx; hasHeader = true; }
+            else if (clean.includes("roll")) { headerMap.rollNo = idx; hasHeader = true; }
+            else if (clean.includes("parent") || clean.includes("father")) { headerMap.parentName = idx; hasHeader = true; }
+            else if (clean.includes("name") || clean.includes("student")) { headerMap.fullName = idx; hasHeader = true; }
+            else if (clean.includes("dept") || clean.includes("department") || clean.includes("branch")) { headerMap.department = idx; hasHeader = true; }
+            else if (clean.includes("email")) { headerMap.email = idx; hasHeader = true; }
+            else if (clean.includes("phone") || clean.includes("mobile") || clean.includes("contact")) { headerMap.phone = idx; hasHeader = true; }
+            else if (clean.includes("degree") || clean.includes("course")) { headerMap.degree = idx; hasHeader = true; }
+            else if (clean.includes("sem") || clean.includes("semester")) { headerMap.semester = idx; hasHeader = true; }
+            else if (clean.includes("session") || clean.includes("batch") || clean.includes("year")) { headerMap.session = idx; hasHeader = true; }
+            else if (clean.includes("gender") || clean.includes("sex")) { headerMap.gender = idx; hasHeader = true; }
+          }
+        });
+
+        const startIndex = hasHeader ? 1 : 0;
+        const csvLines = [];
+
+        for (let i = startIndex; i < rows.length; i++) {
+          const row = rows[i];
+          if (!row || row.every((c) => c === "" || c === null || c === undefined)) continue;
+
+          const getVal = (colIdx, defaultPos) => {
+            const idx = colIdx !== undefined ? colIdx : defaultPos;
+            const val = row[idx];
+            return val != null ? String(val).trim() : "";
+          };
+
+          const regNo = getVal(headerMap.regNo, 0);
+          const rollNo = getVal(headerMap.rollNo, 1);
+          const fullName = getVal(headerMap.fullName, 2);
+          const department = getVal(headerMap.department, 3);
+          const email = getVal(headerMap.email, 4);
+          const phone = getVal(headerMap.phone, 5);
+          const degree = getVal(headerMap.degree, 6);
+          const semester = getVal(headerMap.semester, 7);
+          const session = getVal(headerMap.session, 8);
+          const gender = getVal(headerMap.gender, 9);
+          const parentName = getVal(headerMap.parentName, 10);
+
+          csvLines.push(`${regNo}, ${rollNo}, ${fullName}, ${department}, ${email}, ${phone}, ${degree}, ${semester}, ${session}, ${gender}, ${parentName}`);
+        }
+
+        if (csvLines.length === 0) {
+          alert("No student data rows were found in the file.");
+          return;
+        }
+
+        setCsvText(csvLines.join("\n"));
+        alert(`Loaded ${csvLines.length} student record(s) from ${file.name}!`);
+      } catch (err) {
+        console.error("Error reading file:", err);
+        alert("Failed to parse file: " + err.message);
+      }
+    };
+
+    reader.readAsArrayBuffer(file);
   };
 
   // CSV Bulk Upload
@@ -811,8 +896,33 @@ export default function CollegeAdminPage() {
             </div>
 
             <form onSubmit={handleCsvUploadForPartner} className="space-y-3 text-xs">
+              {/* Excel / CSV File Upload Box */}
+              <div className="border-2 border-dashed border-blue-500/40 hover:border-blue-500 bg-blue-500/5 rounded-xl p-4 text-center transition cursor-pointer relative group">
+                <input
+                  type="file"
+                  accept=".xlsx, .xls, .csv"
+                  onChange={handleFileUpload}
+                  className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
+                />
+                <div className="space-y-1">
+                  <div className="text-2xl group-hover:scale-110 transition-transform duration-200">📊</div>
+                  <div className="font-bold text-xs text-blue-500 dark:text-blue-400">
+                    Click to Choose or Drag & Drop Excel (.xlsx, .xls) / CSV (.csv) File
+                  </div>
+                  <div className="text-[10px] text-text-muted">
+                    Auto-parses sheets & populates student records below
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="h-px bg-border-main flex-1"></div>
+                <span className="text-[10px] text-text-muted font-bold uppercase">Or Edit / Paste Data Manually</span>
+                <div className="h-px bg-border-main flex-1"></div>
+              </div>
+
               <textarea
-                rows={7}
+                rows={6}
                 value={csvText}
                 onChange={(e) => setCsvText(e.target.value)}
                 placeholder={`REG2026001, ROLL101, Rahul Sharma, Computer Science, rahul@gmail.com, 9876543210, B.Tech, 6th, 2023-2027, Male, S Sharma\nREG2026002, ROLL102, Priya Singh, Electrical Eng, priya@gmail.com, 9876543211, B.Tech, 6th, 2023-2027, Female, R Singh`}

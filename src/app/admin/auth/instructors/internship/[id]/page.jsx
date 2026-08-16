@@ -229,7 +229,11 @@ export default function InstructorInternshipEditPage() {
           certificateOffered: internship.certificateOffered ?? true,
           stipendAmount: internship.stipend?.amount || "",
           registrationFeeAmount: internship.RegistrationFee?.amount || "",
-          instructors: internship.instructor?.map(inst => typeof inst.id === "object" ? inst.id._id : (inst.id || "")).filter(Boolean) || [],
+          instructors: internship.instructor?.map(inst => {
+            if (!inst) return null;
+            if (typeof inst.id === "object" && inst.id !== null) return inst.id._id || "DELETED_INSTRUCTOR";
+            return inst.id || "DELETED_INSTRUCTOR";
+          }).filter(Boolean) || [],
           contentItems: internship.content || [],
           updates: internship.updates || [],
           testStatus: internship.test?.status || "Draft",

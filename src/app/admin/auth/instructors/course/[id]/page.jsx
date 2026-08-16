@@ -109,7 +109,11 @@ export default function InstructorCourseEditPage() {
           duration: course.duration || "1-month",
           accessDuration: course.accessDuration || "lifetime",
           status: course.status || "Draft",
-          instructors: course.instructor?.map(inst => typeof inst.id === "object" ? inst.id._id : (inst.id || "")).filter(Boolean) || [],
+          instructors: course.instructor?.map(inst => {
+            if (!inst) return null;
+            if (typeof inst.id === "object" && inst.id !== null) return inst.id._id || "DELETED_INSTRUCTOR";
+            return inst.id || "DELETED_INSTRUCTOR";
+          }).filter(Boolean) || [],
           prerequisites: course.prerequisites?.join(", ") || "",
           learningOutcomes: course.learningOutcomes?.join(", ") || "",
           contentItems: course.content || [],

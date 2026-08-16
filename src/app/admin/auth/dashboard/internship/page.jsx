@@ -310,9 +310,10 @@ export default function InternshipsAdminPage() {
                         <span className="font-semibold text-text-muted">Assigned Instructors</span>
                         <div className="flex flex-wrap gap-1.5">
                           {internship.instructor.map((inst, index) => {
-                            const name = typeof inst.id === "object" ? inst.id?.name : "Admin";
+                            const name = (typeof inst.id === "object" && inst.id?.name) ? inst.id.name : (inst.name || "Instructor Not Available");
+                            const isMissing = name === "Instructor Not Available";
                             return (
-                              <span key={index} className="bg-bg-main border border-border-main text-text-main font-medium rounded px-2.5 py-0.5 text-[10px]">
+                              <span key={index} className={`border font-medium rounded px-2.5 py-0.5 text-[10px] ${isMissing ? "bg-red-500/10 border-red-500/30 text-red-500 font-bold" : "bg-bg-main border-border-main text-text-main"}`}>
                                 {name}
                               </span>
                             );

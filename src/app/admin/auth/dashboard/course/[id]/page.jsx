@@ -113,7 +113,11 @@ export default function CourseEditPage() {
           duration: course.duration || "1-month",
           accessDuration: course.accessDuration || "lifetime",
           status: course.status || "Draft",
-          instructors: course.instructor?.map(inst => typeof inst.id === "object" ? inst.id._id : (inst.id || "")).filter(Boolean) || [],
+          instructors: course.instructor?.map(inst => {
+            if (!inst) return null;
+            if (typeof inst.id === "object" && inst.id !== null) return inst.id._id || "DELETED_INSTRUCTOR";
+            return inst.id || "DELETED_INSTRUCTOR";
+          }).filter(Boolean) || [],
           prerequisites: course.prerequisites?.join(", ") || "",
           learningOutcomes: course.learningOutcomes?.join(", ") || "",
           contentItems: course.content || [],
@@ -544,29 +548,38 @@ export default function CourseEditPage() {
                 
                 {/* List of currently assigned instructors */}
                 <div className="flex flex-wrap gap-2 mb-2">
-                  {formData.instructors && formData.instructors.map((instId) => {
+                  {formData.instructors && formData.instructors.map((instId, index) => {
                     const match = adminsList.find((admin) => admin._id === instId);
-                    const displayName = match ? `${match.name} (ID: ${match._id})` : instId;
+                    const isAvailable = !!match;
+                    const displayName = match ? `${match.name} (${match.role || "Instructor"})` : "Instructor Not Available";
                     return (
-                      <div key={instId} className="flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/30 text-brand-primary font-medium px-3.5 py-1.5 rounded-xl text-sm">
-                        <span>{displayName}</span>
+                      <div
+                        key={instId || index}
+                        className={`flex items-center gap-2 font-medium px-3.5 py-1.5 rounded-xl text-sm border ${
+                          isAvailable
+                            ? "bg-brand-primary/10 border-brand-primary/30 text-brand-primary"
+                            : "bg-red-500/10 border-red-500/30 text-red-500 font-bold"
+                        }`}
+                      >
+                        <span>{displayName} {!isAvailable && "(Deleted / Not Found)"}</span>
                         <button
                           type="button"
                           onClick={() => {
                             setFormData((prev) => ({
                               ...prev,
-                              instructors: prev.instructors.filter((id) => id !== instId),
+                              instructors: prev.instructors.filter((_, i) => i !== index),
                             }));
                           }}
-                          className="hover:text-red-500 font-bold transition-all text-xs"
+                          className="hover:text-red-700 font-bold transition-all text-xs ml-1"
+                          title="Remove unavailable instructor to select another"
                         >
-                          ✕
+                          ✕ Remove
                         </button>
                       </div>
                     );
                   })}
                   {(!formData.instructors || formData.instructors.length === 0) && (
-                    <p className="text-xs text-red-500 font-medium italic">No instructors assigned yet.</p>
+                    <p className="text-xs text-red-500 font-medium italic">No instructors assigned yet. Please select an instructor below.</p>
                   )}
                 </div>
 

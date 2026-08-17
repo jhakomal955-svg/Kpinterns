@@ -5957,7 +5957,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -5973,7 +5974,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -5999,7 +6007,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6008,7 +6017,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6024,7 +6034,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6050,7 +6067,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6059,7 +6077,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6075,7 +6094,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6101,7 +6127,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6110,7 +6137,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6126,7 +6154,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6152,7 +6187,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6161,7 +6197,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6177,7 +6214,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6203,7 +6247,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6212,7 +6257,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6228,7 +6274,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6254,7 +6307,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6263,7 +6317,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6279,7 +6334,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6305,7 +6367,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6314,7 +6377,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6330,7 +6394,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6356,7 +6427,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6365,7 +6437,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6381,7 +6454,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6407,7 +6487,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6416,7 +6497,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6432,7 +6514,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6458,7 +6547,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6467,7 +6557,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6483,7 +6574,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6509,7 +6607,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6518,7 +6617,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6534,7 +6634,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6560,7 +6667,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6577,7 +6685,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6593,7 +6702,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6619,7 +6735,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6628,7 +6745,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6644,7 +6762,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6670,7 +6795,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6679,7 +6805,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6695,7 +6822,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6721,7 +6855,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6748,7 +6883,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6764,7 +6900,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6790,7 +6933,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6799,7 +6943,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6815,7 +6960,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6841,7 +6993,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6850,7 +7003,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6866,7 +7020,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6892,7 +7053,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6901,7 +7063,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6917,7 +7080,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -6943,7 +7113,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -6960,7 +7131,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -6976,7 +7148,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7002,7 +7181,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7011,7 +7191,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7027,7 +7208,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7053,7 +7241,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7062,7 +7251,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7078,7 +7268,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7104,7 +7301,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7113,7 +7311,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7129,7 +7328,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7155,7 +7361,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7164,7 +7371,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7180,7 +7388,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7206,7 +7421,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7225,7 +7441,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7241,7 +7458,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7267,7 +7491,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -7281,7 +7506,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7297,7 +7523,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7323,7 +7556,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7332,7 +7566,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7348,7 +7583,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7374,7 +7616,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7393,7 +7636,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7409,7 +7653,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7435,7 +7686,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7444,7 +7696,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7460,7 +7713,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7486,7 +7746,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7495,7 +7756,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7511,7 +7773,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7537,7 +7806,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7546,7 +7816,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7562,7 +7833,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7588,7 +7866,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7597,7 +7876,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7613,7 +7893,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7639,7 +7926,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7648,7 +7936,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7664,7 +7953,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7690,7 +7986,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7699,7 +7996,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7715,7 +8013,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7741,7 +8046,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7750,7 +8056,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7766,7 +8073,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7792,7 +8106,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7801,7 +8116,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7817,7 +8133,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7843,7 +8166,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7852,7 +8176,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7868,7 +8193,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7894,7 +8226,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7903,7 +8236,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7919,7 +8253,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7945,7 +8286,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -7954,7 +8296,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -7970,7 +8313,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -7996,7 +8346,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8005,7 +8356,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8021,7 +8373,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8047,7 +8406,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8056,7 +8416,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8072,7 +8433,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8098,7 +8466,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8107,7 +8476,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8123,7 +8493,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8149,7 +8526,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8158,7 +8536,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8174,7 +8553,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8200,7 +8586,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8209,7 +8596,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8225,7 +8613,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8251,7 +8646,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8260,7 +8656,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8276,7 +8673,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8302,7 +8706,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8311,7 +8716,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8327,7 +8733,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8353,7 +8766,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8362,7 +8776,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8378,7 +8793,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8404,7 +8826,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8413,7 +8836,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8429,7 +8853,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8455,7 +8886,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8464,7 +8896,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8480,7 +8913,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8506,7 +8946,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8515,7 +8956,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8531,7 +8973,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8557,7 +9006,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8566,7 +9016,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8582,7 +9033,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8608,7 +9066,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8617,7 +9076,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8633,7 +9093,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8659,7 +9126,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8668,7 +9136,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8684,7 +9153,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8710,7 +9186,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8719,7 +9196,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8735,7 +9213,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8761,7 +9246,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8770,7 +9256,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8786,7 +9273,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8812,7 +9306,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8821,7 +9316,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8837,7 +9333,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8863,7 +9366,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8872,7 +9376,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8888,7 +9393,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8914,7 +9426,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8923,7 +9436,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8939,7 +9453,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -8965,7 +9486,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -8974,7 +9496,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -8990,7 +9513,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9016,7 +9546,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9025,7 +9556,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9041,7 +9573,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9067,7 +9606,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9076,7 +9616,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9092,7 +9633,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9118,7 +9666,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9127,7 +9676,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9143,7 +9693,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9169,7 +9726,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9178,7 +9736,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9194,7 +9753,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9220,7 +9786,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9229,7 +9796,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9245,7 +9813,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9271,7 +9846,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9280,7 +9856,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9296,7 +9873,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9322,7 +9906,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9331,7 +9916,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9347,7 +9933,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9373,7 +9966,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9382,7 +9976,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9398,7 +9993,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9424,7 +10026,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9433,7 +10036,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9449,7 +10053,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9475,7 +10086,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9484,7 +10096,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9500,7 +10113,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9526,7 +10146,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9535,7 +10156,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9551,7 +10173,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9577,7 +10206,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9586,7 +10216,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9602,7 +10233,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9628,7 +10266,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9637,7 +10276,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9653,7 +10293,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9679,7 +10326,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9688,7 +10336,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9704,7 +10353,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9730,7 +10386,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9739,7 +10396,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9755,7 +10413,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9781,7 +10446,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9790,7 +10456,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9806,7 +10473,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9832,7 +10506,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9841,7 +10516,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9857,7 +10533,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9883,7 +10566,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9892,7 +10576,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9908,7 +10593,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9934,7 +10626,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9943,7 +10636,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -9959,7 +10653,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -9985,7 +10686,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -9994,7 +10696,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10010,7 +10713,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10036,7 +10746,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10045,7 +10756,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10061,7 +10773,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10087,7 +10806,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10096,7 +10816,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10112,7 +10833,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10138,7 +10866,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10147,7 +10876,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10163,7 +10893,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10189,7 +10926,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10198,7 +10936,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10214,7 +10953,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10240,7 +10986,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10249,7 +10996,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10265,7 +11013,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10291,7 +11046,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10300,7 +11056,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10316,7 +11073,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10342,7 +11106,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10351,7 +11116,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10367,7 +11133,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10393,7 +11166,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10402,7 +11176,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10418,7 +11193,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10444,7 +11226,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10453,7 +11236,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10469,7 +11253,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10495,7 +11286,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10504,7 +11296,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10520,7 +11313,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10546,7 +11346,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10555,7 +11356,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10571,7 +11373,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10597,7 +11406,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10606,7 +11416,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10622,7 +11433,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10648,7 +11466,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10657,7 +11476,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10673,7 +11493,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10699,7 +11526,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10708,7 +11536,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10724,7 +11553,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10750,7 +11586,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10759,7 +11596,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10775,7 +11613,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10801,7 +11646,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10810,7 +11656,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10826,7 +11673,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10852,7 +11706,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10861,7 +11716,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10877,7 +11733,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10903,7 +11766,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10912,7 +11776,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10928,7 +11793,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -10954,7 +11826,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -10963,7 +11836,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -10979,7 +11853,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11005,7 +11886,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -11019,7 +11901,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11035,7 +11918,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11061,7 +11951,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11070,7 +11961,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11086,7 +11978,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11112,7 +12011,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11121,7 +12021,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11137,7 +12038,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11163,7 +12071,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11172,7 +12081,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11188,7 +12098,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11214,7 +12131,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11223,7 +12141,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11239,7 +12158,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11265,7 +12191,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11274,7 +12201,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11290,7 +12218,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11316,7 +12251,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11325,7 +12261,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11341,7 +12278,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11367,7 +12311,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11376,7 +12321,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11392,7 +12338,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11418,7 +12371,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11427,7 +12381,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11443,7 +12398,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11469,7 +12431,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11478,7 +12441,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11494,7 +12458,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11520,7 +12491,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11529,7 +12501,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11545,7 +12518,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11571,7 +12551,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11590,7 +12571,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11606,7 +12588,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11632,7 +12621,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11641,7 +12631,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11657,7 +12648,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11683,7 +12681,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11692,7 +12691,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11708,7 +12708,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11734,7 +12741,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11743,7 +12751,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11759,7 +12768,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11785,7 +12801,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11794,7 +12811,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11810,7 +12828,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11836,7 +12861,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11845,7 +12871,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11861,7 +12888,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11887,7 +12921,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11896,7 +12931,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11912,7 +12948,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11938,7 +12981,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11947,7 +12991,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -11963,7 +13008,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -11989,7 +13041,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -11998,7 +13051,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12014,7 +13068,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12040,7 +13101,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12049,7 +13111,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12065,7 +13128,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12091,7 +13161,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12100,7 +13171,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12116,7 +13188,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12142,7 +13221,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12151,7 +13231,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12167,7 +13248,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12193,7 +13281,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -12207,7 +13296,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12223,7 +13313,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12249,7 +13346,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12258,7 +13356,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12274,7 +13373,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12300,7 +13406,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12309,7 +13416,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12325,7 +13433,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12351,7 +13466,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12360,7 +13476,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12376,7 +13493,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12402,7 +13526,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12411,7 +13536,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12427,7 +13553,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12453,7 +13586,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12462,7 +13596,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12478,7 +13613,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12504,7 +13646,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12513,7 +13656,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12529,7 +13673,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12555,7 +13706,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12564,7 +13716,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12580,7 +13733,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12606,7 +13766,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12615,7 +13776,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12631,7 +13793,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12657,7 +13826,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12666,7 +13836,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12682,7 +13853,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12708,7 +13886,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12717,7 +13896,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12733,7 +13913,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12759,7 +13946,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12768,7 +13956,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12784,7 +13973,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12810,7 +14006,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12819,7 +14016,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12835,7 +14033,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12861,7 +14066,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12870,7 +14076,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12886,7 +14093,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12912,7 +14126,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12921,7 +14136,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12937,7 +14153,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -12963,7 +14186,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -12972,7 +14196,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -12988,7 +14213,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13014,7 +14246,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13023,7 +14256,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13039,7 +14273,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13065,7 +14306,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -13079,7 +14321,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13095,7 +14338,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13121,7 +14371,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13130,7 +14381,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13146,7 +14398,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13172,7 +14431,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13181,7 +14441,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13197,7 +14458,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13223,7 +14491,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13232,7 +14501,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13248,7 +14518,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13274,7 +14551,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13283,7 +14561,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13299,7 +14578,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13325,7 +14611,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13334,7 +14621,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13350,7 +14638,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13376,7 +14671,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13385,7 +14681,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13401,7 +14698,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13427,7 +14731,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13436,7 +14741,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13452,7 +14758,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13478,7 +14791,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13487,7 +14801,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13503,7 +14818,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13529,7 +14851,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13538,7 +14861,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13554,7 +14878,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13580,7 +14911,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13589,7 +14921,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13605,7 +14938,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13631,7 +14971,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13640,7 +14981,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13656,7 +14998,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13682,7 +15031,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13691,7 +15041,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13707,7 +15058,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13733,7 +15091,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13742,7 +15101,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13758,7 +15118,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13784,7 +15151,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13793,7 +15161,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13809,7 +15178,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13835,7 +15211,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13844,7 +15221,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13860,7 +15238,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13886,7 +15271,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13895,7 +15281,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13911,7 +15298,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13937,7 +15331,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13946,7 +15341,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -13962,7 +15358,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -13988,7 +15391,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -13997,7 +15401,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14013,7 +15418,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14039,7 +15451,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14048,7 +15461,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14064,7 +15478,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14090,7 +15511,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14099,7 +15521,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14115,7 +15538,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14141,7 +15571,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14150,7 +15581,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14166,7 +15598,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14192,7 +15631,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14201,7 +15641,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14217,7 +15658,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14243,7 +15691,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14252,7 +15701,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14268,7 +15718,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14294,7 +15751,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14303,7 +15761,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14319,7 +15778,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14345,7 +15811,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14354,7 +15821,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14370,7 +15838,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14396,7 +15871,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14405,7 +15881,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14421,7 +15898,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14447,7 +15931,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14456,7 +15941,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14472,7 +15958,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14498,7 +15991,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14507,7 +16001,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14523,7 +16018,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14549,7 +16051,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14558,7 +16061,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14574,7 +16078,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14600,7 +16111,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14609,7 +16121,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14625,7 +16138,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14651,7 +16171,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14660,7 +16181,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14676,7 +16198,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14702,7 +16231,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14711,7 +16241,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14727,7 +16258,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14753,7 +16291,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14762,7 +16301,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14778,7 +16318,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14804,7 +16351,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14813,7 +16361,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14829,7 +16378,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14855,7 +16411,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14864,7 +16421,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14880,7 +16438,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14906,7 +16471,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14915,7 +16481,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14931,7 +16498,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -14957,7 +16531,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -14966,7 +16541,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -14982,7 +16558,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15008,7 +16591,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15017,7 +16601,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15033,7 +16618,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15059,7 +16651,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15068,7 +16661,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15084,7 +16678,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15110,7 +16711,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15119,7 +16721,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15135,7 +16738,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15161,7 +16771,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15170,7 +16781,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15186,7 +16798,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15212,7 +16831,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15221,7 +16841,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15237,7 +16858,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15263,7 +16891,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15272,7 +16901,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15288,7 +16918,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15314,7 +16951,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15323,7 +16961,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15339,7 +16978,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15365,7 +17011,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15374,7 +17021,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15390,7 +17038,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15416,7 +17071,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15425,7 +17081,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15441,7 +17098,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15467,7 +17131,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15476,7 +17141,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15492,7 +17158,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15518,7 +17191,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15527,7 +17201,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15543,7 +17218,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15569,7 +17251,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15578,7 +17261,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15594,7 +17278,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15620,7 +17311,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15629,7 +17321,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15645,7 +17338,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15671,7 +17371,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15680,7 +17381,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15696,7 +17398,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15722,7 +17431,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15731,7 +17441,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15747,7 +17458,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15773,7 +17491,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15782,7 +17501,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15798,7 +17518,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15824,7 +17551,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15833,7 +17561,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15849,7 +17578,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15875,7 +17611,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15884,7 +17621,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15900,7 +17638,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15926,7 +17671,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15935,7 +17681,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -15951,7 +17698,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -15977,7 +17731,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -15986,7 +17741,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16002,7 +17758,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16028,7 +17791,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16037,7 +17801,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16053,7 +17818,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16079,7 +17851,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16088,7 +17861,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16104,7 +17878,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16130,7 +17911,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16139,7 +17921,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16155,7 +17938,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16181,7 +17971,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -16195,7 +17986,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16211,7 +18003,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16237,7 +18036,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16246,7 +18046,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16262,7 +18063,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16288,7 +18096,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16297,7 +18106,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16313,7 +18123,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16339,7 +18156,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16348,7 +18166,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16364,7 +18183,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16390,7 +18216,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16399,7 +18226,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16415,7 +18243,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16441,7 +18276,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16450,7 +18286,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16466,7 +18303,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16492,7 +18336,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16501,7 +18346,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16517,7 +18363,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16543,7 +18396,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16552,7 +18406,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16568,7 +18423,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16594,7 +18456,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16603,7 +18466,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16619,7 +18483,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16645,7 +18516,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16654,7 +18526,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16670,7 +18543,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16696,7 +18576,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16705,7 +18586,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16721,7 +18603,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16747,7 +18636,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16756,7 +18646,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16772,7 +18663,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16798,7 +18696,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16807,7 +18706,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16823,7 +18723,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16849,7 +18756,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16858,7 +18766,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16874,7 +18783,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16900,7 +18816,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16909,7 +18826,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16925,7 +18843,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -16951,7 +18876,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -16960,7 +18886,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -16976,7 +18903,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17002,7 +18936,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17011,7 +18946,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17027,7 +18963,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17053,7 +18996,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17062,7 +19006,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17078,7 +19023,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17104,7 +19056,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17113,7 +19066,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17129,7 +19083,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17155,7 +19116,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17164,7 +19126,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17180,7 +19143,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17206,7 +19176,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17215,7 +19186,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17231,7 +19203,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17257,7 +19236,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17266,7 +19246,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17282,7 +19263,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17308,7 +19296,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17317,7 +19306,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17333,7 +19323,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17359,7 +19356,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17368,7 +19366,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17384,7 +19383,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17410,7 +19416,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17419,7 +19426,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17435,7 +19443,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17461,7 +19476,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17470,7 +19486,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17486,7 +19503,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17512,7 +19536,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17521,7 +19546,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17537,7 +19563,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17563,7 +19596,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17572,7 +19606,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17588,7 +19623,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17614,7 +19656,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17623,7 +19666,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17639,7 +19683,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17665,7 +19716,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17674,7 +19726,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17690,7 +19743,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17716,7 +19776,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17725,7 +19786,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17741,7 +19803,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17767,7 +19836,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17776,7 +19846,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17792,7 +19863,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17818,7 +19896,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17827,7 +19906,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17843,7 +19923,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17869,7 +19956,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17878,7 +19966,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17894,7 +19983,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17920,7 +20016,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17929,7 +20026,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17945,7 +20043,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -17971,7 +20076,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -17980,7 +20086,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -17996,7 +20103,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18022,7 +20136,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18031,7 +20146,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18047,7 +20163,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18073,7 +20196,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18082,7 +20206,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18098,7 +20223,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18124,7 +20256,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18133,7 +20266,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18149,7 +20283,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18175,7 +20316,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18184,7 +20326,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18200,7 +20343,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18226,7 +20376,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18235,7 +20386,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18251,7 +20403,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18277,7 +20436,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18286,7 +20446,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18302,7 +20463,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18328,7 +20496,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18337,7 +20506,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18353,7 +20523,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18379,7 +20556,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18388,7 +20566,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18404,7 +20583,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18430,7 +20616,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18439,7 +20626,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18455,7 +20643,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18481,7 +20676,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18490,7 +20686,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18506,7 +20703,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18532,7 +20736,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18541,7 +20746,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18557,7 +20763,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18583,7 +20796,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18592,7 +20806,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18608,7 +20823,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18634,7 +20856,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18643,7 +20866,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18659,7 +20883,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18685,7 +20916,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18694,7 +20926,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18710,7 +20943,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18736,7 +20976,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18745,7 +20986,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18761,7 +21003,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18787,7 +21036,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18796,7 +21046,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18812,7 +21063,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18838,7 +21096,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18847,7 +21106,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18863,7 +21123,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18889,7 +21156,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18898,7 +21166,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18914,7 +21183,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18940,7 +21216,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -18949,7 +21226,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -18965,7 +21243,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -18991,7 +21276,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19000,7 +21286,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19016,7 +21303,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19042,7 +21336,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19051,7 +21346,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19067,7 +21363,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19093,7 +21396,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19102,7 +21406,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19118,7 +21423,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19144,7 +21456,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19153,7 +21466,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19169,7 +21483,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19195,7 +21516,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19204,7 +21526,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19220,7 +21543,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19246,7 +21576,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19255,7 +21586,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19271,7 +21603,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19297,7 +21636,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19306,7 +21646,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19322,7 +21663,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19348,7 +21696,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19357,7 +21706,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19373,7 +21723,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19399,7 +21756,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19408,7 +21766,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19424,7 +21783,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19450,7 +21816,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19459,7 +21826,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19475,7 +21843,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19501,7 +21876,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19510,7 +21886,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19526,7 +21903,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19552,7 +21936,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19561,7 +21946,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19577,7 +21963,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19603,7 +21996,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19612,7 +22006,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19628,7 +22023,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19654,7 +22056,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19663,7 +22066,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19679,7 +22083,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19705,7 +22116,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19714,7 +22126,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19730,7 +22143,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19756,7 +22176,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19765,7 +22186,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19781,7 +22203,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19807,7 +22236,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19816,7 +22246,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19832,7 +22263,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19858,7 +22296,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19867,7 +22306,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19883,7 +22323,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19909,7 +22356,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19918,7 +22366,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19934,7 +22383,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -19960,7 +22416,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -19969,7 +22426,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -19985,7 +22443,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20011,7 +22476,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20020,7 +22486,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20036,7 +22503,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20062,7 +22536,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20071,7 +22546,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20087,7 +22563,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20113,7 +22596,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20122,7 +22606,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20138,7 +22623,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20164,7 +22656,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20173,7 +22666,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20189,7 +22683,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20215,7 +22716,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20224,7 +22726,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20240,7 +22743,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20266,7 +22776,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20275,7 +22786,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20291,7 +22803,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20317,7 +22836,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20326,7 +22846,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20342,7 +22863,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20368,7 +22896,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20377,7 +22906,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20393,7 +22923,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20419,7 +22956,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20428,7 +22966,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20444,7 +22983,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20470,7 +23016,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20479,7 +23026,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20495,7 +23043,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20521,7 +23076,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20530,7 +23086,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20546,7 +23103,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20572,7 +23136,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20581,7 +23146,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20597,7 +23163,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20623,7 +23196,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20632,7 +23206,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20648,7 +23223,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20674,7 +23256,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20683,7 +23266,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20699,7 +23283,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20725,7 +23316,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20734,7 +23326,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20750,7 +23343,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20776,7 +23376,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20785,7 +23386,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20801,7 +23403,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20827,7 +23436,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20836,7 +23446,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20852,7 +23463,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20878,7 +23496,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20887,7 +23506,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20903,7 +23523,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20929,7 +23556,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -20938,7 +23566,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -20954,7 +23583,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -20980,7 +23616,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -20994,7 +23631,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21010,7 +23648,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21036,7 +23681,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21045,7 +23691,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21061,7 +23708,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21087,7 +23741,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21096,7 +23751,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21112,7 +23768,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21138,7 +23801,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21147,7 +23811,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21163,7 +23828,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21189,7 +23861,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21198,7 +23871,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21214,7 +23888,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21240,7 +23921,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21249,7 +23931,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21265,7 +23948,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21291,7 +23981,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -21305,7 +23996,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21321,7 +24013,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21347,7 +24046,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21356,7 +24056,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21372,7 +24073,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21398,7 +24106,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21407,7 +24116,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21423,7 +24133,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21449,7 +24166,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21458,7 +24176,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21474,7 +24193,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21500,7 +24226,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21509,7 +24236,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21525,7 +24253,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21551,7 +24286,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21560,7 +24296,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21576,7 +24313,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21602,7 +24346,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21611,7 +24356,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21627,7 +24373,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21653,7 +24406,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21662,7 +24416,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21678,7 +24433,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21704,7 +24466,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21713,7 +24476,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21729,7 +24493,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21755,7 +24526,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21764,7 +24536,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21780,7 +24553,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21806,7 +24586,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21815,7 +24596,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21831,7 +24613,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21857,7 +24646,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21866,7 +24656,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21882,7 +24673,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21908,7 +24706,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21917,7 +24716,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21933,7 +24733,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -21959,7 +24766,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -21968,7 +24776,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -21984,7 +24793,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22010,7 +24826,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22019,7 +24836,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22035,7 +24853,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22061,7 +24886,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22070,7 +24896,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22086,7 +24913,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22112,7 +24946,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22121,7 +24956,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22137,7 +24973,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22163,7 +25006,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22172,7 +25016,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22188,7 +25033,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22214,7 +25066,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22223,7 +25076,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22239,7 +25093,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22265,7 +25126,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22274,7 +25136,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22290,7 +25153,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22316,7 +25186,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22325,7 +25196,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22341,7 +25213,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22367,7 +25246,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22376,7 +25256,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22392,7 +25273,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22418,7 +25306,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22427,7 +25316,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22443,7 +25333,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22469,7 +25366,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22478,7 +25376,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22494,7 +25393,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22520,7 +25426,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22529,7 +25436,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22545,7 +25453,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22571,7 +25486,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22580,7 +25496,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22596,7 +25513,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22622,7 +25546,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22631,7 +25556,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22647,7 +25573,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22673,7 +25606,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22682,7 +25616,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22698,7 +25633,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22724,7 +25666,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22733,7 +25676,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22749,7 +25693,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22775,7 +25726,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22784,7 +25736,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22800,7 +25753,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22826,7 +25786,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22835,7 +25796,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22851,7 +25813,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22877,7 +25846,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22886,7 +25856,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22902,7 +25873,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22928,7 +25906,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22937,7 +25916,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -22953,7 +25933,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -22979,7 +25966,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -22988,7 +25976,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -23004,7 +25993,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -23030,7 +26026,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -23506,7 +26503,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -23522,7 +26520,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -23548,7 +26553,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -25339,7 +28345,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -25355,7 +28362,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -25381,7 +28395,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -25390,7 +28405,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -25406,7 +28422,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -25432,7 +28455,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -25837,7 +28861,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -25853,7 +28878,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -25879,7 +28911,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -26746,7 +29779,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26762,7 +29796,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -26788,7 +29829,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -26797,7 +29839,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26813,7 +29856,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -26839,7 +29889,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -26848,7 +29899,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26864,7 +29916,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -26890,7 +29949,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -26899,7 +29959,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26915,7 +29976,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -26941,7 +30009,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -26950,7 +30019,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -26966,7 +30036,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -26992,7 +30069,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27001,7 +30079,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27017,7 +30096,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27043,7 +30129,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27052,7 +30139,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27068,7 +30156,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27094,7 +30189,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27103,7 +30199,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27119,7 +30216,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27145,7 +30249,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27154,7 +30259,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27170,7 +30276,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27196,7 +30309,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27205,7 +30319,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27221,7 +30336,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27247,7 +30369,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27256,7 +30379,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27272,7 +30396,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27298,7 +30429,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27307,7 +30439,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27323,7 +30456,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27349,7 +30489,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27358,7 +30499,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27374,7 +30516,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27400,7 +30549,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27409,7 +30559,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27425,7 +30576,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27451,7 +30609,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27460,7 +30619,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27476,7 +30636,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27502,7 +30669,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27511,7 +30679,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27527,7 +30696,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27553,7 +30729,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27562,7 +30739,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27578,7 +30756,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27604,7 +30789,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27613,7 +30799,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27629,7 +30816,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27655,7 +30849,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27664,7 +30859,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27680,7 +30876,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27706,7 +30909,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27715,7 +30919,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27731,7 +30936,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27757,7 +30969,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27766,7 +30979,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27782,7 +30996,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27808,7 +31029,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27817,7 +31039,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27833,7 +31056,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27859,7 +31089,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27868,7 +31099,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27884,7 +31116,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27910,7 +31149,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27919,7 +31159,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27935,7 +31176,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -27961,7 +31209,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -27970,7 +31219,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -27986,7 +31236,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28012,7 +31269,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28021,7 +31279,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28037,7 +31296,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28063,7 +31329,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28072,7 +31339,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28088,7 +31356,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28114,7 +31389,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28123,7 +31399,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28139,7 +31416,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28165,7 +31449,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28174,7 +31459,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28190,7 +31476,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28216,7 +31509,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28225,7 +31519,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28241,7 +31536,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28267,7 +31569,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28276,7 +31579,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28292,7 +31596,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28318,7 +31629,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28327,7 +31639,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28343,7 +31656,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28369,7 +31689,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28378,7 +31699,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28394,7 +31716,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28420,7 +31749,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28429,7 +31759,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28445,7 +31776,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28471,7 +31809,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28480,7 +31819,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28496,7 +31836,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28522,7 +31869,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28531,7 +31879,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28547,7 +31896,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28573,7 +31929,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28582,7 +31939,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28598,7 +31956,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28624,7 +31989,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28633,7 +31999,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28649,7 +32016,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28675,7 +32049,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28684,7 +32059,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28700,7 +32076,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28726,7 +32109,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28735,7 +32119,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28751,7 +32136,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28777,7 +32169,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28786,7 +32179,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28802,7 +32196,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28828,7 +32229,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28837,7 +32239,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28853,7 +32256,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28879,7 +32289,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28888,7 +32299,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28904,7 +32316,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28930,7 +32349,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28939,7 +32359,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -28955,7 +32376,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -28981,7 +32409,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -28990,7 +32419,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29006,7 +32436,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29032,7 +32469,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -29046,7 +32484,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29062,7 +32501,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29088,7 +32534,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29097,7 +32544,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29113,7 +32561,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29139,7 +32594,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29148,7 +32604,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29164,7 +32621,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29190,7 +32654,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29199,7 +32664,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29215,7 +32681,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29241,7 +32714,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29250,7 +32724,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29266,7 +32741,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29292,7 +32774,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29301,7 +32784,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29317,7 +32801,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29343,7 +32834,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29352,7 +32844,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29368,7 +32861,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29394,7 +32894,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29403,7 +32904,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29419,7 +32921,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29445,7 +32954,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29454,7 +32964,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29470,7 +32981,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29496,7 +33014,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29505,7 +33024,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29521,7 +33041,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29547,7 +33074,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29556,7 +33084,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29572,7 +33101,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29598,7 +33134,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29607,7 +33144,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29623,7 +33161,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29649,7 +33194,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29658,7 +33204,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29674,7 +33221,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29700,7 +33254,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29709,7 +33264,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29725,7 +33281,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29751,7 +33314,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29760,7 +33324,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29776,7 +33341,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29802,7 +33374,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29811,7 +33384,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29827,7 +33401,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29853,7 +33434,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29862,7 +33444,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29878,7 +33461,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29904,7 +33494,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29913,7 +33504,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29929,7 +33521,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -29955,7 +33554,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -29964,7 +33564,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -29980,7 +33581,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30006,7 +33614,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30015,7 +33624,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30031,7 +33641,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30057,7 +33674,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30066,7 +33684,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30082,7 +33701,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30108,7 +33734,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30117,7 +33744,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30133,7 +33761,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30159,7 +33794,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30168,7 +33804,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30184,7 +33821,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30210,7 +33854,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30219,7 +33864,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30235,7 +33881,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30261,7 +33914,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30270,7 +33924,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30286,7 +33941,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30312,7 +33974,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30321,7 +33984,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30337,7 +34001,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30363,7 +34034,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30372,7 +34044,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30388,7 +34061,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30414,7 +34094,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30423,7 +34104,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30439,7 +34121,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30465,7 +34154,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30474,7 +34164,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30490,7 +34181,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30516,7 +34214,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30525,7 +34224,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30541,7 +34241,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30567,7 +34274,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30576,7 +34284,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30592,7 +34301,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30618,7 +34334,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30627,7 +34344,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30643,7 +34361,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30669,7 +34394,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30678,7 +34404,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30694,7 +34421,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30720,7 +34454,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30729,7 +34464,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30745,7 +34481,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30771,7 +34514,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30780,7 +34524,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30796,7 +34541,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30822,7 +34574,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30831,7 +34584,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30847,7 +34601,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30873,7 +34634,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30882,7 +34644,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30898,7 +34661,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30924,7 +34694,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30933,7 +34704,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -30949,7 +34721,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -30975,7 +34754,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -30984,7 +34764,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31000,7 +34781,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31026,7 +34814,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31035,7 +34824,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31051,7 +34841,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31077,7 +34874,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31086,7 +34884,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31102,7 +34901,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31128,7 +34934,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31137,7 +34944,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31153,7 +34961,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31179,7 +34994,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31188,7 +35004,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31204,7 +35021,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31230,7 +35054,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31239,7 +35064,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31255,7 +35081,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31281,7 +35114,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31290,7 +35124,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31306,7 +35141,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31332,7 +35174,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31341,7 +35184,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31357,7 +35201,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31383,7 +35234,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31392,7 +35244,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31408,7 +35261,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31434,7 +35294,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31443,7 +35304,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31459,7 +35321,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31485,7 +35354,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31494,7 +35364,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31510,7 +35381,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31536,7 +35414,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31545,7 +35424,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31561,7 +35441,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31587,7 +35474,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31596,7 +35484,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31612,7 +35501,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31638,7 +35534,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31647,7 +35544,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31663,7 +35561,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31689,7 +35594,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31698,7 +35604,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31714,7 +35621,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31740,7 +35654,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31749,7 +35664,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31765,7 +35681,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31791,7 +35714,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31800,7 +35724,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31816,7 +35741,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31842,7 +35774,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31851,7 +35784,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31867,7 +35801,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31893,7 +35834,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31902,7 +35844,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31918,7 +35861,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31944,7 +35894,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -31953,7 +35904,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -31969,7 +35921,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -31995,7 +35954,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32004,7 +35964,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32020,7 +35981,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32046,7 +36014,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32055,7 +36024,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32071,7 +36041,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32097,7 +36074,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32106,7 +36084,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32122,7 +36101,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32148,7 +36134,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32157,7 +36144,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32173,7 +36161,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32199,7 +36194,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32208,7 +36204,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32224,7 +36221,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32250,7 +36254,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32259,7 +36264,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32275,7 +36281,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32301,7 +36314,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32310,7 +36324,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32326,7 +36341,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32352,7 +36374,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32361,7 +36384,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32377,7 +36401,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32403,7 +36434,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32412,7 +36444,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32428,7 +36461,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32454,7 +36494,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32463,7 +36504,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32479,7 +36521,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32505,7 +36554,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32514,7 +36564,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32530,7 +36581,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32556,7 +36614,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32565,7 +36624,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32581,7 +36641,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32607,7 +36674,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32616,7 +36684,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32632,7 +36701,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32658,7 +36734,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32667,7 +36744,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32683,7 +36761,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32709,7 +36794,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32718,7 +36804,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32734,7 +36821,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32760,7 +36854,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32769,7 +36864,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32785,7 +36881,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32811,7 +36914,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32820,7 +36924,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32836,7 +36941,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32862,7 +36974,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32871,7 +36984,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32887,7 +37001,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32913,7 +37034,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32922,7 +37044,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32938,7 +37061,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -32964,7 +37094,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -32973,7 +37104,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -32989,7 +37121,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33015,7 +37154,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33024,7 +37164,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33040,7 +37181,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33066,7 +37214,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33075,7 +37224,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33091,7 +37241,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33117,7 +37274,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33126,7 +37284,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33142,7 +37301,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33168,7 +37334,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33177,7 +37344,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33193,7 +37361,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33219,7 +37394,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33228,7 +37404,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33244,7 +37421,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33270,7 +37454,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33279,7 +37464,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33295,7 +37481,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33321,7 +37514,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -33335,7 +37529,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33351,7 +37546,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33377,7 +37579,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33386,7 +37589,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33402,7 +37606,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33428,7 +37639,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33437,7 +37649,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33453,7 +37666,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33479,7 +37699,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33488,7 +37709,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33504,7 +37726,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33530,7 +37759,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33539,7 +37769,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33555,7 +37786,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33581,7 +37819,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33590,7 +37829,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33606,7 +37846,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33632,7 +37879,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33641,7 +37889,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33657,7 +37906,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33683,7 +37939,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33692,7 +37949,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33708,7 +37966,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33734,7 +37999,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33743,7 +38009,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33759,7 +38026,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33785,7 +38059,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33794,7 +38069,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33810,7 +38086,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33836,7 +38119,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33845,7 +38129,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33861,7 +38146,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33887,7 +38179,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33896,7 +38189,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33912,7 +38206,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33938,7 +38239,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33947,7 +38249,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -33963,7 +38266,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -33989,7 +38299,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -33998,7 +38309,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34014,7 +38326,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34040,7 +38359,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34049,7 +38369,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34065,7 +38386,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34091,7 +38419,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34100,7 +38429,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34116,7 +38446,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34142,7 +38479,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34151,7 +38489,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34167,7 +38506,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34193,7 +38539,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34202,7 +38549,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34218,7 +38566,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34244,7 +38599,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34253,7 +38609,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34269,7 +38626,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34295,7 +38659,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34304,7 +38669,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34320,7 +38686,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34346,7 +38719,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34355,7 +38729,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34371,7 +38746,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34397,7 +38779,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34406,7 +38789,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34422,7 +38806,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34448,7 +38839,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34457,7 +38849,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34473,7 +38866,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34499,7 +38899,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34508,7 +38909,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34524,7 +38926,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34550,7 +38959,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34559,7 +38969,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34575,7 +38986,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34601,7 +39019,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34610,7 +39029,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34626,7 +39046,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34652,7 +39079,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34661,7 +39089,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34677,7 +39106,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34703,7 +39139,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34712,7 +39149,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34728,7 +39166,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34754,7 +39199,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       },
@@ -34763,7 +39209,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34779,7 +39226,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34805,7 +39259,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -34819,7 +39274,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34835,7 +39291,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34861,7 +39324,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }
@@ -34875,7 +39339,8 @@ export const universitiesData = {
         "departments": {
           "BA": [
             "Arts",
-            "Home Science", "HUMANITIES",
+            "Home Science",
+            "HUMANITIES",
             "Ancient indian history",
             "Anthropology",
             "Bojpuri",
@@ -34891,7 +39356,14 @@ export const universitiesData = {
             "Hindi",
             "Sanskrit",
             "Music",
-            "Rural Economics"
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
           ],
           "BSc": [
             "Physics",
@@ -34917,7 +39389,8 @@ export const universitiesData = {
             "Taxation",
             "Economics",
             "Sales & Marketing",
-            "Computer Applications"
+            "Computer Applications",
+            "Banking & Finance"
           ]
         }
       }

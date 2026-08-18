@@ -394,6 +394,14 @@ export default function UserCreatePage() {
     }));
   };
 
+  // Get available degrees for selected university and college
+  const getAvailableDegrees = () => {
+    return getDegreesForUniversityAndCollege(
+      formData.university,
+      formData.college
+    );
+  };
+
   // Get available departments for selected college and degree
   const getAvailableDepartments = () => {
     if (!formData.degree) return [];
@@ -513,8 +521,35 @@ export default function UserCreatePage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (validateStep()) {
+      if (step === 1) {
+        try {
+          setIsLoading(true);
+          const checkRes = await fetch("/api/user/check-exists", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: formData.email, phone: formData.phone }),
+          });
+          const checkData = await checkRes.json();
+          setIsLoading(false);
+
+          const existErrors = {};
+          if (checkData.emailExists) {
+            existErrors.email = "This email is already registered in the system. Please use a different email.";
+          }
+          if (checkData.phoneExists) {
+            existErrors.phone = "This phone number is already registered in the system. Please use a different phone number.";
+          }
+          if (Object.keys(existErrors).length > 0) {
+            setErrors((prev) => ({ ...prev, ...existErrors }));
+            return;
+          }
+        } catch (err) {
+          setIsLoading(false);
+          console.error("Error checking user availability:", err);
+        }
+      }
       setStep(step + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }

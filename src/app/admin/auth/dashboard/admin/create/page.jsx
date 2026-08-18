@@ -119,9 +119,55 @@ export default function AdminCreatePage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault();
     if (validateStep()) {
+      if (step === 1) {
+        try {
+          setIsLoading(true);
+          const checkRes = await fetch("/api/user/check-exists", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: formData.email.trim() }),
+          });
+          const checkData = await checkRes.json();
+          setIsLoading(false);
+
+          if (checkData.emailExists) {
+            setErrors((prev) => ({
+              ...prev,
+              email: "This email is already registered in the system. Please use a different email.",
+            }));
+            return;
+          }
+        } catch (err) {
+          setIsLoading(false);
+          console.error("Error checking email availability:", err);
+        }
+      } else if (step === 2) {
+        try {
+          setIsLoading(true);
+          const checkRes = await fetch("/api/user/check-exists", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mobile: formData.mobile.replace(/\D/g, "") }),
+          });
+          const checkData = await checkRes.json();
+          setIsLoading(false);
+
+          if (checkData.phoneExists) {
+            setErrors((prev) => ({
+              ...prev,
+              mobile: "This mobile number is already registered in the system. Please use a different mobile number.",
+            }));
+            return;
+          }
+        } catch (err) {
+          setIsLoading(false);
+          console.error("Error checking mobile availability:", err);
+        }
+      }
+
       setStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }

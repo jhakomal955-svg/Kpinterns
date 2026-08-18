@@ -515,6 +515,14 @@ export default function RegisterPage() {
     }));
   };
 
+  // Get available degrees for selected university and college
+  const getAvailableDegrees = () => {
+    return getDegreesForUniversityAndCollege(
+      formData.university,
+      formData.college
+    );
+  };
+
   // Get available departments for selected college and degree
   const getAvailableDepartments = () => {
     if (!formData.degree) return [];

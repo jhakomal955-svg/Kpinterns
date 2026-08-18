@@ -146,6 +146,29 @@ export default function StudentsDirectoryPage() {
     try {
       setIsSubmitting(true);
       setRosterMessage("");
+
+      if (newStudent.email && newStudent.email.trim()) {
+        const checkRes = await fetch("/api/user/check-exists", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: newStudent.email.trim(),
+            phone: newStudent.phone ? newStudent.phone.trim() : "",
+          }),
+        });
+        const checkData = await checkRes.json();
+        if (checkData.emailExists) {
+          alert("This email address is already registered in the system. Please use a different email.");
+          setIsSubmitting(false);
+          return;
+        }
+        if (checkData.phoneExists) {
+          alert("This phone number is already registered in the system. Please use a different phone number.");
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
       const token = localStorage.getItem("adminToken");
 
       const res = await fetch("/api/partner-students", {

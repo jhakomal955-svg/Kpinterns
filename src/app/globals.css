@@ -14,13 +14,21 @@
   --font-family-poppins: var(--font-poppins, "Poppins", sans-serif);
 }
 
+:root {
+  color-scheme: light;
+}
+
 /* 🌙 When the 'html' or 'body' tag has the 'dark' class, apply these variables */
-:root.dark {
+:root.dark,
+html.dark,
+body.dark,
+.dark {
   --color-bg-main: #0f172a;
   --color-bg-card: #1e293b;
   --color-text-main: #f8fafc;
   --color-text-muted: #94a3b8;
   --color-border-main: #334155;
+  color-scheme: dark !important;
 }
 
 html, body {
@@ -31,6 +39,43 @@ html, body {
   color: var(--color-text-main);
   transition: background-color 0.2s ease, color 0.2s ease;
   font-family: var(--font-poppins);
+}
+
+/* Fix for native select dropdown options visibility across light and dark themes */
+select {
+  color-scheme: light dark;
+}
+
+.dark select,
+:root.dark select,
+html.dark select {
+  color-scheme: dark !important;
+}
+
+select option,
+select optgroup {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+:root.dark select option,
+:root.dark select optgroup,
+html.dark select option,
+html.dark select optgroup,
+.dark select option,
+.dark select optgroup,
+[data-theme="dark"] select option,
+[data-theme="dark"] select optgroup {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+:root:not(.dark) select option,
+:root:not(.dark) select optgroup,
+html:not(.dark) select option,
+html:not(.dark) select optgroup {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
 }
 
 @layer components {

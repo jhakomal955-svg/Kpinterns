@@ -1318,7 +1318,7 @@ export default function PartnerStudentPortalPage() {
                         }}
                         placeholder="Student Full Name"
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                          errors.fullName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.fullName ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         }`}
                       />
                       {errors.fullName && (
@@ -1336,7 +1336,7 @@ export default function PartnerStudentPortalPage() {
                           if (errors.gender) setErrors((prev) => ({ ...prev, gender: null }));
                         }}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                          errors.gender ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.gender ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         }`}
                       >
                         <option value="Male">Male</option>
@@ -1361,7 +1361,7 @@ export default function PartnerStudentPortalPage() {
                         }}
                         placeholder="Father's / Mother's Name"
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                          errors.parentName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.parentName ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         }`}
                       />
                       {errors.parentName && (
@@ -1385,7 +1385,7 @@ export default function PartnerStudentPortalPage() {
                           }}
                           placeholder="Set login password"
                           className={`w-full px-4 py-3 pr-12 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                            errors.password ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                            errors.password ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                           }`}
                         />
                         <button
@@ -1437,7 +1437,7 @@ export default function PartnerStudentPortalPage() {
                           placeholder="Enter your valid personal email (e.g. name@gmail.com)"
                           className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
                             errors.email
-                              ? "border-red-500 bg-red-500/5 focus:border-red-500"
+                              ? "border-red-500 focus:border-red-500"
                               : partnerStudent || isEmailVerified
                               ? "border-emerald-500 bg-emerald-500/10"
                               : "border-border-main focus:border-brand-primary"
@@ -1465,7 +1465,7 @@ export default function PartnerStudentPortalPage() {
                       }}
                       placeholder="e.g. 9876543210"
                       className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm font-mono ${
-                        errors.phone ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                        errors.phone ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                       }`}
                     />
                     {errors.phone && (
@@ -1507,7 +1507,7 @@ export default function PartnerStudentPortalPage() {
                           if (errors.university) setErrors((prev) => ({ ...prev, university: null }));
                         }}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                          errors.university ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.university ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         }`}
                       >
                         <option value="">Select University</option>
@@ -1537,7 +1537,7 @@ export default function PartnerStudentPortalPage() {
                             }}
                             placeholder="Enter your university name"
                             className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                              errors.university ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                              errors.university ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                             }`}
                           />
                         </div>
@@ -1556,7 +1556,7 @@ export default function PartnerStudentPortalPage() {
                         disabled={!studentForm.universityKey}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
                           errors.collegeName
-                            ? "border-red-500 bg-red-500/5 focus:border-red-500"
+                            ? "border-red-500 focus:border-red-500"
                             : "border-border-main focus:border-brand-primary"
                         } ${!studentForm.universityKey ? "opacity-50 cursor-not-allowed" : ""}`}
                       >
@@ -1589,7 +1589,7 @@ export default function PartnerStudentPortalPage() {
                             }}
                             placeholder="Enter your college name"
                             className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm ${
-                              errors.collegeName ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                              errors.collegeName ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                             }`}
                           />
                         </div>
@@ -1609,7 +1609,7 @@ export default function PartnerStudentPortalPage() {
                         }}
                         placeholder="Registration No."
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-mono font-medium outline-none transition text-sm ${
-                          errors.registrationNumber ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.registrationNumber ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         }`}
                       />
                       {errors.registrationNumber && (
@@ -1630,7 +1630,7 @@ export default function PartnerStudentPortalPage() {
                         }}
                         placeholder="Roll Number"
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-mono font-medium outline-none transition text-sm ${
-                          errors.rollNumber ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.rollNumber ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         }`}
                       />
                       {errors.rollNumber && (
@@ -1655,7 +1655,7 @@ export default function PartnerStudentPortalPage() {
                         }}
                         disabled={!studentForm.collegeKey && !studentForm.universityKey}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                          errors.degree ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.degree ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         } ${!studentForm.collegeKey && !studentForm.universityKey ? "opacity-50 cursor-not-allowed" : ""}`}
                       >
                         <option value="">
@@ -1681,7 +1681,7 @@ export default function PartnerStudentPortalPage() {
                         }}
                         disabled={!studentForm.degree}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                          errors.department ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.department ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         } ${!studentForm.degree ? "opacity-50 cursor-not-allowed" : ""}`}
                       >
                         <option value="">
@@ -1706,7 +1706,7 @@ export default function PartnerStudentPortalPage() {
                           if (errors.semester) setErrors((prev) => ({ ...prev, semester: null }));
                         }}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                          errors.semester ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.semester ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         }`}
                       >
                         {SEMESTER_OPTIONS.map((sem) => (
@@ -1728,7 +1728,7 @@ export default function PartnerStudentPortalPage() {
                           if (errors.session) setErrors((prev) => ({ ...prev, session: null }));
                         }}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
-                          errors.session ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
+                          errors.session ? "border-red-500 focus:border-red-500" : "border-border-main focus:border-brand-primary"
                         }`}
                       >
                         {SESSION_OPTIONS.map((ses) => (

@@ -348,6 +348,7 @@ export async function PUT(request) {
       data,
       {
         new: true,
+        returnDocument: "after",
         runValidators: true,
       },
     );

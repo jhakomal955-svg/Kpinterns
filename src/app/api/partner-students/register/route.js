@@ -65,10 +65,10 @@ export async function POST(request) {
       );
     }
 
-    const cleanEmailStr = email.trim().toLowerCase();
-    const emailDomainParts = cleanEmailStr.split("@")[1]?.split(".") || [];
+    const cleanEmail = email.trim().toLowerCase();
+    const emailDomainParts = cleanEmail.split("@")[1]?.split(".") || [];
     const emailDomainMain = emailDomainParts[0] || "";
-    const emailDomainFull = cleanEmailStr.split("@")[1] || "";
+    const emailDomainFull = cleanEmail.split("@")[1] || "";
 
     const invalidTlds = ["con", "cmo", "gmal", "gmai", "yaho", "hotmial", "outlok", "cm", "coom", "comm"];
     const tld = emailDomainParts[emailDomainParts.length - 1] || "";
@@ -89,7 +89,7 @@ export async function POST(request) {
       emailDomainFull !== "gmail.co.in"
     ) {
       return Response.json(
-        { success: false, error: `"${cleanEmailStr}" has a typo in domain "${emailDomainFull}". Did you mean "${cleanEmailStr.split("@")[0]}@gmail.com"?` },
+        { success: false, error: `"${cleanEmail}" has a typo in domain "${emailDomainFull}". Did you mean "${cleanEmail.split("@")[0]}@gmail.com"?` },
         { status: 400 }
       );
     }
@@ -109,6 +109,9 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+
+    const cleanPhone = normalizedPhone;
+    const cleanRegNo = (registrationNumber || "").toString().trim();
 
     const User = createModel("User", UserModel);
     const Internship = createModel("Internship", InternshipModel);

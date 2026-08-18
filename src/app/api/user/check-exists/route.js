@@ -5,7 +5,8 @@ import { UserModel, AdminModel } from "@/models";
 export async function POST(req) {
   try {
     await connectDB();
-    const { email, phone } = await req.json();
+    const { email, phone, mobile } = await req.json();
+    const phoneInput = phone || mobile;
 
     const User = createModel("User", UserModel);
     const Admin = createModel("Admin", AdminModel);
@@ -26,8 +27,8 @@ export async function POST(req) {
       }
     }
 
-    if (phone && (typeof phone === "string" || typeof phone === "number")) {
-      const cleanedPhone = String(phone).replace(/\D/g, "");
+    if (phoneInput && (typeof phoneInput === "string" || typeof phoneInput === "number")) {
+      const cleanedPhone = String(phoneInput).replace(/\D/g, "");
       let normalizedPhone = cleanedPhone;
       if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
         normalizedPhone = cleanedPhone.substring(2);
@@ -37,7 +38,9 @@ export async function POST(req) {
       if (/^[6-9]\d{9}$/.test(normalizedPhone)) {
         const [existingUserPhone, existingAdminPhone] = await Promise.all([
           User.findOne({ phone: normalizedPhone }),
-          Admin.findOne({ phone: normalizedPhone }),
+          Admin.findOne({
+            $or: [{ mobile: normalizedPhone }, { phone: normalizedPhone }],
+          }),
         ]);
         if (existingUserPhone || existingAdminPhone) {
           result.phoneExists = true;

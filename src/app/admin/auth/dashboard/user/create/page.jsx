@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { universitiesData } from "@/lib/data/universities";
-import { DEGREE_LIST, getDepartmentsForCollegeAndDegree, normalizeDegree } from "@/lib/data/degreeDepartments";
+import { DEGREE_LIST, getDegreesForUniversityAndCollege, getDepartmentsForCollegeAndDegree, normalizeDegree } from "@/lib/data/degreeDepartments";
 import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 function calculateEndDate(startDate, durationStr) {
@@ -195,6 +195,7 @@ export default function UserCreatePage() {
         ...prev,
         university: value,
         college: value === "others" ? "others" : "",
+        degree: "",
         department: "",
         internshipId: "",
         internshipDomain: "",
@@ -207,6 +208,7 @@ export default function UserCreatePage() {
       setFormData((prev) => ({
         ...prev,
         college: value,
+        degree: "",
         department: "",
         internshipId: "",
         internshipDomain: "",
@@ -218,6 +220,7 @@ export default function UserCreatePage() {
       setFormData((prev) => ({
         ...prev,
         degree: value,
+        department: "",
         internshipId: "",
         internshipDomain: "",
         mode: "",
@@ -927,7 +930,7 @@ export default function UserCreatePage() {
                     Degree *
                   </label>
                   <div className="flex flex-wrap gap-4 pt-1">
-                    {DEGREE_LIST.map((degree) => (
+                    {getAvailableDegrees().map((degree) => (
                       <label key={degree} className="flex items-center cursor-pointer">
                         <input
                           type="radio"

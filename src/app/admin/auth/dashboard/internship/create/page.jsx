@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import MediaPicker from "@/components/MediaPicker";
-import { DEGREE_LIST as degrees, DEPARTMENT_GROUPS as departmentGroups } from "@/lib/data/degreeDepartments";
+import { DEGREE_LIST as degrees, DEPARTMENT_GROUPS as departmentGroups, getDepartmentGroupsForDegrees } from "@/lib/data/degreeDepartments";
 
 export default function InternshipCreatePage() {
   const router = useRouter();
@@ -890,7 +890,7 @@ export default function InternshipCreatePage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-bg-main border-2 border-border-main rounded-2xl p-5 max-h-96 overflow-y-auto">
-                  {Object.entries(departmentGroups).map(([group, list]) => {
+                  {Object.entries(getDepartmentGroupsForDegrees(formData.degree)).map(([group, list]) => {
                     const isAllGroupSelected = list.every((d) => formData.department?.includes(d));
                     return (
                       <div key={group} className="space-y-2">

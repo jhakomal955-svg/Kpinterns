@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import DeleteConfirmModal from "@/components/DeleteConfirmModal";
-import { getDepartmentsForDegree, DEGREE_LIST, ALL_DEPARTMENTS } from "@/lib/data/degreeDepartments";
+import { getDepartmentsForDegree, getDepartmentsForCollegeAndDegree, getDegreesForUniversityAndCollege, DEGREE_LIST, ALL_DEPARTMENTS } from "@/lib/data/degreeDepartments";
 import * as XLSX from "xlsx";
 
 const DEGREE_OPTIONS = DEGREE_LIST;
@@ -794,7 +794,7 @@ export default function CollegeAdminPage() {
                     value={newStudent.degree}
                     onChange={(e) => {
                       const newDeg = e.target.value;
-                      const availableDepts = getDepartmentsForDegree(newDeg);
+                      const availableDepts = getDepartmentsForCollegeAndDegree(formData.UniversityName, formData.CollegeName, newDeg);
                       setNewStudent({
                         ...newStudent,
                         degree: newDeg,
@@ -804,7 +804,7 @@ export default function CollegeAdminPage() {
                     className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
                   >
                     <option value="">Select Degree</option>
-                    {DEGREE_OPTIONS.map((deg) => (
+                    {getDegreesForUniversityAndCollege(formData.UniversityName, formData.CollegeName).map((deg) => (
                       <option key={deg} value={deg}>{deg}</option>
                     ))}
                   </select>
@@ -817,7 +817,7 @@ export default function CollegeAdminPage() {
                     className="w-full p-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
                   >
                     <option value="">Select Department</option>
-                    {getDepartmentsForDegree(newStudent.degree).map((dept) => (
+                    {getDepartmentsForCollegeAndDegree(formData.UniversityName, formData.CollegeName, newStudent.degree).map((dept) => (
                       <option key={dept} value={dept}>{dept}</option>
                     ))}
                   </select>

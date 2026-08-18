@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { normalizeDegree, getDepartmentsForDegree, DEGREE_LIST } from "@/lib/data/degreeDepartments";
+import { normalizeDegree, getDepartmentsForDegree, getDepartmentsForCollegeAndDegree, getDegreesForUniversityAndCollege, DEGREE_LIST } from "@/lib/data/degreeDepartments";
 import InvalidEmailModal, { getEmailValidationError, validateEmailFormat } from "@/components/InvalidEmailModal";
 import CouponAlertModal from "@/components/CouponAlertModal";
 import { universitiesData } from "@/lib/data/universities";
@@ -131,10 +131,6 @@ export default function PartnerStudentPortalPage() {
       setShowInvalidEmailModal(true);
     }
 
-    if (!partnerStudent && !isEmailVerified) {
-      newErrors.email = "Please verify your email address using the 6-digit OTP code before proceeding.";
-    }
-
     const cleanedPhone = (studentForm.phone || "").replace(/\D/g, "");
     let normalizedPhone = cleanedPhone;
     if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
@@ -187,12 +183,13 @@ export default function PartnerStudentPortalPage() {
       newErrors.rollNumber = "Roll Number is required.";
     }
 
+    // MANDATORY DEGREE & DEPARTMENT CHECK
     if (!studentForm.degree?.trim()) {
-      newErrors.degree = "Degree is required.";
+      newErrors.degree = "Please select your Degree to proceed.";
     }
 
     if (!studentForm.department?.trim()) {
-      newErrors.department = "Department / Domain is required.";
+      newErrors.department = "Please select your Department / Domain to proceed.";
     }
 
     if (!studentForm.semester?.trim()) {
@@ -224,11 +221,43 @@ export default function PartnerStudentPortalPage() {
     return true;
   };
 
-  const handleNextStep1 = () => {
-    if (validateStep1()) {
-      setCurrentStep(2);
-      window.scrollTo({ top: 300, behavior: "smooth" });
+  const handleNextStep1 = async () => {
+    if (!validateStep1()) return;
+
+    const cleanEmail = studentForm.email ? studentForm.email.trim() : "";
+    const cleanedPhone = (studentForm.phone || "").replace(/\D/g, "");
+    let normalizedPhone = cleanedPhone;
+    if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
+      normalizedPhone = cleanedPhone.substring(2);
+    } else if (cleanedPhone.length === 11 && cleanedPhone.startsWith("0")) {
+      normalizedPhone = cleanedPhone.substring(1);
     }
+
+    try {
+      const checkRes = await fetch("/api/user/check-exists", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: cleanEmail, phone: normalizedPhone }),
+      });
+      const checkData = await checkRes.json();
+      const existErrors = {};
+      if (checkData.emailExists) {
+        existErrors.email = "This email address is already registered. Please login or use a different email.";
+      }
+      if (checkData.phoneExists) {
+        existErrors.phone = "This phone number is already registered. Please login or use a different phone number.";
+      }
+      if (Object.keys(existErrors).length > 0) {
+        setErrors(existErrors);
+        window.scrollTo({ top: 300, behavior: "smooth" });
+        return;
+      }
+    } catch (err) {
+      console.error("Error checking user existence:", err);
+    }
+
+    setCurrentStep(2);
+    window.scrollTo({ top: 300, behavior: "smooth" });
   };
 
   const handleNextStep2 = () => {
@@ -263,6 +292,24 @@ export default function PartnerStudentPortalPage() {
     }));
   };
 
+  // Helper to get available degrees under selected University & College
+  const getAvailableDegrees = () => {
+    return getDegreesForUniversityAndCollege(
+      studentForm.universityKey,
+      studentForm.collegeKey
+    );
+  };
+
+  // Helper to get available departments under selected University, College & Degree
+  const getAvailableDepartments = () => {
+    if (!studentForm.degree) return [];
+    return getDepartmentsForCollegeAndDegree(
+      studentForm.universityKey,
+      studentForm.collegeKey,
+      studentForm.degree
+    );
+  };
+
   const handleUniversityChange = (e) => {
     const selectedKey = e.target.value;
     if (selectedKey === "others") {
@@ -274,6 +321,8 @@ export default function PartnerStudentPortalPage() {
         collegeKey: "others",
         collegeCustom: "",
         collegeName: "",
+        degree: "",
+        department: "",
       }));
     } else if (selectedKey) {
       const univName = universitiesData[selectedKey]?.name || "";
@@ -285,6 +334,8 @@ export default function PartnerStudentPortalPage() {
         collegeKey: "",
         collegeCustom: "",
         collegeName: "",
+        degree: "",
+        department: "",
       }));
     } else {
       setStudentForm((prev) => ({
@@ -295,6 +346,8 @@ export default function PartnerStudentPortalPage() {
         collegeKey: "",
         collegeCustom: "",
         collegeName: "",
+        degree: "",
+        department: "",
       }));
     }
   };
@@ -307,6 +360,8 @@ export default function PartnerStudentPortalPage() {
         collegeKey: "others",
         collegeCustom: "",
         collegeName: "",
+        degree: "",
+        department: "",
       }));
     } else if (selectedKey) {
       const cName = universitiesData[studentForm.universityKey]?.colleges?.[selectedKey]?.name || "";
@@ -315,6 +370,8 @@ export default function PartnerStudentPortalPage() {
         collegeKey: selectedKey,
         collegeCustom: "",
         collegeName: cName,
+        degree: "",
+        department: "",
       }));
     } else {
       setStudentForm((prev) => ({
@@ -322,6 +379,8 @@ export default function PartnerStudentPortalPage() {
         collegeKey: "",
         collegeCustom: "",
         collegeName: "",
+        degree: "",
+        department: "",
       }));
     }
   };
@@ -832,116 +891,6 @@ export default function PartnerStudentPortalPage() {
     } finally {
       setIsValidatingCoupon(false);
     }
-  };
-
-  // Validate form fields & open Review Section Modal (Available for both pre-approved & new students)
-  const handleOpenReviewModal = (e) => {
-    if (e) e.preventDefault();
-
-    if (!partnerStudent && !isNewStudent) {
-      alert("Please search and select your student record first or start new student registration.");
-      return;
-    }
-
-    const newErrors = {};
-
-    if (!selectedInternship) {
-      newErrors.selectedInternship = "Please select an internship program to continue.";
-    }
-
-    if (!studentForm.fullName?.trim()) {
-      newErrors.fullName = "Full Name is required.";
-    }
-
-    const cleanEmail = studentForm.email ? studentForm.email.trim() : "";
-    if (!cleanEmail) {
-      newErrors.email = "Email Address is required.";
-    } else if (!validateEmailFormat(cleanEmail)) {
-      newErrors.email = getEmailValidationError(cleanEmail) || "Invalid email format.";
-      setShowInvalidEmailModal(true);
-    }
-
-    const cleanedPhone = (studentForm.phone || "").replace(/\D/g, "");
-    let normalizedPhone = cleanedPhone;
-    if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
-      normalizedPhone = cleanedPhone.substring(2);
-    } else if (cleanedPhone.length === 11 && cleanedPhone.startsWith("0")) {
-      normalizedPhone = cleanedPhone.substring(1);
-    }
-
-    if (!normalizedPhone) {
-      newErrors.phone = "Mobile Number is required.";
-    } else if (!/^[6-9]\d{9}$/.test(normalizedPhone)) {
-      newErrors.phone = "Please enter a valid 10-digit Indian mobile number starting with 6-9.";
-    }
-
-    if (!partnerStudent && !isEmailVerified) {
-      newErrors.email = "Please verify your email address using the 6-digit OTP code before proceeding.";
-    }
-
-    if (!studentForm.password) {
-      newErrors.password = "Password is required.";
-    } else if (studentForm.password.trim().length < 6) {
-      newErrors.password = "Password must be at least 6 characters long.";
-    }
-
-    if (!studentForm.gender?.trim()) {
-      newErrors.gender = "Gender is required.";
-    }
-
-    if (!studentForm.parentName?.trim()) {
-      newErrors.parentName = "Parent / Guardian Name is required.";
-    }
-
-    const finalUniversity = studentForm.universityKey === "others"
-      ? (studentForm.universityCustom || "").trim()
-      : ((studentForm.university || "").trim() || (studentForm.universityCustom || "").trim());
-
-    const finalCollegeName = studentForm.collegeKey === "others"
-      ? (studentForm.collegeCustom || "").trim()
-      : ((studentForm.collegeName || "").trim() || (studentForm.collegeCustom || "").trim());
-
-    if (!finalUniversity) {
-      newErrors.university = "University Name is required.";
-    }
-
-    if (!finalCollegeName) {
-      newErrors.collegeName = "College Name is required.";
-    }
-
-    if (!studentForm.degree?.trim()) {
-      newErrors.degree = "Degree is required.";
-    }
-
-    if (!studentForm.department?.trim()) {
-      newErrors.department = "Department / Domain is required.";
-    }
-
-    if (!studentForm.rollNumber?.trim()) {
-      newErrors.rollNumber = "Roll Number is required.";
-    }
-
-    if (!studentForm.registrationNumber?.trim()) {
-      newErrors.registrationNumber = "Registration Number is required.";
-    }
-
-    if (!studentForm.semester?.trim()) {
-      newErrors.semester = "Semester is required.";
-    }
-
-    if (!studentForm.session?.trim()) {
-      newErrors.session = "Academic Session is required.";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      // Scroll to top of section so user sees red border fields immediately
-      window.scrollTo({ top: 300, behavior: "smooth" });
-      return;
-    }
-
-    setErrors({});
-    setShowReviewModal(true);
   };
 
   // Submit Fast-Track Registration & Initiate Payment
@@ -1495,105 +1444,10 @@ export default function PartnerStudentPortalPage() {
                           }`}
                         />
                       </div>
-
-                      {!partnerStudent && (
-                        <>
-                          {!isEmailVerified ? (
-                            <button
-                              type="button"
-                              onClick={handleSendOtp}
-                              disabled={isSendingOtp || otpCooldown > 0}
-                              className="px-6 py-3 bg-brand-primary hover:bg-brand-primary/95 active:scale-[0.98] disabled:opacity-50 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
-                            >
-                              {isSendingOtp ? (
-                                <>
-                                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                  Sending OTP...
-                                </>
-                              ) : otpCooldown > 0 ? (
-                                `Resend OTP (${otpCooldown}s)`
-                              ) : (
-                                <>📩 Send OTP Code</>
-                              )}
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => setIsEmailVerified(false)}
-                              className="px-4 py-3 bg-bg-card border-2 border-border-main text-text-muted hover:text-brand-primary font-bold text-xs rounded-xl transition cursor-pointer"
-                            >
-                              Change Email
-                            </button>
-                          )}
-                        </>
-                      )}
                     </div>
 
                     {errors.email && (
                       <p className="text-red-500 text-xs font-bold mt-1">⚠️ {errors.email}</p>
-                    )}
-
-                    {partnerStudent && (
-                      <p className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1">
-                        💡 As a pre-approved college partner student, email OTP verification is not required. Please enter your valid personal email address.
-                      </p>
-                    )}
-
-                    {/* OTP Input Form Block (Only for New Fresh Students) */}
-                    {!partnerStudent && otpSent && !isEmailVerified && (
-                      <div className="mt-3 p-4 bg-brand-primary/5 border-2 border-brand-primary/20 rounded-2xl space-y-3 animate-fadeIn">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                          <label className="text-xs font-bold text-text-main">
-                            Enter 6-Digit OTP sent to <span className="text-brand-primary">{studentForm.email}</span>
-                          </label>
-                          <button
-                            type="button"
-                            onClick={handleSendOtp}
-                            disabled={isSendingOtp || otpCooldown > 0}
-                            className="text-xs text-brand-primary font-bold hover:underline self-start sm:self-auto"
-                          >
-                            {otpCooldown > 0 ? `Resend Code in ${otpCooldown}s` : "Resend OTP Code"}
-                          </button>
-                        </div>
-
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            maxLength={6}
-                            value={otpCode}
-                            onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                            placeholder="Enter 6-digit OTP"
-                            className="flex-1 px-4 py-2.5 bg-bg-main border-2 border-brand-primary/40 rounded-xl text-text-main font-mono text-center font-bold tracking-widest text-base outline-none"
-                          />
-                          <button
-                            type="button"
-                            onClick={handleVerifyOtp}
-                            disabled={isVerifyingOtp || otpCode.length !== 6}
-                            className="px-5 py-2.5 bg-brand-primary hover:bg-brand-primary/95 disabled:opacity-50 text-white font-bold rounded-xl transition text-xs flex items-center justify-center gap-2 cursor-pointer"
-                          >
-                            {isVerifyingOtp ? (
-                              <>
-                                <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                Verifying...
-                              </>
-                            ) : (
-                              "Verify OTP"
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    {otpSuccessMsg && (
-                      <div className="mt-2 p-2.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-xs font-semibold text-center animate-fadeIn">
-                        {otpSuccessMsg}
-                      </div>
-                    )}
-
-                    {otpError && (
-                      <div className="mt-2 p-2.5 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs font-semibold text-center animate-fadeIn">
-                        {otpError}
-                      </div>
                     )}
                   </div>
 
@@ -1791,7 +1645,7 @@ export default function PartnerStudentPortalPage() {
                         value={studentForm.degree}
                         onChange={(e) => {
                           const newDeg = e.target.value;
-                          const availableDepts = getDepartmentsForDegree(newDeg);
+                          const availableDepts = getDepartmentsForCollegeAndDegree(studentForm.universityKey, studentForm.collegeKey, newDeg);
                           setStudentForm({
                             ...studentForm,
                             degree: newDeg,
@@ -1799,11 +1653,15 @@ export default function PartnerStudentPortalPage() {
                           });
                           if (errors.degree) setErrors((prev) => ({ ...prev, degree: null }));
                         }}
+                        disabled={!studentForm.collegeKey && !studentForm.universityKey}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
                           errors.degree ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                        }`}
+                        } ${!studentForm.collegeKey && !studentForm.universityKey ? "opacity-50 cursor-not-allowed" : ""}`}
                       >
-                        {DEGREE_OPTIONS.map((deg) => (
+                        <option value="">
+                          {studentForm.collegeKey || studentForm.universityKey ? "Select Degree" : "Select University & College first"}
+                        </option>
+                        {getAvailableDegrees().map((deg) => (
                           <option key={deg} value={deg}>{deg}</option>
                         ))}
                       </select>
@@ -1821,11 +1679,15 @@ export default function PartnerStudentPortalPage() {
                           setStudentForm({ ...studentForm, department: e.target.value });
                           if (errors.department) setErrors((prev) => ({ ...prev, department: null }));
                         }}
+                        disabled={!studentForm.degree}
                         className={`w-full px-4 py-3 bg-bg-card border-2 rounded-xl text-text-main font-medium outline-none transition text-sm cursor-pointer ${
                           errors.department ? "border-red-500 bg-red-500/5 focus:border-red-500" : "border-border-main focus:border-brand-primary"
-                        }`}
+                        } ${!studentForm.degree ? "opacity-50 cursor-not-allowed" : ""}`}
                       >
-                        {getDepartmentsForDegree(studentForm.degree).map((dept) => (
+                        <option value="">
+                          {studentForm.degree ? "Select Department" : "Select Degree first"}
+                        </option>
+                        {getAvailableDepartments().map((dept) => (
                           <option key={dept} value={dept}>{dept}</option>
                         ))}
                       </select>

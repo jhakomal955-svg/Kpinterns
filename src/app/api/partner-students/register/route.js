@@ -110,24 +110,6 @@ export async function POST(request) {
       );
     }
 
-    // Verify Email OTP verification status (Only required for new student registrations where partnerStudentId is not pre-filled in backend)
-    if (!partnerStudentId) {
-      const cleanEmailForOtp = email.trim().toLowerCase();
-      const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
-      const verifiedOtpRecord = await VerificationOtp.findOne({
-        email: cleanEmailForOtp,
-        verified: true,
-        verifiedAt: { $gte: new Date(Date.now() - 30 * 60 * 1000) },
-      });
-
-      if (!verifiedOtpRecord) {
-        return Response.json(
-          { success: false, error: "Email address not verified. Please verify your email with the 6-digit OTP code before proceeding." },
-          { status: 400 }
-        );
-      }
-    }
-
     const User = createModel("User", UserModel);
     const Internship = createModel("Internship", InternshipModel);
     const PartnerStudent = createModel("PartnerStudent", PartnerStudentModel);
@@ -175,10 +157,23 @@ export async function POST(request) {
       }
     }
 
-    // Find existing user by registrationNumber, email, or phone
-    const cleanRegNo = registrationNumber.trim();
-    const cleanEmail = email.trim().toLowerCase();
-    const cleanPhone = phone.trim();
+    // Check if email or phone is already registered (for new non-partner-roster students)
+    if (!partnerStudentId) {
+      const existingEmail = await User.findOne({ email: cleanEmail });
+      if (existingEmail) {
+        return Response.json(
+          { success: false, error: "This email address is already registered. Please login or use a different email." },
+          { status: 400 }
+        );
+      }
+      const existingPhone = await User.findOne({ phone: cleanPhone });
+      if (existingPhone) {
+        return Response.json(
+          { success: false, error: "This mobile number is already registered. Please login or use a different phone number." },
+          { status: 400 }
+        );
+      }
+    }
 
     let userDoc = await User.findOne({
       $or: [

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getDepartmentsForDegree, DEGREE_LIST, ALL_DEPARTMENTS } from "@/lib/data/degreeDepartments";
+import { getDepartmentsForDegree, getDepartmentsForCollegeAndDegree, getDegreesForUniversityAndCollege, DEGREE_LIST, ALL_DEPARTMENTS } from "@/lib/data/degreeDepartments";
 import * as XLSX from "xlsx";
 
 const DEGREE_OPTIONS = DEGREE_LIST;
@@ -20,6 +20,22 @@ const SESSION_OPTIONS = [
 
 export default function StudentsDirectoryPage() {
   const [activeTab, setActiveTab] = useState("registered");
+  const [adminData, setAdminData] = useState(null);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("adminData");
+      if (stored) setAdminData(JSON.parse(stored));
+    } catch (e) {}
+  }, []);
+
+  const getAvailableDegrees = () => {
+    return getDegreesForUniversityAndCollege(adminData?.UniversityName, adminData?.CollegeName);
+  };
+
+  const getAvailableDepartments = (deg) => {
+    return getDepartmentsForCollegeAndDegree(adminData?.UniversityName, adminData?.CollegeName, deg);
+  };
 
   // Registered students state
   const [students, setStudents] = useState([]);
@@ -723,7 +739,7 @@ export default function StudentsDirectoryPage() {
                     value={newStudent.degree}
                     onChange={(e) => {
                       const newDeg = e.target.value;
-                      const availableDepts = getDepartmentsForDegree(newDeg);
+                      const availableDepts = getAvailableDepartments(newDeg);
                       setNewStudent({
                         ...newStudent,
                         degree: newDeg,
@@ -733,7 +749,7 @@ export default function StudentsDirectoryPage() {
                     className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
                   >
                     <option value="">Select Degree</option>
-                    {DEGREE_OPTIONS.map((deg) => (
+                    {getAvailableDegrees().map((deg) => (
                       <option key={deg} value={deg}>{deg}</option>
                     ))}
                   </select>
@@ -746,7 +762,7 @@ export default function StudentsDirectoryPage() {
                     className="w-full px-3 py-2.5 bg-bg-main border border-border-main rounded-xl outline-none cursor-pointer"
                   >
                     <option value="">Select Department</option>
-                    {getDepartmentsForDegree(newStudent.degree).map((dept) => (
+                    {getAvailableDepartments(newStudent.degree).map((dept) => (
                       <option key={dept} value={dept}>{dept}</option>
                     ))}
                   </select>

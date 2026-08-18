@@ -246,9 +246,12 @@ export async function POST(request) {
     const newAdmin = new Admin(data);
     await newAdmin.save();
 
-    // Delete the verified OTP record so it cannot be reused
+    // Delete the verified OTP record so it cannot be reused (if present)
     if (!isDashboardCreation) {
-      await VerificationOtp.deleteOne({ email: cleanEmail });
+      try {
+        const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
+        await VerificationOtp.deleteOne({ email: cleanEmail });
+      } catch (otpErr) {}
     }
 
     // Admin created

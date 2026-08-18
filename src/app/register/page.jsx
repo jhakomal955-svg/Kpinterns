@@ -9,7 +9,7 @@ import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmai
 
 
 import { universitiesData } from "@/lib/data/universities";
-import { DEGREE_LIST, getDepartmentsForCollegeAndDegree, normalizeDegree } from "@/lib/data/degreeDepartments";
+import { DEGREE_LIST, getDegreesForUniversityAndCollege, getDepartmentsForCollegeAndDegree, normalizeDegree } from "@/lib/data/degreeDepartments";
 
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -61,7 +61,7 @@ export default function RegisterPage() {
     // Security
     password: "",
     confirmPassword: "",
-    agreeTerms: false,
+    agreeTerms: true,
   });
 
   const [errors, setErrors] = useState({});
@@ -592,8 +592,91 @@ export default function RegisterPage() {
     }
   };
 
-  const totalSteps = 4;
-  const stepTitles = ["Personal", "Academic", "Security & Payments","Register"];
+  const totalSteps = 3;
+  const stepTitles = ["Personal & Program", "Payment & Fee", "Finalize & Account"];
+
+  const validateStep = () => {
+    const newErrors = {};
+
+    if (step === 1) {
+      if (!formData.fullName.trim())
+        newErrors.fullName = "Full name is required";
+      
+      if (!formData.email.trim() || !validateEmailFormat(formData.email)) {
+        newErrors.email = "Please enter a valid email address";
+        setShowInvalidEmailModal(true);
+      }
+
+      if (!formData.phone.trim()) {
+        newErrors.phone = "Phone number is required";
+      } else {
+        const cleanedPhone = formData.phone.replace(/\D/g, "");
+        let normalizedPhone = cleanedPhone;
+        if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
+          normalizedPhone = cleanedPhone.substring(2);
+        } else if (cleanedPhone.length === 11 && cleanedPhone.startsWith("0")) {
+          normalizedPhone = cleanedPhone.substring(1);
+        }
+
+        if (!/^[6-9]\d{9}$/.test(normalizedPhone)) {
+          newErrors.phone = "Please enter a valid 10-digit Indian mobile number (starting with 6, 7, 8 or 9)";
+        }
+      }
+
+      if (!formData.gender) newErrors.gender = "Please select gender";
+      if (!formData.parentName.trim())
+        newErrors.parentName = "Parent name is required";
+
+      if (!formData.university) newErrors.university = "University is required";
+      if (formData.university === "others" && !formData.universityCustom?.trim()) {
+        newErrors.universityCustom = "Please enter university name";
+      }
+      if (!formData.college) newErrors.college = "College is required";
+      if (formData.college === "others" && !formData.collegeCustom?.trim()) {
+        newErrors.collegeCustom = "Please enter college name";
+      }
+      if (!formData.degree) newErrors.degree = "Degree is required";
+      if (!formData.department) newErrors.department = "Department is required";
+
+      if (purchaseType !== "course") {
+        if (!formData.internshipId)
+          newErrors.internshipId = "Internship domain is required";
+        if (!formData.mode) {
+          // Attempt to auto-derive mode if internshipId is present
+          if (formData.internshipId) {
+            const matched = dbInternships.find((item) => item._id === formData.internshipId);
+            if (matched && matched.mode) {
+              setFormData((prev) => ({ ...prev, mode: matched.mode }));
+            } else {
+              setFormData((prev) => ({ ...prev, mode: "Hybrid" }));
+            }
+          } else {
+            newErrors.mode = "Work mode is required";
+          }
+        }
+      }
+    } else if (step === 2) {
+      const payableAmount = getPayableAmount();
+      if (payableAmount > 0 && !completedPaymentDetails) {
+        newErrors.payment = "Please complete the registration fee payment to proceed.";
+      }
+    } else if (step === 3) {
+      if (!formData.semester) newErrors.semester = "Semester is required";
+      if (!formData.session) newErrors.session = "Session is required";
+      if (!formData.rollNumber.trim()) newErrors.rollNumber = "Roll number is required";
+      if (!formData.registrationNumber.trim())
+        newErrors.registrationNumber = "Registration number is required";
+
+      if (!formData.password) newErrors.password = "Password is required";
+      if (formData.password.length < 6)
+        newErrors.password = "Password must be at least 6 characters";
+      if (formData.password !== formData.confirmPassword)
+        newErrors.confirmPassword = "Passwords do not match";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handlePayFee = async () => {
     setIsLoading(true);
@@ -706,11 +789,12 @@ export default function RegisterPage() {
     }
 
     if (name === "university") {
-      // Reset college, department, internshipId, internshipDomain, and mode when university changes
+      // Reset college, degree, department, internshipId, internshipDomain, and mode when university changes
       setFormData((prev) => ({
         ...prev,
         university: value,
         college: value === "others" ? "others" : "",
+        degree: "",
         department: "",
         internshipId: "",
         internshipDomain: "",
@@ -719,10 +803,11 @@ export default function RegisterPage() {
         collegeCustom: "",
       }));
     } else if (name === "college") {
-      // Reset department, internshipId, internshipDomain, and mode when college changes
+      // Reset degree, department, internshipId, internshipDomain, and mode when college changes
       setFormData((prev) => ({
         ...prev,
         college: value,
+        degree: "",
         department: "",
         internshipId: "",
         internshipDomain: "",
@@ -730,10 +815,11 @@ export default function RegisterPage() {
         collegeCustom: "",
       }));
     } else if (name === "degree") {
-      // Reset internshipId, internship domain and mode when degree changes (since domains differ by tech/non-tech)
+      // Reset department, internshipId, internship domain and mode when degree changes
       setFormData((prev) => ({
         ...prev,
         degree: value,
+        department: "",
         internshipId: "",
         internshipDomain: "",
         mode: "",
@@ -810,6 +896,14 @@ export default function RegisterPage() {
       id: key,
       name: college.name,
     }));
+  };
+
+  // Get available degrees for selected university and college
+  const getAvailableDegrees = () => {
+    return getDegreesForUniversityAndCollege(
+      formData.university,
+      formData.college
+    );
   };
 
   // Get available departments for selected college and degree
@@ -895,86 +989,65 @@ export default function RegisterPage() {
     return [...new Set(modes)];
   };
 
-  const validateStep = () => {
-    const newErrors = {};
 
-    if (step === 1) {
-      if (!formData.fullName.trim())
-        newErrors.fullName = "Full name is required";
-      if (!formData.email.trim() || !validateEmailFormat(formData.email)) {
-        newErrors.email = "Invalid email format";
-        setShowInvalidEmailModal(true);
-      } else if (!isEmailVerified) {
-        newErrors.email = "Please verify your email address using OTP.";
-      }
-      if (!formData.phone.trim()) {
-        newErrors.phone = "Phone number is required";
-      } else {
-        const cleanedPhone = formData.phone.replace(/\D/g, "");
-        let normalizedPhone = cleanedPhone;
-        if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
-          normalizedPhone = cleanedPhone.substring(2);
-        } else if (cleanedPhone.length === 11 && cleanedPhone.startsWith("0")) {
-          normalizedPhone = cleanedPhone.substring(1);
-        }
 
-        if (!/^[6-9]\d{9}$/.test(normalizedPhone)) {
-          newErrors.phone = "Please enter a valid 10-digit Indian mobile number (should start with 6, 7, 8 or 9)";
-        } else {
-          formData.phone = normalizedPhone;
-        }
+  const checkEmailOrPhoneAvailability = async () => {
+    if (!formData.email.trim() && !formData.phone.trim()) return true;
+    try {
+      const res = await fetch("/api/user/check-exists", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email, phone: formData.phone }),
+      });
+      const data = await res.json();
+      const newErrors = {};
+      if (data.emailExists) {
+        newErrors.email = "This email is already registered. Please login or use a different email address.";
       }
-      if (!formData.gender) newErrors.gender = "Please select gender";
-      if (!formData.parentName.trim())
-        newErrors.parentName = "Parent name is required";
-    } else if (step === 2) {
-      if (!formData.university) newErrors.university = "University is required";
-      if (formData.university === "others" && !formData.universityCustom?.trim()) {
-        newErrors.universityCustom = "Please enter university name";
+      if (data.phoneExists) {
+        newErrors.phone = "This phone number is already registered. Please login or use a different phone number.";
       }
-      if (!formData.college) newErrors.college = "College is required";
-      if (formData.college === "others" && !formData.collegeCustom?.trim()) {
-        newErrors.collegeCustom = "Please enter college name";
+      if (Object.keys(newErrors).length > 0) {
+        setErrors((prev) => ({ ...prev, ...newErrors }));
+        return false;
       }
-      if (!formData.degree) newErrors.degree = "Degree is required";
-      if (!formData.department) newErrors.department = "Department is required";
-      if (!formData.rollNumber.trim()) newErrors.rollNumber = "Roll number is required";
-      if (!formData.semester) newErrors.semester = "Semester is required";
-      if (!formData.session) newErrors.session = "Session is required";
-      if (!formData.registrationNumber.trim())
-        newErrors.registrationNumber = "Registration number is required";
-      
-      if (purchaseType !== "course") {
-        if (!formData.internshipId)
-          newErrors.internshipId = "Internship is required";
-        if (!formData.mode) newErrors.mode = "Mode is required";
-      }
-    } else if (step === 3) {
-      if (!formData.password) newErrors.password = "Password is required";
-      if (formData.password.length < 6)
-        newErrors.password = "Password must be at least 6 characters";
-      if (formData.password !== formData.confirmPassword)
-        newErrors.confirmPassword = "Passwords do not match";
-      
-      const payableAmount = getPayableAmount();
-      if (payableAmount > 0 && !completedPaymentDetails) {
-        newErrors.payment = "Please complete the registration fee payment to proceed.";
-      }
-    } else if (step === 4) {
-      if (!formData.agreeTerms)
-        newErrors.agreeTerms = "You must agree to terms and conditions";
+      return true;
+    } catch (err) {
+      console.error("Check availability error:", err);
+      return true;
     }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = () => {
-    if (validateStep()) {
-      captureLeadData({ step: step + 1 });
-      setStep(step + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleNext = async () => {
+    const isValid = validateStep();
+    if (!isValid) {
+      setTimeout(() => {
+        const errorEl = document.querySelector(".border-red-500, .text-red-500");
+        if (errorEl) {
+          errorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 100);
+      return;
     }
+
+    if (step === 1) {
+      setIsLoading(true);
+      const isAvailable = await checkEmailOrPhoneAvailability();
+      setIsLoading(false);
+      if (!isAvailable) {
+        setTimeout(() => {
+          const errorEl = document.querySelector(".border-red-500, .text-red-500");
+          if (errorEl) {
+            errorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 100);
+        return;
+      }
+    }
+
+    captureLeadData({ step: step + 1 });
+    setStep(step + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleBack = () => {
@@ -1002,7 +1075,7 @@ export default function RegisterPage() {
 
         if (payableAmount > 0 && !hasValidExistingPayment) {
           alert("Payment is required to complete registration. Please complete payment first.");
-          setStep(3);
+          setStep(2);
           setIsLoading(false);
           return;
         }
@@ -1132,11 +1205,11 @@ export default function RegisterPage() {
         {/* Form Card */}
         <div className="bg-bg-card rounded-3xl shadow-xl p-5 sm:p-12 border border-border-main backdrop-blur-sm">
           <form onSubmit={handleSubmit} onChange={() => captureLeadData()} onInput={() => captureLeadData()}>
-            {/* Step 1: Personal Information */}
+            {/* Step 1: Personal & Program Information */}
             {step === 1 && (
               <div className="space-y-6 animate-fade-in">
                 <h2 className="text-2xl font-bold text-text-main mb-8">
-                  Personal Information
+                  Personal & Program Selection
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -1165,7 +1238,7 @@ export default function RegisterPage() {
                     )}
                   </div>
 
-                  {/* 2. Mobile Phone Number (Placed right at the top for instant lead capture) */}
+                  {/* 2. Mobile Phone Number */}
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Mobile Phone Number *
@@ -1175,7 +1248,12 @@ export default function RegisterPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      onBlur={() => captureLeadData()}
+                      onBlur={() => {
+                        captureLeadData();
+                        if (formData.phone && formData.phone.length === 10) {
+                          checkEmailOrPhoneAvailability();
+                        }
+                      }}
                       placeholder="e.g. 9876543210"
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.phone ? "border-red-500" : "border-border-main"
@@ -1188,123 +1266,33 @@ export default function RegisterPage() {
                     )}
                   </div>
 
-                  {/* 3. Email Address & OTP */}
+                  {/* 3. Email Address */}
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Email Address *
                     </label>
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={(e) => {
-                          if (emailAlreadyRegistered) {
-                            setEmailAlreadyRegistered(false);
-                            setOtpError("");
-                          }
-                          handleInputChange(e);
-                        }}
-                        onBlur={() => captureLeadData()}
-                        disabled={isEmailVerified}
-                        placeholder="you@example.com"
-                        className={`w-full sm:flex-1 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                          errors.email || emailAlreadyRegistered
-                            ? "border-red-500"
-                            : "border-border-main"
-                        } ${isEmailVerified ? "opacity-60 cursor-not-allowed bg-emerald-500/5 border-emerald-500/30" : ""}`}
-                      />
-                      {!isEmailVerified && (
-                        <button
-                          type="button"
-                          onClick={handleSendOtp}
-                          disabled={otpLoading || otpCooldown > 0 || emailAlreadyRegistered}
-                          className={`w-full sm:w-auto px-4 py-3 rounded-xl font-semibold font-poppins text-sm transition-all disabled:cursor-not-allowed flex items-center justify-center sm:min-w-[110px] ${
-                            emailAlreadyRegistered
-                              ? "bg-red-100 text-red-600 border-2 border-red-300 opacity-70"
-                              : "bg-brand-primary hover:bg-brand-primary/90 text-white disabled:opacity-50"
-                          }`}
-                        >
-                          {otpLoading ? (
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          ) : emailAlreadyRegistered ? (
-                            "Already Registered"
-                          ) : otpCooldown > 0 ? (
-                            `Resend in ${otpCooldown}s`
-                          ) : (
-                            "Send OTP"
-                          )}
-                        </button>
-                      )}
-                    </div>
-
-                    {otpError && !otpSent && (
-                      <div className="mt-3 flex items-start gap-2.5 p-3.5 bg-red-500/8 border border-red-500/25 rounded-xl animate-fade-in">
-                        <span className="text-red-500 text-base mt-0.5 shrink-0">⚠️</span>
-                        <div>
-                          <p className="text-red-600 text-sm font-semibold">{otpError}</p>
-                          {emailAlreadyRegistered && (
-                            <p className="text-red-500/80 text-xs mt-1">
-                              Please{" "}
-                              <a href="/login" className="underline font-bold hover:text-red-600 transition-colors">
-                                log in
-                              </a>{" "}
-                              or use a different email address to register.
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      onBlur={() => {
+                        captureLeadData();
+                        if (formData.email && validateEmailFormat(formData.email)) {
+                          checkEmailOrPhoneAvailability();
+                        }
+                      }}
+                      placeholder="you@example.com"
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.email ? "border-red-500" : "border-border-main"
+                      }`}
+                    />
                     {errors.email && (
                       <p className="text-red-500 text-xs mt-1">
                         {errors.email}
                       </p>
                     )}
-                    {isEmailVerified && (
-                      <p className="text-brand-success text-xs mt-1 flex items-center gap-1 font-semibold">
-                        <span>✓</span> Email verified successfully!
-                      </p>
-                    )}
                   </div>
-
-                  {otpSent && !isEmailVerified && (
-                    <div className="sm:col-span-2 bg-brand-primary/5 border border-brand-primary/10 rounded-2xl p-5 animate-fade-in space-y-3">
-                      <label className="block text-sm font-semibold text-text-main">
-                        Enter Verification Code *
-                      </label>
-                      <div className="flex flex-col sm:flex-row gap-2">
-                        <input
-                          type="text"
-                          maxLength={6}
-                          value={otpInput}
-                          onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ""))}
-                          placeholder="Enter 6-digit OTP"
-                          className="w-full sm:flex-1 px-4 py-3 rounded-xl border-2 border-border-main focus:outline-none focus:border-brand-primary bg-bg-main font-mono text-center tracking-widest text-lg font-bold"
-                        />
-                        <button
-                          type="button"
-                          onClick={handleVerifyOtp}
-                          disabled={otpInput.length !== 6 || otpVerifyLoading}
-                          className="w-full sm:w-auto px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-                        >
-                          {otpVerifyLoading ? (
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          ) : (
-                            "Verify Code"
-                          )}
-                        </button>
-                      </div>
-                      {otpError && (
-                        <p className="text-red-500 text-xs mt-1 font-medium">
-                          {otpError}
-                        </p>
-                      )}
-                      <p className="text-text-muted text-[11px] font-poppins">
-                        An OTP code was sent to <span className="font-semibold text-text-main">{formData.email}</span>. Please check your inbox or spam folder.
-                      </p>
-                    </div>
-                  )}
 
                   {/* 4. Gender */}
                   <div>
@@ -1356,18 +1344,8 @@ export default function RegisterPage() {
                       </p>
                     )}
                   </div>
-                </div>
-              </div>
-            )}
 
-            {/* Step 2: Academic Information */}
-            {step === 2 && (
-              <div className="space-y-6 animate-fade-in">
-                <h2 className="text-2xl font-bold text-text-main mb-8">
-                  Academic Information
-                </h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* University */}
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       University *
@@ -1422,6 +1400,7 @@ export default function RegisterPage() {
                     )}
                   </div>
 
+                  {/* College */}
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       College *
@@ -1430,7 +1409,8 @@ export default function RegisterPage() {
                       name="college"
                       value={formData.college}
                       onChange={handleInputChange}
-                      disabled={!formData.university}
+                      disabled={Boolean(!formData.university)}
+                      suppressHydrationWarning
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.college ? "border-red-500" : "border-border-main"
                       } ${!formData.university ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -1479,12 +1459,13 @@ export default function RegisterPage() {
                     )}
                   </div>
 
+                  {/* Degree */}
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Degree *
                     </label>
                     <div className="flex flex-wrap gap-4">
-                      {DEGREE_LIST.map((degree) => (
+                      {getAvailableDegrees().map((degree) => (
                         <label
                           key={degree}
                           className="flex items-center cursor-pointer"
@@ -1510,6 +1491,7 @@ export default function RegisterPage() {
                     )}
                   </div>
 
+                  {/* Department */}
                   <div>
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Department *
@@ -1518,7 +1500,8 @@ export default function RegisterPage() {
                       name="department"
                       value={formData.department}
                       onChange={handleInputChange}
-                      disabled={!formData.college}
+                      disabled={Boolean(!formData.college)}
+                      suppressHydrationWarning
                       className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                         errors.department
                           ? "border-red-500"
@@ -1543,131 +1526,7 @@ export default function RegisterPage() {
                     )}
                   </div>
 
-                  {/* Dynamically Generated Semester Options */}
-                  <div>
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Semester *
-                    </label>
-                    <select
-                      name="semester"
-                      value={formData.semester}
-                      onChange={handleInputChange}
-                      disabled={!formData.university || !formData.degree}
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.semester
-                          ? "border-red-500"
-                          : "border-border-main"
-                      } ${!formData.university || !formData.degree ? "opacity-50 cursor-not-allowed" : ""}`}
-                    >
-                      <option value="">
-                        {formData.university && formData.degree
-                          ? "Select Semester"
-                          : "Select University & Degree first"}
-                      </option>
-                      {formData.university &&
-                        Array.from(
-                          { length: getAvailableSemestersCount() },
-                          (_, i) => i + 1,
-                        ).map((sem) => {
-                          // Appends correct ordinal suffix (1st, 2nd, 3rd, 4th...)
-                          const suffix =
-                            sem === 1
-                              ? "st"
-                              : sem === 2
-                                ? "nd"
-                                : sem === 3
-                                  ? "rd"
-                                  : "th";
-                          return (
-                            <option key={sem} value={sem}>
-                              {sem}
-                              {suffix} Semester
-                            </option>
-                          );
-                        })}
-                    </select>
-                    {errors.semester && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.semester}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Session *
-                    </label>
-                    <select
-                      name="session"
-                      value={formData.session}
-                      onChange={handleInputChange}
-                      disabled={!formData.degree}
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.session ? "border-red-500" : "border-border-main"
-                      } ${!formData.degree ? "opacity-50 cursor-not-allowed" : ""}`}
-                    >
-                      <option value="">
-                        {formData.degree ? "Select Session" : "Select Degree first"}
-                      </option>
-                      {getAvailableSessions(formData.degree).map((sess) => (
-                        <option key={sess} value={sess}>
-                          {sess}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.session && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.session}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Roll Number *
-                    </label>
-                    <input
-                      type="text"
-                      name="rollNumber"
-                      value={formData.rollNumber}
-                      onChange={handleInputChange}
-                      onBlur={() => captureLeadData()}
-                      placeholder="Enter roll number"
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.rollNumber ? "border-red-500" : "border-border-main"
-                      }`}
-                    />
-                    {errors.rollNumber && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.rollNumber}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-text-main mb-2">
-                      Registration Number *
-                    </label>
-                    <input
-                      type="text"
-                      name="registrationNumber"
-                      value={formData.registrationNumber}
-                      onChange={handleInputChange}
-                      onBlur={() => captureLeadData()}
-                      placeholder="Enter registration number"
-                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.registrationNumber
-                          ? "border-red-500"
-                          : "border-border-main"
-                      }`}
-                    />
-                    {errors.registrationNumber && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {errors.registrationNumber}
-                      </p>
-                    )}
-                  </div>
-
+                  {/* Select Internship & Mode */}
                   {purchaseType === "course" ? (
                     <div className="sm:col-span-2">
                       <label className="block text-sm font-semibold text-text-main mb-2">
@@ -1687,7 +1546,8 @@ export default function RegisterPage() {
                           name="internshipId"
                           value={formData.internshipId}
                           onChange={handleInputChange}
-                          disabled={!formData.degree || !formData.department || isLoadingInternships || getFilteredInternshipsForBranchDept().length === 0}
+                          disabled={Boolean(!formData.degree || !formData.department || isLoadingInternships || getFilteredInternshipsForBranchDept().length === 0)}
+                          suppressHydrationWarning
                           className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
                             errors.internshipId
                               ? "border-red-500"
@@ -1711,16 +1571,6 @@ export default function RegisterPage() {
                             </option>
                           ))}
                         </select>
-                        {formData.degree && formData.department && !isLoadingInternships && getFilteredInternshipsForBranchDept().length === 0 && (
-                          <p className="text-amber-500 text-xs mt-2 font-semibold">
-                            ⚠️ No internships available for this stream currently.
-                          </p>
-                        )}
-                        {formData.degree && formData.department && getFilteredInternshipsForBranchDept().length > 0 && (
-                          <p className="text-brand-primary text-xs mt-2 font-semibold">
-                            ℹ️ {getFilteredInternshipsForBranchDept().length} internship(s) found for your branch & department.
-                          </p>
-                        )}
                         {errors.internshipId && (
                           <p className="text-red-500 text-xs mt-1">
                             {errors.internshipId}
@@ -1746,7 +1596,7 @@ export default function RegisterPage() {
                           <input
                             type="text"
                             placeholder="Select internship first"
-                            disabled
+                            disabled={true}
                             className="w-full px-4 py-3 rounded-xl border-2 border-border-main bg-bg-main opacity-50 cursor-not-allowed font-poppins"
                           />
                         )}
@@ -1754,57 +1604,293 @@ export default function RegisterPage() {
                           <p className="text-red-500 text-xs mt-1">{errors.mode}</p>
                         )}
                       </div>
-
-                      {/* Consent Letter Section */}
-                      <div className="sm:col-span-2">
-                        <label className="block text-sm font-semibold text-text-main mb-2">
-                          Upload Consent Letter (Optional)
-                        </label>
-                        <div className="flex items-center gap-3">
-                          <input
-                            type="file"
-                            accept="image/*,application/pdf"
-                            onChange={handleConsentLetterUpload}
-                            className="hidden"
-                            id="consent-letter-upload"
-                          />
-                          <label
-                            htmlFor="consent-letter-upload"
-                            className="px-4 py-2.5 bg-bg-main border-2 border-dashed border-border-main hover:border-brand-primary text-text-muted hover:text-brand-primary rounded-xl cursor-pointer transition flex items-center gap-2 text-sm font-semibold"
-                          >
-                            📁 {formData.consent_letter ? "Change Consent Letter" : "Choose PDF/Image"}
-                          </label>
-                          {uploadingConsentLetter && (
-                            <div className="w-5 h-5 border-2 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
-                          )}
-                          {formData.consent_letter && (
-                            <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 rounded-xl">
-                              <span className="text-emerald-500 font-bold text-xs">✓ Uploaded</span>
-                              <a
-                                href={formData.consent_letter}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-xs text-brand-primary hover:underline font-semibold"
-                              >
-                                View Document
-                              </a>
-                            </div>
-                          )}
-                        </div>
-                      </div>
                     </>
                   )}
                 </div>
               </div>
             )}
-            {/* Step 3: Security & Payments */}
+
+            {/* Step 2: Payment & Fee Summary */}
+            {step === 2 && (
+              <div className="space-y-6 animate-fade-in">
+                <h2 className="text-2xl font-bold text-text-main mb-8">
+                  Payment & Fee Summary
+                </h2>
+
+                {/* Selected Program Summary Card */}
+                <div className="bg-bg-main border border-border-main rounded-2xl p-5 space-y-3 font-poppins text-sm">
+                  <div className="flex justify-between items-center pb-2 border-b border-border-main/50">
+                    <span className="text-xs uppercase font-bold text-text-muted">Selected Program</span>
+                    <span className="text-xs font-bold text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-full">
+                      {purchaseType === "course" ? "Course" : "Internship"}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <span className="text-xs text-text-muted block">Program Title</span>
+                      <span className="font-bold text-text-main">
+                        {dbInternships.find(item => item._id === formData.internshipId)?.title || selectedItemDetails?.title || formData.internshipDomain || "Selected Program"}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-xs text-text-muted block">College Name</span>
+                      <span className="font-semibold text-text-main">
+                        {universitiesData[formData.university]?.colleges?.[formData.college]?.name || formData.collegeCustom || formData.college || "N/A"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payments Block */}
+                <div className="space-y-4 pt-2">
+                  <h3 className="text-lg font-bold text-text-main font-poppins">
+                    Registration Fee & Razorpay Payment
+                  </h3>
+
+                  {/* Coupon Code Section */}
+                  {!completedPaymentDetails && (
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-bg-main border border-border-main p-4 rounded-xl">
+                      <input
+                        type="text"
+                        placeholder="Have a coupon code?"
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                        className="flex-1 px-4 py-2.5 rounded-xl border border-border-main bg-bg-card text-text-main text-sm font-mono font-bold uppercase focus:outline-none focus:border-brand-primary"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleApplyCoupon}
+                        disabled={isValidatingCoupon || !couponInput.trim()}
+                        className="px-5 py-2.5 bg-brand-primary text-white font-bold rounded-xl text-sm hover:bg-brand-primary/90 transition shadow-sm cursor-pointer disabled:opacity-50"
+                      >
+                        {isValidatingCoupon ? "Validating..." : "Apply Coupon"}
+                      </button>
+                    </div>
+                  )}
+
+                  {appliedCoupon && (
+                    <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-500 rounded-xl text-xs font-bold flex items-center justify-between">
+                      <span>✓ Coupon '{appliedCoupon.coupon?.code}' Applied! (-₹{appliedCoupon.discountAmount})</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAppliedCoupon(null);
+                          setCouponInput("");
+                        }}
+                        className="text-red-400 hover:text-red-500 underline ml-2 cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  )}
+
+                  {getPayableAmount() > 0 ? (
+                    <div className="bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 border border-border-main rounded-2xl p-6">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                          <span className="text-xs text-text-muted uppercase tracking-wider font-semibold block mb-1">Total Payable</span>
+                          <span className="text-3xl font-extrabold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent font-poppins">
+                            ₹{getPayableAmount()}
+                          </span>
+                        </div>
+
+                        {completedPaymentDetails ? (
+                          <div className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 rounded-xl px-4 py-3 text-sm font-semibold flex items-center gap-2">
+                            <span>✅</span>
+                            <div>
+                              <span>Payment Successful</span>
+                              <span className="block text-[10px] font-mono text-text-muted mt-0.5 select-all">Ref ID: {completedPaymentDetails.razorpay_payment_id}</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={handlePayFee}
+                            disabled={isLoading}
+                            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-primary/95 hover:to-brand-secondary/95 text-white font-bold rounded-xl shadow-lg hover:shadow-brand-primary/25 active:scale-95 transition-all text-sm font-poppins cursor-pointer"
+                          >
+                            Pay Registration Fee (₹{getPayableAmount()})
+                          </button>
+                        )}
+                      </div>
+
+                      {errors.payment && (
+                        <p className="text-red-500 text-xs mt-3 font-semibold">
+                          ⚠️ {errors.payment}
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6 flex items-center gap-3">
+                      <span className="text-2xl">🎉</span>
+                      <div>
+                        <span className="font-bold text-emerald-600 dark:text-emerald-400 block">No Payment Required</span>
+                        <span className="text-text-muted text-sm">This internship/course registration is free. You can proceed directly.</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Finalize & Account Security */}
             {step === 3 && (
               <div className="space-y-6 animate-fade-in">
                 <h2 className="text-2xl font-bold text-text-main mb-8">
-                  Security & Payments
+                  Academic Roll Numbers & Account Setup
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-6 border-b border-border-main/50">
+                  {/* Semester */}
+                  <div>
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Semester *
+                    </label>
+                    <select
+                      name="semester"
+                      value={formData.semester}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.semester
+                          ? "border-red-500"
+                          : "border-border-main"
+                      }`}
+                    >
+                      <option value="">Select Semester</option>
+                      {Array.from(
+                        { length: getAvailableSemestersCount() || 8 },
+                        (_, i) => i + 1,
+                      ).map((sem) => {
+                        const suffix =
+                          sem === 1 ? "st" : sem === 2 ? "nd" : sem === 3 ? "rd" : "th";
+                        return (
+                          <option key={sem} value={sem}>
+                            {sem}{suffix} Semester
+                          </option>
+                        );
+                      })}
+                    </select>
+                    {errors.semester && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.semester}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Session */}
+                  <div>
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Session *
+                    </label>
+                    <select
+                      name="session"
+                      value={formData.session}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.session ? "border-red-500" : "border-border-main"
+                      }`}
+                    >
+                      <option value="">Select Session</option>
+                      {getAvailableSessions(formData.degree || "B.Tech").map((sess) => (
+                        <option key={sess} value={sess}>
+                          {sess}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.session && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.session}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Roll Number */}
+                  <div>
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Roll Number *
+                    </label>
+                    <input
+                      type="text"
+                      name="rollNumber"
+                      value={formData.rollNumber}
+                      onChange={handleInputChange}
+                      onBlur={() => captureLeadData()}
+                      placeholder="Enter roll number"
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.rollNumber ? "border-red-500" : "border-border-main"
+                      }`}
+                    />
+                    {errors.rollNumber && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.rollNumber}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Registration Number */}
+                  <div>
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Registration Number *
+                    </label>
+                    <input
+                      type="text"
+                      name="registrationNumber"
+                      value={formData.registrationNumber}
+                      onChange={handleInputChange}
+                      onBlur={() => captureLeadData()}
+                      placeholder="Enter registration number"
+                      className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                        errors.registrationNumber
+                          ? "border-red-500"
+                          : "border-border-main"
+                      }`}
+                    />
+                    {errors.registrationNumber && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.registrationNumber}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Consent Letter */}
+                  <div className="sm:col-span-2">
+                    <label className="block text-sm font-semibold text-text-main mb-2">
+                      Upload Consent Letter (Optional)
+                    </label>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="file"
+                        accept="image/*,application/pdf"
+                        onChange={handleConsentLetterUpload}
+                        className="hidden"
+                        id="consent-letter-upload"
+                      />
+                      <label
+                        htmlFor="consent-letter-upload"
+                        className="px-4 py-2.5 bg-bg-main border-2 border-dashed border-border-main hover:border-brand-primary text-text-muted hover:text-brand-primary rounded-xl cursor-pointer transition flex items-center gap-2 text-sm font-semibold"
+                      >
+                        📁 {formData.consent_letter ? "Change Consent Letter" : "Choose PDF/Image"}
+                      </label>
+                      {uploadingConsentLetter && (
+                        <div className="w-5 h-5 border-2 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
+                      )}
+                      {formData.consent_letter && (
+                        <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 rounded-xl">
+                          <span className="text-emerald-500 font-bold text-xs">✓ Uploaded</span>
+                          <a
+                            href={formData.consent_letter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-brand-primary hover:underline font-semibold"
+                          >
+                            View Document
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Password */}
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-semibold text-text-main mb-2">
                      Create Password *
@@ -1870,6 +1956,7 @@ export default function RegisterPage() {
                     )}
                   </div>
 
+                  {/* Confirm Password */}
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-semibold text-text-main mb-2">
                       Confirm Password *
@@ -1893,189 +1980,10 @@ export default function RegisterPage() {
                     )}
                   </div>
                 </div>
-
-                {/* Payments Block */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-text-main font-poppins">
-                    Registration Fee Payment
-                  </h3>
-
-                  {/* Coupon Code Section */}
-                  {!completedPaymentDetails && (
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-bg-main border border-border-main p-4 rounded-xl">
-                      <input
-                        type="text"
-                        placeholder="Have a coupon code?"
-                        value={couponInput}
-                        onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                        className="flex-1 px-4 py-2.5 rounded-xl border border-border-main bg-bg-card text-text-main text-sm font-mono font-bold uppercase focus:outline-none focus:border-brand-primary"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleApplyCoupon}
-                        disabled={isValidatingCoupon || !couponInput.trim()}
-                        className="px-5 py-2.5 bg-brand-primary text-white font-bold rounded-xl text-sm hover:bg-brand-primary/90 transition shadow-sm cursor-pointer disabled:opacity-50"
-                      >
-                        {isValidatingCoupon ? "Validating..." : "Apply Coupon"}
-                      </button>
-                    </div>
-                  )}
-
-                  {appliedCoupon && (
-                    <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-500 rounded-xl text-xs font-bold flex items-center justify-between">
-                      <span>✓ Coupon '{appliedCoupon.coupon?.code}' Applied! (-₹{appliedCoupon.discountAmount})</span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setAppliedCoupon(null);
-                          setCouponInput("");
-                        }}
-                        className="text-red-400 hover:text-red-500 underline ml-2 cursor-pointer"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  )}
-
-                  {getPayableAmount() > 0 ? (
-                    <div className="bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 border border-border-main rounded-2xl p-6">
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <div>
-                          <span className="text-xs text-text-muted uppercase tracking-wider font-semibold block mb-1">Total Payable</span>
-                          <span className="text-3xl font-extrabold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent font-poppins">
-                            ₹{getPayableAmount()}
-                          </span>
-                        </div>
-
-                        {completedPaymentDetails ? (
-                          <div className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 rounded-xl px-4 py-3 text-sm font-semibold flex items-center gap-2">
-                            <span>✅</span>
-                            <div>
-                              <span>Payment Successful</span>
-                              <span className="block text-[10px] font-mono text-text-muted mt-0.5 select-all">Ref ID: {completedPaymentDetails.razorpay_payment_id}</span>
-                            </div>
-                          </div>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={handlePayFee}
-                            disabled={isLoading}
-                            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-primary/95 hover:to-brand-secondary/95 text-white font-bold rounded-xl shadow-lg hover:shadow-brand-primary/25 active:scale-95 transition-all text-sm font-poppins"
-                          >
-                            Pay Registration Fee (₹{getPayableAmount()})
-                          </button>
-                        )}
-                      </div>
-
-                      {errors.payment && (
-                        <p className="text-red-500 text-xs mt-3 font-semibold">
-                          ⚠️ {errors.payment}
-                        </p>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6 flex items-center gap-3">
-                      <span className="text-2xl">🎉</span>
-                      <div>
-                        <span className="font-bold text-emerald-600 dark:text-emerald-400 block">No Payment Required</span>
-                        <span className="text-text-muted text-sm">This internship/course registration is free. You can proceed directly.</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
               </div>
             )}
 
-            {/* Step 4: Register & Review */}
-            {step === 4 && (
-              <div className="space-y-6 animate-fade-in">
-                <h2 className="text-2xl font-bold text-text-main mb-6">
-                  Review & Register
-                </h2>
-                <p className="text-text-muted text-sm mb-6">
-                  Please review your details carefully before completing registration.
-                </p>
 
-                {/* Summary Details Grid */}
-                <div className="bg-bg-main border border-border-main rounded-2xl p-6 space-y-4 text-sm font-poppins">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
-                    <div>
-                      <span className="text-text-muted text-xs block">Full Name</span>
-                      <span className="text-text-main font-semibold">{formData.fullName}</span>
-                    </div>
-                    <div>
-                      <span className="text-text-muted text-xs block">Email</span>
-                      <span className="text-text-main font-semibold break-all">{formData.email}</span>
-                    </div>
-                    <div>
-                      <span className="text-text-muted text-xs block">Phone</span>
-                      <span className="text-text-main font-semibold">{formData.phone}</span>
-                    </div>
-                    <div>
-                      <span className="text-text-muted text-xs block">Parent's Name</span>
-                      <span className="text-text-main font-semibold">{formData.parentName}</span>
-                    </div>
-                    <div className="sm:col-span-2 border-t border-border-main/50 my-1"></div>
-                    <div>
-                      <span className="text-text-muted text-xs block">College</span>
-                      <span className="text-text-main font-semibold">{formData.college}</span>
-                    </div>
-                    <div>
-                      <span className="text-text-muted text-xs block">Degree & Dept</span>
-                      <span className="text-text-main font-semibold">{formData.degree} ({formData.department})</span>
-                    </div>
-                    <div>
-                      <span className="text-text-muted text-xs block">Reg No / Sem</span>
-                      <span className="text-text-main font-semibold">{formData.registrationNumber} (Sem {formData.semester})</span>
-                    </div>
-                    <div>
-                      <span className="text-text-muted text-xs block">{purchaseType === "course" ? "Selected Course" : "Selected Internship"}</span>
-                      <span className="text-brand-primary font-bold">
-                        {purchaseType === "course" 
-                          ? (selectedItemDetails?.title || "Selected Course")
-                          : `${dbInternships.find(item => item._id === formData.internshipId)?.title || selectedItemDetails?.title || formData.internshipDomain || "N/A"} (${formData.mode})`}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Payment Status Summary */}
-                {getPayableAmount() > 0 && completedPaymentDetails && (
-                  <div className="bg-emerald-500/15 border border-emerald-500/30 rounded-2xl p-4 flex items-center justify-between">
-                    <div>
-                      <span className="text-emerald-600 dark:text-emerald-400 font-bold block text-sm">✅ Payment Verified</span>
-                      <span className="text-text-muted font-mono text-[10px] select-all">Ref: {completedPaymentDetails.razorpay_payment_id}</span>
-                    </div>
-                    <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">₹{getPayableAmount()}</span>
-                  </div>
-                )}
-
-                {/* Terms Checkbox */}
-                <label className="flex items-start cursor-pointer p-4 rounded-xl border-2 border-border-main hover:border-brand-primary transition-colors group">
-                  <input
-                    type="checkbox"
-                    name="agreeTerms"
-                    checked={formData.agreeTerms}
-                    onChange={handleInputChange}
-                    className="w-5 h-5 rounded accent-brand-primary cursor-pointer mt-1 flex-shrink-0"
-                  />
-                  <span className="ml-3 text-sm text-text-muted group-hover:text-text-main transition-colors">
-                    I agree to the{" "}
-                    <Link
-                      href="/terms-of-use"
-                      target="_blank"
-                      className="text-brand-primary hover:underline font-semibold"
-                    >
-                      Terms & Privacy Policy
-                    </Link>{" "}
-                    and internship terms.
-                  </span>
-                </label>
-                {errors.agreeTerms && (
-                  <p className="text-red-500 text-xs">{errors.agreeTerms}</p>
-                )}
-              </div>
-            )}
 
             {/* Navigation Buttons */}
             <div className="flex gap-4 mt-8 pt-8 border-t border-border-main">

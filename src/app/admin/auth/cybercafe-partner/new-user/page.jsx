@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { universitiesData } from "@/lib/data/universities";
-import { DEGREE_LIST, getDepartmentsForCollegeAndDegree, normalizeDegree } from "@/lib/data/degreeDepartments";
+import { DEGREE_LIST, getDegreesForUniversityAndCollege, getDepartmentsForCollegeAndDegree, normalizeDegree } from "@/lib/data/degreeDepartments";
 import InvalidEmailModal, { validateEmailFormat } from "@/components/InvalidEmailModal";
 
 const loadRazorpayScript = () => {
@@ -416,6 +416,7 @@ export default function RegisterPage() {
         ...prev,
         university: value,
         college: value === "others" ? "others" : "",
+        degree: "",
         department: "",
         internshipId: "",
         internshipDomain: "",
@@ -427,6 +428,7 @@ export default function RegisterPage() {
       setFormData((prev) => ({
         ...prev,
         college: value,
+        degree: "",
         department: "",
         internshipId: "",
         internshipDomain: "",
@@ -437,6 +439,7 @@ export default function RegisterPage() {
       setFormData((prev) => ({
         ...prev,
         degree: value,
+        department: "",
         internshipId: "",
         internshipDomain: "",
         mode: "",
@@ -648,8 +651,35 @@ export default function RegisterPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (validateStep()) {
+      if (step === 1) {
+        try {
+          setIsLoading(true);
+          const checkRes = await fetch("/api/user/check-exists", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: formData.email, phone: formData.phone }),
+          });
+          const checkData = await checkRes.json();
+          setIsLoading(false);
+
+          const existErrors = {};
+          if (checkData.emailExists) {
+            existErrors.email = "This email is already registered in the system. Please use a different email.";
+          }
+          if (checkData.phoneExists) {
+            existErrors.phone = "This phone number is already registered in the system. Please use a different phone number.";
+          }
+          if (Object.keys(existErrors).length > 0) {
+            setErrors((prev) => ({ ...prev, ...existErrors }));
+            return;
+          }
+        } catch (err) {
+          setIsLoading(false);
+          console.error("Error checking user availability:", err);
+        }
+      }
       setStep(step + 1);
     }
   };
@@ -828,107 +858,22 @@ export default function RegisterPage() {
                   <label className="block text-sm font-semibold text-text-main mb-2">
                     Email Address *
                   </label>
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={(e) => {
-                        if (emailAlreadyRegistered) {
-                          setEmailAlreadyRegistered(false);
-                          setOtpError("");
-                        }
-                        handleInputChange(e);
-                      }}
-                      disabled={isEmailVerified}
-                      placeholder="student@example.com"
-                      className={`w-full sm:flex-1 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
-                        errors.email || emailAlreadyRegistered ? "border-red-500" : "border-border-main"
-                      } ${isEmailVerified ? "opacity-60 cursor-not-allowed bg-emerald-500/5 border-emerald-500/30" : ""}`}
-                    />
-                    {!isEmailVerified && (
-                      <button
-                        type="button"
-                        onClick={handleSendOtp}
-                        disabled={otpLoading || otpCooldown > 0 || emailAlreadyRegistered}
-                        className={`w-full sm:w-auto px-4 py-3 rounded-xl font-semibold font-poppins text-sm transition-all disabled:cursor-not-allowed flex items-center justify-center sm:min-w-[110px] ${
-                          emailAlreadyRegistered
-                            ? "bg-red-100 text-red-600 border-2 border-red-300 opacity-70"
-                            : "bg-brand-primary hover:bg-brand-primary/90 text-white disabled:opacity-50"
-                        }`}
-                      >
-                        {otpLoading ? (
-                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        ) : emailAlreadyRegistered ? (
-                          "Registered"
-                        ) : otpCooldown > 0 ? (
-                          `Resend in ${otpCooldown}s`
-                        ) : (
-                          "Send OTP"
-                        )}
-                      </button>
-                    )}
-                  </div>
-
-                  {otpError && !otpSent && (
-                    <div className="mt-3 flex items-start gap-2.5 p-3.5 bg-red-500/8 border border-red-500/25 rounded-xl animate-fade-in">
-                      <span className="text-red-500 text-base mt-0.5 shrink-0">⚠️</span>
-                      <div>
-                        <p className="text-red-600 text-sm font-semibold">{otpError}</p>
-                        {emailAlreadyRegistered && (
-                          <p className="text-red-500/80 text-xs mt-1">
-                            This student is already registered in the system.
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="student@example.com"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins ${
+                      errors.email ? "border-red-500" : "border-border-main"
+                    }`}
+                  />
                   {errors.email && (
                     <p className="text-red-500 text-xs mt-1">{errors.email}</p>
                   )}
-                  {isEmailVerified && (
-                    <p className="text-brand-success text-xs mt-1 flex items-center gap-1 font-semibold">
-                      <span>✓</span> Email verified successfully!
-                    </p>
-                  )}
                 </div>
 
-                {otpSent && !isEmailVerified && (
-                  <div className="sm:col-span-2 bg-brand-primary/5 border border-brand-primary/10 rounded-2xl p-5 animate-fade-in space-y-3">
-                    <label className="block text-sm font-semibold text-text-main">
-                      Enter Verification Code *
-                    </label>
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <input
-                        type="text"
-                        maxLength={6}
-                        value={otpInput}
-                        onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ""))}
-                        placeholder="Enter 6-digit OTP"
-                        className="w-full sm:flex-1 px-4 py-3 rounded-xl border-2 border-border-main focus:outline-none focus:border-brand-primary bg-bg-main font-mono text-center tracking-widest text-lg font-bold"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleVerifyOtp}
-                        disabled={otpInput.length !== 6 || otpVerifyLoading}
-                        className="w-full sm:w-auto px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-semibold font-poppins text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-                      >
-                        {otpVerifyLoading ? (
-                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        ) : (
-                          "Verify Code"
-                        )}
-                      </button>
-                    </div>
-                    {otpError && (
-                      <p className="text-red-500 text-xs mt-1 font-medium">{otpError}</p>
-                    )}
-                    <p className="text-text-muted text-[11px] font-poppins">
-                      An OTP code was sent to <span className="font-semibold text-text-main">{formData.email}</span>.
-                    </p>
-                  </div>
-                )}
+
 
                 <div>
                   <label className="block text-sm font-semibold text-text-main mb-2">
@@ -1079,7 +1024,7 @@ export default function RegisterPage() {
                     Degree *
                   </label>
                   <div className="flex flex-wrap gap-4">
-                    {DEGREE_LIST.map((degree) => (
+                    {getAvailableDegrees().map((degree) => (
                       <label key={degree} className="flex items-center cursor-pointer">
                         <input
                           type="radio"

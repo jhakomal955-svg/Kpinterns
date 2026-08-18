@@ -256,9 +256,8 @@ export async function POST(request) {
       }
     }
 
-    // Verify OTP first before any processing or DB checks
+    // Normalize email
     const normalizedEmail = data.email?.trim().toLowerCase();
-    const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
     
     // Check if user is being manually registered via Admin Dashboard
     const isDashboardCreation = data.isAdminCreation === true;
@@ -273,19 +272,6 @@ export async function POST(request) {
       }
       dashboardCreatorId = auth.user._id;
       dashboardCreatorRole = auth.user.role;
-    } else {
-      const verifiedOtpRecord = await VerificationOtp.findOne({
-        email: normalizedEmail,
-        verified: true,
-        verifiedAt: { $gte: new Date(Date.now() - 30 * 60 * 1000) } // verified within the last 30 minutes
-      });
-
-      if (!verifiedOtpRecord) {
-        return Response.json(
-          { error: "Email address not verified. Please verify your email with OTP first." },
-          { status: 400 }
-        );
-      }
     }
 
     // Mark user as verified since email was verified
@@ -584,9 +570,12 @@ export async function POST(request) {
       console.error("Error deleting lead on user creation:", leadErr);
     }
 
-    // Consume & invalidate verified OTP record after successful account creation
+    // Consume & invalidate verified OTP record after successful account creation (if exists)
     if (!isDashboardCreation) {
-      await VerificationOtp.deleteOne({ email: normalizedEmail });
+      try {
+        const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
+        await VerificationOtp.deleteOne({ email: normalizedEmail });
+      } catch (otpErr) {}
     }
 
     // Link PartnerStudent record if student exists in roster
@@ -634,7 +623,10 @@ export async function POST(request) {
       try {
         // Delete the verified OTP record so it cannot be reused
         if (!isDashboardCreation) {
-          await VerificationOtp.deleteOne({ email: normalizedEmail });
+          try {
+            const VerificationOtp = createModel("VerificationOtp", VerificationOtpModel);
+            await VerificationOtp.deleteOne({ email: normalizedEmail });
+          } catch (otpErr) {}
         }
 
         // Send the allotment and receipt email to the user (only for client-side registrations)

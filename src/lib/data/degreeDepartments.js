@@ -154,6 +154,92 @@ export const DEPARTMENT_GROUPS = (() => {
 })();
 
 /**
+ * Helper to resolve University key from key ID or full name
+ */
+export function findUniversityKey(univInput) {
+  if (!univInput || univInput === "others") return null;
+  if (universitiesData[univInput]) return univInput;
+
+  const inputClean = univInput.toString().toLowerCase().trim();
+  const entry = Object.entries(universitiesData).find(
+    ([key, u]) => u.name && u.name.toLowerCase().trim() === inputClean
+  );
+  return entry ? entry[0] : null;
+}
+
+/**
+ * Helper to resolve College key from key ID or full name under a University
+ */
+export function findCollegeKey(univKey, collegeInput) {
+  if (!univKey || !collegeInput || collegeInput === "others") return null;
+  const resolvedUnivKey = findUniversityKey(univKey) || univKey;
+  const univObj = universitiesData[resolvedUnivKey];
+  if (!univObj || !univObj.colleges) return null;
+
+  if (univObj.colleges[collegeInput]) return collegeInput;
+
+  const inputClean = collegeInput.toString().toLowerCase().trim();
+  const entry = Object.entries(univObj.colleges).find(
+    ([key, c]) => c.name && c.name.toLowerCase().trim() === inputClean
+  );
+  return entry ? entry[0] : null;
+}
+
+/**
+ * Gets available degrees dynamically for a specific University and College
+ */
+export function getDegreesForUniversityAndCollege(universityIdOrName, collegeIdOrName) {
+  const univKey = findUniversityKey(universityIdOrName);
+  const preferredOrder = ["Diploma", "B.Tech", "BA", "BSc", "BCom", "Education", "Law"];
+
+  const sortDegrees = (degSet) => {
+    const arr = Array.from(degSet);
+    return arr.sort((a, b) => {
+      const idxA = preferredOrder.indexOf(a);
+      const idxB = preferredOrder.indexOf(b);
+      if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+      if (idxA !== -1) return -1;
+      if (idxB !== -1) return 1;
+      return a.localeCompare(b);
+    });
+  };
+
+  if (univKey) {
+    const collegeKey = findCollegeKey(univKey, collegeIdOrName);
+    const univObj = universitiesData[univKey];
+
+    if (collegeKey && univObj?.colleges?.[collegeKey]?.departments) {
+      const collegeDepts = univObj.colleges[collegeKey].departments;
+      const degSet = new Set();
+      Object.keys(collegeDepts).forEach((degreeKey) => {
+        degSet.add(normalizeDegree(degreeKey));
+      });
+      if (degSet.size > 0) {
+        return sortDegrees(degSet);
+      }
+    }
+
+    // Fall back to all degrees under this university across all its colleges
+    if (univObj?.colleges) {
+      const degSet = new Set();
+      Object.values(univObj.colleges).forEach((college) => {
+        if (college.departments && typeof college.departments === "object") {
+          Object.keys(college.departments).forEach((degreeKey) => {
+            degSet.add(normalizeDegree(degreeKey));
+          });
+        }
+      });
+      if (degSet.size > 0) {
+        return sortDegrees(degSet);
+      }
+    }
+  }
+
+  // Global fallback
+  return DEGREE_LIST;
+}
+
+/**
  * Returns available departments for a given degree dynamically extracted from universitiesData
  */
 export function getDepartmentsForDegree(degreeStr) {
@@ -173,15 +259,18 @@ export function getDepartmentsForDegree(degreeStr) {
 /**
  * Gets departments for a specific university, college, and degree combination
  */
-export function getDepartmentsForCollegeAndDegree(universityId, collegeId, degreeStr) {
-  if (!universityId || !collegeId || universityId === "others" || collegeId === "others") {
+export function getDepartmentsForCollegeAndDegree(universityIdOrName, collegeIdOrName, degreeStr) {
+  if (!universityIdOrName || !collegeIdOrName || universityIdOrName === "others" || collegeIdOrName === "others") {
     return getDepartmentsForDegree(degreeStr);
   }
 
-  const universityObj = universitiesData[universityId];
-  if (!universityObj) return getDepartmentsForDegree(degreeStr);
+  const univKey = findUniversityKey(universityIdOrName);
+  if (!univKey) return getDepartmentsForDegree(degreeStr);
 
-  const collegeObj = universityObj.colleges?.[collegeId];
+  const collegeKey = findCollegeKey(univKey, collegeIdOrName);
+  if (!collegeKey) return getDepartmentsForDegree(degreeStr);
+
+  const collegeObj = universitiesData[univKey]?.colleges?.[collegeKey];
   if (!collegeObj || !collegeObj.departments) return getDepartmentsForDegree(degreeStr);
 
   const normDeg = normalizeDegree(degreeStr);
@@ -202,4 +291,63 @@ export function getDepartmentsForCollegeAndDegree(universityId, collegeId, degre
   }
 
   return getDepartmentsForDegree(degreeStr);
+}
+
+/**
+ * Dynamically builds department groups strictly for selected degrees (used in admin internship create/edit forms)
+ */
+export function getDepartmentGroupsForDegrees(selectedDegrees) {
+  if (!selectedDegrees || (Array.isArray(selectedDegrees) && selectedDegrees.length === 0)) {
+    return DEPARTMENT_GROUPS;
+  }
+
+  const degreesArr = Array.isArray(selectedDegrees) ? selectedDegrees : [selectedDegrees];
+  const normalizedDegrees = degreesArr.map((d) => normalizeDegree(d));
+
+  const groups = {};
+
+  if (normalizedDegrees.includes("B.Tech") || normalizedDegrees.includes("Diploma")) {
+    const map = buildDegreeDepartmentMap();
+    const engDepts = Array.from(
+      new Set([
+        ...(normalizedDegrees.includes("B.Tech") ? map["B.Tech"] || [] : []),
+        ...(normalizedDegrees.includes("Diploma") ? map["Diploma"] || [] : []),
+      ])
+    ).sort();
+    if (engDepts.length > 0) {
+      groups["Engineering (B.Tech / Diploma)"] = engDepts;
+    }
+  }
+
+  if (normalizedDegrees.includes("BSc") && DEPARTMENT_GROUPS["Pure & Applied Sciences (BSc)"]) {
+    groups["Pure & Applied Sciences (BSc)"] = DEPARTMENT_GROUPS["Pure & Applied Sciences (BSc)"];
+  }
+
+  if (normalizedDegrees.includes("BA") && DEPARTMENT_GROUPS["Arts & Humanities (BA)"]) {
+    groups["Arts & Humanities (BA)"] = DEPARTMENT_GROUPS["Arts & Humanities (BA)"];
+  }
+
+  if (normalizedDegrees.includes("BCom") && DEPARTMENT_GROUPS["Commerce (BCom)"]) {
+    groups["Commerce (BCom)"] = DEPARTMENT_GROUPS["Commerce (BCom)"];
+  }
+
+  if (normalizedDegrees.includes("Education") && DEPARTMENT_GROUPS["Education"]) {
+    groups["Education"] = DEPARTMENT_GROUPS["Education"];
+  }
+
+  if (normalizedDegrees.includes("Law") && DEPARTMENT_GROUPS["Law"]) {
+    groups["Law"] = DEPARTMENT_GROUPS["Law"];
+  }
+
+  // Include any other custom degrees selected
+  normalizedDegrees.forEach((normDeg) => {
+    if (!["B.Tech", "Diploma", "BA", "BSc", "BCom", "Education", "Law"].includes(normDeg)) {
+      const depts = getDepartmentsForDegree(normDeg);
+      if (depts.length > 0) {
+        groups[normDeg] = depts;
+      }
+    }
+  });
+
+  return Object.keys(groups).length > 0 ? groups : DEPARTMENT_GROUPS;
 }

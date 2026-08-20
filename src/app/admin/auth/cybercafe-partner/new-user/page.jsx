@@ -56,7 +56,7 @@ export default function RegisterPage() {
     // Security
     password: "",
     confirmPassword: "",
-    agreeTerms: false,
+    agreeTerms: true,
   });
 
   const [errors, setErrors] = useState({});
@@ -64,15 +64,6 @@ export default function RegisterPage() {
   const [completedPaymentDetails, setCompletedPaymentDetails] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  // Email Verification states
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpInput, setOtpInput] = useState("");
-  const [otpLoading, setOtpLoading] = useState(false);
-  const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
-  const [otpCooldown, setOtpCooldown] = useState(0);
-  const [otpError, setOtpError] = useState("");
-  const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
   const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
 
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
@@ -230,87 +221,6 @@ export default function RegisterPage() {
       return collegeRates.internshipRate;
     }
     return originalPrice;
-  };
-
-  useEffect(() => {
-    let timer;
-    if (otpCooldown > 0) {
-      timer = setTimeout(() => setOtpCooldown(otpCooldown - 1), 1000);
-    }
-    return () => clearTimeout(timer);
-  }, [otpCooldown]);
-
-  const handleSendOtp = async () => {
-    setOtpError("");
-    setEmailAlreadyRegistered(false);
-    if (!formData.email.trim() || !validateEmailFormat(formData.email)) {
-      setShowInvalidEmailModal(true);
-      setErrors((prev) => ({ ...prev, email: "Invalid email format" }));
-      return;
-    }
-
-    setOtpLoading(true);
-    try {
-      const res = await fetch("/api/otp/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: formData.email }),
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setOtpSent(true);
-        setOtpCooldown(60);
-        alert(data.message || "OTP sent successfully!");
-      } else {
-        const errMsg = data.error || "Failed to send OTP.";
-        setOtpError(errMsg);
-        if (
-          errMsg.toLowerCase().includes("already registered") ||
-          errMsg.toLowerCase().includes("already in use")
-        ) {
-          setEmailAlreadyRegistered(true);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      setOtpError(`Failed to request OTP. Please try again.`);
-    } finally {
-      setOtpLoading(false);
-    }
-  };
-
-  const handleVerifyOtp = async () => {
-    setOtpError("");
-    if (otpInput.length !== 6) {
-      setOtpError("Please enter a valid 6-digit OTP code");
-      return;
-    }
-
-    setOtpVerifyLoading(true);
-    try {
-      const res = await fetch("/api/otp/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: formData.email, otp: otpInput }),
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setIsEmailVerified(true);
-        setOtpSent(false);
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors.email;
-          return newErrors;
-        });
-      } else {
-        setOtpError(data.error || "Invalid OTP code.");
-      }
-    } catch (err) {
-      console.error(err);
-      setOtpError("Verification failed. Please try again.");
-    } finally {
-      setOtpVerifyLoading(false);
-    }
   };
 
   const totalSteps = 4;
@@ -606,8 +516,6 @@ export default function RegisterPage() {
       if (!formData.email.trim() || !validateEmailFormat(formData.email)) {
         newErrors.email = "Invalid email format";
         setShowInvalidEmailModal(true);
-      } else if (!isEmailVerified) {
-        newErrors.email = "Please verify student email using OTP.";
       }
       if (!formData.phone.trim()) {
         newErrors.phone = "Phone number is required";
@@ -650,9 +558,6 @@ export default function RegisterPage() {
       if (payableAmount > 0 && !completedPaymentDetails) {
         newErrors.payment = "Please complete the registration fee payment to proceed.";
       }
-    } else if (step === 4) {
-      if (!formData.agreeTerms)
-        newErrors.agreeTerms = "You must agree to terms and conditions";
     }
 
     setErrors(newErrors);
@@ -1488,22 +1393,6 @@ export default function RegisterPage() {
                   </div>
                   <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">₹{getPayableAmount()}</span>
                 </div>
-              )}
-
-              <label className="flex items-start cursor-pointer p-4 rounded-xl border-2 border-border-main hover:border-brand-primary transition-colors group">
-                <input
-                  type="checkbox"
-                  name="agreeTerms"
-                  checked={formData.agreeTerms}
-                  onChange={handleInputChange}
-                  className="w-5 h-5 rounded accent-brand-primary cursor-pointer mt-1 flex-shrink-0"
-                />
-                <span className="ml-3 text-sm text-text-muted group-hover:text-text-main transition-colors">
-                  I agree to the Terms & Privacy Policy and internship terms.
-                </span>
-              </label>
-              {errors.agreeTerms && (
-                <p className="text-red-500 text-xs">{errors.agreeTerms}</p>
               )}
             </div>
           )}

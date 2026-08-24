@@ -20,6 +20,7 @@ export default function InternshipEditPage() {
   const [uploadingFile, setUploadingFile] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
+  const [completingAll, setCompletingAll] = useState(false);
   const [adminsList, setAdminsList] = useState([]);
   const [isAccessDenied, setIsAccessDenied] = useState(false);
   const [adminData, setAdminData] = useState(null);
@@ -856,6 +857,40 @@ export default function InternshipEditPage() {
     }
   };
 
+  const handleCompleteAllStudents = async () => {
+    const isTestActive = formData.testStatus === "Published" && (formData.testQuestions?.length || 0) > 0;
+    const confirmMsg = isTestActive
+      ? "Are you sure you want to mark all enrolled students as Completed?\n\nBecause a test is active, students will receive an 'Appear for Test' option to take their test and receive certificates."
+      : "Are you sure you want to mark all enrolled students as Completed?\n\nBecause no test is active, certificates and attendance sheets will be automatically generated and emailed to all students immediately.";
+
+    if (!window.confirm(confirmMsg)) return;
+
+    setCompletingAll(true);
+    setError(null);
+    setMessage(null);
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
+      const res = await fetch("/api/internship/complete-all", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ internshipId }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setMessage(data.message);
+      } else {
+        setError(data.error || "Failed to complete students");
+      }
+    } catch (err) {
+      setError("Error: " + err.message);
+    } finally {
+      setCompletingAll(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -896,12 +931,33 @@ export default function InternshipEditPage() {
             Manage internship details, requirements, and multimedia content.
           </p>
         </div>
-        <Link
-          href="/admin/auth/dashboard/internship"
-          className="inline-flex items-center justify-center rounded-xl border border-border-main bg-bg-card px-4 py-2 text-sm font-semibold text-text-main hover:border-brand-primary hover:text-brand-primary transition"
-        >
-          Back to Internships
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          {isEditing && (
+            <button
+              type="button"
+              onClick={handleCompleteAllStudents}
+              disabled={completingAll}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition disabled:opacity-50 cursor-pointer"
+            >
+              {completingAll ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  Completing Students...
+                </>
+              ) : (
+                <>
+                  <span>🎓</span> Complete All Students
+                </>
+              )}
+            </button>
+          )}
+          <Link
+            href="/admin/auth/dashboard/internship"
+            className="inline-flex items-center justify-center rounded-xl border border-border-main bg-bg-card px-4 py-2 text-sm font-semibold text-text-main hover:border-brand-primary hover:text-brand-primary transition"
+          >
+            Back to Internships
+          </Link>
+        </div>
       </div>
 
       {/* Notifications */}

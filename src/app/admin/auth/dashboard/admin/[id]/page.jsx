@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import AdminResetPasswordModal from "@/components/AdminResetPasswordModal";
 
 export default function AdminEditPage() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function AdminEditPage() {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
   const [createdUsers, setCreatedUsers] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -194,12 +196,21 @@ export default function AdminEditPage() {
             Modify credentials, shop permissions, bank accounts and metrics for this admin account.
           </p>
         </div>
-        <Link
-          href="/admin/auth/dashboard/admin"
-          className="inline-flex items-center justify-center rounded-xl border border-border-main bg-bg-card px-4 py-2 text-sm font-semibold text-text-main hover:border-brand-primary hover:text-brand-primary transition"
-        >
-          Back to Admins
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setShowResetPasswordModal(true)}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition cursor-pointer"
+          >
+            <span>🔑</span> Reset Password
+          </button>
+          <Link
+            href="/admin/auth/dashboard/admin"
+            className="inline-flex items-center justify-center rounded-xl border border-border-main bg-bg-card px-4 py-2 text-sm font-semibold text-text-main hover:border-brand-primary hover:text-brand-primary transition"
+          >
+            Back to Admins
+          </Link>
+        </div>
       </div>
 
       {/* Notifications */}
@@ -636,6 +647,20 @@ export default function AdminEditPage() {
           </div>
         )}
       </form>
+      <AdminResetPasswordModal
+        isOpen={showResetPasswordModal}
+        targetAccount={{
+          id: adminId,
+          name: formData.name || "Staff",
+          email: formData.email,
+          role: formData.role || "Admin",
+          type: "admin"
+        }}
+        onClose={() => setShowResetPasswordModal(false)}
+        onSuccess={() => {
+          setMessage(`Password for ${formData.name || formData.email} was reset successfully!`);
+        }}
+      />
     </div>
   );
 }

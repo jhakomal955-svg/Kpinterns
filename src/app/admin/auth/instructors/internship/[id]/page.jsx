@@ -31,6 +31,8 @@ export default function InstructorInternshipEditPage() {
 
   const [editingContentIndex, setEditingContentIndex] = useState(null);
   const [editingUpdateIndex, setEditingUpdateIndex] = useState(null);
+  const [completingAll, setCompletingAll] = useState(false);
+  const [showAllBranches, setShowAllBranches] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -142,6 +144,41 @@ export default function InstructorInternshipEditPage() {
       alert("Error grading assignment");
     } finally {
       setGradingSubmitting(false);
+    }
+  };
+
+  const handleCompleteAllStudents = async () => {
+    const isTestActive = formData.testStatus === "Published" && (formData.testQuestions?.length || 0) > 0;
+    const confirmMsg = isTestActive
+      ? "Are you sure you want to mark all enrolled students as Completed?\n\nBecause a test is active, students will receive an 'Appear for Test' option to take their test and receive certificates."
+      : "Are you sure you want to mark all enrolled students as Completed?\n\nBecause no test is active, certificates and attendance sheets will be automatically generated and emailed to all students immediately.";
+
+    if (!window.confirm(confirmMsg)) return;
+
+    setCompletingAll(true);
+    setError(null);
+    setMessage(null);
+    try {
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch("/api/internship/complete-all", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ internshipId }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setMessage(data.message);
+        await fetchEnrolledStudents();
+      } else {
+        setError(data.error || "Failed to complete students");
+      }
+    } catch (err) {
+      setError("Error: " + err.message);
+    } finally {
+      setCompletingAll(false);
     }
   };
 
@@ -558,8 +595,44 @@ export default function InstructorInternshipEditPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <span className="text-xs uppercase font-extrabold text-brand-secondary tracking-wider">{Array.isArray(formData.department) ? formData.department.join(", ") : formData.department} ({formData.domain})</span>
+        <div className="flex-1 min-w-0">
+          {(() => {
+            const depts = Array.isArray(formData.department)
+              ? formData.department
+              : (formData.department ? [formData.department] : []);
+
+            if (depts.length === 0) {
+              return (
+                <span className="text-xs uppercase font-extrabold text-brand-secondary tracking-wider block mb-1">
+                  {formData.domain}
+                </span>
+              );
+            }
+
+            const limit = 3;
+            const hasMore = depts.length > limit;
+            const visibleDepts = showAllBranches ? depts : depts.slice(0, limit);
+
+            return (
+              <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+                <span className="text-xs uppercase font-extrabold text-brand-secondary tracking-wider">
+                  {formData.domain} •
+                </span>
+                <span className="text-xs uppercase font-bold text-text-muted leading-relaxed">
+                  {visibleDepts.join(", ")}
+                </span>
+                {hasMore && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllBranches(!showAllBranches)}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-brand-primary hover:text-brand-secondary bg-brand-primary/10 hover:bg-brand-primary/20 px-2.5 py-0.5 rounded-full transition cursor-pointer border border-brand-primary/20"
+                  >
+                    {showAllBranches ? "Show Less ▲" : `+${depts.length - limit} more branches ▼`}
+                  </button>
+                )}
+              </div>
+            );
+          })()}
           <h1 className="text-2xl sm:text-3xl font-bold text-text-main">
             {formData.position} Internship
           </h1>
@@ -1044,6 +1117,54 @@ export default function InstructorInternshipEditPage() {
 
         {activeTab === "submissions" && (
           <div className="space-y-6">
+            {/* Bulk Completion Action Banner */}
+            <div className="bg-gradient-to-r from-brand-primary/10 via-brand-secondary/10 to-emerald-500/10 border-2 border-brand-primary/30 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🎓</span>
+                  <h3 className="text-base font-bold text-text-main">
+                    Complete All Enrolled Students
+                  </h3>
+                  {formData.testStatus === "Published" && (formData.testQuestions?.length || 0) > 0 ? (
+                    <span className="bg-amber-500/15 text-amber-600 dark:text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/30">
+                      📝 Test Active
+                    </span>
+                  ) : (
+                    <span className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
+                      ⚡ Direct Certificates
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-text-muted max-w-xl">
+                  {formData.testStatus === "Published" && (formData.testQuestions?.length || 0) > 0
+                    ? "Marks all enrolled students as Completed. Since the test is active, students will receive an 'Appear for Test' option to take their test and receive certificates."
+                    : "Marks all enrolled students as Completed. Certificates and attendance sheets will be generated and emailed directly to all students."}
+                </p>
+                <div className="flex items-center gap-3 pt-1 text-[11px] font-semibold text-text-muted">
+                  <span>👥 Total: <strong className="text-text-main">{enrolledStudents.length}</strong></span>
+                  <span>✓ Completed: <strong className="text-emerald-500">{enrolledStudents.filter(s => s.ActiveInternship?.some(i => (i.internship?._id || i.internship) === internshipId && i.internshipStatus === "Completed")).length}</strong></span>
+                  <span>⏳ Active: <strong className="text-amber-500">{enrolledStudents.filter(s => s.ActiveInternship?.some(i => (i.internship?._id || i.internship) === internshipId && i.internshipStatus !== "Completed")).length}</strong></span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleCompleteAllStudents}
+                disabled={completingAll || enrolledStudents.length === 0}
+                className="w-full sm:w-auto px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs rounded-xl shadow-md transition disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer flex-shrink-0"
+              >
+                {completingAll ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    Processing Completion...
+                  </>
+                ) : (
+                  <>
+                    <span>🎓</span> Mark All Students as Completed
+                  </>
+                )}
+              </button>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Left Column: Student List */}
               <div className="md:col-span-1 bg-bg-card border-2 border-border-main rounded-2xl p-5 space-y-4">
@@ -1070,6 +1191,7 @@ export default function InstructorInternshipEditPage() {
                       const pendingCount = studentEnrollment?.assignments?.filter(
                         a => a.status !== "Graded"
                       ).length || 0;
+                      const isCompleted = studentEnrollment?.internshipStatus === "Completed";
 
                       return (
                         <button
@@ -1088,17 +1210,35 @@ export default function InstructorInternshipEditPage() {
                           }`}
                         >
                           <div className="flex items-center justify-between w-full">
-                            <span className="font-bold text-xs truncate max-w-[120px]">{student.name}</span>
-                            {pendingCount > 0 && (
-                              <span className="bg-blue-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full">
-                                {pendingCount} Pending
+                            <span className="font-bold text-xs truncate max-w-[120px]">{student.fullName || student.name}</span>
+                            <div className="flex items-center gap-1">
+                              {isCompleted ? (
+                                <span className="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full border border-emerald-500/30">
+                                  ✓ Completed
+                                </span>
+                              ) : (
+                                <span className="bg-amber-500/15 text-amber-600 dark:text-amber-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded-full border border-amber-500/30">
+                                  Active
+                                </span>
+                              )}
+                              {pendingCount > 0 && (
+                                <span className="bg-blue-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full">
+                                  {pendingCount} P
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <span className="text-[10px] text-text-muted truncate max-w-[150px]">{student.email}</span>
+                          <div className="flex items-center justify-between gap-1 w-full">
+                            <span className="text-[9px] text-text-muted font-medium bg-bg-card px-2 py-0.5 rounded border border-border-main/50 truncate max-w-[130px]">
+                              {student.college || "No College"}
+                            </span>
+                            {studentEnrollment?.testScore !== null && studentEnrollment?.testScore !== undefined && (
+                              <span className="text-[9px] font-bold text-brand-primary">
+                                Score: {studentEnrollment.testScore}%
                               </span>
                             )}
                           </div>
-                          <span className="text-[10px] text-text-muted truncate max-w-[150px]">{student.email}</span>
-                          <span className="text-[9px] text-text-muted font-medium bg-bg-card px-2 py-0.5 rounded border border-border-main/50 self-start">
-                            {student.college || "No College"}
-                          </span>
                         </button>
                       );
                     })}

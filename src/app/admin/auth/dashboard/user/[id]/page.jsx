@@ -73,6 +73,7 @@ function calculateCourseEndDate(startDate, accessDuration) {
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
+import AdminResetPasswordModal from "@/components/AdminResetPasswordModal";
 
 // Premium Custom File Uploader Component with Drag & Drop, Animations, and Cloudinary Upload
 function BeautifulFileUploader({ label, value, onChange, onRemove }) {
@@ -223,6 +224,7 @@ export default function UserEditPage() {
   const [allInternships, setAllInternships] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
+  const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -598,12 +600,23 @@ export default function UserEditPage() {
             Manage student details, academic registration, and course/internship enrollments.
           </p>
         </div>
-        <Link
-          href="/admin/auth/dashboard/user"
-          className="inline-flex items-center justify-center rounded-xl border border-border-main bg-bg-card px-4 py-2 text-sm font-semibold text-text-main hover:border-brand-primary hover:text-brand-primary transition"
-        >
-          Back to Users
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          {isEditing && (
+            <button
+              type="button"
+              onClick={() => setShowResetPasswordModal(true)}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition cursor-pointer"
+            >
+              <span>🔑</span> Reset Password
+            </button>
+          )}
+          <Link
+            href="/admin/auth/dashboard/user"
+            className="inline-flex items-center justify-center rounded-xl border border-border-main bg-bg-card px-4 py-2 text-sm font-semibold text-text-main hover:border-brand-primary hover:text-brand-primary transition"
+          >
+            Back to Users
+          </Link>
+        </div>
       </div>
 
       {/* Notifications */}
@@ -1901,6 +1914,20 @@ export default function UserEditPage() {
           </button>
         </div>
       </form>
+      <AdminResetPasswordModal
+        isOpen={showResetPasswordModal}
+        targetAccount={{
+          id: userId,
+          name: formData.fullName || "Student",
+          email: formData.email,
+          role: "Student",
+          type: "user"
+        }}
+        onClose={() => setShowResetPasswordModal(false)}
+        onSuccess={() => {
+          setMessage(`Password for ${formData.fullName || formData.email} was reset successfully!`);
+        }}
+      />
     </div>
   );
 }

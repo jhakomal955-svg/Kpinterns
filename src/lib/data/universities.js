@@ -64,7 +64,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -130,7 +132,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -196,7 +200,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -262,7 +268,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -328,7 +336,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -394,7 +404,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -460,7 +472,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -526,7 +540,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -592,7 +608,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -658,7 +676,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -724,7 +744,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -790,7 +812,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -856,7 +880,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -922,7 +948,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -988,7 +1016,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1054,7 +1084,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1120,7 +1152,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1186,7 +1220,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1252,7 +1288,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1318,7 +1356,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1384,7 +1424,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1450,7 +1492,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1516,7 +1560,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1582,7 +1628,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1648,7 +1696,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1714,7 +1764,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1780,7 +1832,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1846,7 +1900,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1912,7 +1968,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -1978,7 +2036,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2044,7 +2104,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2110,7 +2172,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2176,7 +2240,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2242,7 +2308,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2308,7 +2376,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2374,7 +2444,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2440,7 +2512,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2506,7 +2580,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2572,7 +2648,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2638,7 +2716,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2704,7 +2784,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2770,7 +2852,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2836,7 +2920,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2902,7 +2988,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -2968,7 +3056,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3034,7 +3124,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3100,7 +3192,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3166,7 +3260,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3232,7 +3328,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3298,7 +3396,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3364,7 +3464,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3430,7 +3532,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       }
@@ -3501,7 +3605,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3567,7 +3673,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3633,7 +3741,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3699,7 +3809,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3765,7 +3877,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3831,7 +3945,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3897,7 +4013,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -3963,7 +4081,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4029,7 +4149,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4095,7 +4217,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4161,7 +4285,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4227,7 +4353,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4293,7 +4421,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4359,7 +4489,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4425,7 +4557,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4491,7 +4625,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4557,7 +4693,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4623,7 +4761,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4689,7 +4829,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4755,7 +4897,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4821,7 +4965,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4887,7 +5033,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -4953,7 +5101,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5019,7 +5169,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5085,7 +5237,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5151,7 +5305,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5217,7 +5373,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5283,7 +5441,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5349,7 +5509,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5415,7 +5577,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5481,7 +5645,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5547,7 +5713,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5613,7 +5781,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5679,7 +5849,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5745,7 +5917,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5811,7 +5985,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5877,7 +6053,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -5943,7 +6121,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       }
@@ -26098,7 +26278,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26164,7 +26346,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26230,7 +26414,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26296,7 +26482,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26362,7 +26550,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26428,7 +26618,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26494,7 +26686,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26620,7 +26814,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26686,7 +26882,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26752,7 +26950,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26818,7 +27018,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26884,7 +27086,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -26950,7 +27154,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27016,7 +27222,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27082,7 +27290,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27148,7 +27358,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27214,7 +27426,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27280,7 +27494,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27346,7 +27562,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27412,7 +27630,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27478,7 +27698,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27544,7 +27766,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27610,7 +27834,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27676,7 +27902,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27742,7 +27970,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27808,7 +28038,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27874,7 +28106,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -27940,7 +28174,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28006,7 +28242,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28072,7 +28310,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28138,7 +28378,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28204,7 +28446,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28270,7 +28514,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28336,7 +28582,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28522,7 +28770,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28588,7 +28838,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28654,7 +28906,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28720,7 +28974,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28786,7 +29042,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28852,7 +29110,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -28978,7 +29238,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29044,7 +29306,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29110,7 +29374,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29176,7 +29442,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29242,7 +29510,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29308,7 +29578,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29374,7 +29646,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29440,7 +29714,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29506,7 +29782,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29572,7 +29850,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29638,7 +29918,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       },
@@ -29704,7 +29986,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ],
           "B.Tech": [
             "Civil Engineering",
@@ -29765,7 +30049,9 @@ export const universitiesData = {
             "VLSI Design",
             "Renewable Energy Engineering",
             "Power Engineering",
-            "Telecommunication Engineering"
+            "Telecommunication Engineering",
+            "Civil Engineering with computer application",
+            "CSE AI"
           ]
         }
       }

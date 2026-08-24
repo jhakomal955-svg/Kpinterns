@@ -68,6 +68,7 @@ export async function GET(request) {
         collegeRates: {
           internshipRate,
           courseRate,
+          internshipStartDate: collegeAdmin?.internshipStartDate || null,
         },
       },
       { status: 200 }

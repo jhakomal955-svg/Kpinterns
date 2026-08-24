@@ -529,17 +529,32 @@ export async function POST(request) {
       }
     }
 
-    // Enforce partner college internship starting date if set for this college
-    if (data.college && data.ActiveInternship && data.ActiveInternship.length > 0) {
-      const Admin = createModel("Admin", AdminModel);
-      const escapedCollege = data.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-      const collegeAdmin = await Admin.findOne({
-        role: "College Admin",
-        verified: true,
-        CollegeName: { $exists: true, $ne: "", $regex: new RegExp("^" + escapedCollege + "$", "i") }
-      });
-      if (collegeAdmin && collegeAdmin.internshipStartDate) {
-        const customStart = new Date(collegeAdmin.internshipStartDate);
+    // Enforce partner college internship starting date OR user selected internship starting date
+    if (data.ActiveInternship && data.ActiveInternship.length > 0) {
+      let customStart = null;
+
+      if (data.college) {
+        const Admin = createModel("Admin", AdminModel);
+        const escapedCollege = data.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+        const collegeAdmin = await Admin.findOne({
+          role: "College Admin",
+          verified: true,
+          CollegeName: { $exists: true, $ne: "", $regex: new RegExp("^" + escapedCollege + "$", "i") }
+        });
+        if (collegeAdmin && collegeAdmin.internshipStartDate) {
+          customStart = new Date(collegeAdmin.internshipStartDate);
+        }
+      }
+
+      // If college is not a partner college or has no start date, check if user provided their custom internshipStartDate
+      if (!customStart && data.internshipStartDate) {
+        const parsed = new Date(data.internshipStartDate);
+        if (!isNaN(parsed.getTime())) {
+          customStart = parsed;
+        }
+      }
+
+      if (customStart && !isNaN(customStart.getTime())) {
         const Internship = createModel("Internship", InternshipModel);
         for (const item of data.ActiveInternship) {
           item.startDate = customStart;

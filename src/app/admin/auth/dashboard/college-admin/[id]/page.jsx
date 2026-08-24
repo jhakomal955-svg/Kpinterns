@@ -210,6 +210,7 @@ export default function CollegeAdminEditPage() {
         ...formData,
         UniversityName: resolvedUniversityName,
         CollegeName: resolvedCollegeName,
+        internshipStartDate: formData.internshipStartDate || null,
         bankDetails: {
           name: formData.bankDetails.name.trim(),
           accountNumber: formData.bankDetails.accountNumber.trim(),
@@ -782,7 +783,7 @@ export default function CollegeAdminEditPage() {
           {activeTab === "institution" && (
             <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
               <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-                2. Institution Mapping
+                2. Institution Mapping & Schedule
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -818,6 +819,23 @@ export default function CollegeAdminEditPage() {
                   </select>
                 </div>
               </div>
+
+              {/* Internship Starting Date Field */}
+              <div className="pt-4 border-t border-border-main">
+                <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">
+                  📅 College Internship Starting Date (Reflected to All College Students)
+                </label>
+                <input
+                  type="date"
+                  name="internshipStartDate"
+                  value={formData.internshipStartDate}
+                  onChange={handleInputChange}
+                  className="w-full sm:w-1/2 p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none text-text-main"
+                />
+                <p className="text-xs text-text-muted mt-2">
+                  ⚡ When you set or update this starting date, it will automatically synchronize the internship start date and duration-based end date for all students enrolled under this college.
+                </p>
+              </div>
             </div>
           )}
 
@@ -846,7 +864,7 @@ export default function CollegeAdminEditPage() {
           {activeTab === "financials" && (
             <div className="space-y-6 bg-bg-card border-2 border-border-main rounded-2xl p-6 shadow-sm animate-fade-in">
               <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary border-b border-border-main pb-2">
-                4. Rates & Metrics
+                4. Rates & Schedule Metrics
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -856,6 +874,21 @@ export default function CollegeAdminEditPage() {
                 <div>
                   <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Special Course Rate (₹)</label>
                   <input type="number" name="courseRate" value={formData.courseRate} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
+                </div>
+                <div className="md:col-span-2 pt-3 border-t border-border-main">
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">
+                    📅 Internship Starting Date
+                  </label>
+                  <input
+                    type="date"
+                    name="internshipStartDate"
+                    value={formData.internshipStartDate}
+                    onChange={handleInputChange}
+                    className="w-full sm:w-1/2 p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none text-text-main"
+                  />
+                  <p className="text-xs text-text-muted mt-1.5">
+                    Standard start date assigned to all enrolled students under this college.
+                  </p>
                 </div>
               </div>
             </div>

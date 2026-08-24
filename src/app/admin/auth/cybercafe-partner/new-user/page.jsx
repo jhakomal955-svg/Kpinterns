@@ -49,6 +49,7 @@ export default function RegisterPage() {
     registrationNumber: "",
     internshipId: "",
     internshipDomain: "",
+    internshipStartDate: "",
     mode: "",
     universityCustom: "",
     collegeCustom: "",
@@ -64,7 +65,7 @@ export default function RegisterPage() {
   const [completedPaymentDetails, setCompletedPaymentDetails] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0 });
+  const [collegeRates, setCollegeRates] = useState({ registered: false, internshipRate: 0, courseRate: 0, internshipStartDate: null });
 
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
 
@@ -181,11 +182,23 @@ export default function RegisterPage() {
         const res = await fetch(`/api/college-rate?college=${encodeURIComponent(resolvedCollege.trim())}`);
         const data = await res.json();
         if (data.success) {
+          const formattedDate = data.internshipStartDate
+            ? new Date(data.internshipStartDate).toISOString().split("T")[0]
+            : null;
+
           setCollegeRates({
             registered: data.registered,
             internshipRate: data.internshipRate || 0,
-            courseRate: data.courseRate || 0
+            courseRate: data.courseRate || 0,
+            internshipStartDate: formattedDate,
           });
+
+          if (data.registered && formattedDate) {
+            setFormData((prev) => ({
+              ...prev,
+              internshipStartDate: formattedDate,
+            }));
+          }
         }
       } catch (err) {
         console.error("Error fetching college rates:", err);
@@ -548,6 +561,12 @@ export default function RegisterPage() {
         if (!formData.mode) newErrors.mode = "Mode is required";
       }
     } else if (step === 3) {
+      if (purchaseType === "internship" && (!collegeRates.registered || !collegeRates.internshipStartDate)) {
+        if (!formData.internshipStartDate) {
+          newErrors.internshipStartDate = "Please select internship starting date";
+        }
+      }
+
       if (!formData.password) newErrors.password = "Password is required";
       if (formData.password.length < 6)
         newErrors.password = "Password must be at least 6 characters";
@@ -637,6 +656,7 @@ export default function RegisterPage() {
           college: formData.college === "others" ? formData.collegeCustom : (collegeObj ? collegeObj.name : formData.college),
           courseId: purchaseType === "course" ? finalItemId : undefined,
           internshipId: purchaseType === "internship" ? finalItemId : undefined,
+          internshipStartDate: formData.internshipStartDate || undefined,
           paymentDetails: hasValidExistingPayment ? completedPaymentDetails : undefined,
         };
 
@@ -1220,6 +1240,66 @@ export default function RegisterPage() {
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-6 border-b border-border-main/50">
+                {/* Internship Starting Date Selection or Partner College Designated Date */}
+                {purchaseType === "internship" && (
+                  <div className="sm:col-span-2 bg-brand-primary/5 border-2 border-brand-primary/30 rounded-2xl p-4 sm:p-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                      <label className="block text-sm font-bold text-text-main flex items-center gap-2">
+                        <span>📅</span>
+                        <span>Internship Starting Date</span>
+                        {(!collegeRates.registered || !collegeRates.internshipStartDate) && <span>*</span>}
+                      </label>
+                      {collegeRates.registered && collegeRates.internshipStartDate && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                          Selected by your college
+                        </span>
+                      )}
+                    </div>
+
+                    {collegeRates.registered && collegeRates.internshipStartDate ? (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3 bg-bg-main border-2 border-emerald-500/40 rounded-xl p-3 sm:w-2/3">
+                          <span className="text-xl">🏛️</span>
+                          <div>
+                            <div className="font-bold text-text-main text-sm">
+                              {new Date(collegeRates.internshipStartDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                            </div>
+                            <div className="text-[11px] text-text-muted">
+                              Standard schedule assigned by partner institution
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-xs text-text-muted mt-2 leading-relaxed">
+                          ℹ️ This start date has been fixed and configured by the partner college. Official documents and daily logs will start on this date.
+                        </p>
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="text-xs text-text-muted mb-3 leading-relaxed">
+                          Choose when the student's internship begins. Official <strong>Offer Letter</strong>, <strong>Completion Certificate</strong>, <strong>Daily Attendance</strong>, and <strong>Log Book</strong> will start on this date.
+                        </p>
+                        <input
+                          type="date"
+                          name="internshipStartDate"
+                          value={formData.internshipStartDate || ""}
+                          onChange={handleInputChange}
+                          required
+                          className={`w-full sm:w-1/2 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins text-text-main ${
+                            errors.internshipStartDate ? "border-red-500" : "border-border-main"
+                          }`}
+                        />
+                        {errors.internshipStartDate && (
+                          <p className="text-red-500 text-xs mt-1 font-medium">
+                            {errors.internshipStartDate}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div className="sm:col-span-2">
                   <label className="block text-sm font-semibold text-text-main mb-2">
                     Create Password *

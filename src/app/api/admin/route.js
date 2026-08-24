@@ -325,6 +325,12 @@ export async function PUT(request) {
       }
     }
 
+    if (data.internshipStartDate !== undefined) {
+      data.internshipStartDate = data.internshipStartDate && data.internshipStartDate !== ""
+        ? new Date(data.internshipStartDate)
+        : null;
+    }
+
     // Update admin
     const updatedAdmin = await Admin.findByIdAndUpdate(adminId, data, {
       new: true,

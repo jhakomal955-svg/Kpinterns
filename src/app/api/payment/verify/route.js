@@ -205,6 +205,7 @@ export async function POST(request) {
         session: studentPayload.session || "2023-2027",
         registrationNumber: studentPayload.registrationNumber,
         password: studentPayload.password || "KpStudent@2026",
+        internshipStartDate: studentPayload.internshipStartDate ? new Date(studentPayload.internshipStartDate) : null,
         verified: true,
       });
       await user.save();
@@ -247,6 +248,8 @@ export async function POST(request) {
 
       if (!isAlreadyEnrolled) {
         let startDate = new Date();
+        let customStartFound = false;
+
         if (user.college) {
           const Admin = createModel("Admin", AdminModel);
           const escapedCollege = user.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
@@ -257,8 +260,20 @@ export async function POST(request) {
           });
           if (collegeAdmin && collegeAdmin.internshipStartDate) {
             startDate = new Date(collegeAdmin.internshipStartDate);
+            customStartFound = true;
           }
         }
+
+        if (!customStartFound) {
+          const customStart = studentPayload?.internshipStartDate || body.internshipStartDate;
+          if (customStart) {
+            const parsed = new Date(customStart);
+            if (!isNaN(parsed.getTime())) {
+              startDate = parsed;
+            }
+          }
+        }
+
         const duration = internship.duration || "2 Weeks";
         const endDate = calculateEndDate(startDate, duration);
 

@@ -64,18 +64,18 @@ const AdminModel = {
     type: String,
     default: "",
   },
-  bankDetails:{
-    name:{
-      type:String,
-      required:true,
+  bankDetails: {
+    name: {
+      type: String,
+      default: "",
     },
-    accountNumber:{
-      type:String,
-      required:true,
+    accountNumber: {
+      type: String,
+      default: "",
     },
-    ifscCode:{
-      type:String,
-      required:true,
+    ifscCode: {
+      type: String,
+      default: "",
     },
   },
   internshipRate:{

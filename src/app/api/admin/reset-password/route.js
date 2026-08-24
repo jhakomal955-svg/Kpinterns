@@ -43,14 +43,14 @@ export async function POST(request) {
 
     if (targetType === "user") {
       const User = createModel("User", UserModel);
-      const student = await User.findById(targetId);
+      const student = await User.findByIdAndUpdate(
+        targetId,
+        { password: hashedPassword, updatedAt: new Date() },
+        { new: true }
+      );
       if (!student) {
         return Response.json({ error: "User not found." }, { status: 404 });
       }
-
-      student.password = hashedPassword;
-      student.updatedAt = new Date();
-      await student.save();
 
       return Response.json({
         success: true,
@@ -59,14 +59,14 @@ export async function POST(request) {
 
     } else if (targetType === "admin") {
       const Admin = createModel("Admin", AdminModel);
-      const staff = await Admin.findById(targetId);
+      const staff = await Admin.findByIdAndUpdate(
+        targetId,
+        { password: hashedPassword, updatedAt: new Date() },
+        { new: true }
+      );
       if (!staff) {
         return Response.json({ error: "Account not found." }, { status: 404 });
       }
-
-      staff.password = hashedPassword;
-      staff.updatedAt = new Date();
-      await staff.save();
 
       return Response.json({
         success: true,

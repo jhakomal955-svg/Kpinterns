@@ -3,7 +3,51 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, PartnerStudentModel, InternshipModel, AdminModel, CouponModel, VerificationOtpModel, LeadModel } from "@/models";
 import { signToken } from "@/lib/jwt";
 import Razorpay from "razorpay";
-import bcrypt from "bcryptjs";
+function calculateEndDate(startDate, durationStr) {
+  const date = new Date(startDate);
+  switch (durationStr) {
+    case "1-week":
+    case "1 Week":
+      date.setDate(date.getDate() + 7);
+      break;
+    case "2-weeks":
+    case "2 Weeks":
+      date.setDate(date.getDate() + 14);
+      break;
+    case "4-week":
+    case "4-weeks":
+    case "4 Weeks":
+      date.setDate(date.getDate() + 28);
+      break;
+    case "6-weeks":
+    case "6 Weeks":
+      date.setDate(date.getDate() + 42);
+      break;
+    case "8-weeks":
+    case "8 Weeks":
+      date.setDate(date.getDate() + 56);
+      break;
+    case "12-weeks":
+    case "12 Weeks":
+      date.setDate(date.getDate() + 84);
+      break;
+    case "1-month":
+      date.setMonth(date.getMonth() + 1);
+      break;
+    case "3-months":
+      date.setMonth(date.getMonth() + 3);
+      break;
+    case "6-months":
+      date.setMonth(date.getMonth() + 6);
+      break;
+    case "1-year":
+      date.setFullYear(date.getFullYear() + 1);
+      break;
+    default:
+      date.setDate(date.getDate() + 14);
+  }
+  return date;
+}
 
 export async function POST(request) {
   try {
@@ -242,6 +286,19 @@ export async function POST(request) {
         (i) => (i.internship?._id || i.internship).toString() === internshipDoc._id.toString()
       );
       if (!isAlreadyEnrolled) {
+        let startDate = new Date();
+        if (collegeAdmin && collegeAdmin.internshipStartDate) {
+          startDate = new Date(collegeAdmin.internshipStartDate);
+        } else if (body.internshipStartDate) {
+          const parsed = new Date(body.internshipStartDate);
+          if (!isNaN(parsed.getTime())) {
+            startDate = parsed;
+          }
+        }
+        const duration = internshipDoc.duration || "2 Weeks";
+        const endDate = calculateEndDate(startDate, duration);
+        userDoc.internshipStartDate = startDate;
+
         userDoc.ActiveInternship = userDoc.ActiveInternship || [];
         userDoc.ActiveInternship.push({
           internship: internshipDoc._id,
@@ -249,6 +306,8 @@ export async function POST(request) {
           progress: 0,
           paymentStatus: true,
           paymentDate: new Date(),
+          startDate: startDate,
+          endDate: endDate,
           amount: 0,
         });
         await userDoc.save();

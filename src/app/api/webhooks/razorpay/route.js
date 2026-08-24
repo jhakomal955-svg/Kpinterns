@@ -97,6 +97,70 @@ export async function POST(request) {
             (i) => (i.internship?._id || i.internship).toString() === itemId
           );
           if (!isAlreadyEnrolled) {
+            let startDate = user.internshipStartDate ? new Date(user.internshipStartDate) : new Date();
+            if (user.college) {
+              const Admin = createModel("Admin", AdminModel);
+              const escapedCollege = user.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+              const collegeAdmin = await Admin.findOne({
+                role: "College Admin",
+                verified: true,
+                CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") }
+              });
+              if (collegeAdmin && collegeAdmin.internshipStartDate) {
+                startDate = new Date(collegeAdmin.internshipStartDate);
+              }
+            }
+
+            const Internship = createModel("Internship", InternshipModel);
+            const intDoc = await Internship.findById(itemId);
+            const duration = intDoc?.duration || "2 Weeks";
+            const calculateEndDateHelper = (sDate, durStr) => {
+              const date = new Date(sDate);
+              switch (durStr) {
+                case "1-week":
+                case "1 Week":
+                  date.setDate(date.getDate() + 7);
+                  break;
+                case "2-weeks":
+                case "2 Weeks":
+                  date.setDate(date.getDate() + 14);
+                  break;
+                case "4-week":
+                case "4-weeks":
+                case "4 Weeks":
+                  date.setDate(date.getDate() + 28);
+                  break;
+                case "6-weeks":
+                case "6 Weeks":
+                  date.setDate(date.getDate() + 42);
+                  break;
+                case "8-weeks":
+                case "8 Weeks":
+                  date.setDate(date.getDate() + 56);
+                  break;
+                case "12-weeks":
+                case "12 Weeks":
+                  date.setDate(date.getDate() + 84);
+                  break;
+                case "1-month":
+                  date.setMonth(date.getMonth() + 1);
+                  break;
+                case "3-months":
+                  date.setMonth(date.getMonth() + 3);
+                  break;
+                case "6-months":
+                  date.setMonth(date.getMonth() + 6);
+                  break;
+                case "1-year":
+                  date.setFullYear(date.getFullYear() + 1);
+                  break;
+                default:
+                  date.setDate(date.getDate() + 14);
+              }
+              return date;
+            };
+            const endDate = calculateEndDateHelper(startDate, duration);
+
             const Attendance = createModel("Attendance", AttendanceModel);
             const newAtt = new Attendance({
               user: user._id,
@@ -105,6 +169,7 @@ export async function POST(request) {
             });
             await newAtt.save();
 
+            user.internshipStartDate = startDate;
             user.ActiveInternship = user.ActiveInternship || [];
             user.ActiveInternship.push({
               internship: itemId,
@@ -114,7 +179,8 @@ export async function POST(request) {
               paymentDate: new Date(),
               paymentId,
               amount: price,
-              startDate: new Date(),
+              startDate: startDate,
+              endDate: endDate,
               attendance: newAtt._id,
             });
             await user.save();

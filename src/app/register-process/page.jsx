@@ -95,6 +95,7 @@ export default function PartnerStudentPortalPage() {
     registrationNumber: "",
     semester: "6th",
     session: "2023-2027",
+    internshipStartDate: "",
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -214,6 +215,11 @@ export default function PartnerStudentPortalPage() {
   const validateStep3 = () => {
     if (!selectedInternship) {
       setErrors({ selectedInternship: "Please select an internship program to continue." });
+      window.scrollTo({ top: 300, behavior: "smooth" });
+      return false;
+    }
+    if (!collegeRates?.internshipStartDate && !studentForm.internshipStartDate) {
+      setErrors({ internshipStartDate: "Please select your internship starting date." });
       window.scrollTo({ top: 300, behavior: "smooth" });
       return false;
     }
@@ -644,6 +650,9 @@ export default function PartnerStudentPortalPage() {
           registrationNumber: data.student.registrationNumber || "",
           semester: data.student.semester || "6th",
           session: data.student.session || "2023-2027",
+          internshipStartDate: data.collegeRates?.internshipStartDate
+            ? new Date(data.collegeRates.internshipStartDate).toISOString().split("T")[0]
+            : "",
         });
         // College Partner Students pre-filled in backend do not need Email OTP verification!
         setIsEmailVerified(true);
@@ -933,6 +942,7 @@ export default function PartnerStudentPortalPage() {
         session: studentForm.session.trim(),
         registrationNumber: studentForm.registrationNumber.trim(),
         internshipId: selectedInternship,
+        internshipStartDate: studentForm.internshipStartDate || undefined,
         couponCode: (!partnerStudent && appliedCoupon) ? appliedCoupon.coupon?.code : undefined,
       };
 
@@ -1915,6 +1925,65 @@ export default function PartnerStudentPortalPage() {
                               Remove
                             </button>
                           </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Internship Starting Date Selection or Partner College Designated Date */}
+                  <div className="mt-5 p-4 sm:p-5 bg-bg-card border-2 border-brand-primary/30 rounded-2xl space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                      <label className="block text-sm font-bold text-text-main flex items-center gap-2">
+                        <span>📅</span>
+                        <span>Internship Starting Date</span>
+                        {!collegeRates?.internshipStartDate && <span>*</span>}
+                      </label>
+                      {collegeRates?.internshipStartDate && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                          Selected by your college
+                        </span>
+                      )}
+                    </div>
+
+                    {collegeRates?.internshipStartDate ? (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3 bg-bg-main border-2 border-emerald-500/40 rounded-xl p-3 sm:w-2/3">
+                          <span className="text-xl">🏛️</span>
+                          <div>
+                            <div className="font-bold text-text-main text-sm">
+                              {new Date(collegeRates.internshipStartDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                            </div>
+                            <div className="text-[11px] text-text-muted">
+                              Official schedule assigned by your partner institution coordinator
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-xs text-text-muted mt-2 leading-relaxed">
+                          ℹ️ This start date has been fixed and configured by your college for all students. Your <strong>Offer Letter</strong>, <strong>Completion Certificate</strong>, <strong>Daily Attendance</strong>, and <strong>Log Book</strong> will start on this date.
+                        </p>
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="text-xs text-text-muted mb-3 leading-relaxed">
+                          Choose when your internship begins. Your official <strong>Offer Letter</strong>, <strong>Completion Certificate</strong>, <strong>Daily Attendance Sheet</strong>, and <strong>Log Book</strong> will start on this date and run for your program duration.
+                        </p>
+                        <input
+                          type="date"
+                          name="internshipStartDate"
+                          value={studentForm.internshipStartDate || ""}
+                          onChange={(e) => setStudentForm((prev) => ({ ...prev, internshipStartDate: e.target.value }))}
+                          required
+                          className={`w-full sm:w-1/2 px-4 py-3 rounded-xl border-2 transition-all bg-bg-main focus:outline-none focus:border-brand-primary font-poppins text-text-main ${
+                            errors.internshipStartDate ? "border-red-500" : "border-border-main"
+                          }`}
+                        />
+                        {errors.internshipStartDate && (
+                          <p className="text-red-500 text-xs mt-1 font-medium">
+                            {errors.internshipStartDate}
+                          </p>
                         )}
                       </div>
                     )}

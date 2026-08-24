@@ -76,6 +76,10 @@ const UserModel = {
    type:String,
    default:""
   },
+  internshipStartDate: {
+    type: Date,
+    default: null,
+  },
 
   // Internship Information
   ActiveInternship: [

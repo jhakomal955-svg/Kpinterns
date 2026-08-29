@@ -5,8 +5,57 @@ import path from "path";
 import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, CounterModel } from "@/models";
 import { DEGREE_DEPARTMENT_MAP, normalizeDegree } from "./data/degreeDepartments.js";
+
+/**
+ * Atomically generates or retrieves the unique sequence ID for an enrollment subdocument.
+ * Format: kpinterns/YYYY/NUMBER
+ */
+export async function getNextSequentialId(year = new Date().getFullYear(), subdocumentId = null) {
+  try {
+    await connectDB();
+    const User = createModel("User", UserModel);
+    const Counter = createModel("Counter", CounterModel);
+
+    // 1. If subdocumentId is provided, check if an ID was already stored on this enrollment
+    if (subdocumentId && mongoose.Types.ObjectId.isValid(subdocumentId)) {
+      const targetId = new mongoose.Types.ObjectId(subdocumentId);
+      const existingUser = await User.findOne({
+        $or: [
+          { "ActiveInternship._id": targetId },
+          { "ActiveCources._id": targetId }
+        ]
+      }).lean();
+
+      if (existingUser) {
+        const item = (existingUser.ActiveInternship || []).find(i => i._id?.toString() === subdocumentId.toString())
+          || (existingUser.ActiveCources || []).find(c => c._id?.toString() === subdocumentId.toString());
+
+        if (item?.certificateId && item.certificateId.startsWith("kpinterns/")) {
+          return item.certificateId;
+        }
+        if (item?.offerLetterId && item.offerLetterId.startsWith("kpinterns/")) {
+          return item.offerLetterId;
+        }
+      }
+    }
+
+    // 2. Atomically increment the global counter
+    const counterDoc = await Counter.findOneAndUpdate(
+      { _id: "global_seq" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+
+    const seqNum = counterDoc.seq;
+    return `kpinterns/${year}/${seqNum}`;
+  } catch (error) {
+    console.error("Error generating next sequential ID:", error);
+    const fallbackSeq = Date.now().toString().slice(-6);
+    return `kpinterns/${year}/${fallbackSeq}`;
+  }
+}
 
 /**
  * Retrieves the sequential index (1-based) of a given course/internship subdocument ID.
@@ -20,35 +69,61 @@ export async function getSequentialNumber(subdocumentId) {
     createModel("Internship", InternshipModel);
     const User = createModel("User", UserModel);
 
-    if (!mongoose.Types.ObjectId.isValid(subdocumentId)) {
+    if (!subdocumentId || !mongoose.Types.ObjectId.isValid(subdocumentId)) {
       return 1;
     }
 
-    const targetObjectId = new mongoose.Types.ObjectId(subdocumentId);
+    const targetId = new mongoose.Types.ObjectId(subdocumentId);
 
-    // Use MongoDB aggregation to count subdocument IDs less than or equal to target ID.
-    const result = await User.aggregate([
-      {
-        $project: {
-          allIds: {
-            $concatArrays: [
-              { $ifNull: ["$ActiveInternship._id", []] },
-              { $ifNull: ["$ActiveCources._id", []] }
-            ]
-          }
-        }
-      },
-      { $unwind: "$allIds" },
-      {
-        $match: {
-          allIds: { $type: "objectId", $lte: targetObjectId }
-        }
-      },
-      { $count: "count" }
-    ]);
+    // 1. Check if user subdocument already has a stored certificateId or offerLetterId
+    const userWithSubdoc = await User.findOne({
+      $or: [
+        { "ActiveInternship._id": targetId },
+        { "ActiveCources._id": targetId }
+      ]
+    }).lean();
 
-    const count = result[0]?.count || 0;
-    return count > 0 ? count : 1;
+    if (userWithSubdoc) {
+      const item = (userWithSubdoc.ActiveInternship || []).find(i => i._id?.toString() === subdocumentId.toString())
+        || (userWithSubdoc.ActiveCources || []).find(c => c._id?.toString() === subdocumentId.toString());
+
+      const storedId = item?.certificateId || item?.offerLetterId;
+      if (storedId) {
+        const match = storedId.match(/\/(\d+)$/);
+        if (match) {
+          return parseInt(match[1], 10);
+        }
+      }
+    }
+
+    // 2. Fallback: query chronological position sorted by timestamp & ObjectId
+    const allUsers = await User.find({
+      $or: [
+        { "ActiveInternship.0": { $exists: true } },
+        { "ActiveCources.0": { $exists: true } }
+      ]
+    }).lean();
+
+    const allSubdocs = [];
+    for (const u of allUsers) {
+      for (const i of u.ActiveInternship || []) {
+        if (i._id) allSubdocs.push(i._id);
+      }
+      for (const c of u.ActiveCources || []) {
+        if (c._id) allSubdocs.push(c._id);
+      }
+    }
+
+    allSubdocs.sort((a, b) => {
+      const tA = a.getTimestamp ? a.getTimestamp().getTime() : 0;
+      const tB = b.getTimestamp ? b.getTimestamp().getTime() : 0;
+      if (tA !== tB) return tA - tB;
+      return a.toString().localeCompare(b.toString());
+    });
+
+    const targetStr = subdocumentId.toString();
+    const idx = allSubdocs.findIndex(id => id.toString() === targetStr);
+    return idx !== -1 ? idx + 1 : allSubdocs.length + 1;
   } catch (error) {
     console.error("Error getting sequential number:", error);
     return 1;
@@ -67,34 +142,64 @@ export async function getObjectIdFromSequentialNumber(seqNum) {
     createModel("Internship", InternshipModel);
     const User = createModel("User", UserModel);
 
-    const targetIdx = parseInt(seqNum, 10) - 1;
+    const cleanSeq = seqNum?.toString().trim();
+    if (!cleanSeq) return null;
+
+    // 1. Search directly in stored certificateId or offerLetterId
+    const seqRegex = new RegExp(`/${cleanSeq}$`);
+    const directUser = await User.findOne({
+      $or: [
+        { "ActiveInternship.certificateId": seqRegex },
+        { "ActiveInternship.offerLetterId": seqRegex },
+        { "ActiveCources.certificateId": seqRegex }
+      ]
+    }).lean();
+
+    if (directUser) {
+      const item = (directUser.ActiveInternship || []).find(
+        i => (i.certificateId && seqRegex.test(i.certificateId)) || (i.offerLetterId && seqRegex.test(i.offerLetterId))
+      ) || (directUser.ActiveCources || []).find(
+        c => c.certificateId && seqRegex.test(c.certificateId)
+      );
+
+      if (item && item._id) {
+        return item._id.toString();
+      }
+    }
+
+    // 2. Chronological fallback by index
+    const targetIdx = parseInt(cleanSeq, 10) - 1;
     if (isNaN(targetIdx) || targetIdx < 0) return null;
 
-    // Use MongoDB aggregation to resolve sequential index back to subdocument ID.
-    const result = await User.aggregate([
-      {
-        $project: {
-          allIds: {
-            $concatArrays: [
-              { $ifNull: ["$ActiveInternship._id", []] },
-              { $ifNull: ["$ActiveCources._id", []] }
-            ]
-          }
-        }
-      },
-      { $unwind: "$allIds" },
-      {
-        $match: {
-          allIds: { $type: "objectId" }
-        }
-      },
-      { $sort: { allIds: 1 } },
-      { $skip: targetIdx },
-      { $limit: 1 },
-      { $project: { _id: 0, id: "$allIds" } }
-    ]);
+    const allUsers = await User.find({
+      $or: [
+        { "ActiveInternship.0": { $exists: true } },
+        { "ActiveCources.0": { $exists: true } }
+      ]
+    }).lean();
 
-    return result[0]?.id?.toString() || null;
+    const allSubdocs = [];
+    for (const u of allUsers) {
+      for (const i of u.ActiveInternship || []) {
+        if (i._id) allSubdocs.push(i._id);
+      }
+      for (const c of u.ActiveCources || []) {
+        if (c._id) allSubdocs.push(c._id);
+      }
+    }
+
+    allSubdocs.sort((a, b) => {
+      const tA = a.getTimestamp ? a.getTimestamp().getTime() : 0;
+      const tB = b.getTimestamp ? b.getTimestamp().getTime() : 0;
+      if (tA !== tB) return tA - tB;
+      return a.toString().localeCompare(b.toString());
+    });
+
+    if (targetIdx < allSubdocs.length) {
+      return allSubdocs[targetIdx].toString();
+    }
+
+    return null;
   } catch (error) {
     console.error("Error getting ObjectId from sequential number:", error);
     return null;
@@ -483,7 +588,7 @@ export function isTechnicalStream(student, program) {
   if (normDegree === "B.Tech" || normDegree === "Diploma") {
     return true;
   }
-  if (["BA", "BSc", "BCom", "Education", "Law"].includes(normDegree)) {
+  if (["BA", "BSc", "BCom", "Education", "Law", "MCA", "BCA", "BBA"].includes(normDegree)) {
     return false;
   }
 
@@ -500,7 +605,10 @@ export function isTechnicalStream(student, program) {
     ...(DEGREE_DEPARTMENT_MAP["BSc"] || []),
     ...(DEGREE_DEPARTMENT_MAP["BCom"] || []),
     ...(DEGREE_DEPARTMENT_MAP["Education"] || []),
-    ...(DEGREE_DEPARTMENT_MAP["Law"] || [])
+    ...(DEGREE_DEPARTMENT_MAP["Law"] || []),
+    ...(DEGREE_DEPARTMENT_MAP["MCA"] || []),
+    ...(DEGREE_DEPARTMENT_MAP["BCA"] || []),
+    ...(DEGREE_DEPARTMENT_MAP["BBA"] || [])
   ].map(d => d.toLowerCase()));
 
   if (studentDept) {
@@ -1962,7 +2070,7 @@ export async function generateFilteredUsersPDF(users = [], activeFilters = {}) {
 
       // Render Each Student Card sequentially
       users.forEach((user, idx) => {
-        const cardHeight = 115;
+        const cardHeight = 116;
         const pageMaxY = 770;
 
         // Page Break Check
@@ -1979,54 +2087,54 @@ export async function generateFilteredUsersPDF(users = [], activeFilters = {}) {
         doc.rect(35, cardY, 525.28, cardHeight).lineWidth(0.75).strokeColor(borderColor).stroke();
 
         // Card Header Bar inside box
-        doc.rect(35, cardY, 525.28, 20).fill(wellColor);
-        doc.moveTo(35, cardY + 20).lineTo(560.28, cardY + 20).lineWidth(0.5).strokeColor(borderColor).stroke();
+        doc.rect(35, cardY, 525.28, 18).fill(wellColor);
+        doc.moveTo(35, cardY + 18).lineTo(560.28, cardY + 18).lineWidth(0.5).strokeColor(borderColor).stroke();
 
         // Sequence badge & Student Name
         doc.font("Helvetica-Bold").fontSize(9.5).fillColor(primaryColor)
-          .text(`#${idx + 1}.  ${user.fullName || "N/A"}`, 42, cardY + 5);
+          .text(`#${idx + 1}.  ${user.fullName || "N/A"}`, 42, cardY + 4);
 
         // Gender / Reg No tag on top right
         const topTag = user.gender ? `${user.gender}` : "";
         doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
-          .text(topTag, 400, cardY + 5, { align: "right", width: 152 });
+          .text(topTag, 400, cardY + 4, { align: "right", width: 152 });
 
         // Data Rows inside Card
-        let rowY = cardY + 26;
+        let rowY = cardY + 22;
 
         // Row 1: University & College
-        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("University: ", 45, rowY);
-        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(user.university || "N/A", 95, rowY, { width: 175, lineBreak: false, ellipsis: true });
+        doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor).text("University: ", 45, rowY);
+        doc.font("Helvetica").fontSize(7.5).fillColor(darkColor).text(user.university || "N/A", 95, rowY, { width: 175, lineBreak: false, ellipsis: true });
 
-        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("College / Inst: ", 275, rowY);
-        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(user.college || "N/A", 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
+        doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor).text("College / Inst: ", 275, rowY);
+        doc.font("Helvetica").fontSize(7.5).fillColor(darkColor).text(user.college || "N/A", 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
 
-        rowY += 15;
+        rowY += 14;
 
         // Row 2: Reg No / Roll No & Department / Degree
-        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Reg No / Roll: ", 45, rowY);
+        doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor).text("Reg No / Roll: ", 45, rowY);
         const regRoll = `${user.registrationNumber || "N/A"} ${user.rollNumber ? `(${user.rollNumber})` : ""}`;
-        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(regRoll, 110, rowY, { width: 160, lineBreak: false, ellipsis: true });
+        doc.font("Helvetica").fontSize(7.5).fillColor(darkColor).text(regRoll, 110, rowY, { width: 160, lineBreak: false, ellipsis: true });
 
-        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Dept & Degree: ", 275, rowY);
+        doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor).text("Dept & Degree: ", 275, rowY);
         const deptDeg = `${user.department || "N/A"} - ${user.degree || "N/A"}`;
-        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(deptDeg, 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
+        doc.font("Helvetica").fontSize(7.5).fillColor(darkColor).text(deptDeg, 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
 
-        rowY += 15;
+        rowY += 14;
 
         // Row 3: Session / Semester & Contact (Email & Phone)
-        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Session / Sem: ", 45, rowY);
+        doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor).text("Session / Sem: ", 45, rowY);
         const sessSem = `${user.session || "N/A"} ${user.semester ? `(Sem: ${user.semester})` : ""}`;
-        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(sessSem, 115, rowY, { width: 155, lineBreak: false, ellipsis: true });
+        doc.font("Helvetica").fontSize(7.5).fillColor(darkColor).text(sessSem, 115, rowY, { width: 155, lineBreak: false, ellipsis: true });
 
-        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Email & Phone: ", 275, rowY);
+        doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor).text("Email & Phone: ", 275, rowY);
         const contact = `${user.email || "N/A"} | ${user.phone || "N/A"}`;
-        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(contact, 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
+        doc.font("Helvetica").fontSize(7.5).fillColor(darkColor).text(contact, 345, rowY, { width: 210, lineBreak: false, ellipsis: true });
 
-        rowY += 15;
+        rowY += 14;
 
         // Row 4: Enrolled Internships / Courses
-        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Enrolments: ", 45, rowY);
+        doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor).text("Enrolments: ", 45, rowY);
         const internshipsList = (user.ActiveInternship || [])
           .map((i) => i.internship?.title || i.title || "Internship")
           .join(", ");
@@ -2035,18 +2143,81 @@ export async function generateFilteredUsersPDF(users = [], activeFilters = {}) {
           .join(", ");
         const enrollments = [internshipsList, coursesList].filter(Boolean).join(" | ") || "Self Registered / None";
 
-        doc.font("Helvetica").fontSize(8).fillColor(darkColor).text(enrollments, 105, rowY, { width: 445, lineBreak: false, ellipsis: true });
+        doc.font("Helvetica").fontSize(7.5).fillColor(darkColor).text(enrollments, 105, rowY, { width: 445, lineBreak: false, ellipsis: true });
 
-        rowY += 15;
+        rowY += 14;
 
         // Row 5: Created By / Account Creator
-        doc.font("Helvetica-Bold").fontSize(8).fillColor(mutedColor).text("Created By: ", 45, rowY);
+        doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor).text("Created By: ", 45, rowY);
         const creatorName = user.creatorInfo?.name
           ? `${user.creatorInfo.name} (${user.creatorInfo.role || "Admin"})`
           : (user.createdBy || "Self Registered");
-        doc.font("Helvetica").fontSize(8).fillColor(primaryColor).text(creatorName, 100, rowY, { width: 450, lineBreak: false, ellipsis: true });
+        doc.font("Helvetica").fontSize(7.5).fillColor(primaryColor).text(creatorName, 100, rowY, { width: 450, lineBreak: false, ellipsis: true });
 
-        currentY += cardHeight + 10;
+        rowY += 14;
+
+        // Row 6: Generated Document Links (Clickable PDF Hyperlinks)
+        const generatedDocs = [];
+        (user.ActiveInternship || []).forEach((i) => {
+          if (i?.offerLetterUrl && typeof i.offerLetterUrl === "string" && i.offerLetterUrl.trim()) {
+            generatedDocs.push({
+              label: `Offer Letter (${i.offerLetterId || "Link"})`,
+              url: i.offerLetterUrl.trim(),
+              type: "offer",
+            });
+          }
+          if (i?.certificationUrl && typeof i.certificationUrl === "string" && i.certificationUrl.trim()) {
+            generatedDocs.push({
+              label: `Certificate (${i.certificateId || "Link"})`,
+              url: i.certificationUrl.trim(),
+              type: "cert",
+            });
+          }
+        });
+
+        (user.ActiveCources || []).forEach((c) => {
+          if (c?.certificateUrl && typeof c.certificateUrl === "string" && c.certificateUrl.trim()) {
+            generatedDocs.push({
+              label: `Course Cert (${c.certificateId || "Link"})`,
+              url: c.certificateUrl.trim(),
+              type: "cert",
+            });
+          }
+        });
+
+        if (generatedDocs.length > 0) {
+          doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor)
+            .text("Documents: ", 45, rowY, { continued: true });
+
+          generatedDocs.forEach((docItem, dIdx) => {
+            const isLast = dIdx === generatedDocs.length - 1;
+            const linkColor = docItem.type === "cert" ? "#059669" : "#2563eb";
+            const linkUrl = docItem.url;
+
+            doc.font("Helvetica-Bold").fontSize(7.5).fillColor(linkColor)
+              .text(docItem.label, {
+                link: linkUrl,
+                underline: true,
+                continued: !isLast,
+              });
+
+            if (!isLast) {
+              doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
+                .text("   |   ", {
+                  link: null,
+                  underline: false,
+                  continued: true,
+                });
+            }
+          });
+        } else {
+          doc.font("Helvetica-Bold").fontSize(7.5).fillColor(mutedColor)
+            .text("Documents: ", 45, rowY, { continued: true });
+          doc.font("Helvetica-Oblique").fontSize(7.5).fillColor(mutedColor)
+            .text("Pending / Not Generated Yet", { continued: false });
+        }
+
+        currentY += cardHeight + 8;
       });
 
       // Draw footer on all buffered pages

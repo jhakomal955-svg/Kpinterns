@@ -40,8 +40,8 @@ export function buildDegreeDepartmentMap() {
   }
 
   const resultMap = {};
-  // Preferred ordering: Diploma, B.Tech, BA, BSc, BCom, Education, Law
-  const preferredOrder = ["Diploma", "B.Tech", "BA", "BSc", "BCom", "Education", "Law"];
+  // Preferred ordering: Diploma, B.Tech, BCA, MCA, BBA, BA, BSc, BCom, Education, Law
+  const preferredOrder = ["Diploma", "B.Tech", "BCA", "MCA", "BBA", "BA", "BSc", "BCom", "Education", "Law"];
   
   const extractedKeys = Object.keys(map);
   const sortedKeys = extractedKeys.sort((a, b) => {
@@ -74,6 +74,15 @@ export function normalizeDegree(degreeStr) {
   }
   if (upper.includes("DIPLOMA") || upper.includes("POLYTECHNIC")) {
     return "Diploma";
+  }
+  if (upper.includes("MCA")) {
+    return "MCA";
+  }
+  if (upper.includes("BCA")) {
+    return "BCA";
+  }
+  if (upper.includes("BBA")) {
+    return "BBA";
   }
   if (upper.includes("BSC")) {
     return "BSc";
@@ -116,6 +125,19 @@ export const DEPARTMENT_GROUPS = (() => {
     groups["Engineering (B.Tech / Diploma)"] = engDepts;
   }
 
+  // Computer Applications (BCA / MCA)
+  if (map["BCA"] && map["BCA"].length > 0) {
+    groups["Computer Applications (BCA)"] = map["BCA"];
+  }
+  if (map["MCA"] && map["MCA"].length > 0) {
+    groups["Computer Applications (MCA)"] = map["MCA"];
+  }
+
+  // Business Administration & Management (BBA)
+  if (map["BBA"] && map["BBA"].length > 0) {
+    groups["Management & Business Administration (BBA)"] = map["BBA"];
+  }
+
   // Pure & Applied Sciences (BSc)
   if (map["BSc"] && map["BSc"].length > 0) {
     groups["Pure & Applied Sciences (BSc)"] = map["BSc"];
@@ -143,7 +165,7 @@ export const DEPARTMENT_GROUPS = (() => {
 
   // Any extra degrees dynamically present in universities.js
   Object.keys(map).forEach((degreeKey) => {
-    if (!["B.Tech", "Diploma", "BA", "BSc", "BCom", "Education", "Law"].includes(degreeKey)) {
+    if (!["B.Tech", "Diploma", "BCA", "MCA", "BBA", "BA", "BSc", "BCom", "Education", "Law"].includes(degreeKey)) {
       if (map[degreeKey] && map[degreeKey].length > 0) {
         groups[degreeKey] = map[degreeKey];
       }
@@ -190,7 +212,7 @@ export function findCollegeKey(univKey, collegeInput) {
  */
 export function getDegreesForUniversityAndCollege(universityIdOrName, collegeIdOrName) {
   const univKey = findUniversityKey(universityIdOrName);
-  const preferredOrder = ["Diploma", "B.Tech", "BA", "BSc", "BCom", "Education", "Law"];
+  const preferredOrder = ["Diploma", "B.Tech", "BCA", "MCA", "BBA", "BA", "BSc", "BCom", "Education", "Law"];
 
   const sortDegrees = (degSet) => {
     const arr = Array.from(degSet);
@@ -319,6 +341,18 @@ export function getDepartmentGroupsForDegrees(selectedDegrees) {
     }
   }
 
+  if (normalizedDegrees.includes("BCA") && DEPARTMENT_GROUPS["Computer Applications (BCA)"]) {
+    groups["Computer Applications (BCA)"] = DEPARTMENT_GROUPS["Computer Applications (BCA)"];
+  }
+
+  if (normalizedDegrees.includes("MCA") && DEPARTMENT_GROUPS["Computer Applications (MCA)"]) {
+    groups["Computer Applications (MCA)"] = DEPARTMENT_GROUPS["Computer Applications (MCA)"];
+  }
+
+  if (normalizedDegrees.includes("BBA") && DEPARTMENT_GROUPS["Management & Business Administration (BBA)"]) {
+    groups["Management & Business Administration (BBA)"] = DEPARTMENT_GROUPS["Management & Business Administration (BBA)"];
+  }
+
   if (normalizedDegrees.includes("BSc") && DEPARTMENT_GROUPS["Pure & Applied Sciences (BSc)"]) {
     groups["Pure & Applied Sciences (BSc)"] = DEPARTMENT_GROUPS["Pure & Applied Sciences (BSc)"];
   }
@@ -341,7 +375,7 @@ export function getDepartmentGroupsForDegrees(selectedDegrees) {
 
   // Include any other custom degrees selected
   normalizedDegrees.forEach((normDeg) => {
-    if (!["B.Tech", "Diploma", "BA", "BSc", "BCom", "Education", "Law"].includes(normDeg)) {
+    if (!["B.Tech", "Diploma", "BCA", "MCA", "BBA", "BA", "BSc", "BCom", "Education", "Law"].includes(normDeg)) {
       const depts = getDepartmentsForDegree(normDeg);
       if (depts.length > 0) {
         groups[normDeg] = depts;

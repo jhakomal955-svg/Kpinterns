@@ -6189,6 +6189,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6249,6 +6261,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6309,6 +6333,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6369,6 +6405,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6429,6 +6477,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6489,6 +6549,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6549,6 +6621,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6609,6 +6693,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6669,6 +6765,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6729,6 +6837,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6789,6 +6909,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6849,6 +6981,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6857,6 +7001,18 @@ export const universitiesData = {
         "departments": {
           "Education": [
             "General Teacher Training"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6917,6 +7073,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -6977,6 +7145,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7037,6 +7217,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7047,6 +7239,18 @@ export const universitiesData = {
             "Civil Law",
             "Criminal Law",
             "Corporate Law"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7055,6 +7259,18 @@ export const universitiesData = {
         "departments": {
           "Education": [
             "General Teacher Training"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7115,6 +7331,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7175,6 +7403,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7235,6 +7475,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7295,6 +7547,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7303,6 +7567,18 @@ export const universitiesData = {
         "departments": {
           "Education": [
             "General Teacher Training"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7363,6 +7639,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7423,6 +7711,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7483,6 +7783,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7543,6 +7855,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7603,6 +7927,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7613,6 +7949,18 @@ export const universitiesData = {
             "Civil Law",
             "Criminal Law",
             "Corporate Law"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7673,6 +8021,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -7738,6 +8098,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7798,6 +8170,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7808,6 +8192,18 @@ export const universitiesData = {
             "Civil Law",
             "Criminal Law",
             "Corporate Law"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7868,6 +8264,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7928,6 +8336,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -7988,6 +8408,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8048,6 +8480,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8108,6 +8552,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8168,6 +8624,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8228,6 +8696,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8288,6 +8768,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8348,6 +8840,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8408,6 +8912,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8468,6 +8984,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8528,6 +9056,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8588,6 +9128,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8648,6 +9200,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8708,6 +9272,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8768,6 +9344,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8828,6 +9416,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8888,6 +9488,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -8948,6 +9560,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9008,6 +9632,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9068,6 +9704,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9128,6 +9776,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9188,6 +9848,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9248,6 +9920,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9308,6 +9992,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9368,6 +10064,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9428,6 +10136,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9488,6 +10208,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9548,6 +10280,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9608,6 +10352,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9668,6 +10424,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9728,6 +10496,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9788,6 +10568,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9848,6 +10640,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9908,6 +10712,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -9968,6 +10784,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10028,6 +10856,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10088,6 +10928,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10148,6 +11000,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10208,6 +11072,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10268,6 +11144,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10328,6 +11216,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10388,6 +11288,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10448,6 +11360,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10508,6 +11432,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10568,6 +11504,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10628,6 +11576,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10688,6 +11648,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10748,6 +11720,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10808,6 +11792,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10868,6 +11864,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10928,6 +11936,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -10988,6 +12008,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11048,6 +12080,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11108,6 +12152,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11168,6 +12224,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11228,6 +12296,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11288,6 +12368,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11348,6 +12440,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11408,6 +12512,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11468,6 +12584,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11528,6 +12656,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11588,6 +12728,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11648,6 +12800,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11708,6 +12872,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11768,6 +12944,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11828,6 +13016,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11888,6 +13088,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -11948,6 +13160,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12008,6 +13232,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12068,6 +13304,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -12133,6 +13381,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12193,6 +13453,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12253,6 +13525,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12313,6 +13597,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12373,6 +13669,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12433,6 +13741,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12493,6 +13813,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12553,6 +13885,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12613,6 +13957,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12673,6 +14029,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12733,6 +14101,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12743,6 +14123,18 @@ export const universitiesData = {
             "Civil Law",
             "Criminal Law",
             "Corporate Law"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12803,6 +14195,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12863,6 +14267,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12923,6 +14339,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -12983,6 +14411,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13043,6 +14483,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13103,6 +14555,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13163,6 +14627,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13223,6 +14699,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13283,6 +14771,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13343,6 +14843,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13403,6 +14915,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13463,6 +14987,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -13528,6 +15064,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13588,6 +15136,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13648,6 +15208,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13708,6 +15280,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13768,6 +15352,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13828,6 +15424,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13888,6 +15496,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -13948,6 +15568,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14008,6 +15640,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14068,6 +15712,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14128,6 +15784,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14188,6 +15856,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14248,6 +15928,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14308,6 +16000,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14368,6 +16072,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14428,6 +16144,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14488,6 +16216,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -14553,6 +16293,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14613,6 +16365,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14673,6 +16437,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14733,6 +16509,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14793,6 +16581,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14853,6 +16653,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14913,6 +16725,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -14973,6 +16797,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15033,6 +16869,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15093,6 +16941,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15153,6 +17013,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15213,6 +17085,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15273,6 +17157,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15333,6 +17229,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15393,6 +17301,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15453,6 +17373,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15513,6 +17445,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15573,6 +17517,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15633,6 +17589,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15693,6 +17661,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15753,6 +17733,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15813,6 +17805,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15873,6 +17877,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15933,6 +17949,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -15993,6 +18021,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16053,6 +18093,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16113,6 +18165,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16173,6 +18237,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16233,6 +18309,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16293,6 +18381,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16353,6 +18453,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16413,6 +18525,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16473,6 +18597,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16533,6 +18669,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16593,6 +18741,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16653,6 +18813,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16713,6 +18885,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16773,6 +18957,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16833,6 +19029,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16893,6 +19101,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -16953,6 +19173,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17013,6 +19245,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17073,6 +19317,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17133,6 +19389,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17193,6 +19461,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17253,6 +19533,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17313,6 +19605,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17373,6 +19677,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17433,6 +19749,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17493,6 +19821,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17553,6 +19893,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17613,6 +19965,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17673,6 +20037,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17733,6 +20109,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17793,6 +20181,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17853,6 +20253,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17913,6 +20325,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -17973,6 +20397,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18033,6 +20469,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18093,6 +20541,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18153,6 +20613,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -18218,6 +20690,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18278,6 +20762,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18338,6 +20834,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18398,6 +20906,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18458,6 +20978,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18518,6 +21050,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18578,6 +21122,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18638,6 +21194,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18698,6 +21266,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18758,6 +21338,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18818,6 +21410,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18878,6 +21482,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18938,6 +21554,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -18998,6 +21626,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19058,6 +21698,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19118,6 +21770,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19178,6 +21842,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19238,6 +21914,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19298,6 +21986,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19358,6 +22058,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19418,6 +22130,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19478,6 +22202,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19538,6 +22274,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19598,6 +22346,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19658,6 +22418,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19718,6 +22490,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19778,6 +22562,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19838,6 +22634,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19898,6 +22706,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -19958,6 +22778,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20018,6 +22850,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20078,6 +22922,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20138,6 +22994,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20198,6 +23066,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20258,6 +23138,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20318,6 +23210,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20378,6 +23282,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20438,6 +23354,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20498,6 +23426,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20558,6 +23498,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20618,6 +23570,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20678,6 +23642,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20738,6 +23714,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20798,6 +23786,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20858,6 +23858,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20918,6 +23930,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -20978,6 +24002,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21038,6 +24074,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21098,6 +24146,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21158,6 +24218,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21218,6 +24290,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21278,6 +24362,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21338,6 +24434,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21398,6 +24506,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21458,6 +24578,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21518,6 +24650,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21578,6 +24722,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21638,6 +24794,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21698,6 +24866,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21758,6 +24938,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21818,6 +25010,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21878,6 +25082,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21938,6 +25154,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -21998,6 +25226,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22058,6 +25298,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22118,6 +25370,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22178,6 +25442,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22238,6 +25514,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22298,6 +25586,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22358,6 +25658,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22418,6 +25730,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22478,6 +25802,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22538,6 +25874,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22598,6 +25946,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22658,6 +26018,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22718,6 +26090,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22778,6 +26162,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22838,6 +26234,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22898,6 +26306,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -22958,6 +26378,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23018,6 +26450,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23078,6 +26522,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23138,6 +26594,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23198,6 +26666,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23258,6 +26738,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23318,6 +26810,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23378,6 +26882,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23438,6 +26954,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23498,6 +27026,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23558,6 +27098,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23618,6 +27170,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23678,6 +27242,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23738,6 +27314,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23798,6 +27386,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -23863,6 +27463,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23923,6 +27535,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -23983,6 +27607,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24043,6 +27679,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24103,6 +27751,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24163,6 +27823,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -24228,6 +27900,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24288,6 +27972,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24348,6 +28044,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24408,6 +28116,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24468,6 +28188,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24528,6 +28260,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24588,6 +28332,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24648,6 +28404,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24708,6 +28476,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24768,6 +28548,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24828,6 +28620,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24888,6 +28692,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -24948,6 +28764,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25008,6 +28836,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25068,6 +28908,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25128,6 +28980,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25188,6 +29052,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25248,6 +29124,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25308,6 +29196,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25368,6 +29268,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25428,6 +29340,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25488,6 +29412,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25548,6 +29484,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25608,6 +29556,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25668,6 +29628,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25728,6 +29700,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25788,6 +29772,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25848,6 +29844,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25908,6 +29916,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -25968,6 +29988,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -26028,6 +30060,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -26088,6 +30132,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -26148,6 +30204,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -26208,6 +30276,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -26749,6 +30829,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -28645,6 +32737,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -28705,6 +32809,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -29173,6 +33289,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30117,6 +34245,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30177,6 +34317,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30237,6 +34389,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30297,6 +34461,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30357,6 +34533,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30417,6 +34605,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30477,6 +34677,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30537,6 +34749,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30597,6 +34821,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30657,6 +34893,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30717,6 +34965,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30777,6 +35037,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30837,6 +35109,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30897,6 +35181,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -30957,6 +35253,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31017,6 +35325,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31077,6 +35397,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31137,6 +35469,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31197,6 +35541,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31257,6 +35613,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31317,6 +35685,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31377,6 +35757,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31437,6 +35829,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31497,6 +35901,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31557,6 +35973,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31617,6 +36045,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31677,6 +36117,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31737,6 +36189,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31797,6 +36261,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31857,6 +36333,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31917,6 +36405,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -31977,6 +36477,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32037,6 +36549,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32097,6 +36621,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32157,6 +36693,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32217,6 +36765,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32277,6 +36837,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32337,6 +36909,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32397,6 +36981,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32457,6 +37053,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32517,6 +37125,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32577,6 +37197,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32637,6 +37269,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32697,6 +37341,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32757,6 +37413,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -32822,6 +37490,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32882,6 +37562,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -32942,6 +37634,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33002,6 +37706,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33062,6 +37778,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33122,6 +37850,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33182,6 +37922,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33242,6 +37994,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33302,6 +38066,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33362,6 +38138,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33422,6 +38210,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33482,6 +38282,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33542,6 +38354,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33602,6 +38426,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33662,6 +38498,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33722,6 +38570,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33782,6 +38642,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33842,6 +38714,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33902,6 +38786,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -33962,6 +38858,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34022,6 +38930,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34082,6 +39002,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34142,6 +39074,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34202,6 +39146,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34262,6 +39218,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34322,6 +39290,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34382,6 +39362,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34442,6 +39434,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34502,6 +39506,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34562,6 +39578,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34622,6 +39650,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34682,6 +39722,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34742,6 +39794,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34802,6 +39866,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34862,6 +39938,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34922,6 +40010,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -34982,6 +40082,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35042,6 +40154,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35102,6 +40226,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35162,6 +40298,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35222,6 +40370,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35282,6 +40442,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35342,6 +40514,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35402,6 +40586,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35462,6 +40658,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35522,6 +40730,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35582,6 +40802,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35642,6 +40874,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35702,6 +40946,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35762,6 +41018,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35822,6 +41090,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35882,6 +41162,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -35942,6 +41234,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36002,6 +41306,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36062,6 +41378,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36122,6 +41450,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36182,6 +41522,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36242,6 +41594,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36302,6 +41666,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36362,6 +41738,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36422,6 +41810,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36482,6 +41882,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36542,6 +41954,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36602,6 +42026,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36662,6 +42098,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36722,6 +42170,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36782,6 +42242,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36842,6 +42314,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36902,6 +42386,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -36962,6 +42458,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37022,6 +42530,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37082,6 +42602,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37142,6 +42674,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37202,6 +42746,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37262,6 +42818,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37322,6 +42890,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37382,6 +42962,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37442,6 +43034,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37502,6 +43106,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37562,6 +43178,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37622,6 +43250,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37682,6 +43322,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37742,6 +43394,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37802,6 +43466,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -37867,6 +43543,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37927,6 +43615,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -37987,6 +43687,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38047,6 +43759,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38107,6 +43831,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38167,6 +43903,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38227,6 +43975,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38287,6 +44047,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38347,6 +44119,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38407,6 +44191,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38467,6 +44263,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38527,6 +44335,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38587,6 +44407,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38647,6 +44479,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38707,6 +44551,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38767,6 +44623,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38827,6 +44695,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38887,6 +44767,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -38947,6 +44839,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39007,6 +44911,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39067,6 +44983,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39127,6 +45055,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39187,6 +45127,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39247,6 +45199,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39307,6 +45271,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39367,6 +45343,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39427,6 +45415,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39487,6 +45487,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       },
@@ -39547,6 +45559,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -39612,6 +45636,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }
@@ -39677,6 +45713,18 @@ export const universitiesData = {
             "Sales & Marketing",
             "Computer Applications",
             "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
           ]
         }
       }

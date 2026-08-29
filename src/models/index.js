@@ -15,6 +15,7 @@ import LiveChatMessageModel from "./LiveChatMessage.js";
 import CouponModel from "./CouponModel.js";
 import LeadModel from "./LeadModel.js";
 import PartnerStudentModel from "./PartnerStudentModel.js";
+import CounterModel from "./CounterModel.js";
 
 export {
   UserModel,
@@ -29,5 +30,6 @@ export {
   CouponModel,
   LeadModel,
   PartnerStudentModel,
+  CounterModel,
 };
 

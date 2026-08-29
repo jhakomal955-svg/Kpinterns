@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
-import { generateOfferLetter, generateCertificate, generateAttendanceCertificate, getSequentialNumber } from "@/lib/pdfGenerator";
+import { generateOfferLetter, generateCertificate, generateAttendanceCertificate, getSequentialNumber, getNextSequentialId } from "@/lib/pdfGenerator";
 import { sendOfferLetterEmail, sendCertificateEmail } from "@/lib/nodemailer";
 
 /**
@@ -62,12 +62,20 @@ export async function checkAndAutomateDocuments(userId) {
               console.log(`[Document Automation] Generating offer letter for user: ${user.fullName}, program: ${programTitle}`);
             }
             
+            const startYear = item.startDate
+              ? new Date(item.startDate).getFullYear()
+              : new Date().getFullYear();
+
             if (!item.offerLetterId) {
-              const seqNum = await getSequentialNumber(verificationId);
-              const startYear = item.startDate
-                ? new Date(item.startDate).getFullYear()
-                : new Date().getFullYear();
-              item.offerLetterId = `kpinterns/${startYear}/${seqNum}`;
+              if (item.certificateId && item.certificateId.startsWith("kpinterns/")) {
+                item.offerLetterId = item.certificateId;
+              } else {
+                item.offerLetterId = await getNextSequentialId(startYear, verificationId);
+              }
+              if (!item.certificateId) {
+                item.certificateId = item.offerLetterId;
+              }
+              hasChanges = true;
             }
 
             // Generate PDF Buffer
@@ -185,12 +193,20 @@ export async function checkAndAutomateDocuments(userId) {
               if (process.env.NODE_ENV === "development") {
                 console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);
               }
+              const startYear = item.startDate
+                ? new Date(item.startDate).getFullYear()
+                : new Date().getFullYear();
+
               if (!item.certificateId) {
-                const seqNum = await getSequentialNumber(verificationId);
-                const startYear = item.startDate
-                  ? new Date(item.startDate).getFullYear()
-                  : new Date().getFullYear();
-                item.certificateId = `kpinterns/${startYear}/${seqNum}`;
+                if (item.offerLetterId && item.offerLetterId.startsWith("kpinterns/")) {
+                  item.certificateId = item.offerLetterId;
+                } else {
+                  item.certificateId = await getNextSequentialId(startYear, verificationId);
+                }
+                if (!item.offerLetterId) {
+                  item.offerLetterId = item.certificateId;
+                }
+                hasChanges = true;
               }
 
               const pdfBuffer = await generateCertificate(user, internship, "internship", verificationId);
@@ -239,12 +255,13 @@ export async function checkAndAutomateDocuments(userId) {
               console.log(`[Document Automation] Generating course completion certificate for user: ${user.fullName}, course: ${programTitle}`);
             }
 
+            const startYear = item.startDate
+              ? new Date(item.startDate).getFullYear()
+              : new Date().getFullYear();
+
             if (!item.certificateId) {
-              const seqNum = await getSequentialNumber(verificationId);
-              const startYear = item.startDate
-                ? new Date(item.startDate).getFullYear()
-                : new Date().getFullYear();
-              item.certificateId = `kpinterns/${startYear}/${seqNum}`;
+              item.certificateId = await getNextSequentialId(startYear, verificationId);
+              hasChanges = true;
             }
 
             // Generate Landscape PDF Buffer
@@ -276,10 +293,31 @@ export async function checkAndAutomateDocuments(userId) {
 
     // Save changes to Database if any documents were generated
     if (hasChanges) {
-      user.markModified("ActiveInternship");
-      user.markModified("ActiveCources");
-      user.updatedAt = new Date();
-      await user.save();
+      const cleanActiveInternship = (user.ActiveInternship || []).map((item) => {
+        const obj = item.toObject ? item.toObject() : { ...item };
+        return {
+          ...obj,
+          internship: item.internship?._id || item.internship,
+          attendance: item.attendance?._id || item.attendance || null,
+        };
+      });
+
+      const cleanActiveCources = (user.ActiveCources || []).map((item) => {
+        const obj = item.toObject ? item.toObject() : { ...item };
+        return {
+          ...obj,
+          course: item.course?._id || item.course,
+        };
+      });
+
+      await User.findByIdAndUpdate(userId, {
+        $set: {
+          ActiveInternship: cleanActiveInternship,
+          ActiveCources: cleanActiveCources,
+          updatedAt: new Date(),
+        },
+      });
+
       if (process.env.NODE_ENV === "development") {
         console.log(`[Document Automation] Successfully updated and saved document URLs for user: ${user.fullName} (${userId})`);
       }

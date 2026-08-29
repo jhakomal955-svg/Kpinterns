@@ -7,6 +7,7 @@ import LogoutConfirmModal from "@/components/LogoutConfirmModal";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [adminData, setAdminData] = useState(null);
   const pathname = usePathname();
@@ -28,13 +29,17 @@ export default function DashboardLayout({ children }) {
     }
   }, [isDarkMode]);
 
-  // Load admin details
+  // Load admin details and saved collapse preference
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
         const stored = localStorage.getItem("adminData");
         if (stored) {
           setAdminData(JSON.parse(stored));
+        }
+        const savedCollapsed = localStorage.getItem("adminSidebarCollapsed");
+        if (savedCollapsed !== null) {
+          setIsCollapsed(savedCollapsed === "true");
         }
       } catch (err) {
         console.error(err);
@@ -300,63 +305,134 @@ export default function DashboardLayout({ children }) {
 
   return (
     <div className="min-h-screen bg-bg-main transition-colors duration-200 flex flex-col lg:flex-row">
-      {/* Desktop Sidebar - Static */}
-      <aside className="hidden lg:flex w-64 bg-bg-card border-r border-border-main flex-col fixed top-0 left-0 h-screen shadow-lg z-50">
-        {/* Logo Header */}
-        <div className="p-4 border-b border-border-main flex items-center justify-between">
-          <div className="shrink-0 flex items-center">
-            <Link href="/" className="text-xl font-extrabold tracking-tight text-text-main">
-              <span className="text-bg-main bg-text-main rounded-full p-2">Kp</span><span className="text-brand-primary">Interns</span>
+      {/* Desktop Sidebar - Collapsible */}
+      <aside
+        className={`hidden lg:flex flex-col fixed top-0 left-0 h-screen bg-bg-card border-r border-border-main shadow-lg z-50 transition-all duration-300 ease-in-out ${
+          isCollapsed ? "w-20" : "w-64"
+        }`}
+      >
+        {/* Logo & Controls Header */}
+        <div
+          className={`p-4 border-b border-border-main flex items-center transition-all duration-300 ${
+            isCollapsed ? "flex-col justify-center gap-3 px-2 py-4" : "justify-between"
+          }`}
+        >
+          <div className="shrink-0 flex items-center overflow-hidden">
+            <Link
+              href="/"
+              className="flex items-center text-xl font-extrabold tracking-tight text-text-main group"
+              title="KpInterns"
+            >
+              <span className="text-bg-main bg-text-main rounded-full px-2.5 py-1.5 text-base font-black shrink-0 transition-transform group-hover:scale-105">
+                Kp
+              </span>
+              {!isCollapsed && (
+                <span className="text-brand-primary ml-1.5 whitespace-nowrap transition-opacity duration-200">
+                  Interns
+                </span>
+              )}
             </Link>
           </div>
-          <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2 rounded-lg text-text-muted hover:text-text-main hover:bg-bg-main transition-colors flex-shrink-0"
-            title="Toggle Dark Mode"
-          >
-            {isDarkMode ? (
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m2.828 5.657a4 4 0 118 0 4 4 0 01-8 0z"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                />
-              </svg>
-            )}
-          </button>
+
+          <div className={`flex items-center gap-1.5 ${isCollapsed ? "flex-col" : ""}`}>
+            {/* Sidebar Collapse / Expand Toggle Button */}
+            <button
+              onClick={() => {
+                const next = !isCollapsed;
+                setIsCollapsed(next);
+                try {
+                  localStorage.setItem("adminSidebarCollapsed", next ? "true" : "false");
+                } catch (e) {}
+              }}
+              className="p-2 rounded-xl text-text-muted hover:text-text-main hover:bg-bg-main transition-all duration-200 focus:outline-none flex-shrink-0"
+              title={isCollapsed ? "Expand Sidebar" : "Minimize Sidebar"}
+              aria-label={isCollapsed ? "Expand Sidebar" : "Minimize Sidebar"}
+            >
+              {isCollapsed ? (
+                // Expand Icon (Right chevron / Expand)
+                <svg
+                  className="w-5 h-5 transition-transform hover:translate-x-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2.2"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                </svg>
+              ) : (
+                // Collapse Icon (Left chevron / Minimize)
+                <svg
+                  className="w-5 h-5 transition-transform hover:-translate-x-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2.2"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                </svg>
+              )}
+            </button>
+
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="p-2 rounded-xl text-text-muted hover:text-text-main hover:bg-bg-main transition-colors flex-shrink-0"
+              title="Toggle Dark Mode"
+            >
+              {isDarkMode ? (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m2.828 5.657a4 4 0 118 0 4 4 0 01-8 0z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+        <nav
+          className={`flex-1 py-5 space-y-1.5 overflow-y-auto overflow-x-hidden ${
+            isCollapsed ? "px-2" : "px-3.5"
+          }`}
+        >
           {(() => {
             if (adminData?.role === "Instructor") {
-              return navItems.filter(item => ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label));
+              return navItems.filter((item) =>
+                ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label)
+              );
             }
             if (adminData?.role === "College Admin" || adminData?.role === "Cybercafe Partner") {
-              return navItems.filter(item => ["Profile"].includes(item.label));
+              return navItems.filter((item) => ["Profile"].includes(item.label));
             }
             if (adminData?.role === "Employee") {
-              return navItems.filter(item => ["Dashboard", "Leads", "Courses", "Internships", "Coupons", "Profile"].includes(item.label));
+              return navItems.filter((item) =>
+                ["Dashboard", "Leads", "Courses", "Internships", "Coupons", "Profile"].includes(
+                  item.label
+                )
+              );
             }
             return navItems;
           })().map((item, index) => {
@@ -366,30 +442,52 @@ export default function DashboardLayout({ children }) {
               <Link
                 key={`desktop-nav-${index}`}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-base ${isActive
-                  ? "bg-brand-primary text-white shadow-md"
-                  : "text-text-main hover:bg-bg-main"
-                  }`}
+                className={`flex items-center gap-3 py-3 rounded-xl transition-all duration-200 group text-base relative ${
+                  isCollapsed ? "justify-center px-2" : "px-3.5"
+                } ${
+                  isActive
+                    ? "bg-brand-primary text-white shadow-md shadow-brand-primary/20 font-semibold"
+                    : "text-text-main hover:bg-bg-main"
+                }`}
               >
                 <span
-                  className={`flex-shrink-0 w-5 h-5 ${isActive ? "text-white" : "text-text-muted group-hover:text-brand-primary"}`}
+                  className={`flex-shrink-0 w-5 h-5 transition-transform duration-200 group-hover:scale-110 ${
+                    isActive ? "text-white" : "text-text-muted group-hover:text-brand-primary"
+                  }`}
                 >
                   {item.icon}
                 </span>
-                <span className="font-medium text-base">{item.label}</span>
+                {!isCollapsed && (
+                  <span className="font-medium text-base whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-200">
+                    {item.label}
+                  </span>
+                )}
+                {/* Floating Tooltip in collapsed mode */}
+                {isCollapsed && (
+                  <div className="pointer-events-none absolute left-full ml-3 px-3 py-1.5 bg-slate-900 dark:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-xl opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-50 border border-slate-700/50">
+                    {item.label}
+                  </div>
+                )}
               </Link>
             );
           })}
         </nav>
 
-        {/* Go to Website Button */}
-        <div className="p-4 border-t border-border-main space-y-2">
+        {/* Bottom Actions Section */}
+        <div
+          className={`border-t border-border-main space-y-1.5 ${
+            isCollapsed ? "p-2" : "p-3.5"
+          }`}
+        >
+          {/* Go to Website Button */}
           <Link
             href="/"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-text-muted hover:text-text-main hover:bg-bg-main text-base"
+            className={`flex items-center gap-3 py-3 rounded-xl transition-all duration-200 text-text-muted hover:text-text-main hover:bg-bg-main text-base relative group ${
+              isCollapsed ? "justify-center px-2" : "px-3.5"
+            }`}
           >
             <svg
-              className="w-5 h-5 flex-shrink-0"
+              className="w-5 h-5 flex-shrink-0 transition-transform group-hover:scale-110"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="2"
@@ -401,16 +499,23 @@ export default function DashboardLayout({ children }) {
                 d="M3 12a9 9 0 019-9 9.75 9.75 0 016.74 2.74L21 8M3 8v5m0 0h5m-5-5l6.68-6.68a9.75 9.75 0 016.74 2.74M21 15v5m0 0h-5m5 0l-6.68 6.68"
               />
             </svg>
-            <span className="font-medium text-base">Go to Website</span>
+            {!isCollapsed && <span className="font-medium text-base whitespace-nowrap">Go to Website</span>}
+            {isCollapsed && (
+              <div className="pointer-events-none absolute left-full ml-3 px-3 py-1.5 bg-slate-900 dark:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-xl opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-50 border border-slate-700/50">
+                Go to Website
+              </div>
+            )}
           </Link>
 
           {/* Logout Button */}
           <button
             onClick={() => setIsLogoutModalOpen(true)}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-text-muted hover:text-white hover:bg-red-500 text-base"
+            className={`w-full flex items-center gap-3 py-3 rounded-xl transition-all duration-200 text-text-muted hover:text-white hover:bg-red-500 text-base relative group ${
+              isCollapsed ? "justify-center px-2" : "px-3.5"
+            }`}
           >
             <svg
-              className="w-5 h-5 flex-shrink-0"
+              className="w-5 h-5 flex-shrink-0 transition-transform group-hover:scale-110"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="2"
@@ -422,7 +527,12 @@ export default function DashboardLayout({ children }) {
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
               />
             </svg>
-            <span className="font-medium text-base">Logout</span>
+            {!isCollapsed && <span className="font-medium text-base whitespace-nowrap">Logout</span>}
+            {isCollapsed && (
+              <div className="pointer-events-none absolute left-full ml-3 px-3 py-1.5 bg-red-600 text-white text-xs font-semibold rounded-lg shadow-xl opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap z-50 border border-red-500/50">
+                Logout
+              </div>
+            )}
           </button>
         </div>
       </aside>
@@ -437,14 +547,16 @@ export default function DashboardLayout({ children }) {
 
       {/* Mobile Sidebar */}
       <aside
-        className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } bg-bg-card border-r border-border-main transition-all duration-300 flex flex-col fixed top-0 left-0 h-screen w-64 shadow-lg z-40 lg:hidden`}
+        className={`${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } bg-bg-card border-r border-border-main transition-all duration-300 flex flex-col fixed top-0 left-0 h-screen w-64 shadow-lg z-40 lg:hidden`}
       >
         {/* Mobile Logo Header */}
         <div className="p-4 border-b border-border-main flex items-center justify-between">
           <div className="shrink-0 flex items-center">
             <Link href="/" className="text-xl font-extrabold tracking-tight text-text-main">
-              <span className="text-bg-main bg-text-main rounded-full p-2">Kp</span><span className="text-brand-primary text-lg">Interns</span>
+              <span className="text-bg-main bg-text-main rounded-full p-2">Kp</span>
+              <span className="text-brand-primary text-lg">Interns</span>
             </Link>
           </div>
           <button
@@ -471,13 +583,19 @@ export default function DashboardLayout({ children }) {
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
           {(() => {
             if (adminData?.role === "Instructor") {
-              return navItems.filter(item => ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label));
+              return navItems.filter((item) =>
+                ["Dashboard", "Courses", "Internships", "Profile"].includes(item.label)
+              );
             }
             if (adminData?.role === "College Admin" || adminData?.role === "Cybercafe Partner") {
-              return navItems.filter(item => ["Profile"].includes(item.label));
+              return navItems.filter((item) => ["Profile"].includes(item.label));
             }
             if (adminData?.role === "Employee") {
-              return navItems.filter(item => ["Dashboard", "Leads", "Courses", "Internships", "Coupons", "Profile"].includes(item.label));
+              return navItems.filter((item) =>
+                ["Dashboard", "Leads", "Courses", "Internships", "Coupons", "Profile"].includes(
+                  item.label
+                )
+              );
             }
             return navItems;
           })().map((item, index) => {
@@ -488,13 +606,16 @@ export default function DashboardLayout({ children }) {
                 key={`mobile-nav-${index}`}
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-base ${isActive
-                  ? "bg-brand-primary text-white shadow-md"
-                  : "text-text-main hover:bg-bg-main"
-                  }`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-base ${
+                  isActive
+                    ? "bg-brand-primary text-white shadow-md font-semibold"
+                    : "text-text-main hover:bg-bg-main"
+                }`}
               >
                 <span
-                  className={`flex-shrink-0 w-5 h-5 ${isActive ? "text-white" : "text-text-muted group-hover:text-brand-primary"}`}
+                  className={`flex-shrink-0 w-5 h-5 ${
+                    isActive ? "text-white" : "text-text-muted group-hover:text-brand-primary"
+                  }`}
                 >
                   {item.icon}
                 </span>
@@ -554,7 +675,11 @@ export default function DashboardLayout({ children }) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col w-full lg:ml-64">
+      <main
+        className={`flex-1 flex flex-col w-full transition-all duration-300 ease-in-out ${
+          isCollapsed ? "lg:ml-20" : "lg:ml-64"
+        }`}
+      >
         {/* Mobile Header */}
         <div className="lg:hidden bg-bg-card border-b border-border-main flex items-center justify-between sticky top-0 z-20 py-2">
           <div className="flex items-center">

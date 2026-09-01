@@ -159,9 +159,9 @@ export async function POST(request) {
       });
 
       if (collegeAdmin) {
-        if (type === "course" && collegeAdmin.courseRate > 0) {
+        if (type === "course" && typeof collegeAdmin.courseRate === "number" && collegeAdmin.courseRate >= 0) {
           price = collegeAdmin.courseRate;
-        } else if (type === "internship" && collegeAdmin.internshipRate > 0) {
+        } else if (type === "internship" && typeof collegeAdmin.internshipRate === "number" && collegeAdmin.internshipRate >= 0) {
           price = collegeAdmin.internshipRate;
         }
       }

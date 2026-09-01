@@ -445,7 +445,7 @@ export default function RegisterPage() {
   const getRawPayableAmount = () => {
     if (purchaseType === "course") {
       const originalPrice = selectedItemDetails?.price || 0;
-      if (collegeRates.registered && collegeRates.courseRate > 0) {
+      if (collegeRates.registered && typeof collegeRates.courseRate === "number" && collegeRates.courseRate >= 0) {
         return collegeRates.courseRate;
       }
       return originalPrice;
@@ -464,7 +464,7 @@ export default function RegisterPage() {
       originalPrice = matched?.RegistrationFee?.amount !== undefined ? Number(matched.RegistrationFee.amount) : 500;
     }
 
-    if (collegeRates.registered && collegeRates.internshipRate > 0) {
+    if (collegeRates.registered && typeof collegeRates.internshipRate === "number" && collegeRates.internshipRate >= 0) {
       return collegeRates.internshipRate;
     }
     return originalPrice;
@@ -737,6 +737,29 @@ export default function RegisterPage() {
           return;
         }
         throw new Error(orderData.error || "Failed to initiate payment");
+      }
+
+      // If price is 0 (waived or college partner 0 rate), bypass Razorpay payment modal
+      if (orderData.amount === 0 || !orderData.orderId) {
+        const paymentInfo = {
+          type: purchaseType,
+          itemId: finalItemId,
+          amount: 0,
+        };
+        setCompletedPaymentDetails(paymentInfo);
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors.payment;
+          return newErrors;
+        });
+        setSuccessModal({
+          isOpen: true,
+          title: "Registration Fee Waived!",
+          message: "No payment is required for this college partner rate. You can now proceed to the final registration step.",
+          onAction: null,
+        });
+        setIsLoading(false);
+        return;
       }
 
       const scriptLoaded = await loadRazorpayScript();

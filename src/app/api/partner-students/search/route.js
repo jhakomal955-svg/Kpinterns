@@ -55,8 +55,8 @@ export async function GET(request) {
       });
 
       if (collegeAdmin) {
-        internshipRate = collegeAdmin.internshipRate || 0;
-        courseRate = collegeAdmin.courseRate || 0;
+        internshipRate = collegeAdmin.internshipRate !== undefined && collegeAdmin.internshipRate !== null ? Number(collegeAdmin.internshipRate) : 0;
+        courseRate = collegeAdmin.courseRate !== undefined && collegeAdmin.courseRate !== null ? Number(collegeAdmin.courseRate) : 0;
       }
     }
 

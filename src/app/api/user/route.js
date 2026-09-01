@@ -391,7 +391,7 @@ export async function POST(request) {
             verified: true,
             CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") }
           });
-          if (collegeAdmin && collegeAdmin.courseRate > 0) {
+          if (collegeAdmin && typeof collegeAdmin.courseRate === "number" && collegeAdmin.courseRate >= 0) {
             price = collegeAdmin.courseRate;
           }
         }
@@ -466,7 +466,7 @@ export async function POST(request) {
 
         let price = matchedInternship.RegistrationFee?.amount || 500;
 
-        // Apply custom rates if the user belongs to a verified College Admin college with rates > 0
+        // Apply custom rates if the user belongs to a verified College Admin college with rates >= 0
         if (data.college) {
           const Admin = createModel("Admin", AdminModel);
           const escapedCollege = data.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
@@ -475,7 +475,7 @@ export async function POST(request) {
             verified: true,
             CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") }
           });
-          if (collegeAdmin && collegeAdmin.internshipRate > 0) {
+          if (collegeAdmin && typeof collegeAdmin.internshipRate === "number" && collegeAdmin.internshipRate >= 0) {
             price = collegeAdmin.internshipRate;
           }
         }

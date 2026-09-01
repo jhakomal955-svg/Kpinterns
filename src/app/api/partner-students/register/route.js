@@ -181,7 +181,7 @@ export async function POST(request) {
       CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") },
     });
 
-    if (collegeAdmin && collegeAdmin.internshipRate > 0) {
+    if (collegeAdmin && typeof collegeAdmin.internshipRate === "number" && collegeAdmin.internshipRate >= 0) {
       price = collegeAdmin.internshipRate;
     }
 

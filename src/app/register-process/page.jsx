@@ -842,7 +842,7 @@ export default function PartnerStudentPortalPage() {
     const internObj = internships.find((i) => i._id === selectedInternship);
     if (!internObj) return 500;
 
-    if (collegeRates && collegeRates.internshipRate > 0) {
+    if (collegeRates && typeof collegeRates.internshipRate === "number" && collegeRates.internshipRate >= 0) {
       return collegeRates.internshipRate;
     }
     return internObj.RegistrationFee?.amount !== undefined ? Number(internObj.RegistrationFee.amount) : 500;
@@ -1822,7 +1822,7 @@ export default function PartnerStudentPortalPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {displayedInternships.map((intern) => {
                         const isSelected = selectedInternship === intern._id;
-                        const fee = collegeRates && collegeRates.internshipRate > 0
+                        const fee = (collegeRates && typeof collegeRates.internshipRate === "number" && collegeRates.internshipRate >= 0)
                           ? collegeRates.internshipRate
                           : intern.RegistrationFee?.amount || 500;
 
@@ -1859,7 +1859,7 @@ export default function PartnerStudentPortalPage() {
 
                             <div className="text-right flex-shrink-0">
                               <span className="text-lg font-black text-brand-primary">₹{fee}</span>
-                              {collegeRates && collegeRates.internshipRate > 0 && (
+                              {(collegeRates && typeof collegeRates.internshipRate === "number" && collegeRates.internshipRate >= 0) && (
                                 <span className="block text-[10px] text-emerald-600 font-bold uppercase">
                                   Partner Rate
                                 </span>

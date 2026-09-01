@@ -39,8 +39,8 @@ export async function GET(request) {
       {
         success: true,
         registered: true,
-        internshipRate: collegeAdmin.internshipRate || 0,
-        courseRate: collegeAdmin.courseRate || 0,
+        internshipRate: collegeAdmin.internshipRate !== undefined && collegeAdmin.internshipRate !== null ? Number(collegeAdmin.internshipRate) : 0,
+        courseRate: collegeAdmin.courseRate !== undefined && collegeAdmin.courseRate !== null ? Number(collegeAdmin.courseRate) : 0,
         internshipStartDate: collegeAdmin.internshipStartDate || null
       },
       { status: 200 }

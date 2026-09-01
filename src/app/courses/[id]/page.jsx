@@ -89,7 +89,7 @@ export default function CourseDetailLearnPage() {
     setIsValidatingCoupon(true);
     try {
       const originalPrice = course?.price || 0;
-      const basePrice = (collegeRates.registered && collegeRates.courseRate > 0)
+      const basePrice = (collegeRates.registered && typeof collegeRates.courseRate === "number" && collegeRates.courseRate >= 0)
         ? collegeRates.courseRate
         : originalPrice;
 
@@ -248,7 +248,7 @@ export default function CourseDetailLearnPage() {
     }
 
     const originalPrice = course.price || 0;
-    const price = (collegeRates.registered && collegeRates.courseRate > 0)
+    const price = (collegeRates.registered && typeof collegeRates.courseRate === "number" && collegeRates.courseRate >= 0)
       ? collegeRates.courseRate
       : originalPrice;
 
@@ -482,7 +482,7 @@ export default function CourseDetailLearnPage() {
                   onClick={handleEnrollMock}
                   className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-2.5 px-6 rounded-xl shadow transition"
                 >
-                  Enroll Now {course.isFree ? "(Free)" : `- ₹${appliedCoupon ? appliedCoupon.finalPrice : ((collegeRates.registered && collegeRates.courseRate > 0) ? collegeRates.courseRate : course.price)}`}
+                  Enroll Now {course.isFree ? "(Free)" : `- ₹${appliedCoupon ? appliedCoupon.finalPrice : ((collegeRates.registered && typeof collegeRates.courseRate === "number" && collegeRates.courseRate >= 0) ? collegeRates.courseRate : course.price)}`}
                 </button>
               </div>
             ) : (

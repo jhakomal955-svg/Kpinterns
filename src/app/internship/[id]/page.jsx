@@ -331,7 +331,7 @@ export default function InternshipDetailLearnPage() {
     }
 
     const originalPrice = internship.RegistrationFee?.amount || 500;
-    const price = (collegeRates.registered && collegeRates.internshipRate > 0)
+    const price = (collegeRates.registered && typeof collegeRates.internshipRate === "number" && collegeRates.internshipRate >= 0)
       ? collegeRates.internshipRate
       : originalPrice;
 

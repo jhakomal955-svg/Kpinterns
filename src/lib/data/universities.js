@@ -39018,7 +39018,7 @@ export const universitiesData = {
         }
       },
       "jagjeevan-college-gaya": {
-        "name": "Jagjeevan college, Gaya",
+        "name": "JAGJIWAN COLLEGE, GAYA",
         "departments": {
           "BA": [
             "Arts",

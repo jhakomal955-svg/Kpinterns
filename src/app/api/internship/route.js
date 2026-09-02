@@ -347,7 +347,6 @@ export async function PUT(request) {
       internshipId,
       data,
       {
-        new: true,
         returnDocument: "after",
         runValidators: true,
       },

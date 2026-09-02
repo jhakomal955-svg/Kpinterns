@@ -3,7 +3,24 @@
  * Represents an internship opportunity with multimedia content and company details
  */
 import mongoose from "mongoose";
-import { ALL_DEPARTMENTS } from "../lib/data/degreeDepartments.js";
+import { ALL_DEPARTMENTS, DEGREE_LIST } from "../lib/data/degreeDepartments.js";
+
+const ALL_DEGREES = Array.from(
+  new Set([
+    "Diploma",
+    "B.Tech",
+    "BTech",
+    "BCA",
+    "MCA",
+    "BBA",
+    "BA",
+    "BSc",
+    "BCom",
+    "Education",
+    "Law",
+    ...(DEGREE_LIST || []),
+  ])
+);
 
 const InternshipModel = {
   // Basic Information
@@ -55,16 +72,7 @@ const InternshipModel = {
   degree: {
     type: [String],
     required: true,
-    enum: [
-      "B.Tech",
-      "BTech",
-      "Diploma",
-      "BSc",
-      "BA",
-      "BCom",
-      "Education",
-      "Law",
-    ],
+    enum: ALL_DEGREES,
   },
 
   department: {

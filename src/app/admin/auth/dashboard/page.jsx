@@ -346,8 +346,8 @@ export default function DashboardPage() {
                   <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
                     <div className="space-y-1">
                       <BranchBadges department={internship.department} maxVisible={1} />
-                      <h4 className="font-bold text-base text-text-main line-clamp-1">{internship.position}</h4>
-                      <h5 className="font-semibold text-xs text-text-muted">{internship.title}</h5>
+                      <h4 className="font-bold text-base text-text-main line-clamp-1">{internship.title}</h4>
+                      <h5 className="font-semibold text-xs text-text-muted">{internship.position}</h5>
                     </div>
                     <div className="flex items-center justify-between pt-3 border-t border-border-main">
                       <span className="text-xs bg-gray-500/10 px-2 py-0.5 rounded border border-border-main text-text-muted">{internship.status}</span>

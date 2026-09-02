@@ -95,11 +95,15 @@ export default function InternshipsAdminPage() {
       if (!isAssigned) return false;
     }
 
-    const term = searchQuery.toLowerCase();
+    const term = searchQuery.trim().toLowerCase();
     const matchesSearch =
+      !term ||
       internship.title?.toLowerCase().includes(term) ||
-      internship.description?.toLowerCase().includes(term) ||
+      internship.domain?.toLowerCase().includes(term) ||
       internship.position?.toLowerCase().includes(term) ||
+      internship.company?.toLowerCase().includes(term) ||
+      internship.shortDescription?.toLowerCase().includes(term) ||
+      internship.description?.toLowerCase().includes(term) ||
       (Array.isArray(internship.department)
         ? internship.department.some((d) => d.toLowerCase().includes(term))
         : internship.department?.toLowerCase().includes(term));
@@ -172,7 +176,7 @@ export default function InternshipsAdminPage() {
           </span>
           <input
             type="text"
-            placeholder="Search by position, department, title, or keywords..."
+            placeholder="Search by internship title, domain, role, or keywords..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2.5 bg-bg-main border-2 border-border-main rounded-xl text-text-main placeholder-text-muted focus:border-brand-primary outline-none transition text-sm sm:text-base"
@@ -267,11 +271,11 @@ export default function InternshipsAdminPage() {
                   <div>
                     <BranchBadges department={internship.department} maxVisible={2} />
                     <h3 className="font-bold text-lg text-text-main line-clamp-1">
-                      {internship.position || "N/A"}
+                      {internship.title || "N/A"}
                     </h3>
                   </div>
                   <h4 className="font-semibold text-sm text-text-muted">
-                    {internship.title}
+                    {internship.position}
                   </h4>
                   <p className="text-text-muted text-sm line-clamp-3 leading-relaxed">
                     {internship.shortDescription || internship.description}

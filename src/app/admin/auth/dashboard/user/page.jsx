@@ -588,44 +588,54 @@ export default function UsersAdminPage() {
                                         {i.paymentStatus ? `Paid: ₹${i.amount || 0}` : "Unpaid"}
                                       </span>
                                     </div>
-                                  {(i.offerLetterUrl || i.certificationUrl || i.attendanceCertificateUrl) && (
-                                    <div className="flex flex-wrap gap-1 pt-1 border-t border-border-main/50 mt-1">
-                                      {i.offerLetterUrl && (
-                                        <a
-                                          href={i.offerLetterUrl}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="text-[9px] bg-blue-500/10 text-blue-600 hover:underline px-1.5 py-0.5 rounded font-bold"
-                                        >
-                                          📄 Offer Letter
-                                        </a>
-                                      )}
-                                      {i.attendanceCertificateUrl && (
-                                        <a
-                                          href={i.attendanceCertificateUrl}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="text-[9px] bg-purple-500/10 text-purple-600 hover:underline px-1.5 py-0.5 rounded font-bold"
-                                        >
-                                          📄 Attendance Sheet
-                                        </a>
-                                      )}
-                                      {i.certificationUrl && (
-                                        <a
-                                          href={i.certificationUrl}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="text-[9px] bg-emerald-500/10 text-emerald-600 hover:underline px-1.5 py-0.5 rounded font-bold"
-                                        >
-                                          🎓 Certificate
-                                        </a>
-                                      )}
-                                    </div>
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </div>
+                                    {(i.offerLetterUrl || i.certificationUrl || i.attendanceCertificateUrl || i.paymentreceipt) && (
+                                      <div className="flex flex-wrap gap-1 pt-1 border-t border-border-main/50 mt-1">
+                                        {i.paymentreceipt && (
+                                          <a
+                                            href={i.paymentreceipt}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[9px] bg-amber-500/10 text-amber-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                          >
+                                            🧾 Receipt
+                                          </a>
+                                        )}
+                                        {i.offerLetterUrl && (
+                                          <a
+                                            href={i.offerLetterUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[9px] bg-blue-500/10 text-blue-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                          >
+                                            📄 Offer Letter
+                                          </a>
+                                        )}
+                                        {i.attendanceCertificateUrl && (
+                                          <a
+                                            href={i.attendanceCertificateUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[9px] bg-purple-500/10 text-purple-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                          >
+                                            📄 Attendance Sheet
+                                          </a>
+                                        )}
+                                        {i.certificationUrl && (
+                                          <a
+                                            href={i.certificationUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[9px] bg-emerald-500/10 text-emerald-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                          >
+                                            🎓 Certificate
+                                          </a>
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
                           </div>
                         ) : null}
 
@@ -645,16 +655,28 @@ export default function UsersAdminPage() {
                                       {c.paymentStatus ? `Paid: ₹${c.amount || 0}` : "Unpaid"}
                                     </span>
                                   </div>
-                                  {c.certificateUrl && (
+                                  {(c.certificateUrl || c.paymentreceipt) && (
                                     <div className="flex flex-wrap gap-1 pt-1 border-t border-border-main/50 mt-1">
-                                      <a
-                                        href={c.certificateUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-[9px] bg-emerald-500/10 text-emerald-600 hover:underline px-1.5 py-0.5 rounded font-bold"
-                                      >
-                                        🎓 Certificate
-                                      </a>
+                                      {c.paymentreceipt && (
+                                        <a
+                                          href={c.paymentreceipt}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-[9px] bg-amber-500/10 text-amber-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                        >
+                                          🧾 Receipt
+                                        </a>
+                                      )}
+                                      {c.certificateUrl && (
+                                        <a
+                                          href={c.certificateUrl}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-[9px] bg-emerald-500/10 text-emerald-600 hover:underline px-1.5 py-0.5 rounded font-bold"
+                                        >
+                                          🎓 Certificate
+                                        </a>
+                                      )}
                                     </div>
                                   )}
                                 </div>

@@ -568,6 +568,43 @@ export async function POST(request) {
       }
     }
 
+    // Generate and attach payment receipt during registration once payment is verified
+    let receiptPdfBuffer = null;
+    let receiptCloudinaryUrl = "";
+
+    if (!isDashboardCreation && resolvedType) {
+      try {
+        receiptPdfBuffer = await generatePaymentReceipt(data, {
+          purchaseType: resolvedType,
+          title: resolvedTitle,
+          amount: resolvedPrice,
+          paymentId: paymentDetails?.razorpay_payment_id || "N/A",
+          orderId: paymentDetails?.razorpay_order_id || "N/A",
+          date: new Date(),
+        });
+
+        if (receiptPdfBuffer) {
+          const filename = `payment_receipt_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+          const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
+            public_id: filename,
+            folder: "kpinterns/receipts",
+            resource_type: "auto",
+          });
+          receiptCloudinaryUrl = uploadResult?.secure_url || "";
+        }
+      } catch (receiptErr) {
+        console.error("❌ Failed to generate/upload payment receipt during registration:", receiptErr);
+      }
+
+      if (receiptCloudinaryUrl) {
+        if (resolvedType === "internship" && data.ActiveInternship?.length > 0) {
+          data.ActiveInternship[0].paymentreceipt = receiptCloudinaryUrl;
+        } else if (resolvedType === "course" && data.ActiveCources?.length > 0) {
+          data.ActiveCources[0].paymentreceipt = receiptCloudinaryUrl;
+        }
+      }
+    }
+
     // Create new user
     const newUser = new User(data);
     await newUser.save();
@@ -646,47 +683,47 @@ export async function POST(request) {
 
         // Send the allotment and receipt email to the user (only for client-side registrations)
         if (!isDashboardCreation && resolvedType) {
-          let receiptPdfBuffer = null;
-
-          // Step 1: Generate PDF receipt
-          try {
-            receiptPdfBuffer = await generatePaymentReceipt(newUser.toObject(), {
-              purchaseType: resolvedType,
-              title: resolvedTitle,
-              amount: resolvedPrice,
-              paymentId: paymentDetails?.razorpay_payment_id || "N/A",
-              orderId: paymentDetails?.razorpay_order_id || "N/A",
-              date: new Date(),
-            });
-          } catch (pdfErr) {
-            console.error("❌ Failed to generate payment receipt PDF:", pdfErr);
-          }
-
-          // Step 2: Upload PDF to Cloudinary and save URL on user document
-          if (receiptPdfBuffer) {
+          // Fallback: If receipt was not uploaded before user save, upload and update user now
+          if (!receiptCloudinaryUrl) {
             try {
-              const filename = `payment_receipt_${newUser._id}_${Date.now()}`;
-              const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
-                public_id: filename,
-                folder: "kpinterns/receipts",
-                resource_type: "auto",
-              });
-              const receiptCloudinaryUrl = uploadResult.secure_url;
-
-              // Save URL directly on the user record in database to avoid in-memory model saves
-              if (resolvedType === "internship" && newUser.ActiveInternship?.length > 0) {
-                await User.updateOne(
-                  { _id: newUser._id, "ActiveInternship.internship": newUser.ActiveInternship[newUser.ActiveInternship.length - 1].internship },
-                  { $set: { "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl } }
-                );
-              } else if (resolvedType === "course" && newUser.ActiveCources?.length > 0) {
-                await User.updateOne(
-                  { _id: newUser._id, "ActiveCources.course": newUser.ActiveCources[newUser.ActiveCources.length - 1].course },
-                  { $set: { "ActiveCources.$.paymentreceipt": receiptCloudinaryUrl } }
-                );
+              if (!receiptPdfBuffer) {
+                receiptPdfBuffer = await generatePaymentReceipt(newUser.toObject(), {
+                  purchaseType: resolvedType,
+                  title: resolvedTitle,
+                  amount: resolvedPrice,
+                  paymentId: paymentDetails?.razorpay_payment_id || "N/A",
+                  orderId: paymentDetails?.razorpay_order_id || "N/A",
+                  date: new Date(),
+                });
               }
-            } catch (uploadErr) {
-              console.error("❌ Failed to upload receipt PDF to Cloudinary:", uploadErr);
+
+              if (receiptPdfBuffer) {
+                const filename = `payment_receipt_${newUser._id}_${Date.now()}`;
+                const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
+                  public_id: filename,
+                  folder: "kpinterns/receipts",
+                  resource_type: "auto",
+                });
+                receiptCloudinaryUrl = uploadResult?.secure_url || "";
+
+                if (receiptCloudinaryUrl) {
+                  if (resolvedType === "internship" && newUser.ActiveInternship?.length > 0) {
+                    const subId = newUser.ActiveInternship[newUser.ActiveInternship.length - 1]._id;
+                    await User.updateOne(
+                      { _id: newUser._id, "ActiveInternship._id": subId },
+                      { $set: { "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl } }
+                    );
+                  } else if (resolvedType === "course" && newUser.ActiveCources?.length > 0) {
+                    const subId = newUser.ActiveCources[newUser.ActiveCources.length - 1]._id;
+                    await User.updateOne(
+                      { _id: newUser._id, "ActiveCources._id": subId },
+                      { $set: { "ActiveCources.$.paymentreceipt": receiptCloudinaryUrl } }
+                    );
+                  }
+                }
+              }
+            } catch (fallbackErr) {
+              console.error("❌ Fallback receipt upload failed:", fallbackErr);
             }
           }
 

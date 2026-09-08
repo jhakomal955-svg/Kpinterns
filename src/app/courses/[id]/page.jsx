@@ -344,6 +344,9 @@ export default function CourseDetailLearnPage() {
                   userId: userData._id,
                   type: "course",
                   itemId: courseId,
+                  originalAmount: orderData.originalAmount,
+                  couponCode: orderData.couponCode,
+                  discountAmount: orderData.discountAmount,
                 }),
               });
 

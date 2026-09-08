@@ -5,6 +5,21 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import LogoutConfirmModal from "@/components/LogoutConfirmModal";
+import EditProfileModal from "@/components/EditProfileModal";
+
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if (typeof window !== "undefined" && window.Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -16,8 +31,10 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("personal");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false);
   const [copiedCertId, setCopiedCertId] = useState(null);
   const [uploadingConsentLetter, setUploadingConsentLetter] = useState(false);
+  const [payingFeeId, setPayingFeeId] = useState(null);
 
   const handleProfileConsentLetterUpload = async (e) => {
     const file = e.target.files[0];
@@ -83,6 +100,101 @@ export default function ProfilePage() {
     }
   };
 
+  const handlePayCompletionFee = async (internship) => {
+    try {
+      setPayingFeeId(internship.id);
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        alert("Failed to load payment gateway. Please check your internet connection.");
+        setPayingFeeId(null);
+        return;
+      }
+
+      const token = localStorage.getItem("userToken");
+      const resOrder = await fetch("/api/payment/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          type: "internship",
+          itemId: internship.id,
+          purpose: "completion_fee",
+        }),
+      });
+
+      const orderData = await resOrder.json();
+      if (!resOrder.ok || !orderData.orderId) {
+        alert(orderData.error || "Failed to create payment order. Please try again.");
+        setPayingFeeId(null);
+        return;
+      }
+
+      const options = {
+        key: orderData.key,
+        amount: orderData.amount * 100,
+        currency: orderData.currency || "INR",
+        name: "KpInterns",
+        description: `Certificate & Release Fee: ${internship.position || "Internship"}`,
+        order_id: orderData.orderId,
+        handler: async function (response) {
+          try {
+            const verifyRes = await fetch("/api/payment/verify", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+              },
+              body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                userId: profileData._id,
+                type: "internship",
+                itemId: internship.id,
+                purpose: "completion_fee",
+              }),
+            });
+
+            const verifyData = await verifyRes.json();
+            if (verifyRes.ok) {
+              alert("Payment successful! Your official Certificate, Attendance Sheet, Log Book, and Payment Receipt have been unlocked.");
+              await fetchUserData();
+            } else {
+              alert(verifyData.error || "Payment verification failed. Please contact support.");
+            }
+          } catch (err) {
+            console.error("Verification error:", err);
+            alert("Error verifying payment. If amount was deducted, your documents will be unlocked shortly.");
+          } finally {
+            setPayingFeeId(null);
+          }
+        },
+        prefill: {
+          name: profileData?.fullName || "",
+          email: profileData?.email || "",
+          contact: profileData?.phone || "",
+        },
+        theme: {
+          color: "#2563eb",
+        },
+        modal: {
+          ondismiss: function () {
+            setPayingFeeId(null);
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert(error.message || "An error occurred initiating payment.");
+      setPayingFeeId(null);
+    }
+  };
+
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem("userToken");
@@ -144,6 +256,10 @@ export default function ProfilePage() {
         reportPdfUrl: i.internship?.intersnhipReport || "",
         testStatus: i.internship?.test?.status || "Draft",
         testQuestionsCount: i.internship?.test?.questions?.length || 0,
+        amount: typeof i.amount === "number" ? i.amount : 0,
+        originalAmount: i.originalAmount || i.internship?.RegistrationFee?.amount || 500,
+        isPaymentPending: (i.amount === 0 || i.amount === undefined || i.amount === null || i.amount <= 0) &&
+          ((i.originalAmount && i.originalAmount > 0) || (i.internship?.RegistrationFee?.amount && Number(i.internship.RegistrationFee.amount) > 0)),
       }));
 
       setAppliedItems({
@@ -403,14 +519,21 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Status Badge */}
-            
+            {/* Header Actions */}
+            <div className="flex flex-wrap items-center gap-3">
               <button
-            onClick={() => setShowLogoutModal(true)}
-            className="px-4 py-2 text-text-muted bg-bg-main hover:bg-bg-card rounded-lg transition font-poppins font-medium"
-          >
-            Logout
-          </button>
+                onClick={() => setShowEditProfileModal(true)}
+                className="px-4 py-2 text-white bg-brand-primary hover:bg-brand-secondary rounded-lg transition font-poppins font-medium shadow-md flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>✏️</span> Edit Basic Info
+              </button>
+              <button
+                onClick={() => setShowLogoutModal(true)}
+                className="px-4 py-2 text-text-muted bg-bg-main hover:bg-bg-card rounded-lg transition font-poppins font-medium cursor-pointer"
+              >
+                Logout
+              </button>
+            </div>
 
           </div>
         </div>
@@ -446,9 +569,17 @@ export default function ProfilePage() {
             <div className="max-w-3xl mx-auto w-full">
               {/* Personal Information Card */}
               <div className="bg-bg-card dark:bg-bg-card rounded-2xl border border-border-main dark:border-border-main p-8 shadow-md hover:shadow-lg transition">
-                <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins mb-6 pb-4 border-b border-border-main dark:border-border-main">
-                  Personal Details
-                </h3>
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-border-main dark:border-border-main">
+                  <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins">
+                    Personal Details
+                  </h3>
+                  <button
+                    onClick={() => setShowEditProfileModal(true)}
+                    className="text-xs sm:text-sm font-semibold text-brand-primary hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>✏️</span> Edit Details
+                  </button>
+                </div>
                 <div className="space-y-5">
                   <InfoRow label="Full Name" value={profileData.fullName} />
                   <InfoRow label="Email" value={profileData.email} />
@@ -468,9 +599,17 @@ export default function ProfilePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Academic Details */}
               <div className="bg-bg-card dark:bg-bg-card rounded-2xl border border-border-main dark:border-border-main p-6 shadow-md hover:shadow-lg transition">
-                <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins mb-6 pb-4 border-b border-border-main dark:border-border-main">
-                  Education Details
-                </h3>
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-border-main dark:border-border-main">
+                  <h3 className="text-xl font-bold text-text-main dark:text-text-main font-poppins">
+                    Education Details
+                  </h3>
+                  <button
+                    onClick={() => setShowEditProfileModal(true)}
+                    className="text-xs sm:text-sm font-semibold text-brand-primary hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>✏️</span> Edit Details
+                  </button>
+                </div>
                 <div className="space-y-5">
                   <InfoRow label="University" value={profileData.university} />
                   <InfoRow label="College" value={profileData.college} />
@@ -806,9 +945,48 @@ export default function ProfilePage() {
                                   onClick={() => handleMarkAttendance(internship.id)}
                                   className="px-3 py-1.5 bg-brand-primary hover:bg-brand-primary/95 text-white text-xs font-bold rounded-lg transition-all shadow-sm shadow-brand-primary/20 hover:shadow-brand-primary/35 self-start sm:self-auto"
                                 >
-                                  Mark Today's Attendance
+                                  Mark Today&apos;s Attendance
                                 </button>
                               )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Completion Fee Payment Gate Banner */}
+                        {internship.isPaymentPending && internship.status === "Completed" && (
+                          <div className="p-4 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/30 rounded-xl space-y-3 animate-fade-in">
+                            <div className="flex items-start gap-3">
+                              <span className="text-2xl">🔒</span>
+                              <div className="flex-1">
+                                <h4 className="text-sm font-bold text-text-main font-poppins flex items-center gap-2">
+                                  <span>Internship Completed</span>
+                                  <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-amber-500/30">
+                                    Documents Pending Payment
+                                  </span>
+                                </h4>
+                                <p className="text-xs text-text-muted font-poppins mt-1 leading-relaxed">
+                                  You enrolled under the College Partner Scheme (Registration Fee: ₹0). To unlock and generate your official <strong>Certificate</strong>, <strong>Attendance Sheet</strong>, <strong>Daily Log Book</strong>, and <strong>Payment Receipt</strong>, please pay the original program fee of <strong>₹{internship.originalAmount}</strong>.
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex justify-end pt-1">
+                              <button
+                                onClick={() => handlePayCompletionFee(internship)}
+                                disabled={payingFeeId === internship.id}
+                                className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-bold rounded-lg transition-all shadow-md hover:shadow-lg flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+                              >
+                                {payingFeeId === internship.id ? (
+                                  <>
+                                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                    <span>Processing Payment...</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <span>💳</span>
+                                    <span>Pay ₹{internship.originalAmount} & Unlock Certificate, Attendance & Log Book</span>
+                                  </>
+                                )}
+                              </button>
                             </div>
                           </div>
                         )}
@@ -1012,6 +1190,16 @@ export default function ProfilePage() {
         isOpen={showLogoutModal}
         onClose={() => setShowLogoutModal(false)}
         onConfirm={handleLogout}
+      />
+
+      {/* Edit Profile Modal */}
+      <EditProfileModal
+        isOpen={showEditProfileModal}
+        onClose={() => setShowEditProfileModal(false)}
+        profileData={profileData}
+        onSaveSuccess={(updatedUser) => {
+          setProfileData(updatedUser);
+        }}
       />
     </div>
   );

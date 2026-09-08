@@ -34,6 +34,7 @@ export default function InternshipEditPage() {
     degree: [],
     department: [],
     domain: "Full Stack Development",
+    customDomain: "",
     internshipType: "Full-Time",
     mode: "Hybrid",
     duration: "2 Weeks",
@@ -81,6 +82,8 @@ export default function InternshipEditPage() {
   // Grouped domains according to Internship model enums
   const domainGroups = {
     "Computer Science & Engineering": [
+      "Computer Application",
+      "Computer Applications",
       "Web Development",
       "Machine Learning",
       "Artificial Intelligence",
@@ -385,6 +388,20 @@ export default function InternshipEditPage() {
           }
         }
 
+        const allKnownDomains = Object.values(domainGroups).flat();
+        const rawDomain = internship.domain || "Full Stack Development";
+        const isKnown = allKnownDomains.includes(rawDomain);
+        let formDomain = rawDomain;
+        let customDomainVal = "";
+
+        if (!isKnown) {
+          formDomain = "Other Tech";
+          customDomainVal = rawDomain;
+        } else if (rawDomain === "Other Tech" || rawDomain.startsWith("Other") || rawDomain === "Others") {
+          formDomain = rawDomain;
+          customDomainVal = "";
+        }
+
         setFormData({
           title: internship.title || "",
           description: internship.description || "",
@@ -397,7 +414,8 @@ export default function InternshipEditPage() {
             ? [normalizeDegree(internship.degree)]
             : [],
           department: Array.isArray(internship.department) ? internship.department : (internship.department ? [internship.department] : []),
-          domain: internship.domain || "Full Stack Development",
+          domain: formDomain,
+          customDomain: customDomainVal,
           internshipType: internship.internshipType || "Full-Time",
           mode: internship.mode || "Hybrid",
           duration: (() => {
@@ -799,6 +817,17 @@ export default function InternshipEditPage() {
       setError("Company is required");
       return;
     }
+    if (!formData.domain) {
+      setError("Domain is required");
+      return;
+    }
+    const isOther = formData.domain === "Other Tech" || formData.domain?.startsWith("Other") || formData.domain === "Others";
+    if (isOther && (!formData.customDomain || !formData.customDomain.trim())) {
+      setError("Please specify the custom domain name for this internship");
+      return;
+    }
+    const resolvedDomain = isOther ? formData.customDomain.trim() : formData.domain;
+
     if (!formData.instructors || formData.instructors.length === 0) {
       setError("At least one instructor is required");
       return;
@@ -814,7 +843,8 @@ export default function InternshipEditPage() {
         position: formData.position,
         degree: formData.degree,
         department: formData.department,
-        domain: formData.domain,
+        domain: resolvedDomain,
+        customDomain: isOther ? formData.customDomain.trim() : undefined,
         internshipType: formData.internshipType,
         mode: formData.mode,
         duration: formData.duration,
@@ -1166,6 +1196,26 @@ export default function InternshipEditPage() {
                     </optgroup>
                   ))}
                 </select>
+
+                {(formData.domain === "Other Tech" || formData.domain?.startsWith("Other") || formData.domain === "Others") && (
+                  <div className="mt-2.5 p-3 bg-brand-primary/5 border border-brand-primary/20 rounded-xl">
+                    <label className="block text-xs font-bold text-brand-primary mb-1 uppercase tracking-wider">
+                      Specify Domain Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="customDomain"
+                      required
+                      value={formData.customDomain || ""}
+                      onChange={handleBasicInputChange}
+                      placeholder="e.g. Cybersecurity & Forensics, Quantum Computing, etc."
+                      className="w-full p-2 bg-bg-main border-2 border-brand-primary/40 rounded-lg focus:border-brand-primary outline-none transition text-sm font-medium"
+                    />
+                    <p className="text-[11px] text-text-muted mt-1">
+                      This custom name will be saved as the domain and used on all offer letters, certificates, and document generation instead of &quot;Other&quot;.
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="md:col-span-2">

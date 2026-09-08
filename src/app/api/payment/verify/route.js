@@ -148,8 +148,9 @@ export async function POST(request) {
     }
 
     // Apply custom rates if college has a verified College Admin with rate > 0
+    // Bypass if purpose is completion_fee, where original internship fee must be paid
     const targetCollege = user?.college || studentPayload?.college;
-    if (targetCollege) {
+    if (targetCollege && body.purpose !== "completion_fee") {
       const Admin = createModel("Admin", AdminModel);
       const escapedCollege = targetCollege.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
       const collegeAdmin = await Admin.findOne({
@@ -167,8 +168,37 @@ export async function POST(request) {
       }
     }
 
+    let finalAmount = price;
+    let originalAmount = body.originalAmount !== undefined ? Number(body.originalAmount) : price;
+    let couponCode = body.couponCode || null;
+    let discountAmount = body.discountAmount !== undefined ? Number(body.discountAmount) : 0;
+
+    // Fetch Razorpay order details and notes if order ID is present
+    if (razorpay_order_id && process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
+      try {
+        const Razorpay = (await import("razorpay")).default;
+        const razorpay = new Razorpay({
+          key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+          key_secret: process.env.RAZORPAY_KEY_SECRET,
+        });
+        const orderInfo = await razorpay.orders.fetch(razorpay_order_id);
+        if (orderInfo) {
+          if (typeof orderInfo.amount === "number") {
+            finalAmount = orderInfo.amount / 100;
+          }
+          if (orderInfo.notes) {
+            if (orderInfo.notes.originalAmount) originalAmount = Number(orderInfo.notes.originalAmount) || originalAmount;
+            if (orderInfo.notes.couponCode) couponCode = orderInfo.notes.couponCode;
+            if (orderInfo.notes.discountAmount) discountAmount = Number(orderInfo.notes.discountAmount) || discountAmount;
+          }
+        }
+      } catch (err) {
+        console.warn("Could not fetch Razorpay order notes:", err?.message);
+      }
+    }
+
     // Verify payment signature if price > 0
-    if (price > 0) {
+    if (finalAmount > 0) {
       if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
         return Response.json({ error: "Payment details are required for paid courses/internships" }, { status: 400 });
       }
@@ -235,18 +265,21 @@ export async function POST(request) {
           paymentStatus: true,
           paymentDate: startDate,
           paymentId: razorpay_payment_id || null,
-          amount: price,
+          amount: finalAmount,
+          originalAmount,
+          couponCode,
+          discountAmount,
           startDate: startDate,
           endDate: endDate,
         });
       }
     } else if (type === "internship") {
       // Check if already enrolled
-      const isAlreadyEnrolled = (user.ActiveInternship || []).some(
+      const existingEnrollment = (user.ActiveInternship || []).find(
         (i) => (i.internship?._id || i.internship).toString() === itemId
       );
 
-      if (!isAlreadyEnrolled) {
+      if (!existingEnrollment) {
         let startDate = new Date();
         let customStartFound = false;
 
@@ -293,12 +326,25 @@ export async function POST(request) {
           paymentStatus: true,
           paymentDate: startDate,
           paymentId: razorpay_payment_id || null,
-          amount: price,
+          amount: finalAmount,
+          originalAmount,
+          couponCode,
+          discountAmount,
           startDate: startDate,
           endDate: endDate,
           attendance: newAtt._id,
         });
+      } else {
+        // If student is already enrolled (e.g. 0-fee enrollment) and now paying the completion fee
+        existingEnrollment.amount = finalAmount;
+        existingEnrollment.paymentStatus = true;
+        existingEnrollment.paymentDate = new Date();
+        existingEnrollment.paymentId = razorpay_payment_id || null;
+        if (originalAmount) existingEnrollment.originalAmount = originalAmount;
+        if (couponCode) existingEnrollment.couponCode = couponCode;
+        if (discountAmount) existingEnrollment.discountAmount = discountAmount;
       }
+      user.markModified("ActiveInternship");
 
       // Link PartnerStudent record upon successful payment verification
       const cleanReg = (user.registrationNumber || "").trim();
@@ -358,7 +404,10 @@ export async function POST(request) {
           receiptPdfBuffer = await generatePaymentReceipt(user.toObject(), {
             purchaseType: type,
             title,
-            amount: price,
+            amount: finalAmount,
+            originalAmount,
+            couponCode,
+            discountAmount,
             paymentId: razorpay_payment_id || "N/A",
             orderId: razorpay_order_id || "N/A",
             date: new Date(),
@@ -382,7 +431,14 @@ export async function POST(request) {
             if (type === "internship" && user.ActiveInternship?.length > 0) {
               await User.updateOne(
                 { _id: targetUserId, "ActiveInternship.internship": itemId },
-                { $set: { "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl } }
+                {
+                  $set: {
+                    "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl,
+                    "ActiveInternship.$.amount": finalAmount,
+                    "ActiveInternship.$.paymentId": razorpay_payment_id || "N/A",
+                    "ActiveInternship.$.paymentDate": new Date(),
+                  }
+                }
               );
             } else if (type === "course" && user.ActiveCources?.length > 0) {
               await User.updateOne(
@@ -400,7 +456,10 @@ export async function POST(request) {
           await sendAllotmentAndPaymentSlipEmail(user.email, user.fullName, {
             purchaseType: type,
             title: title,
-            amount: price,
+            amount: finalAmount,
+            originalAmount,
+            couponCode,
+            discountAmount,
             paymentId: razorpay_payment_id || "N/A",
             orderId: razorpay_order_id || "N/A",
             date: new Date(),

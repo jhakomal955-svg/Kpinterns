@@ -73,6 +73,9 @@ export async function POST(request) {
       if (type && itemId) {
         let price = paymentEntity.amount ? paymentEntity.amount / 100 : 0;
         let title = notes.title || (type === "course" ? "Course Access" : "Internship Program");
+        let originalAmount = notes.originalAmount ? Number(notes.originalAmount) : price;
+        let couponCode = notes.couponCode || null;
+        let discountAmount = notes.discountAmount ? Number(notes.discountAmount) : 0;
 
         if (type === "course") {
           const isAlreadyEnrolled = (user.ActiveCources || []).some(
@@ -88,15 +91,17 @@ export async function POST(request) {
               paymentDate: new Date(),
               paymentId,
               amount: price,
+              originalAmount,
+              couponCode,
+              discountAmount,
               startDate: new Date(),
             });
             await user.save();
-          }
-        } else if (type === "internship") {
-          const isAlreadyEnrolled = (user.ActiveInternship || []).some(
+              } else if (type === "internship") {
+          const existingEnrollment = (user.ActiveInternship || []).find(
             (i) => (i.internship?._id || i.internship).toString() === itemId
           );
-          if (!isAlreadyEnrolled) {
+          if (!existingEnrollment) {
             let startDate = user.internshipStartDate ? new Date(user.internshipStartDate) : new Date();
             if (user.college) {
               const Admin = createModel("Admin", AdminModel);
@@ -159,6 +164,7 @@ export async function POST(request) {
               }
               return date;
             };
+
             const endDate = calculateEndDateHelper(startDate, duration);
 
             const Attendance = createModel("Attendance", AttendanceModel);
@@ -179,13 +185,24 @@ export async function POST(request) {
               paymentDate: new Date(),
               paymentId,
               amount: price,
+              originalAmount,
+              couponCode,
+              discountAmount,
               startDate: startDate,
               endDate: endDate,
               attendance: newAtt._id,
             });
             await user.save();
+          } else if (!existingEnrollment.amount || existingEnrollment.amount === 0) {
+            existingEnrollment.amount = price;
+            existingEnrollment.paymentStatus = true;
+            existingEnrollment.paymentDate = new Date();
+            existingEnrollment.paymentId = paymentId;
+            if (originalAmount) existingEnrollment.originalAmount = originalAmount;
+            user.markModified("ActiveInternship");
+            await user.save();
           }
-        }
+        }     }
 
         // Trigger background receipt and notification job asynchronously
         const targetUserId = user._id;
@@ -195,6 +212,9 @@ export async function POST(request) {
               purchaseType: type,
               title,
               amount: price,
+              originalAmount,
+              couponCode,
+              discountAmount,
               paymentId,
               orderId: orderId || "N/A",
               date: new Date(),
@@ -212,7 +232,14 @@ export async function POST(request) {
               if (type === "internship") {
                 await User.updateOne(
                   { _id: targetUserId, "ActiveInternship.internship": itemId },
-                  { $set: { "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl } }
+                  {
+                    $set: {
+                      "ActiveInternship.$.paymentreceipt": receiptCloudinaryUrl,
+                      "ActiveInternship.$.amount": price,
+                      "ActiveInternship.$.paymentId": paymentId,
+                      "ActiveInternship.$.paymentDate": new Date(),
+                    }
+                  }
                 );
               } else if (type === "course") {
                 await User.updateOne(
@@ -226,6 +253,9 @@ export async function POST(request) {
               purchaseType: type,
               title,
               amount: price,
+              originalAmount,
+              couponCode,
+              discountAmount,
               paymentId,
               orderId: orderId || "N/A",
               date: new Date(),

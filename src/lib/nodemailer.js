@@ -171,6 +171,9 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
     purchaseType, // "course" or "internship"
     title,        // Title of course or internship
     amount,       // Amount paid (number)
+    originalAmount, // Original amount before coupon discount
+    couponCode,   // Coupon code applied (if any)
+    discountAmount, // Discount amount (if any)
     paymentId,    // Razorpay payment ID
     orderId,      // Razorpay order ID
     date,         // Date object
@@ -180,11 +183,22 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
 
   const formattedDate = date ? new Date(date).toLocaleString() : new Date().toLocaleString();
 
+  const hasCoupon = Boolean(couponCode || (discountAmount && Number(discountAmount) > 0));
+  const resolvedOriginal = originalAmount !== undefined && originalAmount !== null
+    ? Number(originalAmount)
+    : (hasCoupon ? Number(amount) + Number(discountAmount || 0) : Number(amount));
+  const resolvedDiscount = discountAmount !== undefined && discountAmount !== null
+    ? Number(discountAmount)
+    : (hasCoupon ? Math.max(0, resolvedOriginal - Number(amount)) : 0);
+
   if (process.env.NODE_ENV === "development") {
     console.log("\n" + "━".repeat(50));
     console.log(`🧾 EMAIL ALLOTMENT & RECEIPT FOR: ${email}`);
     console.log(`📦 ITEM: ${title} (${purchaseType})`);
-    console.log(`💰 AMOUNT: ₹${amount}`);
+    if (hasCoupon) {
+      console.log(`🏷️ ORIGINAL FEE: ₹${resolvedOriginal} | COUPON: ${couponCode} (-₹${resolvedDiscount})`);
+    }
+    console.log(`💰 NET AMOUNT RECEIVED: ₹${amount}`);
     console.log(`💳 PAYMENT ID: ${paymentId}`);
     console.log("━".repeat(50) + "\n");
   }
@@ -234,8 +248,8 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
       </div>
       `;
 
-  // Render complete itemized payment receipt
-  const receiptTable = `
+  // Render complete itemized payment receipt only if amount > 0
+  const receiptTable = Number(amount) > 0 ? `
     <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 24px 0;">
       <h3 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Payment Receipt & Allotment Details</h3>
       <table style="width: 100%; font-size: 14px; border-collapse: collapse;">
@@ -259,11 +273,28 @@ export async function sendAllotmentAndPaymentSlipEmail(email, userName, details)
           <td style="padding: 10px 0; color: #64748b;">Razorpay Order ID</td>
           <td style="padding: 10px 0; text-align: right; font-mono: true; font-weight: 600; color: #0f172a; font-size: 13px;">${orderId || 'N/A'}</td>
         </tr>
+        ${hasCoupon ? `
+        <tr style="border-bottom: 1px solid #e2e8f0;">
+          <td style="padding: 10px 0; color: #64748b;">Original Program Fee</td>
+          <td style="padding: 10px 0; text-align: right; font-weight: 600; color: #0f172a;">₹${resolvedOriginal.toLocaleString('en-IN')}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e2e8f0;">
+          <td style="padding: 10px 0; color: #16a34a; font-weight: 600;">Coupon Discount (${couponCode || 'Applied'})</td>
+          <td style="padding: 10px 0; text-align: right; font-weight: 700; color: #16a34a;">- ₹${resolvedDiscount.toLocaleString('en-IN')}</td>
+        </tr>
+        ` : ""}
         <tr style="font-size: 16px;">
-          <td style="padding: 16px 0 0 0; font-weight: 700; color: #0f172a;">Total Amount Paid</td>
-          <td style="padding: 16px 0 0 0; text-align: right; font-weight: 800; color: #2563eb;">₹${amount}</td>
+          <td style="padding: 16px 0 0 0; font-weight: 700; color: #0f172a;">Total Amount Received</td>
+          <td style="padding: 16px 0 0 0; text-align: right; font-weight: 800; color: #2563eb;">₹${Number(amount).toLocaleString('en-IN')}</td>
         </tr>
       </table>
+    </div>
+  ` : `
+    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 20px 0;">
+      <h3 style="font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 12px;">College Partner Program Allotment</h3>
+      <p style="font-size: 14px; color: #475569; margin: 0 0 8px 0;"><strong>Student Name:</strong> ${userName}</p>
+      <p style="font-size: 14px; color: #475569; margin: 0 0 8px 0;"><strong>Program:</strong> ${title}</p>
+      <p style="font-size: 13px; color: #64748b; margin: 0;">Registration completed under College Partner Scheme. Your official Offer Letter is available on your dashboard.</p>
     </div>
   `;
 

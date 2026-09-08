@@ -428,6 +428,11 @@ export async function POST(request) {
         const accessDuration = matchedCourse.accessDuration || "lifetime";
         const endDate = calculateCourseEndDate(startDate, accessDuration);
 
+        const actualPaidAmount = typeof paymentDetails?.amount === "number" ? paymentDetails.amount : price;
+        const originalAmount = typeof paymentDetails?.originalAmount === "number" ? paymentDetails.originalAmount : price;
+        const couponCode = paymentDetails?.couponCode || null;
+        const discountAmount = typeof paymentDetails?.discountAmount === "number" ? paymentDetails.discountAmount : Math.max(0, originalAmount - actualPaidAmount);
+
         // Map selected course to ActiveCources reference on the User document
         data.ActiveCources = [
           {
@@ -437,7 +442,10 @@ export async function POST(request) {
             paymentStatus: true,
             paymentDate: startDate,
             paymentId: paymentDetails?.razorpay_payment_id || null,
-            amount: price,
+            amount: actualPaidAmount,
+            originalAmount: originalAmount,
+            couponCode: couponCode,
+            discountAmount: discountAmount,
             startDate: startDate,
             endDate: endDate,
           }
@@ -512,6 +520,12 @@ export async function POST(request) {
         const duration = matchedInternship.duration || "2 Weeks";
         const endDate = calculateEndDate(startDate, duration);
 
+        const actualPaidAmount = typeof paymentDetails?.amount === "number" ? paymentDetails.amount : price;
+        const defaultOriginalFee = matchedInternship.RegistrationFee?.amount !== undefined ? Number(matchedInternship.RegistrationFee.amount) : 500;
+        const originalAmount = typeof paymentDetails?.originalAmount === "number" ? paymentDetails.originalAmount : (price > 0 ? price : defaultOriginalFee);
+        const couponCode = paymentDetails?.couponCode || null;
+        const discountAmount = typeof paymentDetails?.discountAmount === "number" ? paymentDetails.discountAmount : Math.max(0, originalAmount - actualPaidAmount);
+
         // Map selected domain & mode to ActiveInternship reference on the User document
         data.ActiveInternship = [
           {
@@ -521,7 +535,10 @@ export async function POST(request) {
             paymentStatus: true,
             paymentDate: startDate,
             paymentId: paymentDetails?.razorpay_payment_id || null,
-            amount: price,
+            amount: actualPaidAmount,
+            originalAmount: originalAmount,
+            couponCode: couponCode,
+            discountAmount: discountAmount,
             startDate: startDate,
             endDate: endDate,
           }
@@ -569,38 +586,50 @@ export async function POST(request) {
     }
 
     // Generate and attach payment receipt during registration once payment is verified
+    // IMPORTANT: If registration fee is 0 (college partner 0 rate or waived), do NOT generate receipt
     let receiptPdfBuffer = null;
     let receiptCloudinaryUrl = "";
 
     if (!isDashboardCreation && resolvedType) {
-      try {
-        receiptPdfBuffer = await generatePaymentReceipt(data, {
-          purchaseType: resolvedType,
-          title: resolvedTitle,
-          amount: resolvedPrice,
-          paymentId: paymentDetails?.razorpay_payment_id || "N/A",
-          orderId: paymentDetails?.razorpay_order_id || "N/A",
-          date: new Date(),
-        });
+      const activeItem = resolvedType === "internship" ? data.ActiveInternship?.[0] : data.ActiveCources?.[0];
+      const actualPaidAmount = activeItem?.amount ?? resolvedPrice;
+      const origAmount = activeItem?.originalAmount ?? resolvedPrice;
+      const appliedCouponCode = activeItem?.couponCode || null;
+      const appliedDiscount = activeItem?.discountAmount ?? 0;
 
-        if (receiptPdfBuffer) {
-          const filename = `payment_receipt_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
-          const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
-            public_id: filename,
-            folder: "kpinterns/receipts",
-            resource_type: "auto",
+      if (actualPaidAmount > 0) {
+        try {
+          receiptPdfBuffer = await generatePaymentReceipt(data, {
+            purchaseType: resolvedType,
+            title: resolvedTitle,
+            amount: actualPaidAmount,
+            originalAmount: origAmount,
+            couponCode: appliedCouponCode,
+            discountAmount: appliedDiscount,
+            paymentId: paymentDetails?.razorpay_payment_id || "N/A",
+            orderId: paymentDetails?.razorpay_order_id || "N/A",
+            date: new Date(),
           });
-          receiptCloudinaryUrl = uploadResult?.secure_url || "";
-        }
-      } catch (receiptErr) {
-        console.error("❌ Failed to generate/upload payment receipt during registration:", receiptErr);
-      }
 
-      if (receiptCloudinaryUrl) {
-        if (resolvedType === "internship" && data.ActiveInternship?.length > 0) {
-          data.ActiveInternship[0].paymentreceipt = receiptCloudinaryUrl;
-        } else if (resolvedType === "course" && data.ActiveCources?.length > 0) {
-          data.ActiveCources[0].paymentreceipt = receiptCloudinaryUrl;
+          if (receiptPdfBuffer) {
+            const filename = `payment_receipt_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+            const uploadResult = await uploadBufferToCloudinary(receiptPdfBuffer, {
+              public_id: filename,
+              folder: "kpinterns/receipts",
+              resource_type: "auto",
+            });
+            receiptCloudinaryUrl = uploadResult?.secure_url || "";
+          }
+        } catch (receiptErr) {
+          console.error("❌ Failed to generate/upload payment receipt during registration:", receiptErr);
+        }
+
+        if (receiptCloudinaryUrl) {
+          if (resolvedType === "internship" && data.ActiveInternship?.length > 0) {
+            data.ActiveInternship[0].paymentreceipt = receiptCloudinaryUrl;
+          } else if (resolvedType === "course" && data.ActiveCources?.length > 0) {
+            data.ActiveCources[0].paymentreceipt = receiptCloudinaryUrl;
+          }
         }
       }
     }
@@ -683,14 +712,25 @@ export async function POST(request) {
 
         // Send the allotment and receipt email to the user (only for client-side registrations)
         if (!isDashboardCreation && resolvedType) {
-          // Fallback: If receipt was not uploaded before user save, upload and update user now
-          if (!receiptCloudinaryUrl) {
+          const activeItem = resolvedType === "internship"
+            ? (newUser.ActiveInternship?.[newUser.ActiveInternship.length - 1] || data.ActiveInternship?.[0])
+            : (newUser.ActiveCources?.[newUser.ActiveCources.length - 1] || data.ActiveCources?.[0]);
+          const actualPaidAmount = activeItem?.amount ?? resolvedPrice;
+          const origAmount = activeItem?.originalAmount ?? resolvedPrice;
+          const appliedCouponCode = activeItem?.couponCode || null;
+          const appliedDiscount = activeItem?.discountAmount ?? 0;
+
+          // Fallback: If receipt was not uploaded before user save, upload and update user now (only if paid amount > 0)
+          if (!receiptCloudinaryUrl && actualPaidAmount > 0) {
             try {
               if (!receiptPdfBuffer) {
                 receiptPdfBuffer = await generatePaymentReceipt(newUser.toObject(), {
                   purchaseType: resolvedType,
                   title: resolvedTitle,
-                  amount: resolvedPrice,
+                  amount: actualPaidAmount,
+                  originalAmount: origAmount,
+                  couponCode: appliedCouponCode,
+                  discountAmount: appliedDiscount,
                   paymentId: paymentDetails?.razorpay_payment_id || "N/A",
                   orderId: paymentDetails?.razorpay_order_id || "N/A",
                   date: new Date(),
@@ -727,17 +767,20 @@ export async function POST(request) {
             }
           }
 
-          // Step 3: Send confirmation email (with PDF buffer as attachment)
+          // Step 3: Send confirmation email (only attach receipt PDF if paid > 0)
           try {
             await sendAllotmentAndPaymentSlipEmail(normalizedEmail, data.fullName, {
               purchaseType: resolvedType,
               title: resolvedTitle,
-              amount: resolvedPrice,
+              amount: actualPaidAmount,
+              originalAmount: origAmount,
+              couponCode: appliedCouponCode,
+              discountAmount: appliedDiscount,
               paymentId: paymentDetails?.razorpay_payment_id || "N/A",
               orderId: paymentDetails?.razorpay_order_id || "N/A",
               date: new Date(),
               isNewRegistration: true,
-              receiptPdfBuffer,
+              receiptPdfBuffer: actualPaidAmount > 0 ? receiptPdfBuffer : null,
             });
           } catch (mailError) {
             console.error("❌ Failed to send registration allotment receipt email:", mailError);
@@ -811,11 +854,19 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
+    const User = createModel("User", UserModel);
 
-    // Prevent non-admin users from self-enrolling by mutating ActiveInternship/ActiveCources directly
+    // Prevent regular users from self-enrolling or tampering with credentials/identity
     if (auth.user.role === "User") {
       delete data.ActiveInternship;
       delete data.ActiveCources;
+      delete data.verified;
+      delete data.password;
+      delete data.email; // email is used for auth/JWT/login
+      delete data.registrationNumber; // unique student registration identifier
+      delete data.resetOtp;
+      delete data.resetOtpExpiry;
+      delete data.resetOtpAttempts;
     }
 
     // Hash password if updated by admin
@@ -829,7 +880,32 @@ export async function PUT(request) {
       data.gender = data.gender.charAt(0).toUpperCase() + data.gender.slice(1).toLowerCase();
     }
 
-    const User = createModel("User", UserModel);
+    // Clean, validate, and check uniqueness if phone number is being updated
+    if (data.phone) {
+      const cleanedPhone = String(data.phone).replace(/\D/g, "");
+      let normalizedPhone = cleanedPhone;
+      if (cleanedPhone.length === 12 && cleanedPhone.startsWith("91")) {
+        normalizedPhone = cleanedPhone.substring(2);
+      } else if (cleanedPhone.length === 11 && cleanedPhone.startsWith("0")) {
+        normalizedPhone = cleanedPhone.substring(1);
+      }
+
+      if (!/^[6-9]\d{9}$/.test(normalizedPhone)) {
+        return Response.json(
+          { error: "Please enter a valid 10-digit Indian mobile number." },
+          { status: 400 }
+        );
+      }
+      data.phone = normalizedPhone;
+
+      const existingPhone = await User.findOne({ phone: normalizedPhone, _id: { $ne: userId } });
+      if (existingPhone) {
+        return Response.json(
+          { error: "This phone number is already registered to another account." },
+          { status: 400 }
+        );
+      }
+    }
 
     // Update user
     const updatedUser = await User.findByIdAndUpdate(userId, data, {

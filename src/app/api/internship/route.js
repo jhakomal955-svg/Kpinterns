@@ -234,11 +234,15 @@ export async function POST(request) {
       );
     }
 
-    // Validate domain enum
-    const validDomains = InternshipModel.domain.enum;
-    if (!validDomains.includes(data.domain)) {
+    // If admin provided a custom domain, use it in place of "Other"
+    if (data.customDomain && typeof data.customDomain === "string" && data.customDomain.trim()) {
+      data.domain = data.customDomain.trim();
+    }
+
+    // Validate domain
+    if (!data.domain || typeof data.domain !== "string" || !data.domain.trim()) {
       return Response.json(
-        { error: "Invalid domain selected" },
+        { error: "Valid domain is required" },
         { status: 400 },
       );
     }
@@ -313,6 +317,9 @@ export async function PUT(request) {
     }
 
     const data = await request.json();
+    if (data.customDomain && typeof data.customDomain === "string" && data.customDomain.trim()) {
+      data.domain = data.customDomain.trim();
+    }
     if (data.degree) {
       data.degree = Array.isArray(data.degree)
         ? data.degree.map(normalizeDegree)

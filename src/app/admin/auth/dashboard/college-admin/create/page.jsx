@@ -19,7 +19,9 @@ export default function CollegeAdminCreatePage() {
     agreeTerms: true,
     verified: true,
     UniversityName: "",
+    UniversityNameCustom: "",
     CollegeName: "",
+    CollegeNameCustom: "",
     bankDetails: {
       name: "",
       accountNumber: "",
@@ -46,7 +48,14 @@ export default function CollegeAdminCreatePage() {
         [name]: type === "checkbox" ? checked : value,
       };
       if (name === "UniversityName") {
-        updated.CollegeName = "";
+        updated.CollegeName = value === "others" ? "others" : "";
+        if (value !== "others") {
+          updated.UniversityNameCustom = "";
+        }
+      } else if (name === "CollegeName") {
+        if (value !== "others") {
+          updated.CollegeNameCustom = "";
+        }
       }
       return updated;
     });
@@ -104,8 +113,17 @@ export default function CollegeAdminCreatePage() {
         newErrors.mobile = "Mobile number must be exactly 10 digits";
       }
 
-      if (!formData.UniversityName) newErrors.UniversityName = "University is required";
-      if (!formData.CollegeName) newErrors.CollegeName = "College is required";
+      if (!formData.UniversityName) {
+        newErrors.UniversityName = "University is required";
+      } else if (formData.UniversityName === "others" && !formData.UniversityNameCustom?.trim()) {
+        newErrors.UniversityNameCustom = "Please enter university name";
+      }
+
+      if (!formData.CollegeName) {
+        newErrors.CollegeName = "College is required";
+      } else if (formData.CollegeName === "others" && !formData.CollegeNameCustom?.trim()) {
+        newErrors.CollegeNameCustom = "Please enter college name";
+      }
 
       if (!formData.password) {
         newErrors.password = "Password is required";
@@ -199,8 +217,12 @@ export default function CollegeAdminCreatePage() {
     e.preventDefault();
     if (!validateStep(3)) return;
 
-    const resolvedUniversityName = universitiesData[formData.UniversityName]?.name || formData.UniversityName;
-    const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
+    const resolvedUniversityName = formData.UniversityName === "others"
+      ? formData.UniversityNameCustom?.trim()
+      : (universitiesData[formData.UniversityName]?.name || formData.UniversityName);
+    const resolvedCollegeName = formData.CollegeName === "others"
+      ? formData.CollegeNameCustom?.trim()
+      : (universitiesData[formData.UniversityName]?.colleges?.[formData.CollegeName]?.name || formData.CollegeName);
 
     setIsLoading(true);
     try {
@@ -429,6 +451,7 @@ export default function CollegeAdminCreatePage() {
                       {u.name}
                     </option>
                   ))}
+                  <option value="others">Others</option>
                 </select>
                 {errors.UniversityName && (
                   <p className="text-red-500 text-xs mt-2 font-medium">
@@ -436,6 +459,29 @@ export default function CollegeAdminCreatePage() {
                   </p>
                 )}
               </div>
+
+              {formData.UniversityName === "others" && (
+                <div>
+                  <label className="block text-xs font-bold text-text-main uppercase tracking-wider mb-2.5">
+                    Enter University Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="UniversityNameCustom"
+                    value={formData.UniversityNameCustom}
+                    onChange={handleInputChange}
+                    placeholder="Enter full university name"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                      errors.UniversityNameCustom ? "border-red-500" : "border-border-main focus:border-brand-primary"
+                    }`}
+                  />
+                  {errors.UniversityNameCustom && (
+                    <p className="text-red-500 text-xs mt-2 font-medium">
+                      {errors.UniversityNameCustom}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* College Select */}
               <div>
@@ -460,6 +506,9 @@ export default function CollegeAdminCreatePage() {
                         {c.name}
                       </option>
                     ))}
+                  {formData.UniversityName && (
+                    <option value="others">Others</option>
+                  )}
                 </select>
                 {errors.CollegeName && (
                   <p className="text-red-500 text-xs mt-2 font-medium">
@@ -467,6 +516,29 @@ export default function CollegeAdminCreatePage() {
                   </p>
                 )}
               </div>
+
+              {(formData.CollegeName === "others" || formData.UniversityName === "others") && (
+                <div>
+                  <label className="block text-xs font-bold text-text-main uppercase tracking-wider mb-2.5">
+                    Enter College Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="CollegeNameCustom"
+                    value={formData.CollegeNameCustom}
+                    onChange={handleInputChange}
+                    placeholder="Enter full college name"
+                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 ${
+                      errors.CollegeNameCustom ? "border-red-500" : "border-border-main focus:border-brand-primary"
+                    }`}
+                  />
+                  {errors.CollegeNameCustom && (
+                    <p className="text-red-500 text-xs mt-2 font-medium">
+                      {errors.CollegeNameCustom}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Bio Input */}
               <div>

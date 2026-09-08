@@ -745,6 +745,9 @@ export default function RegisterPage() {
           type: purchaseType,
           itemId: finalItemId,
           amount: 0,
+          originalAmount: orderData.originalAmount ?? (calculatedFee || 0),
+          couponCode: orderData.couponCode || (appliedCoupon ? appliedCoupon.coupon?.code : undefined),
+          discountAmount: orderData.discountAmount ?? (appliedCoupon ? appliedCoupon.discountAmount : 0),
         };
         setCompletedPaymentDetails(paymentInfo);
         setErrors((prev) => {
@@ -783,7 +786,10 @@ export default function RegisterPage() {
             razorpay_signature: response.razorpay_signature,
             type: purchaseType,
             itemId: finalItemId,
-            amount: payableAmount,
+            amount: typeof orderData.amount === "number" ? orderData.amount : payableAmount,
+            originalAmount: orderData.originalAmount ?? (calculatedFee || payableAmount),
+            couponCode: orderData.couponCode || (appliedCoupon ? appliedCoupon.coupon?.code : undefined),
+            discountAmount: orderData.discountAmount ?? (appliedCoupon ? appliedCoupon.discountAmount : 0),
           };
           setCompletedPaymentDetails(paymentInfo);
           setErrors((prev) => {

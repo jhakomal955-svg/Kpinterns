@@ -64,7 +64,9 @@ export default function CollegeAdminEditPage() {
     bio: "",
     verified: false,
     UniversityName: "",
+    UniversityNameCustom: "",
     CollegeName: "",
+    CollegeNameCustom: "",
     bankDetails: {
       name: "",
       accountNumber: "",
@@ -102,7 +104,20 @@ export default function CollegeAdminEditPage() {
       if (data.success && data.data) {
         const partner = data.data;
         const univKey = findUniversityKey(partner.UniversityName);
+        let finalUnivKey = univKey;
+        let univCustom = "";
+        if (!univKey && partner.UniversityName) {
+          finalUnivKey = "others";
+          univCustom = partner.UniversityName;
+        }
+
         const collegeKey = findCollegeKey(univKey, partner.CollegeName);
+        let finalCollegeKey = collegeKey;
+        let collegeCustom = "";
+        if (!collegeKey && partner.CollegeName) {
+          finalCollegeKey = "others";
+          collegeCustom = partner.CollegeName;
+        }
 
         setFormData({
           name: partner.name || "",
@@ -112,8 +127,10 @@ export default function CollegeAdminEditPage() {
           bio: partner.bio || "",
           verified: partner.verified !== undefined ? partner.verified : false,
           password: "",
-          UniversityName: univKey,
-          CollegeName: collegeKey,
+          UniversityName: finalUnivKey,
+          UniversityNameCustom: univCustom,
+          CollegeName: finalCollegeKey,
+          CollegeNameCustom: collegeCustom,
           bankDetails: {
             name: partner.bankDetails?.name || "",
             accountNumber: partner.bankDetails?.accountNumber || "",
@@ -173,7 +190,16 @@ export default function CollegeAdminEditPage() {
         [name]: type === "checkbox" ? checked : value,
       };
       if (name === "UniversityName") {
-        updated.CollegeName = "";
+        if (value === "others") {
+          updated.CollegeName = "others";
+        } else {
+          updated.CollegeName = "";
+          updated.UniversityNameCustom = "";
+          updated.CollegeNameCustom = "";
+        }
+      }
+      if (name === "CollegeName" && value !== "others") {
+        updated.CollegeNameCustom = "";
       }
       return updated;
     });
@@ -203,8 +229,29 @@ export default function CollegeAdminEditPage() {
         return;
       }
 
-      const resolvedUniversityName = universitiesData[formData.UniversityName]?.name || formData.UniversityName;
-      const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
+      let resolvedUniversityName = formData.UniversityName;
+      if (formData.UniversityName === "others") {
+        if (!formData.UniversityNameCustom?.trim()) {
+          setError("Please enter the university name");
+          setIsSubmitting(false);
+          return;
+        }
+        resolvedUniversityName = formData.UniversityNameCustom.trim();
+      } else if (universitiesData[formData.UniversityName]) {
+        resolvedUniversityName = universitiesData[formData.UniversityName].name;
+      }
+
+      let resolvedCollegeName = formData.CollegeName;
+      if (formData.CollegeName === "others" || formData.UniversityName === "others") {
+        if (!formData.CollegeNameCustom?.trim()) {
+          setError("Please enter the college name");
+          setIsSubmitting(false);
+          return;
+        }
+        resolvedCollegeName = formData.CollegeNameCustom.trim();
+      } else if (universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]) {
+        resolvedCollegeName = universitiesData[formData.UniversityName].colleges[formData.CollegeName].name;
+      }
 
       const payload = {
         ...formData,
@@ -248,10 +295,28 @@ export default function CollegeAdminEditPage() {
     }
   };
 
+  const getResolvedNames = () => {
+    let resolvedUniv = formData.UniversityName;
+    if (formData.UniversityName === "others") {
+      resolvedUniv = formData.UniversityNameCustom?.trim() || "Others";
+    } else if (universitiesData[formData.UniversityName]) {
+      resolvedUniv = universitiesData[formData.UniversityName].name;
+    }
+
+    let resolvedCollege = formData.CollegeName;
+    if (formData.CollegeName === "others" || formData.UniversityName === "others") {
+      resolvedCollege = formData.CollegeNameCustom?.trim() || "Others";
+    } else if (universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]) {
+      resolvedCollege = universitiesData[formData.UniversityName].colleges[formData.CollegeName].name;
+    }
+
+    return { resolvedUniv, resolvedCollege };
+  };
+
   // Roster Management Handlers
   const handleAddSingleStudent = async (e) => {
     e.preventDefault();
-    const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
+    const { resolvedUniv, resolvedCollege } = getResolvedNames();
 
     try {
       setIsSubmittingRoster(true);
@@ -259,8 +324,8 @@ export default function CollegeAdminEditPage() {
 
       const payload = {
         ...newStudent,
-        collegeName: resolvedCollegeName,
-        university: universitiesData[formData.UniversityName]?.name || formData.UniversityName,
+        collegeName: resolvedCollege,
+        university: resolvedUniv,
         collegeAdminId: partnerId,
       };
 
@@ -386,7 +451,7 @@ export default function CollegeAdminEditPage() {
     e.preventDefault();
     if (!csvText.trim()) return;
 
-    const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
+    const { resolvedUniv, resolvedCollege } = getResolvedNames();
 
     try {
       setIsSubmittingRoster(true);
@@ -401,8 +466,8 @@ export default function CollegeAdminEditPage() {
         if (parts[0].toLowerCase().includes("registrationnumber") || parts[0].toLowerCase().includes("regno") || parts[0].toLowerCase().includes("rollno")) continue;
 
         parsedRecords.push({
-          collegeName: resolvedCollegeName,
-          university: universitiesData[formData.UniversityName]?.name || formData.UniversityName,
+          collegeName: resolvedCollege,
+          university: resolvedUniv,
           collegeAdminId: partnerId,
           registrationNumber: parts[0] || "",
           rollNumber: parts[1] || "",
@@ -450,7 +515,7 @@ export default function CollegeAdminEditPage() {
 
   const handleDeleteRosterStudent = async (id) => {
     if (!confirm("Are you sure you want to remove this student record?")) return;
-    const resolvedCollegeName = universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName;
+    const { resolvedCollege } = getResolvedNames();
 
     try {
       const token = localStorage.getItem("adminToken");
@@ -460,7 +525,7 @@ export default function CollegeAdminEditPage() {
       });
       const data = await res.json();
       if (data.success) {
-        fetchRoster(resolvedCollegeName);
+        fetchRoster(resolvedCollege);
       } else {
         alert(data.error || "Failed to delete student");
       }
@@ -799,8 +864,23 @@ export default function CollegeAdminEditPage() {
                     {Object.entries(universitiesData).map(([key, u]) => (
                       <option key={key} value={key}>{u.name}</option>
                     ))}
+                    <option value="others">Others</option>
                   </select>
                 </div>
+                {formData.UniversityName === "others" && (
+                  <div>
+                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Enter University Name *</label>
+                    <input
+                      type="text"
+                      name="UniversityNameCustom"
+                      required
+                      value={formData.UniversityNameCustom}
+                      onChange={handleInputChange}
+                      placeholder="Enter full university name"
+                      className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none"
+                    />
+                  </div>
+                )}
                 <div>
                   <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College *</label>
                   <select
@@ -816,8 +896,25 @@ export default function CollegeAdminEditPage() {
                       Object.entries(universitiesData[formData.UniversityName]?.colleges || {}).map(([key, c]) => (
                         <option key={key} value={key}>{c.name}</option>
                       ))}
+                    {formData.UniversityName && (
+                      <option value="others">Others</option>
+                    )}
                   </select>
                 </div>
+                {(formData.CollegeName === "others" || formData.UniversityName === "others") && (
+                  <div>
+                    <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Enter College Name *</label>
+                    <input
+                      type="text"
+                      name="CollegeNameCustom"
+                      required
+                      value={formData.CollegeNameCustom}
+                      onChange={handleInputChange}
+                      placeholder="Enter full college name"
+                      className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none"
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Internship Starting Date Field */}

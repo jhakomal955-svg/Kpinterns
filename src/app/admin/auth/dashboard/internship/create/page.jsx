@@ -32,6 +32,7 @@ export default function InternshipCreatePage() {
     status: "Draft",
     company: "Kpinterns",
     domain: "Full Stack Development",
+    customDomain: "",
     degree: [],
     createdBy: "",
     tags: "",
@@ -91,6 +92,8 @@ export default function InternshipCreatePage() {
   // Grouped domains according to Internship model enums
   const domainGroups = {
     "Computer Science & Engineering": [
+      "Computer Application",
+      "Computer Applications",
       "Web Development",
       "Machine Learning",
       "Artificial Intelligence",
@@ -680,6 +683,13 @@ export default function InternshipCreatePage() {
       setError("Domain is required");
       return;
     }
+    const isOther = formData.domain === "Other Tech" || formData.domain?.startsWith("Other") || formData.domain === "Others";
+    if (isOther && (!formData.customDomain || !formData.customDomain.trim())) {
+      setError("Please specify the custom domain name for this internship");
+      return;
+    }
+    const resolvedDomain = isOther ? formData.customDomain.trim() : formData.domain;
+
     if (!formData.instructors || formData.instructors.length === 0) {
       setError("At least one instructor is required");
       return;
@@ -700,7 +710,8 @@ export default function InternshipCreatePage() {
         status: formData.status,
         company: formData.company,
         createdBy: formData.createdBy,
-        domain: formData.domain,
+        domain: resolvedDomain,
+        customDomain: isOther ? formData.customDomain.trim() : undefined,
         degree: formData.degree,
         certificateOffered: formData.certificateOffered,
         tags: formData.tags ? formData.tags.split(",").map((item) => item.trim()).filter(Boolean) : [],
@@ -961,6 +972,26 @@ export default function InternshipCreatePage() {
                     </optgroup>
                   ))}
                 </select>
+
+                {(formData.domain === "Other Tech" || formData.domain?.startsWith("Other") || formData.domain === "Others") && (
+                  <div className="mt-2.5 p-3 bg-brand-primary/5 border border-brand-primary/20 rounded-xl">
+                    <label className="block text-xs font-bold text-brand-primary mb-1 uppercase tracking-wider">
+                      Specify Domain Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="customDomain"
+                      required
+                      value={formData.customDomain || ""}
+                      onChange={handleBasicInputChange}
+                      placeholder="e.g. Cybersecurity & Forensics, Quantum Computing, etc."
+                      className="w-full p-2 bg-bg-main border-2 border-brand-primary/40 rounded-lg focus:border-brand-primary outline-none transition text-sm font-medium"
+                    />
+                    <p className="text-[11px] text-text-muted mt-1">
+                      This custom name will be saved as the domain and used on all offer letters, certificates, and document generation instead of &quot;Other&quot;.
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div>

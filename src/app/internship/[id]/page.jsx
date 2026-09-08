@@ -422,6 +422,9 @@ export default function InternshipDetailLearnPage() {
                   userId: userData._id,
                   type: "internship",
                   itemId: internshipId,
+                  originalAmount: orderData.originalAmount,
+                  couponCode: orderData.couponCode,
+                  discountAmount: orderData.discountAmount,
                 }),
               });
 

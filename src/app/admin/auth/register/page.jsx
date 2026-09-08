@@ -17,7 +17,9 @@ export default function AdminRegisterPage() {
     bio: "",
     agreeTerms: false,
     UniversityName: "",
+    UniversityNameCustom: "",
     CollegeName: "",
+    CollegeNameCustom: "",
     bankDetails: {
       name: "",
       accountNumber: "",
@@ -44,9 +46,18 @@ export default function AdminRegisterPage() {
       };
       if (name === "role" && value !== "College Admin") {
         updated.UniversityName = "";
+        updated.UniversityNameCustom = "";
         updated.CollegeName = "";
+        updated.CollegeNameCustom = "";
       } else if (name === "UniversityName") {
-        updated.CollegeName = "";
+        updated.CollegeName = value === "others" ? "others" : "";
+        if (value !== "others") {
+          updated.UniversityNameCustom = "";
+        }
+      } else if (name === "CollegeName") {
+        if (value !== "others") {
+          updated.CollegeNameCustom = "";
+        }
       }
       return updated;
     });
@@ -64,13 +75,16 @@ export default function AdminRegisterPage() {
       setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors.UniversityName;
+        delete newErrors.UniversityNameCustom;
         delete newErrors.CollegeName;
+        delete newErrors.CollegeNameCustom;
         return newErrors;
       });
     } else if (name === "UniversityName") {
       setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors.CollegeName;
+        delete newErrors.CollegeNameCustom;
         return newErrors;
       });
     }
@@ -237,9 +251,14 @@ export default function AdminRegisterPage() {
       if (formData.role === "College Admin") {
         if (!formData.UniversityName) {
           newErrors.UniversityName = "University selection is required";
+        } else if (formData.UniversityName === "others" && !formData.UniversityNameCustom.trim()) {
+          newErrors.UniversityNameCustom = "Please enter university name";
         }
+
         if (!formData.CollegeName) {
           newErrors.CollegeName = "College selection is required";
+        } else if (formData.CollegeName === "others" && !formData.CollegeNameCustom.trim()) {
+          newErrors.CollegeNameCustom = "Please enter college name";
         }
       }
     } else if (step === 3) {
@@ -285,10 +304,10 @@ export default function AdminRegisterPage() {
     }
 
     const resolvedUniversityName = formData.role === "College Admin" && formData.UniversityName
-      ? (universitiesData[formData.UniversityName]?.name || formData.UniversityName)
+      ? (formData.UniversityName === "others" ? formData.UniversityNameCustom.trim() : (universitiesData[formData.UniversityName]?.name || formData.UniversityName))
       : "";
-    const resolvedCollegeName = formData.role === "College Admin" && formData.UniversityName && formData.CollegeName
-      ? (universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName)
+    const resolvedCollegeName = formData.role === "College Admin" && formData.CollegeName
+      ? (formData.CollegeName === "others" ? formData.CollegeNameCustom.trim() : (universitiesData[formData.UniversityName]?.colleges?.[formData.CollegeName]?.name || formData.CollegeName))
       : "";
 
     setIsLoading(true);
@@ -600,7 +619,7 @@ export default function AdminRegisterPage() {
                           name="UniversityName"
                           value={formData.UniversityName}
                           onChange={handleInputChange}
-                          className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none ${
+                          className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none cursor-pointer ${
                             errors.UniversityName ? "border-red-500" : ""
                           }`}
                         >
@@ -610,11 +629,32 @@ export default function AdminRegisterPage() {
                               {u.name}
                             </option>
                           ))}
+                          <option value="others">Others</option>
                         </select>
                         {errors.UniversityName && (
                           <p className="text-red-500 text-sm mt-2 font-medium">
                             {errors.UniversityName}
                           </p>
+                        )}
+                        {formData.UniversityName === "others" && (
+                          <div className="mt-3">
+                            <label className="block text-xs font-semibold text-text-muted mb-1.5 ml-1 uppercase">
+                              Enter University Name *
+                            </label>
+                            <input
+                              type="text"
+                              name="UniversityNameCustom"
+                              value={formData.UniversityNameCustom}
+                              onChange={handleInputChange}
+                              placeholder="Enter your university name"
+                              className={`w-full px-5 py-3.5 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:border-brand-primary ${
+                                errors.UniversityNameCustom ? "border-red-500" : "border-border-main"
+                              }`}
+                            />
+                            {errors.UniversityNameCustom && (
+                              <p className="text-red-500 text-sm mt-1.5 font-medium">{errors.UniversityNameCustom}</p>
+                            )}
+                          </div>
                         )}
                       </div>
 
@@ -627,24 +667,47 @@ export default function AdminRegisterPage() {
                           value={formData.CollegeName}
                           onChange={handleInputChange}
                           disabled={!formData.UniversityName}
-                          className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none ${
+                          className={`w-full px-5 py-4 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary appearance-none cursor-pointer ${
                             errors.CollegeName ? "border-red-500" : ""
                           } ${!formData.UniversityName ? "opacity-50 cursor-not-allowed" : ""}`}
                         >
                           <option value="">
                             {formData.UniversityName ? "Select College" : "Select University first"}
                           </option>
-                          {formData.UniversityName &&
+                          {formData.UniversityName && formData.UniversityName !== "others" &&
                             Object.entries(universitiesData[formData.UniversityName]?.colleges || {}).map(([key, c]) => (
                               <option key={key} value={key}>
                                 {c.name}
                               </option>
                             ))}
+                          {formData.UniversityName && (
+                            <option value="others">Others</option>
+                          )}
                         </select>
                         {errors.CollegeName && (
                           <p className="text-red-500 text-sm mt-2 font-medium">
                             {errors.CollegeName}
                           </p>
+                        )}
+                        {formData.CollegeName === "others" && (
+                          <div className="mt-3">
+                            <label className="block text-xs font-semibold text-text-muted mb-1.5 ml-1 uppercase">
+                              Enter College Name *
+                            </label>
+                            <input
+                              type="text"
+                              name="CollegeNameCustom"
+                              value={formData.CollegeNameCustom}
+                              onChange={handleInputChange}
+                              placeholder="Enter your college name"
+                              className={`w-full px-5 py-3.5 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:border-brand-primary ${
+                                errors.CollegeNameCustom ? "border-red-500" : "border-border-main"
+                              }`}
+                            />
+                            {errors.CollegeNameCustom && (
+                              <p className="text-red-500 text-sm mt-1.5 font-medium">{errors.CollegeNameCustom}</p>
+                            )}
+                          </div>
                         )}
                       </div>
                     </>
@@ -1000,13 +1063,17 @@ export default function AdminRegisterPage() {
                           <div>
                             <span className="text-text-muted text-xs block">University</span>
                             <span className="text-text-main font-semibold">
-                              {universitiesData[formData.UniversityName]?.name || formData.UniversityName}
+                              {formData.UniversityName === "others"
+                                ? formData.UniversityNameCustom
+                                : (universitiesData[formData.UniversityName]?.name || formData.UniversityName)}
                             </span>
                           </div>
                           <div>
                             <span className="text-text-muted text-xs block">College</span>
                             <span className="text-text-main font-semibold">
-                              {universitiesData[formData.UniversityName]?.colleges[formData.CollegeName]?.name || formData.CollegeName}
+                              {formData.CollegeName === "others"
+                                ? formData.CollegeNameCustom
+                                : (universitiesData[formData.UniversityName]?.colleges?.[formData.CollegeName]?.name || formData.CollegeName)}
                             </span>
                           </div>
                         </>

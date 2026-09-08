@@ -8,7 +8,7 @@ export async function POST(request) {
   try {
     await connectDB();
 
-    const { type, itemId, university, college, couponCode } = await request.json();
+    const { type, itemId, university, college, couponCode, purpose } = await request.json();
 
     if (!type || !itemId) {
       return Response.json({ error: "Type and Item ID are required" }, { status: 400 });
@@ -51,7 +51,8 @@ export async function POST(request) {
     }
 
     // Apply custom rates if the college has a verified College Admin setup with rates > 0
-    if (lookupCollege) {
+    // Bypass if purpose is completion_fee, where original internship fee is required before generating documents
+    if (lookupCollege && purpose !== "completion_fee") {
       const Admin = createModel("Admin", AdminModel);
       const escapedCollege = lookupCollege.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
       const collegeAdmin = await Admin.findOne({
@@ -68,6 +69,11 @@ export async function POST(request) {
         }
       }
     }
+
+    // Record original price before any coupon discounts
+    const originalAmount = price;
+    let appliedCouponCode = null;
+    let discountAmount = 0;
 
     // Apply Coupon Code discount if provided
     if (couponCode && typeof couponCode === "string" && couponCode.trim()) {
@@ -92,14 +98,16 @@ export async function POST(request) {
         );
       }
 
-      let discountAmount = 0;
       if (coupon.discountType === "percentage") {
-        discountAmount = (price * coupon.discountValue) / 100;
+        discountAmount = Math.round(((originalAmount * coupon.discountValue) / 100) * 100) / 100;
       } else if (coupon.discountType === "fixed") {
         discountAmount = coupon.discountValue;
       }
 
-      price = Math.max(0, price - discountAmount);
+      // Ensure discount doesn't exceed original fee
+      discountAmount = Math.min(originalAmount, discountAmount);
+      price = Math.max(0, originalAmount - discountAmount);
+      appliedCouponCode = sanitizedCode;
 
       // Increment coupon used count
       coupon.usedCount = (coupon.usedCount || 0) + 1;
@@ -113,6 +121,9 @@ export async function POST(request) {
         success: true,
         orderId: null,
         amount: 0,
+        originalAmount,
+        couponCode: appliedCouponCode,
+        discountAmount,
         currency: "INR",
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
         title,
@@ -137,6 +148,15 @@ export async function POST(request) {
       amount: Math.round(price * 100), // amount in paisa (subunits)
       currency: "INR",
       receipt: `rcpt_${type === "internship" ? "int" : "crs"}_${itemId.slice(-6)}_${Date.now()}`,
+      notes: {
+        type,
+        itemId,
+        originalAmount: String(originalAmount),
+        couponCode: appliedCouponCode || "",
+        discountAmount: String(discountAmount),
+        finalAmount: String(price),
+        purpose: purpose || "enrollment",
+      },
     };
 
     const order = await razorpay.orders.create(options);
@@ -145,6 +165,9 @@ export async function POST(request) {
       success: true,
       orderId: order.id,
       amount: price,
+      originalAmount,
+      couponCode: appliedCouponCode,
+      discountAmount,
       currency: "INR",
       key: keyId,
       title,

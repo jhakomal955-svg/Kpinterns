@@ -103,7 +103,7 @@ export async function checkAndAutomateDocuments(userId) {
           }
         }
 
-        // B. Internship Certificate Generation: Only generate if status is Completed
+        // B. Internship Certificate Generation: Only generate if status is Completed, test is taken, and fee is paid
         const isCompleted = item.internshipStatus === "Completed";
         
         let isTestPending = false;
@@ -117,7 +117,14 @@ export async function checkAndAutomateDocuments(userId) {
           isTestPending = true;
         }
 
-        if (isCompleted && !isTestPending) {
+        // Students who registered with 0 payment (e.g. college partner 0 rate) must pay original fee before documents generate
+        const originalFee = (item.originalAmount && item.originalAmount > 0)
+          ? item.originalAmount
+          : (internship.RegistrationFee?.amount ? Number(internship.RegistrationFee.amount) : 500);
+
+        const isPaymentPending = (item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalFee > 0;
+
+        if (isCompleted && !isTestPending && !isPaymentPending) {
           // A. Generate Attendance & Daily Activity Log Sheets (Annexure-2 & 3)
           if (!item.attendanceCertificateUrl) {
             try {

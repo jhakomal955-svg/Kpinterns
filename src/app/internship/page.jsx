@@ -11,7 +11,7 @@ import {
 
 const DOMAINS_BY_DEPARTMENT = {
   "Computer Science & Engineering": [
-    "Web Development", "🤖 Machine Learning", "🧠 Artificial Intelligence",
+    "Computer Application", "Computer Applications", "Web Development", "🤖 Machine Learning", "🧠 Artificial Intelligence",
     "📊 Data Science", "🔒 Cyber Security", "☁️ Cloud Computing", "📱 Android Development",
     "Full Stack Development", "Frontend Development", "Backend Development", "Backend Web Development",
     "Mobile App Development", "Data Science & Machine Learning", "Artificial Intelligence",
@@ -267,11 +267,19 @@ export default function InternshipsPage() {
     return Array.from(new Set(rawDepts));
   }, [selectedDegree]);
 
-  // Cascade: available domains based on selected department
+  // Cascade: available domains based on selected department + any custom domains
   const availableDomains = useMemo(() => {
     const rawDomains = !selectedDept ? ALL_DOMAINS : (DOMAINS_BY_DEPARTMENT[selectedDept] || ALL_DOMAINS);
-    return Array.from(new Set(rawDomains));
-  }, [selectedDept]);
+    const domainSet = new Set(rawDomains);
+    if (Array.isArray(internships)) {
+      internships.forEach((item) => {
+        if (item.domain && !item.domain.startsWith("Other")) {
+          domainSet.add(item.domain);
+        }
+      });
+    }
+    return Array.from(domainSet);
+  }, [selectedDept, internships]);
 
   // When degree changes, reset department & domain if they're no longer valid
   const handleDegreeChange = (value) => {

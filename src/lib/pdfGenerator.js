@@ -219,6 +219,40 @@ const formatDate = (d) => {
 };
 
 /**
+ * Resolves a public asset path case-insensitively across public/ and public/format/
+ * Fixes missing logos (e.g. AICTE, MCA) on case-sensitive Linux production filesystems.
+ */
+function resolvePublicAsset(fileName) {
+  if (!fileName) return null;
+  const publicDir = path.join(process.cwd(), "public");
+  const formatDir = path.join(publicDir, "format");
+
+  const checkDirs = [publicDir, formatDir];
+  const variations = [
+    fileName,
+    fileName.toLowerCase(),
+    fileName.toUpperCase(),
+    fileName.charAt(0).toUpperCase() + fileName.slice(1).toLowerCase(),
+    fileName.charAt(0).toLowerCase() + fileName.slice(1),
+  ];
+
+  for (const dir of checkDirs) {
+    for (const v of variations) {
+      const p = path.join(dir, v);
+      if (fs.existsSync(p)) return p;
+    }
+    try {
+      if (fs.existsSync(dir)) {
+        const files = fs.readdirSync(dir);
+        const match = files.find((f) => f.toLowerCase() === fileName.toLowerCase());
+        if (match) return path.join(dir, match);
+      }
+    } catch (_) {}
+  }
+  return null;
+}
+
+/**
  * Dynamically generates an exact-fit Offer/Acceptance Letter PDF using your JPEG template.
  * @param {object} student - Student user details
  * @param {object} internship - Enrolled internship details
@@ -311,7 +345,23 @@ export async function generateOfferLetter(student, internship, verificationId) {
       doc.moveTo(40, 95).lineTo(555.28, 95).lineWidth(1).strokeColor(borderColor).stroke();
 
       // --- 3. Letter Metadata Block ---
-      const issueDate = formatDate(new Date());
+      // Offer letter generation date should be 2 days earlier from internship starting date
+      const rawStartDate = enrollment?.startDate || internship?.startDate;
+      let letterDate;
+      if (rawStartDate) {
+        const start = new Date(rawStartDate);
+        if (!isNaN(start.getTime())) {
+          start.setDate(start.getDate() - 2);
+          letterDate = start;
+        }
+      }
+      if (!letterDate) {
+        const fallback = enrollment?.createdAt ? new Date(enrollment.createdAt) : new Date();
+        fallback.setDate(fallback.getDate() - 2);
+        letterDate = fallback;
+      }
+      const issueDate = formatDate(letterDate);
+
       doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor)
         .text(`Date: ${issueDate}`, 40, 112);
 
@@ -533,20 +583,12 @@ export async function generateOfferLetter(student, internship, verificationId) {
         { fileName: "nip.png", fallbackName: "nip.png", width: 70, height: 38 }
       ];
 
-      const existingBadges = badges.filter(b => {
-        let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fallbackName);
-        }
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
-        }
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
-        }
-        b.resolvedPath = badgePath;
-        return fs.existsSync(badgePath);
-      });
+      const existingBadges = badges
+        .map(b => ({
+          ...b,
+          resolvedPath: resolvePublicAsset(b.fileName) || resolvePublicAsset(b.fallbackName)
+        }))
+        .filter(b => b.resolvedPath);
 
       const minX = 40;
       const maxX = 555.28;
@@ -901,24 +943,30 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
       doc.moveTo(35, lineY).lineTo(560.28, lineY).lineWidth(0.75).strokeColor(lightBorder).stroke();
 
       // Badges directly below line at the bottom
-      const badgeY = 752;
       const badges = [
-        { file: "Aicte.png", w: 42, h: 42, yOff: 0 },
-        { file: "nip.png", w: 62, h: 32, yOff: 5 },
-        { file: "iso.png", w: 42, h: 42, yOff: 0 },
-        { file: "msme.png", w: 44, h: 44, yOff: -1 },
-        { file: "mca.png", w: 72, h: 30, yOff: 6 }
+        { file: "Aicte.png", width: 44, height: 44 },
+        { file: "mca.png", width: 85, height: 34 },
+        { file: "iso.png", width: 44, height: 44 },
+        { file: "msme.png", width: 44, height: 44 },
+        { file: "nip.png", width: 70, height: 38 }
       ];
-      let bx = 45;
-      badges.forEach((b) => {
-        let bp = path.join(process.cwd(), "public", b.file);
-        if (!fs.existsSync(bp)) {
-          bp = path.join(process.cwd(), "public", "format", b.file);
-        }
-        if (fs.existsSync(bp)) {
-          doc.image(bp, bx, badgeY + b.yOff, { fit: [b.w, b.h] });
-        }
-        bx += 106;
+
+      const existingBadges = badges
+        .map((b) => ({ ...b, resolvedPath: resolvePublicAsset(b.file) }))
+        .filter((b) => b.resolvedPath);
+
+      const minX = 40;
+      const maxX = 555.28;
+      const totalBadgesWidth = existingBadges.reduce((sum, b) => sum + b.width, 0);
+      const spacing = existingBadges.length > 1 ? (maxX - minX - totalBadgesWidth) / (existingBadges.length - 1) : 0;
+
+      let startX = minX;
+      const midY = 776;
+
+      existingBadges.forEach((b) => {
+        const yCoord = midY - (b.height / 2);
+        doc.image(b.resolvedPath, startX, yCoord, { fit: [b.width, b.height] });
+        startX += b.width + spacing;
       });
 
       // Bottom Decorative Accent Bars
@@ -1149,20 +1197,12 @@ export async function generateCertificate(student, program, type, verificationId
         { fileName: "nip.png", fallbackName: "nip.png", width: 70, height: 38 }
       ];
 
-      const existingBadges = badges.filter(b => {
-        let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fallbackName);
-        }
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
-        }
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
-        }
-        b.resolvedPath = badgePath;
-        return fs.existsSync(badgePath);
-      });
+      const existingBadges = badges
+        .map(b => ({
+          ...b,
+          resolvedPath: resolvePublicAsset(b.fileName) || resolvePublicAsset(b.fallbackName)
+        }))
+        .filter(b => b.resolvedPath);
 
       const minX = 60;
       const maxX = 781.89;
@@ -1198,6 +1238,9 @@ export async function generatePaymentReceipt(student, details) {
         purchaseType = "internship",
         title = "Program",
         amount = 0,
+        originalAmount,
+        couponCode,
+        discountAmount,
         paymentId = "N/A",
         orderId = "N/A",
         date = new Date(),
@@ -1297,27 +1340,64 @@ export async function generatePaymentReceipt(student, details) {
       drawRow("Pay. ID", paymentId, col2X, boxTop + 78);
       drawRow("Order ID", orderId, col2X, boxTop + 100);
       drawRow("Date", issueDate, col2X, boxTop + 122);
-      drawRow("Status", "Confirmed & Paid", col2X, boxTop + 144);
+      drawRow("Coupon", couponCode ? `${couponCode} (Applied)` : "None", col2X, boxTop + 144);
 
       // ── 6. Amount summary strip ───────────────────────────────────────────────
-      const amountY = boxTop + leftBoxH + 18;
-      doc.rect(40, amountY, 515.28, 60).fill(darkColor);
+      const hasCoupon = Boolean(couponCode || (discountAmount && Number(discountAmount) > 0));
+      const resolvedOriginal = originalAmount !== undefined && originalAmount !== null
+        ? Number(originalAmount)
+        : (hasCoupon ? Number(amount) + Number(discountAmount || 0) : Number(amount));
+      const resolvedDiscount = discountAmount !== undefined && discountAmount !== null
+        ? Number(discountAmount)
+        : (hasCoupon ? Math.max(0, resolvedOriginal - Number(amount)) : 0);
 
-      doc.font("Helvetica").fontSize(11).fillColor("rgba(255,255,255,0.7)")
-        .text("Registration Fee", 60, amountY + 14);
-      doc.font("Helvetica-Bold").fontSize(11).fillColor("#ffffff")
-        .text(`Rs. ${amount}`, 60, amountY + 14, { align: "right", width: 495.28 });
+      const stripHeight = hasCoupon ? 82 : 56;
+      const amountY = boxTop + leftBoxH + 16;
+      doc.rect(40, amountY, 515.28, stripHeight).fill(darkColor);
 
-      doc.moveTo(60, amountY + 34).lineTo(535.28, amountY + 34)
-        .lineWidth(0.5).strokeColor("rgba(255,255,255,0.2)").stroke();
+      if (hasCoupon) {
+        // Line 1: Original Fee
+        doc.font("Helvetica").fontSize(10).fillColor("rgba(255,255,255,0.7)")
+          .text("Original Program Fee", 60, amountY + 12);
+        doc.font("Helvetica-Bold").fontSize(10).fillColor("#ffffff")
+          .text(`Rs. ${resolvedOriginal.toLocaleString("en-IN")}`, 60, amountY + 12, { align: "right", width: 495.28 });
 
-      doc.font("Helvetica-Bold").fontSize(13).fillColor(accentColor)
-        .text("TOTAL PAID", 60, amountY + 40);
-      doc.font("Helvetica-Bold").fontSize(18).fillColor("#ffffff")
-        .text(`Rs. ${amount}`, 60, amountY + 38, { align: "right", width: 495.28 });
+        // Line 2: Coupon Discount
+        const couponLabel = couponCode ? `Coupon Applied (${couponCode})` : "Coupon Discount";
+        doc.font("Helvetica").fontSize(10).fillColor("#34d399")
+          .text(`- ${couponLabel}`, 60, amountY + 30);
+        doc.font("Helvetica-Bold").fontSize(10).fillColor("#34d399")
+          .text(`- Rs. ${resolvedDiscount.toLocaleString("en-IN")}`, 60, amountY + 30, { align: "right", width: 495.28 });
+
+        // Divider
+        doc.moveTo(60, amountY + 48).lineTo(535.28, amountY + 48)
+          .lineWidth(0.5).strokeColor("rgba(255,255,255,0.2)").stroke();
+
+        // Line 3: Net Amount Received
+        doc.font("Helvetica-Bold").fontSize(12).fillColor(accentColor)
+          .text("TOTAL AMOUNT RECEIVED", 60, amountY + 56);
+        doc.font("Helvetica-Bold").fontSize(16).fillColor("#ffffff")
+          .text(`Rs. ${Number(amount).toLocaleString("en-IN")}`, 60, amountY + 54, { align: "right", width: 495.28 });
+      } else {
+        // Line 1: Program Fee
+        doc.font("Helvetica").fontSize(11).fillColor("rgba(255,255,255,0.7)")
+          .text("Program Fee", 60, amountY + 12);
+        doc.font("Helvetica-Bold").fontSize(11).fillColor("#ffffff")
+          .text(`Rs. ${Number(amount).toLocaleString("en-IN")}`, 60, amountY + 12, { align: "right", width: 495.28 });
+
+        // Divider
+        doc.moveTo(60, amountY + 28).lineTo(535.28, amountY + 28)
+          .lineWidth(0.5).strokeColor("rgba(255,255,255,0.2)").stroke();
+
+        // Line 2: Total Amount Received
+        doc.font("Helvetica-Bold").fontSize(12).fillColor(accentColor)
+          .text("TOTAL AMOUNT RECEIVED", 60, amountY + 34);
+        doc.font("Helvetica-Bold").fontSize(16).fillColor("#ffffff")
+          .text(`Rs. ${Number(amount).toLocaleString("en-IN")}`, 60, amountY + 32, { align: "right", width: 495.28 });
+      }
 
       // ── 7. What happens next box ──────────────────────────────────────────────
-      const nextY = amountY + 80;
+      const nextY = amountY + stripHeight + 16;
       doc.rect(40, nextY, 515.28, 90).fill(lightBg);
       doc.rect(40, nextY, 515.28, 90).lineWidth(0.8).strokeColor(borderColor).stroke();
       doc.font("Helvetica-Bold").fontSize(10).fillColor(primaryColor)
@@ -1361,20 +1441,12 @@ export async function generatePaymentReceipt(student, details) {
         { fileName: "nip.png", fallbackName: "nip.png", width: 70, height: 38 }
       ];
 
-      const existingBadges = badges.filter(b => {
-        let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fallbackName);
-        }
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
-        }
-        if (!fs.existsSync(badgePath)) {
-          badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
-        }
-        b.resolvedPath = badgePath;
-        return fs.existsSync(badgePath);
-      });
+      const existingBadges = badges
+        .map(b => ({
+          ...b,
+          resolvedPath: resolvePublicAsset(b.fileName) || resolvePublicAsset(b.fallbackName)
+        }))
+        .filter(b => b.resolvedPath);
 
       const minX = 40;
       const maxX = 555.28;
@@ -1682,20 +1754,12 @@ export async function generateAttendanceCertificate(student, internship, verific
           { fileName: "nip.png", fallbackName: "nip.png", width: 70, height: 38 }
         ];
 
-        const existingBadges = badges.filter(b => {
-          let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
-          if (!fs.existsSync(badgePath)) {
-            badgePath = path.join(process.cwd(), "public", b.fallbackName);
-          }
-          if (!fs.existsSync(badgePath)) {
-            badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
-          }
-          if (!fs.existsSync(badgePath)) {
-            badgePath = path.join(process.cwd(), "public", b.fallbackName.toLowerCase());
-          }
-          b.resolvedPath = badgePath;
-          return fs.existsSync(badgePath);
-        });
+        const existingBadges = badges
+          .map(b => ({
+            ...b,
+            resolvedPath: resolvePublicAsset(b.fileName) || resolvePublicAsset(b.fallbackName)
+          }))
+          .filter(b => b.resolvedPath);
 
         const minX = 40;
         const maxX = 555.28;
@@ -1997,14 +2061,8 @@ export async function generateFilteredUsersPDF(users = [], activeFilters = {}) {
 
         let curBadgeX = 40;
         badges.forEach((b) => {
-          let badgePath = path.join(process.cwd(), "public", "format", b.fileName);
-          if (!fs.existsSync(badgePath)) {
-            badgePath = path.join(process.cwd(), "public", b.fallbackName);
-          }
-          if (!fs.existsSync(badgePath)) {
-            badgePath = path.join(process.cwd(), "public", b.fileName.toLowerCase());
-          }
-          if (fs.existsSync(badgePath)) {
+          const badgePath = resolvePublicAsset(b.fileName) || resolvePublicAsset(b.fallbackName);
+          if (badgePath) {
             doc.image(badgePath, curBadgeX, badgeY, { fit: [b.width, b.height] });
           }
           curBadgeX += b.width + 35;

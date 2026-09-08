@@ -213,17 +213,18 @@ export async function GET(request) {
                   holder: user.fullName,
                   course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
                   type: "Internship Offer Letter",
-                  issuedDate: i.paymentDate
-                    ? new Date(i.paymentDate).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })
-                    : new Date(user.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      }),
+                  issuedDate: (() => {
+                    if (i.startDate) {
+                      const d = new Date(i.startDate);
+                      if (!isNaN(d.getTime())) {
+                        d.setDate(d.getDate() - 2);
+                        return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+                      }
+                    }
+                    const fallback = i.paymentDate ? new Date(i.paymentDate) : new Date(user.createdAt);
+                    fallback.setDate(fallback.getDate() - 2);
+                    return fallback.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+                  })(),
                   expiryDate: "Active during internship",
                   certificateUrl: i.offerLetterUrl,
                 });

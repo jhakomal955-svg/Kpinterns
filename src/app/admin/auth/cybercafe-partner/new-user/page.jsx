@@ -277,6 +277,9 @@ export default function RegisterPage() {
           type: purchaseType,
           itemId: finalItemId,
           amount: 0,
+          originalAmount: orderData.originalAmount ?? (calculatedFee || 0),
+          couponCode: orderData.couponCode || undefined,
+          discountAmount: orderData.discountAmount ?? 0,
         };
         setCompletedPaymentDetails(paymentInfo);
         setErrors((prev) => {
@@ -315,7 +318,10 @@ export default function RegisterPage() {
             razorpay_signature: response.razorpay_signature,
             type: purchaseType,
             itemId: finalItemId,
-            amount: payableAmount,
+            amount: typeof orderData.amount === "number" ? orderData.amount : payableAmount,
+            originalAmount: orderData.originalAmount ?? (calculatedFee || payableAmount),
+            couponCode: orderData.couponCode || undefined,
+            discountAmount: orderData.discountAmount ?? 0,
           };
           setCompletedPaymentDetails(paymentInfo);
           setErrors((prev) => {
@@ -1456,8 +1462,20 @@ export default function RegisterPage() {
                   </div>
                   <div className="sm:col-span-2 border-t border-border-main/50 my-1"></div>
                   <div>
+                    <span className="text-text-muted text-xs block">University</span>
+                    <span className="text-text-main font-semibold">
+                      {formData.university === "others"
+                        ? formData.universityCustom
+                        : (universitiesData[formData.university]?.name || formData.university)}
+                    </span>
+                  </div>
+                  <div>
                     <span className="text-text-muted text-xs block">College</span>
-                    <span className="text-text-main font-semibold">{formData.college}</span>
+                    <span className="text-text-main font-semibold">
+                      {formData.college === "others"
+                        ? formData.collegeCustom
+                        : (universitiesData[formData.university]?.colleges?.[formData.college]?.name || formData.college)}
+                    </span>
                   </div>
                   <div>
                     <span className="text-text-muted text-xs block">Degree & Dept</span>

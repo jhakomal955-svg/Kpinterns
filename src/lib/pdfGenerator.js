@@ -219,6 +219,46 @@ const formatDate = (d) => {
 };
 
 /**
+ * Calculates the certification issue date (2 days after internship/course completion date).
+ * If end date is not explicitly available, falls back to start date + duration + 2 days, or current date.
+ */
+function getCertificationDate(enrollment, program) {
+  const rawEndDate = enrollment?.endDate || program?.endDate;
+  if (rawEndDate) {
+    const end = new Date(rawEndDate);
+    if (!isNaN(end.getTime())) {
+      const certDate = new Date(end);
+      certDate.setDate(certDate.getDate() + 2);
+      return certDate;
+    }
+  }
+
+  const rawStartDate = enrollment?.startDate || program?.startDate;
+  if (rawStartDate) {
+    const start = new Date(rawStartDate);
+    if (!isNaN(start.getTime())) {
+      const duration = enrollment?.duration || program?.duration || "4 weeks";
+      let days = 28;
+      const dStr = String(duration).toLowerCase();
+      if (dStr.includes("1 week") || dStr.includes("1-week")) days = 7;
+      else if (dStr.includes("2 week") || dStr.includes("2-week")) days = 14;
+      else if (dStr.includes("4 week") || dStr.includes("4-week")) days = 28;
+      else if (dStr.includes("6 week") || dStr.includes("6-week")) days = 42;
+      else if (dStr.includes("8 week") || dStr.includes("8-week")) days = 56;
+      else if (dStr.includes("month")) {
+        const num = parseInt(dStr, 10) || 1;
+        days = num * 30;
+      }
+      const certDate = new Date(start);
+      certDate.setDate(certDate.getDate() + days + 2);
+      return certDate;
+    }
+  }
+
+  return new Date();
+}
+
+/**
  * Resolves a public asset path case-insensitively across public/ and public/format/
  * Fixes missing logos (e.g. AICTE, MCA) on case-sensitive Linux production filesystems.
  */
@@ -774,7 +814,7 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
 
       const startDateStr = formatDate(enrollment?.startDate || program.startDate);
       const endDateStr = formatDate(enrollment?.endDate || program.endDate);
-      const issueDateStr = formatDate(new Date());
+      const issueDateStr = formatDate(getCertificationDate(enrollment, program));
 
       const startYear = enrollment?.startDate
         ? new Date(enrollment.startDate).getFullYear()
@@ -1056,7 +1096,7 @@ export async function generateCertificate(student, program, type, verificationId
 
       const startDateStr = formatDate(enrollment?.startDate || program.startDate);
       const endDateStr = formatDate(enrollment?.endDate || program.endDate);
-      const issueDateStr = formatDate(new Date());
+      const issueDateStr = formatDate(getCertificationDate(enrollment, program));
 
       // --- 1. Elegant Double Border and Corner Brackets ---
       // Outer Rectangle border
@@ -1152,7 +1192,7 @@ export async function generateCertificate(student, program, type, verificationId
 
       doc.font("Helvetica").fontSize(7).fillColor(mutedColor)
         .text(
-          `Verify online registry at: ${siteUrl.replace('https://', '')}/verify\nCertificate ID: ${formattedVerificationId}\nDate of Certificate: ${issueDateStr}`,
+          `Verify online registry at: ${siteUrl.replace('https://', '')}/verify\nCertificate ID: ${formattedVerificationId}\nDate of Certification: ${issueDateStr}`,
           qrX + 65,
           qrY + 16,
           { lineGap: 2.5, width: 250 }

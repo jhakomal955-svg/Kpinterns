@@ -142,17 +142,31 @@ export async function GET(request) {
                 holder: user.fullName,
                 course: c.course?.title || "Specialized Course",
                 type: "Course Completion Certificate",
-                issuedDate: c.paymentDate
-                  ? new Date(c.paymentDate).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
-                  : new Date(user.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }),
+                issuedDate: (() => {
+                  const rawEnd = c.endDate || c.course?.endDate;
+                  if (rawEnd) {
+                    const d = new Date(rawEnd);
+                    if (!isNaN(d.getTime())) {
+                      d.setDate(d.getDate() + 2);
+                      return d.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      });
+                    }
+                  }
+                  return c.paymentDate
+                    ? new Date(c.paymentDate).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : new Date(user.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      });
+                })(),
                 expiryDate: "Lifetime Validity",
                 certificateUrl: c.certificateUrl,
               });
@@ -187,17 +201,31 @@ export async function GET(request) {
                   holder: user.fullName,
                   course: i.internship?.title || `${i.position || 'Internship'} at ${i.company || 'KpInterns'}`,
                   type: "Internship Completion Certificate",
-                  issuedDate: i.paymentDate
-                    ? new Date(i.paymentDate).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })
-                    : new Date(user.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      }),
+                  issuedDate: (() => {
+                    const rawEnd = i.endDate || i.internship?.endDate;
+                    if (rawEnd) {
+                      const d = new Date(rawEnd);
+                      if (!isNaN(d.getTime())) {
+                        d.setDate(d.getDate() + 2);
+                        return d.toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        });
+                      }
+                    }
+                    return i.paymentDate
+                      ? new Date(i.paymentDate).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
+                      : new Date(user.createdAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        });
+                  })(),
                   expiryDate: "Lifetime Validity",
                   certificateUrl: i.certificationUrl,
                 });

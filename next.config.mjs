@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverExternalPackages: ["pdfkit"],
+  turbopack: {
+    ignoreIssue: [
+      {
+        path: "**/next.config.mjs",
+        title: "Encountered unexpected file in NFT list",
+      },
+    ],
+  },
   images: {
     remotePatterns: [
       {

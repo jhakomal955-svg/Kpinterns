@@ -96,19 +96,8 @@ export default function UsersAdminPage() {
   };
 
   const normalizeCollegeName = (college) => {
-    if (!college || typeof college !== "string") return college;
-    const trimmed = college.trim();
-    if (
-      trimmed.includes("Bodh Gaya") ||
-      trimmed.includes("BodhGaya") ||
-      trimmed.includes("BODH GAYA") ||
-      trimmed === "R S COLLEGE OF HIGH EDUCATION GAYA" ||
-      trimmed === "R. S. College of Higher Education ,Bodh Gaya" ||
-      trimmed === "R. S. College of Higher Education , Bodh Gaya"
-    ) {
-      return "R. S. College of Higher Education , Gaya";
-    }
-    return trimmed;
+    if (!college || typeof college !== "string") return college || "";
+    return college.trim();
   };
 
   // Dynamic cascading filter values

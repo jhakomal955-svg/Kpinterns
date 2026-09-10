@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel } from "@/models";
 import mongoose from "mongoose";
-import { getObjectIdFromSequentialNumber, getSequentialNumber } from "@/lib/pdfGenerator";
+import { getObjectIdFromSequentialNumber, getSequentialNumber } from "@/lib/sequentialId";
 
 export const maxDuration = 60; // 1 minute execution limit
 

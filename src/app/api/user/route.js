@@ -117,23 +117,6 @@ export async function GET(request) {
     const User = createModel("User", UserModel);
     const Admin = createModel("Admin", AdminModel);
 
-    // Auto-clean legacy college name typos in MongoDB
-    try {
-      await User.updateMany(
-        {
-          $or: [
-            { college: /Bodh Gaya/i },
-            { college: /BodhGaya/i },
-            { college: "R S COLLEGE OF HIGH EDUCATION GAYA" },
-            { college: "R. S. College of Higher Education ,Bodh Gaya" },
-            { college: "R. S. College of Higher Education , Bodh Gaya" },
-          ],
-        },
-        { $set: { college: "R. S. College of Higher Education , Gaya" } }
-      );
-    } catch (err) {
-      console.error("College normalization update failed:", err);
-    }
 
     // If College Admin, retrieve their CollegeName
     let collegeNameFilter = null;

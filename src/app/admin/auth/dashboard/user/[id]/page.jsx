@@ -74,6 +74,12 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import AdminResetPasswordModal from "@/components/AdminResetPasswordModal";
+import { universitiesData } from "@/lib/data/universities";
+import {
+  DEGREE_LIST,
+  getDegreesForUniversityAndCollege,
+  getDepartmentsForCollegeAndDegree,
+} from "@/lib/data/degreeDepartments";
 
 // Premium Custom File Uploader Component with Drag & Drop, Animations, and Cloudinary Upload
 function BeautifulFileUploader({ label, value, onChange, onRemove }) {
@@ -245,6 +251,13 @@ export default function UserEditPage() {
     ActiveInternship: [],
     ActiveCources: [],
   });
+
+  const [universityKey, setUniversityKey] = useState("");
+  const [collegeKey, setCollegeKey] = useState("");
+  const [universityCustom, setUniversityCustom] = useState("");
+  const [collegeCustom, setCollegeCustom] = useState("");
+  const [degreeCustom, setDegreeCustom] = useState("");
+  const [departmentCustom, setDepartmentCustom] = useState("");
 
   const [selectedIntId, setSelectedIntId] = useState("");
   const [attendanceInfo, setAttendanceInfo] = useState(null);
@@ -429,16 +442,66 @@ export default function UserEditPage() {
       const data = await res.json();
       if (data.success) {
         const u = data.data;
+        const rawUniv = u.university || "";
+        const rawCollege = u.college || "";
+        const rawDegree = u.degree || "";
+        const rawDept = u.department || "";
+
+        let resolvedUnivKey = "";
+        let customUnivText = "";
+        if (rawUniv) {
+          const matchedU = Object.entries(universitiesData).find(
+            ([k, univ]) =>
+              k === rawUniv ||
+              univ.name?.trim().toLowerCase() === rawUniv.trim().toLowerCase()
+          );
+          if (matchedU) {
+            resolvedUnivKey = matchedU[0];
+          } else {
+            resolvedUnivKey = "others";
+            customUnivText = rawUniv;
+          }
+        }
+
+        let resolvedCollegeKey = "";
+        let customCollegeText = "";
+        if (rawCollege) {
+          if (resolvedUnivKey && resolvedUnivKey !== "others") {
+            const collegesObj = universitiesData[resolvedUnivKey]?.colleges || {};
+            const matchedC = Object.entries(collegesObj).find(
+              ([k, col]) =>
+                k === rawCollege ||
+                col.name?.trim().toLowerCase() === rawCollege.trim().toLowerCase()
+            );
+            if (matchedC) {
+              resolvedCollegeKey = matchedC[0];
+            } else {
+              resolvedCollegeKey = "others";
+              customCollegeText = rawCollege;
+            }
+          } else {
+            resolvedCollegeKey = "others";
+            customCollegeText = rawCollege;
+          }
+        }
+
+        setUniversityKey(resolvedUnivKey);
+        setCollegeKey(resolvedCollegeKey);
+        setUniversityCustom(customUnivText);
+        setCollegeCustom(customCollegeText);
+        setDegreeCustom("");
+        setDepartmentCustom("");
+
         setFormData({
           fullName: u.fullName || "",
           email: u.email || "",
           phone: u.phone || "",
           gender: u.gender || "Male",
           parentName: u.parentName || "",
-          university: u.university || "",
-          college: u.college || "",
-          degree: u.degree || "",
-          department: u.department || "",
+          university: rawUniv,
+          college: rawCollege,
+          degree: rawDegree,
+          department: rawDept,
           rollNumber: u.rollNumber || "",
           semester: u.semester || "",
           session: u.session || "",
@@ -473,6 +536,61 @@ export default function UserEditPage() {
     }));
   };
 
+  const handleUniversitySelect = (selectedKey) => {
+    setUniversityKey(selectedKey);
+    setCollegeKey("");
+    if (selectedKey === "others") {
+      setFormData((prev) => ({
+        ...prev,
+        university: universityCustom,
+        college: collegeCustom,
+      }));
+    } else {
+      const uName = universitiesData[selectedKey]?.name || selectedKey;
+      setFormData((prev) => ({
+        ...prev,
+        university: uName,
+        college: "",
+      }));
+    }
+  };
+
+  const handleCollegeSelect = (selectedKey) => {
+    setCollegeKey(selectedKey);
+    if (selectedKey === "others") {
+      setFormData((prev) => ({
+        ...prev,
+        college: collegeCustom,
+      }));
+    } else {
+      const cName =
+        universitiesData[universityKey]?.colleges?.[selectedKey]?.name || selectedKey;
+      setFormData((prev) => ({
+        ...prev,
+        college: cName,
+      }));
+    }
+  };
+
+  const availableColleges = (() => {
+    if (!universityKey || universityKey === "others") return [];
+    const univObj = universitiesData[universityKey];
+    if (!univObj || !univObj.colleges) return [];
+    return Object.entries(univObj.colleges)
+      .map(([k, col]) => ({ id: k, name: col.name }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  })();
+
+  const availableDegrees = (() => {
+    const list = getDegreesForUniversityAndCollege(universityKey, collegeKey);
+    return list && list.length > 0 ? list : DEGREE_LIST;
+  })();
+
+  const availableDepartments = (() => {
+    if (!formData.degree || formData.degree === "others") return [];
+    return getDepartmentsForCollegeAndDegree(universityKey, collegeKey, formData.degree);
+  })();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -497,8 +615,32 @@ export default function UserEditPage() {
       const url = isEditing ? `/api/user?id=${userId}` : "/api/user";
       const method = isEditing ? "PUT" : "POST";
 
+      const resolvedUniversity =
+        universityKey === "others"
+          ? (universityCustom?.trim() || formData.university)
+          : (universitiesData[universityKey]?.name || formData.university);
+
+      const resolvedCollege =
+        collegeKey === "others"
+          ? (collegeCustom?.trim() || formData.college)
+          : (universitiesData[universityKey]?.colleges?.[collegeKey]?.name || formData.college);
+
+      const resolvedDegree =
+        formData.degree === "others" && degreeCustom?.trim()
+          ? degreeCustom.trim()
+          : formData.degree;
+
+      const resolvedDepartment =
+        formData.department === "others" && departmentCustom?.trim()
+          ? departmentCustom.trim()
+          : formData.department;
+
       const payload = {
         ...formData,
+        university: resolvedUniversity,
+        college: resolvedCollege,
+        degree: resolvedDegree,
+        department: resolvedDepartment,
         ...( !isEditing ? { isAdminCreation: true } : {} ),
         ActiveInternship: (formData.ActiveInternship || []).map((i) => ({
           ...(i._id ? { _id: i._id } : {}),
@@ -805,53 +947,212 @@ export default function UserEditPage() {
               2. Academic Details
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {/* University Select */}
               <div className="md:col-span-2">
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">University *</label>
-                <input
-                  type="text"
-                  name="university"
-                  required
-                  value={formData.university}
-                  onChange={handleInputChange}
-                  placeholder="University name"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
+                <select
+                  name="universityKey"
+                  value={universityKey}
+                  onChange={(e) => handleUniversitySelect(e.target.value)}
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition cursor-pointer text-text-main text-sm"
+                >
+                  <option value="">-- Select University --</option>
+                  {Object.entries(universitiesData)
+                    .sort(([, a], [, b]) => (a.name || "").localeCompare(b.name || ""))
+                    .map(([key, u]) => (
+                      <option key={key} value={key}>
+                        {u.name}
+                      </option>
+                    ))}
+                  <option value="others">Others (Enter Custom University)</option>
+                </select>
+                {universityKey === "others" && (
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="universityCustom"
+                      required
+                      value={universityCustom}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setUniversityCustom(val);
+                        setFormData((prev) => ({ ...prev, university: val }));
+                      }}
+                      placeholder="Enter custom university name"
+                      className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm text-text-main"
+                    />
+                  </div>
+                )}
               </div>
+
+              {/* College Select */}
               <div className="md:col-span-2">
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College *</label>
-                <input
-                  type="text"
-                  name="college"
-                  required
-                  value={formData.college}
-                  onChange={handleInputChange}
-                  placeholder="College name"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
+                <select
+                  name="collegeKey"
+                  value={collegeKey}
+                  onChange={(e) => handleCollegeSelect(e.target.value)}
+                  disabled={!universityKey}
+                  className={`w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition cursor-pointer text-text-main text-sm ${
+                    !universityKey ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                >
+                  <option value="">
+                    {universityKey ? "-- Select College --" : "Select University first"}
+                  </option>
+                  {availableColleges.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                    </option>
+                  ))}
+                  {universityKey && (
+                    <option value="others">Others (Enter Custom College)</option>
+                  )}
+                </select>
+                {collegeKey === "others" && (
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="collegeCustom"
+                      required
+                      value={collegeCustom}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setCollegeCustom(val);
+                        setFormData((prev) => ({ ...prev, college: val }));
+                      }}
+                      placeholder="Enter custom college name"
+                      className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm text-text-main"
+                    />
+                  </div>
+                )}
               </div>
+
+              {/* Degree Select */}
               <div>
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Degree *</label>
-                <input
-                  type="text"
+                <select
                   name="degree"
-                  required
-                  value={formData.degree}
-                  onChange={handleInputChange}
-                  placeholder="e.g. B.Tech, MCA"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
+                  value={
+                    formData.degree === "others"
+                      ? "others"
+                      : availableDegrees.includes(formData.degree)
+                      ? formData.degree
+                      : formData.degree
+                      ? "others"
+                      : ""
+                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === "others") {
+                      setDegreeCustom(
+                        formData.degree && !availableDegrees.includes(formData.degree)
+                          ? formData.degree
+                          : ""
+                      );
+                      setFormData((prev) => ({ ...prev, degree: "others" }));
+                    } else {
+                      setDegreeCustom("");
+                      setFormData((prev) => ({ ...prev, degree: val }));
+                    }
+                  }}
+                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition cursor-pointer text-text-main text-sm"
+                >
+                  <option value="">-- Select Degree --</option>
+                  {availableDegrees.map((deg) => (
+                    <option key={deg} value={deg}>
+                      {deg}
+                    </option>
+                  ))}
+                  <option value="others">Others (Custom Degree)</option>
+                </select>
+                {(formData.degree === "others" ||
+                  (formData.degree && !availableDegrees.includes(formData.degree))) && (
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      value={
+                        degreeCustom ||
+                        (formData.degree !== "others" ? formData.degree : "")
+                      }
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setDegreeCustom(val);
+                        setFormData((prev) => ({ ...prev, degree: val }));
+                      }}
+                      placeholder="Enter custom degree (e.g. B.Tech, BA)"
+                      className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm text-text-main"
+                    />
+                  </div>
+                )}
               </div>
+
+              {/* Department Select */}
               <div>
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Department *</label>
-                <input
-                  type="text"
+                <select
                   name="department"
-                  required
-                  value={formData.department}
-                  onChange={handleInputChange}
-                  placeholder="e.g. CSE, IT"
-                  className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition"
-                />
+                  value={
+                    formData.department === "others"
+                      ? "others"
+                      : availableDepartments.includes(formData.department)
+                      ? formData.department
+                      : formData.department
+                      ? "others"
+                      : ""
+                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === "others") {
+                      setDepartmentCustom(
+                        formData.department &&
+                          !availableDepartments.includes(formData.department)
+                          ? formData.department
+                          : ""
+                      );
+                      setFormData((prev) => ({ ...prev, department: "others" }));
+                    } else {
+                      setDepartmentCustom("");
+                      setFormData((prev) => ({ ...prev, department: val }));
+                    }
+                  }}
+                  disabled={!formData.degree}
+                  className={`w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition cursor-pointer text-text-main text-sm ${
+                    !formData.degree ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                >
+                  <option value="">
+                    {formData.degree ? "-- Select Department --" : "Select Degree first"}
+                  </option>
+                  {availableDepartments.map((dept, idx) => (
+                    <option key={`${dept}-${idx}`} value={dept}>
+                      {dept}
+                    </option>
+                  ))}
+                  {formData.degree && (
+                    <option value="others">Others (Custom Department)</option>
+                  )}
+                </select>
+                {(formData.department === "others" ||
+                  (formData.department &&
+                    !availableDepartments.includes(formData.department))) && (
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      value={
+                        departmentCustom ||
+                        (formData.department !== "others" ? formData.department : "")
+                      }
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setDepartmentCustom(val);
+                        setFormData((prev) => ({ ...prev, department: val }));
+                      }}
+                      placeholder="Enter custom department (e.g. Arts, CSE)"
+                      className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl focus:border-brand-primary outline-none transition text-sm text-text-main"
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">Roll Number *</label>

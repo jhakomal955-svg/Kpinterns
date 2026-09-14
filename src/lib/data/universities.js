@@ -6132,8 +6132,8 @@ export const universitiesData = {
   "bhupendra-narayan": {
     "name": "Bhupendra Narayan Mandal University, Madhepura",
     "colleges": {
-      "adarsh": {
-        "name": "Adarsh College, Ghairh Jiwachpur Madhepura",
+      "adarsh-college-ghailarh-madhepura": {
+        "name": "Adarsh College, Ghailarh, Madhepura",
         "departments": {
           "BA": [
             "Arts",
@@ -6204,8 +6204,8 @@ export const universitiesData = {
           ]
         }
       },
-      "bss-chandrakanta": {
-        "name": "B S S Chandrakanta College, Ranjanapuri, Uda Kishunganj Madhepura",
+      "a-l-y-college-triveniganj": {
+        "name": "A. L. Y. College, Triveniganj",
         "departments": {
           "BA": [
             "Arts",
@@ -6276,8 +6276,8 @@ export const universitiesData = {
           ]
         }
       },
-      "bsrk": {
-        "name": "B.S.R.K. College, Singheshwar Madhepura",
+      "b-n-m-v-college-sahugarh-madhepura": {
+        "name": "B. N. M. V. College, Sahugarh, Madhepura",
         "departments": {
           "BA": [
             "Arts",
@@ -6348,8 +6348,8 @@ export const universitiesData = {
           ]
         }
       },
-      "bnm-vaijya": {
-        "name": "Bhupendra Narayan Mandal Vanijya Mahavidyalaya, Madhepura",
+      "b-p-s-college-bihariganj-madhepura": {
+        "name": "B. P. S. College, Bihariganj, Madhepura",
         "departments": {
           "BA": [
             "Arts",
@@ -6420,8 +6420,8 @@ export const universitiesData = {
           ]
         }
       },
-      "cm-science": {
-        "name": "C. M. Science Degree College, Ward No.-01 Madhepura",
+      "b-s-college-simraha": {
+        "name": "B. S. College, Simraha",
         "departments": {
           "BA": [
             "Arts",
@@ -6492,8 +6492,8 @@ export const universitiesData = {
           ]
         }
       },
-      "deo-nandini": {
-        "name": "Deo Nandini Degree College, Bakhri Madhepura",
+      "b-s-s-college-supaul": {
+        "name": "B. S. S. College, Supaul",
         "departments": {
           "BA": [
             "Arts",
@@ -6564,8 +6564,8 @@ export const universitiesData = {
           ]
         }
       },
-      "evening-college": {
-        "name": "Evening College, Ward No-02, Kaushalya Gram Madhepura",
+      "b-s-r-k-college-singheshwar": {
+        "name": "B.S.R.K. College, Singheshwar",
         "departments": {
           "BA": [
             "Arts",
@@ -6636,8 +6636,8 @@ export const universitiesData = {
           ]
         }
       },
-      "harihar-saha": {
-        "name": "Harihar Saha College, NH-106, Udakishungunj Madhepura",
+      "b-s-s-chandrakanta-college": {
+        "name": "B.S.S. Chandrakanta College",
         "departments": {
           "BA": [
             "Arts",
@@ -6708,8 +6708,8 @@ export const universitiesData = {
           ]
         }
       },
-      "kb-womens": {
-        "name": "K.B. Womens College Madhepura",
+      "c-m-sc-college-madhepura": {
+        "name": "C. M. Sc. College, Madhepura",
         "departments": {
           "BA": [
             "Arts",
@@ -6780,8 +6780,8 @@ export const universitiesData = {
           ]
         }
       },
-      "kamla-rana": {
-        "name": "Kamla Rana Science College, Prashant Nagar, Puraini Madhepura",
+      "d-k-d-college-gamhariya": {
+        "name": "D.K.D. College, Gamhariya",
         "departments": {
           "BA": [
             "Arts",
@@ -6852,8 +6852,8 @@ export const universitiesData = {
           ]
         }
       },
-      "kamleshwari": {
-        "name": "Kamleshwari Prasad College, NH-107, Murliganj Madhepura",
+      "degree-college-supaul": {
+        "name": "Degree College, Supaul",
         "departments": {
           "BA": [
             "Arts",
@@ -6924,8 +6924,8 @@ export const universitiesData = {
           ]
         }
       },
-      "madhepura-college": {
-        "name": "Madhepura College, Kaushalya Gram Madhepura",
+      "deo-nandani-degree-college-bakhri": {
+        "name": "Deo Nandani Degree College, Bakhri",
         "departments": {
           "BA": [
             "Arts",
@@ -6996,28 +6996,8 @@ export const universitiesData = {
           ]
         }
       },
-      "mohan-shakuntala": {
-        "name": "Mohan Shakuntala Teacher's Training College, University Chowk Madhepura",
-        "departments": {
-          "Education": [
-            "General Teacher Training"
-          ],
-          "MCA": [
-            "MCA"
-          ],
-          "BCA": [
-            "BCA"
-          ],
-          "BBA": [
-            "Finance",
-            "Marketing",
-            "HR",
-            "Operation"
-          ]
-        }
-      },
-      "parwati-science": {
-        "name": "Parwati Science College, Kiritinagar, Ward No.-04 Madhepura",
+      "east-n-west-college-saharsa": {
+        "name": "East N West College, Saharsa",
         "departments": {
           "BA": [
             "Arts",
@@ -7088,8 +7068,8 @@ export const universitiesData = {
           ]
         }
       },
-      "rpm": {
-        "name": "Rpm College, Tuniyahi Madhepura",
+      "evening-college-madhepura": {
+        "name": "Evening College, Madhepura",
         "departments": {
           "BA": [
             "Arts",
@@ -7160,8 +7140,8 @@ export const universitiesData = {
           ]
         }
       },
-      "sant-awadh": {
-        "name": "Sant Awadh Kiriti Nagar Degree College, Kiriti Nagar, Ward No-04 Madhepura",
+      "evening-college-saharsa": {
+        "name": "Evening College, Saharsa",
         "departments": {
           "BA": [
             "Arts",
@@ -7232,50 +7212,8 @@ export const universitiesData = {
           ]
         }
       },
-      "shivnandan-prasad": {
-        "name": "Shivnandan Prasad Mandal Law College, Ward No-20 Madhepura",
-        "departments": {
-          "Law": [
-            "Civil Law",
-            "Criminal Law",
-            "Corporate Law"
-          ],
-          "MCA": [
-            "MCA"
-          ],
-          "BCA": [
-            "BCA"
-          ],
-          "BBA": [
-            "Finance",
-            "Marketing",
-            "HR",
-            "Operation"
-          ]
-        }
-      },
-      "scb-education": {
-        "name": "Subhash Chandra Bose College Of Education, Israin Khurd, Kumarkhand Madhepura",
-        "departments": {
-          "Education": [
-            "General Teacher Training"
-          ],
-          "MCA": [
-            "MCA"
-          ],
-          "BCA": [
-            "BCA"
-          ],
-          "BBA": [
-            "Finance",
-            "Marketing",
-            "HR",
-            "Operation"
-          ]
-        }
-      },
-      "thakur-prasad": {
-        "name": "Thakur Prasad College, College Chowk Madhepura",
+      "h-p-s-college-nirmali": {
+        "name": "H. P. S. College, Nirmali",
         "departments": {
           "BA": [
             "Arts",
@@ -7346,8 +7284,8 @@ export const universitiesData = {
           ]
         }
       },
-      "uvk": {
-        "name": "U V K College, Karama, PO-Bhagipur, Puraini Madhepura",
+      "h-s-college-udakishunganj": {
+        "name": "H. S. College, Udakishunganj",
         "departments": {
           "BA": [
             "Arts",
@@ -7418,8 +7356,8 @@ export const universitiesData = {
           ]
         }
       },
-      "womens-college": {
-        "name": "Women's College, Ward No-02, Kaushalya Gram Madhepura",
+      "hanshi-mandal-college-bihariganj": {
+        "name": "Hanshi Mandal College, Bihariganj",
         "departments": {
           "BA": [
             "Arts",
@@ -7490,8 +7428,8 @@ export const universitiesData = {
           ]
         }
       },
-      "banwari-shankar": {
-        "name": "Banwari Shankar College, Simraha Saharsa",
+      "jagarnath-sudama-degree-college-singheshwar": {
+        "name": "Jagarnath Sudama Degree College, Singheshwar",
         "departments": {
           "BA": [
             "Arts",
@@ -7562,28 +7500,8 @@ export const universitiesData = {
           ]
         }
       },
-      "east-west-ttc": {
-        "name": "East N West Teachers Training College, Sahmoura Colony, Patuaha Saharsa",
-        "departments": {
-          "Education": [
-            "General Teacher Training"
-          ],
-          "MCA": [
-            "MCA"
-          ],
-          "BCA": [
-            "BCA"
-          ],
-          "BBA": [
-            "Finance",
-            "Marketing",
-            "HR",
-            "Operation"
-          ]
-        }
-      },
-      "evening-saharsa": {
-        "name": "Evening College Saharsa, By Pass Road, Tiwari Tola Saharsa",
+      "jayamanti-villas-college-gwalpara": {
+        "name": "Jayamanti Villas College, Gwalpara",
         "departments": {
           "BA": [
             "Arts",
@@ -7654,8 +7572,8 @@ export const universitiesData = {
           ]
         }
       },
-      "lahtan-choudhary": {
-        "name": "Lahtan Choudhary College Pastwar, Baluaha, Mahishi Saharsa",
+      "k-b-womens-college-madhepura": {
+        "name": "K. B. Womens College, Madhepura",
         "departments": {
           "BA": [
             "Arts",
@@ -7726,8 +7644,8 @@ export const universitiesData = {
           ]
         }
       },
-      "laxmi-nath": {
-        "name": "Laxmi Nath College, PO-Bangaon Saharsa",
+      "k-n-degree-college-raghopur": {
+        "name": "K. N. Degree College, Raghopur",
         "departments": {
           "BA": [
             "Arts",
@@ -7798,8 +7716,8 @@ export const universitiesData = {
           ]
         }
       },
-      "maharaja-hariballav": {
-        "name": "Maharaja Hariballav Memorial College, SH-59, Soha Sonbarsa Raj Saharsa",
+      "k-p-college-murliganj": {
+        "name": "K. P. College, Murliganj",
         "departments": {
           "BA": [
             "Arts",
@@ -7870,8 +7788,8 @@ export const universitiesData = {
           ]
         }
       },
-      "manohar-lal": {
-        "name": "Manohar Lal Tekriwal College, Purab Bazaar Saharsa",
+      "kamla-rana-science-college-puraini-madhepura": {
+        "name": "Kamla Rana Science College, Puraini, Madhepura",
         "departments": {
           "BA": [
             "Arts",
@@ -7942,13 +7860,63 @@ export const universitiesData = {
           ]
         }
       },
-      "rmm-law": {
-        "name": "R.M.M. Law College, Purab Bazar Saharsa",
+      "l-c-college-postwar-saharsa": {
+        "name": "L. C. College, Postwar, Saharsa",
         "departments": {
-          "Law": [
-            "Civil Law",
-            "Criminal Law",
-            "Corporate Law"
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
           ],
           "MCA": [
             "MCA"
@@ -7964,8 +7932,1304 @@ export const universitiesData = {
           ]
         }
       },
-      "rajendra-mishra": {
-        "name": "Rajendra Mishra College, By Pass Road, Tiwari Tola Saharsa",
+      "l-n-college-bangaon": {
+        "name": "L. N. College, Bangaon",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "l-n-m-s-college-birpur": {
+        "name": "L. N. M. S. College, Birpur",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "m-m-v-d-college-sahpur-gwalpara": {
+        "name": "M. M. V. D. College, Sahpur, Gwalpara",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "m-l-t-college-saharsa": {
+        "name": "M. L. T. College, Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "m-h-m-college-sonbarsa": {
+        "name": "M.H.M. College, Sonbarsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "m-r-e-biratpur-saharsa": {
+        "name": "M.R.E. Biratpur Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "madhepura-college-madhepura": {
+        "name": "Madhepura College, Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "r-j-m-college-saharsa": {
+        "name": "R. J. M. College, Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "r-k-j-l-college-khurhan": {
+        "name": "R. K. J. L. College, Khurhan",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "r-k-science-college-rampur-murliganj": {
+        "name": "R. K. Science College, Rampur, Murliganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "r-m-college-saharsa": {
+        "name": "R. M. College, Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "r-p-m-college-madhepura": {
+        "name": "R. P. M. College, Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "s-a-k-n-d-college-madhepura": {
+        "name": "S. A. K. N. D. College, Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "s-k-d-e-college-udakishunganj": {
+        "name": "S. K. D. E. College, Udakishunganj",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "s-n-s-mahila-college-supaul": {
+        "name": "S. N. S. Mahila College, Supaul",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "s-n-s-r-k-s-college-saharsa": {
+        "name": "S. N. S. R. K. S. College, Saharsa",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "t-p-college-madhepura": {
+        "name": "T. P. College, Madhepura",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "u-v-k-college-karama": {
+        "name": "U. V. K. College, Karama",
+        "departments": {
+          "BA": [
+            "Arts",
+            "Home Science",
+            "HUMANITIES",
+            "Ancient indian history",
+            "Anthropology",
+            "Bojpuri",
+            "Economics",
+            "English",
+            "Geography",
+            "History",
+            "Political Science",
+            "Psychology",
+            "Sociology",
+            "Urdu",
+            "Maithili",
+            "Hindi",
+            "Sanskrit",
+            "Music",
+            "Rural Economics",
+            "Philosophy",
+            "AIAS",
+            "Persian",
+            "Pali",
+            "Budhist",
+            "PA",
+            "LSW"
+          ],
+          "BSc": [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Statistics",
+            "Botany",
+            "Zoology",
+            "Microbiology",
+            "Biotechnology",
+            "Biochemistry",
+            "Computer Science",
+            "Data Science",
+            "Agriculture",
+            "Nursing",
+            "Forensic Science"
+          ],
+          "BCom": [
+            "Commerce",
+            "Accounting & Finance",
+            "Business Administration",
+            "Banking & Insurance",
+            "Taxation",
+            "Economics",
+            "Sales & Marketing",
+            "Computer Applications",
+            "Banking & Finance"
+          ],
+          "MCA": [
+            "MCA"
+          ],
+          "BCA": [
+            "BCA"
+          ],
+          "BBA": [
+            "Finance",
+            "Marketing",
+            "HR",
+            "Operation"
+          ]
+        }
+      },
+      "womens-college-madhepura": {
+        "name": "Women's College, Madhepura",
         "departments": {
           "BA": [
             "Arts",

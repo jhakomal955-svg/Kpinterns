@@ -185,6 +185,26 @@ export async function GET(request) {
       userObj.internshipDomain = userObj.ActiveInternship?.[0]?.internship?.domain || userObj.ActiveInternship?.[0]?.internship?.category || "";
       userObj.mode = userObj.ActiveInternship?.[0]?.internship?.mode || "";
 
+      let collegeInternshipRate = 0;
+      if (freshUser.college) {
+        const escapedCollege = freshUser.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+        const collegeAdmin = await Admin.findOne({
+          role: "College Admin",
+          CollegeName: { $regex: new RegExp("^\\s*" + escapedCollege + "\\s*$", "i") }
+        });
+        if (collegeAdmin && typeof collegeAdmin.internshipRate === "number") {
+          collegeInternshipRate = collegeAdmin.internshipRate;
+        }
+      }
+      userObj.collegeInternshipRate = collegeInternshipRate;
+
+      for (const item of userObj.ActiveInternship || []) {
+        const originalProgramFee = item.originalAmount || (item.internship?.RegistrationFee?.amount ? Number(item.internship.RegistrationFee.amount) : 500);
+        item.originalAmount = originalProgramFee;
+        item.collegeInternshipRate = collegeInternshipRate;
+        item.completionFee = (collegeInternshipRate > 0) ? collegeInternshipRate : originalProgramFee;
+      }
+
       return Response.json({ success: true, data: userObj }, { status: 200 });
     } else {
       // Block non-authorized users from listing all users

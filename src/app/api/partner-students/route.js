@@ -1,6 +1,6 @@
 import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { PartnerStudentModel, AdminModel } from "@/models";
+import { PartnerStudentModel, AdminModel, UserModel, InternshipModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
 
 export async function GET(request) {
@@ -18,50 +18,215 @@ export async function GET(request) {
     const { user } = authResult;
     const url = new URL(request.url);
     const collegeParam = url.searchParams.get("college");
+    const collegeAdminId = url.searchParams.get("collegeAdminId");
     const search = url.searchParams.get("search") || "";
     const isEnrolled = url.searchParams.get("isEnrolled");
 
     const PartnerStudent = createModel("PartnerStudent", PartnerStudentModel);
     const Admin = createModel("Admin", AdminModel);
+    const User = createModel("User", UserModel);
+    createModel("Internship", InternshipModel);
 
     let query = {};
+    let targetCollegeName = "";
+    let targetCollegeAdminId = null;
+    let adminDoc = null;
 
     // Role-based scoping
     if (user.role === "College Admin") {
-      const adminDoc = await Admin.findById(user.id || user._id);
+      adminDoc = await Admin.findById(user.id || user._id);
       if (adminDoc && adminDoc.CollegeName) {
-        query.collegeName = { $regex: new RegExp("^" + adminDoc.CollegeName.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$", "i") };
+        targetCollegeName = adminDoc.CollegeName.trim();
+        targetCollegeAdminId = adminDoc._id;
+        query.collegeName = { $regex: new RegExp("^" + targetCollegeName.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$", "i") };
       } else {
         query.collegeAdminId = user.id || user._id;
+        targetCollegeAdminId = user.id || user._id;
       }
-    } else if (collegeParam) {
-      query.collegeName = { $regex: new RegExp(collegeParam.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "i") };
+    } else {
+      if (collegeAdminId) {
+        adminDoc = await Admin.findById(collegeAdminId);
+        if (adminDoc) {
+          targetCollegeAdminId = adminDoc._id;
+          targetCollegeName = adminDoc.CollegeName?.trim() || "";
+        }
+      }
+      if (collegeParam && collegeParam.trim()) {
+        targetCollegeName = collegeParam.trim();
+      }
+
+      if (targetCollegeName) {
+        query.collegeName = { $regex: new RegExp("^\\s*" + targetCollegeName.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "\\s*$", "i") };
+      } else if (targetCollegeAdminId) {
+        query.collegeAdminId = targetCollegeAdminId;
+      }
     }
 
     if (isEnrolled !== null && isEnrolled !== undefined && isEnrolled !== "") {
       query.isEnrolled = isEnrolled === "true";
     }
 
-    if (search.trim()) {
-      const searchRegex = new RegExp(search.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "i");
-      query.$or = [
-        { fullName: searchRegex },
-        { rollNumber: searchRegex },
-        { registrationNumber: searchRegex },
-        { email: searchRegex },
-        { phone: searchRegex },
-        { department: searchRegex },
-      ];
-    }
-
-    const students = await PartnerStudent.find(query)
+    // 1. Fetch pre-approved partner student records
+    const partnerStudents = await PartnerStudent.find(query)
       .sort({ createdAt: -1 })
       .lean();
 
+    // 2. Fetch all registered users from this college (including self-registered)
+    let registeredUsers = [];
+    if (targetCollegeName) {
+      const escapedCollege = targetCollegeName.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      const userFilter = {
+        $or: [
+          { college: { $regex: new RegExp("^\\s*" + escapedCollege + "\\s*$", "i") } },
+          ...(adminDoc?.Usercreated?.length ? [{ _id: { $in: adminDoc.Usercreated } }] : []),
+        ],
+      };
+      registeredUsers = await User.find(userFilter)
+        .populate("ActiveInternship.internship")
+        .sort({ createdAt: -1 })
+        .lean();
+    }
+
+    // Index matched user IDs to identify self-registered students
+    const matchedUserIds = new Set();
+
+    // 3. Enrich pre-approved partner students with live user data
+    const enrichedPartnerStudents = partnerStudents.map((ps) => {
+      const psReg = (ps.registrationNumber || "").trim().toLowerCase();
+      const psRoll = (ps.rollNumber || "").trim().toLowerCase();
+      const psEmail = (ps.email || "").trim().toLowerCase();
+      const psEnrolledId = ps.enrolledUserId ? ps.enrolledUserId.toString() : null;
+
+      const matchedUser = registeredUsers.find((u) => {
+        if (psEnrolledId && u._id.toString() === psEnrolledId) return true;
+        if (psReg && u.registrationNumber && u.registrationNumber.trim().toLowerCase() === psReg) return true;
+        if (psRoll && u.rollNumber && u.rollNumber.trim().toLowerCase() === psRoll) return true;
+        if (psEmail && u.email && u.email.trim().toLowerCase() === psEmail) return true;
+        return false;
+      });
+
+      if (matchedUser) {
+        matchedUserIds.add(matchedUser._id.toString());
+        const activeInt = matchedUser.ActiveInternship?.[0];
+        return {
+          ...ps,
+          enrolledUserId: matchedUser._id,
+          isEnrolled: true,
+          isSelfRegistered: false,
+          source: "Pre-Approved Roster",
+          internshipStatus: activeInt?.internshipStatus || "Active",
+          progress: activeInt?.progress ?? 0,
+          certificationUrl: activeInt?.certificationUrl || null,
+          attendanceCertificateUrl: activeInt?.attendanceCertificateUrl || null,
+          offerLetterUrl: activeInt?.offerLetterUrl || null,
+          testScore: activeInt?.testScore ?? null,
+          internshipTitle: activeInt?.internship?.title || activeInt?.internship?.position || "",
+          ActiveInternship: matchedUser.ActiveInternship || [],
+          user: {
+            _id: matchedUser._id,
+            fullName: matchedUser.fullName,
+            email: matchedUser.email,
+            phone: matchedUser.phone,
+            gender: matchedUser.gender,
+            parentName: matchedUser.parentName,
+            degree: matchedUser.degree,
+            department: matchedUser.department,
+            semester: matchedUser.semester,
+            session: matchedUser.session,
+            college: matchedUser.college,
+            university: matchedUser.university,
+          },
+        };
+      }
+
+      return {
+        ...ps,
+        isSelfRegistered: false,
+        source: "Pre-Approved Roster",
+      };
+    });
+
+    // 4. Any registered user not matching a pre-approved record is a Self-Registered student
+    const selfRegisteredStudents = registeredUsers
+      .filter((u) => !matchedUserIds.has(u._id.toString()))
+      .map((u) => {
+        const activeInt = u.ActiveInternship?.[0];
+        return {
+          _id: u._id,
+          userId: u._id,
+          collegeName: u.college || targetCollegeName,
+          university: u.university || "",
+          registrationNumber: u.registrationNumber || "",
+          rollNumber: u.rollNumber || "",
+          fullName: u.fullName || "",
+          email: u.email || "",
+          phone: u.phone || "",
+          gender: u.gender || "",
+          parentName: u.parentName || "",
+          degree: u.degree || "",
+          department: u.department || "",
+          semester: u.semester || "",
+          session: u.session || "",
+          isEnrolled: true,
+          enrolledUserId: u._id,
+          isSelfRegistered: true,
+          source: "Self-Registered",
+          internshipStatus: activeInt?.internshipStatus || (u.ActiveInternship?.length > 0 ? "Active" : "Not Enrolled"),
+          progress: activeInt?.progress ?? (u.ActiveInternship?.length > 0 ? 0 : null),
+          certificationUrl: activeInt?.certificationUrl || null,
+          attendanceCertificateUrl: activeInt?.attendanceCertificateUrl || null,
+          offerLetterUrl: activeInt?.offerLetterUrl || null,
+          testScore: activeInt?.testScore ?? null,
+          internshipTitle: activeInt?.internship?.title || activeInt?.internship?.position || "",
+          ActiveInternship: u.ActiveInternship || [],
+          user: {
+            _id: u._id,
+            fullName: u.fullName,
+            email: u.email,
+            phone: u.phone,
+            gender: u.gender,
+            parentName: u.parentName,
+            degree: u.degree,
+            department: u.department,
+            semester: u.semester,
+            session: u.session,
+            college: u.college,
+            university: u.university,
+          },
+          createdAt: u.createdAt || new Date(),
+        };
+      });
+
+    // 5. Combine both sets
+    let allStudents = [...enrichedPartnerStudents, ...selfRegisteredStudents];
+
+    // If isEnrolled filter is active
+    if (isEnrolled !== null && isEnrolled !== undefined && isEnrolled !== "") {
+      const reqEnrolled = isEnrolled === "true";
+      allStudents = allStudents.filter((st) => !!st.isEnrolled === reqEnrolled);
+    }
+
+    // If search filter is active
+    if (search.trim()) {
+      const term = search.trim().toLowerCase();
+      allStudents = allStudents.filter((st) => {
+        return (
+          st.fullName?.toLowerCase().includes(term) ||
+          st.rollNumber?.toLowerCase().includes(term) ||
+          st.registrationNumber?.toLowerCase().includes(term) ||
+          st.email?.toLowerCase().includes(term) ||
+          st.phone?.toLowerCase().includes(term) ||
+          st.department?.toLowerCase().includes(term)
+        );
+      });
+    }
+
     return Response.json({
       success: true,
-      count: students.length,
-      students,
+      count: allStudents.length,
+      preApprovedCount: enrichedPartnerStudents.length,
+      selfRegisteredCount: selfRegisteredStudents.length,
+      students: allStudents,
     });
   } catch (error) {
     console.error("Error fetching partner students:", error);

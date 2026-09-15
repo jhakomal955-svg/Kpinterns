@@ -43,6 +43,12 @@ export default function CollegeAdminEditPage() {
   const [isSubmittingRoster, setIsSubmittingRoster] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
 
+  // Mark Complete & Profile Modal state
+  const [isCompletingInternships, setIsCompletingInternships] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
+  const [selectedProfileStudent, setSelectedProfileStudent] = useState(null);
+  const [completeSuccessMessage, setCompleteSuccessMessage] = useState(null);
+
   const [newStudent, setNewStudent] = useState({
     fullName: "",
     registrationNumber: "",
@@ -162,7 +168,8 @@ export default function CollegeAdminEditPage() {
     try {
       setIsRosterLoading(true);
       const token = localStorage.getItem("adminToken");
-      const res = await fetch(`/api/partner-students?college=${encodeURIComponent(collegeName)}`, {
+      const url = `/api/partner-students?college=${encodeURIComponent(collegeName || "")}&collegeAdminId=${partnerId || ""}`;
+      const res = await fetch(url, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       const data = await res.json();
@@ -313,6 +320,42 @@ export default function CollegeAdminEditPage() {
     return { resolvedUniv, resolvedCollege };
   };
 
+  // Mark All College Students Internships Complete & Issue Certificates
+  const handleMarkCollegeInternshipComplete = async () => {
+    const { resolvedCollege } = getResolvedNames();
+    try {
+      setIsCompletingInternships(true);
+      setCompleteSuccessMessage(null);
+      const token = localStorage.getItem("adminToken");
+
+      const res = await fetch("/api/partner-students/complete-internships", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          collegeName: resolvedCollege,
+          collegeAdminId: partnerId,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setCompleteSuccessMessage(data.message);
+        setMessage(data.message);
+        setShowCompleteModal(false);
+        fetchRoster(resolvedCollege);
+      } else {
+        alert(data.error || "Failed to complete college internships");
+      }
+    } catch (err) {
+      alert("Error completing internships: " + err.message);
+    } finally {
+      setIsCompletingInternships(false);
+    }
+  };
+
   // Roster Management Handlers
   const handleAddSingleStudent = async (e) => {
     e.preventDefault();
@@ -352,7 +395,7 @@ export default function CollegeAdminEditPage() {
           semester: "6th",
           session: "2023-2027",
         });
-        fetchRoster(resolvedCollegeName);
+        fetchRoster(resolvedCollege);
       } else {
         alert(data.error || "Failed to add student to roster");
       }
@@ -502,7 +545,7 @@ export default function CollegeAdminEditPage() {
       if (data.success) {
         setShowCsvModal(false);
         setCsvText("");
-        fetchRoster(resolvedCollegeName);
+        fetchRoster(resolvedCollege);
       } else {
         alert(data.error || "Failed to upload CSV roster");
       }
@@ -667,7 +710,16 @@ export default function CollegeAdminEditPage() {
                 Upload student Reg No & Roll No lists for this college partner so students can self-verify on the website.
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setShowCompleteModal(true)}
+                disabled={isCompletingInternships}
+                className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition shadow-sm cursor-pointer disabled:opacity-50"
+              >
+                <span>🎓</span>
+                <span>Mark Complete Internship</span>
+              </button>
               <button
                 type="button"
                 onClick={() => {
@@ -686,14 +738,14 @@ export default function CollegeAdminEditPage() {
                   });
                   setShowAddSingleModal(true);
                 }}
-                className="px-4 py-2 bg-brand-primary text-white text-xs font-bold rounded-xl"
+                className="px-4 py-2 bg-brand-primary hover:bg-brand-primary/90 text-white text-xs font-bold rounded-xl transition cursor-pointer"
               >
                 + Add Single Student
               </button>
               <button
                 type="button"
                 onClick={() => setShowCsvModal(true)}
-                className="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition cursor-pointer"
               >
                 📁 Bulk CSV Upload
               </button>
@@ -702,7 +754,7 @@ export default function CollegeAdminEditPage() {
 
           <input
             type="text"
-            placeholder="Filter roster by name, reg no, roll no..."
+            placeholder="Filter roster by name, reg no, roll no, email..."
             value={rosterSearch}
             onChange={(e) => setRosterSearch(e.target.value)}
             className="w-full px-4 py-2.5 bg-bg-main border border-border-main rounded-xl text-sm"
@@ -712,7 +764,7 @@ export default function CollegeAdminEditPage() {
             <div className="py-8 text-center text-text-muted">Loading roster records...</div>
           ) : filteredRoster.length === 0 ? (
             <div className="p-8 text-center bg-bg-main rounded-2xl border border-border-main text-text-muted text-sm">
-              No pre-approved student records uploaded for this partner college yet.
+              No student records found for this partner college yet.
             </div>
           ) : (
             <div className="overflow-x-auto border border-border-main rounded-2xl">
@@ -723,61 +775,101 @@ export default function CollegeAdminEditPage() {
                     <th className="p-3">Student Name</th>
                     <th className="p-3">Department & Degree</th>
                     <th className="p-3">Semester & Session</th>
-                    <th className="p-3 text-center">Status</th>
+                    <th className="p-3 text-center">Status & Program</th>
                     <th className="p-3 text-right">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border-main">
                   {filteredRoster.map((st) => (
-                    <tr key={st._id} className="hover:bg-bg-main/50">
+                    <tr key={st._id} className="hover:bg-bg-main/50 transition">
                       <td className="p-3 font-mono font-medium">
-                        <div>Reg: {st.registrationNumber}</div>
-                        <div className="text-text-muted text-xs">Roll: {st.rollNumber}</div>
+                        <div>Reg: {st.registrationNumber || "N/A"}</div>
+                        <div className="text-text-muted text-xs">Roll: {st.rollNumber || "N/A"}</div>
                       </td>
-                      <td className="p-3 font-semibold text-text-main">{st.fullName}</td>
+                      <td className="p-3">
+                        <div className="font-semibold text-text-main">{st.fullName}</div>
+                        <div className="text-[11px] text-text-muted">{st.email || st.phone || ""}</div>
+                      </td>
                       <td className="p-3 text-text-muted">
-                        <div>{st.department}</div>
-                        <div className="text-xs font-semibold text-brand-primary">{st.degree}</div>
+                        <div>{st.department || "N/A"}</div>
+                        <div className="text-xs font-semibold text-brand-primary">{st.degree || "N/A"}</div>
                       </td>
                       <td className="p-3 text-text-muted">
-                        <div>Sem: {st.semester}</div>
-                        <div className="text-xs">{st.session}</div>
+                        <div>Sem: {st.semester || "N/A"}</div>
+                        <div className="text-xs">{st.session || "N/A"}</div>
                       </td>
-                      <td className="p-3 text-center">
-                        {st.enrolledUserId ? (
-                          <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-bold text-xs">✓ Enrolled</span>
-                        ) : (
-                          <span className="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 font-bold text-xs">⏳ Pending</span>
-                        )}
+                      <td className="p-3 text-center whitespace-nowrap">
+                        <div className="flex flex-col items-center gap-1">
+                          <div className="flex items-center gap-1">
+                            {st.isEnrolled ? (
+                              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 font-bold text-xs">
+                                ✓ Enrolled
+                              </span>
+                            ) : (
+                              <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 font-bold text-xs">
+                                ⏳ Pending
+                              </span>
+                            )}
+                            {st.isSelfRegistered && (
+                              <span className="px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 font-bold text-[10px] border border-indigo-500/30">
+                                Self-Registered
+                              </span>
+                            )}
+                          </div>
+                          {st.internshipStatus && (
+                            <span className={`text-[10px] font-semibold ${st.internshipStatus === "Completed" ? "text-emerald-400" : "text-amber-400"}`}>
+                              {st.internshipStatus} {st.progress !== undefined && st.progress !== null ? `(${st.progress}%)` : ""}
+                            </span>
+                          )}
+                          {st.certificationUrl && (
+                            <a
+                              href={st.certificationUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-1 text-[11px] text-brand-primary underline hover:opacity-80 font-semibold mt-0.5"
+                            >
+                              <span>📜 Certificate</span>
+                            </a>
+                          )}
+                        </div>
                       </td>
                       <td className="p-3 text-right whitespace-nowrap">
                         <button
                           type="button"
-                          onClick={() => {
-                            setNewStudent({
-                              _id: st._id,
-                              fullName: st.fullName || "",
-                              registrationNumber: st.registrationNumber || "",
-                              rollNumber: st.rollNumber || "",
-                              email: st.email || "",
-                              phone: st.phone || "",
-                              gender: st.gender || "",
-                              parentName: st.parentName || "",
-                              degree: st.degree || "",
-                              department: st.department || "",
-                              semester: st.semester || "",
-                              session: st.session || "",
-                            });
-                            setShowAddSingleModal(true);
-                          }}
-                          className="px-3 py-1 bg-brand-primary/10 text-brand-primary hover:bg-brand-primary hover:text-white rounded-lg text-xs font-semibold mr-1.5 transition"
+                          onClick={() => setSelectedProfileStudent(st)}
+                          className="px-2.5 py-1 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500 hover:text-white rounded-lg text-xs font-semibold mr-1.5 transition cursor-pointer"
                         >
-                          Edit
+                          View Profile
                         </button>
+                        {!st.isSelfRegistered && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setNewStudent({
+                                _id: st._id,
+                                fullName: st.fullName || "",
+                                registrationNumber: st.registrationNumber || "",
+                                rollNumber: st.rollNumber || "",
+                                email: st.email || "",
+                                phone: st.phone || "",
+                                gender: st.gender || "",
+                                parentName: st.parentName || "",
+                                degree: st.degree || "",
+                                department: st.department || "",
+                                semester: st.semester || "",
+                                session: st.session || "",
+                              });
+                              setShowAddSingleModal(true);
+                            }}
+                            className="px-2.5 py-1 bg-brand-primary/10 text-brand-primary hover:bg-brand-primary hover:text-white rounded-lg text-xs font-semibold mr-1.5 transition cursor-pointer"
+                          >
+                            Edit
+                          </button>
+                        )}
                         <button
                           type="button"
                           onClick={() => handleDeleteRosterStudent(st._id)}
-                          className="px-3 py-1 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg text-xs font-semibold transition"
+                          className="px-2.5 py-1 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
                         >
                           Delete
                         </button>
@@ -1194,6 +1286,264 @@ export default function CollegeAdminEditPage() {
                 <button type="submit" disabled={isSubmittingRoster} className="px-4 py-1.5 bg-blue-600 text-white font-bold rounded-lg">{isSubmittingRoster ? "Uploading..." : "Upload & Save Roster"}</button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Mark Complete Internship Confirmation Modal */}
+      {showCompleteModal && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+          <div className="bg-bg-card border-2 border-border-main rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                🎓
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-text-main">
+                  Mark College Internships Completed
+                </h3>
+                <p className="text-xs text-text-muted mt-1">
+                  Complete all student internships and issue certificates for:
+                </p>
+                <div className="text-sm font-bold text-brand-primary mt-1">
+                  {getResolvedNames().resolvedCollege || "This College Partner"}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-3.5 bg-bg-main border border-border-main rounded-xl space-y-2 text-xs text-text-muted">
+              <div className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>Sets internship status to <strong>Completed (100%)</strong> for all enrolled students of this college.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>Automatically generates official <strong>Certificate</strong> and <strong>Attendance Sheet</strong> (Annexure-2 & 3) and sends emails.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-amber-400 font-bold">ℹ</span>
+                <span>If a student's certificate is <strong>already issued</strong>, it will <strong>NOT be regenerated</strong> and their existing certificate is safely preserved.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-blue-400 font-bold">🔒</span>
+                <span>For <strong>free / unpaid enrollments</strong> (₹0 registration), internship is marked Completed, but official documents remain locked until the student pays the completion fee.</span>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 pt-2 border-t border-border-main">
+              <button
+                type="button"
+                disabled={isCompletingInternships}
+                onClick={() => setShowCompleteModal(false)}
+                className="px-4 py-2 text-xs font-semibold text-text-muted hover:text-text-main border border-border-main rounded-xl transition cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={isCompletingInternships}
+                onClick={handleMarkCollegeInternshipComplete}
+                className="px-5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold rounded-xl flex items-center gap-2 transition shadow-md cursor-pointer disabled:opacity-50"
+              >
+                {isCompletingInternships ? (
+                  <>
+                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Processing Batch & Certificates...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Confirm & Complete All</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Student Profile Preview Modal */}
+      {selectedProfileStudent && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+          <div className="bg-bg-card border-2 border-border-main rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-border-main pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 text-brand-primary flex items-center justify-center font-bold text-lg">
+                  {selectedProfileStudent.fullName?.charAt(0) || "S"}
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-text-main flex items-center gap-2">
+                    <span>{selectedProfileStudent.fullName}</span>
+                    {selectedProfileStudent.isSelfRegistered ? (
+                      <span className="px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 font-bold text-[10px] border border-indigo-500/30">
+                        Self-Registered
+                      </span>
+                    ) : (
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-[10px] border border-emerald-500/30">
+                        Pre-Approved Roster
+                      </span>
+                    )}
+                  </h3>
+                  <p className="text-xs text-text-muted">
+                    {selectedProfileStudent.email || "No email"} • {selectedProfileStudent.phone || "No phone"}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedProfileStudent(null)}
+                className="text-text-muted hover:text-text-main text-lg font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Academic Information */}
+            <div className="space-y-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-primary">Academic Information</h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3.5 bg-bg-main border border-border-main rounded-xl text-xs">
+                <div>
+                  <span className="text-text-muted block text-[10px]">Registration No</span>
+                  <span className="font-mono font-bold text-text-main">{selectedProfileStudent.registrationNumber || "N/A"}</span>
+                </div>
+                <div>
+                  <span className="text-text-muted block text-[10px]">Roll No</span>
+                  <span className="font-mono font-bold text-text-main">{selectedProfileStudent.rollNumber || "N/A"}</span>
+                </div>
+                <div>
+                  <span className="text-text-muted block text-[10px]">Degree</span>
+                  <span className="font-semibold text-text-main">{selectedProfileStudent.degree || "N/A"}</span>
+                </div>
+                <div>
+                  <span className="text-text-muted block text-[10px]">Department</span>
+                  <span className="font-semibold text-text-main">{selectedProfileStudent.department || "N/A"}</span>
+                </div>
+                <div>
+                  <span className="text-text-muted block text-[10px]">Semester</span>
+                  <span className="font-semibold text-text-main">{selectedProfileStudent.semester || "N/A"}</span>
+                </div>
+                <div>
+                  <span className="text-text-muted block text-[10px]">Session</span>
+                  <span className="font-semibold text-text-main">{selectedProfileStudent.session || "N/A"}</span>
+                </div>
+                <div className="col-span-2 sm:col-span-3">
+                  <span className="text-text-muted block text-[10px]">College & University</span>
+                  <span className="font-semibold text-text-main">{selectedProfileStudent.collegeName || selectedProfileStudent.user?.college || "N/A"}</span>
+                  <span className="text-text-muted text-[10px] block">{selectedProfileStudent.university || selectedProfileStudent.user?.university || ""}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Personal Details */}
+            <div className="space-y-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-primary">Personal Details</h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3.5 bg-bg-main border border-border-main rounded-xl text-xs">
+                <div>
+                  <span className="text-text-muted block text-[10px]">Gender</span>
+                  <span className="font-semibold text-text-main">{selectedProfileStudent.gender || selectedProfileStudent.user?.gender || "N/A"}</span>
+                </div>
+                <div className="col-span-2">
+                  <span className="text-text-muted block text-[10px]">Parent / Father's Name</span>
+                  <span className="font-semibold text-text-main">{selectedProfileStudent.parentName || selectedProfileStudent.user?.parentName || "N/A"}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Internship Enrollment Status & Certificates */}
+            <div className="space-y-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-primary">Internship & Issued Documents</h4>
+              <div className="p-3.5 bg-bg-main border border-border-main rounded-xl space-y-3 text-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <div>
+                    <span className="text-text-muted text-[10px] block">Enrolled Program</span>
+                    <span className="font-bold text-text-main text-sm">
+                      {selectedProfileStudent.internshipTitle || selectedProfileStudent.ActiveInternship?.[0]?.internship?.title || "Internship Program"}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
+                      selectedProfileStudent.internshipStatus === "Completed"
+                        ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                        : "bg-amber-500/15 text-amber-400 border border-amber-500/30"
+                    }`}>
+                      {selectedProfileStudent.internshipStatus || (selectedProfileStudent.isEnrolled ? "Active" : "Pending Enrollment")}
+                    </span>
+                    {selectedProfileStudent.progress !== undefined && selectedProfileStudent.progress !== null && (
+                      <span className="text-xs text-text-muted font-bold">
+                        {selectedProfileStudent.progress}%
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Document Links */}
+                <div className="pt-2 border-t border-border-main flex flex-wrap gap-2">
+                  {selectedProfileStudent.certificationUrl ? (
+                    <a
+                      href={selectedProfileStudent.certificationUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    >
+                      <span>📜</span>
+                      <span>Download Certificate</span>
+                    </a>
+                  ) : (
+                    <span className="px-3 py-1.5 bg-bg-card border border-border-main text-text-muted rounded-lg text-xs">
+                      Certificate: Not Issued Yet
+                    </span>
+                  )}
+
+                  {selectedProfileStudent.attendanceCertificateUrl && (
+                    <a
+                      href={selectedProfileStudent.attendanceCertificateUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 bg-blue-500/10 border border-blue-500/30 text-blue-400 hover:bg-blue-500 hover:text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    >
+                      <span>📊</span>
+                      <span>Attendance Sheet</span>
+                    </a>
+                  )}
+
+                  {selectedProfileStudent.offerLetterUrl && (
+                    <a
+                      href={selectedProfileStudent.offerLetterUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 bg-purple-500/10 border border-purple-500/30 text-purple-400 hover:bg-purple-500 hover:text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    >
+                      <span>✉️</span>
+                      <span>Offer Letter</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-border-main">
+              {(selectedProfileStudent.enrolledUserId || selectedProfileStudent.userId) ? (
+                <Link
+                  href={`/admin/auth/dashboard/user/${selectedProfileStudent.enrolledUserId || selectedProfileStudent.userId}`}
+                  target="_blank"
+                  className="text-xs font-semibold text-brand-primary hover:underline flex items-center gap-1"
+                >
+                  <span>Open Full User Profile in User Management</span>
+                  <span>→</span>
+                </Link>
+              ) : (
+                <span className="text-xs text-text-muted">Student has not created a login account yet.</span>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setSelectedProfileStudent(null)}
+                className="px-4 py-2 bg-bg-main hover:bg-bg-card border border-border-main text-text-main text-xs font-semibold rounded-xl transition cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

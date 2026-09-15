@@ -12,7 +12,7 @@ import { sendOfferLetterEmail, sendCertificateEmail } from "@/lib/nodemailer";
  * @param {string} userId - User's MongoDB document ID
  * @returns {Promise<boolean>} - True if document generation/updates occurred, false otherwise
  */
-export async function checkAndAutomateDocuments(userId) {
+export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
   try {
     await connectDB();
 
@@ -56,7 +56,7 @@ export async function checkAndAutomateDocuments(userId) {
         const programTitle = internship.title || internship.position || "Internship Program";
 
         // A. Offer Letter Generation: Enrolled/Paid but offerLetterUrl is missing
-        if (item.paymentStatus === true && !item.offerLetterUrl) {
+        if ((item.paymentStatus === true || forceGenerate) && !item.offerLetterUrl) {
           try {
             if (process.env.NODE_ENV === "development") {
               console.log(`[Document Automation] Generating offer letter for user: ${user.fullName}, program: ${programTitle}`);
@@ -103,7 +103,7 @@ export async function checkAndAutomateDocuments(userId) {
           }
         }
 
-        // B. Internship Certificate Generation: Only generate if status is Completed, test is taken, and fee is paid
+        // B. Internship Certificate Generation: Only generate if status is Completed, test is taken, and fee is paid (or forceGenerate is true)
         const isCompleted = item.internshipStatus === "Completed";
         
         let isTestPending = false;
@@ -124,7 +124,7 @@ export async function checkAndAutomateDocuments(userId) {
 
         const isPaymentPending = (item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalFee > 0;
 
-        if (isCompleted && !isTestPending && !isPaymentPending) {
+        if (isCompleted && !isPaymentPending && (!isTestPending || forceGenerate)) {
           // A. Generate Attendance & Daily Activity Log Sheets (Annexure-2 & 3)
           if (!item.attendanceCertificateUrl) {
             try {

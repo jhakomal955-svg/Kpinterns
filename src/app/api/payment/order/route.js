@@ -50,24 +50,36 @@ export async function POST(request) {
       }
     }
 
-    // Apply custom rates if the college has a verified College Admin setup with rates > 0
-    // Bypass if purpose is completion_fee, where original internship fee is required before generating documents
-    if (lookupCollege && purpose !== "completion_fee") {
+    // Apply custom rates based on College Admin metrics
+    if (lookupCollege) {
       const Admin = createModel("Admin", AdminModel);
       const escapedCollege = lookupCollege.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
       const collegeAdmin = await Admin.findOne({
         role: "College Admin",
-        verified: true,
-        CollegeName: { $regex: new RegExp("^" + escapedCollege + "$", "i") }
+        CollegeName: { $regex: new RegExp("^\\s*" + escapedCollege + "\\s*$", "i") }
       });
 
-      if (collegeAdmin) {
-        if (type === "course" && typeof collegeAdmin.courseRate === "number" && collegeAdmin.courseRate >= 0) {
-          price = collegeAdmin.courseRate;
-        } else if (type === "internship" && typeof collegeAdmin.internshipRate === "number" && collegeAdmin.internshipRate >= 0) {
-          price = collegeAdmin.internshipRate;
+      if (purpose === "completion_fee") {
+        if (type === "internship") {
+          // If college internship rate is not zero, that will be their payment
+          if (collegeAdmin && typeof collegeAdmin.internshipRate === "number" && collegeAdmin.internshipRate > 0) {
+            price = collegeAdmin.internshipRate;
+          } else {
+            // If college internship rate is zero, pay original internship price
+            price = internship.RegistrationFee?.amount ? Number(internship.RegistrationFee.amount) : 500;
+          }
+        }
+      } else {
+        if (collegeAdmin) {
+          if (type === "course" && typeof collegeAdmin.courseRate === "number" && collegeAdmin.courseRate >= 0) {
+            price = collegeAdmin.courseRate;
+          } else if (type === "internship" && typeof collegeAdmin.internshipRate === "number" && collegeAdmin.internshipRate >= 0) {
+            price = collegeAdmin.internshipRate;
+          }
         }
       }
+    } else if (purpose === "completion_fee" && type === "internship") {
+      price = internship.RegistrationFee?.amount ? Number(internship.RegistrationFee.amount) : 500;
     }
 
     // Record original price before any coupon discounts

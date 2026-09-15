@@ -257,9 +257,14 @@ export default function ProfilePage() {
         testStatus: i.internship?.test?.status || "Draft",
         testQuestionsCount: i.internship?.test?.questions?.length || 0,
         amount: typeof i.amount === "number" ? i.amount : 0,
-        originalAmount: i.originalAmount || i.internship?.RegistrationFee?.amount || 500,
-        isPaymentPending: (i.amount === 0 || i.amount === undefined || i.amount === null || i.amount <= 0) &&
-          ((i.originalAmount && i.originalAmount > 0) || (i.internship?.RegistrationFee?.amount && Number(i.internship.RegistrationFee.amount) > 0)),
+        originalAmount: i.originalAmount || (i.internship?.RegistrationFee?.amount ? Number(i.internship.RegistrationFee.amount) : 500),
+        completionFee: i.completionFee || (
+          (profile?.collegeInternshipRate > 0 ? profile.collegeInternshipRate : 0) ||
+          (i.collegeInternshipRate > 0 ? i.collegeInternshipRate : 0) ||
+          (i.originalAmount || (i.internship?.RegistrationFee?.amount ? Number(i.internship.RegistrationFee.amount) : 500))
+        ),
+        collegeInternshipRate: profile?.collegeInternshipRate || i.collegeInternshipRate || 0,
+        isPaymentPending: (i.amount === 0 || i.amount === undefined || i.amount === null || i.amount <= 0),
       }));
 
       setAppliedItems({
@@ -965,7 +970,7 @@ export default function ProfilePage() {
                                   </span>
                                 </h4>
                                 <p className="text-xs text-text-muted font-poppins mt-1 leading-relaxed">
-                                  You enrolled under the College Partner Scheme (Registration Fee: ₹0). To unlock and generate your official <strong>Certificate</strong>, <strong>Attendance Sheet</strong>, <strong>Daily Log Book</strong>, and <strong>Payment Receipt</strong>, please pay the original program fee of <strong>₹{internship.originalAmount}</strong>.
+                                  You enrolled under the College Partner Scheme (Registration Fee: ₹0). To unlock and generate your official <strong>Certificate</strong>, <strong>Attendance Sheet</strong>, <strong>Daily Log Book</strong>, and <strong>Payment Receipt</strong>, please pay {internship.collegeInternshipRate > 0 ? "your college's special program fee" : "the original program fee"} of <strong>₹{internship.completionFee || internship.originalAmount}</strong>.
                                 </p>
                               </div>
                             </div>
@@ -983,7 +988,7 @@ export default function ProfilePage() {
                                 ) : (
                                   <>
                                     <span>💳</span>
-                                    <span>Pay ₹{internship.originalAmount} & Unlock Certificate, Attendance & Log Book</span>
+                                    <span>Pay ₹{internship.completionFee || internship.originalAmount} & Unlock Certificate, Attendance & Log Book</span>
                                   </>
                                 )}
                               </button>

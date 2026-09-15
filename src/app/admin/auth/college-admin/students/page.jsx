@@ -55,6 +55,8 @@ export default function StudentsDirectoryPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rosterMessage, setRosterMessage] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isCompletingInternships, setIsCompletingInternships] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
 
   // New Student Form State
   const [newStudent, setNewStudent] = useState({
@@ -204,6 +206,39 @@ export default function StudentsDirectoryPage() {
       alert("Error adding student: " + err.message);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleMarkCollegeInternshipComplete = async () => {
+    try {
+      setIsCompletingInternships(true);
+      const token = localStorage.getItem("adminToken");
+
+      const res = await fetch("/api/partner-students/complete-internships", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          collegeName: adminData?.CollegeName || "",
+          collegeAdminId: adminData?._id || "",
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setRosterMessage(data.message);
+        setShowCompleteModal(false);
+        fetchRoster();
+        fetchStudents();
+      } else {
+        alert(data.error || "Failed to complete college internships");
+      }
+    } catch (err) {
+      alert("Error completing internships: " + err.message);
+    } finally {
+      setIsCompletingInternships(false);
     }
   };
 
@@ -553,6 +588,15 @@ export default function StudentsDirectoryPage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <button
+                type="button"
+                onClick={() => setShowCompleteModal(true)}
+                disabled={isCompletingInternships}
+                className="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold text-sm rounded-xl transition flex items-center gap-2 shadow-sm cursor-pointer disabled:opacity-50"
+              >
+                <span>🎓</span>
+                <span>Mark Complete Internship</span>
+              </button>
+              <button
                 onClick={() => {
                   setNewStudent({
                     fullName: "",
@@ -569,13 +613,13 @@ export default function StudentsDirectoryPage() {
                   });
                   setShowAddModal(true);
                 }}
-                className="px-4 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold text-sm rounded-xl transition flex items-center gap-2"
+                className="px-4 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold text-sm rounded-xl transition flex items-center gap-2 cursor-pointer"
               >
                 + Add Single Student
               </button>
               <button
                 onClick={() => setShowCsvModal(true)}
-                className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition flex items-center gap-2"
+                className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition flex items-center gap-2 cursor-pointer"
               >
                 📁 Bulk CSV Upload
               </button>
@@ -591,7 +635,7 @@ export default function StudentsDirectoryPage() {
                     <th className="p-4">Student Name</th>
                     <th className="p-4">Department & Degree</th>
                     <th className="p-4">Semester & Session</th>
-                    <th className="p-4 text-center">Status</th>
+                    <th className="p-4 text-center">Status & Program</th>
                     <th className="p-4 text-right">Action</th>
                   </tr>
                 </thead>
@@ -599,24 +643,51 @@ export default function StudentsDirectoryPage() {
                   {filteredRoster.map((st) => (
                     <tr key={st._id} className="hover:bg-bg-main/40 transition">
                       <td className="p-4 font-mono font-medium text-text-main">
-                        <div>Reg: {st.registrationNumber}</div>
-                        <div className="text-xs text-text-muted">Roll: {st.rollNumber}</div>
+                        <div>Reg: {st.registrationNumber || "N/A"}</div>
+                        <div className="text-xs text-text-muted">Roll: {st.rollNumber || "N/A"}</div>
                       </td>
-                      <td className="p-4 font-semibold text-text-main">{st.fullName}</td>
+                      <td className="p-4 font-semibold text-text-main">
+                        <div>{st.fullName}</div>
+                        <div className="text-xs font-normal text-text-muted">{st.email || st.phone || ""}</div>
+                      </td>
                       <td className="p-4 text-text-main">
-                        <div>{st.department}</div>
-                        <div className="text-xs font-semibold text-brand-primary">{st.degree}</div>
+                        <div>{st.department || "N/A"}</div>
+                        <div className="text-xs font-semibold text-brand-primary">{st.degree || "N/A"}</div>
                       </td>
                       <td className="p-4 text-text-muted text-xs">
-                        <div>Sem: {st.semester}</div>
-                        <div>{st.session}</div>
+                        <div>Sem: {st.semester || "N/A"}</div>
+                        <div>{st.session || "N/A"}</div>
                       </td>
-                      <td className="p-4 text-center">
-                        {st.enrolledUserId ? (
-                          <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-xs font-bold">✓ Enrolled</span>
-                        ) : (
-                          <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20 text-xs font-bold">⏳ Pending</span>
-                        )}
+                      <td className="p-4 text-center whitespace-nowrap">
+                        <div className="flex flex-col items-center gap-1">
+                          <div className="flex items-center gap-1">
+                            {st.isEnrolled ? (
+                              <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-xs font-bold">✓ Enrolled</span>
+                            ) : (
+                              <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20 text-xs font-bold">⏳ Pending</span>
+                            )}
+                            {st.isSelfRegistered && (
+                              <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 font-bold text-[10px] border border-indigo-500/30">
+                                Self-Registered
+                              </span>
+                            )}
+                          </div>
+                          {st.internshipStatus && (
+                            <span className={`text-[10px] font-semibold ${st.internshipStatus === "Completed" ? "text-emerald-500" : "text-amber-500"}`}>
+                              {st.internshipStatus} {st.progress !== undefined && st.progress !== null ? `(${st.progress}%)` : ""}
+                            </span>
+                          )}
+                          {st.certificationUrl && (
+                            <a
+                              href={st.certificationUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-[10px] text-brand-primary underline font-semibold hover:opacity-80"
+                            >
+                              📜 Certificate
+                            </a>
+                          )}
+                        </div>
                       </td>
                       <td className="p-4 text-right whitespace-nowrap">
                         <button
@@ -901,6 +972,77 @@ export default function StudentsDirectoryPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Mark Complete Internship Confirmation Modal */}
+      {showCompleteModal && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+          <div className="bg-bg-card border-2 border-border-main rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                🎓
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-text-main">
+                  Mark College Internships Completed
+                </h3>
+                <p className="text-xs text-text-muted mt-1">
+                  Complete all student internships and issue certificates for:
+                </p>
+                <div className="text-sm font-bold text-brand-primary mt-1">
+                  {adminData?.CollegeName || "Your College"}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-3.5 bg-bg-main border border-border-main rounded-xl space-y-2 text-xs text-text-muted">
+              <div className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>Sets internship status to <strong>Completed (100%)</strong> for all enrolled students of this college.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>Automatically generates official <strong>Certificate</strong> and <strong>Attendance Sheet</strong> (Annexure-2 & 3) and sends emails.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-amber-400 font-bold">ℹ</span>
+                <span>If a student's certificate is <strong>already issued</strong>, it will <strong>NOT be regenerated</strong> and their existing certificate is safely preserved.</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-blue-400 font-bold">🔒</span>
+                <span>For <strong>free / unpaid enrollments</strong> (₹0 registration), internship is marked Completed, but official documents remain locked until the student pays the completion fee.</span>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 pt-2 border-t border-border-main">
+              <button
+                type="button"
+                disabled={isCompletingInternships}
+                onClick={() => setShowCompleteModal(false)}
+                className="px-4 py-2 text-xs font-semibold text-text-muted hover:text-text-main border border-border-main rounded-xl transition cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={isCompletingInternships}
+                onClick={handleMarkCollegeInternshipComplete}
+                className="px-5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold rounded-xl flex items-center gap-2 transition shadow-md cursor-pointer disabled:opacity-50"
+              >
+                {isCompletingInternships ? (
+                  <>
+                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Processing Batch & Certificates...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Confirm & Complete All</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}

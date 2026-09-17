@@ -533,7 +533,8 @@ export function isTechnicalStream(student, program) {
 }
 
 /**
- * Generates an exact-fit Portrait Certificate PDF for non-technical internship programs (BA, BSc, BCom, Education, Law).
+ * Generates an exact-fit Portrait Certificate PDF for non-technical programs (BA, BSc, BCom, Education, Law, etc.).
+ * Redesigned to match the standardized institutional certificate specification.
  * @param {object} student - Student profile details
  * @param {object} program - Completed program or internship specifics
  * @param {string} type - Identifier ("internship" or "course")
@@ -558,7 +559,9 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
       const textColor = "#1e293b";      // Slate 800
       const mutedColor = "#475569";     // Slate 600
       const lightBorder = "#cbd5e1";    // Slate 300
-      const tableBorder = "#93c5fd";    // Soft Blue Border
+      const tableBorder = "#334155";    // Dark Slate Table Border
+
+      const isCourse = type === "course";
 
       // Look up student's enrollment details for the program
       const enrollment = type === "internship"
@@ -588,18 +591,15 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
         color: { dark: "#0f172a", light: "#ffffff" }
       });
 
-      // Normalize student and internship variables
-      const studentName = student.fullName || "N/A";
+      // Normalize student and program variables
+      const studentName = (student.fullName || "N/A").toUpperCase();
       const parentName = student.parentName || "N/A";
-      const rollNumber = student.rollNumber || "N/A";
+      const rollNumber = student.rollNumber || "";
       const registrationNumber = student.registrationNumber || "N/A";
       const institutionName = student.college || student.university || "N/A";
-      const domain = program.domain || program.title || "Internship Domain";
+      const domain = program.domain || program.title || (isCourse ? "Course Domain" : "Internship Domain");
       const majorStr = student.department || student.stream || program.domain || program.title || "General";
-      const durationRange = enrollment?.duration || program.duration || "4 Weeks";
-      const mode = enrollment?.mode || program?.mode || "Offline";
 
-      const attendanceMetric = enrollment?.attendanceRate || student.attendanceRate || "100%";
       const rawScore = (enrollment?.testScore !== undefined && enrollment?.testScore !== null)
         ? enrollment.testScore
         : (enrollment?.finalScore || student.finalScore || "85");
@@ -617,8 +617,8 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
         ratingText = "Needs Improvement";
       }
 
-      // Total Hours Completed (Standard 120 Hours for all internship certificates)
-      const totalHours = "120 Hours";
+      // Total Hours Completed (Standard 120 Hours for certificates)
+      const totalHours = enrollment?.totalHours || program?.totalHours || "120 Hours";
 
       const startDateStr = formatDate(enrollment?.startDate || program.startDate);
       const endDateStr = formatDate(enrollment?.endDate || program.endDate);
@@ -629,12 +629,14 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
         : new Date().getFullYear();
       const sessionStr = student.session || `${startYear}-${startYear + 3}`;
 
+      // Dynamic task / project description for assessment paragraph
+      const projectTaskDesc = enrollment?.projectTitle || program?.projectTitle || program?.title || domain || "assigned project tasks";
+
       // --- 1. Top Decorative Header Bars ---
       doc.rect(0, 0, 595.28, 14).fill(primaryColor);
       doc.rect(0, 14, 595.28, 4).fill(accentGold);
 
       // --- 2. Corporate Branding Section (Top Header) ---
-      // Logo (Top-Left)
       const logoX = 35;
       const logoY = 28;
       doc.circle(logoX + 18, logoY + 18, 18).fill(darkColor);
@@ -645,10 +647,10 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
         .text("Interns", logoX + 40, logoY + 6);
 
       doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
-        .text("ACPSK TECHNOLOGY PVT LTD", logoX + 41, logoY + 28);
+        .text("ACPSKTECHNOLOGY PVT LTD", logoX + 41, logoY + 28);
 
       // Contact details (Top-Right)
-      const contactText = "Saraswati Nagar, Matsyagandha Road,\nPolice Line, Saharsa, Bihar - 852201\nMob: +91 9204312848  |  Email: info@kpinterns.com\nWeb: www.kpinterns.com";
+      const contactText = "Saraswati Nagar, Matsyagandha Road,\nPolice Line, Saharsa, Bihar - 852201\nMob: +91 9204312848 | Email: info@kpinterns.com\nWeb: www.kpinterns.com";
       doc.font("Helvetica").fontSize(8).fillColor(mutedColor)
         .text(contactText, 300, 26, { align: "right", width: 260.28, lineGap: 2.5 });
 
@@ -656,109 +658,140 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
       doc.moveTo(35, 86).lineTo(560.28, 86).lineWidth(1).strokeColor(lightBorder).stroke();
 
       // --- 3. Certificate Title & Proclamation ---
-      doc.font("Times-Bold").fontSize(23).fillColor(primaryDark)
-        .text("Certificate of Completion", 35, 102, { align: "center", width: 525.28 });
+      doc.font("Times-BoldItalic").fontSize(24).fillColor(primaryDark)
+        .text("Certificate of Completion", 35, 100, { align: "center", width: 525.28 });
 
-      doc.font("Helvetica").fontSize(10.5).fillColor(mutedColor)
-        .text("This is to certify that", 35, 130, { align: "center", width: 525.28 });
+      doc.font("Helvetica").fontSize(10).fillColor(mutedColor)
+        .text("This is to certify that", 35, 126, { align: "center", width: 525.28 });
 
-      doc.font("Helvetica-Bold").fontSize(16).fillColor(darkColor)
-        .text(`Mr./Ms. ${studentName},`, 35, 146, { align: "center", width: 525.28 });
+      doc.font("Helvetica-Bold").fontSize(15).fillColor(darkColor)
+        .text(studentName, 35, 140, { align: "center", width: 525.28 });
 
       doc.font("Helvetica").fontSize(9.5).fillColor(mutedColor)
-        .text("S/o or D/o", 35, 168, { align: "center", width: 525.28 });
-
-      doc.font("Helvetica-Bold").fontSize(12.5).fillColor(darkColor)
-        .text(`${parentName}`, 35, 182, { align: "center", width: 525.28 });
-
-      const rollStr = rollNumber && rollNumber !== "N/A" ? ` (Roll No. ${rollNumber})` : "";
-      doc.font("Helvetica").fontSize(10).fillColor(textColor)
-        .text(`bearing University Registration/Enrolment No. ${registrationNumber}${rollStr}`, 35, 201, { align: "center", width: 525.28 });
-
-      doc.font("Helvetica").fontSize(9).fillColor(mutedColor)
-        .text("of", 35, 218, { align: "center", width: 525.28 });
+        .text("S/o or D/o", 35, 160, { align: "center", width: 525.28 });
 
       doc.font("Helvetica-Bold").fontSize(12).fillColor(darkColor)
-        .text(`${institutionName},`, 35, 230, { align: "center", width: 525.28 });
+        .text(parentName, 35, 173, { align: "center", width: 525.28 });
 
-      doc.font("Helvetica").fontSize(10).fillColor(textColor)
-        .text(`Session ${sessionStr}, with Major in ${majorStr},`, 35, 248, { align: "center", width: 525.28 });
+      const rollStr = rollNumber && rollNumber !== "N/A" ? ` (Roll No. ${rollNumber})` : "";
+      doc.font("Helvetica").fontSize(9.5).fillColor(textColor)
+        .text(`bearing University Registration/Enrolment No. ${registrationNumber}${rollStr}`, 35, 191, { align: "center", width: 525.28 });
 
-      doc.font("Helvetica").fontSize(10).fillColor(textColor)
-        .text("has successfully completed his/her internship with our organisation.", 35, 265, { align: "center", width: 525.28 });
+      doc.font("Helvetica").fontSize(9).fillColor(mutedColor)
+        .text("of", 35, 206, { align: "center", width: 525.28 });
 
-      // --- 4. First Table: Internship Details Overview ---
-      const t1Y = 290;
-      const col1W = 185;
-      const col2W = 340.28;
-      const rowH = 26;
-      const rows = [
-        ["Internship Domain", domain],
-        ["Internship Duration", `From ${startDateStr} to ${endDateStr}`],
-        ["Total Hours Completed", totalHours],
-        ["Mode of Internship", mode],
-        ["Overall Attendance Percentage", attendanceMetric],
-        ["Overall Marks Percentage", `${gradingScore}%`]
+      doc.font("Helvetica-Bold").fontSize(12).fillColor(darkColor)
+        .text(`${institutionName},`, 35, 217, { align: "center", width: 525.28 });
+
+      doc.font("Helvetica").fontSize(9.5).fillColor(textColor)
+        .text(`Session ${sessionStr}, with Major in ${majorStr}`, 35, 234, { align: "center", width: 525.28 });
+
+      const orgCompletionText = isCourse
+        ? "has successfully completed his/her course with our organisation."
+        : "has successfully completed his/her internship with our organisation.";
+      doc.font("Helvetica").fontSize(9.5).fillColor(textColor)
+        .text(orgCompletionText, 35, 250, { align: "center", width: 525.28 });
+
+      // --- 4. Duration & Total Hours Lines (Direct Text, No Table) ---
+      const detailsX = 40;
+      const durationLabel = isCourse ? "Course Duration: " : "Internship Duration: ";
+      doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor)
+        .text(durationLabel, detailsX, 274, { continued: true });
+      doc.font("Helvetica").fillColor(textColor)
+        .text(`From ${startDateStr} to ${endDateStr}`);
+
+      doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor)
+        .text("Total Hours Completed: ", detailsX, 290, { continued: true });
+      doc.font("Helvetica").fillColor(textColor)
+        .text(totalHours);
+
+      // --- 5. Internship Performance Assessment Heading & Paragraph ---
+      const perfTitle = isCourse ? "Course Performance Assessment" : "Internship Performance Assessment";
+      doc.font("Helvetica-Bold").fontSize(11).fillColor(darkColor)
+        .text(perfTitle, detailsX, 318);
+
+      const introText = `During the ${isCourse ? "course" : "internship"}, the student worked on ${projectTaskDesc}. Based on our observation and mentorship, we assess the student's performance as follows:`;
+      doc.font("Helvetica").fontSize(8.5).fillColor("#334155")
+        .text(introText, detailsX, 334, { width: 515.28, lineGap: 2 });
+
+      // --- 6. Performance Assessment Table ---
+      const tableX = 40;
+      const tableY = 364;
+      const col1W = 36;
+      const col2W = 245;
+      const col3W = 234.28;
+      const tableTotalW = col1W + col2W + col3W; // 515.28
+
+      const headerH = 25;
+      const rowH = 20.5;
+
+      // Header Row
+      doc.rect(tableX, tableY, tableTotalW, headerH).strokeColor(tableBorder).lineWidth(0.75).stroke();
+      doc.moveTo(tableX + col1W, tableY).lineTo(tableX + col1W, tableY + headerH).stroke();
+      doc.moveTo(tableX + col1W + col2W, tableY).lineTo(tableX + col1W + col2W, tableY + headerH).stroke();
+
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
+        .text("S.No.", tableX, tableY + 8, { width: col1W, align: "center" });
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
+        .text("Assessment Criteria", tableX + col1W, tableY + 8, { width: col2W, align: "center" });
+      doc.font("Helvetica-Bold").fontSize(8).fillColor(darkColor)
+        .text("Rating [Outstanding / Good / Satisfactory / Needs Improvement]", tableX + col1W + col2W, tableY + 5, { width: col3W, align: "center" });
+
+      // Table Criteria Rows
+      const criteriaList = [
+        "Technical Knowledge & Application",
+        "Quality of Work & Task Completion",
+        "Initiative & Problem-Solving Ability",
+        "Communication & Interpersonal Skills",
+        "Punctuality, Discipline &Professional Conduct"
       ];
 
-      rows.forEach((r, i) => {
-        const curY = t1Y + (i * rowH);
-        doc.rect(35, curY, col1W, rowH).strokeColor(tableBorder).lineWidth(0.75).stroke();
-        doc.rect(35 + col1W, curY, col2W, rowH).strokeColor(tableBorder).lineWidth(0.75).stroke();
+      criteriaList.forEach((criteria, idx) => {
+        const curY = tableY + headerH + (idx * rowH);
 
-        doc.font("Helvetica-Bold").fontSize(9.5).fillColor(textColor)
-          .text(r[0], 45, curY + 8, { width: col1W - 20 });
-        doc.font("Helvetica").fontSize(9.5).fillColor(darkColor)
-          .text(r[1], 35 + col1W + 15, curY + 8, { width: col2W - 30, align: "center" });
+        doc.rect(tableX, curY, tableTotalW, rowH).strokeColor(tableBorder).lineWidth(0.75).stroke();
+        doc.moveTo(tableX + col1W, curY).lineTo(tableX + col1W, curY + rowH).stroke();
+        doc.moveTo(tableX + col1W + col2W, curY).lineTo(tableX + col1W + col2W, curY + rowH).stroke();
+
+        // Col 1: S.No.
+        doc.font("Helvetica").fontSize(8.5).fillColor(darkColor)
+          .text(`${idx + 1}.`, tableX, curY + 6, { width: col1W, align: "center" });
+
+        // Col 2: Assessment Criteria
+        doc.font("Helvetica").fontSize(8.5).fillColor(textColor)
+          .text(criteria, tableX + col1W + 10, curY + 6, { width: col2W - 15, align: "left" });
+
+        // Col 3: Evaluated Rating
+        doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
+          .text(ratingText, tableX + col1W + col2W, curY + 6, { width: col3W, align: "center" });
       });
 
-      // --- 5. Second Table: Performance Assessment ---
-      const t2TitleY = t1Y + (rows.length * rowH) + 16;
-      doc.font("Helvetica-Bold").fontSize(11.5).fillColor(primaryDark)
-        .text("Internship Performance Assessment", 35, t2TitleY);
-
-      const t2Y = t2TitleY + 18;
-      const t2Col1W = 365.28;
-      const t2Col2W = 160;
-
-      // Table Header Row
-      doc.rect(35, t2Y, t2Col1W, 22).fill(primaryColor);
-      doc.rect(35 + t2Col1W, t2Y, t2Col2W, 22).fill(primaryColor);
-      doc.font("Helvetica-Bold").fontSize(9.5).fillColor("#ffffff")
-        .text("Assessment Criteria", 45, t2Y + 6, { width: t2Col1W - 20 });
-      doc.font("Helvetica-Bold").fontSize(9.5).fillColor("#ffffff")
-        .text("Rating", 35 + t2Col1W, t2Y + 6, { width: t2Col2W, align: "center" });
-
-      // Table Body Row
-      const t2BodyH = 55;
-      doc.rect(35, t2Y + 22, t2Col1W, t2BodyH).strokeColor(tableBorder).lineWidth(0.75).stroke();
-      doc.rect(35 + t2Col1W, t2Y + 22, t2Col2W, t2BodyH).strokeColor(tableBorder).lineWidth(0.75).stroke();
+      // --- 7. Supervisor's Remarks ---
+      const remarksY = tableY + headerH + (criteriaList.length * rowH) + 14;
+      doc.font("Helvetica-Bold").fontSize(10.5).fillColor(darkColor)
+        .text("Supervisor's Remarks:", detailsX, remarksY);
 
       doc.font("Helvetica").fontSize(8.5).fillColor("#334155")
-        .text(
-          "Technical Knowledge & Application, Quality of Work & Task Completion, Initiative & Problem-Solving Ability, Communication & Interpersonal Skills, Punctuality, Discipline & Professional Conduct",
-          45,
-          t2Y + 30,
-          { width: t2Col1W - 20, lineGap: 3 }
-        );
+        .text("The intern demonstrated good learning, active participation, and professional conduct throughout the internship.", detailsX, remarksY + 16, { width: 515.28 });
 
-      doc.font("Helvetica-Bold").fontSize(13).fillColor("#059669")
-        .text(ratingText, 35 + t2Col1W, t2Y + 41, { width: t2Col2W, align: "center" });
+      // --- 8. Verification QR & Authorized Signatory ---
+      // Fix signature line position (Prabhash Kumar position is kept as preferred)
+      const sigX = 365;
+      const sigY = remarksY + 86;
 
-      // --- 6. Verification QR & Authorized Signatory ---
-      const qrY = t2Y + 22 + t2BodyH + 24;
-      doc.image(qrCodeDataUrl, 38, qrY, { width: 62, height: 62 });
+      // Bring QR code and verification text down to align horizontally in one line with Prabhash Kumar
+      const qrSize = 60;
+      const qrY = sigY - 14;
+      doc.image(qrCodeDataUrl, detailsX, qrY, { width: qrSize, height: qrSize });
 
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
-        .text(`Certificate Number: ${formattedVerificationId}`, 110, qrY + 6);
+        .text(`Certificate Number: ${formattedVerificationId}`, detailsX + 70, sigY + 2);
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
-        .text(`Date of Certification: ${issueDateStr}`, 110, qrY + 20);
+        .text(`Date of Certification: ${issueDateStr}`, detailsX + 70, sigY + 16);
       doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
-        .text(`Online Certificate Verification Available on: ${siteUrl.replace("https://", "")}/verify`, 110, qrY + 34, { width: 240 });
+        .text(`Online Certificate Verification Available on: ${siteUrl.replace(/^https?:\/\//, "")}/verify`, detailsX + 70, sigY + 30, { width: 230 });
 
       // Signature line & Stamp
-      const sigX = 365;
-      const sigY = qrY + 40;
       const sigPath = path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "kpsigns.png");
       if (fs.existsSync(sigPath)) {
         doc.image(sigPath, sigX + 20, sigY - 26, { fit: [130, 40] });
@@ -778,16 +811,15 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
       doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
         .text("Founder & CEO", sigX, sigY + 18, { align: "center", width: 180 });
       doc.font("Helvetica-Bold").fontSize(8).fillColor(primaryColor)
-        .text("KPINTERNS (ACPSK TECHNOLOGY PVT LTD)", sigX, sigY + 29, { align: "center", width: 180 });
+        .text("KPINTERNS (ACPSKTECHNOLOGY PVT LTD)", sigX, sigY + 29, { align: "center", width: 180 });
 
-      // --- 7. Accreditation Tagline, Line & Bottom Logos ---
-      // Tagline
+      // --- 9. Accreditation Tagline, Line & Bottom Logos ---
       const taglineY = 724;
       doc.font("Helvetica-Bold").fontSize(9.5).fillColor(textColor)
         .text("An AICTE Approved and ISO Certified Platform", 35, taglineY, { align: "center", width: 525.28 });
 
       // Bottom Horizontal Separator Line
-      const lineY = 742;
+      const lineY = 744;
       doc.moveTo(35, lineY).lineTo(560.28, lineY).lineWidth(0.75).strokeColor(lightBorder).stroke();
 
       // Badges directly below line at the bottom
@@ -837,8 +869,8 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
  * @returns {Promise<Buffer>} - Generated Certificate PDF Buffer
  */
 export async function generateCertificate(student, program, type, verificationId) {
-  // If internship is for a non-technical stream (BA, BSc, BCom, Education, Law), generate the portrait certificate format
-  if (type === "internship" && !isTechnicalStream(student, program)) {
+  // If program is for a non-technical stream (BA, BSc, BCom, Education, Law), generate the portrait certificate format
+  if (!isTechnicalStream(student, program)) {
     return generateNonTechnicalCertificate(student, program, type, verificationId);
   }
 

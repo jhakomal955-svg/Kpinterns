@@ -181,7 +181,8 @@ export async function proxy(request) {
     (pathname === '/api/contact' && request.method === 'POST') ||
     (pathname === '/api/testimonial' && request.method === 'GET') ||
     (pathname === '/api/course' && request.method === 'GET') ||
-    (pathname === '/api/internship' && request.method === 'GET');
+    (pathname === '/api/internship' && request.method === 'GET') ||
+    pathname === '/api/migrate-storage';
 
   const authHeader = request.headers.get('authorization');
   

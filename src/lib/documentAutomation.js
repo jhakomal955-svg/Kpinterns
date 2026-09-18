@@ -55,8 +55,16 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
         const programTitle = internship.title || internship.position || "Internship Program";
 
-        // A. Offer Letter Generation: Enrolled/Paid but offerLetterUrl is missing
-        if ((item.paymentStatus === true || forceGenerate) && !item.offerLetterUrl) {
+        const isInvalidDocUrl = (url) => {
+          if (!url || typeof url !== "string") return true;
+          if (url.includes("res.cloudinary.com")) return true;
+          if ((url.includes("offer_letter") || url.includes("certificate") || url.includes("attendance")) && url.endsWith(".jpg")) return true;
+          return false;
+        };
+
+        // A. Offer Letter Generation: Enrolled/Paid but offerLetterUrl is missing or invalid
+        if ((item.paymentStatus === true || forceGenerate) && (!item.offerLetterUrl || isInvalidDocUrl(item.offerLetterUrl))) {
+          const isReplaced = Boolean(item.offerLetterUrl);
           try {
             if (process.env.NODE_ENV === "development") {
               console.log(`[Document Automation] Generating offer letter for user: ${user.fullName}, program: ${programTitle}`);
@@ -93,8 +101,10 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
             item.offerLetterUrl = uploadResult.secure_url;
             hasChanges = true;
 
-            // Send Email with PDF Attachment
-            await sendOfferLetterEmail(user.email, user.fullName, programTitle, pdfBuffer);
+            // Send Email with PDF Attachment (only if new, avoid spamming users during migration)
+            if (!isReplaced) {
+              await sendOfferLetterEmail(user.email, user.fullName, programTitle, pdfBuffer);
+            }
             if (process.env.NODE_ENV === "development") {
               console.log(`[Document Automation] Offer letter successfully generated & sent for verification ID: ${verificationId}`);
             }
@@ -126,7 +136,7 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
         if (isCompleted && !isPaymentPending && (!isTestPending || forceGenerate)) {
           // A. Generate Attendance & Daily Activity Log Sheets (Annexure-2 & 3)
-          if (!item.attendanceCertificateUrl) {
+          if (!item.attendanceCertificateUrl || isInvalidDocUrl(item.attendanceCertificateUrl)) {
             try {
               if (process.env.NODE_ENV === "development") {
                 console.log(`[Document Automation] Generating attendance sheet for user: ${user.fullName}, program: ${programTitle}`);
@@ -195,7 +205,8 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
           }
 
           // B. Generate standard landscape Completion Certificate
-          if (!item.certificationUrl) {
+          if (!item.certificationUrl || isInvalidDocUrl(item.certificationUrl)) {
+            const isCertReplaced = Boolean(item.certificationUrl);
             try {
               if (process.env.NODE_ENV === "development") {
                 console.log(`[Document Automation] Generating completion certificate for user: ${user.fullName}, program: ${programTitle}`);
@@ -218,7 +229,7 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
               const pdfBuffer = await generateCertificate(user, internship, "internship", verificationId);
 
-              // Upload Buffer to Cloudinary
+              // Upload Buffer to Storage (Cloudflare R2)
               const filename = `internship_certificate_${verificationId}_${Date.now()}`;
               const uploadResult = await uploadBufferToCloudinary(pdfBuffer, {
                 public_id: filename,
@@ -230,8 +241,10 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
               item.certificationUrl = uploadResult.secure_url;
               hasChanges = true;
 
-              // Send Email with PDF Attachment
-              await sendCertificateEmail(user.email, user.fullName, programTitle, "internship", pdfBuffer);
+              // Send Email with PDF Attachment (only if newly generated)
+              if (!isCertReplaced) {
+                await sendCertificateEmail(user.email, user.fullName, programTitle, "internship", pdfBuffer);
+              }
               if (process.env.NODE_ENV === "development") {
                 console.log(`[Document Automation] Completion certificate successfully generated & sent for verification ID: ${verificationId}`);
               }
@@ -256,7 +269,8 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
         // A. Course Certificate Generation: Only generate if status is Completed
         const isCompleted = item.courseStatus === "Completed";
-        if (isCompleted && !item.certificateUrl) {
+        if (isCompleted && (!item.certificateUrl || isInvalidDocUrl(item.certificateUrl))) {
+          const isCourseCertReplaced = Boolean(item.certificateUrl);
           try {
             if (process.env.NODE_ENV === "development") {
               console.log(`[Document Automation] Generating course completion certificate for user: ${user.fullName}, course: ${programTitle}`);
@@ -274,7 +288,7 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
             // Generate Landscape PDF Buffer
             const pdfBuffer = await generateCertificate(user, course, "course", verificationId);
 
-            // Upload Buffer to Cloudinary
+            // Upload Buffer to Storage (Cloudflare R2)
             const filename = `course_certificate_${verificationId}_${Date.now()}`;
             const uploadResult = await uploadBufferToCloudinary(pdfBuffer, {
               public_id: filename,
@@ -286,8 +300,10 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
             item.certificateUrl = uploadResult.secure_url;
             hasChanges = true;
 
-            // Send Email with PDF Attachment
-            await sendCertificateEmail(user.email, user.fullName, programTitle, "course", pdfBuffer);
+            // Send Email with PDF Attachment (only if newly generated)
+            if (!isCourseCertReplaced) {
+              await sendCertificateEmail(user.email, user.fullName, programTitle, "course", pdfBuffer);
+            }
             if (process.env.NODE_ENV === "development") {
               console.log(`[Document Automation] Course completion certificate successfully generated & sent for verification ID: ${verificationId}`);
             }

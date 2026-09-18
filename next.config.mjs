@@ -15,6 +15,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
+      {
+        protocol: "https",
+        hostname: "*.r2.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "*.cloudflarestorage.com",
+      },
     ],
   },
   async headers() {

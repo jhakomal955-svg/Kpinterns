@@ -114,8 +114,12 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
         }
 
         // B. Internship Certificate Generation: Only generate if status is Completed, test is taken, and fee is paid (or forceGenerate is true)
-        const isCompleted = item.internshipStatus === "Completed";
-        
+        const originalFee = (item.originalAmount && item.originalAmount > 0)
+          ? item.originalAmount
+          : (internship.RegistrationFee?.amount ? Number(internship.RegistrationFee.amount) : 500);
+
+        const isPaymentPending = item.paymentStatus === false || ((item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalFee > 0);
+
         let isTestPending = false;
         if (
           internship.test &&
@@ -127,12 +131,18 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
           isTestPending = true;
         }
 
-        // Students who registered with 0 payment (e.g. college partner 0 rate) must pay original fee before documents generate
-        const originalFee = (item.originalAmount && item.originalAmount > 0)
-          ? item.originalAmount
-          : (internship.RegistrationFee?.amount ? Number(internship.RegistrationFee.amount) : 500);
+        const hasDatePassed = item.endDate ? new Date() >= new Date(item.endDate) : false;
 
-        const isPaymentPending = (item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalFee > 0;
+        // Auto-complete status and progress on date elapsed ONLY if eligible (payment done and test not pending)
+        if (hasDatePassed && !isPaymentPending && !isTestPending) {
+          if (item.internshipStatus !== "Completed" || item.progress !== 100) {
+            item.internshipStatus = "Completed";
+            item.progress = 100;
+            hasChanges = true;
+          }
+        }
+
+        const isCompleted = item.internshipStatus === "Completed";
 
         if (isCompleted && !isPaymentPending && (!isTestPending || forceGenerate)) {
           // A. Generate Attendance & Daily Activity Log Sheets (Annexure-2 & 3)
@@ -265,11 +275,24 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
         if (!course) continue;
 
-        const programTitle = course.title || "Specialized Course";
+        const originalCourseFee = (item.originalAmount && item.originalAmount > 0)
+          ? item.originalAmount
+          : (course.price ? Number(course.price) : 0);
 
-        // A. Course Certificate Generation: Only generate if status is Completed
+        const isCoursePaymentPending = item.paymentStatus === false || ((item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalCourseFee > 0);
+
+        const hasDatePassed = item.endDate ? new Date() >= new Date(item.endDate) : false;
+        if (hasDatePassed && !isCoursePaymentPending) {
+          if (item.courseStatus !== "Completed" || item.progress !== 100) {
+            item.courseStatus = "Completed";
+            item.progress = 100;
+            hasChanges = true;
+          }
+        }
+
+        // A. Course Certificate Generation: Only generate if status is Completed and not unpaid
         const isCompleted = item.courseStatus === "Completed";
-        if (isCompleted && (!item.certificateUrl || isInvalidDocUrl(item.certificateUrl))) {
+        if (isCompleted && !isCoursePaymentPending && (!item.certificateUrl || isInvalidDocUrl(item.certificateUrl))) {
           const isCourseCertReplaced = Boolean(item.certificateUrl);
           try {
             if (process.env.NODE_ENV === "development") {

@@ -13,9 +13,10 @@ import bcrypt from "bcryptjs";
  */
 export function buildSchema(modelDefinition) {
   // Create a new schema with the model definition
-  // Add timestamps automatically
+  // Add timestamps automatically and disable versionKey to prevent VersionErrors on concurrent updates
   const schema = new mongoose.Schema(modelDefinition, {
     timestamps: true,
+    versionKey: false,
   });
 
   return schema;

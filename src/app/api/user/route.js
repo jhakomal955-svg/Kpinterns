@@ -229,6 +229,87 @@ export async function GET(request) {
         .populate("ActiveInternship.internship")
         .populate("ActiveInternship.attendance");
 
+      const now = new Date();
+      const userIdsToAutomate = new Set();
+
+      for (const u of users) {
+        let userNeedsSync = false;
+
+        for (const item of u.ActiveInternship || []) {
+          const hasPassed = item.endDate ? now >= new Date(item.endDate) : false;
+          const intDoc = item.internship;
+
+          const isTestPending = Boolean(
+            intDoc &&
+            intDoc.test &&
+            intDoc.test.status === "Published" &&
+            intDoc.test.questions &&
+            intDoc.test.questions.length > 0 &&
+            !item.testTaken
+          );
+
+          const originalFee = (item.originalAmount && item.originalAmount > 0)
+            ? item.originalAmount
+            : (intDoc?.RegistrationFee?.amount ? Number(intDoc.RegistrationFee.amount) : 500);
+
+          const isPaymentPending = item.paymentStatus === false || ((item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalFee > 0);
+
+          // Auto-complete on date passed ONLY if paid AND test is not pending
+          if (hasPassed && !isPaymentPending && !isTestPending) {
+            if (item.internshipStatus !== "Completed" || item.progress !== 100) {
+              item.internshipStatus = "Completed";
+              item.progress = 100;
+              userNeedsSync = true;
+            }
+          }
+
+          // If completed & paid & test taken, but certificate is missing, trigger automation
+          if (item.internshipStatus === "Completed" && !isPaymentPending && !isTestPending && !item.certificationUrl) {
+            userNeedsSync = true;
+          }
+        }
+
+        for (const cItem of u.ActiveCources || []) {
+          const hasPassed = cItem.endDate ? now >= new Date(cItem.endDate) : false;
+          const cDoc = cItem.course;
+
+          const originalCourseFee = (cItem.originalAmount && cItem.originalAmount > 0)
+            ? cItem.originalAmount
+            : (cDoc?.price ? Number(cDoc.price) : 0);
+
+          const isCoursePaymentPending = cItem.paymentStatus === false || ((cItem.amount === 0 || cItem.amount === undefined || cItem.amount === null || cItem.amount <= 0) && originalCourseFee > 0);
+
+          if (hasPassed && !isCoursePaymentPending) {
+            if (cItem.courseStatus !== "Completed" || cItem.progress !== 100) {
+              cItem.courseStatus = "Completed";
+              cItem.progress = 100;
+              userNeedsSync = true;
+            }
+          }
+
+          if (cItem.courseStatus === "Completed" && !isCoursePaymentPending && !cItem.certificateUrl) {
+            userNeedsSync = true;
+          }
+        }
+
+        if (userNeedsSync) {
+          userIdsToAutomate.add(u._id.toString());
+        }
+      }
+
+      if (userIdsToAutomate.size > 0) {
+        const idList = Array.from(userIdsToAutomate);
+        after(async () => {
+          for (const uid of idList) {
+            try {
+              await checkAndAutomateDocuments(uid);
+            } catch (syncErr) {
+              console.error(`[GET Users] Failed auto-completion for user ${uid}:`, syncErr);
+            }
+          }
+        });
+      }
+
       return Response.json(
         { success: true, data: users, total: users.length },
         { status: 200 },

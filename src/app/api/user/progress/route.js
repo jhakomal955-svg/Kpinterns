@@ -81,10 +81,17 @@ export async function PUT(request) {
 
       courseItem.progress = progress;
       const hasDatePassed = courseItem.endDate ? new Date() >= new Date(courseItem.endDate) : false;
-      if (progress === 100 && (courseItem.courseStatus === "Completed" || hasDatePassed)) {
+      const originalCourseFee = (courseItem.originalAmount && courseItem.originalAmount > 0)
+        ? courseItem.originalAmount
+        : (courseObj.price ? Number(courseObj.price) : 0);
+      const isCoursePaymentPending = courseItem.paymentStatus === false || ((courseItem.amount === 0 || courseItem.amount === undefined || courseItem.amount === null || courseItem.amount <= 0) && originalCourseFee > 0);
+      const canAutoCompleteCourseOnDate = hasDatePassed && !isCoursePaymentPending;
+
+      if (canAutoCompleteCourseOnDate || progress === 100 || courseItem.courseStatus === "Completed") {
         courseItem.courseStatus = "Completed";
-      } else if (courseItem.courseStatus === "Completed") {
-        courseItem.courseStatus = "Completed";
+        if (canAutoCompleteCourseOnDate && courseItem.progress !== 100) {
+          courseItem.progress = 100;
+        }
       } else {
         courseItem.courseStatus = "Active";
       }
@@ -131,10 +138,24 @@ export async function PUT(request) {
 
       internshipItem.progress = progress;
       const hasDatePassed = internshipItem.endDate ? new Date() >= new Date(internshipItem.endDate) : false;
-      if (progress === 100 && (internshipItem.internshipStatus === "Completed" || hasDatePassed)) {
+      const isTestPending = Boolean(
+        internshipObj.test &&
+        internshipObj.test.status === "Published" &&
+        internshipObj.test.questions &&
+        internshipObj.test.questions.length > 0 &&
+        !internshipItem.testTaken
+      );
+      const originalFee = (internshipItem.originalAmount && internshipItem.originalAmount > 0)
+        ? internshipItem.originalAmount
+        : (internshipObj.RegistrationFee?.amount ? Number(internshipObj.RegistrationFee.amount) : 500);
+      const isPaymentPending = internshipItem.paymentStatus === false || ((internshipItem.amount === 0 || internshipItem.amount === undefined || internshipItem.amount === null || internshipItem.amount <= 0) && originalFee > 0);
+      const canAutoCompleteOnDate = hasDatePassed && !isPaymentPending && !isTestPending;
+
+      if (canAutoCompleteOnDate || progress === 100 || internshipItem.internshipStatus === "Completed") {
         internshipItem.internshipStatus = "Completed";
-      } else if (internshipItem.internshipStatus === "Completed") {
-        internshipItem.internshipStatus = "Completed";
+        if (canAutoCompleteOnDate && internshipItem.progress !== 100) {
+          internshipItem.progress = 100;
+        }
       } else {
         internshipItem.internshipStatus = "Active";
       }

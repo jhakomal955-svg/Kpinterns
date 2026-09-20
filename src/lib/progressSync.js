@@ -1,6 +1,6 @@
 import connectDB from "./mongodb";
 import { createModel } from "./utils/schemaBuilder";
-import { CourseModel, InternshipModel } from "@/models";
+import { CourseModel, InternshipModel, UserModel } from "@/models";
 
 /**
  * Synchronizes and recalculates the progress and completion status
@@ -45,11 +45,34 @@ export async function syncUserProgressAndStatus(user) {
 
           // Re-calculate completion status
           const hasDatePassed = item.endDate ? now >= new Date(item.endDate) : false;
+
+          let isTestPending = false;
+          if (
+            internshipDoc.test &&
+            internshipDoc.test.status === "Published" &&
+            internshipDoc.test.questions &&
+            internshipDoc.test.questions.length > 0 &&
+            !item.testTaken
+          ) {
+            isTestPending = true;
+          }
+
+          const originalFee = (item.originalAmount && item.originalAmount > 0)
+            ? item.originalAmount
+            : (internshipDoc.RegistrationFee?.amount ? Number(internshipDoc.RegistrationFee.amount) : 500);
+
+          const isPaymentPending = item.paymentStatus === false || ((item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalFee > 0);
+
+          // Only auto-complete on date passed if paid AND test is not pending
+          const canAutoCompleteOnDate = hasDatePassed && !isPaymentPending && !isTestPending;
+
           let newStatus = "Active";
-          if (item.progress === 100 && (item.internshipStatus === "Completed" || hasDatePassed)) {
+          if (canAutoCompleteOnDate || item.progress === 100 || item.internshipStatus === "Completed") {
             newStatus = "Completed";
-          } else if (item.internshipStatus === "Completed") {
-            newStatus = "Completed";
+            if (canAutoCompleteOnDate && item.progress !== 100) {
+              item.progress = 100;
+              hasChanges = true;
+            }
           } else {
             newStatus = "Active";
           }
@@ -89,11 +112,23 @@ export async function syncUserProgressAndStatus(user) {
 
           // Re-calculate completion status
           const hasDatePassed = item.endDate ? now >= new Date(item.endDate) : false;
+
+          const originalCourseFee = (item.originalAmount && item.originalAmount > 0)
+            ? item.originalAmount
+            : (courseDoc.price ? Number(courseDoc.price) : 0);
+
+          const isCoursePaymentPending = item.paymentStatus === false || ((item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalCourseFee > 0);
+
+          // Only auto-complete on date passed if paid
+          const canAutoCompleteCourseOnDate = hasDatePassed && !isCoursePaymentPending;
+
           let newStatus = "Active";
-          if (item.progress === 100 && (item.courseStatus === "Completed" || hasDatePassed)) {
+          if (canAutoCompleteCourseOnDate || item.progress === 100 || item.courseStatus === "Completed") {
             newStatus = "Completed";
-          } else if (item.courseStatus === "Completed") {
-            newStatus = "Completed";
+            if (canAutoCompleteCourseOnDate && item.progress !== 100) {
+              item.progress = 100;
+              hasChanges = true;
+            }
           } else {
             newStatus = "Active";
           }
@@ -108,10 +143,31 @@ export async function syncUserProgressAndStatus(user) {
   }
 
   if (hasChanges) {
-    user.markModified("ActiveInternship");
-    user.markModified("ActiveCources");
-    user.updatedAt = now;
-    await user.save();
+    const cleanActiveInternship = (user.ActiveInternship || []).map((item) => {
+      const obj = item.toObject ? item.toObject() : { ...item };
+      return {
+        ...obj,
+        internship: item.internship?._id || item.internship,
+        attendance: item.attendance?._id || item.attendance || null,
+      };
+    });
+
+    const cleanActiveCources = (user.ActiveCources || []).map((item) => {
+      const obj = item.toObject ? item.toObject() : { ...item };
+      return {
+        ...obj,
+        course: item.course?._id || item.course,
+      };
+    });
+
+    const User = createModel("User", UserModel);
+    await User.findByIdAndUpdate(user._id, {
+      $set: {
+        ActiveInternship: cleanActiveInternship,
+        ActiveCources: cleanActiveCources,
+        updatedAt: now,
+      },
+    });
     return true;
   }
 

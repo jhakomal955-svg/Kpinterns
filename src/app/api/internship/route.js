@@ -224,12 +224,14 @@ export async function POST(request) {
       );
     }
 
-    // Validate department enum
-    const validDepartments = InternshipModel.department.enum;
-    const departmentArray = Array.isArray(data.department) ? data.department : (data.department ? [data.department] : []);
-    if (departmentArray.length === 0 || !departmentArray.every((d) => validDepartments.includes(d))) {
+    // Validate department
+    const departmentArray = Array.isArray(data.department)
+      ? data.department.map((d) => (d && typeof d === "string" ? d.trim() : "")).filter(Boolean)
+      : (data.department && typeof data.department === "string" ? [data.department.trim()] : []);
+    data.department = departmentArray;
+    if (departmentArray.length === 0) {
       return Response.json(
-        { error: "Invalid department selected" },
+        { error: "At least one department is required" },
         { status: 400 },
       );
     }
@@ -324,6 +326,11 @@ export async function PUT(request) {
       data.degree = Array.isArray(data.degree)
         ? data.degree.map(normalizeDegree)
         : [normalizeDegree(data.degree)];
+    }
+    if (data.department) {
+      data.department = Array.isArray(data.department)
+        ? data.department.map((d) => (d && typeof d === "string" ? d.trim() : "")).filter(Boolean)
+        : (typeof data.department === "string" ? [data.department.trim()] : []);
     }
 
     const Internship = createModel("Internship", InternshipModel);

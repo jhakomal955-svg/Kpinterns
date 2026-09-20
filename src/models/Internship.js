@@ -3,7 +3,7 @@
  * Represents an internship opportunity with multimedia content and company details
  */
 import mongoose from "mongoose";
-import { ALL_DEPARTMENTS, DEGREE_LIST } from "../lib/data/degreeDepartments.js";
+import { DEGREE_LIST } from "../lib/data/degreeDepartments.js";
 
 const ALL_DEGREES = Array.from(
   new Set([
@@ -78,7 +78,6 @@ const InternshipModel = {
   department: {
     type: [String],
     required: true,
-    enum: ALL_DEPARTMENTS,
   },
 
   domain: {

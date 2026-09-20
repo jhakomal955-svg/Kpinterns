@@ -39,6 +39,14 @@ export function buildDegreeDepartmentMap() {
     console.error("Error parsing universitiesData for degree departments:", err);
   }
 
+  // Ensure Education has standard departments if not explicitly defined in universitiesData
+  if (!map["Education"] || map["Education"].size === 0) {
+    map["Education"] = new Set([
+      "Education — Teacher Training",
+      "General Teacher Training",
+    ]);
+  }
+
   const resultMap = {};
   // Preferred ordering: Diploma, B.Tech, BCA, MCA, BBA, BA, BSc, BCom, Education, Law
   const preferredOrder = ["Diploma", "B.Tech", "BCA", "MCA", "BBA", "BA", "BSc", "BCom", "Education", "Law"];

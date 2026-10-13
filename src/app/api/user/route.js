@@ -10,7 +10,7 @@
 import connectDB from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, AdminModel, PartnerStudentModel, LeadModel } from "@/models";
+import { UserModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, AdminModel, PartnerStudentModel, LeadModel, CouponModel } from "@/models";
 import crypto from "crypto";
 import { after } from "next/server";
 import { sendAllotmentAndPaymentSlipEmail } from "@/lib/nodemailer";
@@ -163,7 +163,17 @@ export async function GET(request) {
           hasAttendanceChanges = true;
         }
       }
-      if (hasAttendanceChanges) {
+      let hasInternshipStatusChanges = false;
+      const now = new Date();
+      for (const item of freshUser.ActiveInternship || []) {
+        const hasPassed = item.endDate ? now >= new Date(item.endDate) : false;
+        if (hasPassed && (item.internshipStatus !== "Completed" || item.progress !== 100)) {
+          item.internshipStatus = "Completed";
+          item.progress = 100;
+          hasInternshipStatusChanges = true;
+        }
+      }
+      if (hasAttendanceChanges || hasInternshipStatusChanges) {
         freshUser.markModified("ActiveInternship");
         await freshUser.save();
       }
@@ -186,23 +196,37 @@ export async function GET(request) {
       userObj.mode = userObj.ActiveInternship?.[0]?.internship?.mode || "";
 
       let collegeInternshipRate = 0;
+      let collegeCertificateRate = 499;
       if (freshUser.college) {
         const escapedCollege = freshUser.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
         const collegeAdmin = await Admin.findOne({
           role: "College Admin",
           CollegeName: { $regex: new RegExp("^\\s*" + escapedCollege + "\\s*$", "i") }
         });
-        if (collegeAdmin && typeof collegeAdmin.internshipRate === "number") {
-          collegeInternshipRate = collegeAdmin.internshipRate;
+        if (collegeAdmin) {
+          if (typeof collegeAdmin.internshipRate === "number") {
+            collegeInternshipRate = collegeAdmin.internshipRate;
+          }
+          if (typeof collegeAdmin.certificateRate === "number") {
+            collegeCertificateRate = collegeAdmin.certificateRate;
+          }
         }
       }
       userObj.collegeInternshipRate = collegeInternshipRate;
+      userObj.collegeCertificateRate = collegeCertificateRate;
 
       for (const item of userObj.ActiveInternship || []) {
+        const hasPassed = item.endDate ? new Date() >= new Date(item.endDate) : false;
+        if (hasPassed) {
+          item.internshipStatus = "Completed";
+          item.progress = 100;
+        }
         const originalProgramFee = item.originalAmount || (item.internship?.RegistrationFee?.amount ? Number(item.internship.RegistrationFee.amount) : 500);
         item.originalAmount = originalProgramFee;
         item.collegeInternshipRate = collegeInternshipRate;
-        item.completionFee = (collegeInternshipRate > 0) ? collegeInternshipRate : originalProgramFee;
+        item.collegeCertificateRate = collegeCertificateRate;
+        item.certificateRate = collegeCertificateRate;
+        item.completionFee = collegeCertificateRate;
       }
 
       return Response.json({ success: true, data: userObj }, { status: 200 });
@@ -254,8 +278,8 @@ export async function GET(request) {
 
           const isPaymentPending = item.paymentStatus === false || ((item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalFee > 0);
 
-          // Auto-complete on date passed ONLY if paid AND test is not pending
-          if (hasPassed && !isPaymentPending && !isTestPending) {
+          // Auto-complete status and progress on date passed (documents remain gated until paid)
+          if (hasPassed) {
             if (item.internshipStatus !== "Completed" || item.progress !== 100) {
               item.internshipStatus = "Completed";
               item.progress = 100;
@@ -466,7 +490,7 @@ export async function POST(request) {
 
         let price = matchedCourse.price || 0;
 
-        // Apply custom rates if the user belongs to a verified College Admin college with rates > 0
+        // Apply custom rates if the user belongs to a verified College Admin college with rates >= 0
         if (data.college) {
           const Admin = createModel("Admin", AdminModel);
           const escapedCollege = data.college.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
@@ -478,6 +502,40 @@ export async function POST(request) {
           if (collegeAdmin && typeof collegeAdmin.courseRate === "number" && collegeAdmin.courseRate >= 0) {
             price = collegeAdmin.courseRate;
           }
+        }
+
+        const baseOriginalPrice = price;
+        let appliedCouponCode = null;
+        let discountAmount = 0;
+        const couponCodeToApply = data.couponCode || paymentDetails?.couponCode;
+
+        if (couponCodeToApply && typeof couponCodeToApply === "string" && couponCodeToApply.trim()) {
+          const sanitizedCode = couponCodeToApply.trim().toUpperCase();
+          const Coupon = createModel("Coupon", CouponModel);
+          const coupon = await Coupon.findOne({
+            code: { $regex: new RegExp(`^${sanitizedCode}$`, "i") },
+          });
+
+          const now = new Date();
+          if (coupon && coupon.isActive && new Date(coupon.expiryDate) > now) {
+            if (coupon.category === "all" || coupon.category === "course") {
+              if (coupon.discountType === "percentage") {
+                discountAmount = Math.round(((baseOriginalPrice * coupon.discountValue) / 100) * 100) / 100;
+              } else if (coupon.discountType === "fixed") {
+                discountAmount = coupon.discountValue;
+              }
+              discountAmount = Math.min(baseOriginalPrice, discountAmount);
+              price = Math.max(0, baseOriginalPrice - discountAmount);
+              appliedCouponCode = sanitizedCode;
+
+              coupon.usedCount = (coupon.usedCount || 0) + 1;
+              await coupon.save();
+            }
+          }
+        }
+
+        if (paymentDetails && typeof paymentDetails.amount === "number" && paymentDetails.amount === 0) {
+          price = 0;
         }
 
         resolvedTitle = matchedCourse.title;
@@ -513,9 +571,9 @@ export async function POST(request) {
         const endDate = calculateCourseEndDate(startDate, accessDuration);
 
         const actualPaidAmount = typeof paymentDetails?.amount === "number" ? paymentDetails.amount : price;
-        const originalAmount = typeof paymentDetails?.originalAmount === "number" ? paymentDetails.originalAmount : price;
-        const couponCode = paymentDetails?.couponCode || null;
-        const discountAmount = typeof paymentDetails?.discountAmount === "number" ? paymentDetails.discountAmount : Math.max(0, originalAmount - actualPaidAmount);
+        const originalAmount = typeof paymentDetails?.originalAmount === "number" ? paymentDetails.originalAmount : baseOriginalPrice;
+        const couponCode = appliedCouponCode || paymentDetails?.couponCode || null;
+        const finalDiscountAmount = typeof paymentDetails?.discountAmount === "number" ? paymentDetails.discountAmount : discountAmount;
 
         // Map selected course to ActiveCources reference on the User document
         data.ActiveCources = [
@@ -529,7 +587,7 @@ export async function POST(request) {
             amount: actualPaidAmount,
             originalAmount: originalAmount,
             couponCode: couponCode,
-            discountAmount: discountAmount,
+            discountAmount: finalDiscountAmount,
             startDate: startDate,
             endDate: endDate,
           }
@@ -556,7 +614,7 @@ export async function POST(request) {
           );
         }
 
-        let price = matchedInternship.RegistrationFee?.amount || 500;
+        let price = matchedInternship.RegistrationFee?.amount !== undefined ? Number(matchedInternship.RegistrationFee.amount) : 500;
 
         // Apply custom rates if the user belongs to a verified College Admin college with rates >= 0
         if (data.college) {
@@ -570,6 +628,40 @@ export async function POST(request) {
           if (collegeAdmin && typeof collegeAdmin.internshipRate === "number" && collegeAdmin.internshipRate >= 0) {
             price = collegeAdmin.internshipRate;
           }
+        }
+
+        const baseOriginalPrice = price;
+        let appliedCouponCode = null;
+        let discountAmount = 0;
+        const couponCodeToApply = data.couponCode || paymentDetails?.couponCode;
+
+        if (couponCodeToApply && typeof couponCodeToApply === "string" && couponCodeToApply.trim()) {
+          const sanitizedCode = couponCodeToApply.trim().toUpperCase();
+          const Coupon = createModel("Coupon", CouponModel);
+          const coupon = await Coupon.findOne({
+            code: { $regex: new RegExp(`^${sanitizedCode}$`, "i") },
+          });
+
+          const now = new Date();
+          if (coupon && coupon.isActive && new Date(coupon.expiryDate) > now) {
+            if (coupon.category === "all" || coupon.category === "internship") {
+              if (coupon.discountType === "percentage") {
+                discountAmount = Math.round(((baseOriginalPrice * coupon.discountValue) / 100) * 100) / 100;
+              } else if (coupon.discountType === "fixed") {
+                discountAmount = coupon.discountValue;
+              }
+              discountAmount = Math.min(baseOriginalPrice, discountAmount);
+              price = Math.max(0, baseOriginalPrice - discountAmount);
+              appliedCouponCode = sanitizedCode;
+
+              coupon.usedCount = (coupon.usedCount || 0) + 1;
+              await coupon.save();
+            }
+          }
+        }
+
+        if (paymentDetails && typeof paymentDetails.amount === "number" && paymentDetails.amount === 0) {
+          price = 0;
         }
 
         resolvedTitle = matchedInternship.title || matchedInternship.position || data.internshipDomain;
@@ -606,9 +698,9 @@ export async function POST(request) {
 
         const actualPaidAmount = typeof paymentDetails?.amount === "number" ? paymentDetails.amount : price;
         const defaultOriginalFee = matchedInternship.RegistrationFee?.amount !== undefined ? Number(matchedInternship.RegistrationFee.amount) : 500;
-        const originalAmount = typeof paymentDetails?.originalAmount === "number" ? paymentDetails.originalAmount : (price > 0 ? price : defaultOriginalFee);
-        const couponCode = paymentDetails?.couponCode || null;
-        const discountAmount = typeof paymentDetails?.discountAmount === "number" ? paymentDetails.discountAmount : Math.max(0, originalAmount - actualPaidAmount);
+        const originalAmount = typeof paymentDetails?.originalAmount === "number" ? paymentDetails.originalAmount : (baseOriginalPrice > 0 ? baseOriginalPrice : defaultOriginalFee);
+        const finalCouponCode = appliedCouponCode || paymentDetails?.couponCode || null;
+        const finalDiscountAmount = typeof paymentDetails?.discountAmount === "number" ? paymentDetails.discountAmount : discountAmount;
 
         // Map selected domain & mode to ActiveInternship reference on the User document
         data.ActiveInternship = [
@@ -621,8 +713,8 @@ export async function POST(request) {
             paymentId: paymentDetails?.razorpay_payment_id || null,
             amount: actualPaidAmount,
             originalAmount: originalAmount,
-            couponCode: couponCode,
-            discountAmount: discountAmount,
+            couponCode: finalCouponCode,
+            discountAmount: finalDiscountAmount,
             startDate: startDate,
             endDate: endDate,
           }

@@ -84,6 +84,7 @@ export default function CollegeAdminEditPage() {
     employedate: "",
     internshipRate: 0,
     courseRate: 0,
+    certificateRate: 499,
     internshipStartDate: "",
   });
 
@@ -148,6 +149,7 @@ export default function CollegeAdminEditPage() {
           employedate: partner.employedate ? new Date(partner.employedate).toISOString().split("T")[0] : "",
           internshipRate: partner.internshipRate || 0,
           courseRate: partner.courseRate || 0,
+          certificateRate: partner.certificateRate !== undefined && partner.certificateRate !== null ? partner.certificateRate : 499,
           internshipStartDate: partner.internshipStartDate ? new Date(partner.internshipStartDate).toISOString().split("T")[0] : "",
         });
 
@@ -264,6 +266,7 @@ export default function CollegeAdminEditPage() {
         ...formData,
         UniversityName: resolvedUniversityName,
         CollegeName: resolvedCollegeName,
+        certificateRate: Number(formData.certificateRate !== undefined && formData.certificateRate !== "" ? formData.certificateRate : 499),
         internshipStartDate: formData.internshipStartDate || null,
         bankDetails: {
           name: formData.bankDetails.name.trim(),
@@ -1064,7 +1067,14 @@ export default function CollegeAdminEditPage() {
                   <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Special Course Rate (₹)</label>
                   <input type="number" name="courseRate" value={formData.courseRate} onChange={handleInputChange} className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
                 </div>
-                <div className="md:col-span-2 pt-3 border-t border-border-main">
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">College Special Certificate Rate (₹)</label>
+                  <input type="number" name="certificateRate" value={formData.certificateRate} onChange={handleInputChange} placeholder="499" className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none" />
+                  <p className="text-xs text-text-muted mt-1.5">
+                    Default is ₹499. Charged only to free registration students when purchasing certificate after internship completion.
+                  </p>
+                </div>
+                <div>
                   <label className="block text-xs font-semibold text-text-muted mb-1.5 uppercase">
                     📅 Internship Starting Date
                   </label>
@@ -1073,7 +1083,7 @@ export default function CollegeAdminEditPage() {
                     name="internshipStartDate"
                     value={formData.internshipStartDate}
                     onChange={handleInputChange}
-                    className="w-full sm:w-1/2 p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none text-text-main"
+                    className="w-full p-2.5 bg-bg-main border-2 border-border-main rounded-xl outline-none text-text-main"
                   />
                   <p className="text-xs text-text-muted mt-1.5">
                     Standard start date assigned to all enrolled students under this college.

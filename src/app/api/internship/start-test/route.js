@@ -46,8 +46,14 @@ export async function POST(request) {
     const enrollment = student.ActiveInternship[enrollmentIndex];
 
     // Check if internship is completed
-    if (enrollment.internshipStatus !== "Completed") {
+    const hasPassed = enrollment.endDate ? new Date() >= new Date(enrollment.endDate) : false;
+    if (enrollment.internshipStatus !== "Completed" && !hasPassed && (enrollment.progress || 0) < 100) {
       return Response.json({ error: "You must complete the internship first before appearing for the test" }, { status: 400 });
+    }
+
+    if (hasPassed && enrollment.internshipStatus !== "Completed") {
+      enrollment.internshipStatus = "Completed";
+      enrollment.progress = 100;
     }
 
     // Check if test was already taken

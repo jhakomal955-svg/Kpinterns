@@ -496,6 +496,25 @@ export default function RegisterPage() {
       const data = await res.json();
       if (data.valid) {
         setAppliedCoupon(data);
+        let finalItemId = itemId;
+        if (!finalItemId && purchaseType === "internship") {
+          finalItemId = formData.internshipId;
+        }
+        if (data.finalPrice === 0) {
+          setCompletedPaymentDetails({
+            type: purchaseType,
+            itemId: finalItemId,
+            amount: 0,
+            originalAmount: basePrice,
+            couponCode: data.coupon?.code || couponInput.trim().toUpperCase(),
+            discountAmount: data.discountAmount || basePrice,
+          });
+          setErrors((prev) => {
+            const newErrors = { ...prev };
+            delete newErrors.payment;
+            return newErrors;
+          });
+        }
       } else {
         setAppliedCoupon(null);
         setCouponAlertModal({
@@ -1134,6 +1153,19 @@ export default function RegisterPage() {
 
         const { universityCustom, collegeCustom, ...restFormData } = formData;
 
+        const effectivePaymentDetails = hasValidExistingPayment
+          ? completedPaymentDetails
+          : (payableAmount === 0
+              ? {
+                  type: purchaseType,
+                  itemId: finalItemId,
+                  amount: 0,
+                  originalAmount: getRawPayableAmount(),
+                  couponCode: appliedCoupon?.coupon?.code || appliedCoupon?.code || undefined,
+                  discountAmount: appliedCoupon?.discountAmount || (getRawPayableAmount() - payableAmount),
+                }
+              : undefined);
+
         // Register directly
         const userPayload = {
           ...restFormData,
@@ -1142,7 +1174,8 @@ export default function RegisterPage() {
           courseId: purchaseType === "course" ? finalItemId : undefined,
           internshipId: purchaseType === "internship" ? finalItemId : undefined,
           internshipStartDate: formData.internshipStartDate || undefined,
-          paymentDetails: hasValidExistingPayment ? completedPaymentDetails : undefined,
+          couponCode: appliedCoupon?.coupon?.code || appliedCoupon?.code || undefined,
+          paymentDetails: effectivePaymentDetails,
         };
 
         const response = await fetch("/api/user", {

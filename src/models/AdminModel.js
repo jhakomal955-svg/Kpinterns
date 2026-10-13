@@ -86,6 +86,10 @@ const AdminModel = {
     type:Number,
     default:0
   },
+  certificateRate:{
+    type:Number,
+    default:499
+  },
   internshipStartDate:{
     type:Date,
     default:null

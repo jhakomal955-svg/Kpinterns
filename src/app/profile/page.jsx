@@ -242,6 +242,8 @@ export default function ProfilePage() {
         position: i.internship?.position || "Intern",
         duration: i.internship?.duration || "2 Weeks",
         status: i.internshipStatus || "Active",
+        rawStartDate: i.startDate || null,
+        rawEndDate: i.endDate || null,
         startDate: i.startDate ? new Date(i.startDate).toLocaleDateString() : (i.paymentDate ? new Date(i.paymentDate).toLocaleDateString() : "N/A"),
         endDate: i.endDate ? new Date(i.endDate).toLocaleDateString() : "N/A",
         progress: i.progress || 0,
@@ -258,11 +260,8 @@ export default function ProfilePage() {
         testQuestionsCount: i.internship?.test?.questions?.length || 0,
         amount: typeof i.amount === "number" ? i.amount : 0,
         originalAmount: i.originalAmount || (i.internship?.RegistrationFee?.amount ? Number(i.internship.RegistrationFee.amount) : 500),
-        completionFee: i.completionFee || (
-          (profile?.collegeInternshipRate > 0 ? profile.collegeInternshipRate : 0) ||
-          (i.collegeInternshipRate > 0 ? i.collegeInternshipRate : 0) ||
-          (i.originalAmount || (i.internship?.RegistrationFee?.amount ? Number(i.internship.RegistrationFee.amount) : 500))
-        ),
+        certificateRate: i.certificateRate || profile?.collegeCertificateRate || i.collegeCertificateRate || 499,
+        completionFee: i.certificateRate || profile?.collegeCertificateRate || i.collegeCertificateRate || 499,
         collegeInternshipRate: profile?.collegeInternshipRate || i.collegeInternshipRate || 0,
         isPaymentPending: (i.amount === 0 || i.amount === undefined || i.amount === null || i.amount <= 0),
       }));
@@ -818,13 +817,19 @@ export default function ProfilePage() {
             <div>
               {appliedItems.internships.length > 0 ? (
                 <div className="grid grid-cols-1 gap-4">
-                  {appliedItems.internships.map((internship, index) => (
-                    <ScrollReveal
-                      key={internship.id}
-                      direction="up"
-                      delay={index * 60}
-                      duration={500}
-                    >
+                  {appliedItems.internships.map((internship, index) => {
+                    const isEndDatePassed = Boolean(internship.rawEndDate && new Date() >= new Date(internship.rawEndDate));
+                    const isEligibleForCertificateBuy = Boolean(internship.isPaymentPending && (isEndDatePassed || internship.status === "Completed"));
+                    const displayStatus = (internship.status === "Completed" || isEndDatePassed) ? "Completed" : internship.status;
+                    const displayProgress = (internship.status === "Completed" || isEndDatePassed) ? 100 : internship.progress;
+
+                    return (
+                      <ScrollReveal
+                        key={internship.id}
+                        direction="up"
+                        delay={index * 60}
+                        duration={500}
+                      >
                       <div
                         className="bg-bg-card dark:bg-bg-card rounded-xl border border-border-main dark:border-border-main p-6 hover:shadow-lg transition"
                       >
@@ -888,12 +893,12 @@ export default function ProfilePage() {
                             </p>
                             <span
                               className={`text-sm font-bold ${
-                                internship.status === "Active"
+                                displayStatus === "Active"
                                   ? "text-brand-success"
                                   : "text-brand-secondary"
                               }`}
                             >
-                              {internship.status}
+                              {displayStatus}
                             </span>
                           </div>
                           <div className="px-3 py-2 bg-bg-main dark:bg-bg-main/30 border border-border-main/50 rounded-xl col-span-2 sm:col-span-1">
@@ -910,18 +915,18 @@ export default function ProfilePage() {
                         <div className="space-y-1">
                           <div className="flex items-center justify-between text-xs text-text-muted dark:text-text-muted font-poppins">
                             <span>Program Progress</span>
-                            <span className="font-bold text-text-main">{internship.progress}% Complete</span>
+                            <span className="font-bold text-text-main">{displayProgress}% Complete</span>
                           </div>
                           <div className="w-full bg-border-main dark:bg-border-main/50 rounded-full h-2">
                             <div
                               className="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary transition-all duration-300"
-                              style={{ width: `${internship.progress}%` }}
+                              style={{ width: `${displayProgress}%` }}
                             ></div>
                           </div>
                         </div>
 
                         {/* Attendance Tracker Section */}
-                        {internship.status === "Active" && (
+                        {displayStatus === "Active" && (
                           <div className="pt-2 border-t border-border-main/30 space-y-3 animate-fade-in">
                             <div className="flex flex-wrap items-center justify-between gap-2">
                               <span className="text-xs font-bold text-text-main font-poppins flex items-center gap-1">
@@ -957,20 +962,20 @@ export default function ProfilePage() {
                           </div>
                         )}
 
-                        {/* Completion Fee Payment Gate Banner */}
-                        {internship.isPaymentPending && internship.status === "Completed" && (
+                        {/* Completion Fee / Certificate Buy Payment Gate Banner */}
+                        {isEligibleForCertificateBuy && (
                           <div className="p-4 bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/30 rounded-xl space-y-3 animate-fade-in">
                             <div className="flex items-start gap-3">
                               <span className="text-2xl">🔒</span>
                               <div className="flex-1">
                                 <h4 className="text-sm font-bold text-text-main font-poppins flex items-center gap-2">
-                                  <span>Internship Completed</span>
+                                  <span>Internship Duration Completed</span>
                                   <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-amber-500/30">
-                                    Documents Pending Payment
+                                    Certificate & Documents Available
                                   </span>
                                 </h4>
                                 <p className="text-xs text-text-muted font-poppins mt-1 leading-relaxed">
-                                  You enrolled under the College Partner Scheme (Registration Fee: ₹0). To unlock and generate your official <strong>Certificate</strong>, <strong>Attendance Sheet</strong>, <strong>Daily Log Book</strong>, and <strong>Payment Receipt</strong>, please pay {internship.collegeInternshipRate > 0 ? "your college's special program fee" : "the original program fee"} of <strong>₹{internship.completionFee || internship.originalAmount}</strong>.
+                                  You enrolled with Free Registration (Fee: ₹0). Since your internship period is complete, you can now purchase and unlock your official <strong>Certificate</strong>, <strong>Attendance Sheet</strong>, <strong>Daily Log Book</strong>, and <strong>Payment Receipt</strong> for <strong>₹{internship.certificateRate || 499}</strong>.
                                 </p>
                               </div>
                             </div>
@@ -988,7 +993,7 @@ export default function ProfilePage() {
                                 ) : (
                                   <>
                                     <span>💳</span>
-                                    <span>Pay ₹{internship.completionFee || internship.originalAmount} & Unlock Certificate, Attendance & Log Book</span>
+                                    <span>Pay ₹{internship.certificateRate || 499} & Unlock Certificate, Attendance & Log Book</span>
                                   </>
                                 )}
                               </button>
@@ -1001,6 +1006,15 @@ export default function ProfilePage() {
                           <Link href={`/internship/${internship.id}`} className="px-5 py-2 bg-brand-primary text-white rounded-lg hover:shadow-md hover:bg-brand-primary/90 transition font-poppins font-semibold text-center whitespace-nowrap text-xs flex-1 sm:flex-initial">
                             Details
                           </Link>
+                          {isEligibleForCertificateBuy && !internship.certificationUrl && (
+                            <button
+                              onClick={() => handlePayCompletionFee(internship)}
+                              disabled={payingFeeId === internship.id}
+                              className="px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial cursor-pointer"
+                            >
+                              <span>💳</span> Buy Certificate (₹{internship.certificateRate || 499})
+                            </button>
+                          )}
                           {internship.paymentReceipt && (
                             <a
                               href={internship.paymentReceipt}
@@ -1041,7 +1055,7 @@ export default function ProfilePage() {
                               <span>📅</span> Attendance Sheet
                             </a>
                           )}
-                          {internship.status === "Completed" && internship.reportPdfUrl && (
+                          {displayStatus === "Completed" && internship.reportPdfUrl && (
                             <a
                               href={internship.reportPdfUrl}
                               target="_blank"
@@ -1051,7 +1065,7 @@ export default function ProfilePage() {
                               <span>📋</span> Download Report
                             </a>
                           )}
-                          {internship.status === "Completed" && internship.testStatus === "Published" && internship.testQuestionsCount > 0 && !internship.testTaken && (
+                          {displayStatus === "Completed" && internship.testStatus === "Published" && internship.testQuestionsCount > 0 && !internship.testTaken && (
                             <Link
                               href={`/internship/${internship.id}/test`}
                               className="px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-lg hover:shadow-md transition font-poppins font-semibold text-center flex items-center justify-center gap-1.5 whitespace-nowrap text-xs flex-1 sm:flex-initial animate-pulse"
@@ -1059,7 +1073,7 @@ export default function ProfilePage() {
                               <span>📝</span> Appear for Test
                             </Link>
                           )}
-                          {internship.status === "Completed" && internship.testTaken && (
+                          {displayStatus === "Completed" && internship.testTaken && (
                             <span className="px-5 py-2 bg-bg-main dark:bg-bg-main/50 text-text-main border border-border-main rounded-lg text-xs font-semibold font-poppins text-center flex items-center justify-center gap-1.5 whitespace-nowrap flex-1 sm:flex-initial">
                               🎯 Score: {internship.testScore}%
                             </span>
@@ -1068,7 +1082,8 @@ export default function ProfilePage() {
                       </div>
                     </div>
                     </ScrollReveal>
-                  ))}
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="text-center py-12 bg-bg-card dark:bg-bg-card rounded-2xl border border-border-main dark:border-border-main">

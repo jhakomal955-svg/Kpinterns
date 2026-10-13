@@ -29,6 +29,7 @@ export default function CollegeAdminCreatePage() {
     },
     internshipRate: 0,
     courseRate: 0,
+    certificateRate: 499,
     internshipStartDate: "",
   });
 
@@ -252,6 +253,7 @@ export default function CollegeAdminCreatePage() {
           },
           internshipRate: Number(formData.internshipRate || 0),
           courseRate: Number(formData.courseRate || 0),
+          certificateRate: Number(formData.certificateRate !== undefined && formData.certificateRate !== "" ? formData.certificateRate : 499),
           internshipStartDate: formData.internshipStartDate || null,
         }),
       });
@@ -639,7 +641,7 @@ export default function CollegeAdminCreatePage() {
               </div>
 
               {/* Custom College Rates (Optional) */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-text-main uppercase tracking-wider mb-2.5">
                     Internship Rate (₹)
@@ -663,6 +665,19 @@ export default function CollegeAdminCreatePage() {
                     value={formData.courseRate}
                     onChange={handleInputChange}
                     placeholder="e.g. 899"
+                    className="w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-text-main uppercase tracking-wider mb-2.5">
+                    Certificate Rate (₹)
+                  </label>
+                  <input
+                    type="number"
+                    name="certificateRate"
+                    value={formData.certificateRate}
+                    onChange={handleInputChange}
+                    placeholder="499"
                     className="w-full px-4 py-3 rounded-xl border-2 transition-all bg-bg-main font-poppins focus:outline-none focus:ring-2 focus:ring-brand-primary/20 border-border-main focus:border-brand-primary"
                   />
                 </div>

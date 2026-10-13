@@ -41,6 +41,7 @@ export async function GET(request) {
         registered: true,
         internshipRate: collegeAdmin.internshipRate !== undefined && collegeAdmin.internshipRate !== null ? Number(collegeAdmin.internshipRate) : 0,
         courseRate: collegeAdmin.courseRate !== undefined && collegeAdmin.courseRate !== null ? Number(collegeAdmin.courseRate) : 0,
+        certificateRate: collegeAdmin.certificateRate !== undefined && collegeAdmin.certificateRate !== null ? Number(collegeAdmin.certificateRate) : 499,
         internshipStartDate: collegeAdmin.internshipStartDate || null
       },
       { status: 200 }

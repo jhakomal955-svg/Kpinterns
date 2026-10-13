@@ -88,7 +88,8 @@ export async function GET(request) {
             const enrollment = student.ActiveInternship.find(
               (i) => (i.internship?._id || i.internship)?.toString() === internshipId
             );
-            if (enrollment && enrollment.internshipStatus === "Completed") {
+            const hasPassed = enrollment?.endDate ? new Date() >= new Date(enrollment.endDate) : false;
+            if (enrollment && (enrollment.internshipStatus === "Completed" || hasPassed || (enrollment.progress || 0) >= 100)) {
               hasCompletedInternship = true;
             }
           }

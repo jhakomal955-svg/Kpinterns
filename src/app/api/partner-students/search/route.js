@@ -68,6 +68,7 @@ export async function GET(request) {
         collegeRates: {
           internshipRate,
           courseRate,
+          certificateRate: collegeAdmin?.certificateRate !== undefined && collegeAdmin?.certificateRate !== null ? Number(collegeAdmin.certificateRate) : 499,
           internshipStartDate: collegeAdmin?.internshipStartDate || null,
         },
       },

@@ -61,12 +61,11 @@ export async function POST(request) {
 
       if (purpose === "completion_fee") {
         if (type === "internship") {
-          // If college internship rate is not zero, that will be their payment
-          if (collegeAdmin && typeof collegeAdmin.internshipRate === "number" && collegeAdmin.internshipRate > 0) {
-            price = collegeAdmin.internshipRate;
+          // If college certificate rate is set, that will be their certificate purchase payment, default 499
+          if (collegeAdmin && typeof collegeAdmin.certificateRate === "number" && collegeAdmin.certificateRate >= 0) {
+            price = collegeAdmin.certificateRate;
           } else {
-            // If college internship rate is zero, pay original internship price
-            price = internship.RegistrationFee?.amount ? Number(internship.RegistrationFee.amount) : 500;
+            price = 499;
           }
         }
       } else {
@@ -79,7 +78,7 @@ export async function POST(request) {
         }
       }
     } else if (purpose === "completion_fee" && type === "internship") {
-      price = internship.RegistrationFee?.amount ? Number(internship.RegistrationFee.amount) : 500;
+      price = 499;
     }
 
     // Record original price before any coupon discounts

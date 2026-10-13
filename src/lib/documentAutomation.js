@@ -133,8 +133,8 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
         const hasDatePassed = item.endDate ? new Date() >= new Date(item.endDate) : false;
 
-        // Auto-complete status and progress on date elapsed ONLY if eligible (payment done and test not pending)
-        if (hasDatePassed && !isPaymentPending && !isTestPending) {
+        // Auto-complete status and progress on date elapsed
+        if (hasDatePassed) {
           if (item.internshipStatus !== "Completed" || item.progress !== 100) {
             item.internshipStatus = "Completed";
             item.progress = 100;

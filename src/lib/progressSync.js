@@ -63,8 +63,8 @@ export async function syncUserProgressAndStatus(user) {
 
           const isPaymentPending = item.paymentStatus === false || ((item.amount === 0 || item.amount === undefined || item.amount === null || item.amount <= 0) && originalFee > 0);
 
-          // Only auto-complete on date passed if paid AND test is not pending
-          const canAutoCompleteOnDate = hasDatePassed && !isPaymentPending && !isTestPending;
+          // Auto-complete status and progress on date passed (documents remain gated until paid)
+          const canAutoCompleteOnDate = hasDatePassed;
 
           let newStatus = "Active";
           if (canAutoCompleteOnDate || item.progress === 100 || item.internshipStatus === "Completed") {

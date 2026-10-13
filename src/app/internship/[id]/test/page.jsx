@@ -62,7 +62,8 @@ export default function InternshipTestPage() {
 
         setEnrollment(userEnrollment);
 
-        if (userEnrollment.internshipStatus !== "Completed") {
+        const hasDatePassed = userEnrollment.endDate ? new Date() >= new Date(userEnrollment.endDate) : false;
+        if (userEnrollment.internshipStatus !== "Completed" && !hasDatePassed && (userEnrollment.progress || 0) < 100) {
           setError("You must complete the internship requirements and progress before appearing for this test.");
           setIsLoading(false);
           return;

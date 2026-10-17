@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "../components/LayoutWrapper.jsx";
 import { AdminAuthProvider } from "@/context/AdminAuthContext";
+import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
         <AdminAuthProvider>
           <LayoutWrapper>{children}</LayoutWrapper>
         </AdminAuthProvider>
+        <Analytics />
       </body>
     </html>
   );

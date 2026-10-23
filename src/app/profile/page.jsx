@@ -323,11 +323,23 @@ export default function ProfilePage() {
   const calculateAttendanceStats = (internship) => {
     if (internship.status === "Completed" && internship.attendanceRate) {
       const percentage = parseInt(internship.attendanceRate.replace("%", ""), 10) || 85;
+      let totalDays = 20;
+      if (internship.startDate && internship.endDate && internship.endDate !== "N/A") {
+        const s = new Date(internship.startDate);
+        const e = new Date(internship.endDate);
+        if (!isNaN(s.getTime()) && !isNaN(e.getTime())) {
+          s.setHours(0, 0, 0, 0);
+          e.setHours(0, 0, 0, 0);
+          const diff = Math.floor((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+          if (diff > 0) totalDays = diff;
+        }
+      }
+      const present = Math.round(totalDays * (percentage / 100));
       return {
-        presentCount: Math.round(20 * (percentage / 100)),
+        presentCount: present,
         leaveCount: 0,
-        absentCount: 20 - Math.round(20 * (percentage / 100)),
-        totalCalendarDays: 20,
+        absentCount: totalDays - present,
+        totalCalendarDays: totalDays,
         percentage,
         isMarkedToday: true,
       };

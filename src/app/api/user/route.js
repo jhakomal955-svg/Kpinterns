@@ -19,52 +19,8 @@ import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
 import { generatePaymentReceipt } from "@/lib/pdfGenerator";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
 import { syncUserProgressAndStatus } from "@/lib/progressSync";
+import { calculateEndDate } from "@/lib/dateUtils";
 
-function calculateEndDate(startDate, durationStr) {
-  const date = new Date(startDate);
-  switch (durationStr) {
-    case "1-week":
-    case "1 Week":
-      date.setDate(date.getDate() + 7);
-      break;
-    case "2-weeks":
-    case "2 Weeks":
-      date.setDate(date.getDate() + 14);
-      break;
-    case "4-week":
-    case "4-weeks":
-    case "4 Weeks":
-      date.setDate(date.getDate() + 28);
-      break;
-    case "6-weeks":
-    case "6 Weeks":
-      date.setDate(date.getDate() + 42);
-      break;
-    case "8-weeks":
-    case "8 Weeks":
-      date.setDate(date.getDate() + 56);
-      break;
-    case "12-weeks":
-    case "12 Weeks":
-      date.setDate(date.getDate() + 84);
-      break;
-    case "1-month":
-      date.setMonth(date.getMonth() + 1);
-      break;
-    case "3-months":
-      date.setMonth(date.getMonth() + 3);
-      break;
-    case "6-months":
-      date.setMonth(date.getMonth() + 6);
-      break;
-    case "1-year":
-      date.setFullYear(date.getFullYear() + 1);
-      break;
-    default:
-      date.setDate(date.getDate() + 14);
-    }
-  return date;
-}
 
 function calculateCourseEndDate(startDate, accessDuration) {
   if (!accessDuration || accessDuration === "lifetime") {

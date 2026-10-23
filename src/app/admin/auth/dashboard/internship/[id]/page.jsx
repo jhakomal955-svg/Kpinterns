@@ -334,6 +334,9 @@ export default function InternshipEditPage() {
     "4 Weeks",
     "6 Weeks",
     "8 Weeks",
+    "12 Weeks",
+    "16 Weeks",
+    "24 Weeks",
   ];
 
   const fetchInternship = async () => {
@@ -422,10 +425,13 @@ export default function InternshipEditPage() {
             const raw = internship.duration;
             if (!raw) return "2 Weeks";
             const lower = raw.toLowerCase().replace(/[^a-z0-9]/g, "");
-            if (lower.startsWith("2")) return "2 Weeks";
-            if (lower.startsWith("4")) return "4 Weeks";
-            if (lower.startsWith("6")) return "6 Weeks";
+            if (lower.startsWith("24")) return "24 Weeks";
+            if (lower.startsWith("16")) return "16 Weeks";
+            if (lower.startsWith("12")) return "12 Weeks";
             if (lower.startsWith("8")) return "8 Weeks";
+            if (lower.startsWith("6")) return "6 Weeks";
+            if (lower.startsWith("4")) return "4 Weeks";
+            if (lower.startsWith("2")) return "2 Weeks";
             return "2 Weeks";
           })(),
           status: internship.status || "Draft",

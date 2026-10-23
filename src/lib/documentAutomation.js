@@ -3,6 +3,7 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
 import { generateOfferLetter, generateCertificate, generateAttendanceCertificate, getSequentialNumber, getNextSequentialId } from "@/lib/pdfGenerator";
+import { calculateEndDate } from "@/lib/dateUtils";
 import { sendOfferLetterEmail, sendCertificateEmail } from "@/lib/nodemailer";
 
 /**
@@ -173,7 +174,7 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
                 const leaveCount = records.filter(r => r.status === "Leave").length;
 
                 const startDate = item.startDate || item.paymentDate || new Date();
-                const endDate = item.endDate || null;
+                const endDate = item.endDate || calculateEndDate(startDate, item.duration || internship?.duration || "4 Weeks");
                 const totalCalendarDays = getElapsedDays(startDate, endDate);
 
                 const recordedDays = records.length;

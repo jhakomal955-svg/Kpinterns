@@ -87,6 +87,9 @@ export default function InternshipCreatePage() {
     "4 Weeks",
     "6 Weeks",
     "8 Weeks",
+    "12 Weeks",
+    "16 Weeks",
+    "24 Weeks",
   ];
 
   // Grouped domains according to Internship model enums

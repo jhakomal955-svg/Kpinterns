@@ -7,24 +7,14 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel, CounterModel } from "@/models";
 import { DEGREE_DEPARTMENT_MAP, normalizeDegree } from "./data/degreeDepartments.js";
+import { calculateEndDate, formatDate } from "./dateUtils.js";
 
 export {
   getNextSequentialId,
   getSequentialNumber,
   getObjectIdFromSequentialNumber,
 } from "./sequentialId";
-
-/**
- * Helper to safely format Date objects or strings into DD-MM-YYYY format
- */
-const formatDate = (d) => {
-  if (!d) return "N/A";
-  const date = new Date(d);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
-};
+export { calculateEndDate, formatDate };
 
 /**
  * Calculates the certification issue date (2 days after internship/course completion date).
@@ -53,6 +43,9 @@ function getCertificationDate(enrollment, program) {
       else if (dStr.includes("4 week") || dStr.includes("4-week")) days = 28;
       else if (dStr.includes("6 week") || dStr.includes("6-week")) days = 42;
       else if (dStr.includes("8 week") || dStr.includes("8-week")) days = 56;
+      else if (dStr.includes("12 week") || dStr.includes("12-week")) days = 84;
+      else if (dStr.includes("16 week") || dStr.includes("16-week")) days = 112;
+      else if (dStr.includes("24 week") || dStr.includes("24-week")) days = 168;
       else if (dStr.includes("month")) {
         const num = parseInt(dStr, 10) || 1;
         days = num * 30;
@@ -617,8 +610,18 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
         ratingText = "Needs Improvement";
       }
 
-      // Total Hours Completed (Standard 120 Hours for certificates)
-      const totalHours = enrollment?.totalHours || program?.totalHours || "120 Hours";
+      // Total Hours Completed (Standard 120 Hours for 4-week certificates, scaled by duration)
+      let defaultHours = "120 Hours";
+      const durStr = String(enrollment?.duration || program?.duration || "").toLowerCase();
+      if (durStr.includes("24 week") || durStr.includes("24-week")) defaultHours = "720 Hours";
+      else if (durStr.includes("16 week") || durStr.includes("16-week")) defaultHours = "480 Hours";
+      else if (durStr.includes("12 week") || durStr.includes("12-week")) defaultHours = "360 Hours";
+      else if (durStr.includes("8 week") || durStr.includes("8-week")) defaultHours = "240 Hours";
+      else if (durStr.includes("6 week") || durStr.includes("6-week")) defaultHours = "180 Hours";
+      else if (durStr.includes("4 week") || durStr.includes("4-week")) defaultHours = "120 Hours";
+      else if (durStr.includes("2 week") || durStr.includes("2-week")) defaultHours = "60 Hours";
+
+      const totalHours = enrollment?.totalHours || program?.totalHours || defaultHours;
 
       const startDateStr = formatDate(enrollment?.startDate || program.startDate);
       const endDateStr = formatDate(enrollment?.endDate || program.endDate);
@@ -1367,6 +1370,8 @@ function getWeekdays(startDate, count) {
   if (isNaN(current.getTime())) {
     current = new Date();
   }
+  // Anchor to noon (12:00:00) to ensure daylight-savings and timezone safety
+  current.setHours(12, 0, 0, 0);
   while (dates.length < count) {
     dates.push(new Date(current));
     current.setDate(current.getDate() + 1);
@@ -1400,20 +1405,40 @@ export async function generateAttendanceCertificate(student, internship, verific
 
       const userAssignments = enrollment?.assignments || [];
 
-      // Calculate consecutive calendar days between start and end date (fallback to 20 if no end date)
+      // Calculate consecutive calendar days between start and end date
       const rawStart = enrollment?.startDate || new Date();
-      const rawEnd = enrollment?.endDate;
-      let count = 20;
-      if (rawEnd) {
-        const s = new Date(rawStart);
-        const e = new Date(rawEnd);
-        s.setHours(0, 0, 0, 0);
-        e.setHours(0, 0, 0, 0);
-        const diffTime = e.getTime() - s.getTime();
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-        if (diffDays > 0) {
-          count = diffDays;
+      const duration = enrollment?.duration || internship?.duration || "4 Weeks";
+      let effectiveEnd = enrollment?.endDate;
+      const expectedEnd = calculateEndDate(rawStart, duration);
+
+      if (!effectiveEnd) {
+        effectiveEnd = expectedEnd;
+      } else {
+        // If effectiveEnd stopped short at day 28/29/56/84 due to legacy +28/+56/+84 fixed-day logic, adjust to month-aligned expectedEnd
+        const sDate = new Date(rawStart);
+        const eDate = new Date(effectiveEnd);
+        sDate.setHours(0, 0, 0, 0);
+        eDate.setHours(0, 0, 0, 0);
+        const existingDiffDays = Math.floor((eDate.getTime() - sDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        const durLower = String(duration).toLowerCase();
+        if (
+          (durLower.includes("4 week") && (existingDiffDays === 28 || existingDiffDays === 29)) ||
+          (durLower.includes("8 week") && (existingDiffDays === 56 || existingDiffDays === 57)) ||
+          (durLower.includes("12 week") && (existingDiffDays === 84 || existingDiffDays === 85))
+        ) {
+          effectiveEnd = expectedEnd;
         }
+      }
+
+      let count = 28;
+      const s = new Date(rawStart);
+      const e = new Date(effectiveEnd);
+      s.setHours(0, 0, 0, 0);
+      e.setHours(0, 0, 0, 0);
+      const diffTime = e.getTime() - s.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      if (diffDays > 0) {
+        count = diffDays;
       }
       const weekdays = getWeekdays(rawStart, count);
 
@@ -1432,7 +1457,7 @@ export async function generateAttendanceCertificate(student, internship, verific
       const defaultCheckIn = "10:00 AM";
       const defaultCheckOut = "04:00 PM";
       const dailyHours = 6.0;
-      const totalDurationHours = 120.0;
+      const totalDurationHours = presentCount * dailyHours;
 
       const drawHeader = (titleText) => {
         // --- 1. Top Decorative Brand Accent Bars ---
@@ -1488,7 +1513,7 @@ export async function generateAttendanceCertificate(student, internship, verific
           { label: "DOMAIN:", value: internship.domain || "N/A" },
           { label: "MODE OF INTERNSHIP:", value: internship.mode || "N/A" },
           { label: "START DATE:", value: formatDate(enrollment?.startDate || rawStart) },
-          { label: "END DATE:", value: formatDate(enrollment?.endDate) }
+          { label: "END DATE:", value: formatDate(enrollment?.endDate || effectiveEnd) }
         ];
 
         let currentY = 150;
@@ -1840,7 +1865,7 @@ export async function generateAttendanceCertificate(student, internship, verific
       doc.font("Helvetica-Bold").fontSize(8).fillColor("#1e3a8a")
         .text(`Total Activities: ${count}`, 48, tableY + 5)
         .text(`Completed: ${count - absentCount}`, 155, tableY + 5)
-        .text(`Total Duration Logged: ${totalDurationHours.toFixed(1)} Hours`, 270, tableY + 5, { align: "right", width: 275 });
+        .text(`Total Duration Logged: ${(presentCount * dailyHours).toFixed(1)} Hours`, 270, tableY + 5, { align: "right", width: 275 });
 
       // Signature line at bottom
       tableY += 24;

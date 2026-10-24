@@ -1824,7 +1824,7 @@ export default function UserEditPage() {
             ) : attendanceInfo ? (
               <div className="space-y-6">
                 {/* Stats Panel */}
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                   <div className="bg-bg-main p-4 rounded-xl border border-border-main">
                     <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Attendance Rate</span>
                     <span className="text-xl font-extrabold text-brand-primary">{attendanceInfo.percentage}%</span>
@@ -1832,6 +1832,10 @@ export default function UserEditPage() {
                   <div className="bg-bg-main p-4 rounded-xl border border-border-main">
                     <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Present Days</span>
                     <span className="text-xl font-extrabold text-emerald-500">{attendanceInfo.presentCount} days</span>
+                  </div>
+                  <div className="bg-bg-main p-4 rounded-xl border border-border-main">
+                    <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Holidays (Sundays)</span>
+                    <span className="text-xl font-extrabold text-amber-500">{attendanceInfo.holidayCount || 0} days</span>
                   </div>
                   <div className="bg-bg-main p-4 rounded-xl border border-border-main">
                     <span className="block text-[10px] uppercase font-bold text-text-muted mb-1">Leave Days</span>
@@ -1860,26 +1864,37 @@ export default function UserEditPage() {
                       </thead>
                       <tbody className="divide-y divide-border-main text-text-main text-sm">
                         {getDatesRange().map((dateStr) => {
+                          const [y, m, d] = dateStr.split("-").map(Number);
+                          const isSunday = new Date(Date.UTC(y, m - 1, d)).getUTCDay() === 0;
                           const record = attendanceInfo.records.find(r => r.date === dateStr);
-                          const status = record?.status || "Absent";
+                          const status = record?.status || (isSunday ? "Holiday" : "Absent");
 
                           return (
-                            <tr key={dateStr} className="hover:bg-bg-main/20 transition">
-                              <td className="py-3 px-4 font-semibold font-mono">{dateStr}</td>
+                            <tr key={dateStr} className={`hover:bg-bg-main/20 transition ${isSunday ? "bg-amber-500/5" : ""}`}>
+                              <td className="py-3 px-4 font-semibold font-mono flex items-center gap-2">
+                                <span>{dateStr}</span>
+                                {isSunday && (
+                                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400">
+                                    Sunday
+                                  </span>
+                                )}
+                              </td>
                               <td className="py-3 px-4">
                                 <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
                                   status === "Present"
                                     ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                                     : status === "Leave"
                                       ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
-                                      : "bg-red-500/10 text-red-500"
+                                      : status === "Holiday"
+                                        ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                                        : "bg-red-500/10 text-red-500"
                                 }`}>
-                                  {record?.status ? status : `${status} (Auto)`}
+                                  {record?.status ? status : isSunday ? "Holiday (Sunday)" : `${status} (Auto)`}
                                 </span>
                               </td>
                               <td className="py-3 px-4 text-center">
                                 <div className="inline-flex rounded-lg overflow-hidden border border-border-main">
-                                  {["Present", "Absent", "Leave"].map((opt) => (
+                                  {["Present", "Absent", "Leave", "Holiday"].map((opt) => (
                                     <button
                                       key={opt}
                                       type="button"
@@ -1890,7 +1905,9 @@ export default function UserEditPage() {
                                             ? "bg-emerald-500 text-white"
                                             : opt === "Leave"
                                               ? "bg-blue-500 text-white"
-                                              : "bg-red-500 text-white"
+                                              : opt === "Holiday"
+                                                ? "bg-amber-500 text-white"
+                                                : "bg-red-500 text-white"
                                           : "bg-bg-main hover:bg-border-main text-text-muted"
                                       }`}
                                     >

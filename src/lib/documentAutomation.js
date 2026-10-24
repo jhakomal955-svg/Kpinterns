@@ -169,19 +169,37 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
               if (attendanceDoc) {
                 const records = attendanceDoc.records || [];
-                const presentCount = records.filter(r => r.status === "Present").length;
-                const explicitAbsentCount = records.filter(r => r.status === "Absent").length;
-                const leaveCount = records.filter(r => r.status === "Leave").length;
+                const recordMap = new Map();
+                records.forEach(r => recordMap.set(r.date, r.status));
 
                 const startDate = item.startDate || item.paymentDate || new Date();
                 const endDate = item.endDate || calculateEndDate(startDate, item.duration || internship?.duration || "4 Weeks");
                 const totalCalendarDays = getElapsedDays(startDate, endDate);
 
-                const recordedDays = records.length;
-                const unmarkedDays = Math.max(0, totalCalendarDays - recordedDays);
-                const absentCount = explicitAbsentCount + unmarkedDays;
+                const start = new Date(startDate);
+                start.setHours(12, 0, 0, 0);
+                let workingDays = 0;
+                let presentCount = 0;
+                let leaveCount = 0;
 
-                const denominator = totalCalendarDays - leaveCount;
+                const curr = new Date(start);
+                for (let d = 0; d < totalCalendarDays; d++) {
+                  const dateStr = curr.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+                  const isSunday = curr.getDay() === 0;
+                  const rec = recordMap.get(dateStr);
+
+                  if (isSunday) {
+                    if (rec === "Present") presentCount++;
+                    else if (rec === "Leave") leaveCount++;
+                  } else {
+                    workingDays++;
+                    if (rec === "Present") presentCount++;
+                    else if (rec === "Leave") leaveCount++;
+                  }
+                  curr.setDate(curr.getDate() + 1);
+                }
+
+                const denominator = workingDays - leaveCount;
                 percentage = denominator > 0 ? Math.round((presentCount / denominator) * 100) : 100;
                 percentage = Math.min(100, Math.max(0, percentage));
               }

@@ -1442,15 +1442,30 @@ export async function generateAttendanceCertificate(student, internship, verific
       }
       const weekdays = getWeekdays(rawStart, count);
 
-      // Distribute statuses dynamically across total duration
+      // Distribute statuses dynamically across total duration with Sundays as calendar Holidays
       const statuses = Array(count).fill("Present");
-      const presentCount = Math.round(count * (percentage / 100));
-      const absentCount = count - presentCount;
-      if (absentCount > 0) {
-        const step = Math.floor(count / (absentCount + 1)) || 1;
+      const workingIndices = [];
+      const sundayIndices = [];
+
+      for (let i = 0; i < count; i++) {
+        if (weekdays[i].getDay() === 0) {
+          statuses[i] = "Holiday";
+          sundayIndices.push(i);
+        } else {
+          workingIndices.push(i);
+        }
+      }
+
+      const totalWorkingDays = workingIndices.length;
+      const holidayCount = sundayIndices.length;
+      const presentCount = Math.min(totalWorkingDays, Math.round(totalWorkingDays * (percentage / 100)));
+      const absentCount = totalWorkingDays - presentCount;
+
+      if (absentCount > 0 && totalWorkingDays > 0) {
+        const step = Math.floor(totalWorkingDays / (absentCount + 1)) || 1;
         for (let a = 1; a <= absentCount; a++) {
-          const idx = (a * step) % count;
-          statuses[idx] = "Absent";
+          const slot = (a * step) % (totalWorkingDays > 1 ? totalWorkingDays - 1 : totalWorkingDays);
+          statuses[workingIndices[slot]] = "Absent";
         }
       }
 
@@ -1532,10 +1547,10 @@ export async function generateAttendanceCertificate(student, internship, verific
         const columns = [
           { title: "Day", width: 35 },
           { title: "Date", width: 70 },
-          { title: "P/A", width: 40 },
-          { title: "Check In", width: 70 },
-          { title: "Check Out", width: 70 },
-          { title: "Duration", width: 60 },
+          { title: "Status", width: 45 },
+          { title: "Check In", width: 68 },
+          { title: "Check Out", width: 68 },
+          { title: "Duration", width: 59 },
           { title: "Signature", width: 170 }
         ];
         doc.rect(40, y, 515, 20).fill("#f1f5f9");
@@ -1548,26 +1563,32 @@ export async function generateAttendanceCertificate(student, internship, verific
       };
 
       // Helper to draw attendance row with Check In, Check Out, and Duration
-      const drawAttendanceRow = (y, dayNum, dateStr, status, isHighlight = false) => {
+      const drawAttendanceRow = (y, dayNum, dateStr, status, isHoliday = false, isHighlight = false) => {
         const instName = internship.supervisorName || (internship.instructor?.[0]?.id?.name || internship.instructor?.[0]?.name) || "Prabhash Kumar";
         const isPresent = status === "Present";
         const columns = [
           { width: 35, val: dayNum.toString() },
           { width: 70, val: dateStr },
-          { width: 40, val: isPresent ? "P" : "A" },
-          { width: 70, val: isPresent ? defaultCheckIn : "-" },
-          { width: 70, val: isPresent ? defaultCheckOut : "-" },
-          { width: 60, val: isPresent ? `${dailyHours.toFixed(1)} Hrs` : "0.0 Hrs" },
-          { width: 170, val: isPresent ? instName : "-" }
+          { width: 45, val: isPresent ? "P" : isHoliday ? "Holiday" : "A" },
+          { width: 68, val: isPresent ? defaultCheckIn : "-" },
+          { width: 68, val: isPresent ? defaultCheckOut : "-" },
+          { width: 59, val: isPresent ? `${dailyHours.toFixed(1)} Hrs` : (isHoliday ? "-" : "0.0 Hrs") },
+          { width: 170, val: isPresent ? instName : (isHoliday ? "Holiday (Sunday)" : "-") }
         ];
-        if (isHighlight) {
+        if (isHoliday) {
+          doc.rect(40, y, 515, 18).fill("#fefce8");
+        } else if (isHighlight) {
           doc.rect(40, y, 515, 18).fill("#f8fafc");
         }
         let currentX = 40;
         columns.forEach((col, index) => {
-          doc.font(index === 2 && isPresent ? "Helvetica-Bold" : "Helvetica")
-            .fontSize(7.5)
-            .fillColor(index === 2 ? (isPresent ? "#10b981" : "#ef4444") : "#0f172a")
+          const isStatusCol = index === 2;
+          const statusColor = isPresent ? "#10b981" : (isHoliday ? "#d97706" : "#ef4444");
+          const textColor = isStatusCol ? statusColor : (isHoliday ? "#78350f" : "#0f172a");
+
+          doc.font(isStatusCol ? "Helvetica-Bold" : "Helvetica")
+            .fontSize(isStatusCol && isHoliday ? 6.5 : 7.5)
+            .fillColor(textColor)
             .text(col.val, currentX, y + 5, { width: col.width, align: "center" });
           doc.rect(currentX, y, col.width, 18).lineWidth(0.5).strokeColor("#cbd5e1").stroke();
           currentX += col.width;
@@ -1594,7 +1615,7 @@ export async function generateAttendanceCertificate(student, internship, verific
       };
 
       // Helper to draw activity row
-      const drawActivityRow = (y, dayNum, dateStr, taskText, completedVal, marksVal, isHighlight = false) => {
+      const drawActivityRow = (y, dayNum, dateStr, taskText, completedVal, marksVal, isHoliday = false, isHighlight = false) => {
         let signText = "-";
         if (completedVal === "Yes") {
           const instName = internship.supervisorName || (internship.instructor?.[0]?.id?.name || internship.instructor?.[0]?.name) || "Prabhash Kumar";
@@ -1614,14 +1635,17 @@ export async function generateAttendanceCertificate(student, internship, verific
           { width: 50, val: marksVal, align: "center" },
           { width: 50, val: signText, align: "center" }
         ];
-        if (isHighlight) {
+        if (isHoliday) {
+          doc.rect(40, y, 515, 22).fill("#fefce8");
+        } else if (isHighlight) {
           doc.rect(40, y, 515, 22).fill("#f8fafc");
         }
         let currentX = 40;
         columns.forEach((col, index) => {
-          doc.font("Helvetica")
-            .fontSize(index === 5 && col.val !== "-" ? 6.5 : 7.5)
-            .fillColor("#0f172a");
+          const isSundayHoliday = isHoliday;
+          doc.font(index === 2 && isSundayHoliday ? "Helvetica-Bold" : "Helvetica")
+            .fontSize(index === 5 && col.val !== "-" ? 6.5 : (index === 2 && isSundayHoliday ? 7.5 : 7.5))
+            .fillColor(isSundayHoliday ? (index === 2 ? "#d97706" : "#64748b") : "#0f172a");
 
           if (index === 2) {
             doc.text(col.val, currentX + 5, y + 4, { width: col.width - 10, align: "left", lineGap: 1 });
@@ -1713,7 +1737,7 @@ export async function generateAttendanceCertificate(student, internship, verific
 
         const date = weekdays[day - 1];
         const status = statuses[day - 1];
-        drawAttendanceRow(tableY, day, formatDate(date), status, day % 2 === 0);
+        drawAttendanceRow(tableY, day, formatDate(date), status, status === "Holiday", day % 2 === 0);
         tableY += 18;
       }
 
@@ -1730,7 +1754,7 @@ export async function generateAttendanceCertificate(student, internship, verific
 
       const dateLast = weekdays[count - 1];
       const statusLast = statuses[count - 1];
-      drawAttendanceRow(tableY, count, formatDate(dateLast), statusLast, true);
+      drawAttendanceRow(tableY, count, formatDate(dateLast), statusLast, statusLast === "Holiday", true);
 
       // Total Duration Summary Row for Attendance Sheet
       tableY += 20;
@@ -1738,9 +1762,9 @@ export async function generateAttendanceCertificate(student, internship, verific
       doc.rect(40, tableY, 515, 18).lineWidth(0.75).strokeColor("#3b82f6").stroke();
 
       doc.font("Helvetica-Bold").fontSize(8).fillColor("#1e3a8a")
-        .text(`Total Days: ${count}`, 48, tableY + 5)
-        .text(`Present Days: ${presentCount}`, 145, tableY + 5)
-        .text(`Total Duration Completed: ${totalDurationHours.toFixed(1)} Hours`, 270, tableY + 5, { align: "right", width: 275 });
+        .text(`Total Days: ${count} (Working: ${totalWorkingDays}, Holidays: ${holidayCount})`, 48, tableY + 5)
+        .text(`Present: ${presentCount}`, 260, tableY + 5)
+        .text(`Total Duration Completed: ${totalDurationHours.toFixed(1)} Hours`, 350, tableY + 5, { align: "right", width: 195 });
 
       // Render Founder & CEO Signature Block
       tableY += 24;
@@ -1774,6 +1798,8 @@ export async function generateAttendanceCertificate(student, internship, verific
       drawActivityHeader(tableY);
       tableY += 20;
 
+      let workingModuleIndex = 0;
+
       for (let day = 1; day <= count - 1; day++) {
         // If drawing row exceeds page limit, break page
         if (tableY + 20 > 715) {
@@ -1787,33 +1813,46 @@ export async function generateAttendanceCertificate(student, internship, verific
 
         const date = weekdays[day - 1];
         const status = statuses[day - 1];
+        const isHoliday = status === "Holiday";
 
-        let taskText = `Study module: ${modules[day - 1]?.title || "Practical Session on " + (internship.domain || "Internship")}`;
-        let completedVal = "Yes";
-        let marksVal = "9/10";
+        let taskText = "";
+        let completedVal = "-";
+        let marksVal = "-";
 
-        const modItem = modules[day - 1];
-        if (modItem) {
-          const submittedAssignment = userAssignments.find(a => a.moduleId === modItem._id.toString());
-          if (modItem.assignmentTitle) {
-            taskText = `Assignment: ${modItem.assignmentTitle}`;
-            if (submittedAssignment) {
-              completedVal = "Yes";
-              marksVal = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
-            } else {
-              completedVal = "No";
-              marksVal = "0/10";
+        if (isHoliday) {
+          taskText = "Sunday - Holiday (Weekly Off)";
+          completedVal = "-";
+          marksVal = "-";
+        } else {
+          const modItem = modules[workingModuleIndex];
+          taskText = `Study module: ${modItem?.title || "Practical Session on " + (internship.domain || "Internship")}`;
+          completedVal = "Yes";
+          marksVal = "9/10";
+
+          if (modItem) {
+            const submittedAssignment = userAssignments.find(a => a.moduleId === modItem._id?.toString());
+            if (modItem.assignmentTitle) {
+              taskText = `Assignment: ${modItem.assignmentTitle}`;
+              if (submittedAssignment) {
+                completedVal = "Yes";
+                marksVal = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
+              } else {
+                completedVal = "No";
+                marksVal = "0/10";
+              }
             }
           }
+
+          if (status === "Absent") {
+            completedVal = "No";
+            marksVal = "0/10";
+            taskText = `Absent - Revision Work`;
+          }
+
+          workingModuleIndex++;
         }
 
-        if (status === "Absent") {
-          completedVal = "No";
-          marksVal = "0/10";
-          taskText = `Absent - Revision Work`;
-        }
-
-        drawActivityRow(tableY, day, formatDate(date), taskText, completedVal, marksVal, day % 2 === 0);
+        drawActivityRow(tableY, day, formatDate(date), taskText, completedVal, marksVal, isHoliday, day % 2 === 0);
         tableY += 20;
       }
 
@@ -1830,42 +1869,52 @@ export async function generateAttendanceCertificate(student, internship, verific
 
       const dateLastActivity = weekdays[count - 1];
       const statusLastActivity = statuses[count - 1];
+      const isLastHoliday = statusLastActivity === "Holiday";
+
       let taskTextLast = "Final assessment & evaluation test submission";
       let completedValLast = "Yes";
       let marksValLast = "9/10";
 
-      const modItemLast = modules[count - 1];
-      if (modItemLast) {
-        const submittedAssignment = userAssignments.find(a => a.moduleId === modItemLast._id.toString());
-        if (modItemLast.assignmentTitle) {
-          taskTextLast = `Final Assignment: ${modItemLast.assignmentTitle}`;
-          if (submittedAssignment) {
-            completedValLast = "Yes";
-            marksValLast = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
-          } else {
-            completedValLast = "No";
-            marksValLast = "0/10";
+      if (isLastHoliday) {
+        taskTextLast = "Sunday - Holiday (Weekly Off)";
+        completedValLast = "-";
+        marksValLast = "-";
+      } else {
+        const modItemLast = modules[workingModuleIndex];
+        if (modItemLast) {
+          const submittedAssignment = userAssignments.find(a => a.moduleId === modItemLast._id?.toString());
+          if (modItemLast.assignmentTitle) {
+            taskTextLast = `Final Assignment: ${modItemLast.assignmentTitle}`;
+            if (submittedAssignment) {
+              completedValLast = "Yes";
+              marksValLast = submittedAssignment.status === "Graded" ? `${submittedAssignment.marks}/10` : "8/10";
+            } else {
+              completedValLast = "No";
+              marksValLast = "0/10";
+            }
           }
+        }
+
+        if (statusLastActivity === "Absent") {
+          completedValLast = "No";
+          marksValLast = "0/10";
+          taskTextLast = "Absent - Missed Final Assessment";
         }
       }
 
-      if (statusLastActivity === "Absent") {
-        completedValLast = "No";
-        marksValLast = "0/10";
-        taskTextLast = "Absent - Missed Final Assessment";
-      }
-
-      drawActivityRow(tableY, count, formatDate(dateLastActivity), taskTextLast, completedValLast, marksValLast, true);
+      drawActivityRow(tableY, count, formatDate(dateLastActivity), taskTextLast, completedValLast, marksValLast, isLastHoliday, true);
 
       // Total Duration Summary Row for Log Book
       tableY += 22;
       doc.rect(40, tableY, 515, 18).fill("#f1f5f9");
       doc.rect(40, tableY, 515, 18).lineWidth(0.75).strokeColor("#3b82f6").stroke();
 
+      const completedActivities = statuses.filter(s => s === "Present").length;
+
       doc.font("Helvetica-Bold").fontSize(8).fillColor("#1e3a8a")
-        .text(`Total Activities: ${count}`, 48, tableY + 5)
-        .text(`Completed: ${count - absentCount}`, 155, tableY + 5)
-        .text(`Total Duration Logged: ${(presentCount * dailyHours).toFixed(1)} Hours`, 270, tableY + 5, { align: "right", width: 275 });
+        .text(`Total Days: ${count} (Working: ${totalWorkingDays}, Holidays: ${holidayCount})`, 48, tableY + 5)
+        .text(`Activities Completed: ${completedActivities}`, 250, tableY + 5)
+        .text(`Total Duration Logged: ${(presentCount * dailyHours).toFixed(1)} Hours`, 350, tableY + 5, { align: "right", width: 195 });
 
       // Signature line at bottom
       tableY += 24;

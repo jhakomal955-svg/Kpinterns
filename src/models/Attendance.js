@@ -26,7 +26,7 @@ const AttendanceModel = {
       },
       status: {
         type: String,
-        enum: ["Present", "Absent", "Leave"],
+        enum: ["Present", "Absent", "Leave", "Holiday"],
         default: "Present",
       },
     },

@@ -346,12 +346,11 @@ export default function ProfilePage() {
     }
 
     const records = internship.attendance?.records || [];
-    const presentCount = records.filter(r => r.status === "Present").length;
-    const explicitAbsentCount = records.filter(r => r.status === "Absent").length;
-    const leaveCount = records.filter(r => r.status === "Leave").length;
+    const recordMap = new Map();
+    records.forEach(r => recordMap.set(r.date, r.status));
 
     const rawStart = internship.startDate || internship.paymentDate;
-    if (!rawStart) return { presentCount: 0, leaveCount: 0, absentCount: 0, totalCalendarDays: 1, percentage: 0, isMarkedToday: false };
+    if (!rawStart) return { presentCount: 0, leaveCount: 0, absentCount: 0, holidayCount: 0, totalCalendarDays: 1, percentage: 0, isMarkedToday: false, isTodaySunday: false };
 
     let parsedStart = new Date(rawStart);
     if (isNaN(parsedStart.getTime())) {
@@ -386,24 +385,53 @@ export default function ProfilePage() {
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
     const totalCalendarDays = diffDays < 1 ? 1 : diffDays;
 
-    // absentCount = explicit "Absent" records + days with NO record at all (auto-absent days)
-    const recordedDays = records.length;
-    const unmarkedDays = Math.max(0, totalCalendarDays - recordedDays);
-    const absentCount = explicitAbsentCount + unmarkedDays;
+    const curr = new Date(start);
+    curr.setHours(12, 0, 0, 0);
+    let workingDays = 0;
+    let holidayCount = 0;
+    let presentCount = 0;
+    let explicitAbsentCount = 0;
+    let leaveCount = 0;
+    let autoAbsentCount = 0;
 
-    const denominator = totalCalendarDays - leaveCount;
+    for (let d = 0; d < totalCalendarDays; d++) {
+      const dateStr = curr.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+      const isSunday = curr.getDay() === 0;
+      const rec = recordMap.get(dateStr);
+
+      if (isSunday) {
+        holidayCount++;
+        if (rec === "Present") presentCount++;
+        else if (rec === "Leave") leaveCount++;
+      } else {
+        workingDays++;
+        if (rec === "Present") presentCount++;
+        else if (rec === "Leave") leaveCount++;
+        else if (rec === "Absent") explicitAbsentCount++;
+        else if (rec === "Holiday") holidayCount++;
+        else autoAbsentCount++;
+      }
+      curr.setDate(curr.getDate() + 1);
+    }
+
+    const absentCount = explicitAbsentCount + autoAbsentCount;
+    const denominator = workingDays - leaveCount;
     const percentage = denominator > 0 ? Math.round((presentCount / denominator) * 100) : 100;
 
     const todayKolkata = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
     const isMarkedToday = records.some(r => r.date === todayKolkata);
+    const nowKolkata = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+    const isTodaySunday = nowKolkata.getDay() === 0;
 
     return {
       presentCount,
       leaveCount,
       absentCount,
+      holidayCount,
       totalCalendarDays,
       percentage: Math.min(100, Math.max(0, percentage)),
       isMarkedToday,
+      isTodaySunday,
     };
   };
 
@@ -953,12 +981,20 @@ export default function ProfilePage() {
                               </span>
                             </div>
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-bg-main dark:bg-bg-main/30 p-3.5 rounded-xl border border-border-main/50">
-                              <div className="text-xs text-text-muted dark:text-text-muted font-poppins">
-                                Present: <span className="font-bold text-text-main">{calculateAttendanceStats(internship).presentCount}</span> | 
-                                Leaves: <span className="font-bold text-text-main"> {calculateAttendanceStats(internship).leaveCount}</span> | 
-                                Total Elapsed: <span className="font-bold text-text-main"> {calculateAttendanceStats(internship).totalCalendarDays} days</span>
+                              <div className="text-xs text-text-muted dark:text-text-muted font-poppins flex flex-wrap gap-x-2 gap-y-1 items-center">
+                                <span>Present: <strong className="text-text-main">{calculateAttendanceStats(internship).presentCount}</strong></span>
+                                <span>•</span>
+                                <span>Holidays (Sundays): <strong className="text-amber-500">{calculateAttendanceStats(internship).holidayCount}</strong></span>
+                                <span>•</span>
+                                <span>Leaves: <strong className="text-text-main">{calculateAttendanceStats(internship).leaveCount}</strong></span>
+                                <span>•</span>
+                                <span>Total: <strong className="text-text-main">{calculateAttendanceStats(internship).totalCalendarDays} days</strong></span>
                               </div>
-                              {calculateAttendanceStats(internship).isMarkedToday ? (
+                              {calculateAttendanceStats(internship).isTodaySunday ? (
+                                <span className="text-xs font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 self-start sm:self-auto bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20">
+                                  🏖️ Sunday (Holiday)
+                                </span>
+                              ) : calculateAttendanceStats(internship).isMarkedToday ? (
                                 <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5 self-start sm:self-auto bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
                                   ✓ Marked Today
                                 </span>

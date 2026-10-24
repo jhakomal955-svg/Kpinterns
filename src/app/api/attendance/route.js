@@ -81,23 +81,48 @@ export async function GET(request) {
       await user.save();
     }
 
-    // Calculate statistics
+    // Calculate statistics with Sunday holidays according to that month's calendar
     const records = attendanceDoc.records || [];
-    const presentCount = records.filter(r => r.status === "Present").length;
-    const explicitAbsentCount = records.filter(r => r.status === "Absent").length;
-    const leaveCount = records.filter(r => r.status === "Leave").length;
+    const recordMap = new Map();
+    records.forEach(r => recordMap.set(r.date, r.status));
 
     const startDate = internshipItem.startDate || internshipItem.paymentDate || new Date();
     const endDate = internshipItem.endDate || null;
     const totalCalendarDays = getElapsedDays(startDate, endDate);
 
-    // absentCount = explicit "Absent" records + days with NO record at all (auto-absent days)
-    // This matches what the UI shows: any day in the range without a record is "Absent (Auto)"
-    const recordedDays = records.length; // total days with any record (Present, Absent, or Leave)
-    const unmarkedDays = Math.max(0, totalCalendarDays - recordedDays);
-    const absentCount = explicitAbsentCount + unmarkedDays;
+    const start = new Date(startDate);
+    start.setHours(12, 0, 0, 0);
 
-    const denominator = totalCalendarDays - leaveCount;
+    let workingDaysCount = 0;
+    let holidayCount = 0;
+    let presentCount = 0;
+    let explicitAbsentCount = 0;
+    let leaveCount = 0;
+    let autoAbsentCount = 0;
+
+    const curr = new Date(start);
+    for (let d = 0; d < totalCalendarDays; d++) {
+      const dateStr = curr.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+      const isSunday = curr.getDay() === 0;
+      const rec = recordMap.get(dateStr);
+
+      if (isSunday) {
+        holidayCount++;
+        if (rec === "Present") presentCount++;
+        else if (rec === "Leave") leaveCount++;
+      } else {
+        workingDaysCount++;
+        if (rec === "Present") presentCount++;
+        else if (rec === "Leave") leaveCount++;
+        else if (rec === "Absent") explicitAbsentCount++;
+        else if (rec === "Holiday") holidayCount++;
+        else autoAbsentCount++;
+      }
+      curr.setDate(curr.getDate() + 1);
+    }
+
+    const absentCount = explicitAbsentCount + autoAbsentCount;
+    const denominator = workingDaysCount - leaveCount;
     const percentage = denominator > 0 ? Math.round((presentCount / denominator) * 100) : 100;
 
     return Response.json({
@@ -107,6 +132,8 @@ export async function GET(request) {
         presentCount,
         absentCount,
         leaveCount,
+        holidayCount,
+        workingDaysCount,
         totalCalendarDays,
         percentage: Math.min(100, Math.max(0, percentage)),
         startDate,
@@ -144,10 +171,22 @@ export async function POST(request) {
     const targetDate = date || todayKolkata;
     const targetStatus = status || "Present";
 
-    // Students can only mark today as "Present"
+    // Check if targetDate is a Sunday
+    const [tYear, tMonth, tDay] = targetDate.split("-").map(Number);
+    const targetDayOfWeek = new Date(Date.UTC(tYear, tMonth - 1, tDay)).getUTCDay();
+    const isTargetSunday = targetDayOfWeek === 0;
+
+    // Students can only mark today as "Present", but on Sundays, it is already a Holiday
     if (auth.user.role === "User") {
       if (targetDate !== todayKolkata) {
         return Response.json({ error: "Students can only mark attendance for today's date" }, { status: 400 });
+      }
+      if (isTargetSunday) {
+        return Response.json({
+          success: true,
+          message: "Today is Sunday (Holiday). Attendance is not required on Sundays.",
+          isHoliday: true,
+        });
       }
       if (targetStatus !== "Present") {
         return Response.json({ error: "Students can only mark status as Present" }, { status: 400 });

@@ -20,7 +20,7 @@ dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
 import mongoose from "mongoose";
 import { uploadBufferToR2, isR2Configured } from "../src/lib/r2.js";
-import { generateOfferLetter, generateCertificate } from "../src/lib/pdfGenerator.js";
+import { generateOfferLetter, generateCertificate, generateAttendanceCertificate } from "../src/lib/pdfGenerator.js";
 
 async function run() {
   console.log("==================================================");
@@ -121,6 +121,35 @@ async function run() {
             totalFixed++;
           } catch (err) {
             console.error(`⚠️ Failed to generate certificate for user ${user.email}:`, err.message);
+          }
+        }
+
+        // Check Internship Attendance Sheet (Annexure-2 & 3)
+        const hasCloudinaryAttendance = item.attendanceCertificateUrl && item.attendanceCertificateUrl.includes("res.cloudinary.com");
+        const needsAttendance = isCompleted && (!item.attendanceCertificateUrl || hasCloudinaryAttendance);
+
+        if (needsAttendance) {
+          try {
+            console.log(`📋 Regenerating Attendance Sheet for ${user.fullName || user.email} (${internship.title || "Internship"})...`);
+            let percentage = 100;
+            if (item.attendanceRate) {
+              const parsed = parseInt(item.attendanceRate);
+              if (!isNaN(parsed)) percentage = parsed;
+            }
+            if (percentage < 85) percentage = 85;
+
+            const pdfBuffer = await generateAttendanceCertificate(user, internship, verificationId, percentage);
+            const filename = `attendance_sheet_${verificationId}_${Date.now()}`;
+            const uploadRes = await uploadBufferToR2(pdfBuffer, {
+              public_id: filename,
+              folder: "kpinterns/attendance_sheets",
+              contentType: "application/pdf",
+            });
+            item.attendanceCertificateUrl = uploadRes.secure_url;
+            userModified = true;
+            totalFixed++;
+          } catch (err) {
+            console.error(`⚠️ Failed to generate attendance sheet for user ${user.email}:`, err.message);
           }
         }
       }

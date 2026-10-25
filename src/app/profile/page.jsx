@@ -323,7 +323,7 @@ export default function ProfilePage() {
   const calculateAttendanceStats = (internship) => {
     if (internship.status === "Completed" && internship.attendanceRate) {
       const percentage = parseInt(internship.attendanceRate.replace("%", ""), 10) || 85;
-      let totalDays = 20;
+      let totalDays = 28;
       if (internship.startDate && internship.endDate && internship.endDate !== "N/A") {
         const s = new Date(internship.startDate);
         const e = new Date(internship.endDate);
@@ -334,11 +334,24 @@ export default function ProfilePage() {
           if (diff > 0) totalDays = diff;
         }
       }
-      const present = Math.round(totalDays * (percentage / 100));
+      let holidays = 0;
+      if (internship.startDate) {
+        const s = new Date(internship.startDate);
+        for (let i = 0; i < totalDays; i++) {
+          const d = new Date(s);
+          d.setDate(d.getDate() + i);
+          if (d.getDay() === 0) holidays++;
+        }
+      } else {
+        holidays = Math.floor(totalDays / 7);
+      }
+      const workingDays = Math.max(1, totalDays - holidays);
+      const present = Math.min(workingDays, Math.round(workingDays * (percentage / 100)));
       return {
         presentCount: present,
         leaveCount: 0,
-        absentCount: totalDays - present,
+        absentCount: workingDays - present,
+        holidayCount: holidays,
         totalCalendarDays: totalDays,
         percentage,
         isMarkedToday: true,

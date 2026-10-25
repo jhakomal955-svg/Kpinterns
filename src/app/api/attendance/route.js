@@ -2,6 +2,7 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, InternshipModel, AttendanceModel } from "@/models";
 import { verifyAuth } from "@/lib/jwt";
+import { calculateEndDate, getDurationDays } from "@/lib/dateUtils";
 import mongoose from "mongoose";
 
 // Helper to calculate start-to-end elapsed calendar days (inclusive of start day)
@@ -87,7 +88,30 @@ export async function GET(request) {
     records.forEach(r => recordMap.set(r.date, r.status));
 
     const startDate = internshipItem.startDate || internshipItem.paymentDate || new Date();
-    const endDate = internshipItem.endDate || null;
+    const duration = internshipItem.duration || internshipItem.internship?.duration || "4 Weeks";
+    const expectedEnd = calculateEndDate(startDate, duration);
+    const expectedDays = getDurationDays(duration);
+    let endDate = expectedEnd;
+
+    if (internshipItem.endDate) {
+      const sDate = new Date(startDate);
+      const eDate = new Date(internshipItem.endDate);
+      sDate.setHours(0, 0, 0, 0);
+      eDate.setHours(0, 0, 0, 0);
+      const diff = Math.floor((eDate.getTime() - sDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+      if (diff === expectedDays) {
+        endDate = internshipItem.endDate;
+      } else {
+        internshipItem.endDate = expectedEnd;
+        user.markModified("ActiveInternship");
+        await user.save();
+      }
+    } else {
+      internshipItem.endDate = expectedEnd;
+      user.markModified("ActiveInternship");
+      await user.save();
+    }
+
     const totalCalendarDays = getElapsedDays(startDate, endDate);
 
     const start = new Date(startDate);

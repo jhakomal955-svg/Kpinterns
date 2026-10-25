@@ -3,7 +3,7 @@ import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel, AttendanceModel } from "@/models";
 import { uploadBufferToCloudinary } from "@/lib/cloudinary";
 import { generateOfferLetter, generateCertificate, generateAttendanceCertificate, getSequentialNumber, getNextSequentialId } from "@/lib/pdfGenerator";
-import { calculateEndDate } from "@/lib/dateUtils";
+import { calculateEndDate, getDurationDays } from "@/lib/dateUtils";
 import { sendOfferLetterEmail, sendCertificateEmail } from "@/lib/nodemailer";
 
 /**
@@ -147,7 +147,7 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
         if (isCompleted && !isPaymentPending && (!isTestPending || forceGenerate)) {
           // A. Generate Attendance & Daily Activity Log Sheets (Annexure-2 & 3)
-          if (!item.attendanceCertificateUrl || isInvalidDocUrl(item.attendanceCertificateUrl)) {
+          if (!item.attendanceCertificateUrl || isInvalidDocUrl(item.attendanceCertificateUrl) || forceGenerate) {
             try {
               if (process.env.NODE_ENV === "development") {
                 console.log(`[Document Automation] Generating attendance sheet for user: ${user.fullName}, program: ${programTitle}`);
@@ -173,8 +173,28 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
                 records.forEach(r => recordMap.set(r.date, r.status));
 
                 const startDate = item.startDate || item.paymentDate || new Date();
-                const endDate = item.endDate || calculateEndDate(startDate, item.duration || internship?.duration || "4 Weeks");
-                const totalCalendarDays = getElapsedDays(startDate, endDate);
+                const duration = item.duration || internship?.duration || "4 Weeks";
+                const expectedEnd = calculateEndDate(startDate, duration);
+                const expectedDays = getDurationDays(duration);
+                let endDate = expectedEnd;
+
+                if (item.endDate) {
+                  const sD = new Date(startDate);
+                  const eD = new Date(item.endDate);
+                  sD.setHours(0, 0, 0, 0);
+                  eD.setHours(0, 0, 0, 0);
+                  const diff = Math.floor((eD.getTime() - sD.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+                  if (diff === expectedDays) {
+                    endDate = item.endDate;
+                  } else {
+                    item.endDate = expectedEnd;
+                    hasChanges = true;
+                  }
+                } else {
+                  item.endDate = expectedEnd;
+                  hasChanges = true;
+                }
+                const totalCalendarDays = expectedDays;
 
                 const start = new Date(startDate);
                 start.setHours(12, 0, 0, 0);
@@ -234,7 +254,7 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
           }
 
           // B. Generate standard landscape Completion Certificate
-          if (!item.certificationUrl || isInvalidDocUrl(item.certificationUrl)) {
+          if (!item.certificationUrl || isInvalidDocUrl(item.certificationUrl) || forceGenerate) {
             const isCertReplaced = Boolean(item.certificationUrl);
             try {
               if (process.env.NODE_ENV === "development") {

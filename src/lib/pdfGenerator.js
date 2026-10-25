@@ -7,14 +7,14 @@ import connectDB from "@/lib/mongodb";
 import { createModel } from "@/lib/utils/schemaBuilder";
 import { UserModel, CourseModel, InternshipModel, CounterModel } from "@/models";
 import { DEGREE_DEPARTMENT_MAP, normalizeDegree } from "./data/degreeDepartments.js";
-import { calculateEndDate, formatDate } from "./dateUtils.js";
+import { calculateEndDate, formatDate, getDurationDays, getDurationDetails, DAILY_LEARNING_HOURS, DEFAULT_CHECK_IN, DEFAULT_CHECK_OUT } from "./dateUtils.js";
 
 export {
   getNextSequentialId,
   getSequentialNumber,
   getObjectIdFromSequentialNumber,
 } from "./sequentialId";
-export { calculateEndDate, formatDate };
+export { calculateEndDate, formatDate, getDurationDays, getDurationDetails, DAILY_LEARNING_HOURS, DEFAULT_CHECK_IN, DEFAULT_CHECK_OUT };
 
 /**
  * Calculates the certification issue date (2 days after internship/course completion date).
@@ -36,20 +36,7 @@ function getCertificationDate(enrollment, program) {
     const start = new Date(rawStartDate);
     if (!isNaN(start.getTime())) {
       const duration = enrollment?.duration || program?.duration || "4 weeks";
-      let days = 28;
-      const dStr = String(duration).toLowerCase();
-      if (dStr.includes("1 week") || dStr.includes("1-week")) days = 7;
-      else if (dStr.includes("2 week") || dStr.includes("2-week")) days = 14;
-      else if (dStr.includes("4 week") || dStr.includes("4-week")) days = 28;
-      else if (dStr.includes("6 week") || dStr.includes("6-week")) days = 42;
-      else if (dStr.includes("8 week") || dStr.includes("8-week")) days = 56;
-      else if (dStr.includes("12 week") || dStr.includes("12-week")) days = 84;
-      else if (dStr.includes("16 week") || dStr.includes("16-week")) days = 112;
-      else if (dStr.includes("24 week") || dStr.includes("24-week")) days = 168;
-      else if (dStr.includes("month")) {
-        const num = parseInt(dStr, 10) || 1;
-        days = num * 30;
-      }
+      const days = getDurationDays(duration);
       const certDate = new Date(start);
       certDate.setDate(certDate.getDate() + days + 2);
       return certDate;
@@ -225,9 +212,22 @@ export async function generateOfferLetter(student, internship, verificationId) {
       const position = internship.position || "Intern";
       const semester = student.semester ? `${student.semester} Semester` : "N/A";
       const domain = internship.domain || "Technology";
-      const mode = enrollment?.mode || internship.mode || "Hybrid";
-      const startDate = formatDate(enrollment?.startDate);
-      const endDate = formatDate(enrollment?.endDate);
+      const rawOfferStart = enrollment?.startDate || internship?.startDate;
+      const offerDuration = enrollment?.duration || internship?.duration || "4 Weeks";
+      const expectedOfferEnd = calculateEndDate(rawOfferStart, offerDuration);
+      let effectiveOfferEnd = expectedOfferEnd;
+      if (enrollment?.endDate) {
+        const sD = new Date(rawOfferStart);
+        const eD = new Date(enrollment.endDate);
+        sD.setHours(0, 0, 0, 0);
+        eD.setHours(0, 0, 0, 0);
+        const diff = Math.floor((eD.getTime() - sD.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        if (diff === getDurationDays(offerDuration)) {
+          effectiveOfferEnd = enrollment.endDate;
+        }
+      }
+      const startDate = formatDate(rawOfferStart);
+      const endDate = formatDate(effectiveOfferEnd);
       const supervisor = internship.supervisorName || internship.instructor?.[0]?.id?.name || "Kp Admin";
 
       // --- 6. Letter Body ---
@@ -937,8 +937,23 @@ export async function generateCertificate(student, program, type, verificationId
         ? enrollment.testScore
         : (enrollment?.finalScore || student.finalScore || "85");
 
-      const startDateStr = formatDate(enrollment?.startDate || program.startDate);
-      const endDateStr = formatDate(enrollment?.endDate || program.endDate);
+      const rawCertStart = enrollment?.startDate || program.startDate;
+      const certDuration = enrollment?.duration || program.duration || "4 weeks";
+      const expectedCertEnd = calculateEndDate(rawCertStart, certDuration);
+      let effectiveCertEnd = expectedCertEnd;
+      if (enrollment?.endDate) {
+        const sD = new Date(rawCertStart);
+        const eD = new Date(enrollment.endDate);
+        sD.setHours(0, 0, 0, 0);
+        eD.setHours(0, 0, 0, 0);
+        const diff = Math.floor((eD.getTime() - sD.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        if (diff === getDurationDays(certDuration)) {
+          effectiveCertEnd = enrollment.endDate;
+        }
+      }
+
+      const startDateStr = formatDate(rawCertStart);
+      const endDateStr = formatDate(effectiveCertEnd);
       const issueDateStr = formatDate(getCertificationDate(enrollment, program));
 
       // --- 1. Elegant Double Border and Corner Brackets ---
@@ -1408,38 +1423,22 @@ export async function generateAttendanceCertificate(student, internship, verific
       // Calculate consecutive calendar days between start and end date
       const rawStart = enrollment?.startDate || new Date();
       const duration = enrollment?.duration || internship?.duration || "4 Weeks";
-      let effectiveEnd = enrollment?.endDate;
+      const expectedDays = getDurationDays(duration);
       const expectedEnd = calculateEndDate(rawStart, duration);
+      let effectiveEnd = expectedEnd;
 
-      if (!effectiveEnd) {
-        effectiveEnd = expectedEnd;
-      } else {
-        // If effectiveEnd stopped short at day 28/29/56/84 due to legacy +28/+56/+84 fixed-day logic, adjust to month-aligned expectedEnd
+      if (enrollment?.endDate) {
         const sDate = new Date(rawStart);
-        const eDate = new Date(effectiveEnd);
+        const eDate = new Date(enrollment.endDate);
         sDate.setHours(0, 0, 0, 0);
         eDate.setHours(0, 0, 0, 0);
         const existingDiffDays = Math.floor((eDate.getTime() - sDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-        const durLower = String(duration).toLowerCase();
-        if (
-          (durLower.includes("4 week") && (existingDiffDays === 28 || existingDiffDays === 29)) ||
-          (durLower.includes("8 week") && (existingDiffDays === 56 || existingDiffDays === 57)) ||
-          (durLower.includes("12 week") && (existingDiffDays === 84 || existingDiffDays === 85))
-        ) {
-          effectiveEnd = expectedEnd;
+        if (existingDiffDays === expectedDays) {
+          effectiveEnd = enrollment.endDate;
         }
       }
 
-      let count = 28;
-      const s = new Date(rawStart);
-      const e = new Date(effectiveEnd);
-      s.setHours(0, 0, 0, 0);
-      e.setHours(0, 0, 0, 0);
-      const diffTime = e.getTime() - s.getTime();
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-      if (diffDays > 0) {
-        count = diffDays;
-      }
+      const count = expectedDays;
       const weekdays = getWeekdays(rawStart, count);
 
       // Distribute statuses dynamically across total duration with Sundays as calendar Holidays
@@ -1469,9 +1468,9 @@ export async function generateAttendanceCertificate(student, internship, verific
         }
       }
 
-      const defaultCheckIn = "10:00 AM";
-      const defaultCheckOut = "04:00 PM";
-      const dailyHours = 6.0;
+      const defaultCheckIn = DEFAULT_CHECK_IN;
+      const defaultCheckOut = DEFAULT_CHECK_OUT;
+      const dailyHours = DAILY_LEARNING_HOURS;
       const totalDurationHours = presentCount * dailyHours;
 
       const drawHeader = (titleText) => {
@@ -1528,7 +1527,7 @@ export async function generateAttendanceCertificate(student, internship, verific
           { label: "DOMAIN:", value: internship.domain || "N/A" },
           { label: "MODE OF INTERNSHIP:", value: internship.mode || "N/A" },
           { label: "START DATE:", value: formatDate(enrollment?.startDate || rawStart) },
-          { label: "END DATE:", value: formatDate(enrollment?.endDate || effectiveEnd) }
+          { label: "END DATE:", value: formatDate(effectiveEnd) }
         ];
 
         let currentY = 150;

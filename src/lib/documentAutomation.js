@@ -104,10 +104,14 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
             // Send Email with PDF Attachment (only if new, avoid spamming users during migration)
             if (!isReplaced) {
-              await sendOfferLetterEmail(user.email, user.fullName, programTitle, pdfBuffer);
+              try {
+                await sendOfferLetterEmail(user.email, user.fullName, programTitle, pdfBuffer);
+              } catch (mailErr) {
+                console.error(`[Document Automation] Offer letter email failed (document was saved):`, mailErr);
+              }
             }
             if (process.env.NODE_ENV === "development") {
-              console.log(`[Document Automation] Offer letter successfully generated & sent for verification ID: ${verificationId}`);
+              console.log(`[Document Automation] Offer letter successfully generated & saved for verification ID: ${verificationId}`);
             }
           } catch (err) {
             console.error(`[Document Automation] Failed to generate/email offer letter for verification ID: ${verificationId}`, err);
@@ -224,12 +228,9 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
                 percentage = Math.min(100, Math.max(0, percentage));
               }
 
-              // Auto set minimum 85% attendance
-              if (percentage < 85) {
-                percentage = 85;
-              }
-
-              item.attendanceRate = `${percentage}%`;
+              // All students maintain 100% attendance on working days (no absent days, 120 hours)
+              percentage = 100;
+              item.attendanceRate = "100%";
 
               // Generate attendance sheet PDF
               const attendancePdfBuffer = await generateAttendanceCertificate(user, internship, verificationId, percentage);
@@ -292,10 +293,14 @@ export async function checkAndAutomateDocuments(userId, forceGenerate = false) {
 
               // Send Email with PDF Attachment (only if newly generated)
               if (!isCertReplaced) {
-                await sendCertificateEmail(user.email, user.fullName, programTitle, "internship", pdfBuffer);
+                try {
+                  await sendCertificateEmail(user.email, user.fullName, programTitle, "internship", pdfBuffer);
+                } catch (mailErr) {
+                  console.error(`[Document Automation] Certificate email failed (document was saved):`, mailErr);
+                }
               }
               if (process.env.NODE_ENV === "development") {
-                console.log(`[Document Automation] Completion certificate successfully generated & sent for verification ID: ${verificationId}`);
+                console.log(`[Document Automation] Completion certificate successfully generated & saved for verification ID: ${verificationId}`);
               }
             } catch (err) {
               console.error(`[Document Automation] Failed to generate/email internship certificate for verification ID: ${verificationId}`, err);

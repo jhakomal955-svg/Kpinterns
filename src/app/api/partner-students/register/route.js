@@ -4,6 +4,8 @@ import { UserModel, PartnerStudentModel, InternshipModel, AdminModel, CouponMode
 import { signToken } from "@/lib/jwt";
 import Razorpay from "razorpay";
 import { calculateEndDate } from "@/lib/dateUtils";
+import { checkAndAutomateDocuments } from "@/lib/documentAutomation";
+import { after } from "next/server";
 
 
 export async function POST(request) {
@@ -268,6 +270,14 @@ export async function POST(request) {
           amount: 0,
         });
         await userDoc.save();
+
+        after(async () => {
+          try {
+            await checkAndAutomateDocuments(userDoc._id.toString());
+          } catch (autoErr) {
+            console.error("Failed to automate documents for free partner student:", autoErr);
+          }
+        });
       }
 
       // Delete corresponding lead upon completed registration

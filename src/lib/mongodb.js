@@ -4,8 +4,8 @@
  */
 
 import mongoose from "mongoose";
-import { UserModel, AdminModel, ContactModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, LiveChatMessageModel } from "@/models";
-import { createModel } from "@/lib/utils/schemaBuilder";
+import { UserModel, AdminModel, ContactModel, CourseModel, InternshipModel, VerificationOtpModel, AttendanceModel, LiveChatMessageModel } from "../models/index.js";
+import { createModel } from "./utils/schemaBuilder.js";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

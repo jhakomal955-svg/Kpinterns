@@ -243,8 +243,13 @@ export async function GET(request) {
             }
           }
 
-          // If completed & paid & test taken, but certificate is missing, trigger automation
-          if (item.internshipStatus === "Completed" && !isPaymentPending && !isTestPending && !item.certificationUrl) {
+          // If enrolled/paid but offer letter is missing, trigger automation
+          if ((item.paymentStatus === true || item.amount > 0) && !item.offerLetterUrl) {
+            userNeedsSync = true;
+          }
+
+          // If completed & paid & test taken, but certificate or attendance sheet is missing, trigger automation
+          if (item.internshipStatus === "Completed" && !isPaymentPending && !isTestPending && (!item.certificationUrl || !item.attendanceCertificateUrl)) {
             userNeedsSync = true;
           }
         }

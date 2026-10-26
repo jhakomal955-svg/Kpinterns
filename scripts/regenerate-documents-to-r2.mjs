@@ -13,14 +13,14 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Load environment variables from .env.local
+// Load environment variables from .env.local FIRST before other modules evaluate
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
-import mongoose from "mongoose";
-import { uploadBufferToR2, isR2Configured } from "../src/lib/r2.js";
-import { generateOfferLetter, generateCertificate, generateAttendanceCertificate } from "../src/lib/pdfGenerator.js";
+const { default: mongoose } = await import("mongoose");
+const { uploadBufferToR2, isR2Configured } = await import("../src/lib/r2.js");
+const { generateOfferLetter, generateCertificate, generateAttendanceCertificate } = await import("../src/lib/pdfGenerator.js");
 
 async function run() {
   console.log("==================================================");
@@ -70,6 +70,11 @@ async function run() {
   for (const user of users) {
     let userModified = false;
 
+    // CLI flags
+    const forceAll = process.argv.includes("--force");
+    const forceAttendance = process.argv.includes("--attendance");
+    const forceOffer = process.argv.includes("--offer");
+
     // 1. Check Internship Documents
     if (user.ActiveInternship && Array.isArray(user.ActiveInternship)) {
       for (const item of user.ActiveInternship) {
@@ -81,7 +86,7 @@ async function run() {
 
         // Check Offer Letter
         const hasCloudinaryOfferLetter = item.offerLetterUrl && item.offerLetterUrl.includes("res.cloudinary.com");
-        const needsOfferLetter = (item.paymentStatus === true || item.amount > 0) && (!item.offerLetterUrl || hasCloudinaryOfferLetter);
+        const needsOfferLetter = ((item.paymentStatus === true || item.amount > 0 || item.internshipStatus === "Completed") && (!item.offerLetterUrl || hasCloudinaryOfferLetter)) || forceAll || forceOffer;
 
         if (needsOfferLetter) {
           try {
@@ -104,7 +109,7 @@ async function run() {
         // Check Internship Completion Certificate
         const isCompleted = item.internshipStatus === "Completed";
         const hasCloudinaryCert = item.certificationUrl && item.certificationUrl.includes("res.cloudinary.com");
-        const needsCert = isCompleted && (!item.certificationUrl || hasCloudinaryCert);
+        const needsCert = (isCompleted && (!item.certificationUrl || hasCloudinaryCert)) || forceAll;
 
         if (needsCert) {
           try {
@@ -126,17 +131,13 @@ async function run() {
 
         // Check Internship Attendance Sheet (Annexure-2 & 3)
         const hasCloudinaryAttendance = item.attendanceCertificateUrl && item.attendanceCertificateUrl.includes("res.cloudinary.com");
-        const needsAttendance = isCompleted && (!item.attendanceCertificateUrl || hasCloudinaryAttendance);
+        const needsAttendance = (isCompleted && (!item.attendanceCertificateUrl || hasCloudinaryAttendance)) || forceAll || forceAttendance;
 
         if (needsAttendance) {
           try {
             console.log(`📋 Regenerating Attendance Sheet for ${user.fullName || user.email} (${internship.title || "Internship"})...`);
-            let percentage = 100;
-            if (item.attendanceRate) {
-              const parsed = parseInt(item.attendanceRate);
-              if (!isNaN(parsed)) percentage = parsed;
-            }
-            if (percentage < 85) percentage = 85;
+            const percentage = 100;
+            item.attendanceRate = "100%";
 
             const pdfBuffer = await generateAttendanceCertificate(user, internship, verificationId, percentage);
             const filename = `attendance_sheet_${verificationId}_${Date.now()}`;

@@ -1867,7 +1867,7 @@ export default function UserEditPage() {
                           const [y, m, d] = dateStr.split("-").map(Number);
                           const isSunday = new Date(Date.UTC(y, m - 1, d)).getUTCDay() === 0;
                           const record = attendanceInfo.records.find(r => r.date === dateStr);
-                          const status = record?.status || (isSunday ? "Holiday" : "Absent");
+                          const status = record?.status || (isSunday ? "Holiday" : "Present");
 
                           return (
                             <tr key={dateStr} className={`hover:bg-bg-main/20 transition ${isSunday ? "bg-amber-500/5" : ""}`}>

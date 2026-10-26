@@ -3,9 +3,9 @@ import QRCode from "qrcode";
 import fs from "fs";
 import path from "path";
 import mongoose from "mongoose";
-import connectDB from "@/lib/mongodb";
-import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, CounterModel } from "@/models";
+import connectDB from "./mongodb.js";
+import { createModel } from "./utils/schemaBuilder.js";
+import { UserModel, CourseModel, InternshipModel, CounterModel } from "../models/index.js";
 import { DEGREE_DEPARTMENT_MAP, normalizeDegree } from "./data/degreeDepartments.js";
 import { calculateEndDate, formatDate, getDurationDays, getDurationDetails, DAILY_LEARNING_HOURS, DEFAULT_CHECK_IN, DEFAULT_CHECK_OUT } from "./dateUtils.js";
 
@@ -13,7 +13,7 @@ export {
   getNextSequentialId,
   getSequentialNumber,
   getObjectIdFromSequentialNumber,
-} from "./sequentialId";
+} from "./sequentialId.js";
 export { calculateEndDate, formatDate, getDurationDays, getDurationDetails, DAILY_LEARNING_HOURS, DEFAULT_CHECK_IN, DEFAULT_CHECK_OUT };
 
 /**
@@ -229,6 +229,7 @@ export async function generateOfferLetter(student, internship, verificationId) {
       const startDate = formatDate(rawOfferStart);
       const endDate = formatDate(effectiveOfferEnd);
       const supervisor = internship.supervisorName || internship.instructor?.[0]?.id?.name || "Kp Admin";
+      const mode = enrollment?.mode || internship.mode || student.mode || "Hybrid";
 
       // --- 6. Letter Body ---
       doc.font("Helvetica").fontSize(10).fillColor(darkColor)
@@ -595,8 +596,8 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
 
       const rawScore = (enrollment?.testScore !== undefined && enrollment?.testScore !== null)
         ? enrollment.testScore
-        : (enrollment?.finalScore || student.finalScore || "85");
-      const gradingScore = typeof rawScore === "number" ? rawScore : parseInt(rawScore, 10) || 85;
+        : (enrollment?.finalScore || student.finalScore || "90");
+      const gradingScore = typeof rawScore === "number" ? rawScore : parseInt(rawScore, 10) || 90;
 
       // Determine Performance Rating
       let ratingText = "Outstanding";
@@ -649,8 +650,9 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
       doc.font("Helvetica-Bold").fontSize(22).fillColor(primaryColor)
         .text("Interns", logoX + 40, logoY + 6);
 
-      doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
-        .text("ACPSKTECHNOLOGY PVT LTD", logoX + 41, logoY + 28);
+      // Subtitle below logo
+      doc.font("Helvetica").fontSize(8).fillColor(mutedColor)
+        .text("— ACPSK Technology PVT.LTD —", logoX + 41, logoY + 28);
 
       // Contact details (Top-Right)
       const contactText = "Saraswati Nagar, Matsyagandha Road,\nPolice Line, Saharsa, Bihar - 852201\nMob: +91 9204312848 | Email: info@kpinterns.com\nWeb: www.kpinterns.com";
@@ -695,38 +697,113 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
       doc.font("Helvetica").fontSize(9.5).fillColor(textColor)
         .text(orgCompletionText, 35, 250, { align: "center", width: 525.28 });
 
-      // --- 4. Duration & Total Hours Lines (Direct Text, No Table) ---
-      const detailsX = 40;
-      const durationLabel = isCourse ? "Course Duration: " : "Internship Duration: ";
-      doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor)
-        .text(durationLabel, detailsX, 274, { continued: true });
-      doc.font("Helvetica").fillColor(textColor)
-        .text(`From ${startDateStr} to ${endDateStr}`);
+      // --- 4. 6-Row Academic & Internship Summary Table (Institutional Blue Border) ---
+      const formatLongDate = (d) => {
+        if (!d) return "";
+        const date = new Date(d);
+        if (isNaN(date.getTime())) return String(d);
+        const day = date.getDate();
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+        return `${day} ${month} ${year}`;
+      };
 
-      doc.font("Helvetica-Bold").fontSize(9.5).fillColor(darkColor)
-        .text("Total Hours Completed: ", detailsX, 290, { continued: true });
-      doc.font("Helvetica").fillColor(textColor)
-        .text(totalHours);
+      const rawStartDate = enrollment?.startDate || program?.startDate;
+      const rawEndDate = enrollment?.endDate || program?.endDate || (rawStartDate ? calculateEndDate(rawStartDate, enrollment?.duration || program?.duration || "4 weeks") : null);
+
+      const durationFormatted = (rawStartDate && rawEndDate)
+        ? `${formatLongDate(rawStartDate)} - ${formatLongDate(rawEndDate)}`
+        : `${startDateStr} - ${endDateStr}`;
+
+      let creditEquivalent = enrollment?.credits || program?.credits;
+      if (!creditEquivalent) {
+        const numericHours = parseInt(String(totalHours).replace(/\D/g, ""), 10) || 120;
+        const credits = Math.max(1, Math.round(numericHours / 30));
+        creditEquivalent = `${credits} Credits`;
+      } else if (!String(creditEquivalent).toLowerCase().includes("credit")) {
+        creditEquivalent = `${creditEquivalent} Credits`;
+      }
+
+      const rawMode = enrollment?.mode || program?.mode || student?.mode || "Hybrid";
+      const mode = rawMode.charAt(0).toUpperCase() + rawMode.slice(1).toLowerCase();
+      const marksPercentage = `${gradingScore}%`;
+
+      const summaryRows = [
+        { label: isCourse ? "Course Domain" : "Internship Domain", val: domain },
+        { label: isCourse ? "Course Duration" : "Internship Duration", val: durationFormatted },
+        { label: "Total Hours Completed", val: totalHours },
+        { label: "No. of Credit Equivalent", val: creditEquivalent },
+        { label: isCourse ? "Mode of Course" : "Mode of Internship", val: mode },
+        { label: "Overall Marks Percentage", val: marksPercentage },
+      ];
+
+      const detailsX = 40;
+      const summaryTableX = 40;
+      const summaryTableY = 268;
+      const summaryTableW = 515.28;
+      const summaryCol1W = 215;
+      const summaryCol2W = summaryTableW - summaryCol1W; // 300.28
+      const summaryRowH = 17.5;
+      const summaryBorderColor = "#2563eb"; // Distinctive Institutional Blue Border
+      const summaryLineWidth = 0.85;
+
+      // Outer table border
+      doc.rect(summaryTableX, summaryTableY, summaryTableW, summaryRows.length * summaryRowH)
+        .strokeColor(summaryBorderColor)
+        .lineWidth(summaryLineWidth)
+        .stroke();
+
+      // Vertical divider between Col 1 and Col 2
+      doc.moveTo(summaryTableX + summaryCol1W, summaryTableY)
+        .lineTo(summaryTableX + summaryCol1W, summaryTableY + (summaryRows.length * summaryRowH))
+        .strokeColor(summaryBorderColor)
+        .lineWidth(summaryLineWidth)
+        .stroke();
+
+      // Render 6 rows
+      summaryRows.forEach((row, idx) => {
+        const curY = summaryTableY + (idx * summaryRowH);
+
+        // Horizontal divider between rows
+        if (idx > 0) {
+          doc.moveTo(summaryTableX, curY)
+            .lineTo(summaryTableX + summaryTableW, curY)
+            .strokeColor(summaryBorderColor)
+            .lineWidth(summaryLineWidth)
+            .stroke();
+        }
+
+        // Col 1: Label (Bold, Centered)
+        doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
+          .text(row.label, summaryTableX + 4, curY + 4.5, { width: summaryCol1W - 8, align: "center" });
+
+        // Col 2: Value (Bold, Centered)
+        doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
+          .text(String(row.val || "N/A"), summaryTableX + summaryCol1W + 4, curY + 4.5, { width: summaryCol2W - 8, align: "center" });
+      });
 
       // --- 5. Internship Performance Assessment Heading & Paragraph ---
       const perfTitle = isCourse ? "Course Performance Assessment" : "Internship Performance Assessment";
-      doc.font("Helvetica-Bold").fontSize(11).fillColor(darkColor)
-        .text(perfTitle, detailsX, 318);
+      const perfTitleY = 384;
+      doc.font("Helvetica-Bold").fontSize(10.5).fillColor(darkColor)
+        .text(perfTitle, detailsX, perfTitleY);
 
       const introText = `During the ${isCourse ? "course" : "internship"}, the student worked on ${projectTaskDesc}. Based on our observation and mentorship, we assess the student's performance as follows:`;
+      const introTextY = 398;
       doc.font("Helvetica").fontSize(8.5).fillColor("#334155")
-        .text(introText, detailsX, 334, { width: 515.28, lineGap: 2 });
+        .text(introText, detailsX, introTextY, { width: 515.28, lineGap: 1.5 });
 
       // --- 6. Performance Assessment Table ---
       const tableX = 40;
-      const tableY = 364;
+      const tableY = 418;
       const col1W = 36;
-      const col2W = 245;
-      const col3W = 234.28;
+      const col2W = 240;
+      const col3W = 239.28;
       const tableTotalW = col1W + col2W + col3W; // 515.28
 
-      const headerH = 25;
-      const rowH = 20.5;
+      const headerH = 28;
+      const rowH = 18;
 
       // Header Row
       doc.rect(tableX, tableY, tableTotalW, headerH).strokeColor(tableBorder).lineWidth(0.75).stroke();
@@ -734,11 +811,11 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
       doc.moveTo(tableX + col1W + col2W, tableY).lineTo(tableX + col1W + col2W, tableY + headerH).stroke();
 
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
-        .text("S.No.", tableX, tableY + 8, { width: col1W, align: "center" });
+        .text("S.No.", tableX, tableY + 9, { width: col1W, align: "center" });
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
-        .text("Assessment Criteria", tableX + col1W, tableY + 8, { width: col2W, align: "center" });
+        .text("Assessment Criteria", tableX + col1W, tableY + 9, { width: col2W, align: "center" });
       doc.font("Helvetica-Bold").fontSize(8).fillColor(darkColor)
-        .text("Rating [Outstanding / Good / Satisfactory / Needs Improvement]", tableX + col1W + col2W, tableY + 5, { width: col3W, align: "center" });
+        .text("Rating [Outstanding / Good / Satisfactory / Needs Improvement]", tableX + col1W + col2W, tableY + 4.5, { width: col3W, align: "center", lineGap: 1 });
 
       // Table Criteria Rows
       const criteriaList = [
@@ -758,41 +835,40 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
 
         // Col 1: S.No.
         doc.font("Helvetica").fontSize(8.5).fillColor(darkColor)
-          .text(`${idx + 1}.`, tableX, curY + 6, { width: col1W, align: "center" });
+          .text(`${idx + 1}.`, tableX, curY + 5, { width: col1W, align: "center" });
 
         // Col 2: Assessment Criteria
         doc.font("Helvetica").fontSize(8.5).fillColor(textColor)
-          .text(criteria, tableX + col1W + 10, curY + 6, { width: col2W - 15, align: "left" });
+          .text(criteria, tableX + col1W + 10, curY + 5, { width: col2W - 15, align: "left" });
 
         // Col 3: Evaluated Rating
         doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
-          .text(ratingText, tableX + col1W + col2W, curY + 6, { width: col3W, align: "center" });
+          .text(ratingText, tableX + col1W + col2W, curY + 5, { width: col3W, align: "center" });
       });
 
       // --- 7. Supervisor's Remarks ---
-      const remarksY = tableY + headerH + (criteriaList.length * rowH) + 14;
-      doc.font("Helvetica-Bold").fontSize(10.5).fillColor(darkColor)
+      const remarksY = tableY + headerH + (criteriaList.length * rowH) + 11;
+      doc.font("Helvetica-Bold").fontSize(10).fillColor(darkColor)
         .text("Supervisor's Remarks:", detailsX, remarksY);
 
       doc.font("Helvetica").fontSize(8.5).fillColor("#334155")
-        .text("The intern demonstrated good learning, active participation, and professional conduct throughout the internship.", detailsX, remarksY + 16, { width: 515.28 });
+        .text("The intern demonstrated good learning, active participation, and professional conduct throughout the internship.", detailsX, remarksY + 13, { width: 515.28 });
 
       // --- 8. Verification QR & Authorized Signatory ---
-      // Fix signature line position (Prabhash Kumar position is kept as preferred)
       const sigX = 365;
-      const sigY = remarksY + 86;
+      const sigY = 642;
 
-      // Bring QR code and verification text down to align horizontally in one line with Prabhash Kumar
-      const qrSize = 60;
-      const qrY = sigY - 14;
+      // Bring QR code and verification text down to align horizontally with Prabhash Kumar
+      const qrSize = 58;
+      const qrY = sigY - 22;
       doc.image(qrCodeDataUrl, detailsX, qrY, { width: qrSize, height: qrSize });
 
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
-        .text(`Certificate Number: ${formattedVerificationId}`, detailsX + 70, sigY + 2);
+        .text(`Certificate Number: ${formattedVerificationId}`, detailsX + 68, sigY - 8);
       doc.font("Helvetica-Bold").fontSize(8.5).fillColor(darkColor)
-        .text(`Date of Certification: ${issueDateStr}`, detailsX + 70, sigY + 16);
+        .text(`Date of Certification: ${issueDateStr}`, detailsX + 68, sigY + 6);
       doc.font("Helvetica").fontSize(7.5).fillColor(mutedColor)
-        .text(`Online Certificate Verification Available on: ${siteUrl.replace(/^https?:\/\//, "")}/verify`, detailsX + 70, sigY + 30, { width: 230 });
+        .text(`Online Certificate Verification Available on: ${siteUrl.replace(/^https?:\/\//, "")}/verify`, detailsX + 68, sigY + 20, { width: 230 });
 
       // Signature line & Stamp
       const sigPath = path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "kpsigns.png");
@@ -810,19 +886,19 @@ export async function generateNonTechnicalCertificate(student, program, type, ve
 
       doc.moveTo(sigX, sigY).lineTo(545, sigY).lineWidth(1.25).strokeColor(darkColor).stroke();
       doc.font("Helvetica-Bold").fontSize(10).fillColor(darkColor)
-        .text("Prabhash Kumar", sigX, sigY + 6, { align: "center", width: 180 });
+        .text("Prabhash Kumar", sigX, sigY + 5, { align: "center", width: 180 });
       doc.font("Helvetica").fontSize(8.5).fillColor(mutedColor)
-        .text("Founder & CEO", sigX, sigY + 18, { align: "center", width: 180 });
+        .text("Founder & CEO", sigX, sigY + 17, { align: "center", width: 180 });
       doc.font("Helvetica-Bold").fontSize(8).fillColor(primaryColor)
-        .text("KPINTERNS (ACPSKTECHNOLOGY PVT LTD)", sigX, sigY + 29, { align: "center", width: 180 });
+        .text("KPINTERNS (ACPSKTECHNOLOGY PVT LTD)", sigX, sigY + 28, { align: "center", width: 180 });
 
       // --- 9. Accreditation Tagline, Line & Bottom Logos ---
-      const taglineY = 724;
+      const taglineY = 706;
       doc.font("Helvetica-Bold").fontSize(9.5).fillColor(textColor)
         .text("An AICTE Approved and ISO Certified Platform", 35, taglineY, { align: "center", width: 525.28 });
 
       // Bottom Horizontal Separator Line
-      const lineY = 744;
+      const lineY = 724;
       doc.moveTo(35, lineY).lineTo(560.28, lineY).lineWidth(0.75).strokeColor(lightBorder).stroke();
 
       // Badges directly below line at the bottom
@@ -1457,16 +1533,9 @@ export async function generateAttendanceCertificate(student, internship, verific
 
       const totalWorkingDays = workingIndices.length;
       const holidayCount = sundayIndices.length;
-      const presentCount = Math.min(totalWorkingDays, Math.round(totalWorkingDays * (percentage / 100)));
-      const absentCount = totalWorkingDays - presentCount;
-
-      if (absentCount > 0 && totalWorkingDays > 0) {
-        const step = Math.floor(totalWorkingDays / (absentCount + 1)) || 1;
-        for (let a = 1; a <= absentCount; a++) {
-          const slot = (a * step) % (totalWorkingDays > 1 ? totalWorkingDays - 1 : totalWorkingDays);
-          statuses[workingIndices[slot]] = "Absent";
-        }
-      }
+      // All working days are Present - no absent days allowed except Sunday holidays
+      const presentCount = totalWorkingDays;
+      const absentCount = 0;
 
       const defaultCheckIn = DEFAULT_CHECK_IN;
       const defaultCheckOut = DEFAULT_CHECK_OUT;

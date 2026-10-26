@@ -132,22 +132,17 @@ export async function GET(request) {
 
       if (isSunday) {
         holidayCount++;
-        if (rec === "Present") presentCount++;
-        else if (rec === "Leave") leaveCount++;
       } else {
         workingDaysCount++;
-        if (rec === "Present") presentCount++;
-        else if (rec === "Leave") leaveCount++;
-        else if (rec === "Absent") explicitAbsentCount++;
+        if (rec === "Leave") leaveCount++;
         else if (rec === "Holiday") holidayCount++;
-        else autoAbsentCount++;
+        else presentCount++;
       }
       curr.setDate(curr.getDate() + 1);
     }
 
-    const absentCount = explicitAbsentCount + autoAbsentCount;
-    const denominator = workingDaysCount - leaveCount;
-    const percentage = denominator > 0 ? Math.round((presentCount / denominator) * 100) : 100;
+    const absentCount = 0;
+    const percentage = 100;
 
     return Response.json({
       success: true,

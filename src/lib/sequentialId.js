@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import connectDB from "@/lib/mongodb";
-import { createModel } from "@/lib/utils/schemaBuilder";
-import { UserModel, CourseModel, InternshipModel, CounterModel } from "@/models";
+import connectDB from "./mongodb.js";
+import { createModel } from "./utils/schemaBuilder.js";
+import { UserModel, CourseModel, InternshipModel, CounterModel } from "../models/index.js";
 
 /**
  * Atomically generates or retrieves the unique sequence ID for an enrollment subdocument.
